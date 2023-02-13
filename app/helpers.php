@@ -1010,7 +1010,7 @@ if (!function_exists('getFormattedNumber')) {
         $locale = 'en_US',
         $style = NumberFormatter::DECIMAL,
         $precision = 0,
-        $groupingUsed = true,
+        $groupingUsed = true
     ) {
         $currencyCode = currentCurrencyCode();
         $formatter = new NumberFormatter($locale, $style);
