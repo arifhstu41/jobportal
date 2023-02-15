@@ -263,6 +263,74 @@
                                             <input type="hidden" name="type" value="profile">
                                             <div class="row">
                                                 <div class="col-lg-6 mb-3">
+                                                    <x-forms.label :required="true" name="name"
+                                                        class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                    <div class="fromGroup">
+                                                        <div class="form-control-icon">
+                                                            <x-forms.input type="text" name="name"
+                                                                value="{{ $candidate->user->name }}"
+                                                                placeholder="{{ __('name') }}" class="" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 mb-3">
+                                                    <x-forms.label :required="true" name="name_bn"
+                                                        class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                    <div class="fromGroup">
+                                                        <div class="form-control-icon">
+                                                            <x-forms.input type="text" name="name_bn"
+                                                                value="{{ $candidate->name_bn }}"
+                                                                placeholder="{{ __('name_bn') }}" class="" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 mb-3">
+                                                    <x-forms.label :required="true" name="father_name"
+                                                        class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                    <div class="fromGroup">
+                                                        <div class="form-control-icon">
+                                                            <x-forms.input type="text" name="father_name"
+                                                                value="{{ $candidate->father_name }}"
+                                                                placeholder="{{ __('father_name') }}" class="" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 mb-3">
+                                                    <x-forms.label :required="true" name="father_name_bn"
+                                                        class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                    <div class="fromGroup">
+                                                        <div class="form-control-icon">
+                                                            <x-forms.input type="text" name="father_name_bn"
+                                                                value="{{ $candidate->father_name_bn }}"
+                                                                placeholder="{{ __('father_name_bn') }}" class="" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 mb-3">
+                                                    <x-forms.label :required="true" name="mother_name"
+                                                        class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                    <div class="fromGroup">
+                                                        <div class="form-control-icon">
+                                                            <x-forms.input type="text" name="mother_name"
+                                                                value="{{ $candidate->mother_name }}"
+                                                                placeholder="{{ __('mother_name') }}" class="" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 mb-3">
+                                                    <x-forms.label :required="true" name="mother_name_bn"
+                                                        class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                    <div class="fromGroup">
+                                                        <div class="form-control-icon">
+                                                            <x-forms.input type="text" name="mother_name_bn"
+                                                                value="{{ $candidate->mother_name_bn }}"
+                                                                placeholder="{{ __('mother_name_bn') }}" class="" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="col-lg-6 mb-3">
                                                     <x-forms.label :required="true" name="nationality"
                                                         class="body-font-4 d-block text-gray-900 rt-mb-8" />
                                                     <select name="nationality" class="rt-selectactive w-100">
@@ -302,10 +370,10 @@
                                                     <x-forms.label :required="true" name="marital_status"
                                                         class="body-font-4 d-block text-gray-900 rt-mb-8" />
                                                     <select name="marital_status" class="rt-selectactive w-100-p">
-                                                        <option @if ($candidate->marital_status == 'married') selected @endif
-                                                            value="married">{{ __('married') }}</option>
                                                         <option @if ($candidate->marital_status == 'single') selected @endif
                                                             value="single">{{ __('single') }}</option>
+                                                        <option @if ($candidate->marital_status == 'married') selected @endif
+                                                            value="married">{{ __('married') }}</option>
                                                     </select>
                                                     @error('marital_status')
                                                         <span class="invalid-feedback"

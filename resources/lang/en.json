@@ -1113,5 +1113,12 @@
     "the_view_count_will_be_reset" : "the view count will be reset",
     "latest_jobs_from" : "Latest jobs from",
     "Published" : "Published",
-    "Draft" : "Draft"
+    "Draft" : "Draft",
+    "name_bn" : "Name In Bangla",
+    "father_name" : "Fathers Name",
+    "father_name_bn" : "Fathers Name In Bangla",
+    "mother_name" : "Mothers Name",
+    "mother_name_bn" : "Mothers Name"
+
+    
 }

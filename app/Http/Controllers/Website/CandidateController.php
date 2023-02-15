@@ -315,6 +315,11 @@ class CandidateController extends Controller
     {
         $request->validate([
             'nationality' => 'required',
+            'name_bn' => 'required',
+            'father_name' => 'required',
+            'father_name_bn' => 'required',
+            'mother_name' => 'required',
+            'mother_name_bn' => 'required',
             'gender' => 'required',
             'marital_status' => 'required',
             'profession' => 'required',
@@ -336,6 +341,11 @@ class CandidateController extends Controller
         }
 
         $candidate->update([
+            'name_bn' => $request->name_bn,
+            'father_name' => $request->father_name,
+            'father_name_bn' => $request->father_name_bn,
+            'mother_name' => $request->mother_name,
+            'mother_name_bn' => $request->mother_name_bn,
             'gender' => $request->gender,
             'marital_status' => $request->marital_status,
             'bio' => $request->bio,
