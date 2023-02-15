@@ -45,7 +45,8 @@
                                 <li class="nav-item" role="presentation">
                                     <button class="nav-link {{ session('type') == 'experience' ? 'active' : '' }}"
                                         id="pills-experience-tab" data-bs-toggle="pill" data-bs-target="#pills-experience"
-                                        type="button" role="tab" aria-controls="pills-experience" aria-selected="false">
+                                        type="button" role="tab" aria-controls="pills-experience"
+                                        aria-selected="false">
                                         <x-svg.briefcase-icon />
                                         {{ __('experience_and_education') }}
                                     </button>
@@ -302,7 +303,8 @@
                                                         <div class="form-control-icon">
                                                             <x-forms.input type="text" name="father_name_bn"
                                                                 value="{{ $candidate->father_name_bn }}"
-                                                                placeholder="{{ __('father_name_bn') }}" class="" />
+                                                                placeholder="{{ __('father_name_bn') }}"
+                                                                class="" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -324,7 +326,8 @@
                                                         <div class="form-control-icon">
                                                             <x-forms.input type="text" name="mother_name_bn"
                                                                 value="{{ $candidate->mother_name_bn }}"
-                                                                placeholder="{{ __('mother_name_bn') }}" class="" />
+                                                                placeholder="{{ __('mother_name_bn') }}"
+                                                                class="" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -477,13 +480,160 @@
                                                     </button>
                                                 </div>
                                             </div>
+
+                                            {{-- Address settings --}}
+
+                                            
+                                            <legend class="p-3">Address</legend>
+                                            <div class="row">
+
+                                                {{-- present address --}}
+                                                <div class="col-lg-6">
+                                                    <div class="col-lg-12 bg-secondary rounded-2">
+                                                        <h4 class="ps-1">{{ __('present_address') }}</h4>
+                                                        
+                                                    </div>
+                                                    <div class="col-lg-12 mb-3">
+                                                        <x-forms.label :required="true" name="care_of"
+                                                        class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                        <div class="fromGroup">
+                                                            <div class="form-control-icon">
+                                                                <x-forms.input type="text" name="care_of"
+                                                                    value="{{ $candidate->care_of }}"
+                                                                    placeholder="{{ __('care_of') }}" class="" />
+                                                            </div>
+                                                        </div>
+                                                        @error('care_of')
+                                                            <span class="invalid-feedback"
+                                                                role="alert">{{ __($message) }}</span>
+                                                        @enderror
+                                                    </div>
+                                                    
+                                                    <div class="col-lg-12 mb-3">
+                                                        <x-forms.label :required="true" name="region"
+                                                        class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                        <div class="fromGroup">
+                                                            <div class="form-control-icon">
+                                                                <x-forms.input type="text" name="region"
+                                                                    value="{{ $candidate->region }}"
+                                                                    placeholder="{{ __('region') }}" class="" />
+                                                            </div>
+                                                        </div>
+                                                        @error('region')
+                                                            <span class="invalid-feedback"
+                                                                role="alert">{{ __($message) }}</span>
+                                                        @enderror
+                                                    </div>
+
+
+                                                    <div class="col-lg-12 mb-3">
+                                                        <x-forms.label :required="true" name="district"
+                                                        class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                        <div class="fromGroup">
+                                                            <div class="form-control-icon">
+                                                                <x-forms.input type="text" name="district"
+                                                                    value="{{ $candidate->district }}"
+                                                                    placeholder="{{ __('district') }}" class="" />
+                                                            </div>
+                                                        </div>
+                                                        @error('district')
+                                                            <span class="invalid-feedback"
+                                                                role="alert">{{ __($message) }}</span>
+                                                        @enderror
+                                                    </div>
+
+                                                    <div class="col-lg-12 mb-3">
+                                                        <x-forms.label :required="true" name="thana"
+                                                        class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                        <div class="fromGroup">
+                                                            <div class="form-control-icon">
+                                                                <x-forms.input type="text" name="thana"
+                                                                    value="{{ $candidate->thana }}"
+                                                                    placeholder="{{ __('thana') }}" class="" />
+                                                            </div>
+                                                        </div>
+                                                        @error('thana')
+                                                            <span class="invalid-feedback"
+                                                                role="alert">{{ __($message) }}</span>
+                                                        @enderror
+                                                    </div>
+
+                                                    <div class="col-lg-12 mb-3">
+                                                        <x-forms.label :required="true" name="post_office"
+                                                        class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                        <div class="fromGroup">
+                                                            <div class="form-control-icon">
+                                                                <x-forms.input type="text" name="post_office"
+                                                                    value="{{ $candidate->post_office }}"
+                                                                    placeholder="{{ __('post_office') }}" class="" />
+                                                            </div>
+                                                        </div>
+                                                        @error('post_office')
+                                                            <span class="invalid-feedback"
+                                                                role="alert">{{ __($message) }}</span>
+                                                        @enderror
+                                                    </div>
+
+                                                    <div class="col-lg-12 mb-3">
+                                                        <x-forms.label :required="true" name="postcode"
+                                                        class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                        <div class="fromGroup">
+                                                            <div class="form-control-icon">
+                                                                <x-forms.input type="text" name="postcode"
+                                                                    value="{{ $candidate->postcode }}"
+                                                                    placeholder="{{ __('postcode') }}" class="" />
+                                                            </div>
+                                                        </div>
+                                                        @error('postcode')
+                                                            <span class="invalid-feedback"
+                                                                role="alert">{{ __($message) }}</span>
+                                                        @enderror
+                                                    </div>
+
+                                                    <div class="col-lg-12 mb-3">
+                                                        <x-forms.label :required="true" name="place"
+                                                        class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                        <div class="fromGroup">
+                                                            <div class="form-control-icon">
+                                                                <textarea class="form-control @error('place') is-invalid @enderror" placeholder="{{ __('enter') }} {{ __('place') }}" name="place" rows="2"></textarea>
+                                                            </div>
+                                                        </div>
+                                                        @error('place')
+                                                            <span class="invalid-feedback"
+                                                                role="alert">{{ __($message) }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+
+                                                {{-- parmanent address --}}
+                                                <div class="col-lg-6">
+                                                    <div class="col-lg-12 bg-secondary rounded-2">
+                                                        <h4 class="ps-1">{{ __('parmanent_address') }}</h4>
+                                                    </div>
+                                                    <div class="col-lg-12 mb-3">
+                                                        <x-forms.label :required="true" name="care_of"
+                                                        class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                        <div class="fromGroup">
+                                                            <div class="form-control-icon">
+                                                                <x-forms.input type="text" name="care_of_parmanent"
+                                                                    value="{{ $candidate->care_of_parmanent }}"
+                                                                    placeholder="{{ __('care_of') }}" class="" />
+                                                            </div>
+                                                        </div>
+                                                        @error('care_of_parmanent')
+                                                            <span class="invalid-feedback"
+                                                                role="alert">{{ __($message) }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
 
                                 {{-- Experience & Education Setting  --}}
                                 <div class="tab-pane fade {{ session('type') == 'experience' ? 'show active' : '' }}"
-                                id="pills-experience" role="tabpanel" aria-labelledby="pills-experience-tab">
+                                    id="pills-experience" role="tabpanel" aria-labelledby="pills-experience-tab">
                                     @if ($errors->any())
                                         <div class="alert alert-danger">
                                             <ul>
@@ -493,10 +643,10 @@
                                             </ul>
                                         </div>
                                     @endif
-                                    <x-website.candidate.tab.candidate-experience-setting-tab :experiences="$candidate->experiences"/>
-                                        <br>
-                                    <x-website.candidate.tab.candidate-education-setting-tab :educations="$candidate->educations"/>
-                            </div>
+                                    <x-website.candidate.tab.candidate-experience-setting-tab :experiences="$candidate->experiences" />
+                                    <br>
+                                    <x-website.candidate.tab.candidate-education-setting-tab :educations="$candidate->educations" />
+                                </div>
 
                                 {{-- Social Setting  --}}
                                 <div class="tab-pane fade {{ session('type') == 'social' ? 'show active' : '' }}"
@@ -519,7 +669,8 @@
                                                                             {{ __('select_one') }}</option>
                                                                         <option
                                                                             {{ $social->social_media == 'facebook' ? 'selected' : '' }}
-                                                                            value="facebook">{{ __('facebook') }}</option>
+                                                                            value="facebook">{{ __('facebook') }}
+                                                                        </option>
                                                                         <option
                                                                             {{ $social->social_media == 'twitter' ? 'selected' : '' }}
                                                                             value="twitter">{{ __('twitter') }}</option>
@@ -532,7 +683,8 @@
                                                                             value="youtube">{{ __('youtube') }}</option>
                                                                         <option
                                                                             {{ $social->social_media == 'linkedin' ? 'selected' : '' }}
-                                                                            value="linkedin">{{ __('linkedin') }}</option>
+                                                                            value="linkedin">{{ __('linkedin') }}
+                                                                        </option>
                                                                         <option
                                                                             {{ $social->social_media == 'pinterest' ? 'selected' : '' }}
                                                                             value="pinterest">{{ __('pinterest') }}
@@ -689,7 +841,9 @@
                                                         <div class="map mymap" id="google-map"></div>
                                                     </div>
                                                     <div class="{{ $map == 'leaflet' ? '' : 'd-none' }}">
-                                                        <input type="text" autocomplete="off" id="leaflet_search" placeholder="{{ __('enter_city_name') }}" class="full-width"/> <br>
+                                                        <input type="text" autocomplete="off" id="leaflet_search"
+                                                            placeholder="{{ __('enter_city_name') }}"
+                                                            class="full-width" /> <br>
                                                         <div id="leaflet-map"></div>
                                                     </div>
                                                     @error('location')
@@ -1104,9 +1258,9 @@
 
 @section('frontend_links')
     <link rel="stylesheet" href="{{ asset('frontend') }}/assets/css/bootstrap-datepicker.min.css">
-     <!-- >=>Leaflet Map<=< -->
-     <x-map.leaflet.map_links/>
-     <x-map.leaflet.autocomplete_links/>
+    <!-- >=>Leaflet Map<=< -->
+    <x-map.leaflet.map_links />
+    <x-map.leaflet.autocomplete_links />
 
     <style>
         .ck-editor__editable_inline {
@@ -1397,7 +1551,8 @@
         map.on('click', add_marker);
         marker.on('dragend', onDragEnd);
         // zoom in and out 
-        <x-mapbox-zoom-control />
+        <
+        x - mapbox - zoom - control / >
     </script>
     <script>
         $('.mapboxgl-ctrl-logo').addClass('d-none');

@@ -1118,7 +1118,16 @@
     "father_name" : "Fathers Name",
     "father_name_bn" : "Fathers Name In Bangla",
     "mother_name" : "Mothers Name",
-    "mother_name_bn" : "Mothers Name"
+    "mother_name_bn" : "Mothers Name",
+    "present_address": "Present Address",
+    "parmanent_address": "Present Address",
+    "care_of": "Care Of",
+    "place" : "Village/Road/Ward",
+    "postcode": "Post Code",
+    "post_office" : "Post Office",
+    "thana" : "Thana",
+    "district" : "District",
+    "region" : "Region"
 
     
 }
