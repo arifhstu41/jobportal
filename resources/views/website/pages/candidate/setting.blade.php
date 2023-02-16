@@ -474,11 +474,7 @@
                                                         <span class="text-danger">{{ __($message) }}</span>
                                                     @enderror
                                                 </div>
-                                                <div class="col-lg-12 mt-4">
-                                                    <button type="submit" class="btn btn-primary">
-                                                        {{ __('save_changes') }}
-                                                    </button>
-                                                </div>
+                                                
                                             </div>
 
                                             {{-- Address settings --}}
@@ -489,9 +485,8 @@
 
                                                 {{-- present address --}}
                                                 <div class="col-lg-6">
-                                                    <div class="col-lg-12 bg-secondary rounded-2">
+                                                    <div class="col-lg-12 ounded-2">
                                                         <h4 class="ps-1">{{ __('present_address') }}</h4>
-                                                        
                                                     </div>
                                                     <div class="col-lg-12 mb-3">
                                                         <x-forms.label :required="true" name="care_of"
@@ -607,15 +602,17 @@
 
                                                 {{-- parmanent address --}}
                                                 <div class="col-lg-6">
-                                                    <div class="col-lg-12 bg-secondary rounded-2">
-                                                        <h4 class="ps-1">{{ __('parmanent_address') }}</h4>
+                                                    <div class="col-lg-12 ounded-2">
+                                                        <h4 class="ps-1 d-inline-block">{{ __('parmanent_address') }}</h4>
+                                                        <input type="checkbox" name="same_address" class="form-check-input d-inline-block mt-2" id="same_address">
+                                                        <label class="form-check-label d-inline-block mx-0 px-0" for="same_address">Same as present addresss</label>
                                                     </div>
                                                     <div class="col-lg-12 mb-3">
                                                         <x-forms.label :required="true" name="care_of"
                                                         class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                         <div class="fromGroup">
                                                             <div class="form-control-icon">
-                                                                <x-forms.input type="text" name="care_of_parmanent"
+                                                                <x-forms.input type="text" id="care_of_parmanent" name="care_of_parmanent"
                                                                     value="{{ $candidate->care_of_parmanent }}"
                                                                     placeholder="{{ __('care_of') }}" class="" />
                                                             </div>
@@ -625,6 +622,109 @@
                                                                 role="alert">{{ __($message) }}</span>
                                                         @enderror
                                                     </div>
+                                                    
+                                                    <div class="col-lg-12 mb-3">
+                                                        <x-forms.label :required="true" name="region"
+                                                        class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                        <div class="fromGroup">
+                                                            <div class="form-control-icon">
+                                                                <x-forms.input type="text" id="region_parmanent" name="region_parmanent"
+                                                                    value="{{ $candidate->region_parmanent }}"
+                                                                    placeholder="{{ __('region') }}" class="" />
+                                                            </div>
+                                                        </div>
+                                                        @error('region_parmanent')
+                                                            <span class="invalid-feedback"
+                                                                role="alert">{{ __($message) }}</span>
+                                                        @enderror
+                                                    </div>
+
+
+                                                    <div class="col-lg-12 mb-3">
+                                                        <x-forms.label :required="true" name="district"
+                                                        class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                        <div class="fromGroup">
+                                                            <div class="form-control-icon">
+                                                                <x-forms.input type="text" id="district_parmanent" name="district_parmanent"
+                                                                    value="{{ $candidate->district_parmanent }}"
+                                                                    placeholder="{{ __('district') }}" class="" />
+                                                            </div>
+                                                        </div>
+                                                        @error('district_parmanent')
+                                                            <span class="invalid-feedback"
+                                                                role="alert">{{ __($message) }}</span>
+                                                        @enderror
+                                                    </div>
+
+                                                    <div class="col-lg-12 mb-3">
+                                                        <x-forms.label :required="true" name="thana"
+                                                        class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                        <div class="fromGroup">
+                                                            <div class="form-control-icon">
+                                                                <x-forms.input type="text" id="thana_parmanent" name="thana_parmanent"
+                                                                    value="{{ $candidate->thana }}"
+                                                                    placeholder="{{ __('thana') }}" class="" />
+                                                            </div>
+                                                        </div>
+                                                        @error('thana_parmanent')
+                                                            <span class="invalid-feedback"
+                                                                role="alert">{{ __($message) }}</span>
+                                                        @enderror
+                                                    </div>
+
+                                                    <div class="col-lg-12 mb-3">
+                                                        <x-forms.label :required="true" name="post_office"
+                                                        class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                        <div class="fromGroup">
+                                                            <div class="form-control-icon">
+                                                                <x-forms.input type="text" id="post_office_parmanent" name="post_office_parmanent"
+                                                                    value="{{ $candidate->post_office }}"
+                                                                    placeholder="{{ __('post_office') }}" class="" />
+                                                            </div>
+                                                        </div>
+                                                        @error('post_office_parmanent')
+                                                            <span class="invalid-feedback"
+                                                                role="alert">{{ __($message) }}</span>
+                                                        @enderror
+                                                    </div>
+
+                                                    <div class="col-lg-12 mb-3">
+                                                        <x-forms.label :required="true" name="postcode"
+                                                        class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                        <div class="fromGroup">
+                                                            <div class="form-control-icon">
+                                                                <x-forms.input type="text" id="postcode_parmanent" name="postcode_parmanent"
+                                                                    value="{{ $candidate->postcode }}"
+                                                                    placeholder="{{ __('postcode') }}" class="" />
+                                                            </div>
+                                                        </div>
+                                                        @error('postcode_parmanent')
+                                                            <span class="invalid-feedback"
+                                                                role="alert">{{ __($message) }}</span>
+                                                        @enderror
+                                                    </div>
+
+                                                    <div class="col-lg-12 mb-3">
+                                                        <x-forms.label :required="true" name="place"
+                                                        class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                        <div class="fromGroup">
+                                                            <div class="form-control-icon">
+                                                                <textarea class="form-control @error('place_parmanent') is-invalid @enderror" placeholder="{{ __('enter') }} {{ __('place') }}" name="place_parmanent" id="place_parmanent" rows="2"></textarea>
+                                                            </div>
+                                                        </div>
+                                                        @error('place_parmanent')
+                                                            <span class="invalid-feedback"
+                                                                role="alert">{{ __($message) }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-lg-12 mt-4">
+                                                    <button type="submit" class="btn btn-primary">
+                                                        {{ __('save_changes') }}
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -1551,8 +1651,7 @@
         map.on('click', add_marker);
         marker.on('dragend', onDragEnd);
         // zoom in and out 
-        <
-        x - mapbox - zoom - control / >
+        <x-mapbox-zoom-control/>
     </script>
     <script>
         $('.mapboxgl-ctrl-logo').addClass('d-none');
@@ -1787,5 +1886,37 @@
         $(document).on("click", "#remove_item", function() {
             $(this).parent().parent().parent('div').remove();
         });
+    </script>
+
+    <script>
+        $(document).on("change ", "#same_address", function(){
+            let check = this.checked
+
+            if(check){
+                $("#care_of_parmanent").val('').attr('readonly', 'readonly');
+                $("#region_parmanent").val('').attr('readonly', 'readonly');
+                $("#district_parmanent").val('').attr('readonly', 'readonly');
+                $("#thana_parmanent").val('').attr('readonly', 'readonly');
+                $("#post_office_parmanent").val('').attr('readonly', 'readonly');
+                $("#postcode_parmanent").val('').attr('readonly', 'readonly');
+                $("#place_parmanent").val('').attr('readonly', 'readonly');
+
+                // region_parmanent
+                // district_parmanent
+                // thana_parmanent
+                // post_office_parmanent
+                // postcode_parmanent
+                // place_parmanent
+            }
+            else{
+                $("#care_of_parmanent").removeAttr('readonly');
+                $("#region_parmanent").removeAttr('readonly');
+                $("#district_parmanent").removeAttr('readonly');
+                $("#thana_parmanent").removeAttr('readonly');
+                $("#postcode_parmanent").removeAttr('readonly');
+                $("#post_office_parmanent").removeAttr('readonly');
+                $("#place_parmanent").removeAttr('readonly');
+            }
+        })
     </script>
 @endsection
