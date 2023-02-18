@@ -1116,9 +1116,9 @@
     "Draft" : "Draft",
     "name_bn" : "Name In Bangla",
     "father_name" : "Fathers Name",
-    "father_name_bn" : "Fathers Name In Bangla",
+    "father_name_bn" : "Fathers Name in Bangla",
     "mother_name" : "Mothers Name",
-    "mother_name_bn" : "Mothers Name",
+    "mother_name_bn" : "Mothers Name in Bangla",
     "present_address": "Present Address",
     "parmanent_address": "Parmanent Address",
     "care_of": "Care Of",
@@ -1127,7 +1127,11 @@
     "post_office" : "Post Office",
     "thana" : "Thana",
     "district" : "District",
-    "region" : "Region"
-
+    "region" : "Region",
+    "religion": "Religion",
+    "nid_no": "National Identity No",
+    "passport_no": "Passport No",
+    "birth_certificate_no": "Birth Certificate No",
+    "bangladeshi": "Bangladeshi"
     
 }

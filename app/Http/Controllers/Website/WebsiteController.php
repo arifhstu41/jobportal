@@ -980,4 +980,42 @@ class WebsiteController extends Controller
 
         return view('website.pages.jobs.indeed-jobs',compact('indeed_jobs'));
     }
+
+    // application form open
+    public function applicationForm(){
+        $candidate= Candidate::where('user_id', Auth::user()->id)->first();
+        $user= Auth::user();
+        return view('website.pages.candidate.application-form', compact('candidate', 'user'));
+    }
+
+    // submit application form
+    public function applicationFormSubmit(Request $request){
+        $request->validate([
+            'name' => 'required',
+            'name_bn' => 'required',
+            'father_name' => 'required',
+            'father_name_bn' => 'required',
+            'mother_name' => 'required',
+            'mother_name_bn' => 'required',
+            'birth_date' => 'required',
+            'gender' => 'required',
+            'religion' => 'required',
+            'birth_certificate_no' => 'required',
+            'nationality_id' => 'required',
+            'passport_no' => 'required',
+            'marital_status' => 'required',
+            'profession' => 'required',
+            'care_of' =>  'required',
+            'place' =>  'required',
+            'post_office' =>  'required',
+            'postcode' =>  'required',
+            'thana' =>  'required',
+            'district' =>  'required',
+            'region' =>  'required',
+            'nationality' => 'required',
+        ]);
+
+        dd("Hello");
+
+    }
 }
