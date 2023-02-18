@@ -12,6 +12,16 @@
             font-size: .875rem;
             border-radius: 0.2rem;
         }
+
+        #picture, #signature {
+            position: inherit;
+            width: 100%;
+            height: 100%;
+            left: 0 !important;
+            top: 0 !important;
+            opacity: 1;
+            cursor: pointer;
+        }
     </style>
     <div class="dashboard-wrapper">
         <div class="container">
@@ -111,7 +121,7 @@
                                 <div class="col-sm-9">
                                     <input
                                         class="form-control @error('birth_date') is-invalid @enderror datepicker date ps-2"
-                                        name="birth_date" type="date" value="{{ $candidate->birth_date }}"
+                                        name="birth_date" type="text" value="{{ $candidate->birth_date }}"
                                         id="birth_date" placeholder="{{ __('birth_date') }}">
                                     @error('birth_date')
                                         <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
@@ -1250,43 +1260,32 @@
                                     </div>
                                     <div class="card-body row">
                                         <div class="col-md-8">
-                                            {{-- <div class="form-group form-group-sm row py-2">
+                                            <div class="form-group form-group-sm row py-2">
                                                 <label for="picture"
                                                     class="col-sm-4 col-form-label">{{ __('picture') }}</label>
                                                 <div class="col-sm-8">
                                                     <input class="form-control @error('picture') is-invalid @enderror"
-                                                        name="picture" type="text"
+                                                        name="picture" type="file"
                                                         value="{{ $candidate->picture }}" id="picture"
                                                         placeholder="{{ __('picture') }}">
                                                     @error('picture')
                                                         <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                                                     @enderror
                                                 </div>
-                                            </div> --}}
+                                            </div>
                                             <div class="form-group form-group-sm row py-2">
                                                 <label for="signature"
                                                     class="col-sm-4 col-form-label">{{ __('signature') }}</label>
                                                 <div class="col-sm-8">
-                                                    <input style="opacity: 1 !important; overflow: hidden" class="form-control @error('signature') is-invalid @enderror"
+                                                    <input class="form-control @error('signature') is-invalid @enderror"
                                                         name="signature" type="file"
-                                                        value="{{ $candidate->signature }}" id="signature">
-                                                        {{-- <x-svg.upload-icon /> --}}
+                                                        value="{{ $candidate->signature }}" id="signature"
+                                                        placeholder="{{ __('signature') }}">
                                                     @error('signature')
                                                         <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                                                     @enderror
-
-                                                    
                                                 </div>
                                             </div>
-                                            {{-- <div class="form-group form-group-sm row py-2">
-                                                <div class="mb-3">
-                                                    <label for="formFileSm" class="form-label">Small file input example</label>
-                                                    <input class="form-control form-control-sm" id="formFileSm" type="file">
-                                                  </div>
-
-                                                    
-                                                </div>
-                                            </div> --}}
                                         </div>
                                         <div class="col-md-4">
 
@@ -1312,6 +1311,19 @@
     <script src="{{ asset('frontend') }}/assets/js/ckeditor.min.js"></script>
 
     <script>
+
+
+        //init datepicker
+        $("#date").attr("autocomplete", "off");
+        //init datepicker
+        $('.datepicker').off('focus').datepicker({
+            format: 'dd-mm-yyyy'
+        }).on('click',
+            function() {
+                $(this).datepicker('show');
+            }
+        );
+
         $(document).on("change ", "#same_address", function() {
             let check = this.checked
 
