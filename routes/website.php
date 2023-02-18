@@ -63,6 +63,9 @@ Route::controller(WebsiteController::class)->name('website.')->group(function ()
     Route::get('/selected/country', 'setSelectedCountry')->name('set.country');
     Route::get('/selected/country/remove', 'removeSelectedCountry')->name('remove.country');
     Route::get('job/autocomplete', 'jobAutocomplete')->name('job.autocomplete');
+
+    Route::get('/district/get', 'getDistrictByDivision')->name('district.get.data');
+    Route::get('/thana/get', 'getThanaByDistrict')->name('thana.get.data');
 });
 
 // Social Authentication

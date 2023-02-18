@@ -295,17 +295,20 @@
                                                 class="col-sm-4 col-form-label">{{ __('region') }}</label>
                                             <div class="col-sm-8">
                                                 <select name="region" id="region" class="rt-selectactive w-100-p">
-                                                    <option @if ($candidate->region == 'Dhaka') selected @endif
-                                                        value="Dhaka">
-                                                        {{ __('Dhaka') }}</option>
-                                                    <option @if ($candidate->region == 'rangpur') selected @endif
-                                                        value="rangpur">
-                                                        {{ __('rangpur') }}</option>
+
+
+                                                    <option value="">Please Select</option>
+                                                    <?php foreach ($divisions as $each){?>
+                                                        <option value="<?php echo $each->id?>" <?php if($candidate->region == $each->name)echo "selected"; ?> >
+                                                            {{ $each->name }}</option>
+                                                    <?php }?>
+
                                                 </select>
                                                 @error('region')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                                                 @enderror
                                             </div>
+
                                         </div>
 
                                         <div class="form-group form-group-sm row py-2">
@@ -313,18 +316,12 @@
                                                 class="col-sm-4 col-form-label">{{ __('district') }}</label>
                                             <div class="col-sm-8">
                                                 <select name="district" id="district" class="rt-selectactive w-100-p">
-                                                    <option @if ($candidate->district == 'Dhaka') selected @endif
-                                                        value="Dhaka">
-                                                        {{ __('Dhaka') }}</option>
-                                                    <option @if ($candidate->district == 'Narayanganj') selected @endif
-                                                        value="Narayanganj">
-                                                        {{ __('Narayanganj') }}</option>
-                                                    <option @if ($candidate->district == 'Rangpur') selected @endif
-                                                        value="Rangpur">
-                                                        {{ __('Rangpur') }}</option>
-                                                    <option @if ($candidate->district == 'nilphamari') selected @endif
-                                                        value="nilphamari">
-                                                        {{ __('nilphamari') }}</option>
+                                                    <option value="">Please Select</option>
+                                                    <?php foreach ($districts as $each){?>
+                                                        <option value="<?php echo $each->id?>" <?php if($candidate->district == $each->name)echo "selected"; ?> >
+                                                            {{ $each->name }}</option>
+                                                    <?php }?>
+
                                                 </select>
                                                 @error('district')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
@@ -337,18 +334,12 @@
                                                 class="col-sm-4 col-form-label">{{ __('thana') }}</label>
                                             <div class="col-sm-8">
                                                 <select name="thana" id="thana" class="rt-selectactive w-100-p">
-                                                    <option @if ($candidate->thana == 'Mirpur') selected @endif
-                                                        value="Mirpur">
-                                                        {{ __('Mirpur') }}</option>
-                                                    <option @if ($candidate->thana == 'Dhanmondi') selected @endif
-                                                        value="Dhanmondi">
-                                                        {{ __('Dhanmondi') }}</option>
-                                                    <option @if ($candidate->thana == 'Nilphamari') selected @endif
-                                                        value="Nilphamari">
-                                                        {{ __('Nilphamari') }}</option>
-                                                    <option @if ($candidate->thana == 'Saidpur') selected @endif
-                                                        value="Saidpur">
-                                                        {{ __('Saidpur') }}</option>
+                                                    <option value="">Please Select</option>
+                                                    <?php foreach ($upazilas as $each){?>
+                                                        <option value="<?php echo $each->id?>" <?php if($candidate->thana == $each->name)echo "selected"; ?> >
+                                                            {{ $each->name }}</option>
+                                                    <?php }?>
+
                                                 </select>
                                                 @error('thana')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
@@ -431,12 +422,15 @@
                                             <div class="col-sm-8">
                                                 <select name="region_parmanent" id="region_parmanent"
                                                     class="rt-selectactive w-100-p">
-                                                    <option @if ($candidate->region_parmanent == 'Dhaka') selected @endif
-                                                        value="Dhaka">
-                                                        {{ __('Dhaka') }}</option>
-                                                    <option @if ($candidate->region_parmanent == 'rangpur') selected @endif
-                                                        value="rangpur">
-                                                        {{ __('rangpur') }}</option>
+
+
+                                                    <option value="">Please Select</option>
+                                                    <?php foreach ($divisions as $each){?>
+                                                        <option value="<?php echo $each->id?>" <?php if($candidate->region_parmanent == $each->name)echo "selected"; ?> >
+                                                            {{ $each->name }}</option>
+                                                    <?php }?>
+
+
                                                 </select>
                                                 @error('region_parmanent')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
@@ -450,18 +444,12 @@
                                             <div class="col-sm-8">
                                                 <select name="district_parmanent" id="district_parmanent"
                                                     class="rt-selectactive w-100-p">
-                                                    <option @if ($candidate->district_parmanent == 'Dhaka') selected @endif
-                                                        value="Dhaka">
-                                                        {{ __('Dhaka') }}</option>
-                                                    <option @if ($candidate->district_parmanent == 'Narayanganj') selected @endif
-                                                        value="Narayanganj">
-                                                        {{ __('Narayanganj') }}</option>
-                                                    <option @if ($candidate->district_parmanent == 'Rangpur') selected @endif
-                                                        value="Rangpur">
-                                                        {{ __('Rangpur') }}</option>
-                                                    <option @if ($candidate->district_parmanent == 'nilphamari') selected @endif
-                                                        value="nilphamari">
-                                                        {{ __('nilphamari') }}</option>
+                                                    <option value="">Please Select</option>
+                                                    <?php foreach ($districts as $each){?>
+                                                        <option value="<?php echo $each->id?>" <?php if($candidate->district_parmanent == $each->name)echo "selected"; ?> >
+                                                            {{ $each->name }}</option>
+                                                    <?php }?>
+
                                                 </select>
                                                 @error('district_parmanent')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
@@ -475,18 +463,12 @@
                                             <div class="col-sm-8">
                                                 <select name="thana_parmanent" id="thana_parmanent"
                                                     class="rt-selectactive w-100-p">
-                                                    <option @if ($candidate->thana_parmanent == 'Mirpur') selected @endif
-                                                        value="Mirpur">
-                                                        {{ __('Mirpur') }}</option>
-                                                    <option @if ($candidate->thana_parmanent == 'Dhanmondi') selected @endif
-                                                        value="Dhanmondi">
-                                                        {{ __('Dhanmondi') }}</option>
-                                                    <option @if ($candidate->thana_parmanent == 'Nilphamari') selected @endif
-                                                        value="Nilphamari">
-                                                        {{ __('Nilphamari') }}</option>
-                                                    <option @if ($candidate->thana_parmanent == 'Saidpur') selected @endif
-                                                        value="Saidpur">
-                                                        {{ __('Saidpur') }}</option>
+                                                    <option value="">Please Select</option>
+                                                    <?php foreach ($upazilas as $each){?>
+                                                        <option value="<?php echo $each->id?>" <?php if($candidate->thana_parmanent == $each->name)echo "selected"; ?> >
+                                                            {{ $each->name }}</option>
+                                                    <?php }?>
+
                                                 </select>
                                                 @error('thana_parmanent')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
@@ -1384,5 +1366,126 @@
                 $("#place_parmanent").removeAttr('readonly');
             }
         })
+
+
+
+        $(document).ready(function(){
+
+            // var division = $("#region").val();
+            // get_district(division);
+
+            // var district_id = $("#district").val();
+            // get_thana(district_id);
+
+            // var division = $("#region").val();
+            // get_district_parmanent(division);
+
+            // var district_id = $("#district").val();
+            // get_thana_parmanent(district_id);
+
+        })
+
+        $(document).on("change", "#region", function(){
+            var division = $(this).val();
+            get_district(division);
+
+
+        })
+
+        function get_district(division){
+
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "{{ route('website.district.get.data') }}",
+                data: {
+                    division: division,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+
+                    $("#district").html(response.html);
+                    // toastr.success(response.message, 'Success');
+                }
+            });
+        }
+
+
+
+        $(document).on("change", "#district", function(){
+            var district_id = $(this).val();
+            get_thana(district_id);
+        })
+
+        function get_thana(district_id){
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "{{ route('website.thana.get.data') }}",
+                data: {
+                    district_id: district_id,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+
+                    $("#thana").html(response.html);
+                }
+            });
+
+        }
+
+
+        $(document).on("change", "#region_parmanent", function(){
+            var division = $(this).val();
+            get_district_parmanent(division);
+
+
+        })
+
+        function get_district_parmanent(division){
+
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "{{ route('website.district.get.data') }}",
+                data: {
+                    division: division,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+
+                    $("#district_parmanent").html(response.html);
+                    // toastr.success(response.message, 'Success');
+                }
+            });
+        }
+
+
+
+        $(document).on("change", "#district_parmanent", function(){
+            var district_id = $(this).val();
+            get_thana_parmanent(district_id);
+        })
+
+        function get_thana_parmanent(district_id){
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "{{ route('website.thana.get.data') }}",
+                data: {
+                    district_id: district_id,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+
+                    $("#thana_parmanent").html(response.html);
+                }
+            });
+
+        }
+
+
+
+
     </script>
 @endsection
