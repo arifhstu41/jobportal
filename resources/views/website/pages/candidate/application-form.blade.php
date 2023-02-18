@@ -49,9 +49,9 @@
                             <div class="form-group form-group-sm row py-2">
                                 <label for="name" class="col-sm-3 col-form-label">{{ __('name') }}<span class="required">*</span></label>
                                 <div class="col-sm-9">
-                                    <input required class="form-control @error('name') is-invalid @enderror" name="name"
-                                        type="text" value="{{ $user->name }}" id="name"
-                                        placeholder="{{ __('name') }}">
+                                    <input class="form-control @error('name') is-invalid @enderror" name="name"
+                                        type="text" value="{{  old('name') ? old('name') : $user->name }}" id="name"
+                                        placeholder="{{ __('name') }}" required>
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                                     @enderror
@@ -61,9 +61,9 @@
                             <div class="form-group form-group-sm row py-2">
                                 <label for="name_bn" class="col-sm-3 col-form-label">{{ __('name_bn') }}<span class="required">*</span></label>
                                 <div class="col-sm-9">
-                                    <input required class="form-control @error('name_bn') is-invalid @enderror" name="name_bn"
-                                        type="text" value="{{ $candidate->name_bn }}" id="name_bn"
-                                        placeholder="{{ __('name_bn') }}">
+                                    <input class="form-control @error('name_bn') is-invalid @enderror" name="name_bn"
+                                        type="text" value="{{ old('name_bn') ? old('name_bn') : $candidate->name_bn }}" id="name_bn"
+                                        placeholder="{{ __('name_bn') }}" required>
                                     @error('name_bn')
                                         <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                                     @enderror
@@ -73,9 +73,9 @@
                             <div class="form-group form-group-sm row py-2">
                                 <label for="father_name" class="col-sm-3 col-form-label">{{ __('father_name') }}<span class="required">*</span></label>
                                 <div class="col-sm-9">
-                                    <input required class="form-control @error('father_name') is-invalid @enderror"
-                                        name="father_name" type="text" value="{{ $candidate->father_name }}"
-                                        id="father_name" placeholder="{{ __('father_name') }}">
+                                    <input class="form-control @error('father_name') is-invalid @enderror"
+                                        name="father_name" type="text" value="{{ old('father_name') ? old('father_name') : $candidate->father_name }}"
+                                        id="father_name" placeholder="{{ __('father_name') }}" required>
                                     @error('father_name')
                                         <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                                     @enderror
@@ -86,9 +86,9 @@
                                 <label for="father_name_bn"
                                     class="col-sm-3 col-form-label">{{ __('father_name_bn') }}<span class="required">*</span></label>
                                 <div class="col-sm-9">
-                                    <input required class="form-control @error('father_name_bn') is-invalid @enderror"
-                                        name="father_name_bn" type="text" value="{{ $candidate->father_name_bn }}"
-                                        id="father_name_bn" placeholder="{{ __('father_name_bn') }}">
+                                    <input class="form-control @error('father_name_bn') is-invalid @enderror"
+                                        name="father_name_bn" type="text" value="{{ old('father_name_bn') ? old('father_name_bn') : $candidate->father_name_bn }}"
+                                        id="father_name_bn" placeholder="{{ __('father_name_bn') }}" required>
                                     @error('father_name_bn')
                                         <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                                     @enderror
@@ -98,9 +98,9 @@
                             <div class="form-group form-group-sm row py-2">
                                 <label for="mother_name" class="col-sm-3 col-form-label">{{ __('mother_name') }}<span class="required">*</span></label>
                                 <div class="col-sm-9">
-                                    <input required class="form-control @error('mother_name') is-invalid @enderror"
-                                        name="mother_name" type="text" value="{{ $candidate->mother_name }}"
-                                        id="mother_name" placeholder="{{ __('mother_name') }}">
+                                    <input class="form-control @error('mother_name') is-invalid @enderror"
+                                        name="mother_name" type="text" value="{{ old('mother_name') ? old('mother_name') : $candidate->mother_name }}"
+                                        id="mother_name" placeholder="{{ __('mother_name') }}" required>
                                     @error('mother_name')
                                         <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                                     @enderror
@@ -111,9 +111,9 @@
                                 <label for="mother_name_bn"
                                     class="col-sm-3 col-form-label">{{ __('mother_name_bn') }}<span class="required">*</span></label>
                                 <div class="col-sm-9">
-                                    <input required class="form-control @error('mother_name_bn') is-invalid @enderror"
-                                        name="mother_name_bn" type="text" value="{{ $candidate->mother_name_bn }}"
-                                        id="mother_name_bn" placeholder="{{ __('mother_name_bn') }}">
+                                    <input class="form-control @error('mother_name_bn') is-invalid @enderror"
+                                        name="mother_name_bn" type="text" value="{{ old('mother_name_bn') ? old('mother_name_bn') : $candidate->mother_name_bn }}"
+                                        id="mother_name_bn" placeholder="{{ __('mother_name_bn') }}" required>
                                     @error('mother_name_bn')
                                         <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                                     @enderror
@@ -125,7 +125,7 @@
                                 <div class="col-sm-9">
                                     <input required
                                         class="form-control @error('birth_date') is-invalid @enderror datepicker date ps-2"
-                                        name="birth_date" type="text" value="{{ $candidate->birth_date }}"
+                                        name="birth_date" type="text" value="{{ old('birth_date') ? old('birth_date') : $candidate->birth_date }}"
                                         id="birth_date" placeholder="{{ __('birth_date') }}">
                                     @error('birth_date')
                                         <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
@@ -133,36 +133,18 @@
                                 </div>
                             </div>
 
-                            {{-- <div class="form-group form-group-sm row py-2">
-                                <label for="birth_date" class="col-sm-3 col-form-label">{{ __('birth_date') }}</label>
-                                <div class="col-sm-9">
-                                    <div class="fromGroup">
-                                        <div
-                                            class="d-flex align-items-center form-control-icon date datepicker">
-                                            <input type="text" name="birth_date"
-                                                value="{{ $candidate->birth_date ? date('d-m-Y', strtotime($candidate->birth_date)) : old('birth_date') }}"
-                                                id="date" placeholder="dd/mm/yyyy"
-                                                class="form-control border-cutom @error('birth_date') is-invalid @enderror" />
-                                            <span class="input-group-addon input-group-text-custom">
-                                                <x-svg.calendar-icon />
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> --}}
-
                             <div class="form-group form-group-sm row py-2">
                                 <label for="gender" class="col-sm-3 col-form-label">{{ __('gender') }}<span class="required">*</span></label>
                                 <div class="col-sm-9">
                                     <select required class="rt-selectactive w-100-p @error('gender') is-invalid @enderror"
                                         name="gender">
-                                        <option @if ($candidate->gender == 'male') selected @endif value="male">
+                                        <option @if ($candidate->gender == 'male' || old('gender') == "male") selected @endif value="male">
                                             {{ __('male') }}
                                         </option>
-                                        <option @if ($candidate->gender == 'female') selected @endif value="female">
+                                        <option @if ($candidate->gender == 'female' || old('gender') == "female") selected @endif value="female">
                                             {{ __('female') }}
                                         </option>
-                                        <option @if ($candidate->gender == 'other') selected @endif value="other">
+                                        <option @if ($candidate->gender == 'other' || old('gender') == "other") selected @endif value="other">
                                             {{ __('other') }}
                                         </option>
                                     </select>
@@ -177,16 +159,16 @@
                                 <div class="col-sm-9">
                                     <select  required class="rt-selectactive w-100-p @error('religion') is-invalid @enderror"
                                         name="religion">
-                                        <option @if ($candidate->religion == 'muslim') selected @endif value="muslim">
+                                        <option @if ($candidate->religion == 'muslim' || old('religion') == "muslim") selected @endif value="muslim">
                                             {{ __('muslim') }}
                                         </option>
-                                        <option @if ($candidate->religion == 'hindu') selected @endif value="hindu">
+                                        <option @if ($candidate->religion == 'hindu' || old('religion') == "hindu") selected @endif value="hindu">
                                             {{ __('hindu') }}
                                         </option>
-                                        <option @if ($candidate->religion == 'christian') selected @endif value="christian">
+                                        <option @if ($candidate->religion == 'christian' || old('religion') == "christian") selected @endif value="christian">
                                             {{ __('christian') }}
                                         </option>
-                                        <option @if ($candidate->religion == 'others') selected @endif value="others">
+                                        <option @if ($candidate->religion == 'others' || old('religion') == "others") selected @endif value="others">
                                             {{ __('others') }}
                                         </option>
                                     </select>
@@ -202,7 +184,7 @@
                                 <div class="col-sm-9">
                                     <input class="form-control @error('birth_certificate_no') is-invalid @enderror"
                                         name="birth_certificate_no" type="text"
-                                        value="{{ $candidate->birth_certificate_no }}" id="birth_certificate_no"
+                                        value="{{  old('birth_certificate_no') ? old('birth_certificate_no') : $candidate->birth_certificate_no }}" id="birth_certificate_no"
                                         placeholder="{{ __('birth_certificate_no') }}">
                                     @error('birth_certificate_no')
                                         <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
@@ -214,7 +196,7 @@
                                 <label for="nid_no" class="col-sm-3 col-form-label">{{ __('nid_no') }}</label>
                                 <div class="col-sm-9">
                                     <input class="form-control @error('nid_no') is-invalid @enderror" name="nid_no"
-                                        type="text" value="{{ $candidate->nid_no }}" id="nid_no"
+                                        type="text" value="{{ old('nid_no') ? old('nid_no') : $candidate->nid_no }}" id="nid_no"
                                         placeholder="{{ __('nid_no') }}">
                                     @error('nid_no')
                                         <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
@@ -227,7 +209,7 @@
                                 <label for="passport_no" class="col-sm-3 col-form-label">{{ __('passport_no') }}</label>
                                 <div class="col-sm-9">
                                     <input class="form-control @error('passport_no') is-invalid @enderror"
-                                        name="passport_no" type="text" value="{{ $candidate->passport_no }}"
+                                        name="passport_no" type="text" value="{{ old('passport_no') ? old('passport_no') : $candidate->passport_no }}"
                                         id="passport_no" placeholder="{{ __('passport_no') }}">
                                     @error('passport_no')
                                         <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
@@ -239,10 +221,10 @@
                                 <label for="marital_status"
                                     class="col-sm-3 col-form-label">{{ __('marital_status') }}<span class="required">*</span></label>
                                 <div class="col-sm-9">
-                                    <select required name="marital_status" class="rt-selectactive w-100-p">
-                                        <option @if ($candidate->marital_status == 'single') selected @endif value="single">
+                                    <select name="marital_status" class="rt-selectactive w-100-p" required>
+                                        <option @if ($candidate->marital_status == 'single' || old('marital_status') == "single") selected @endif value="single">
                                             {{ __('single') }}</option>
-                                        <option @if ($candidate->marital_status == 'married') selected @endif value="married">
+                                        <option @if ($candidate->marital_status == 'married' || old('marital_status') == "married") selected @endif value="married">
                                             {{ __('married') }}</option>
                                     </select>
                                     @error('marital_status')
@@ -255,9 +237,9 @@
                                 <label for="quota" class="col-sm-3 col-form-label">{{ __('quota') }}</label>
                                 <div class="col-sm-9">
                                     <select name="quota" class="rt-selectactive w-100-p">
-                                        <option @if ($candidate->quota == 1) selected @endif value="1">
+                                        <option @if ($candidate->quota == 1  || old('quota') == 1) selected @endif value="1">
                                             {{ __('Departmental') }}</option>
-                                        <option @if ($candidate->quota == '2') selected @endif value="2">
+                                        <option @if ($candidate->quota == '2'  || old('quota') == 2) selected @endif value="2">
                                             {{ __('FFQ') }}</option>
                                     </select>
                                     @error('quota')
@@ -286,7 +268,7 @@
                                                 class="col-sm-4 col-form-label">{{ __('care_of') }}</label>
                                             <div class="col-sm-8">
                                                 <input class="form-control @error('care_of') is-invalid @enderror"
-                                                    name="care_of" type="text" value="{{ $candidate->care_of }}"
+                                                    name="care_of" type="text" value="{{ old('care_of') ? old('care_of') :  $candidate->care_of }}"
                                                     id="care_of" placeholder="{{ __('care_of') }}">
                                                 @error('care_of')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
@@ -357,7 +339,7 @@
                                             <div class="col-sm-8">
                                                 <input required class="form-control @error('post_office') is-invalid @enderror"
                                                     name="post_office" type="text"
-                                                    value="{{ $candidate->post_office }}" id="post_office"
+                                                    value="{{ old('post_office') ? old('post_office') : $candidate->post_office }}" id="post_office"
                                                     placeholder="{{ __('post_office') }}">
                                                 @error('post_office')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
@@ -370,9 +352,9 @@
                                             <label for="postcode"
                                                 class="col-sm-4 col-form-label">{{ __('postcode') }}<span class="required">*</span></label>
                                             <div class="col-sm-8">
-                                                <input required class="form-control @error('postcode') is-invalid @enderror"
-                                                    name="postcode" type="text" value="{{ $candidate->postcode }}"
-                                                    id="postcode" placeholder="{{ __('postcode') }}">
+                                                <input class="form-control @error('postcode') is-invalid @enderror"
+                                                    name="postcode" type="text" value="{{ old('postcode') ? old('postcode') : $candidate->postcode }}"
+                                                    id="postcode" placeholder="{{ __('postcode') }}" required>
                                                 @error('postcode')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                                                 @enderror
@@ -383,9 +365,9 @@
                                             <label for="place"
                                                 class="col-sm-4 col-form-label">{{ __('place') }}<span class="required">*</span></label>
                                             <div class="col-sm-8">
-                                                <input required class="form-control @error('place') is-invalid @enderror"
-                                                    name="place" type="text" value="{{ $candidate->place }}"
-                                                    id="place" placeholder="{{ __('place') }}">
+                                                <input class="form-control @error('place') is-invalid @enderror"
+                                                    name="place" type="text" value="{{ old('place') ? old('place') : $candidate->place }}"
+                                                    id="place" placeholder="{{ __('place') }}" required>
                                                 @error('place')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                                                 @enderror
@@ -1238,11 +1220,7 @@
                                 {{-- Picture and Signature --}}
                                 <div class="card p-0">
                                     <div class="card-header d-inline-block">
-                                        {{ __('masters') }}
-                                        <input type="checkbox" name="same_address"
-                                            class="form-check-input d-inline-block mt-2" id="same_address">
-                                        <label class="form-check-label d-inline-block mx-0 px-0" for="same_address">If
-                                            Applicable</label>
+                                        Pictures and Signatures
                                     </div>
                                     <div class="card-body row">
                                         <div class="col-md-8">
@@ -1270,31 +1248,6 @@
                                                     @error('signature')
                                                         <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                                                     @enderror
-                                                </div>
-                                            </div>
-                                            {{-- <div class="form-group form-group-sm row py-2">
-                                                <label for="signature"
-                                                    class="col-sm-4 col-form-label">{{ __('signature') }}</label>
-                                                <div class="col-sm-8">
-                                                    <input style="opacity: 1 !important" class="form-control @error('signature') is-invalid @enderror"
-                                                        name="signature" type="file"
-                                                        value="{{ $candidate->signature }}" id="signature"
-                                                        placeholder="{{ __('signature') }}">
-                                                        <x-svg.upload-icon />
-                                                    @error('signature')
-                                                        <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
-                                                    @enderror
-
-
-                                                </div>
-                                            </div> --}}
-                                            <div class="form-group form-group-sm row py-2">
-                                                <div class="mb-3">
-                                                    <label for="formFileSm" class="form-label">Small file input example</label>
-                                                    <input class="form-control form-control-sm" id="formFileSm" type="file">
-                                                  </div>
-
-
                                                 </div>
                                             </div>
                                         </div>

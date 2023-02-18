@@ -297,7 +297,7 @@ class WebsiteController extends Controller
         } else {
             $user_plan = $user->company->userPlan;
         }
-        if(!$user_plan){
+        if (!$user_plan) {
             return response()->json([
                 'message' => "You don't have a chosen plan. Please choose a plan to continue",
                 'success' => false
@@ -765,7 +765,7 @@ class WebsiteController extends Controller
                 'comments.replies.user:id,name,image'
             ])
             ->first();
-        if(!$post){
+        if (!$post) {
             abort(404);
         }
 
@@ -962,7 +962,7 @@ class WebsiteController extends Controller
 
         $careerjet_jobs = $this->getCareerjetJobs($request, 25);
 
-        return view('website.pages.jobs.careerjet-jobs',compact('careerjet_jobs'));
+        return view('website.pages.jobs.careerjet-jobs', compact('careerjet_jobs'));
     }
 
     /**
@@ -978,12 +978,12 @@ class WebsiteController extends Controller
 
         $indeed_jobs = $this->getIndeedJobs($request, 25);
 
-        return view('website.pages.jobs.indeed-jobs',compact('indeed_jobs'));
+        return view('website.pages.jobs.indeed-jobs', compact('indeed_jobs'));
     }
 
     // application form open
-    public function applicationForm(){
-
+    public function applicationForm()
+    {
         $candidate= Candidate::where('user_id', Auth::user()->id)->first();
         $districts = DB::table('districts')->get();
         $divisions = DB::table('divisions')->get();
@@ -1025,7 +1025,8 @@ class WebsiteController extends Controller
     }
 
     // submit application form
-    public function applicationFormSubmit(Request $request){
+    public function applicationFormSubmit(Request $request)
+    {
         $request->validate([
             'name' => 'required',
             'name_bn' => 'required',
@@ -1037,21 +1038,231 @@ class WebsiteController extends Controller
             'gender' => 'required',
             'religion' => 'required',
             'birth_certificate_no' => 'required',
-            'nationality_id' => 'required',
+            'nid_no' => 'required',
             'passport_no' => 'required',
             'marital_status' => 'required',
-            'profession' => 'required',
+            'quota' => 'required',
             'care_of' =>  'required',
-            'place' =>  'required',
+            'region' =>  'required',
+            'district' =>  'required',
+            'thana' =>  'required',
             'post_office' =>  'required',
             'postcode' =>  'required',
-            'thana' =>  'required',
-            'district' =>  'required',
-            'region' =>  'required',
-            'nationality' => 'required',
+            'place' =>  'required',
+            'picture' => 'required',
+            'signature' => 'required',
         ]);
 
-        dd("Hello");
+        if (!$request->same_address) {
+            $request->validate([
+                'care_of_parmanent' =>  'required',
+                'region_parmanent' =>  'required',
+                'district_parmanent' =>  'required',
+                'thana_parmanent' =>  'required',
+                'post_office_parmanent' =>  'required',
+                'postcode_parmanent' =>  'required',
+                'place_parmanent' =>  'required',
+            ]);
+        }
 
+        if ($request->psc) {
+            $request->validate([
+                'psc_roll_no' => 'required',
+                'psc_passing_year' => 'required',
+                'psc_school' => 'required',
+            ]);
+        }
+
+
+        if ($request->jsc) {
+            $request->validate([
+                'jsc_roll_no' => 'required',
+                'jsc_passing_year' => 'required',
+                'jsc_school' => 'required',
+            ]);
+        }
+
+
+        if ($request->ssc) {
+            $request->validate([
+                'ssc_exam_name' => 'required',
+                'ssc_education_board' => 'required',
+                'ssc_roll_no' => 'required',
+                'ssc_registration_no' => 'required',
+                'ssc_passing_year' => 'required',
+                'ssc_group' => 'required',
+                'ssc_result_type' => 'required',
+                'ssc_result_cgpa' => 'required',
+            ]);
+        }
+
+
+        if ($request->hsc) {
+            $request->validate([
+                'hsc_exam_name' => 'required',
+                'hsc_education_board' => 'required',
+                'hsc_roll_no' => 'required',
+                'hsc_registration_no' => 'required',
+                'hsc_passing_year' => 'required',
+                'hsc_group' => 'required',
+                'hsc_result_type' => 'required',
+                'hsc_result_cgpa' => 'required',
+            ]);
+        }
+
+
+        if ($request->honors) {
+            $request->validate([
+                'honors_exam_name' => 'required',
+                'honors_subject' => 'required',
+                'honors_institute' => 'required',
+                'honors_result_cgpa' => 'required',
+                'honors_passing_year' => 'required',
+                'honors_course_duration' => 'required',
+            ]);
+        }
+
+
+        if ($request->masters) {
+            $request->validate([
+                'masters_exam_name' => 'required',
+                'masters_subject' => 'required',
+                'masters_institute' => 'required',
+                'masters_result_type' => 'required',
+                'masters_result_cgpa' => 'required',
+                'masters_passing_year' => 'required',
+                'masters_course_duration' => 'required',
+            ]);
+        }
+
+
+        DB::beginTransaction();
+
+        try {
+            //code...
+
+
+            $candidate = Candidate::where('user_id', Auth::user()->id)->first();
+
+            $candidate->name_bn = $request->name_bn;
+            $candidate->father_name = $request->father_name;
+            $candidate->father_name_bn = $request->father_name_bn;
+            $candidate->mother_name = $request->mother_name;
+            $candidate->mother_name_bn = $request->mother_name_bn;
+            $candidate->birth_date = date('Y-m-d', strtotime($request->birth_date));
+            $candidate->gender = $request->gender;
+            $candidate->religion = $request->religion;
+            $candidate->birth_certificate_no = $request->birth_certificate_nos;
+            $candidate->nid_no = $request->nid_no;
+            $candidate->passport_no = $request->passport_no;
+            $candidate->marital_status = $request->marital_status;
+            $candidate->quota = $request->quota;
+            $candidate->care_of = $request->care_of;
+            $candidate->region = $request->region;
+            $candidate->district = $request->district;
+            $candidate->thana = $request->thana;
+            $candidate->post_office = $request->post_office;
+            $candidate->postcode = $request->postcode;
+            $candidate->place = $request->place;
+            // $candidate->picture = $request->picture;
+            // $candidate->signature = $request->signature;
+
+            $candidate->care_of_parmanent = ($request->same_address) ? $request->care_of : $request->care_of_parmanent;
+            $candidate->place_parmanent = ($request->same_address) ? $request->place : $request->place_parmanent;
+            $candidate->post_office_parmanent = ($request->same_address) ? $request->post_office : $request->post_office_parmanent;
+            $candidate->postcode_parmanent = ($request->same_address) ? $request->postcode : $request->postcode_parmanent;
+            $candidate->thana_parmanent = ($request->same_address) ? $request->thana : $request->thana_parmanent;
+            $candidate->district_parmanent = ($request->same_address) ? $request->district : $request->district_parmanent;
+            $candidate->region_parmanent = ($request->same_address) ? $request->region : $request->region_parmanent;
+            $candidate->save();
+
+
+            if ($request->psc) {
+                $education = new Education();
+                $education->candidate_id = $candidate->id;
+                $education->level = "psc";
+                $education->roll = $request->psc_roll_no;
+                $education->year = $request->psc_passing_year;
+                $education->institute = $request->psc_school;
+                $education->save();
+            }
+
+            if ($request->psc) {
+                $education = new Education();
+                $education->candidate_id = $candidate->id;
+                $education->level = "jsc";
+                $education->roll = $request->jsc_roll_no;
+                $education->year = $request->jsc_passing_year;
+                $education->institute = $request->jsc_school;
+                $education->save();
+            }
+
+            if ($request->ssc) {
+                $education = new Education();
+                $education->candidate_id = $candidate->id;
+                $education->level = "ssc";
+                $education->degree = $request->ssc_exam_name;
+                $education->board = $request->ssc_education_board;
+                $education->roll = $request->ssc_roll_no;
+                $education->registration = $request->ssc_registration_no;
+                $education->year = $request->ssc_passing_year;
+                $education->group = $request->ssc_group;
+                $education->result_type = $request->ssc_result_type;
+                $education->result_gpa = $request->ssc_result_cgpa;
+                $education->save();
+            }
+
+            if ($request->hsc) {
+                $education = new Education();
+                $education->candidate_id = $candidate->id;
+                $education->level = "hsc";
+                $education->degree = $request->hsc_exam_name;
+                $education->board = $request->hsc_education_board;
+                $education->roll = $request->hsc_roll_no;
+                $education->registration = $request->hsc_registration_no;
+                $education->year = $request->hsc_passing_year;
+                $education->group = $request->hsc_group;
+                $education->result_type = $request->hsc_result_type;
+                $education->result_gpa = $request->hsc_result_cgpa;
+                $education->save();
+            }
+
+            if ($request->honors) {
+                $education = new Education();
+                $education->candidate_id = $candidate->id;
+                $education->level = "honors";
+                $education->degree = $request->honors_exam_name;
+                $education->subject = $request->honors_subject;
+                $education->institute = $request->honors_institute;
+                $education->result_type = $request->honors_result_type;
+                $education->result_gpa = $request->honors_result_cgpa;
+                $education->year = $request->honors_passing_year;
+                $education->course_duration = $request->honors_course_duration;
+                $education->save();
+            }
+
+
+            if ($request->masters) {
+                $education = new Education();
+                $education->candidate_id = $candidate->id;
+                $education->level = "masters";
+                $education->degree = $request->masters_exam_name;
+                $education->subject = $request->masters_subject;
+                $education->institute = $request->masters_institute;
+                $education->result_type = $request->masters_result_type;
+                $education->result_gpa = $request->masters_result_cgpa;
+                $education->year = $request->masters_passing_year;
+                $education->course_duration = $request->masters_course_duration;
+                $education->save();
+            }
+
+            DB::commit();
+            return redirect()->route('candidate.dashboard')->with('success', 'Application added successfully');
+        } catch (\Throwable $th) {
+            $msg= $th->getMessage();
+            return back()->withInput()->with('error', $msg);
+        }
+
+        
     }
 }
