@@ -121,7 +121,7 @@
                                 <div class="col-sm-9">
                                     <input
                                         class="form-control @error('birth_date') is-invalid @enderror datepicker date ps-2"
-                                        name="birth_date" type="date" value="{{ $candidate->birth_date }}"
+                                        name="birth_date" type="text" value="{{ $candidate->birth_date }}"
                                         id="birth_date" placeholder="{{ __('birth_date') }}">
                                     @error('birth_date')
                                         <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
@@ -1336,6 +1336,19 @@
     <script src="{{ asset('frontend') }}/assets/js/ckeditor.min.js"></script>
 
     <script>
+
+
+        //init datepicker
+        $("#date").attr("autocomplete", "off");
+        //init datepicker
+        $('.datepicker').off('focus').datepicker({
+            format: 'dd-mm-yyyy'
+        }).on('click',
+            function() {
+                $(this).datepicker('show');
+            }
+        );
+
         $(document).on("change ", "#same_address", function() {
             let check = this.checked
 
