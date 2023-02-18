@@ -1250,7 +1250,7 @@
                                     </div>
                                     <div class="card-body row">
                                         <div class="col-md-8">
-                                            <div class="form-group form-group-sm row py-2">
+                                            {{-- <div class="form-group form-group-sm row py-2">
                                                 <label for="picture"
                                                     class="col-sm-4 col-form-label">{{ __('picture') }}</label>
                                                 <div class="col-sm-8">
@@ -1262,24 +1262,23 @@
                                                         <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                                                     @enderror
                                                 </div>
-                                            </div>
-                                            {{-- <div class="form-group form-group-sm row py-2">
+                                            </div> --}}
+                                            <div class="form-group form-group-sm row py-2">
                                                 <label for="signature"
                                                     class="col-sm-4 col-form-label">{{ __('signature') }}</label>
                                                 <div class="col-sm-8">
-                                                    <input style="opacity: 1 !important" class="form-control @error('signature') is-invalid @enderror"
+                                                    <input style="opacity: 1 !important; overflow: hidden" class="form-control @error('signature') is-invalid @enderror"
                                                         name="signature" type="file"
-                                                        value="{{ $candidate->signature }}" id="signature"
-                                                        placeholder="{{ __('signature') }}">
-                                                        <x-svg.upload-icon />
+                                                        value="{{ $candidate->signature }}" id="signature">
+                                                        {{-- <x-svg.upload-icon /> --}}
                                                     @error('signature')
                                                         <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                                                     @enderror
 
                                                     
                                                 </div>
-                                            </div> --}}
-                                            <div class="form-group form-group-sm row py-2">
+                                            </div>
+                                            {{-- <div class="form-group form-group-sm row py-2">
                                                 <div class="mb-3">
                                                     <label for="formFileSm" class="form-label">Small file input example</label>
                                                     <input class="form-control form-control-sm" id="formFileSm" type="file">
@@ -1287,7 +1286,7 @@
 
                                                     
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                         <div class="col-md-4">
 
