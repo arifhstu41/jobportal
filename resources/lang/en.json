@@ -1113,5 +1113,25 @@
     "the_view_count_will_be_reset" : "the view count will be reset",
     "latest_jobs_from" : "Latest jobs from",
     "Published" : "Published",
-    "Draft" : "Draft"
+    "Draft" : "Draft",
+    "name_bn" : "Name In Bangla",
+    "father_name" : "Fathers Name",
+    "father_name_bn" : "Fathers Name in Bangla",
+    "mother_name" : "Mothers Name",
+    "mother_name_bn" : "Mothers Name in Bangla",
+    "present_address": "Present Address",
+    "parmanent_address": "Parmanent Address",
+    "care_of": "Care Of",
+    "place" : "Village/Road/Ward",
+    "postcode": "Post Code",
+    "post_office" : "Post Office",
+    "thana" : "Thana",
+    "district" : "District",
+    "region" : "Region",
+    "religion": "Religion",
+    "nid_no": "National Identity No",
+    "passport_no": "Passport No",
+    "birth_certificate_no": "Birth Certificate No",
+    "bangladeshi": "Bangladeshi"
+    
 }

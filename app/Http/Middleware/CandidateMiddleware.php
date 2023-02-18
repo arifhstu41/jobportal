@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Candidate;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,12 @@ class CandidateMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
+        
         if (auth('user')->user()->role == 'candidate') {
+            $candidate= Candidate::where('user_id', auth('user')->user()->id)->first();
+            if($candidate->profile_complete != 0){
+                return redirect()->route('website.candidate.application.form');
+            }
             return $next($request);
         }
 

@@ -315,15 +315,38 @@ class CandidateController extends Controller
     {
         $request->validate([
             'nationality' => 'required',
+            'name_bn' => 'required',
+            'father_name' => 'required',
+            'father_name_bn' => 'required',
+            'mother_name' => 'required',
+            'mother_name_bn' => 'required',
             'gender' => 'required',
             'marital_status' => 'required',
             'profession' => 'required',
-            'status' =>  'required',
+            'care_of' =>  'required',
+            'place' =>  'required',
+            'post_office' =>  'required',
+            'postcode' =>  'required',
+            'thana' =>  'required',
+            'district' =>  'required',
+            'region' =>  'required',
         ]);
 
         if ($request->status == 'available_in') {
             $request->validate([
                 'available_in' =>  'required'
+            ]);
+        }
+
+        if (!$request->same_address) {
+            $request->validate([
+                'care_of_parmanent' =>  'required',
+                'place_parmanent' =>  'required',
+                'post_office_parmanent' =>  'required',
+                'postcode_parmanent' =>  'required',
+                'thana_parmanent' =>  'required',
+                'district_parmanent' =>  'required',
+                'region_parmanent' =>  'required',
             ]);
         }
 
@@ -334,8 +357,14 @@ class CandidateController extends Controller
         if (!$profession) {
             $profession = Profession::create(['name' => $profession_request]);
         }
+        
 
         $candidate->update([
+            'name_bn' => $request->name_bn,
+            'father_name' => $request->father_name,
+            'father_name_bn' => $request->father_name_bn,
+            'mother_name' => $request->mother_name,
+            'mother_name_bn' => $request->mother_name_bn,
             'gender' => $request->gender,
             'marital_status' => $request->marital_status,
             'bio' => $request->bio,
@@ -343,6 +372,20 @@ class CandidateController extends Controller
             'profession_id' => $profession->id,
             'status' => $request->status,
             'available_in' => $request->available_in ? Carbon::parse($request->available_in)->format('Y-m-d') : null,
+            'care_of' => $request->care_of,
+            'place' => $request->place,
+            'post_office' => $request->post_office,
+            'postcode' => $request->postcode,
+            'thana' => $request->thana,
+            'district' => $request->district,
+            'region' => $request->region,
+            'care_of_parmanent' => ($request->status) ? $request->care_of: $request->care_of_parmanent,
+            'place_parmanent' => ($request->status) ? $request->place: $request->place_parmanent,
+            'post_office_parmanent' => ($request->status) ? $request->post_office: $request->post_office_parmanent,
+            'postcode_parmanent' => ($request->status) ? $request->postcode: $request->postcode_parmanent,
+            'thana_parmanent' => ($request->status) ? $request->thana: $request->thana_parmanent,
+            'district_parmanent' => ($request->status) ? $request->district: $request->district_parmanent,
+            'region_parmanent' => ($request->status) ? $request->region: $request->region_parmanent,
         ]);
 
         // skill & language
