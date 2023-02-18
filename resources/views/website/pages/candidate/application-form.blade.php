@@ -12,6 +12,16 @@
             font-size: .875rem;
             border-radius: 0.2rem;
         }
+
+        #picture, #signature {
+            position: inherit;
+            width: 100%;
+            height: 100%;
+            left: 0 !important;
+            top: 0 !important;
+            opacity: 1;
+            cursor: pointer;
+        }
     </style>
     <div class="dashboard-wrapper">
         <div class="container">
@@ -1255,10 +1265,23 @@
                                                     class="col-sm-4 col-form-label">{{ __('picture') }}</label>
                                                 <div class="col-sm-8">
                                                     <input class="form-control @error('picture') is-invalid @enderror"
-                                                        name="picture" type="text"
+                                                        name="picture" type="file"
                                                         value="{{ $candidate->picture }}" id="picture"
                                                         placeholder="{{ __('picture') }}">
                                                     @error('picture')
+                                                        <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="form-group form-group-sm row py-2">
+                                                <label for="signature"
+                                                    class="col-sm-4 col-form-label">{{ __('signature') }}</label>
+                                                <div class="col-sm-8">
+                                                    <input class="form-control @error('signature') is-invalid @enderror"
+                                                        name="signature" type="file"
+                                                        value="{{ $candidate->signature }}" id="signature"
+                                                        placeholder="{{ __('signature') }}">
+                                                    @error('signature')
                                                         <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                                                     @enderror
                                                 </div>
@@ -1276,7 +1299,7 @@
                                                         <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                                                     @enderror
 
-                                                    
+
                                                 </div>
                                             </div> --}}
                                             <div class="form-group form-group-sm row py-2">
@@ -1285,7 +1308,7 @@
                                                     <input class="form-control form-control-sm" id="formFileSm" type="file">
                                                   </div>
 
-                                                    
+
                                                 </div>
                                             </div>
                                         </div>
