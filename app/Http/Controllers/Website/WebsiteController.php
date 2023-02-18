@@ -1141,6 +1141,7 @@ class WebsiteController extends Controller
         try {
             //code...
 
+            
 
             $candidate = Candidate::where('user_id', Auth::user()->id)->first();
 
@@ -1174,6 +1175,7 @@ class WebsiteController extends Controller
             $candidate->thana_parmanent = ($request->same_address) ? $request->thana : $request->thana_parmanent;
             $candidate->district_parmanent = ($request->same_address) ? $request->district : $request->district_parmanent;
             $candidate->region_parmanent = ($request->same_address) ? $request->region : $request->region_parmanent;
+            $candidate->profile_complete= ($candidate->profile_complete > 0) ? ($candidate->profile_complete-25) : 0;
             $candidate->save();
 
 
@@ -1255,6 +1257,10 @@ class WebsiteController extends Controller
                 $education->course_duration = $request->masters_course_duration;
                 $education->save();
             }
+
+            // $candidate->profile_complete= ($candidate->profile_complete > 0) ? ($candidate->profile_complete-25) : 0;
+            $candidate->profile_complete=  0;
+            $candidate->save();
 
             DB::commit();
             return redirect()->route('candidate.dashboard')->with('success', 'Application added successfully');
