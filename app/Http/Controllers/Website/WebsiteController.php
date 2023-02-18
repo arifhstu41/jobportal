@@ -264,7 +264,7 @@ class WebsiteController extends Controller
         $data['skills'] = Skill::all(['id', 'name']);
         $data['candidate_languages'] = CandidateLanguage::all(['id', 'name']);
 
-        // reset candidate cv views history 
+        // reset candidate cv views history
         $this->reset();
 
         return view('website.pages.candidates', $data);
@@ -334,7 +334,7 @@ class WebsiteController extends Controller
 
             if (!$cv_view_exist) { // check view isn't exist
                 isset($user_plan) ? $user_plan->decrement('candidate_cv_view_limit') : ''; // point reduce
-                // and create view count item 
+                // and create view count item
                 $company->cv_views()->create([
                     'candidate_id' => $candidate->candidate->id,
                     'view_date' => Carbon::parse(Carbon::now()),
@@ -984,9 +984,44 @@ class WebsiteController extends Controller
     // application form open
     public function applicationForm()
     {
-        $candidate = Candidate::where('user_id', Auth::user()->id)->first();
-        $user = Auth::user();
-        return view('website.pages.candidate.application-form', compact('candidate', 'user'));
+        $candidate= Candidate::where('user_id', Auth::user()->id)->first();
+        $districts = DB::table('districts')->get();
+        $divisions = DB::table('divisions')->get();
+        $unions = DB::table('unions')->get();
+        $upazilas = DB::table('upazilas')->get();
+        // echo "<pre>";print_r($districts);die;
+        $user= Auth::user();
+        return view('website.pages.candidate.application-form', compact('candidate', 'user','divisions', 'districts','unions', 'upazilas'));
+    }
+
+    public function getDistrictByDivision(){
+
+        $division_id = $_GET['division'];
+        $districts = DB::table('districts')->where('division_id', $division_id)->get();
+
+        $html = "";
+
+        foreach($districts as $each){
+            $html.= "<option value=".$each->id.">".$each->name."</option>";
+        }
+
+        $response['html'] = $html;
+        echo json_encode($response);
+    }
+
+    public function getThanaByDistrict(){
+
+        $district_id = $_GET['district_id'];
+        $thana = DB::table('upazilas')->where('district_id', $district_id)->get();
+
+        $html = "";
+
+        foreach($thana as $each){
+            $html.= "<option value=".$each->id.">".$each->name."</option>";
+        }
+
+        $response['html'] = $html;
+        echo json_encode($response);
     }
 
     // submit application form
@@ -1222,7 +1257,7 @@ class WebsiteController extends Controller
             }
 
             DB::commit();
-            return redirect()->route('candidate.dashboard')->with('success', 'Appliucation added successfully');
+            return redirect()->route('candidate.dashboard')->with('success', 'Application added successfully');
         } catch (\Throwable $th) {
             $msg= $th->getMessage();
             return back()->withInput()->with('error', $msg);
