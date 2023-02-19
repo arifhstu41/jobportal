@@ -1039,9 +1039,6 @@ class WebsiteController extends Controller
             'birth_date' => 'required',
             'gender' => 'required',
             'religion' => 'required',
-            // 'birth_certificate_no' => 'required',
-            // 'nid_no' => 'required',
-            // 'passport_no' => 'required',
             'marital_status' => 'required',
             'quota' => 'required',
             'care_of' =>  'required',
@@ -1051,8 +1048,6 @@ class WebsiteController extends Controller
             'post_office' =>  'required',
             'postcode' =>  'required',
             'place' =>  'required',
-            // 'picture' => 'required',
-            // 'signature' => 'required',
         ]);
 
         if (!$request->same_address) {
@@ -1075,7 +1070,6 @@ class WebsiteController extends Controller
             ]);
         }
 
-
         if ($request->jsc) {
             $request->validate([
                 'jsc_roll_no' => 'required',
@@ -1083,7 +1077,6 @@ class WebsiteController extends Controller
                 'jsc_school' => 'required',
             ]);
         }
-
 
         if ($request->ssc) {
             $request->validate([
@@ -1098,7 +1091,6 @@ class WebsiteController extends Controller
             ]);
         }
 
-
         if ($request->hsc) {
             $request->validate([
                 'hsc_exam_name' => 'required',
@@ -1112,7 +1104,6 @@ class WebsiteController extends Controller
             ]);
         }
 
-
         if ($request->honors) {
             $request->validate([
                 'honors_exam_name' => 'required',
@@ -1123,7 +1114,6 @@ class WebsiteController extends Controller
                 'honors_course_duration' => 'required',
             ]);
         }
-
 
         if ($request->masters) {
             $request->validate([
@@ -1137,13 +1127,9 @@ class WebsiteController extends Controller
             ]);
         }
 
-
-        // DB::beginTransaction();
-
-        // try {
-
+        DB::beginTransaction();
+        try {
             $candidate = Candidate::where('user_id', Auth::user()->id)->first();
-
             $candidate->name_bn = $request->name_bn;
             $candidate->father_name = $request->father_name;
             $candidate->father_name_bn = $request->father_name_bn;
@@ -1164,9 +1150,6 @@ class WebsiteController extends Controller
             $candidate->post_office = $request->post_office;
             $candidate->postcode = $request->postcode;
             $candidate->place = $request->place;
-            // $candidate->picture = $request->picture;
-            // $candidate->signature = $request->signature;
-
             $candidate->care_of_parmanent = ($request->same_address) ? $request->care_of : $request->care_of_parmanent;
             $candidate->place_parmanent = ($request->same_address) ? $request->place : $request->place_parmanent;
             $candidate->post_office_parmanent = ($request->same_address) ? $request->post_office : $request->post_office_parmanent;
@@ -1176,7 +1159,6 @@ class WebsiteController extends Controller
             $candidate->region_parmanent = ($request->same_address) ? $request->region : $request->region_parmanent;
             $candidate->profile_complete= ($candidate->profile_complete > 0) ? ($candidate->profile_complete-25) : 0;
             $candidate->save();
-
 
             if ($request->psc) {
                
@@ -1243,7 +1225,6 @@ class WebsiteController extends Controller
                 $education->save();
             }
 
-
             if ($request->masters) {
                 $education = new CandidateEducation();
                 $education->candidate_id = $candidate->id;
@@ -1258,17 +1239,16 @@ class WebsiteController extends Controller
                 $education->save();
             }
 
-            // $candidate->profile_complete= ($candidate->profile_complete > 0) ? ($candidate->profile_complete-25) : 0;
-            $candidate->profile_complete=  0;
+            $candidate->profile_complete= 0;
             $candidate->save();
-dd("hello");
-        //     DB::commit();
-        //     return redirect()->route('candidate.dashboard')->with('success', 'Application added successfully');
-        // } catch (\Throwable $th) {
-        //     $msg= $th->getMessage();
-        //     return back()->withInput()->with('error', $msg);
-        // }
+            DB::commit();
+            return redirect()->route('candidate.dashboard')->with('success', 'Application added successfully');
+        } catch (\Throwable $th) {
+            $msg= $th->getMessage();
 
+            dd($msg);
+            return back()->withInput()->with('error', $msg);
+        }
         
     }
 }
