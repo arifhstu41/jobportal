@@ -147,6 +147,11 @@ class CandidateController extends Controller
         $skills = Skill::all(['id', 'name']);
         $languages = CandidateLanguage::all(['id', 'name']);
 
+        $districts = DB::table('districts')->get();
+        $divisions = DB::table('divisions')->get();
+        $unions = DB::table('unions')->get();
+        $upazilas = DB::table('upazilas')->get();
+
         $candidate->load('skills', 'languages', 'experiences', 'educations');
 
         return view('website.pages.candidate.setting', [
@@ -161,6 +166,10 @@ class CandidateController extends Controller
             'resumes' => $resumes,
             'skills' => $skills,
             'candidate_languages' => $languages,
+            'divisions' => $divisions,
+            'districts' => $districts,
+            'unions' => $unions,
+            'upazilas' => $upazilas
         ]);
     }
 
@@ -357,7 +366,7 @@ class CandidateController extends Controller
         if (!$profession) {
             $profession = Profession::create(['name' => $profession_request]);
         }
-        
+
 
         $candidate->update([
             'name_bn' => $request->name_bn,
@@ -514,7 +523,7 @@ class CandidateController extends Controller
 
     /**
      *  Candidate resume upload with normal form
-     * @param $request 
+     * @param $request
      */
     public function resumeStore(Request $request)
     {
@@ -541,7 +550,7 @@ class CandidateController extends Controller
 
     /**
      *  Candidate resume upload with normal form
-     * @param $request 
+     * @param $request
      */
     public function resumeStoreAjax(Request $request)
     {

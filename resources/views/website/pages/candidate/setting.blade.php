@@ -474,12 +474,12 @@
                                                         <span class="text-danger">{{ __($message) }}</span>
                                                     @enderror
                                                 </div>
-                                                
+
                                             </div>
 
                                             {{-- Address settings --}}
 
-                                            
+
                                             <legend class="p-3">Address</legend>
                                             <div class="row">
 
@@ -489,7 +489,7 @@
                                                         <h4 class="ps-1">{{ __('present_address') }}</h4>
                                                     </div>
                                                     <div class="col-lg-12 mb-3">
-                                                        <x-forms.label :required="true" name="care_of"
+                                                        <x-forms.label :required="false" name="care_of"
                                                         class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                         <div class="fromGroup">
                                                             <div class="form-control-icon">
@@ -503,16 +503,25 @@
                                                                 role="alert">{{ __($message) }}</span>
                                                         @enderror
                                                     </div>
-                                                    
+
                                                     <div class="col-lg-12 mb-3">
                                                         <x-forms.label :required="true" name="region"
                                                         class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                         <div class="fromGroup">
-                                                            <div class="form-control-icon">
+                                                            {{-- <div class="form-control-icon">
                                                                 <x-forms.input type="text" name="region"
                                                                     value="{{ $candidate->region }}"
                                                                     placeholder="{{ __('region') }}" class="" />
-                                                            </div>
+                                                            </div> --}}
+                                                            <select required name="region" id="region"
+                                                                class="rt-selectactive w-100-p">
+                                                                <option value="">Please Select</option>
+                                                                @foreach ($divisions as $division)
+                                                                    <option value="{{ $division->id }}"
+                                                                        {{ $candidate->region == $division->id ? 'selected' : '' }}>
+                                                                        {{ $division->name }}</option>
+                                                                @endforeach
+                                                            </select>
                                                         </div>
                                                         @error('region')
                                                             <span class="invalid-feedback"
@@ -525,11 +534,21 @@
                                                         <x-forms.label :required="true" name="district"
                                                         class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                         <div class="fromGroup">
-                                                            <div class="form-control-icon">
+                                                            {{-- <div class="form-control-icon">
                                                                 <x-forms.input type="text" name="district"
                                                                     value="{{ $candidate->district }}"
                                                                     placeholder="{{ __('district') }}" class="" />
-                                                            </div>
+                                                            </div> --}}
+                                                            <select required name="district" id="district"
+                                                                class="rt-selectactive w-100-p">
+                                                                <option value="">Please Select</option>
+                                                                @foreach ($districts as $district)
+                                                                    <option value="{{ $district->id }}"
+                                                                        {{ $candidate->district == $district->id ? 'selected' : '' }}>
+                                                                        {{ $district->name }}</option>
+                                                                @endforeach
+
+                                                            </select>
                                                         </div>
                                                         @error('district')
                                                             <span class="invalid-feedback"
@@ -541,11 +560,21 @@
                                                         <x-forms.label :required="true" name="thana"
                                                         class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                         <div class="fromGroup">
-                                                            <div class="form-control-icon">
+                                                            {{-- <div class="form-control-icon">
                                                                 <x-forms.input type="text" name="thana"
                                                                     value="{{ $candidate->thana }}"
                                                                     placeholder="{{ __('thana') }}" class="" />
-                                                            </div>
+                                                            </div> --}}
+                                                            <select required name="thana" id="thana"
+                                                                class="rt-selectactive w-100-p">
+                                                                <option value="">Please Select</option>
+                                                                @foreach ($upazilas as $thana)
+                                                                    <option value="{{ $thana->id }}"
+                                                                        {{ $candidate->thana == $thana->id ? 'selected' : '' }}>
+                                                                        {{ $thana->name }}</option>
+                                                                @endforeach
+
+                                                            </select>
                                                         </div>
                                                         @error('thana')
                                                             <span class="invalid-feedback"
@@ -590,7 +619,7 @@
                                                         class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                         <div class="fromGroup">
                                                             <div class="form-control-icon">
-                                                                <textarea class="form-control @error('place') is-invalid @enderror" placeholder="{{ __('enter') }} {{ __('place') }}" name="place" rows="2"></textarea>
+                                                                <textarea required class="form-control @error('place') is-invalid @enderror" placeholder="{{ __('enter') }} {{ __('place') }}" name="place" rows="2"></textarea>
                                                             </div>
                                                         </div>
                                                         @error('place')
@@ -608,7 +637,7 @@
                                                         <label class="form-check-label d-inline-block mx-0 px-0" for="same_address">Same as present addresss</label>
                                                     </div>
                                                     <div class="col-lg-12 mb-3">
-                                                        <x-forms.label :required="true" name="care_of"
+                                                        <x-forms.label :required="false" name="care_of"
                                                         class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                         <div class="fromGroup">
                                                             <div class="form-control-icon">
@@ -622,16 +651,25 @@
                                                                 role="alert">{{ __($message) }}</span>
                                                         @enderror
                                                     </div>
-                                                    
+
                                                     <div class="col-lg-12 mb-3">
                                                         <x-forms.label :required="true" name="region"
                                                         class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                         <div class="fromGroup">
-                                                            <div class="form-control-icon">
+                                                            {{-- <div class="form-control-icon">
                                                                 <x-forms.input type="text" id="region_parmanent" name="region_parmanent"
                                                                     value="{{ $candidate->region_parmanent }}"
                                                                     placeholder="{{ __('region') }}" class="" />
-                                                            </div>
+                                                            </div> --}}
+                                                            <select required name="region_parmanent" id="region_parmanent"
+                                                                class="rt-selectactive w-100-p">
+                                                                <option value="">Please Select</option>
+                                                                @foreach ($divisions as $division)
+                                                                    <option value="{{ $division->id }}"
+                                                                        {{ ($division->id == $candidate->region_parmanent) ? "selected" : "" }}>
+                                                                        {{ $division->name }}</option>
+                                                                @endforeach
+                                                            </select>
                                                         </div>
                                                         @error('region_parmanent')
                                                             <span class="invalid-feedback"
@@ -644,11 +682,20 @@
                                                         <x-forms.label :required="true" name="district"
                                                         class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                         <div class="fromGroup">
-                                                            <div class="form-control-icon">
+                                                            {{-- <div class="form-control-icon">
                                                                 <x-forms.input type="text" id="district_parmanent" name="district_parmanent"
                                                                     value="{{ $candidate->district_parmanent }}"
                                                                     placeholder="{{ __('district') }}" class="" />
-                                                            </div>
+                                                            </div> --}}
+                                                            <select required name="district_parmanent" id="district_parmanent"
+                                                                class="rt-selectactive w-100-p">
+                                                                <option value="">Please Select</option>
+                                                                @foreach ($districts as $district)
+                                                                    <option value="{{ $district->id }}"
+                                                                        {{ ($district->id == $candidate->district_parmanent)  ? "selected" : "" }}>
+                                                                        {{ $district->name }}</option>
+                                                                @endforeach
+                                                            </select>
                                                         </div>
                                                         @error('district_parmanent')
                                                             <span class="invalid-feedback"
@@ -660,11 +707,20 @@
                                                         <x-forms.label :required="true" name="thana"
                                                         class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                         <div class="fromGroup">
-                                                            <div class="form-control-icon">
+                                                            {{-- <div class="form-control-icon">
                                                                 <x-forms.input type="text" id="thana_parmanent" name="thana_parmanent"
                                                                     value="{{ $candidate->thana }}"
                                                                     placeholder="{{ __('thana') }}" class="" />
-                                                            </div>
+                                                            </div> --}}
+                                                            <select required name="thana_parmanent" id="thana_parmanent"
+                                                                class="rt-selectactive w-100-p">
+                                                                <option value="">Please Select</option>
+                                                                @foreach ($upazilas as $upazila)
+                                                                    <option value="{{ $upazila->id }}"
+                                                                        {{ ($upazila->id == $candidate->thana_parmanent) ? "selected" : "" }}>
+                                                                        {{ $upazila->name }}</option>
+                                                                @endforeach
+                                                            </select>
                                                         </div>
                                                         @error('thana_parmanent')
                                                             <span class="invalid-feedback"
@@ -709,7 +765,7 @@
                                                         class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                         <div class="fromGroup">
                                                             <div class="form-control-icon">
-                                                                <textarea class="form-control @error('place_parmanent') is-invalid @enderror" placeholder="{{ __('enter') }} {{ __('place') }}" name="place_parmanent" id="place_parmanent" rows="2"></textarea>
+                                                                <textarea required class="form-control @error('place_parmanent') is-invalid @enderror" placeholder="{{ __('enter') }} {{ __('place') }}" name="place_parmanent" id="place_parmanent" rows="2"></textarea>
                                                             </div>
                                                         </div>
                                                         @error('place_parmanent')
@@ -1650,7 +1706,7 @@
         });
         map.on('click', add_marker);
         marker.on('dragend', onDragEnd);
-        // zoom in and out 
+        // zoom in and out
         <x-mapbox-zoom-control/>
     </script>
     <script>
@@ -1918,5 +1974,115 @@
                 $("#place_parmanent").removeAttr('readonly');
             }
         })
+
+        $(document).ready(function() {
+
+            var division = $("#region").val();
+            get_district(division);
+
+            var district_id = $("#district").val();
+            get_thana(district_id);
+
+            var division = $("#region").val();
+            get_district_parmanent(division);
+
+            var district_id = $("#district").val();
+            get_thana_parmanent(district_id);
+
+        })
+
+        $(document).on("change", "#region", function() {
+            var division = $(this).val();
+            get_district(division);
+        })
+
+        function get_district(division) {
+
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "{{ route('website.district.get.data') }}",
+                data: {
+                    division: division,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+
+                    $("#district").html(response.html);
+                    get_thana(0);
+                }
+            });
+        }
+
+
+
+        $(document).on("change", "#district", function() {
+            var district_id = $(this).val();
+            get_thana(district_id);
+        })
+
+        function get_thana(district_id) {
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "{{ route('website.thana.get.data') }}",
+                data: {
+                    district_id: district_id,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+
+                    $("#thana").html(response.html);
+                }
+            });
+
+        }
+
+
+        $(document).on("change", "#region_parmanent", function() {
+            var division = $(this).val();
+            get_district_parmanent(division);
+        })
+
+        function get_district_parmanent(division) {
+
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "{{ route('website.district.get.data') }}",
+                data: {
+                    division: division,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+
+                    $("#district_parmanent").html(response.html);
+                }
+            });
+        }
+
+
+
+        $(document).on("change", "#district_parmanent", function() {
+            var district_id = $(this).val();
+            get_thana_parmanent(district_id);
+        })
+
+        function get_thana_parmanent(district_id) {
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "{{ route('website.thana.get.data') }}",
+                data: {
+                    district_id: district_id,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+
+                    $("#thana_parmanent").html(response.html);
+                }
+            });
+
+        }
     </script>
 @endsection
