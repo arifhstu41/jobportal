@@ -332,19 +332,6 @@
                                                     </div>
                                                 </div>
 
-
-                                                <div class="col-lg-6 mb-3">
-                                                    <x-forms.label :required="true" name="nationality"
-                                                        class="body-font-4 d-block text-gray-900 rt-mb-8" />
-                                                    <select name="nationality" class="rt-selectactive w-100">
-                                                        @foreach ($nationalities as $nationality)
-                                                            <option
-                                                                {{ $candidate->nationality_id == $nationality->id ? 'selected' : '' }}
-                                                                value="{{ $nationality->id }}">
-                                                                {{ $nationality->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
                                                 <div class="col-lg-6 mb-3">
                                                     <x-forms.label :required="true" name="gender"
                                                         class="body-font-4 d-block text-gray-900 rt-mb-8" />
@@ -383,6 +370,63 @@
                                                             role="alert">{{ __($message) }}</span>
                                                     @enderror
                                                 </div>
+
+                                                <div class="col-lg-6 mb-3">
+                                                    <x-forms.label :required="true" name="birth_certificate_no"
+                                                        class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                    <div class="fromGroup">
+                                                        <div class="form-control-icon">
+                                                            <x-forms.input type="text" name="birth_certificate_no"
+                                                                value="{{ $candidate->birth_certificate_no }}"
+                                                                placeholder="{{ __('birth_certificate_no') }}"
+                                                                class="" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-6 mb-3">
+                                                    <x-forms.label :required="true" name="nid_no"
+                                                        class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                    <div class="fromGroup">
+                                                        <div class="form-control-icon">
+                                                            <x-forms.input type="text" name="nid_no"
+                                                                value="{{ $candidate->nid_no }}"
+                                                                placeholder="{{ __('nid_no') }}"
+                                                                class="" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-6 mb-3">
+                                                    <x-forms.label :required="true" name="passport_no"
+                                                        class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                    <div class="fromGroup">
+                                                        <div class="form-control-icon">
+                                                            <x-forms.input type="text" name="passport_no"
+                                                                value="{{ $candidate->passport_no }}"
+                                                                placeholder="{{ __('passport_no') }}"
+                                                                class="" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                
+                                                <div class="col-lg-6 mb-3">
+                                                    <x-forms.label :required="true" name="quota"
+                                                        class="body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                    <select name="quota" class="rt-selectactive w-100-p">
+                                                        <option value="">Please Select</option>
+                                                        <option @if ($candidate->quota == 'Departmental') selected @endif
+                                                            value="Departmental">{{ __('Departmental') }}</option>
+                                                        <option @if ($candidate->quota == 'FFQ') selected @endif
+                                                            value="FFQ">{{ __('FFQ') }}</option>
+                                                    </select>
+                                                    @error('quota')
+                                                        <span class="invalid-feedback"
+                                                            role="alert">{{ __($message) }}</span>
+                                                    @enderror
+                                                </div>
+
                                                 <div class="col-lg-6 mb-3">
                                                     <x-forms.label :required="true" name="profession"
                                                         class="body-font-4 d-block text-gray-900 rt-mb-8" />
@@ -399,6 +443,21 @@
                                                             role="alert">{{ __($message) }}</span>
                                                     @enderror
                                                 </div>
+
+                                                <div class="col-lg-6 mb-3">
+                                                    <x-forms.label :required="true" name="nationality"
+                                                        class="body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                    <select name="nationality" class="rt-selectactive w-100">
+                                                        <option value="">Please Select</option>
+                                                        @foreach ($nationalities as $nationality)
+                                                            <option
+                                                                {{ $candidate->nationality_id == $nationality->id ? 'selected' : '' }}
+                                                                value="{{ $nationality->id }}">
+                                                                {{ $nationality->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+
                                                 <div class="col-lg-6 mb-3">
                                                     <x-forms.label :required="true" name="your_availability"
                                                         class="body-font-4 d-block text-gray-900 rt-mb-8" />
@@ -508,11 +567,6 @@
                                                         <x-forms.label :required="true" name="region"
                                                         class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                         <div class="fromGroup">
-                                                            {{-- <div class="form-control-icon">
-                                                                <x-forms.input type="text" name="region"
-                                                                    value="{{ $candidate->region }}"
-                                                                    placeholder="{{ __('region') }}" class="" />
-                                                            </div> --}}
                                                             <select required name="region" id="region"
                                                                 class="rt-selectactive w-100-p">
                                                                 <option value="">Please Select</option>
@@ -529,22 +583,19 @@
                                                         @enderror
                                                     </div>
 
-
+                                                    
                                                     <div class="col-lg-12 mb-3">
                                                         <x-forms.label :required="true" name="district"
                                                         class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                         <div class="fromGroup">
-                                                            {{-- <div class="form-control-icon">
-                                                                <x-forms.input type="text" name="district"
-                                                                    value="{{ $candidate->district }}"
-                                                                    placeholder="{{ __('district') }}" class="" />
-                                                            </div> --}}
                                                             <select required name="district" id="district"
                                                                 class="rt-selectactive w-100-p">
                                                                 <option value="">Please Select</option>
+                                                              
                                                                 @foreach ($districts as $district)
+                                                                
                                                                     <option value="{{ $district->id }}"
-                                                                        {{ $candidate->district == $district->id ? 'selected' : '' }}>
+                                                                        {{ ($candidate->district == $district->id) ? 'selected' : '' }}>
                                                                         {{ $district->name }}</option>
                                                                 @endforeach
 
@@ -560,11 +611,6 @@
                                                         <x-forms.label :required="true" name="thana"
                                                         class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                         <div class="fromGroup">
-                                                            {{-- <div class="form-control-icon">
-                                                                <x-forms.input type="text" name="thana"
-                                                                    value="{{ $candidate->thana }}"
-                                                                    placeholder="{{ __('thana') }}" class="" />
-                                                            </div> --}}
                                                             <select required name="thana" id="thana"
                                                                 class="rt-selectactive w-100-p">
                                                                 <option value="">Please Select</option>

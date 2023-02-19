@@ -1069,8 +1069,9 @@ class WebsiteController extends Controller
                 'psc_school' => 'required',
             ]);
         }
-
+        
         if ($request->jsc) {
+            
             $request->validate([
                 'jsc_roll_no' => 'required',
                 'jsc_passing_year' => 'required',
@@ -1089,6 +1090,7 @@ class WebsiteController extends Controller
                 'ssc_result_type' => 'required',
                 'ssc_result_cgpa' => 'required',
             ]);
+            
         }
 
         if ($request->hsc) {
@@ -1102,6 +1104,7 @@ class WebsiteController extends Controller
                 'hsc_result_type' => 'required',
                 'hsc_result_cgpa' => 'required',
             ]);
+            
         }
 
         if ($request->honors) {
@@ -1171,7 +1174,7 @@ class WebsiteController extends Controller
                 $education->save();
             }
 
-            if ($request->psc) {
+            if ($request->jsc) {
                 $education = new CandidateEducation();
                 $education->candidate_id = $candidate->id;
                 $education->level = "jsc";
@@ -1226,7 +1229,6 @@ class WebsiteController extends Controller
             }
 
             if ($request->masters) {
-
                 $education = new CandidateEducation();
                 $education->candidate_id = $candidate->id;
                 $education->level = "masters";
@@ -1239,6 +1241,7 @@ class WebsiteController extends Controller
                 $education->course_duration = $request->masters_course_duration;
                 $education->save();
             }
+
             $candidate->profile_complete= 0;
             $candidate->save();
             DB::commit();
