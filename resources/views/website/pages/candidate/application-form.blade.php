@@ -281,14 +281,10 @@
                                                 class="col-sm-4 col-form-label">{{ __('region') }}<span class="required">*</span></label>
                                             <div class="col-sm-8">
                                                 <select required name="region" id="region" class="rt-selectactive w-100-p">
-
-
                                                     <option value="">Please Select</option>
-                                                    <?php foreach ($divisions as $each){?>
-                                                        <option value="<?php echo $each->id?>" <?php if($candidate->region == $each->name)echo "selected"; ?> >
-                                                            {{ $each->name }}</option>
-                                                    <?php }?>
-
+                                                    @foreach ($divisions as $division)
+                                                        <option value="{{ $division->id }}" {{ ($candidate->region == $division->id) ? "selected" : "" }}> {{ $division->name }}</option>
+                                                    @endforeach
                                                 </select>
                                                 @error('region')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
@@ -303,10 +299,9 @@
                                             <div class="col-sm-8">
                                                 <select required name="district" id="district" class="rt-selectactive w-100-p">
                                                     <option value="">Please Select</option>
-                                                    <?php foreach ($districts as $each){?>
-                                                        <option value="<?php echo $each->id?>" <?php if($candidate->district == $each->name)echo "selected"; ?> >
-                                                            {{ $each->name }}</option>
-                                                    <?php }?>
+                                                    @foreach ($districts as $district)
+                                                        <option value="{{ $district->id }}" {{ ($candidate->district == $district->id) ? "selected" : "" }}> {{ $district->name }}</option>
+                                                    @endforeach
 
                                                 </select>
                                                 @error('district')
@@ -321,10 +316,9 @@
                                             <div class="col-sm-8">
                                                 <select required name="thana" id="thana" class="rt-selectactive w-100-p">
                                                     <option value="">Please Select</option>
-                                                    <?php foreach ($upazilas as $each){?>
-                                                        <option value="<?php echo $each->id?>" <?php if($candidate->thana == $each->name)echo "selected"; ?> >
-                                                            {{ $each->name }}</option>
-                                                    <?php }?>
+                                                    @foreach ($upazilas as $thana)
+                                                        <option value="{{ $thana->id }}" {{ ($candidate->thana == $thana->id) ? "selected" : "" }}> {{ $thana->name }}</option>
+                                                    @endforeach
 
                                                 </select>
                                                 @error('thana')
@@ -520,9 +514,9 @@
                                 <div class="card col-lg-6 p-0">
                                     <div class="card-header d-inline-block">
                                         {{ __('psc') }}
-                                        <input type="checkbox" name="same_address"
-                                            class="form-check-input d-inline-block mt-2" id="same_address">
-                                        <label class="form-check-label d-inline-block mx-0 px-0" for="same_address">If
+                                        <input type="checkbox" name="psc"
+                                            class="form-check-input d-inline-block mt-2" id="psc">
+                                        <label class="form-check-label d-inline-block mx-0 px-0" for="psc">If
                                             Applicable</label>
                                     </div>
                                     <div class="card-body">
@@ -576,9 +570,9 @@
                                 <div class="card col-lg-6 p-0">
                                     <div class="card-header d-inline-block">
                                         {{ __('jsc') }}
-                                        <input type="checkbox" name="same_address"
-                                            class="form-check-input d-inline-block mt-2" id="same_address">
-                                        <label class="form-check-label d-inline-block mx-0 px-0" for="same_address">If
+                                        <input type="checkbox" name="jsc"
+                                            class="form-check-input d-inline-block mt-2" id="jsc">
+                                        <label class="form-check-label d-inline-block mx-0 px-0" for="jsc">If
                                             Applicable</label>
                                     </div>
                                     <div class="card-body">
@@ -638,9 +632,9 @@
                                 <div class="card col-lg-6 p-0">
                                     <div class="card-header d-inline-block">
                                         {{ __('ssc') }}
-                                        <input type="checkbox" name="same_address"
-                                            class="form-check-input d-inline-block mt-2" id="same_address">
-                                        <label class="form-check-label d-inline-block mx-0 px-0" for="same_address">If
+                                        <input type="checkbox" name="ssc"
+                                            class="form-check-input d-inline-block mt-2" id="ssc">
+                                        <label class="form-check-label d-inline-block mx-0 px-0" for="ssc">If
                                             Applicable</label>
                                     </div>
                                     <div class="card-body">
@@ -783,9 +777,9 @@
                                 <div class="card col-lg-6 p-0">
                                     <div class="card-header d-inline-block">
                                         {{ __('hsc') }}
-                                        <input type="checkbox" name="same_address"
-                                            class="form-check-input d-inline-block mt-2" id="same_address">
-                                        <label class="form-check-label d-inline-block mx-0 px-0" for="same_address">If
+                                        <input type="checkbox" name="hsc"
+                                            class="form-check-input d-inline-block mt-2" id="hsc">
+                                        <label class="form-check-label d-inline-block mx-0 px-0" for="hsc">If
                                             Applicable</label>
                                     </div>
                                     <div class="card-body">
@@ -931,9 +925,9 @@
                                 <div class="card p-0">
                                     <div class="card-header d-inline-block">
                                         {{ __('honors') }}
-                                        <input type="checkbox" name="same_address"
-                                            class="form-check-input d-inline-block mt-2" id="same_address">
-                                        <label class="form-check-label d-inline-block mx-0 px-0" for="same_address">If
+                                        <input type="checkbox" name="honors"
+                                            class="form-check-input d-inline-block mt-2" id="honors">
+                                        <label class="form-check-label d-inline-block mx-0 px-0" for="honors">If
                                             Applicable</label>
                                     </div>
                                     <div class="card-body row">
@@ -1076,9 +1070,9 @@
                                 <div class="card p-0">
                                     <div class="card-header d-inline-block">
                                         {{ __('masters') }}
-                                        <input type="checkbox" name="same_address"
-                                            class="form-check-input d-inline-block mt-2" id="same_address">
-                                        <label class="form-check-label d-inline-block mx-0 px-0" for="same_address">If
+                                        <input type="checkbox" name="masters"
+                                            class="form-check-input d-inline-block mt-2" id="masters">
+                                        <label class="form-check-label d-inline-block mx-0 px-0" for="masters">If
                                             Applicable</label>
                                     </div>
                                     <div class="card-body row">
