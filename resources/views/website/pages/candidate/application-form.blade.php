@@ -547,14 +547,16 @@
 
                             <hr>
                             {{-- Education Information --}}
-
+                            {{-- @php
+                                $jsc= $candidate->educations->where('level', "masters")->first();
+                            @endphp --}}
                             {{-- PSC JSC --}}
                             <div class="row">
                                 <div class="card col-lg-6 p-0">
                                     <div class="card-header d-inline-block">
                                         {{ __('psc') }}
                                         <input type="checkbox" name="psc"
-                                            class="form-check-input d-inline-block mt-2" id="psc">
+                                            class="form-check-input d-inline-block mt-2" {{ old('psc') ? "checked" : "" }} id="psc">
                                         <label class="form-check-label d-inline-block mx-0 px-0" for="psc">If
                                             Applicable</label>
                                     </div>
@@ -565,7 +567,7 @@
                                             <div class="col-sm-8">
                                                 <input class="form-control @error('psc_roll_no') is-invalid @enderror"
                                                     name="psc_roll_no" type="text"
-                                                    value="{{ $candidate->psc_roll_no }}" id="psc_roll_no"
+                                                    value="{{ old('psc_roll_no') ?? '' }}" id="psc_roll_no"
                                                     placeholder="{{ __('psc_roll_no') }}">
                                                 @error('psc_roll_no')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
@@ -580,7 +582,7 @@
                                                 <input
                                                     class="form-control @error('psc_passing_year') is-invalid @enderror"
                                                     name="psc_passing_year" type="text"
-                                                    value="{{ $candidate->psc_passing_year }}" id="psc_passing_year"
+                                                    value="{{ old('psc_passing_year') ?? '' }}" id="psc_passing_year"
                                                     placeholder="{{ __('psc_passing_year') }}">
                                                 @error('psc_passing_year')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
@@ -589,14 +591,14 @@
                                         </div>
 
                                         <div class="form-group form-group-sm row py-2">
-                                            <label for="psc_scholl"
-                                                class="col-sm-4 col-form-label">{{ __('psc_scholl') }}</label>
+                                            <label for="psc_school"
+                                                class="col-sm-4 col-form-label">{{ __('psc_school') }}</label>
                                             <div class="col-sm-8">
-                                                <input class="form-control @error('psc_scholl') is-invalid @enderror"
-                                                    name="psc_scholl" type="text"
-                                                    value="{{ $candidate->psc_scholl }}" id="psc_scholl"
-                                                    placeholder="{{ __('psc_scholl') }}">
-                                                @error('psc_scholl')
+                                                <input class="form-control @error('psc_school') is-invalid @enderror"
+                                                    name="psc_school" type="text"
+                                                    value="{{ old('psc_school') ?? '' }}" id="psc_school"
+                                                    placeholder="{{ __('psc_school') }}">
+                                                @error('psc_school')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                                                 @enderror
                                             </div>
@@ -645,14 +647,14 @@
                                         </div>
 
                                         <div class="form-group form-group-sm row py-2">
-                                            <label for="jsc_scholl"
-                                                class="col-sm-4 col-form-label">{{ __('jsc_scholl') }}</label>
+                                            <label for="jsc_school"
+                                                class="col-sm-4 col-form-label">{{ __('jsc_school') }}</label>
                                             <div class="col-sm-8">
-                                                <input class="form-control @error('jsc_scholl') is-invalid @enderror"
-                                                    name="jsc_scholl" type="text"
-                                                    value="{{ $candidate->jsc_scholl }}" id="jsc_scholl"
-                                                    placeholder="{{ __('jsc_scholl') }}">
-                                                @error('jsc_scholl')
+                                                <input class="form-control @error('jsc_school') is-invalid @enderror"
+                                                    name="jsc_school" type="text"
+                                                    value="{{ $candidate->jsc_school }}" id="jsc_school"
+                                                    placeholder="{{ __('jsc_school') }}">
+                                                @error('jsc_school')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                                                 @enderror
                                             </div>
@@ -684,11 +686,12 @@
                                                 <select
                                                     class="rt-selectactive w-100-p @error('ssc_exam_name') is-invalid @enderror"
                                                     name="ssc_exam_name" id="ssc_exam_name">
-                                                    <option @if ($candidate->ssc_exam_name == 'ssc') selected @endif
+                                                    <option value="">Please Select</option>
+                                                    <option @if (old('ssc_exam_name') == 'ssc') selected @endif
                                                         value="ssc">
                                                         {{ __('ssc') }}
                                                     </option>
-                                                    <option @if ($candidate->ssc_exam_name == 'dakhil') selected @endif
+                                                    <option @if ( old('ssc_exam_name') == 'dakhil') selected @endif
                                                         value="dakhil">
                                                         {{ __('dakhil') }}
                                                     </option>
@@ -705,10 +708,11 @@
                                             <div class="col-sm-8">
                                                 <select name="ssc_education_board" id="ssc_education_board"
                                                     class="rt-selectactive w-100-p">
-                                                    <option @if ($candidate->ssc_education_board == 'Dhaka') selected @endif
+                                                    <option value="">Please Select</option>
+                                                    <option @if (old('ssc_education_board') == 'Dhaka') selected @endif
                                                         value="Dhaka">
                                                         {{ __('Dhaka') }}</option>
-                                                    <option @if ($candidate->ssc_education_board == 'dinajpur') selected @endif
+                                                    <option @if (old('ssc_education_board') == 'dinajpur') selected @endif
                                                         value="dinajpur">
                                                         {{ __('dinajpur') }}</option>
                                                 </select>
@@ -724,7 +728,7 @@
                                             <div class="col-sm-8">
                                                 <input class="form-control @error('ssc_roll_no') is-invalid @enderror"
                                                     name="ssc_roll_no" type="text"
-                                                    value="{{ $candidate->ssc_roll_no }}" id="ssc_roll_no"
+                                                    value="{{ old('ssc_roll_no') }}" id="ssc_roll_no"
                                                     placeholder="{{ __('ssc_roll_no') }}">
                                                 @error('ssc_roll_no')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
@@ -739,7 +743,7 @@
                                                 <input
                                                     class="form-control @error('ssc_registration_no') is-invalid @enderror"
                                                     name="ssc_registration_no" type="text"
-                                                    value="{{ $candidate->ssc_registration_no }}"
+                                                    value="{{ old('ssc_registration_no') }}"
                                                     id="ssc_registration_no"
                                                     placeholder="{{ __('ssc_registration_no') }}">
                                                 @error('ssc_registration_no')
@@ -755,12 +759,12 @@
                                             <div class="col-sm-8">
                                                 <select name="ssc_passing_year" id="ssc_passing_year"
                                                     class="rt-selectactive w-100-p">
-                                                    <option @if ($candidate->ssc_passing_year == '2022') selected @endif
-                                                        value="2022">
-                                                        {{ __('2022') }}</option>
-                                                    <option @if ($candidate->ssc_passing_year == '2023') selected @endif
-                                                        value="2023">
-                                                        {{ __('2023') }}</option>
+                                                    <option value="">Please Select</option>
+                                                    @for ($year=1990; $year<= date("Y", strtotime('today')); $year++)
+                                                        <option @if (old('ssc_passing_year') == $year) selected @endif
+                                                        value="{{ $year }}">
+                                                        {{ $year }}</option>
+                                                    @endfor
                                                 </select>
                                                 @error('ssc_passing_year')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
@@ -772,9 +776,19 @@
                                             <label for="ssc_group"
                                                 class="col-sm-4 col-form-label">{{ __('ssc_group') }}</label>
                                             <div class="col-sm-8">
-                                                <input class="form-control @error('ssc_group') is-invalid @enderror"
-                                                    name="ssc_group" type="text" value="{{ $candidate->ssc_group }}"
-                                                    id="ssc_group" placeholder="{{ __('ssc_group') }}">
+                                                <select name="ssc_group" id="ssc_group"
+                                                    class="rt-selectactive w-100-p">
+                                                    <option value="">Please Select</option>
+                                                    <option @if (old('ssc_group') == 'Science') selected @endif
+                                                        value="Science">
+                                                        {{ __('Science') }}</option>
+                                                    <option @if (old('ssc_group') == 'Humanities') selected @endif
+                                                        value="Humanities">
+                                                        {{ __('Humanities') }}</option>
+                                                    <option @if (old('ssc_group') == 'Business Studies') selected @endif
+                                                        value="Business Studies">
+                                                        {{ __('Business Studies') }}</option>
+                                                </select>
                                                 @error('ssc_group')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                                                 @enderror
@@ -785,10 +799,16 @@
                                             <label for="ssc_result_type"
                                                 class="col-sm-4 col-form-label">{{ __('ssc_result_type') }}</label>
                                             <div class="col-sm-8">
-                                                <input class="form-control @error('ssc_result_type') is-invalid @enderror"
-                                                    name="ssc_result_type" type="text"
-                                                    value="{{ $candidate->ssc_result_type }}" id="ssc_result_type"
-                                                    placeholder="{{ __('ssc_result_type') }}">
+                                                <select name="ssc_result_type" id="ssc_result_type"
+                                                    class="rt-selectactive w-100-p">
+                                                    <option value="">Please Select</option>
+                                                    <option @if (old('ssc_result_type') == 'GPA') selected @endif
+                                                        value="GPA">
+                                                        {{ __('GPA') }}</option>
+                                                    <option @if (old('ssc_result_type') == 'Grade') selected @endif
+                                                        value="Grade">
+                                                        {{ __('Grade') }}</option>
+                                                </select>
                                                 @error('ssc_result_type')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                                                 @enderror
@@ -801,7 +821,7 @@
                                             <div class="col-sm-8">
                                                 <input class="form-control @error('ssc_result_cgpa') is-invalid @enderror"
                                                     name="ssc_result_cgpa" type="text"
-                                                    value="{{ $candidate->ssc_result_cgpa }}" id="ssc_result_cgpa"
+                                                    value="{{ old('ssc_result_cgpa') }}" id="ssc_result_cgpa"
                                                     placeholder="{{ __('ssc_result_cgpa') }}">
                                                 @error('ssc_result_cgpa')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
@@ -817,7 +837,7 @@
                                     <div class="card-header d-inline-block">
                                         {{ __('hsc') }}
                                         <input type="checkbox" name="hsc"
-                                            class="form-check-input d-inline-block mt-2" id="hsc">
+                                            class="form-check-input d-inline-block mt-2" id="hsc" {{ old('hsc') ? "checked" : '' }}>
                                         <label class="form-check-label d-inline-block mx-0 px-0" for="hsc">If
                                             Applicable</label>
                                     </div>
@@ -829,13 +849,14 @@
                                                 <select
                                                     class="rt-selectactive w-100-p @error('hsc_exam_name') is-invalid @enderror"
                                                     name="hsc_exam_name" id="hsc_exam_name">
-                                                    <option @if ($candidate->hsc_exam_name == 'hsc') selected @endif
+                                                    <option value="">Please Select</option>
+                                                    <option @if (old('hsc_exam_name') == 'hsc') selected @endif
                                                         value="hsc">
                                                         {{ __('hsc') }}
                                                     </option>
-                                                    <option @if ($candidate->hsc_exam_name == 'dakhil') selected @endif
-                                                        value="dakhil">
-                                                        {{ __('dakhil') }}
+                                                    <option @if (old('hsc_exam_name') == 'Alim') selected @endif
+                                                        value="Alim">
+                                                        {{ __('Alim') }}
                                                     </option>
                                                 </select>
                                                 @error('hsc_exam_name')
@@ -850,10 +871,11 @@
                                             <div class="col-sm-8">
                                                 <select name="hsc_education_board" id="hsc_education_board"
                                                     class="rt-selectactive w-100-p">
-                                                    <option @if ($candidate->hsc_education_board == 'Dhaka') selected @endif
+                                                    <option value="">Please Select</option>
+                                                    <option @if (old('hsc_education_board') == 'Dhaka') selected @endif
                                                         value="Dhaka">
                                                         {{ __('Dhaka') }}</option>
-                                                    <option @if ($candidate->hsc_education_board == 'dinajpur') selected @endif
+                                                    <option @if (old('hsc_education_board') == 'dinajpur') selected @endif
                                                         value="dinajpur">
                                                         {{ __('dinajpur') }}</option>
                                                 </select>
@@ -869,7 +891,7 @@
                                             <div class="col-sm-8">
                                                 <input class="form-control @error('hsc_roll_no') is-invalid @enderror"
                                                     name="hsc_roll_no" type="text"
-                                                    value="{{ $candidate->hsc_roll_no }}" id="hsc_roll_no"
+                                                    value="{{ old('hsc_roll_no') }}" id="hsc_roll_no"
                                                     placeholder="{{ __('hsc_roll_no') }}">
                                                 @error('hsc_roll_no')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
@@ -884,7 +906,7 @@
                                                 <input
                                                     class="form-control @error('hsc_registration_no') is-invalid @enderror"
                                                     name="hsc_registration_no" type="text"
-                                                    value="{{ $candidate->hsc_registration_no }}"
+                                                    value="{{ old('hsc_registration_no') }}"
                                                     id="hsc_registration_no"
                                                     placeholder="{{ __('hsc_registration_no') }}">
                                                 @error('hsc_registration_no')
@@ -900,12 +922,12 @@
                                             <div class="col-sm-8">
                                                 <select name="hsc_passing_year" id="hsc_passing_year"
                                                     class="rt-selectactive w-100-p">
-                                                    <option @if ($candidate->hsc_passing_year == '2022') selected @endif
-                                                        value="2022">
-                                                        {{ __('2022') }}</option>
-                                                    <option @if ($candidate->hsc_passing_year == '2023') selected @endif
-                                                        value="2023">
-                                                        {{ __('2023') }}</option>
+                                                    <option value="">Please Select</option>
+                                                    @for ($year=1990; $year<= date("Y", strtotime('today')); $year++)
+                                                        <option @if (old('hsc_passing_year') == $year) selected @endif
+                                                        value="{{ $year }}">
+                                                        {{ $year }}</option>
+                                                    @endfor
                                                 </select>
                                                 @error('hsc_passing_year')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
@@ -917,9 +939,19 @@
                                             <label for="hsc_group"
                                                 class="col-sm-4 col-form-label">{{ __('hsc_group') }}</label>
                                             <div class="col-sm-8">
-                                                <input class="form-control @error('hsc_group') is-invalid @enderror"
-                                                    name="hsc_group" type="text" value="{{ $candidate->hsc_group }}"
-                                                    id="hsc_group" placeholder="{{ __('hsc_group') }}">
+                                                <select name="hsc_group" id="hsc_group"
+                                                    class="rt-selectactive w-100-p">
+                                                    <option value="">Please Select</option>
+                                                    <option @if (old('hsc_group') == 'Science') selected @endif
+                                                        value="Science">
+                                                        {{ __('Science') }}</option>
+                                                    <option @if (old('hsc_group') == 'Humanities') selected @endif
+                                                        value="Humanities">
+                                                        {{ __('Humanities') }}</option>
+                                                    <option @if (old('hsc_group') == 'Business Studies') selected @endif
+                                                        value="Business Studies">
+                                                        {{ __('Business Studies') }}</option>
+                                                </select>
                                                 @error('hsc_group')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                                                 @enderror
@@ -930,10 +962,16 @@
                                             <label for="hsc_result_type"
                                                 class="col-sm-4 col-form-label">{{ __('hsc_result_type') }}</label>
                                             <div class="col-sm-8">
-                                                <input class="form-control @error('hsc_result_type') is-invalid @enderror"
-                                                    name="hsc_result_type" type="text"
-                                                    value="{{ $candidate->hsc_result_type }}" id="hsc_result_type"
-                                                    placeholder="{{ __('hsc_result_type') }}">
+                                                <select name="hsc_result_type" id="hsc_result_type"
+                                                    class="rt-selectactive w-100-p">
+                                                    <option value="">Please Select</option>
+                                                    <option @if (old('hsc_result_type') == 'GPA') selected @endif
+                                                        value="GPA">
+                                                        {{ __('GPA') }}</option>
+                                                    <option @if (old('hsc_result_type') == 'Grade') selected @endif
+                                                        value="Grade">
+                                                        {{ __('Grade') }}</option>
+                                                </select>
                                                 @error('hsc_result_type')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                                                 @enderror
@@ -946,7 +984,7 @@
                                             <div class="col-sm-8">
                                                 <input class="form-control @error('hsc_result_cgpa') is-invalid @enderror"
                                                     name="hsc_result_cgpa" type="text"
-                                                    value="{{ $candidate->hsc_result_cgpa }}" id="hsc_result_cgpa"
+                                                    value="{{ old('hsc_result_cgpa') }}" id="hsc_result_cgpa"
                                                     placeholder="{{ __('hsc_result_cgpa') }}">
                                                 @error('hsc_result_cgpa')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
@@ -978,11 +1016,12 @@
                                                     <select
                                                         class="rt-selectactive w-100-p @error('honors_exam_name') is-invalid @enderror"
                                                         name="honors_exam_name" id="honors_exam_name">
-                                                        <option @if ($candidate->honors_exam_name == 'BSc') selected @endif
+                                                        <option value="">Please Select</option>
+                                                        <option @if (old('honors_exam_name') == 'BSc') selected @endif
                                                             value="BSc">
                                                             {{ __('BSc') }}
                                                         </option>
-                                                        <option @if ($candidate->honors_exam_name == 'Degree Pass') selected @endif
+                                                        <option @if (old('honors_exam_name') == 'Degree Pass') selected @endif
                                                             value="Degree Pass">
                                                             {{ __('Degree Pass') }}
                                                         </option>
@@ -1000,10 +1039,11 @@
                                                 <div class="col-sm-8">
                                                     <select name="honors_subject" id="honors_subject"
                                                         class="rt-selectactive w-100-p">
-                                                        <option @if ($candidate->honors_subject == 'Physics') selected @endif
+                                                        <option value="">Please Select</option>
+                                                        <option @if (old('honors_subject') == 'Physics') selected @endif
                                                             value="Physics">
                                                             {{ __('Physics') }}</option>
-                                                        <option @if ($candidate->honors_subject == 'English') selected @endif
+                                                        <option @if (old('honors_subject') == 'English') selected @endif
                                                             value="English">
                                                             {{ __('English') }}</option>
                                                     </select>
@@ -1020,10 +1060,11 @@
                                                 <div class="col-sm-8">
                                                     <select name="honors_institute" id="honors_institute"
                                                         class="rt-selectactive w-100-p">
-                                                        <option @if ($candidate->honors_institute == 'Dhaka University') selected @endif
+                                                        <option value="">Please Select</option>
+                                                        <option @if (old('honors_institute') == 'Dhaka University') selected @endif
                                                             value="Dhaka University">
                                                             {{ __('Dhaka University') }}</option>
-                                                        <option @if ($candidate->honors_institute == 'Rajshahi University') selected @endif
+                                                        <option @if (old('honors_institute') == 'Rajshahi University') selected @endif
                                                             value="Rajshahi University">
                                                             {{ __('Rajshahi University') }}</option>
                                                     </select>
@@ -1043,11 +1084,12 @@
                                                     <select
                                                         class="rt-selectactive w-100-p @error('honors_result_type') is-invalid @enderror"
                                                         name="honors_result_type" id="honors_result_type">
-                                                        <option @if ($candidate->honors_result_type == 'GPA') selected @endif
+                                                        <option value="">Please Select</option>
+                                                        <option @if (old('honors_result_type') == 'GPA') selected @endif
                                                             value="GPA">
                                                             {{ __('GPA') }}
                                                         </option>
-                                                        <option @if ($candidate->honors_result_type == 'Division') selected @endif
+                                                        <option @if (old('honors_result_type') == 'Division') selected @endif
                                                             value="Division">
                                                             {{ __('Division') }}
                                                         </option>
@@ -1065,12 +1107,12 @@
                                                 <div class="col-sm-8">
                                                     <select name="honors_passing_year" id="honors_passing_year"
                                                         class="rt-selectactive w-100-p">
-                                                        <option @if ($candidate->honors_passing_year == '2022') selected @endif
-                                                            value="2022">
-                                                            {{ __('2022') }}</option>
-                                                        <option @if ($candidate->honors_passing_year == '2023') selected @endif
-                                                            value="2023">
-                                                            {{ __('2023') }}</option>
+                                                        <option value="">Please Select</option>
+                                                        @for ($year=1990; $year<= date("Y", strtotime('today')); $year++)
+                                                            <option @if (old('honors_passing_year') == $year) selected @endif
+                                                        value="{{ $year }}">
+                                                        {{ $year }}</option>
+                                                         @endfor
                                                     </select>
                                                     @error('honors_passing_year')
                                                         <span class="invalid-feedback"
@@ -1085,12 +1127,13 @@
                                                 <div class="col-sm-8">
                                                     <select name="honors_course_duration" id="honors_course_duration"
                                                         class="rt-selectactive w-100-p">
-                                                        <option @if ($candidate->honors_course_duration == '4') selected @endif
-                                                            value="4">
-                                                            {{ __('4') }}</option>
-                                                        <option @if ($candidate->honors_course_duration == '5') selected @endif
-                                                            value="5">
-                                                            {{ __('5') }}</option>
+                                                        <option value="">Please Select</option>
+                                                        @for ($year=1; $year<=5; $year++)
+                                                            <option @if (old('honors_course_duration') == $year) selected @endif
+                                                        value="{{ $year }}">
+                                                        {{ $year }}</option>
+                                                        @endfor
+                                                        
                                                     </select>
                                                     @error('honors_course_duration')
                                                         <span class="invalid-feedback"
@@ -1102,7 +1145,7 @@
                                     </div>
                                 </div>
                             </div>
-
+                            
                             {{-- Masters --}}
                             <div class="row pt-2">
                                 {{-- Masters --}}
@@ -1123,13 +1166,14 @@
                                                     <select
                                                         class="rt-selectactive w-100-p @error('masters_exam_name') is-invalid @enderror"
                                                         name="masters_exam_name" id="masters_exam_name">
-                                                        <option @if ($candidate->masters_exam_name == 'BSc') selected @endif
-                                                            value="BSc">
-                                                            {{ __('BSc') }}
+                                                        <option value="">Please Select</option>
+                                                        <option @if (old('masters_exam_name') == 'Msc') selected @endif
+                                                            value="Msc">
+                                                            {{ __('Msc') }}
                                                         </option>
-                                                        <option @if ($candidate->masters_exam_name == 'Degree Pass') selected @endif
-                                                            value="Degree Pass">
-                                                            {{ __('Degree Pass') }}
+                                                        <option @if (old('masters_exam_name') == 'Phd') selected @endif
+                                                            value="Phd">
+                                                            {{ __('Phd') }}
                                                         </option>
                                                     </select>
                                                     @error('masters_exam_name')
@@ -1145,10 +1189,11 @@
                                                 <div class="col-sm-8">
                                                     <select name="masters_subject" id="masters_subject"
                                                         class="rt-selectactive w-100-p">
-                                                        <option @if ($candidate->masters_subject == 'Physics') selected @endif
+                                                        <option value="">Please Select</option>
+                                                        <option @if (old('masters_subject') == 'Physics') selected @endif
                                                             value="Physics">
                                                             {{ __('Physics') }}</option>
-                                                        <option @if ($candidate->masters_subject == 'English') selected @endif
+                                                        <option @if (old('masters_subject') == 'English') selected @endif
                                                             value="English">
                                                             {{ __('English') }}</option>
                                                     </select>
@@ -1165,10 +1210,10 @@
                                                 <div class="col-sm-8">
                                                     <select name="masters_institute" id="masters_institute"
                                                         class="rt-selectactive w-100-p">
-                                                        <option @if ($candidate->masters_institute == 'Dhaka University') selected @endif
+                                                        <option @if (old('masters_institute') == 'Dhaka University') selected @endif
                                                             value="Dhaka University">
                                                             {{ __('Dhaka University') }}</option>
-                                                        <option @if ($candidate->masters_institute == 'Rajshahi University') selected @endif
+                                                        <option @if (old('masters_institute') == 'Rajshahi University') selected @endif
                                                             value="Rajshahi University">
                                                             {{ __('Rajshahi University') }}</option>
                                                     </select>
@@ -1188,11 +1233,12 @@
                                                     <select
                                                         class="rt-selectactive w-100-p @error('masters_result_type') is-invalid @enderror"
                                                         name="masters_result_type" id="masters_result_type">
-                                                        <option @if ($candidate->masters_result_type == 'GPA') selected @endif
+                                                        <option value="">Please Select</option>
+                                                        <option @if (old('masters_result_type') == 'GPA') selected @endif
                                                             value="GPA">
                                                             {{ __('GPA') }}
                                                         </option>
-                                                        <option @if ($candidate->masters_result_type == 'Division') selected @endif
+                                                        <option @if (old('masters_result_type') == 'Division') selected @endif
                                                             value="Division">
                                                             {{ __('Division') }}
                                                         </option>
@@ -1210,12 +1256,12 @@
                                                 <div class="col-sm-8">
                                                     <select name="masters_passing_year" id="masters_passing_year"
                                                         class="rt-selectactive w-100-p">
-                                                        <option @if ($candidate->masters_passing_year == '2022') selected @endif
-                                                            value="2022">
-                                                            {{ __('2022') }}</option>
-                                                        <option @if ($candidate->masters_passing_year == '2023') selected @endif
-                                                            value="2023">
-                                                            {{ __('2023') }}</option>
+                                                        <option value="">Please Select</option>
+                                                        @for ($year=1990; $year<= date("Y", strtotime('today')); $year++)
+                                                            <option @if (old('masters_passing_year') == $year) selected @endif
+                                                        value="{{ $year }}">
+                                                        {{ $year }}</option>
+                                                         @endfor
                                                     </select>
                                                     @error('masters_passing_year')
                                                         <span class="invalid-feedback"
@@ -1230,12 +1276,12 @@
                                                 <div class="col-sm-8">
                                                     <select name="masters_course_duration" id="masters_course_duration"
                                                         class="rt-selectactive w-100-p">
-                                                        <option @if ($candidate->masters_course_duration == '4') selected @endif
-                                                            value="4">
-                                                            {{ __('4') }}</option>
-                                                        <option @if ($candidate->masters_course_duration == '5') selected @endif
-                                                            value="5">
-                                                            {{ __('5') }}</option>
+                                                        <option value="">Please Select</option>
+                                                        @for ($year=1; $year<=5; $year++)
+                                                            <option @if (old('masters_course_duration') == $year) selected @endif
+                                                        value="{{ $year }}">
+                                                        {{ $year }}</option>
+                                                        @endfor
                                                     </select>
                                                     @error('masters_course_duration')
                                                         <span class="invalid-feedback"
