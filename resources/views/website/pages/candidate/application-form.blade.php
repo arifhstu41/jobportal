@@ -149,7 +149,7 @@
 
                                     <div class="fromGroup">
                                         <div class="d-flex align-items-center form-control-icon date datepicker">
-                                            <input type="text" name="birth_date" value="" id="date" placeholder="dd/mm/yyyy" class="form-control border-cutom " autocomplete="off">
+                                            <input type="text" name="birth_date" value="{{ date('d-m-Y', strtotime($candidate->birth_date)) }}" id="date" placeholder="dd/mm/yyyy" class="form-control border-cutom "  autocomplete="off">
                                             <span class="input-group-addon input-group-text-custom">
                                                 <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M17.875 3.4375H4.125C3.7453 3.4375 3.4375 3.7453 3.4375 4.125V17.875C3.4375 18.2547 3.7453 18.5625 4.125 18.5625H17.875C18.2547 18.5625 18.5625 18.2547 18.5625 17.875V4.125C18.5625 3.7453 18.2547 3.4375 17.875 3.4375Z" stroke="#18191C" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -1229,6 +1229,7 @@
                                                 <div class="col-sm-8">
                                                     <select name="masters_institute" id="masters_institute"
                                                         class="rt-selectactive w-100-p">
+                                                        <option value="">Please Select</option>
                                                         <option @if (old('masters_institute') == 'Dhaka University') selected @endif
                                                             value="Dhaka University">
                                                             {{ __('Dhaka University') }}</option>
