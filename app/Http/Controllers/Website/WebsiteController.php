@@ -1109,7 +1109,7 @@ class WebsiteController extends Controller
                 'honors_exam_name' => 'required',
                 'honors_subject' => 'required',
                 'honors_institute' => 'required',
-                'honors_result_cgpa' => 'required',
+                'honors_result_type' => 'required',
                 'honors_passing_year' => 'required',
                 'honors_course_duration' => 'required',
             ]);
@@ -1121,7 +1121,7 @@ class WebsiteController extends Controller
                 'masters_subject' => 'required',
                 'masters_institute' => 'required',
                 'masters_result_type' => 'required',
-                'masters_result_cgpa' => 'required',
+                // 'masters_result_cgpa' => 'required',
                 'masters_passing_year' => 'required',
                 'masters_course_duration' => 'required',
             ]);
@@ -1226,6 +1226,7 @@ class WebsiteController extends Controller
             }
 
             if ($request->masters) {
+
                 $education = new CandidateEducation();
                 $education->candidate_id = $candidate->id;
                 $education->level = "masters";
@@ -1238,15 +1239,12 @@ class WebsiteController extends Controller
                 $education->course_duration = $request->masters_course_duration;
                 $education->save();
             }
-
             $candidate->profile_complete= 0;
             $candidate->save();
             DB::commit();
             return redirect()->route('candidate.dashboard')->with('success', 'Application added successfully');
         } catch (\Throwable $th) {
             $msg= $th->getMessage();
-
-            dd($msg);
             return back()->withInput()->with('error', $msg);
         }
         

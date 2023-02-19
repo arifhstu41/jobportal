@@ -440,7 +440,7 @@
                                                     class="rt-selectactive w-100-p">
                                                     <option value="">Please Select</option>
                                                     @foreach ($divisions as $division)
-                                                        <option value="{{ $division->id }}>"
+                                                        <option value="{{ $division->id }}"
                                                             {{ ($division->id == $candidate->region_parmanent) ? "selected" : "" }}>
                                                             {{ $division->name }}</option>
                                                     @endforeach
@@ -460,7 +460,7 @@
                                                     class="rt-selectactive w-100-p">
                                                     <option value="">Please Select</option>
                                                     @foreach ($districts as $district)
-                                                        <option value="{{ $district->id }}>"
+                                                        <option value="{{ $district->id }}"
                                                             {{ ($district->id == $candidate->district_parmanent)  ? "selected" : "" }}>
                                                             {{ $district->name }}</option>
                                                     @endforeach
@@ -480,7 +480,7 @@
                                                     class="rt-selectactive w-100-p">
                                                     <option value="">Please Select</option>
                                                     @foreach ($upazilas as $upazila)
-                                                        <option value="{{ $upazila->id }}>"
+                                                        <option value="{{ $upazila->id }}"
                                                             {{ ($upazila->id == $candidate->thana_parmanent) ? "selected" : "" }}>
                                                             {{ $upazila->name }}</option>
                                                     @endforeach
