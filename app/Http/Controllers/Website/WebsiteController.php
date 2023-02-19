@@ -1000,7 +1000,7 @@ class WebsiteController extends Controller
         $division_id = $_GET['division'];
         $districts = DB::table('districts')->where('division_id', $division_id)->get();
 
-        $html = "";
+        $html = "<option>Please Select</option>";
 
         foreach($districts as $each){
             $html.= "<option value=".$each->id.">".$each->name."</option>";
@@ -1015,7 +1015,7 @@ class WebsiteController extends Controller
         $district_id = $_GET['district_id'];
         $thana = DB::table('upazilas')->where('district_id', $district_id)->get();
 
-        $html = "";
+        $html = "<option>Please Select</option>";
 
         foreach($thana as $each){
             $html.= "<option value=".$each->id.">".$each->name."</option>";
@@ -1028,7 +1028,7 @@ class WebsiteController extends Controller
     // submit application form
     public function applicationFormSubmit(Request $request)
     {
-        
+
         $request->validate([
             'name' => 'required',
             'name_bn' => 'required',
@@ -1164,7 +1164,7 @@ class WebsiteController extends Controller
             $candidate->save();
 
             if ($request->psc) {
-               
+
                 $education = new CandidateEducation();
                 $education->candidate_id = $candidate->id;
                 $education->level = "psc";
@@ -1250,6 +1250,6 @@ class WebsiteController extends Controller
             $msg= $th->getMessage();
             return back()->withInput()->with('error', $msg);
         }
-        
+
     }
 }

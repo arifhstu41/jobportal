@@ -27,6 +27,13 @@
         span.required {
             color: red;
         }
+
+        .input-group-text-custom {
+            max-height: 48px;
+            padding: 12px;
+            background-color: #e9ecef;
+            border-radius: 0 5px 5px 0;
+        }
     </style>
     <div class="dashboard-wrapper">
         <div class="container">
@@ -130,17 +137,29 @@
                             </div>
 
                             <div class="form-group form-group-sm row py-2">
-                                <label for="birth_date" class="col-sm-3 col-form-label">{{ __('birth_date') }}<span
-                                        class="required">*</span></label>
+                                <label for="birth_date" class="col-sm-3 col-form-label">{{ __('birth_date') }}<span class="required">*</span></label>
                                 <div class="col-sm-9">
-                                    <input required
+                                    {{-- <input required
                                         class="form-control @error('birth_date') is-invalid @enderror datepicker date ps-2"
-                                        name="birth_date" type="text"
-                                        value="{{ old('birth_date') ? old('birth_date') : $candidate->birth_date }}"
+                                        name="birth_date" type="text" value="{{ old('birth_date') ? old('birth_date') : $candidate->birth_date }}"
                                         id="birth_date" placeholder="{{ __('birth_date') }}">
                                     @error('birth_date')
                                         <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
-                                    @enderror
+                                    @enderror --}}
+
+                                    <div class="fromGroup">
+                                        <div class="d-flex align-items-center form-control-icon date datepicker">
+                                            <input type="text" name="birth_date" value="" id="date" placeholder="dd/mm/yyyy" class="form-control border-cutom " autocomplete="off">
+                                            <span class="input-group-addon input-group-text-custom">
+                                                <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M17.875 3.4375H4.125C3.7453 3.4375 3.4375 3.7453 3.4375 4.125V17.875C3.4375 18.2547 3.7453 18.5625 4.125 18.5625H17.875C18.2547 18.5625 18.5625 18.2547 18.5625 17.875V4.125C18.5625 3.7453 18.2547 3.4375 17.875 3.4375Z" stroke="#18191C" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                    <path d="M15.125 2.0625V4.8125" stroke="#18191C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                    <path d="M6.875 2.0625V4.8125" stroke="#18191C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                    <path d="M3.4375 7.5625H18.5625" stroke="#18191C" stroke-width="1.5" stroke-linejoin="round"></path>
+                                                    </svg>
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
