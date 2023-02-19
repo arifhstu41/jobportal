@@ -31,6 +31,7 @@ use App\Models\CandidateLanguage;
 use App\Http\Traits\Candidateable;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\CandidateEducation;
 use Illuminate\Support\Facades\Auth;
 use Modules\Faq\Entities\FaqCategory;
 use Modules\Blog\Entities\PostComment;
@@ -1027,6 +1028,7 @@ class WebsiteController extends Controller
     // submit application form
     public function applicationFormSubmit(Request $request)
     {
+        
         $request->validate([
             'name' => 'required',
             'name_bn' => 'required',
@@ -1037,9 +1039,6 @@ class WebsiteController extends Controller
             'birth_date' => 'required',
             'gender' => 'required',
             'religion' => 'required',
-            'birth_certificate_no' => 'required',
-            'nid_no' => 'required',
-            'passport_no' => 'required',
             'marital_status' => 'required',
             'quota' => 'required',
             'care_of' =>  'required',
@@ -1049,8 +1048,6 @@ class WebsiteController extends Controller
             'post_office' =>  'required',
             'postcode' =>  'required',
             'place' =>  'required',
-            'picture' => 'required',
-            'signature' => 'required',
         ]);
 
         if (!$request->same_address) {
@@ -1073,7 +1070,6 @@ class WebsiteController extends Controller
             ]);
         }
 
-
         if ($request->jsc) {
             $request->validate([
                 'jsc_roll_no' => 'required',
@@ -1081,7 +1077,6 @@ class WebsiteController extends Controller
                 'jsc_school' => 'required',
             ]);
         }
-
 
         if ($request->ssc) {
             $request->validate([
@@ -1096,7 +1091,6 @@ class WebsiteController extends Controller
             ]);
         }
 
-
         if ($request->hsc) {
             $request->validate([
                 'hsc_exam_name' => 'required',
@@ -1110,7 +1104,6 @@ class WebsiteController extends Controller
             ]);
         }
 
-
         if ($request->honors) {
             $request->validate([
                 'honors_exam_name' => 'required',
@@ -1121,7 +1114,6 @@ class WebsiteController extends Controller
                 'honors_course_duration' => 'required',
             ]);
         }
-
 
         if ($request->masters) {
             $request->validate([
@@ -1135,16 +1127,9 @@ class WebsiteController extends Controller
             ]);
         }
 
-
         DB::beginTransaction();
-
         try {
-            //code...
-
-            
-
             $candidate = Candidate::where('user_id', Auth::user()->id)->first();
-
             $candidate->name_bn = $request->name_bn;
             $candidate->father_name = $request->father_name;
             $candidate->father_name_bn = $request->father_name_bn;
@@ -1153,7 +1138,7 @@ class WebsiteController extends Controller
             $candidate->birth_date = date('Y-m-d', strtotime($request->birth_date));
             $candidate->gender = $request->gender;
             $candidate->religion = $request->religion;
-            $candidate->birth_certificate_no = $request->birth_certificate_nos;
+            $candidate->birth_certificate_no = $request->birth_certificate_no;
             $candidate->nid_no = $request->nid_no;
             $candidate->passport_no = $request->passport_no;
             $candidate->marital_status = $request->marital_status;
@@ -1165,9 +1150,6 @@ class WebsiteController extends Controller
             $candidate->post_office = $request->post_office;
             $candidate->postcode = $request->postcode;
             $candidate->place = $request->place;
-            // $candidate->picture = $request->picture;
-            // $candidate->signature = $request->signature;
-
             $candidate->care_of_parmanent = ($request->same_address) ? $request->care_of : $request->care_of_parmanent;
             $candidate->place_parmanent = ($request->same_address) ? $request->place : $request->place_parmanent;
             $candidate->post_office_parmanent = ($request->same_address) ? $request->post_office : $request->post_office_parmanent;
@@ -1178,9 +1160,9 @@ class WebsiteController extends Controller
             $candidate->profile_complete= ($candidate->profile_complete > 0) ? ($candidate->profile_complete-25) : 0;
             $candidate->save();
 
-
             if ($request->psc) {
-                $education = new Education();
+               
+                $education = new CandidateEducation();
                 $education->candidate_id = $candidate->id;
                 $education->level = "psc";
                 $education->roll = $request->psc_roll_no;
@@ -1190,7 +1172,7 @@ class WebsiteController extends Controller
             }
 
             if ($request->psc) {
-                $education = new Education();
+                $education = new CandidateEducation();
                 $education->candidate_id = $candidate->id;
                 $education->level = "jsc";
                 $education->roll = $request->jsc_roll_no;
@@ -1200,7 +1182,7 @@ class WebsiteController extends Controller
             }
 
             if ($request->ssc) {
-                $education = new Education();
+                $education = new CandidateEducation();
                 $education->candidate_id = $candidate->id;
                 $education->level = "ssc";
                 $education->degree = $request->ssc_exam_name;
@@ -1215,7 +1197,7 @@ class WebsiteController extends Controller
             }
 
             if ($request->hsc) {
-                $education = new Education();
+                $education = new CandidateEducation();
                 $education->candidate_id = $candidate->id;
                 $education->level = "hsc";
                 $education->degree = $request->hsc_exam_name;
@@ -1230,7 +1212,7 @@ class WebsiteController extends Controller
             }
 
             if ($request->honors) {
-                $education = new Education();
+                $education = new CandidateEducation();
                 $education->candidate_id = $candidate->id;
                 $education->level = "honors";
                 $education->degree = $request->honors_exam_name;
@@ -1243,9 +1225,8 @@ class WebsiteController extends Controller
                 $education->save();
             }
 
-
             if ($request->masters) {
-                $education = new Education();
+                $education = new CandidateEducation();
                 $education->candidate_id = $candidate->id;
                 $education->level = "masters";
                 $education->degree = $request->masters_exam_name;
@@ -1258,17 +1239,16 @@ class WebsiteController extends Controller
                 $education->save();
             }
 
-            // $candidate->profile_complete= ($candidate->profile_complete > 0) ? ($candidate->profile_complete-25) : 0;
-            $candidate->profile_complete=  0;
+            $candidate->profile_complete= 0;
             $candidate->save();
-
             DB::commit();
             return redirect()->route('candidate.dashboard')->with('success', 'Application added successfully');
         } catch (\Throwable $th) {
             $msg= $th->getMessage();
+
+            dd($msg);
             return back()->withInput()->with('error', $msg);
         }
-
         
     }
 }
