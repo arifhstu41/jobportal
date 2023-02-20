@@ -131,7 +131,7 @@
                             </div>
                             <div class="{{ $map == 'leaflet' ? '' : 'd-none' }}">
                                 <input type="text" autocomplete="off" id="leaflet_search"
-                                    placeholder="{{ __('enter_city_name') }}" class="form-control" /> <br>
+                                    placeholder="{{ __('enter_city_name') }}" class="form-control" name="location_name" /> <br>
                                 <div id="leaflet-map"></div>
                             </div>
                             @error('location')

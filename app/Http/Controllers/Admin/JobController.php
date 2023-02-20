@@ -144,6 +144,7 @@ class JobController extends Controller
      */
     public function store(JobFormRequest $request)
     {
+        
         abort_if(!userCan('job.create'), 403);
 
         // Highlight & featured
@@ -171,6 +172,7 @@ class JobController extends Controller
             'apply_email' => $request->apply_email ?? null,
             'apply_url' => $request->apply_url ?? null,
             'description' => $request->description,
+            'location_name' => $request->location_name,
             'featured' => $featured,
             'highlight' => $highlight,
             'featured_until' => $featured_days,
@@ -244,6 +246,7 @@ class JobController extends Controller
      */
     public function update(JobFormRequest $request, Job $job)
     {
+        // dd($request->location_name);
         abort_if(!userCan('job.update'), 403);
 
         $highlight = $request->badge == 'highlight' ? 1 : 0;
@@ -266,6 +269,7 @@ class JobController extends Controller
             'apply_email' => $request->apply_email ?? null,
             'apply_url' => $request->apply_url ?? null,
             'description' => $request->description,
+            'location_name' => $request->location_name,
             'featured' => $featured,
             'highlight' => $highlight,
             'is_remote' => $request->is_remote ?? 0,
