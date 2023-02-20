@@ -74,7 +74,7 @@ class JobFormRequest extends FormRequest
                 'isremote' => 'nullable|numeric',
                 'tags' => 'required',
                 'benefits' => 'required',
-                'location' => Rule::requiredIf(!session('location'))
+                // 'location' => Rule::requiredIf(!session('location'))
             ];
         }
     }
