@@ -133,7 +133,7 @@
                                 <div class="map mymap" id="google-map"></div>
                             </div>
                             <div class="{{ $map == 'leaflet' ? '' : 'd-none' }}">
-                                <input type="text" autocomplete="off" id="leaflet_search"
+                                <input type="text" autocomplete="off" id="leaflet_search" value="{{ old('leaflet_search', $job->location_name) }}" name="location_name" 
                                     placeholder="{{ __('enter_city_name') }}" class="form-control" /> <br>
                                 <div id="leaflet-map"></div>
                             </div>
