@@ -598,11 +598,12 @@
                                             <label for="psc_passing_year"
                                                 class="col-sm-4 col-form-label">{{ __('psc_passing_year') }}</label>
                                             <div class="col-sm-8">
-                                                <input
-                                                    class="form-control @error('psc_passing_year') is-invalid @enderror"
-                                                    name="psc_passing_year" type="text"
-                                                    value="{{ old('psc_passing_year') ?? '' }}" id="psc_passing_year"
-                                                    placeholder="{{ __('psc_passing_year') }}">
+                                                <select name="psc_passing_year" id="psc_passing_year" class="rt-selectactive w-100-p">
+                                                     <option value="">Please Select</option>
+                                                    @foreach ($years as $key => $year)
+                                                            <option value="{{ $year }}" {{ (old('psc_passing_year') == $year) ? 'selected' : '' }}>{{ $year }}</option>
+                                                    @endforeach
+                                                </select>
                                                 @error('psc_passing_year')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                                                 @enderror
@@ -654,11 +655,12 @@
                                             <label for="jsc_passing_year"
                                                 class="col-sm-4 col-form-label">{{ __('jsc_passing_year') }}</label>
                                             <div class="col-sm-8">
-                                                <input
-                                                    class="form-control @error('jsc_passing_year') is-invalid @enderror"
-                                                    name="jsc_passing_year" type="text"
-                                                    value="{{ $candidate->jsc_passing_year }}" id="jsc_passing_year"
-                                                    placeholder="{{ __('jsc_passing_year') }}">
+                                                <select name="jsc_passing_year" id="jsc_passing_year" class="rt-selectactive w-100-p">
+                                                     <option value="">Please Select</option>
+                                                    @foreach ($years as $key => $year)
+                                                            <option value="{{ $year }}" {{ (old('jsc_passing_year') == $year) ? 'selected' : '' }}>{{ $year }}</option>
+                                                    @endforeach
+                                                </select>
                                                 @error('jsc_passing_year')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                                                 @enderror
@@ -776,14 +778,11 @@
                                             <label for="ssc_passing_year"
                                                 class="col-sm-4 col-form-label">{{ __('ssc_passing_year') }}</label>
                                             <div class="col-sm-8">
-                                                <select name="ssc_passing_year" id="ssc_passing_year"
-                                                    class="rt-selectactive w-100-p">
-                                                    <option value="">Please Select</option>
-                                                    @for ($year=1990; $year<= date("Y", strtotime('today')); $year++)
-                                                        <option @if (old('ssc_passing_year') == $year) selected @endif
-                                                        value="{{ $year }}">
-                                                        {{ $year }}</option>
-                                                    @endfor
+                                                <select name="ssc_passing_year" id="ssc_passing_year" class="rt-selectactive w-100-p">
+                                                     <option value="">Please Select</option>
+                                                    @foreach ($years as $key => $year)
+                                                            <option value="{{ $year }}" {{ (old('ssc_passing_year') == $year) ? 'selected' : '' }}>{{ $year }}</option>
+                                                    @endforeach
                                                 </select>
                                                 @error('ssc_passing_year')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
@@ -821,12 +820,11 @@
                                                 <select name="ssc_result_type" id="ssc_result_type"
                                                     class="rt-selectactive w-100-p">
                                                     <option value="">Please Select</option>
-                                                    <option @if (old('ssc_result_type') == 'GPA') selected @endif
-                                                        value="GPA">
-                                                        {{ __('GPA') }}</option>
-                                                    <option @if (old('ssc_result_type') == 'Grade') selected @endif
-                                                        value="Grade">
-                                                        {{ __('Grade') }}</option>
+                                                    <option value="1st Division" {{ (old('ssc_result_type') == '1st Division') ? "selected" : '' }}>1st Division</option>
+                                                    <option value="2nd Division" {{ (old('ssc_result_type') == '2nd Division') ? "selected" : '' }}>2nd Division</option>
+                                                    <option value="Passed" {{ (old('ssc_result_type') == 'Passed') ? "selected" : '' }}>Passed</option>
+                                                    <option value="GPA4" {{ (old('ssc_result_type') == 'GPA4') ? "selected" : '' }}>GPA(out of 4)</option>
+                                                    <option value="GPA5" {{ (old('ssc_result_type') == 'GPA5') ? "selected" : '' }}>GPA(out of 5)</option>
                                                 </select>
                                                 @error('ssc_result_type')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
@@ -939,14 +937,11 @@
                                             <label for="hsc_passing_year"
                                                 class="col-sm-4 col-form-label">{{ __('hsc_passing_year') }}</label>
                                             <div class="col-sm-8">
-                                                <select name="hsc_passing_year" id="hsc_passing_year"
-                                                    class="rt-selectactive w-100-p">
-                                                    <option value="">Please Select</option>
-                                                    @for ($year=1990; $year<= date("Y", strtotime('today')); $year++)
-                                                        <option @if (old('hsc_passing_year') == $year) selected @endif
-                                                        value="{{ $year }}">
-                                                        {{ $year }}</option>
-                                                    @endfor
+                                                <select name="hsc_passing_year" id="hsc_passing_year" class="rt-selectactive w-100-p">
+                                                     <option value="">Please Select</option>
+                                                    @foreach ($years as $key => $year)
+                                                            <option value="{{ $year }}" {{ (old('hsc_passing_year') == $year) ? 'selected' : '' }}>{{ $year }}</option>
+                                                    @endforeach
                                                 </select>
                                                 @error('hsc_passing_year')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
@@ -984,12 +979,11 @@
                                                 <select name="hsc_result_type" id="hsc_result_type"
                                                     class="rt-selectactive w-100-p">
                                                     <option value="">Please Select</option>
-                                                    <option @if (old('hsc_result_type') == 'GPA') selected @endif
-                                                        value="GPA">
-                                                        {{ __('GPA') }}</option>
-                                                    <option @if (old('hsc_result_type') == 'Grade') selected @endif
-                                                        value="Grade">
-                                                        {{ __('Grade') }}</option>
+                                                    <option value="1st Division" {{ (old('hsc_result_type') == '1st Division') ? "selected" : '' }}>1st Division</option>
+                                                    <option value="2nd Division" {{ (old('hsc_result_type') == '2nd Division') ? "selected" : '' }}>2nd Division</option>
+                                                    <option value="Passed" {{ (old('hsc_result_type') == 'Passed') ? "selected" : '' }}>Passed</option>
+                                                    <option value="GPA4" {{ (old('hsc_result_type') == 'GPA4') ? "selected" : '' }}>GPA(out of 4)</option>
+                                                    <option value="GPA5" {{ (old('hsc_result_type') == 'GPA5') ? "selected" : '' }}>GPA(out of 5)</option>
                                                 </select>
                                                 @error('hsc_result_type')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
@@ -1080,12 +1074,10 @@
                                                     <select name="honors_institute" id="honors_institute"
                                                         class="rt-selectactive w-100-p">
                                                         <option value="">Please Select</option>
-                                                        <option @if (old('honors_institute') == 'Dhaka University') selected @endif
-                                                            value="Dhaka University">
-                                                            {{ __('Dhaka University') }}</option>
-                                                        <option @if (old('honors_institute') == 'Rajshahi University') selected @endif
-                                                            value="Rajshahi University">
-                                                            {{ __('Rajshahi University') }}</option>
+                                                        @foreach ($universities as $university)
+                                                            <option @if (old('honors_institute') == $university->name) selected @endif value="{{ $university->name }}"> {{ $university->name }}</option>
+                                                        @endforeach
+
                                                     </select>
                                                     @error('honors_institute')
                                                         <span class="invalid-feedback"
@@ -1104,14 +1096,11 @@
                                                         class="rt-selectactive w-100-p @error('honors_result_type') is-invalid @enderror"
                                                         name="honors_result_type" id="honors_result_type">
                                                         <option value="">Please Select</option>
-                                                        <option @if (old('honors_result_type') == 'GPA') selected @endif
-                                                            value="GPA">
-                                                            {{ __('GPA') }}
-                                                        </option>
-                                                        <option @if (old('honors_result_type') == 'Division') selected @endif
-                                                            value="Division">
-                                                            {{ __('Division') }}
-                                                        </option>
+                                                        <option value="1st Division" {{ (old('honors_result_type') == '1st Division') ? "selected" : '' }}>1st Division</option>
+                                                    <option value="2nd Division" {{ (old('honors_result_type') == '2nd Division') ? "selected" : '' }}>2nd Division</option>
+                                                    <option value="Passed" {{ (old('honors_result_type') == 'Passed') ? "selected" : '' }}>Passed</option>
+                                                    <option value="GPA4" {{ (old('honors_result_type') == 'GPA4') ? "selected" : '' }}>GPA(out of 4)</option>
+                                                    <option value="GPA5" {{ (old('honors_result_type') == 'GPA5') ? "selected" : '' }}>GPA(out of 5)</option>
                                                     </select>
                                                     @error('honors_result_type')
                                                         <span class="invalid-feedback"
@@ -1124,14 +1113,11 @@
                                                 <label for="honors_passing_year"
                                                     class="col-sm-4 col-form-label">{{ __('honors_passing_year') }}</label>
                                                 <div class="col-sm-8">
-                                                    <select name="honors_passing_year" id="honors_passing_year"
-                                                        class="rt-selectactive w-100-p">
-                                                        <option value="">Please Select</option>
-                                                        @for ($year=1990; $year<= date("Y", strtotime('today')); $year++)
-                                                            <option @if (old('honors_passing_year') == $year) selected @endif
-                                                        value="{{ $year }}">
-                                                        {{ $year }}</option>
-                                                         @endfor
+                                                    <select name="honors_passing_year" id="honors_passing_year" class="rt-selectactive w-100-p">
+                                                         <option value="">Please Select</option>
+                                                        @foreach ($years as $key => $year)
+                                                                <option value="{{ $year }}" {{ (old('honors_passing_year') == $year) ? 'selected' : '' }}>{{ $year }}</option>
+                                                        @endforeach
                                                     </select>
                                                     @error('honors_passing_year')
                                                         <span class="invalid-feedback"
@@ -1230,12 +1216,9 @@
                                                     <select name="masters_institute" id="masters_institute"
                                                         class="rt-selectactive w-100-p">
                                                         <option value="">Please Select</option>
-                                                        <option @if (old('masters_institute') == 'Dhaka University') selected @endif
-                                                            value="Dhaka University">
-                                                            {{ __('Dhaka University') }}</option>
-                                                        <option @if (old('masters_institute') == 'Rajshahi University') selected @endif
-                                                            value="Rajshahi University">
-                                                            {{ __('Rajshahi University') }}</option>
+                                                        @foreach ($universities as $university)
+                                                            <option @if (old('masters_institute') == $university->name) selected @endif value="{{ $university->name }}"> {{ $university->name }}</option>
+                                                        @endforeach
                                                     </select>
                                                     @error('masters_institute')
                                                         <span class="invalid-feedback"
@@ -1253,15 +1236,11 @@
                                                     <select
                                                         class="rt-selectactive w-100-p @error('masters_result_type') is-invalid @enderror"
                                                         name="masters_result_type" id="masters_result_type">
-                                                        <option value="">Please Select</option>
-                                                        <option @if (old('masters_result_type') == 'GPA') selected @endif
-                                                            value="GPA">
-                                                            {{ __('GPA') }}
-                                                        </option>
-                                                        <option @if (old('masters_result_type') == 'Division') selected @endif
-                                                            value="Division">
-                                                            {{ __('Division') }}
-                                                        </option>
+                                                        <option value="1st Division" {{ (old('masters_result_type') == '1st Division') ? "selected" : '' }}>1st Division</option>
+                                                    <option value="2nd Division" {{ (old('masters_result_type') == '2nd Division') ? "selected" : '' }}>2nd Division</option>
+                                                    <option value="Passed" {{ (old('masters_result_type') == 'Passed') ? "selected" : '' }}>Passed</option>
+                                                    <option value="GPA4" {{ (old('masters_result_type') == 'GPA4') ? "selected" : '' }}>GPA(out of 4)</option>
+                                                    <option value="GPA5" {{ (old('masters_result_type') == 'GPA5') ? "selected" : '' }}>GPA(out of 5)</option>
                                                     </select>
                                                     @error('masters_result_type')
                                                         <span class="invalid-feedback"
@@ -1274,14 +1253,11 @@
                                                 <label for="masters_passing_year"
                                                     class="col-sm-4 col-form-label">{{ __('masters_passing_year') }}</label>
                                                 <div class="col-sm-8">
-                                                    <select name="masters_passing_year" id="masters_passing_year"
-                                                        class="rt-selectactive w-100-p">
-                                                        <option value="">Please Select</option>
-                                                        @for ($year=1990; $year<= date("Y", strtotime('today')); $year++)
-                                                            <option @if (old('masters_passing_year') == $year) selected @endif
-                                                        value="{{ $year }}">
-                                                        {{ $year }}</option>
-                                                         @endfor
+                                                    <select name="masters_passing_year" id="masters_passing_year" class="rt-selectactive w-100-p">
+                                                         <option value="">Please Select</option>
+                                                        @foreach ($years as $key => $year)
+                                                                <option value="{{ $year }}" {{ (old('masters_passing_year') == $year) ? 'selected' : '' }}>{{ $year }}</option>
+                                                        @endforeach
                                                     </select>
                                                     @error('masters_passing_year')
                                                         <span class="invalid-feedback"
@@ -1358,7 +1334,7 @@
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-primary mt-4">
+                            <button type="submit" class="btn btn-primary mt-4 mb-3">
                                 {{ __('save_changes') }}
                             </button>
                         </div>

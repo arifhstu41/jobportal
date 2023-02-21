@@ -991,8 +991,13 @@ class WebsiteController extends Controller
         $unions = DB::table('unions')->get();
         $upazilas = DB::table('upazilas')->get();
         // echo "<pre>";print_r($districts);die;
+        $universities= DB::table('bd_universities')->get();
+        $years= [];
+        for ($i=2000; $i <2051 ; $i++) { 
+            $years[]= $i;
+        }
         $user= Auth::user();
-        return view('website.pages.candidate.application-form', compact('candidate', 'user','divisions', 'districts','unions', 'upazilas'));
+        return view('website.pages.candidate.application-form', compact('candidate', 'user','divisions', 'districts','unions', 'upazilas', 'universities', 'years'));
     }
 
     public function getDistrictByDivision(){

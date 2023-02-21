@@ -91,12 +91,22 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-12">
+                                    <div class="col-lg-6">
                                         <div class="fromGroup rt-mb-15">
                                             <input type="email" id="email" value="{{ old('email') }}" name="email"
                                                 class="field form-control @error('email') is-invalid @enderror"
                                                 placeholder="{{ __('email_address') }}">
                                             @error('email')
+                                                <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="fromGroup rt-mb-15">
+                                            <input type="phone" id="phone" value="{{ old('phone') }}" name="phone"
+                                                class="field form-control @error('phone') is-invalid @enderror"
+                                                placeholder="{{ __('phone') }}">
+                                            @error('phone')
                                                 <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                                             @enderror
                                         </div>
@@ -396,13 +406,14 @@
     <script>
         $(document).ready(function() {
             validate();
-            $('#name, #email, #password, #password_confirmation, #term').keyup(validate);
+            $('#name, #email, #phone, #password, #password_confirmation, #term').keyup(validate);
         });
 
         function validate() {
             if (
                 $('#name').val().length > 0 &&
                 $('#email').val().length > 0 &&
+                $('#phone').val().length > 0 &&
                 $('#password').val().length > 0 &&
                 $('#password_confirmation').val().length > 0 &&
                 $('#term').val().length > 0) {

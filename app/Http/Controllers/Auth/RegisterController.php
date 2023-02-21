@@ -8,6 +8,7 @@ use App\Models\Company;
 use App\Models\Candidate;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
+use App\Models\ContactInfo;
 use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
@@ -89,6 +90,14 @@ class RegisterController extends Controller
             'username' => $username,
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+        ]);
+
+
+        // create contact info
+
+        ContactInfo::where('user_id', $user->id)->update([
+            'phone' => $data['phone'],
+            'email' => $data['email'],
         ]);
 
         $admins = Admin::all();

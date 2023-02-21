@@ -20,6 +20,7 @@ class CandidateMiddleware
         
         if (auth('user')->user()->role == 'candidate') {
             $candidate= Candidate::where('user_id', auth('user')->user()->id)->first();
+            
             if($candidate->profile_complete != 0){
                 return redirect()->route('website.candidate.application.form');
             }
