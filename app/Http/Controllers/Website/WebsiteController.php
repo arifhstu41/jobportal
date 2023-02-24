@@ -990,14 +990,21 @@ class WebsiteController extends Controller
         $divisions = DB::table('divisions')->get();
         $unions = DB::table('unions')->get();
         $upazilas = DB::table('upazilas')->get();
+        $unions = DB::table('unions')->get();
+        $boards= DB::table('bd_education_boards')->get();
+        $wards= [];
+        for ($i=1; $i <=10 ; $i++) { 
+            $wards[]= $i;
+        }
         // echo "<pre>";print_r($districts);die;
         $universities= DB::table('bd_universities')->get();
         $years= [];
-        for ($i=2000; $i <2051 ; $i++) { 
+        $current_year=  (int)date("Y", strtotime('today'));
+        for ($i=1900; $i <=($current_year+1) ; $i++) { 
             $years[]= $i;
         }
         $user= Auth::user();
-        return view('website.pages.candidate.application-form', compact('candidate', 'user','divisions', 'districts','unions', 'upazilas', 'universities', 'years'));
+        return view('website.pages.candidate.application-form', compact('candidate', 'user','divisions', 'districts','unions', 'upazilas', 'unions', 'wards', 'universities', 'years', 'boards'));
     }
 
     public function getDistrictByDivision(){
@@ -1023,6 +1030,21 @@ class WebsiteController extends Controller
         $html = "<option>Please Select</option>";
 
         foreach($thana as $each){
+            $html.= "<option value=".$each->id.">".$each->name."</option>";
+        }
+
+        $response['html'] = $html;
+        echo json_encode($response);
+    }
+
+    public function getUnionByThana(){
+
+        $thana_id = $_GET['thana_id'];
+        $unions = DB::table('unions')->where('upazilla_id', $thana_id)->get();
+
+        $html = "<option>Please Select</option>";
+
+        foreach($unions as $each){
             $html.= "<option value=".$each->id.">".$each->name."</option>";
         }
 
@@ -1078,6 +1100,7 @@ class WebsiteController extends Controller
         if ($request->jsc) {
             
             $request->validate([
+                'jsc_exam_name' => 'required',
                 'jsc_roll_no' => 'required',
                 'jsc_passing_year' => 'required',
                 'jsc_school' => 'required',
@@ -1152,16 +1175,22 @@ class WebsiteController extends Controller
             $candidate->marital_status = $request->marital_status;
             $candidate->quota = $request->quota;
             $candidate->care_of = $request->care_of;
-            $candidate->region = $request->region;
-            $candidate->district = $request->district;
-            $candidate->thana = $request->thana;
+            $candidate->house_and_road_no = $request->house_and_road_no;
+            $candidate->place = $request->place;
             $candidate->post_office = $request->post_office;
             $candidate->postcode = $request->postcode;
-            $candidate->place = $request->place;
+            $candidate->ward_no = $request->ward_no;
+            $candidate->pourosova_union_porishod = $request->pourosova_union_porishod;
+            $candidate->thana = $request->thana;
+            $candidate->district = $request->district;
+            $candidate->region = $request->region;
             $candidate->care_of_parmanent = ($request->same_address) ? $request->care_of : $request->care_of_parmanent;
+            $candidate->house_and_road_no_parmanent = ($request->same_address) ? $request->house_and_road_no : $request->house_and_road_no_parmanent;
             $candidate->place_parmanent = ($request->same_address) ? $request->place : $request->place_parmanent;
             $candidate->post_office_parmanent = ($request->same_address) ? $request->post_office : $request->post_office_parmanent;
             $candidate->postcode_parmanent = ($request->same_address) ? $request->postcode : $request->postcode_parmanent;
+            $candidate->ward_no_parmanent = ($request->same_address) ? $request->ward_no : $request->ward_no_parmanent;
+            $candidate->pourosova_union_porishod_parmanent = ($request->same_address) ? $request->pourosova_union_porishod : $request->pourosova_union_porishod_parmanent;
             $candidate->thana_parmanent = ($request->same_address) ? $request->thana : $request->thana_parmanent;
             $candidate->district_parmanent = ($request->same_address) ? $request->district : $request->district_parmanent;
             $candidate->region_parmanent = ($request->same_address) ? $request->region : $request->region_parmanent;
@@ -1183,6 +1212,7 @@ class WebsiteController extends Controller
                 $education = new CandidateEducation();
                 $education->candidate_id = $candidate->id;
                 $education->level = "jsc";
+                $education->degree = $request->jsc_exam_name;
                 $education->roll = $request->jsc_roll_no;
                 $education->year = $request->jsc_passing_year;
                 $education->institute = $request->jsc_school;
