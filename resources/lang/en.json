@@ -1125,7 +1125,7 @@
     "place" : "Village/Road/Ward",
     "postcode": "Post Code",
     "post_office" : "Post Office",
-    "thana" : "Thana",
+    "thana" : "City Corporation/ Cantonment/ Upazila/ Thana",
     "district" : "District",
     "region" : "Region",
     "religion": "Religion",
@@ -1133,11 +1133,11 @@
     "passport_no": "Passport No",
     "birth_certificate_no": "Birth Certificate No",
     "bangladeshi": "Bangladeshi",
-    "psc " : "PSC",
+    "psc" : "PSC/Equivalent",
     "psc_roll_no" : "Roll No",
     "psc_passing_year" : "Passing Year",
     "psc_school" : "School",
-    "jsc " : "JSC",
+    "jsc" : "JSC/Equivalent",
     "jsc_roll_no" : "Roll No",
     "jsc_passing_year" : "Passing Year",
     "jsc_school" : "School",
@@ -1174,6 +1174,12 @@
     "masters_result_type" : "Result Type",
     "masters_result_cgpa" : "GPA/Point",
     "masters_passing_year" : "Passing Year",
-    "masters_course_duration" : "Course Duration"
+    "masters_course_duration" : "Course Duration",
+    "pourosova_union_porishod" : "Paurasava/Union",
+    "pourosova_union_porishod_parmanent" : "Paurasava/Union",
+    "house_and_road_no" : "House and Road(Name, Number)",
+    "house_and_road_no_parmanent" : "House and Road(Name, Number)",
+    "ward_no" : "Word",
+    "ward_no_parmanent" : "Ward"
     
 }

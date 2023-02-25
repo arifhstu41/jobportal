@@ -66,6 +66,7 @@ Route::controller(WebsiteController::class)->name('website.')->group(function ()
 
     Route::get('/district/get', 'getDistrictByDivision')->name('district.get.data');
     Route::get('/thana/get', 'getThanaByDistrict')->name('thana.get.data');
+    Route::get('/union/get', 'getUnionByThana')->name('union.get.data');
 });
 
 // Social Authentication
