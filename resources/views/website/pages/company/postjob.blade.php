@@ -20,13 +20,13 @@
                         <h2 class="tw-text-2xl tw-font-medium tw-text-[#18191C] tw-mb-8">
                             {{ __('post_a_job') }}
                         </h2>
-                        <form action="{{ route('company.job.store') }}" method="POST" class="rt-from">
+                        <form action="{{ route('company.job.store') }}" method="POST" class="rt-from" id="postjob">
                             @csrf
                             <div class="post-job-item rt-mb-15">
                                 <div class="row">
                                     <div class="col-lg-8 rt-mb-20">
                                         <x-forms.label name="job_title" :required="true" class="tw-text-sm tw-mb-2" />
-                                        <input value="{{ old('title') }}" name="title"
+                                        <input value="{{ old('title') }}" name="title" id="title"
                                             class="form-control @error('title') is-invalid @enderror" type="text"
                                             placeholder="{{ __('job_title') }}" id="m">
                                         @error('title')
@@ -37,7 +37,7 @@
                                         <x-forms.label name="job_category" :required="true" />
                                         <select
                                             class="w-100-p select2-taggable form-control @error('category_id') is-invalid @enderror"
-                                            name="category_id">
+                                            name="category_id" id="category_id">
                                             @foreach ($jobCategories as $category)
                                                 <option {{ old('category_id') == $category->id ? 'selected' : '' }}
                                                     value="{{ $category->id }}">{{ $category->name }}</option>
@@ -48,11 +48,15 @@
                                         @enderror
                                     </div>
                                     <div class="col-lg-8 rt-mb-20 col-md-8">
-                                        <x-forms.label name="tags" :required="true" class="tw-text-sm tw-mb-2"/>
-                                        <select class="w-100-p rt-selectactive select2-taggable form-control @error('tags') is-invalid @enderror" name="tags[]" multiple>
-                                                @foreach ($tags as $tag)
-                                                    <option {{ old('tags') ? in_array($tag->id, old('tags')) ? 'selected':'':'' }} value="{{ $tag->id }}">{{ $tag->name }}</option>
-                                                @endforeach
+                                        <x-forms.label name="tags" :required="true" class="tw-text-sm tw-mb-2" />
+                                        <select
+                                            class="w-100-p rt-selectactive select2-taggable form-control @error('tags') is-invalid @enderror"
+                                            name="tags[]" multiple>
+                                            @foreach ($tags as $tag)
+                                                <option
+                                                    {{ old('tags') ? (in_array($tag->id, old('tags')) ? 'selected' : '') : '' }}
+                                                    value="{{ $tag->id }}">{{ $tag->name }}</option>
+                                            @endforeach
                                         </select>
                                         @error('tags')
                                             <span class="error invalid-feedback">{{ $message }}</span>
@@ -104,7 +108,8 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-4 rt-mb-20 col-md-6">
-                                        <x-forms.label name="{{ __('salary_type') }}" :required="true" class="tw-text-sm tw-mb-2" />
+                                        <x-forms.label name="{{ __('salary_type') }}" :required="true"
+                                            class="tw-text-sm tw-mb-2" />
                                         <select
                                             class="rt-selectactive form-control @error('salary_type') is-invalid @enderror w-100-p"
                                             name="salary_type">
@@ -182,13 +187,14 @@
                                         @enderror
                                     </div>
                                     <div class="col-lg-6 col-md-6 rt-mb-20">
-                                        <x-forms.label name="deadline_expired" :required="true" class="tw-text-sm tw-mb-2" />
+                                        <x-forms.label name="deadline_expired" :required="true"
+                                            class="tw-text-sm tw-mb-2" />
                                         <div class="fromGroup">
                                             <div class="form-control-icon date datepicker">
                                                 <input value="{{ old('deadline') }}" name="deadline"
                                                     class="form-control @error('deadline') is-invalid @enderror"
                                                     type="text" value="{{ old('deadline') ? old('deadline') : '' }}"
-                                                    id="date" placeholder="d/m/y">
+                                                    id="date" required placeholder="d/m/y">
                                                 <span class="input-group-addon has-badge">
                                                     <span @error('deadline') rt-mr-12 @enderror>
                                                         <x-svg.calendar-icon />
@@ -221,20 +227,25 @@
                                             <div class="col-md-12 col-sm-12 rt-mb-24">
                                                 <x-website.map.map-warning />
 
-                                                <div class="map mymap {{ $map == 'map-box' ? '' : 'd-none' }}" id='map-box'>
+                                                <div class="map mymap {{ $map == 'map-box' ? '' : 'd-none' }}"
+                                                    id='map-box'>
                                                 </div>
-                                                <div id="google-map-div" class="{{ $map == 'google-map' ? '' : 'd-none' }}">
+                                                <div id="google-map-div"
+                                                    class="{{ $map == 'google-map' ? '' : 'd-none' }}">
                                                     <input id="searchInput" class="mapClass" type="text"
                                                         placeholder="{{ __('enter_location') }}">
                                                     <div class="map mymap" id="google-map"></div>
                                                 </div>
-                                                <div id="google-map-div" class="{{ $map == 'google-map' ? '' : 'd-none' }}">
+                                                <div id="google-map-div"
+                                                    class="{{ $map == 'google-map' ? '' : 'd-none' }}">
                                                     <input id="searchInput" class="mapClass" type="text"
                                                         placeholder="{{ __('enter_location') }}">
                                                     <div class="map mymap" id="google-map"></div>
                                                 </div>
                                                 <div class="{{ $map == 'leaflet' ? '' : 'd-none' }}">
-                                                    <input type="text" autocomplete="off" id="leaflet_search" placeholder="{{ __('enter_city_name') }}" class="full-width"/> <br>
+                                                    <input required type="text" autocomplete="off" id="leaflet_search" name="leaflet_search"
+                                                        placeholder="{{ __('enter_city_name') }}" class="full-width" />
+                                                    <br>
                                                     <div id="leaflet-map"></div>
                                                 </div>
                                                 @error('location')
@@ -242,11 +253,15 @@
                                                 @enderror
                                             </div>
                                             <div class="col-12 mt-4 custom-checkbox-wrap">
-                                                <label class="main tw-text-sm" for="remoteWork">{{ __('fully_remote_position') }}-<span class="tw-font-medium">{{ __('worldwide') }}</span>
-                                                    <input type="checkbox" name="is_remote" id="remoteWork" value="1" {{ old('is_remote') ? 'checked' : '' }}>
+                                                <label class="main tw-text-sm"
+                                                    for="remoteWork">{{ __('fully_remote_position') }}-<span
+                                                        class="tw-font-medium">{{ __('worldwide') }}</span>
+                                                    <input type="checkbox" name="is_remote" id="remoteWork"
+                                                        value="1" {{ old('is_remote') ? 'checked' : '' }}>
                                                     <span class="custom-checkbox"></span>
                                                 </label>
-                                                <input type="checkbox" name="is_remote" id="remoteWork" value="1" {{ old('is_remote') ? 'checked' : '' }}>
+                                                <input type="checkbox" name="is_remote" id="remoteWork" value="1"
+                                                    {{ old('is_remote') ? 'checked' : '' }}>
                                             </div>
                                         </div>
                                     </div>
@@ -257,7 +272,10 @@
                                 <div class="benefits-tags">
                                     @foreach ($benefits as $benefit)
                                         <label for="benefit_{{ $benefit->id }}">
-                                            <input {{ old('benefits') ? in_array($benefit->id, old('benefits')) ? 'checked':'':'' }} type="checkbox" id="benefit_{{ $benefit->id }}" name="benefits[]" value="{{ $benefit->id }}">
+                                            <input
+                                                {{ old('benefits') ? (in_array($benefit->id, old('benefits')) ? 'checked' : '') : '' }}
+                                                type="checkbox" id="benefit_{{ $benefit->id }}" name="benefits[]"
+                                                value="{{ $benefit->id }}">
                                             <span>{{ $benefit->name }}</span>
                                         </label>
                                     @endforeach
@@ -269,7 +287,7 @@
                             <div class="post-job-item rt-mb-32">
                                 <h4 class="f-size-18 ft-wt-5 tw-mb-3 lh-1">{{ __('job_description') }}</h4>
                                 <div class="col-md-12">
-                                    <textarea id="default" class="form-control @error('description') is-invalid @enderror" name="description">{{ old('description') }}</textarea>
+                                    <textarea id="default" class="form-control @error('description') is-invalid @enderror" name="description" required>{{ old('description') }}</textarea>
                                     @error('description')
                                         <span class="error invalid-feedback">{{ $message }}</span>
                                     @enderror
@@ -378,8 +396,8 @@
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('frontend') }}/assets/css/bootstrap-datepicker.min.css">
-    <x-map.leaflet.map_links/>
-    <x-map.leaflet.autocomplete_links/>
+    <x-map.leaflet.map_links />
+    <x-map.leaflet.autocomplete_links />
     <style>
         .ck-editor__editable_inline {
             min-height: 300px;
@@ -392,9 +410,14 @@
         .mt-n-11 {
             margin-top: -11px;
         }
+
         .custom-checkbox-wrap .main input:checked~.custom-checkbox:after {
             left: 8% !important;
         }
+        .error {
+      color: red;
+      /* background-color: #acf; */
+   }
     </style>
     <!-- >=>Mapbox<=< -->
     @include('map::links')
@@ -404,6 +427,45 @@
 @section('frontend_scripts')
     <script src="{{ asset('frontend/assets/js/bootstrap-datepicker.min.js') }}"></script>
     <script src="{{ asset('frontend') }}/assets/js/ckeditor.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+
+    <script>
+        if ($("#postjob").length > 0) {
+            $("#postjob").validate({
+                ignore: [],
+                rules: {
+                    title: {
+                        required: true
+                    },
+                    deadline: {
+                        required: true,
+                    },
+                    leaflet_search: {
+                        required: true,
+                    },
+                    description: {
+                        required: true
+                    },
+                },
+                messages: {
+                    title: {
+                        required: "Please enter title",
+                    },
+                    deadline: {
+                        required: "Please enter deadline expire date",
+                    },
+                    leaflet_search: {
+                        required: "Please select a location",
+                    },
+                    description: {
+                        required: "Please enter job description",
+                    },
+                },
+                errorClass: "error"
+            })
+        }
+    </script>
+
     @include('map::set-leafletmap')
     <script>
         //init datepicker

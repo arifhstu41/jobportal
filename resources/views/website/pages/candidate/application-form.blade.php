@@ -51,270 +51,279 @@
                                 </div>
                             </div>
                         </div>
-                        <hr>
+                        {{-- <hr> --}}
                         <div class="p-1 rounded-2">
 
-                            <div class="form-group form-group-sm row py-2">
-                                <label for="name" class="col-sm-3 col-form-label">{{ __('name') }}<span
-                                        class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <input class="form-control @error('name') is-invalid @enderror" name="name"
-                                        type="text" value="{{ old('name') ? old('name') : $user->name }}" id="name"
-                                        placeholder="{{ __('name') }}" required>
-                                    @error('name')
-                                        <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="form-group form-group-sm row py-2">
-                                <label for="name_bn" class="col-sm-3 col-form-label">{{ __('name_bn') }}<span
-                                        class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <input class="form-control @error('name_bn') is-invalid @enderror" name="name_bn"
-                                        type="text" value="{{ old('name_bn') ? old('name_bn') : $candidate->name_bn }}"
-                                        id="name_bn" placeholder="{{ __('name_bn') }}" required>
-                                    @error('name_bn')
-                                        <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="form-group form-group-sm row py-2">
-                                <label for="father_name" class="col-sm-3 col-form-label">{{ __('father_name') }}<span
-                                        class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <input class="form-control @error('father_name') is-invalid @enderror"
-                                        name="father_name" type="text"
-                                        value="{{ old('father_name') ? old('father_name') : $candidate->father_name }}"
-                                        id="father_name" placeholder="{{ __('father_name') }}" required>
-                                    @error('father_name')
-                                        <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="form-group form-group-sm row py-2">
-                                <label for="father_name_bn" class="col-sm-3 col-form-label">{{ __('father_name_bn') }}<span
-                                        class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <input class="form-control @error('father_name_bn') is-invalid @enderror"
-                                        name="father_name_bn" type="text"
-                                        value="{{ old('father_name_bn') ? old('father_name_bn') : $candidate->father_name_bn }}"
-                                        id="father_name_bn" placeholder="{{ __('father_name_bn') }}" required>
-                                    @error('father_name_bn')
-                                        <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="form-group form-group-sm row py-2">
-                                <label for="mother_name" class="col-sm-3 col-form-label">{{ __('mother_name') }}<span
-                                        class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <input class="form-control @error('mother_name') is-invalid @enderror"
-                                        name="mother_name" type="text"
-                                        value="{{ old('mother_name') ? old('mother_name') : $candidate->mother_name }}"
-                                        id="mother_name" placeholder="{{ __('mother_name') }}" required>
-                                    @error('mother_name')
-                                        <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="form-group form-group-sm row py-2">
-                                <label for="mother_name_bn" class="col-sm-3 col-form-label">{{ __('mother_name_bn') }}<span
-                                        class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <input class="form-control @error('mother_name_bn') is-invalid @enderror"
-                                        name="mother_name_bn" type="text"
-                                        value="{{ old('mother_name_bn') ? old('mother_name_bn') : $candidate->mother_name_bn }}"
-                                        id="mother_name_bn" placeholder="{{ __('mother_name_bn') }}" required>
-                                    @error('mother_name_bn')
-                                        <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="form-group form-group-sm row py-2">
-                                <label for="birth_date" class="col-sm-3 col-form-label">{{ __('birth_date') }}<span
-                                        class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    {{-- <input required
-                                        class="form-control @error('birth_date') is-invalid @enderror datepicker date ps-2"
-                                        name="birth_date" type="text" value="{{ old('birth_date') ? old('birth_date') : $candidate->birth_date }}"
-                                        id="birth_date" placeholder="{{ __('birth_date') }}">
-                                    @error('birth_date')
-                                        <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
-                                    @enderror --}}
-
-                                    <div class="fromGroup">
-                                        <div class="d-flex align-items-center form-control-icon date datepicker">
-                                            <input type="text" name="birth_date"
-                                                value="{{ date('d-m-Y', strtotime($candidate->birth_date)) }}"
-                                                id="date" placeholder="dd/mm/yyyy" class="form-control border-cutom "
-                                                autocomplete="off">
-                                            <span class="input-group-addon input-group-text-custom">
-                                                <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M17.875 3.4375H4.125C3.7453 3.4375 3.4375 3.7453 3.4375 4.125V17.875C3.4375 18.2547 3.7453 18.5625 4.125 18.5625H17.875C18.2547 18.5625 18.5625 18.2547 18.5625 17.875V4.125C18.5625 3.7453 18.2547 3.4375 17.875 3.4375Z"
-                                                        stroke="#18191C" stroke-width="1.3" stroke-linecap="round"
-                                                        stroke-linejoin="round"></path>
-                                                    <path d="M15.125 2.0625V4.8125" stroke="#18191C" stroke-width="1.5"
-                                                        stroke-linecap="round" stroke-linejoin="round"></path>
-                                                    <path d="M6.875 2.0625V4.8125" stroke="#18191C" stroke-width="1.5"
-                                                        stroke-linecap="round" stroke-linejoin="round"></path>
-                                                    <path d="M3.4375 7.5625H18.5625" stroke="#18191C" stroke-width="1.5"
-                                                        stroke-linejoin="round"></path>
-                                                </svg>
-                                            </span>
+                            <div class="row">
+                                <div class="card col-lg-12 p-0">
+                                    <div class="card-header">
+                                        {{ __('Personal Info') }}
+                                    </div>
+                                    <div class="card-body pt-1">
+                                        <div class="form-group form-group-sm row py-0">
+                                            <label for="name" class="col-sm-3 col-form-label">{{ __('name') }}<span
+                                                    class="required">*</span></label>
+                                            <div class="col-sm-9">
+                                                <input class="form-control @error('name') is-invalid @enderror" name="name"
+                                                    type="text" value="{{ old('name') ? old('name') : $user->name }}" id="name"
+                                                    placeholder="{{ __('name') }}" required>
+                                                @error('name')
+                                                    <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+            
+                                        <div class="form-group form-group-sm row py-2">
+                                            <label for="name_bn" class="col-sm-3 col-form-label bangla">{{ __('name_bn') }}<span
+                                                    class="required">*</span></label>
+                                            <div class="col-sm-9">
+                                                <input class="form-control @error('name_bn') is-invalid @enderror" name="name_bn"
+                                                    type="text" value="{{ old('name_bn') ? old('name_bn') : $candidate->name_bn }}"
+                                                    id="name_bn" placeholder="{{ __('name_bn') }}" required>
+                                                @error('name_bn')
+                                                    <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+            
+                                        <div class="form-group form-group-sm row py-2">
+                                            <label for="father_name" class="col-sm-3 col-form-label">{{ __('father_name') }}<span
+                                                    class="required">*</span></label>
+                                            <div class="col-sm-9">
+                                                <input class="form-control @error('father_name') is-invalid @enderror"
+                                                    name="father_name" type="text"
+                                                    value="{{ old('father_name') ? old('father_name') : $candidate->father_name }}"
+                                                    id="father_name" placeholder="{{ __('father_name') }}" required>
+                                                @error('father_name')
+                                                    <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+            
+                                        <div class="form-group form-group-sm row py-2">
+                                            <label for="father_name_bn" class="col-sm-3 col-form-label">{{ __('father_name_bn') }}<span
+                                                    class="required">*</span></label>
+                                            <div class="col-sm-9">
+                                                <input class="form-control @error('father_name_bn') is-invalid @enderror"
+                                                    name="father_name_bn" type="text"
+                                                    value="{{ old('father_name_bn') ? old('father_name_bn') : $candidate->father_name_bn }}"
+                                                    id="father_name_bn" placeholder="{{ __('father_name_bn') }}" required>
+                                                @error('father_name_bn')
+                                                    <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+            
+                                        <div class="form-group form-group-sm row py-2">
+                                            <label for="mother_name" class="col-sm-3 col-form-label">{{ __('mother_name') }}<span
+                                                    class="required">*</span></label>
+                                            <div class="col-sm-9">
+                                                <input class="form-control @error('mother_name') is-invalid @enderror"
+                                                    name="mother_name" type="text"
+                                                    value="{{ old('mother_name') ? old('mother_name') : $candidate->mother_name }}"
+                                                    id="mother_name" placeholder="{{ __('mother_name') }}" required>
+                                                @error('mother_name')
+                                                    <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+            
+                                        <div class="form-group form-group-sm row py-2">
+                                            <label for="mother_name_bn" class="col-sm-3 col-form-label">{{ __('mother_name_bn') }}<span
+                                                    class="required">*</span></label>
+                                            <div class="col-sm-9">
+                                                <input class="form-control @error('mother_name_bn') is-invalid @enderror"
+                                                    name="mother_name_bn" type="text"
+                                                    value="{{ old('mother_name_bn') ? old('mother_name_bn') : $candidate->mother_name_bn }}"
+                                                    id="mother_name_bn" placeholder="{{ __('mother_name_bn') }}" required>
+                                                @error('mother_name_bn')
+                                                    <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+            
+                                        <div class="form-group form-group-sm row py-2">
+                                            <label for="birth_date" class="col-sm-3 col-form-label">{{ __('birth_date') }}<span
+                                                    class="required">*</span></label>
+                                            <div class="col-sm-9">
+                                                {{-- <input required
+                                                    class="form-control @error('birth_date') is-invalid @enderror datepicker date ps-2"
+                                                    name="birth_date" type="text" value="{{ old('birth_date') ? old('birth_date') : $candidate->birth_date }}"
+                                                    id="birth_date" placeholder="{{ __('birth_date') }}">
+                                                @error('birth_date')
+                                                    <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
+                                                @enderror --}}
+            
+                                                <div class="fromGroup">
+                                                    <div class="d-flex align-items-center form-control-icon date datepicker">
+                                                        <input type="text" name="birth_date"
+                                                            value="{{ date('d-m-Y', strtotime($candidate->birth_date)) }}"
+                                                            id="date" placeholder="dd/mm/yyyy" class="form-control border-cutom "
+                                                            autocomplete="off">
+                                                        <span class="input-group-addon input-group-text-custom">
+                                                            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
+                                                                xmlns="http://www.w3.org/2000/svg">
+                                                                <path
+                                                                    d="M17.875 3.4375H4.125C3.7453 3.4375 3.4375 3.7453 3.4375 4.125V17.875C3.4375 18.2547 3.7453 18.5625 4.125 18.5625H17.875C18.2547 18.5625 18.5625 18.2547 18.5625 17.875V4.125C18.5625 3.7453 18.2547 3.4375 17.875 3.4375Z"
+                                                                    stroke="#18191C" stroke-width="1.3" stroke-linecap="round"
+                                                                    stroke-linejoin="round"></path>
+                                                                <path d="M15.125 2.0625V4.8125" stroke="#18191C" stroke-width="1.5"
+                                                                    stroke-linecap="round" stroke-linejoin="round"></path>
+                                                                <path d="M6.875 2.0625V4.8125" stroke="#18191C" stroke-width="1.5"
+                                                                    stroke-linecap="round" stroke-linejoin="round"></path>
+                                                                <path d="M3.4375 7.5625H18.5625" stroke="#18191C" stroke-width="1.5"
+                                                                    stroke-linejoin="round"></path>
+                                                            </svg>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+            
+                                        <div class="form-group form-group-sm row py-2">
+                                            <label for="gender" class="col-sm-3 col-form-label">{{ __('gender') }}<span
+                                                    class="required">*</span></label>
+                                            <div class="col-sm-9">
+                                                <select required class="rt-selectactive w-100-p @error('gender') is-invalid @enderror"
+                                                    name="gender">
+                                                    <option @if ($candidate->gender == 'male' || old('gender') == 'male') selected @endif value="male">
+                                                        {{ __('male') }}
+                                                    </option>
+                                                    <option @if ($candidate->gender == 'female' || old('gender') == 'female') selected @endif value="female">
+                                                        {{ __('female') }}
+                                                    </option>
+                                                    <option @if ($candidate->gender == 'other' || old('gender') == 'other') selected @endif value="other">
+                                                        {{ __('other') }}
+                                                    </option>
+                                                </select>
+                                                @error('gender')
+                                                    <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+            
+                                        <div class="form-group form-group-sm row py-2">
+                                            <label for="religion" class="col-sm-3 col-form-label">{{ __('religion') }}<span
+                                                    class="required">*</span></label>
+                                            <div class="col-sm-9">
+                                                <select required
+                                                    class="rt-selectactive w-100-p @error('religion') is-invalid @enderror"
+                                                    name="religion">
+                                                    <option @if ($candidate->religion == 'Islam' || old('religion') == 'Islam') selected @endif value="Islam">
+                                                        {{ __('Islam') }}
+                                                    </option>
+                                                    <option @if ($candidate->religion == 'Hinduism' || old('religion') == 'Hinduism') selected @endif value="Hinduism">
+                                                        {{ __('Hinduism') }}
+                                                    </option>
+                                                    <option @if ($candidate->religion == 'Buddhism' || old('religion') == 'Buddhism') selected @endif value="Buddhism">
+                                                        {{ __('Buddhism') }}
+                                                    </option>
+                                                    <option @if ($candidate->religion == 'Christianity' || old('religion') == 'Christianity') selected @endif value="Christianity">
+                                                        {{ __('Christianity') }}
+                                                    </option>
+                                                    <option @if ($candidate->religion == 'others' || old('religion') == 'others') selected @endif value="others">
+                                                        {{ __('others') }}
+                                                    </option>
+                                                </select>
+                                                @error('religion')
+                                                    <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+            
+                                        <div class="form-group form-group-sm row py-2">
+                                            <label for="birth_certificate_no"
+                                                class="col-sm-3 col-form-label">{{ __('birth_certificate_no') }}</label>
+                                            <div class="col-sm-9">
+                                                <input class="form-control @error('birth_certificate_no') is-invalid @enderror"
+                                                    name="birth_certificate_no" type="text"
+                                                    value="{{ old('birth_certificate_no') ? old('birth_certificate_no') : $candidate->birth_certificate_no }}"
+                                                    id="birth_certificate_no" placeholder="{{ __('birth_certificate_no') }}">
+                                                @error('birth_certificate_no')
+                                                    <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+            
+                                        <div class="form-group form-group-sm row py-2">
+                                            <label for="nid_no" class="col-sm-3 col-form-label">{{ __('nid_no') }}</label>
+                                            <div class="col-sm-9">
+                                                <input class="form-control @error('nid_no') is-invalid @enderror" name="nid_no"
+                                                    type="text" value="{{ old('nid_no') ? old('nid_no') : $candidate->nid_no }}"
+                                                    id="nid_no" placeholder="{{ __('nid_no') }}">
+                                                @error('nid_no')
+                                                    <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+            
+            
+                                        <div class="form-group form-group-sm row py-2">
+                                            <label for="passport_no" class="col-sm-3 col-form-label">{{ __('passport_no') }}</label>
+                                            <div class="col-sm-9">
+                                                <input class="form-control @error('passport_no') is-invalid @enderror"
+                                                    name="passport_no" type="text"
+                                                    value="{{ old('passport_no') ? old('passport_no') : $candidate->passport_no }}"
+                                                    id="passport_no" placeholder="{{ __('passport_no') }}">
+                                                @error('passport_no')
+                                                    <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+            
+                                        <div class="form-group form-group-sm row py-2">
+                                            <label for="marital_status"
+                                                class="col-sm-3 col-form-label">{{ __('marital_status') }}<span
+                                                    class="required">*</span></label>
+                                            <div class="col-sm-9">
+                                                <select name="marital_status" class="rt-selectactive w-100-p" required>
+                                                    <option @if ($candidate->marital_status == 'single' || old('marital_status') == 'single') selected @endif value="single">
+                                                        {{ __('single') }}</option>
+                                                    <option @if ($candidate->marital_status == 'married' || old('marital_status') == 'married') selected @endif value="married">
+                                                        {{ __('married') }}</option>
+                                                </select>
+                                                @error('marital_status')
+                                                    <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+            
+                                        <div class="form-group form-group-sm row py-2">
+                                            <label for="quota" class="col-sm-3 col-form-label">{{ __('quota') }}</label>
+                                            <div class="col-sm-9">
+                                                <select name="quota" class="rt-selectactive w-100-p">
+                                                    <option value="">Please Select</option>
+                                                    <option @if ($candidate->quota == 1 || old('quota') == 'Child of Freedom Fighter') selected @endif
+                                                        value="Child of Freedom Fighter">
+                                                        {{ __('Child of Freedom Fighter') }}</option>
+                                                    <option @if ($candidate->quota == 'Grand Child of Freedom Fighter' || old('quota') == 'Grand Child of Freedom Fighter') selected @endif
+                                                        value="Grand Child of Freedom Fighter">
+                                                        {{ __('Grand Child of Freedom Fighter') }}</option>
+                                                    <option @if ($candidate->quota == 'Physically Handicapped' || old('quota') == 'Physically Handicapped') selected @endif
+                                                        value="Physically Handicapped">
+                                                        {{ __('Physically Handicapped') }}</option>
+                                                    <option @if ($candidate->quota == 'Orphan' || old('quota') == 'Orphan') selected @endif value="Orphan">
+                                                        {{ __('Orphan') }}</option>
+                                                    <option @if ($candidate->quota == 'Ethic Minority' || old('quota') == 'Ethic Minority') selected @endif value="Ethic Minority">
+                                                        {{ __('Ethic Minority') }}</option>
+                                                    <option @if ($candidate->quota == 'Ansar-VDP' || old('quota') == 'Ansar-VDP') selected @endif value="Ansar-VDP">
+                                                        {{ __('Ansar-VDP') }}</option>
+                                                    <option @if ($candidate->quota == 'Non Quota' || old('quota') == 'Non Quota') selected @endif value="Non Quota">
+                                                        {{ __('Non Quota') }}</option>
+                                                </select>
+                                                @error('quota')
+                                                    <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+            
+                                        <div class="form-group form-group-sm row py-2">
+                                            <label for="quota" class="col-sm-3 col-form-label">{{ __('nationality') }}</label>
+                                            <div class="col-sm-9">
+                                                <p>{{ __('bangladeshi') }}</p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group form-group-sm row py-2">
-                                <label for="gender" class="col-sm-3 col-form-label">{{ __('gender') }}<span
-                                        class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <select required class="rt-selectactive w-100-p @error('gender') is-invalid @enderror"
-                                        name="gender">
-                                        <option @if ($candidate->gender == 'male' || old('gender') == 'male') selected @endif value="male">
-                                            {{ __('male') }}
-                                        </option>
-                                        <option @if ($candidate->gender == 'female' || old('gender') == 'female') selected @endif value="female">
-                                            {{ __('female') }}
-                                        </option>
-                                        <option @if ($candidate->gender == 'other' || old('gender') == 'other') selected @endif value="other">
-                                            {{ __('other') }}
-                                        </option>
-                                    </select>
-                                    @error('gender')
-                                        <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="form-group form-group-sm row py-2">
-                                <label for="religion" class="col-sm-3 col-form-label">{{ __('religion') }}<span
-                                        class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <select required
-                                        class="rt-selectactive w-100-p @error('religion') is-invalid @enderror"
-                                        name="religion">
-                                        <option @if ($candidate->religion == 'Islam' || old('religion') == 'Islam') selected @endif value="Islam">
-                                            {{ __('Islam') }}
-                                        </option>
-                                        <option @if ($candidate->religion == 'Hinduism' || old('religion') == 'Hinduism') selected @endif value="Hinduism">
-                                            {{ __('Hinduism') }}
-                                        </option>
-                                        <option @if ($candidate->religion == 'Buddhism' || old('religion') == 'Buddhism') selected @endif value="Buddhism">
-                                            {{ __('Buddhism') }}
-                                        </option>
-                                        <option @if ($candidate->religion == 'Christianity' || old('religion') == 'Christianity') selected @endif value="Christianity">
-                                            {{ __('Christianity') }}
-                                        </option>
-                                        <option @if ($candidate->religion == 'others' || old('religion') == 'others') selected @endif value="others">
-                                            {{ __('others') }}
-                                        </option>
-                                    </select>
-                                    @error('religion')
-                                        <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="form-group form-group-sm row py-2">
-                                <label for="birth_certificate_no"
-                                    class="col-sm-3 col-form-label">{{ __('birth_certificate_no') }}</label>
-                                <div class="col-sm-9">
-                                    <input class="form-control @error('birth_certificate_no') is-invalid @enderror"
-                                        name="birth_certificate_no" type="text"
-                                        value="{{ old('birth_certificate_no') ? old('birth_certificate_no') : $candidate->birth_certificate_no }}"
-                                        id="birth_certificate_no" placeholder="{{ __('birth_certificate_no') }}">
-                                    @error('birth_certificate_no')
-                                        <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="form-group form-group-sm row py-2">
-                                <label for="nid_no" class="col-sm-3 col-form-label">{{ __('nid_no') }}</label>
-                                <div class="col-sm-9">
-                                    <input class="form-control @error('nid_no') is-invalid @enderror" name="nid_no"
-                                        type="text" value="{{ old('nid_no') ? old('nid_no') : $candidate->nid_no }}"
-                                        id="nid_no" placeholder="{{ __('nid_no') }}">
-                                    @error('nid_no')
-                                        <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-
-
-                            <div class="form-group form-group-sm row py-2">
-                                <label for="passport_no" class="col-sm-3 col-form-label">{{ __('passport_no') }}</label>
-                                <div class="col-sm-9">
-                                    <input class="form-control @error('passport_no') is-invalid @enderror"
-                                        name="passport_no" type="text"
-                                        value="{{ old('passport_no') ? old('passport_no') : $candidate->passport_no }}"
-                                        id="passport_no" placeholder="{{ __('passport_no') }}">
-                                    @error('passport_no')
-                                        <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="form-group form-group-sm row py-2">
-                                <label for="marital_status"
-                                    class="col-sm-3 col-form-label">{{ __('marital_status') }}<span
-                                        class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <select name="marital_status" class="rt-selectactive w-100-p" required>
-                                        <option @if ($candidate->marital_status == 'single' || old('marital_status') == 'single') selected @endif value="single">
-                                            {{ __('single') }}</option>
-                                        <option @if ($candidate->marital_status == 'married' || old('marital_status') == 'married') selected @endif value="married">
-                                            {{ __('married') }}</option>
-                                    </select>
-                                    @error('marital_status')
-                                        <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="form-group form-group-sm row py-2">
-                                <label for="quota" class="col-sm-3 col-form-label">{{ __('quota') }}</label>
-                                <div class="col-sm-9">
-                                    <select name="quota" class="rt-selectactive w-100-p">
-                                        <option value="">Please Select</option>
-                                        <option @if ($candidate->quota == 1 || old('quota') == 'Child of Freedom Fighter') selected @endif
-                                            value="Child of Freedom Fighter">
-                                            {{ __('Child of Freedom Fighter') }}</option>
-                                        <option @if ($candidate->quota == 'Grand Child of Freedom Fighter' || old('quota') == 'Grand Child of Freedom Fighter') selected @endif
-                                            value="Grand Child of Freedom Fighter">
-                                            {{ __('Grand Child of Freedom Fighter') }}</option>
-                                        <option @if ($candidate->quota == 'Physically Handicapped' || old('quota') == 'Physically Handicapped') selected @endif
-                                            value="Physically Handicapped">
-                                            {{ __('Physically Handicapped') }}</option>
-                                        <option @if ($candidate->quota == 'Orphan' || old('quota') == 'Orphan') selected @endif value="Orphan">
-                                            {{ __('Orphan') }}</option>
-                                        <option @if ($candidate->quota == 'Ethic Minority' || old('quota') == 'Ethic Minority') selected @endif value="Ethic Minority">
-                                            {{ __('Ethic Minority') }}</option>
-                                        <option @if ($candidate->quota == 'Ansar-VDP' || old('quota') == 'Ansar-VDP') selected @endif value="Ansar-VDP">
-                                            {{ __('Ansar-VDP') }}</option>
-                                        <option @if ($candidate->quota == 'Non Quota' || old('quota') == 'Non Quota') selected @endif value="Non Quota">
-                                            {{ __('Non Quota') }}</option>
-                                    </select>
-                                    @error('quota')
-                                        <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="form-group form-group-sm row py-2">
-                                <label for="quota" class="col-sm-3 col-form-label">{{ __('nationality') }}</label>
-                                <div class="col-sm-9">
-                                    <p>{{ __('bangladeshi') }}</p>
                                 </div>
                             </div>
 
