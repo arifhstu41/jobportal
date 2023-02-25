@@ -1,5 +1,7 @@
-<script src="{{ mix('frontend/vendor.min.js') }}"></script>
-<script src="{{ mix('frontend/app.min.js') }}"></script>
+{{-- <script src="{{ mix('frontend/vendor.min.js') }}"></script>
+<script src="{{ mix('frontend/app.min.js') }}"></script> --}}
+<script  src="{{ asset('frontend') }}/app.min.css"></script>
+<script  src="{{ asset('frontend') }}/vendor.min.css"></script>
 <script src="https://unpkg.com/phosphor-icons"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
 

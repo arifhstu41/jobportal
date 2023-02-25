@@ -52,8 +52,9 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
-    'asset_url' => env('ASSET_URL', null),
+    'url' => env('APP_URL', 'http://localhost/jobportal'),
+    // 'asset_url' => env('ASSET_URL', null),
+    'asset_url' => 'http://localhost/jobportal/public',
     'mode' => env('APP_MODE', 'live'),
     'hide_helper' => env('HIDE_HELPER', false),
 

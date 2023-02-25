@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ $setting->favicon_image_url }}">
     <link rel="stylesheet" type="text/css" href="{{ mix('backend/css/vendor.min.css') }}">
+    
     <style>
         .system-logo {
             max-width: 200px !important;

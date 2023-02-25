@@ -1,6 +1,8 @@
 <link rel="icon" type="image/png" href="{{ asset($setting->favicon_image) }}">
-<link rel="stylesheet" href="{{ mix('frontend/vendor.min.css') }}">
-<link rel="stylesheet" href="{{ mix('frontend/app.min.css') }}">
+{{-- <link rel="stylesheet" href="{{ mix('frontend/vendor.min.css') }}">
+<link rel="stylesheet" href="{{ mix('frontend/app.min.css') }}"> --}}
+<link rel="stylesheet" href="{{ asset('frontend') }}/app.min.css">
+<link rel="stylesheet" href="{{ asset('frontend') }}/vendor.min.css">
 <link rel="stylesheet" href="{{ asset('frontend') }}/assets/css/customfont.css">
 <link rel="stylesheet" href="{{ asset('frontend') }}/assets/css/flag-icon.min.css">
 <link rel="stylesheet" href="{{ asset('frontend') }}/assets/css/flags.css">
