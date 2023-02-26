@@ -36,7 +36,7 @@ class CandidateController extends Controller
     public function index(Request $request)
     {
         abort_if(!userCan('candidate.view'), 403);
-
+        // dd($request->all());
         $query = Candidate::with('user');
 
         // verified status
@@ -53,19 +53,63 @@ class CandidateController extends Controller
             }
         }
 
-        if ($request->keyword && $request->keyword != null) {
-
+        if ($request->name && $request->name != null) {
             $query->whereHas('user', function ($q) use ($request) {
-
-                $q->where('name', 'LIKE', "%$request->keyword%")
-                ->orWhere('email', 'LIKE', "%$request->keyword%");
+                $q->where('name', 'LIKE', "%$request->name%");
             });
         }
+
+        if ($request->phone && $request->phone != null) {
+            $query->whereHas('user', function ($q) use ($request) {
+                $q->where('phone', 'LIKE', "%$request->phone%");
+            });
+        }
+
+        if ($request->email && $request->email != null) {
+            $query->whereHas('user', function ($q) use ($request) {
+                $q->where('email', 'LIKE', "%$request->email%");
+            });
+        }
+
         if ($request->region && $request->region != null) {
 
-            $query->whereHas('user', function ($q) use ($request) {
+            $query->where(function ($q) use ($request) {
+                $q->where('region', '=', $request->region);
+            });
+        }
+        
+        if ($request->district && $request->district != null) {
 
-                $q->where('region', ' = ', $request->region);
+            $query->where(function ($q) use ($request) {
+                $q->where('district', '=', $request->district);
+            });
+        }
+        
+        if ($request->thana && $request->thana != null) {
+
+            $query->where(function ($q) use ($request) {
+                $q->where('thana', '=', $request->thana);
+            });
+        }
+
+        if ($request->pourosova_union_porishod && $request->pourosova_union_porishod != null) {
+
+            $query->where(function ($q) use ($request) {
+                $q->where('pourosova_union_porishod', '=', $request->pourosova_union_porishod);
+            });
+        }
+
+        if ($request->ward_no && $request->ward_no != null) {
+
+            $query->where(function ($q) use ($request) {
+                $q->where('ward_no', '=', $request->ward_no);
+            });
+        }
+
+        if ($request->house_and_road_no && $request->house_and_road_no != null) {
+
+            $query->where(function ($q) use ($request) {
+                $q->where('house_and_road_no', '=', $request->house_and_road_no);
             });
         }
 

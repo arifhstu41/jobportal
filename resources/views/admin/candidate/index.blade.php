@@ -33,33 +33,15 @@
                         <div class="row">
                             <div class="col-4">
                                 <label>{{ __('name') }}</label>
-                                <input name="name" type="text" placeholder="{{ __('name') }}" class="form-control" value="{{ request('keyword') }}">
+                                <input name="name" type="text" placeholder="{{ __('name') }}" class="form-control" value="{{ request('name') }}">
                             </div>
                             <div class="col-4">
-                                <label>{{ __('email_verification') }}</label>
-                                <select name="ev_status" class="form-control w-100-p">
-                                    <option value="">
-                                        {{ __('all') }}
-                                    </option>
-                                    <option {{ request('ev_status') == 'true' ? 'selected' : '' }} value="true">
-                                        {{ __('verified') }}
-                                    </option>
-                                    <option {{ request('ev_status') == 'false' ? 'selected' : '' }} value="false">
-                                        {{ __('not_verified') }}
-                                    </option>
-                                </select>
+                                <label>{{ __('phone') }}</label>
+                                <input name="phone" type="text" placeholder="{{ __('phone') }}" class="form-control" value="{{ request('phone') }}">
                             </div>
                             <div class="col-4">
                                 <label>{{ __('sort_by') }}</label>
-                                <select name="sort_by" class="form-control w-100-p">
-                                    <option {{ !request('sort_by') || request('sort_by') == 'latest' ? 'selected' : '' }}
-                                        value="latest" selected>
-                                        {{ __('latest') }}
-                                    </option>
-                                    <option {{ request('sort_by') == 'oldest' ? 'selected' : '' }} value="oldest">
-                                        {{ __('oldest') }}
-                                    </option>
-                                </select>
+                                <input name="email" type="text" placeholder="{{ __('email') }}" class="form-control" value="{{ request('email') }}">
                             </div>
                         </div>
 

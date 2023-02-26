@@ -1012,7 +1012,7 @@ class WebsiteController extends Controller
         $division_id = $_GET['division'];
         $districts = DB::table('districts')->where('division_id', $division_id)->get();
 
-        $html = "<option>Please Select</option>";
+        $html = "<option value=''>Please Select</option>";
 
         foreach($districts as $each){
             $html.= "<option value=".$each->id.">".$each->name."</option>";
@@ -1027,7 +1027,7 @@ class WebsiteController extends Controller
         $district_id = $_GET['district_id'];
         $thana = DB::table('upazilas')->where('district_id', $district_id)->get();
 
-        $html = "<option>Please Select</option>";
+        $html = "<option value=''>Please Select</option>";
 
         foreach($thana as $each){
             $html.= "<option value=".$each->id.">".$each->name."</option>";
@@ -1042,7 +1042,7 @@ class WebsiteController extends Controller
         $thana_id = $_GET['thana_id'];
         $unions = DB::table('unions')->where('upazilla_id', $thana_id)->get();
 
-        $html = "<option>Please Select</option>";
+        $html = "<option value=''>Please Select</option>";
 
         foreach($unions as $each){
             $html.= "<option value=".$each->id.">".$each->name."</option>";
