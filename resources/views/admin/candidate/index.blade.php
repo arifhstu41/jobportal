@@ -1,3 +1,4 @@
+<?php //echo "<pre>";print_r($filter);die;?>
 @extends('admin.layouts.app')
 @section('title')
     {{ __('candidate_list') }}
@@ -28,37 +29,119 @@
 
                 {{-- Filter  --}}
                 <form id="formSubmit" action="{{ route('candidate.index') }}" method="GET" onchange="this.submit();">
-                    <div class="card-body border-bottom row">
-                        <div class="col-4">
-                            <label>{{ __('search') }}</label>
-                            <input name="keyword" type="text" placeholder="{{ __('search') }}" class="form-control" value="{{ request('keyword') }}">
+                    <div class="card-body border-bottom ">
+                        <div class="row">
+                            <div class="col-4">
+                                <label>{{ __('name') }}</label>
+                                <input name="name" type="text" placeholder="{{ __('name') }}" class="form-control" value="{{ request('keyword') }}">
+                            </div>
+                            <div class="col-4">
+                                <label>{{ __('email_verification') }}</label>
+                                <select name="ev_status" class="form-control w-100-p">
+                                    <option value="">
+                                        {{ __('all') }}
+                                    </option>
+                                    <option {{ request('ev_status') == 'true' ? 'selected' : '' }} value="true">
+                                        {{ __('verified') }}
+                                    </option>
+                                    <option {{ request('ev_status') == 'false' ? 'selected' : '' }} value="false">
+                                        {{ __('not_verified') }}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-4">
+                                <label>{{ __('sort_by') }}</label>
+                                <select name="sort_by" class="form-control w-100-p">
+                                    <option {{ !request('sort_by') || request('sort_by') == 'latest' ? 'selected' : '' }}
+                                        value="latest" selected>
+                                        {{ __('latest') }}
+                                    </option>
+                                    <option {{ request('sort_by') == 'oldest' ? 'selected' : '' }} value="oldest">
+                                        {{ __('oldest') }}
+                                    </option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="col-4">
-                            <label>{{ __('email_verification') }}</label>
-                            <select name="ev_status" class="form-control w-100-p">
-                                <option value="">
-                                    {{ __('all') }}
-                                </option>
-                                <option {{ request('ev_status') == 'true' ? 'selected' : '' }} value="true">
-                                    {{ __('verified') }}
-                                </option>
-                                <option {{ request('ev_status') == 'false' ? 'selected' : '' }} value="false">
-                                    {{ __('not_verified') }}
-                                </option>
+
+                        <div class="row">
+                            <div class="col-4">
+                                <label>{{ __('region') }}</label>
+                                <select  name="region" id="region"
+                                class="form-control w-100-p">
+                                <option value="">Please Select</option>
+                                @foreach ($divisions as $division)
+                                    <option value="{{ $division->id }}"
+                                        {{ $filter->division == $division->id ? 'selected' : '' }}>
+                                        {{ $division->name }}</option>
+                                @endforeach
                             </select>
+                            </div>
+                            <div class="col-4">
+                                <label>{{ __('district') }}</label>
+                                <select  name="district" id="district"
+                                    class="form-control w-100-p">
+                                    <option value="">Please Select</option>
+                                    @foreach ($districts as $district)
+                                        <option value="{{ $district->id }}"
+                                            {{ $filter->district == $district->id ? 'selected' : '' }}>
+                                            {{ $district->name }}</option>
+                                    @endforeach
+
+                                </select>
+                            </div>
+                            <div class="col-4">
+                                <label>{{ __('thana') }}</label>
+                                <select  name="thana" id="thana"
+                                    class="form-control w-100-p">
+                                    <option value="">Please Select</option>
+                                    @foreach ($upazilas as $thana)
+                                        <option value="{{ $thana->id }}"
+                                            {{ $filter->upazila == $thana->id ? 'selected' : '' }}>
+                                            {{ $thana->name }}</option>
+                                    @endforeach
+
+                                </select>
+                            </div>
                         </div>
-                        <div class="col-4">
-                            <label>{{ __('sort_by') }}</label>
-                            <select name="sort_by" class="form-control w-100-p">
-                                <option {{ !request('sort_by') || request('sort_by') == 'latest' ? 'selected' : '' }}
-                                    value="latest" selected>
-                                    {{ __('latest') }}
-                                </option>
-                                <option {{ request('sort_by') == 'oldest' ? 'selected' : '' }} value="oldest">
-                                    {{ __('oldest') }}
-                                </option>
+
+                        <div class="row">
+                            <div class="col-4">
+                                <label>{{ __('pourosova_union_porishod') }}</label>
+                                <select  name="pourosova_union_porishod"
+                                id="pourosova_union_porishod" class="form-control w-100-p">
+                                <option value="">Please Select</option>
+                                @foreach ($unions as $union)
+                                    <option value="{{ $union->id }}"
+                                        {{ $filter->pourosova_union_porishod == $union->id ? 'selected' : '' }}>
+                                        {{ $union->name }}</option>
+                                @endforeach
+
                             </select>
+                            </div>
+                            <div class="col-4">
+                                <label>{{ __('ward_no') }}</label>
+                                <select  name="ward_no" id="ward_no"
+                                class="form-control w-100-p">
+                                <option value="">Please Select</option>
+                                @foreach ($wards as $key => $ward)
+                                    <option value="{{ $ward }}"
+                                        {{ $filter->ward_no == $ward ? 'selected' : '' }}>
+                                        Ward-{{ $ward }}</option>
+                                @endforeach
+                            </select>
+                            </div>
+                            <div class="col-4">
+                                <label>{{ __('house_and_road_no') }}</label>
+                                <input
+                                class="form-control @error('house_and_road_no') is-invalid @enderror"
+                                name="house_and_road_no" type="text"
+                                value="{{ old('house_and_road_no') ? old('house_and_road_no') : $filter->house_and_road_no }}"
+                                id="house_and_road_no" placeholder="{{ __('house_and_road_no') }}"
+                                >
+                            </div>
                         </div>
+
+
                     </div>
                 </form>
 
@@ -277,9 +360,22 @@
     </script>
     <script>
         $(document).ready(function() {
-            validate();
+            // validate();
             $('#title').keyup(validate);
+
+            var division = $("#region").val();
+            var district_id = $("#district").val();
+            var thana = $("#thana").val();
+            var pourosova_union_porishod = $("#pourosova_union_porishod").val();
+
+            get_district(division, district_id);
+            get_thana(district_id, thana);
+            get_union(thana, pourosova_union_porishod);
+
+            console.log("division"+division)
+            console.log("district_id"+district_id)
         });
+
 
         function validate() {
             if (
@@ -298,5 +394,84 @@
             $('#' + id).val('');
             $('#formSubmit').submit();
         }
+
+        $(document).on("change", "#region", function() {
+            var division = $(this).val();
+            get_district(division, 0);
+
+
+        })
+
+        function get_district(division, district_id) {
+
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "{{ route('website.district.get.data') }}",
+                data: {
+                    division: division,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+
+                    $("#district").html(response.html);
+
+                    $("#district").val(district_id);
+
+                    // toastr.success(response.message, 'Success');
+                }
+            });
+        }
+
+
+
+        $(document).on("change", "#district", function() {
+            var district_id = $(this).val();
+            get_thana(district_id, 0);
+        })
+
+        function get_thana(district_id, thana) {
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "{{ route('website.thana.get.data') }}",
+                data: {
+                    district_id: district_id,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+
+                    $("#thana").html(response.html);
+                    $("#thana").val(thana);
+                }
+            });
+
+        }
+
+
+        // get union by thana/paurashava/upazila
+        $(document).on("change", "#thana", function() {
+            var thana_id = $(this).val();
+            get_union(thana_id, 0);
+        })
+
+        function get_union(thana_id, union_id) {
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "{{ route('website.union.get.data') }}",
+                data: {
+                    thana_id: thana_id,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+
+                    $("#pourosova_union_porishod").html(response.html);
+                    $("#pourosova_union_porishod").val(union_id);
+                }
+            });
+
+        }
+
     </script>
 @endsection

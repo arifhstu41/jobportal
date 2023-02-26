@@ -61,6 +61,13 @@ class CandidateController extends Controller
                 ->orWhere('email', 'LIKE', "%$request->keyword%");
             });
         }
+        if ($request->region && $request->region != null) {
+
+            $query->whereHas('user', function ($q) use ($request) {
+
+                $q->where('region', ' = ', $request->region);
+            });
+        }
 
         // sortby
         if ($request->sort_by == 'latest' || $request->sort_by == null) {
@@ -71,7 +78,29 @@ class CandidateController extends Controller
 
         $candidates = $query->paginate(10)->withQueryString();
 
-        return view('admin.candidate.index', compact('candidates'));
+        $filter = [
+            "district" => @$request->district,
+            "division" => @$request->region,
+            "upazila" => @$request->thana,
+            "union" => @$request->union,
+            "house_and_road_no" => @$request->house_and_road_no,
+            "pourosova_union_porishod" => @$request->pourosova_union_porishod,
+            "ward_no" => @$request->ward_no
+        ];
+
+        $filter = (object)$filter;
+
+        $wards= [];
+        for ($i=1; $i <=10 ; $i++) {
+            $wards[]= $i;
+        }
+
+        $districts = DB::table('districts')->get();
+        $divisions = DB::table('divisions')->get();
+        $upazilas = DB::table('upazilas')->get();
+        $unions = DB::table('unions')->get();
+
+        return view('admin.candidate.index', compact('candidates','divisions', 'districts','unions', 'upazilas', 'filter', 'wards'));
     }
 
     public function state(Request $request)
