@@ -83,7 +83,7 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="fromGroup rt-mb-15">
-                                            <input name="username" id="name" value=""
+                                            <input name="username" id="username" value=""
                                                 class="field form-control @error('username') is-invalid @enderror"
                                                 type="text" placeholder="user name">
                                             @error('username')
@@ -91,6 +91,18 @@
                                             @enderror
                                         </div>
                                     </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="fromGroup rt-mb-15">
+                                            <input type="phone" id="phone" value="{{ old('phone') }}" name="phone"
+                                                class="field form-control @error('phone') is-invalid @enderror"
+                                                placeholder="{{ __('phone') }}">
+                                            @error('phone')
+                                                <span class="invalid-feedback" id="phone_error" role="alert">{{ __($message) }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
                                     <div class="col-lg-6">
                                         <div class="fromGroup rt-mb-15">
                                             <input type="email" id="email" value="{{ old('email') }}" name="email"
@@ -101,16 +113,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
-                                        <div class="fromGroup rt-mb-15">
-                                            <input type="phone" id="phone" value="{{ old('phone') }}" name="phone"
-                                                class="field form-control @error('phone') is-invalid @enderror"
-                                                placeholder="{{ __('phone') }}">
-                                            @error('phone')
-                                                <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
+                                    
                                 </div>
 
                                 <div class="rt-mb-15">
@@ -406,13 +409,16 @@
     <script>
         $(document).ready(function() {
             validate();
+            
             $('#name, #email, #phone, #password, #password_confirmation, #term').keyup(validate);
         });
 
         function validate() {
+
             if (
                 $('#name').val().length > 0 &&
-                $('#email').val().length > 0 &&
+                // $('#email').val().length > 0 &&
+                validatePhone() &&
                 $('#phone').val().length > 0 &&
                 $('#password').val().length > 0 &&
                 $('#password_confirmation').val().length > 0 &&
@@ -422,6 +428,20 @@
                 $('#submitButton').attr('disabled', true);
             }
         }
+
+        function validatePhone(){
+            let phone= $("#phone").val();
+            let valid= /(^([+]{1}[8]{2}|0088)?(01){1}[3-9]{1}\d{8})$/.test(phone);
+            return valid;
+        }
+
+        $(document).on("change", "#phone", function(){
+            let phone= $(this).val();
+            let valid= /(^([+]{1}[8]{2}|0088)?(01){1}[3-9]{1}\d{8})$/.test(phone);
+            if(!valid){
+                alert("please enter a valid phone number");
+            }
+        })
 
         function passToText(id, icon) {
             var input = $('#' + id);

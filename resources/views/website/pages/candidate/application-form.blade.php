@@ -64,30 +64,34 @@
                                             <label for="name" class="col-sm-3 col-form-label">{{ __('name') }}<span
                                                     class="required">*</span></label>
                                             <div class="col-sm-9">
-                                                <input class="form-control @error('name') is-invalid @enderror" name="name"
-                                                    type="text" value="{{ old('name') ? old('name') : $user->name }}" id="name"
+                                                <input class="form-control @error('name') is-invalid @enderror"
+                                                    name="name" type="text"
+                                                    value="{{ old('name') ? old('name') : $user->name }}" id="name"
                                                     placeholder="{{ __('name') }}" required>
                                                 @error('name')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                                                 @enderror
                                             </div>
                                         </div>
-            
+
                                         <div class="form-group form-group-sm row py-2">
-                                            <label for="name_bn" class="col-sm-3 col-form-label bangla">{{ __('name_bn') }}<span
+                                            <label for="name_bn"
+                                                class="col-sm-3 col-form-label bangla">{{ __('name_bn') }}<span
                                                     class="required">*</span></label>
                                             <div class="col-sm-9">
-                                                <input class="form-control @error('name_bn') is-invalid @enderror" name="name_bn"
-                                                    type="text" value="{{ old('name_bn') ? old('name_bn') : $candidate->name_bn }}"
+                                                <input class="form-control @error('name_bn') is-invalid @enderror"
+                                                    name="name_bn" type="text"
+                                                    value="{{ old('name_bn') ? old('name_bn') : $candidate->name_bn }}"
                                                     id="name_bn" placeholder="{{ __('name_bn') }}" required>
                                                 @error('name_bn')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                                                 @enderror
                                             </div>
                                         </div>
-            
+
                                         <div class="form-group form-group-sm row py-2">
-                                            <label for="father_name" class="col-sm-3 col-form-label">{{ __('father_name') }}<span
+                                            <label for="father_name"
+                                                class="col-sm-3 col-form-label">{{ __('father_name') }}<span
                                                     class="required">*</span></label>
                                             <div class="col-sm-9">
                                                 <input class="form-control @error('father_name') is-invalid @enderror"
@@ -99,9 +103,10 @@
                                                 @enderror
                                             </div>
                                         </div>
-            
+
                                         <div class="form-group form-group-sm row py-2">
-                                            <label for="father_name_bn" class="col-sm-3 col-form-label">{{ __('father_name_bn') }}<span
+                                            <label for="father_name_bn"
+                                                class="col-sm-3 col-form-label">{{ __('father_name_bn') }}<span
                                                     class="required">*</span></label>
                                             <div class="col-sm-9">
                                                 <input class="form-control @error('father_name_bn') is-invalid @enderror"
@@ -113,9 +118,10 @@
                                                 @enderror
                                             </div>
                                         </div>
-            
+
                                         <div class="form-group form-group-sm row py-2">
-                                            <label for="mother_name" class="col-sm-3 col-form-label">{{ __('mother_name') }}<span
+                                            <label for="mother_name"
+                                                class="col-sm-3 col-form-label">{{ __('mother_name') }}<span
                                                     class="required">*</span></label>
                                             <div class="col-sm-9">
                                                 <input class="form-control @error('mother_name') is-invalid @enderror"
@@ -127,9 +133,10 @@
                                                 @enderror
                                             </div>
                                         </div>
-            
+
                                         <div class="form-group form-group-sm row py-2">
-                                            <label for="mother_name_bn" class="col-sm-3 col-form-label">{{ __('mother_name_bn') }}<span
+                                            <label for="mother_name_bn"
+                                                class="col-sm-3 col-form-label">{{ __('mother_name_bn') }}<span
                                                     class="required">*</span></label>
                                             <div class="col-sm-9">
                                                 <input class="form-control @error('mother_name_bn') is-invalid @enderror"
@@ -141,9 +148,10 @@
                                                 @enderror
                                             </div>
                                         </div>
-            
+
                                         <div class="form-group form-group-sm row py-2">
-                                            <label for="birth_date" class="col-sm-3 col-form-label">{{ __('birth_date') }}<span
+                                            <label for="birth_date"
+                                                class="col-sm-3 col-form-label">{{ __('birth_date') }}<span
                                                     class="required">*</span></label>
                                             <div class="col-sm-9">
                                                 {{-- <input required
@@ -153,46 +161,54 @@
                                                 @error('birth_date')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                                                 @enderror --}}
-            
+
                                                 <div class="fromGroup">
-                                                    <div class="d-flex align-items-center form-control-icon date datepicker">
+                                                    <div
+                                                        class="d-flex align-items-center form-control-icon date datepicker">
                                                         <input type="text" name="birth_date"
                                                             value="{{ date('d-m-Y', strtotime($candidate->birth_date)) }}"
-                                                            id="date" placeholder="dd/mm/yyyy" class="form-control border-cutom "
-                                                            autocomplete="off">
+                                                            id="date" placeholder="dd/mm/yyyy"
+                                                            class="form-control border-cutom " autocomplete="off">
                                                         <span class="input-group-addon input-group-text-custom">
-                                                            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
-                                                                xmlns="http://www.w3.org/2000/svg">
+                                                            <svg width="22" height="22" viewBox="0 0 22 22"
+                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                 <path
                                                                     d="M17.875 3.4375H4.125C3.7453 3.4375 3.4375 3.7453 3.4375 4.125V17.875C3.4375 18.2547 3.7453 18.5625 4.125 18.5625H17.875C18.2547 18.5625 18.5625 18.2547 18.5625 17.875V4.125C18.5625 3.7453 18.2547 3.4375 17.875 3.4375Z"
-                                                                    stroke="#18191C" stroke-width="1.3" stroke-linecap="round"
-                                                                    stroke-linejoin="round"></path>
-                                                                <path d="M15.125 2.0625V4.8125" stroke="#18191C" stroke-width="1.5"
+                                                                    stroke="#18191C" stroke-width="1.3"
                                                                     stroke-linecap="round" stroke-linejoin="round"></path>
-                                                                <path d="M6.875 2.0625V4.8125" stroke="#18191C" stroke-width="1.5"
-                                                                    stroke-linecap="round" stroke-linejoin="round"></path>
-                                                                <path d="M3.4375 7.5625H18.5625" stroke="#18191C" stroke-width="1.5"
+                                                                <path d="M15.125 2.0625V4.8125" stroke="#18191C"
+                                                                    stroke-width="1.5" stroke-linecap="round"
                                                                     stroke-linejoin="round"></path>
+                                                                <path d="M6.875 2.0625V4.8125" stroke="#18191C"
+                                                                    stroke-width="1.5" stroke-linecap="round"
+                                                                    stroke-linejoin="round"></path>
+                                                                <path d="M3.4375 7.5625H18.5625" stroke="#18191C"
+                                                                    stroke-width="1.5" stroke-linejoin="round"></path>
                                                             </svg>
                                                         </span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-            
+
                                         <div class="form-group form-group-sm row py-2">
-                                            <label for="gender" class="col-sm-3 col-form-label">{{ __('gender') }}<span
+                                            <label for="gender"
+                                                class="col-sm-3 col-form-label">{{ __('gender') }}<span
                                                     class="required">*</span></label>
                                             <div class="col-sm-9">
-                                                <select required class="rt-selectactive w-100-p @error('gender') is-invalid @enderror"
+                                                <select required
+                                                    class="rt-selectactive w-100-p @error('gender') is-invalid @enderror"
                                                     name="gender">
-                                                    <option @if ($candidate->gender == 'male' || old('gender') == 'male') selected @endif value="male">
+                                                    <option @if ($candidate->gender == 'male' || old('gender') == 'male') selected @endif
+                                                        value="male">
                                                         {{ __('male') }}
                                                     </option>
-                                                    <option @if ($candidate->gender == 'female' || old('gender') == 'female') selected @endif value="female">
+                                                    <option @if ($candidate->gender == 'female' || old('gender') == 'female') selected @endif
+                                                        value="female">
                                                         {{ __('female') }}
                                                     </option>
-                                                    <option @if ($candidate->gender == 'other' || old('gender') == 'other') selected @endif value="other">
+                                                    <option @if ($candidate->gender == 'other' || old('gender') == 'other') selected @endif
+                                                        value="other">
                                                         {{ __('other') }}
                                                     </option>
                                                 </select>
@@ -201,27 +217,33 @@
                                                 @enderror
                                             </div>
                                         </div>
-            
+
                                         <div class="form-group form-group-sm row py-2">
-                                            <label for="religion" class="col-sm-3 col-form-label">{{ __('religion') }}<span
+                                            <label for="religion"
+                                                class="col-sm-3 col-form-label">{{ __('religion') }}<span
                                                     class="required">*</span></label>
                                             <div class="col-sm-9">
                                                 <select required
                                                     class="rt-selectactive w-100-p @error('religion') is-invalid @enderror"
                                                     name="religion">
-                                                    <option @if ($candidate->religion == 'Islam' || old('religion') == 'Islam') selected @endif value="Islam">
+                                                    <option @if ($candidate->religion == 'Islam' || old('religion') == 'Islam') selected @endif
+                                                        value="Islam">
                                                         {{ __('Islam') }}
                                                     </option>
-                                                    <option @if ($candidate->religion == 'Hinduism' || old('religion') == 'Hinduism') selected @endif value="Hinduism">
+                                                    <option @if ($candidate->religion == 'Hinduism' || old('religion') == 'Hinduism') selected @endif
+                                                        value="Hinduism">
                                                         {{ __('Hinduism') }}
                                                     </option>
-                                                    <option @if ($candidate->religion == 'Buddhism' || old('religion') == 'Buddhism') selected @endif value="Buddhism">
+                                                    <option @if ($candidate->religion == 'Buddhism' || old('religion') == 'Buddhism') selected @endif
+                                                        value="Buddhism">
                                                         {{ __('Buddhism') }}
                                                     </option>
-                                                    <option @if ($candidate->religion == 'Christianity' || old('religion') == 'Christianity') selected @endif value="Christianity">
+                                                    <option @if ($candidate->religion == 'Christianity' || old('religion') == 'Christianity') selected @endif
+                                                        value="Christianity">
                                                         {{ __('Christianity') }}
                                                     </option>
-                                                    <option @if ($candidate->religion == 'others' || old('religion') == 'others') selected @endif value="others">
+                                                    <option @if ($candidate->religion == 'others' || old('religion') == 'others') selected @endif
+                                                        value="others">
                                                         {{ __('others') }}
                                                     </option>
                                                 </select>
@@ -230,36 +252,41 @@
                                                 @enderror
                                             </div>
                                         </div>
-            
+
                                         <div class="form-group form-group-sm row py-2">
                                             <label for="birth_certificate_no"
                                                 class="col-sm-3 col-form-label">{{ __('birth_certificate_no') }}</label>
                                             <div class="col-sm-9">
-                                                <input class="form-control @error('birth_certificate_no') is-invalid @enderror"
+                                                <input
+                                                    class="form-control @error('birth_certificate_no') is-invalid @enderror"
                                                     name="birth_certificate_no" type="text"
                                                     value="{{ old('birth_certificate_no') ? old('birth_certificate_no') : $candidate->birth_certificate_no }}"
-                                                    id="birth_certificate_no" placeholder="{{ __('birth_certificate_no') }}">
+                                                    id="birth_certificate_no"
+                                                    placeholder="{{ __('birth_certificate_no') }}">
                                                 @error('birth_certificate_no')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                                                 @enderror
                                             </div>
                                         </div>
-            
+
                                         <div class="form-group form-group-sm row py-2">
-                                            <label for="nid_no" class="col-sm-3 col-form-label">{{ __('nid_no') }}</label>
+                                            <label for="nid_no"
+                                                class="col-sm-3 col-form-label">{{ __('nid_no') }}</label>
                                             <div class="col-sm-9">
-                                                <input class="form-control @error('nid_no') is-invalid @enderror" name="nid_no"
-                                                    type="text" value="{{ old('nid_no') ? old('nid_no') : $candidate->nid_no }}"
+                                                <input class="form-control @error('nid_no') is-invalid @enderror"
+                                                    name="nid_no" type="text"
+                                                    value="{{ old('nid_no') ? old('nid_no') : $candidate->nid_no }}"
                                                     id="nid_no" placeholder="{{ __('nid_no') }}">
                                                 @error('nid_no')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                                                 @enderror
                                             </div>
                                         </div>
-            
-            
+
+
                                         <div class="form-group form-group-sm row py-2">
-                                            <label for="passport_no" class="col-sm-3 col-form-label">{{ __('passport_no') }}</label>
+                                            <label for="passport_no"
+                                                class="col-sm-3 col-form-label">{{ __('passport_no') }}</label>
                                             <div class="col-sm-9">
                                                 <input class="form-control @error('passport_no') is-invalid @enderror"
                                                     name="passport_no" type="text"
@@ -270,16 +297,18 @@
                                                 @enderror
                                             </div>
                                         </div>
-            
+
                                         <div class="form-group form-group-sm row py-2">
                                             <label for="marital_status"
                                                 class="col-sm-3 col-form-label">{{ __('marital_status') }}<span
                                                     class="required">*</span></label>
                                             <div class="col-sm-9">
                                                 <select name="marital_status" class="rt-selectactive w-100-p" required>
-                                                    <option @if ($candidate->marital_status == 'single' || old('marital_status') == 'single') selected @endif value="single">
+                                                    <option @if ($candidate->marital_status == 'single' || old('marital_status') == 'single') selected @endif
+                                                        value="single">
                                                         {{ __('single') }}</option>
-                                                    <option @if ($candidate->marital_status == 'married' || old('marital_status') == 'married') selected @endif value="married">
+                                                    <option @if ($candidate->marital_status == 'married' || old('marital_status') == 'married') selected @endif
+                                                        value="married">
                                                         {{ __('married') }}</option>
                                                 </select>
                                                 @error('marital_status')
@@ -287,13 +316,14 @@
                                                 @enderror
                                             </div>
                                         </div>
-            
+
                                         <div class="form-group form-group-sm row py-2">
-                                            <label for="quota" class="col-sm-3 col-form-label">{{ __('quota') }}</label>
+                                            <label for="quota"
+                                                class="col-sm-3 col-form-label">{{ __('quota') }}</label>
                                             <div class="col-sm-9">
                                                 <select name="quota" class="rt-selectactive w-100-p">
                                                     <option value="">Please Select</option>
-                                                    <option @if ($candidate->quota == 1 || old('quota') == 'Child of Freedom Fighter') selected @endif
+                                                    <option @if ($candidate->quota == "Child of Freedom Fighter" || old('quota') == 'Child of Freedom Fighter') selected @endif
                                                         value="Child of Freedom Fighter">
                                                         {{ __('Child of Freedom Fighter') }}</option>
                                                     <option @if ($candidate->quota == 'Grand Child of Freedom Fighter' || old('quota') == 'Grand Child of Freedom Fighter') selected @endif
@@ -302,13 +332,17 @@
                                                     <option @if ($candidate->quota == 'Physically Handicapped' || old('quota') == 'Physically Handicapped') selected @endif
                                                         value="Physically Handicapped">
                                                         {{ __('Physically Handicapped') }}</option>
-                                                    <option @if ($candidate->quota == 'Orphan' || old('quota') == 'Orphan') selected @endif value="Orphan">
+                                                    <option @if ($candidate->quota == 'Orphan' || old('quota') == 'Orphan') selected @endif
+                                                        value="Orphan">
                                                         {{ __('Orphan') }}</option>
-                                                    <option @if ($candidate->quota == 'Ethic Minority' || old('quota') == 'Ethic Minority') selected @endif value="Ethic Minority">
+                                                    <option @if ($candidate->quota == 'Ethic Minority' || old('quota') == 'Ethic Minority') selected @endif
+                                                        value="Ethic Minority">
                                                         {{ __('Ethic Minority') }}</option>
-                                                    <option @if ($candidate->quota == 'Ansar-VDP' || old('quota') == 'Ansar-VDP') selected @endif value="Ansar-VDP">
+                                                    <option @if ($candidate->quota == 'Ansar-VDP' || old('quota') == 'Ansar-VDP') selected @endif
+                                                        value="Ansar-VDP">
                                                         {{ __('Ansar-VDP') }}</option>
-                                                    <option @if ($candidate->quota == 'Non Quota' || old('quota') == 'Non Quota') selected @endif value="Non Quota">
+                                                    <option @if ($candidate->quota == 'Non Quota' || old('quota') == 'Non Quota') selected @endif
+                                                        value="Non Quota">
                                                         {{ __('Non Quota') }}</option>
                                                 </select>
                                                 @error('quota')
@@ -316,11 +350,15 @@
                                                 @enderror
                                             </div>
                                         </div>
-            
+
                                         <div class="form-group form-group-sm row py-2">
-                                            <label for="quota" class="col-sm-3 col-form-label">{{ __('nationality') }}</label>
+                                            <label for="nationality"
+                                                class="col-sm-3 col-form-label">{{ __('nationality') }}<span
+                                                    class="required">*</span></label>
                                             <div class="col-sm-9">
-                                                <p>{{ __('bangladeshi') }}</p>
+                                                <select name="nationality" class="rt-selectactive w-100-p" required>
+                                                    <option value="22" selected>Bangladeshi</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -370,7 +408,7 @@
 
                                         </div>
 
-                                        <div class="form-group form-group-sm row py-2">
+                                        <div class="form-group form-group-sm row py-2 d-none" id="district_div">
                                             <label for="district"
                                                 class="col-sm-4 col-form-label">{{ __('district') }}<span
                                                     class="required">*</span></label>
@@ -391,7 +429,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group form-group-sm row py-2">
+                                        <div class="form-group form-group-sm row py-2 d-none" id="thana_div">
                                             <label for="thana"
                                                 class="col-sm-4 col-form-label">{{ __('thana') }}<span
                                                     class="required">*</span></label>
@@ -412,7 +450,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group form-group-sm row py-2">
+                                        <div class="form-group form-group-sm row py-2 d-none" id="union_div">
                                             <label for="pourosova_union_porishod"
                                                 class="col-sm-4 col-form-label">{{ __('pourosova_union_porishod') }}<span
                                                     class="required">*</span></label>
@@ -433,7 +471,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group form-group-sm row py-2">
+                                        <div class="form-group form-group-sm row py-2 d-none" id="ward_div">
                                             <label for="ward_no"
                                                 class="col-sm-4 col-form-label">{{ __('ward_no') }}<span
                                                     class="required">*</span></label>
@@ -527,12 +565,6 @@
                                             class="form-check-input d-inline-block mt-1" id="same_address">
                                         <label class="form-check-label d-inline-block mx-0 px-0" for="same_address">Same
                                             as present addresss</label>
-
-                                        {{-- {{ __('masters') }}
-                                        <input type="checkbox" name="masters"
-                                            class="form-check-input d-inline-block mt-1" id="masters">
-                                        <label class="form-check-label d-inline-block mx-0 px-0" for="masters">If
-                                            Applicable</label> --}}
                                     </div>
                                     <div class="card-body pt-1">
                                         <div class="form-group form-group-sm row py-0">
@@ -571,7 +603,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group form-group-sm row py-2">
+                                        <div class="form-group form-group-sm row py-2 d-none" id="parmanent_district_div">
                                             <label for="district_parmanent"
                                                 class="col-sm-4 col-form-label">{{ __('district') }}<span
                                                     class="required">*</span></label>
@@ -591,7 +623,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group form-group-sm row py-2">
+                                        <div class="form-group form-group-sm row py-2 d-none" id="parmanent_thana_div">
                                             <label for="thana_parmanent"
                                                 class="col-sm-4 col-form-label">{{ __('thana') }}<span
                                                     class="required">*</span></label>
@@ -611,7 +643,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group form-group-sm row py-2">
+                                        <div class="form-group form-group-sm row py-2 d-none" id="parmanent_union_div">
                                             <label for="pourosova_union_porishod_parmanent"
                                                 class="col-sm-4 col-form-label">{{ __('pourosova_union_porishod_parmanent') }}<span
                                                     class="required">*</span></label>
@@ -633,7 +665,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group form-group-sm row py-2">
+                                        <div class="form-group form-group-sm row py-2 d-none" id="parmanent_ward_div">
                                             <label for="ward_no_parmanent"
                                                 class="col-sm-4 col-form-label">{{ __('ward_no_parmanent') }}<span
                                                     class="required">*</span></label>
@@ -2584,36 +2616,52 @@
                     disabled: 'readonly'
                 });
                 $("#ward_no_parmanent").val($("#ward_no").val()).trigger("change");
-                // $("#ward_no_parmanent").trigger('change',{'isTriggeredBySystem':true})
-
-
-
-
-
-
-
-
             } else {
+                /* display hide */
+                if ($("#parmanent_district_div").hasClass("d-none")) {
+                    $("#parmanent_district_div").removeClass('d-none');
+                }
+                if ($("#parmanent_thana_div").hasClass("d-none")) {
+                    $("#parmanent_thana_div").removeClass('d-none');
+                }
+                if ($("#parmanent_union_div").hasClass("d-none")) {
+                    $("#parmanent_union_div").removeClass('d-none');
+                }
+                if ($("#parmanent_ward_div").hasClass("d-none")) {
+                    $("#parmanent_ward_div").removeClass('d-none');
+                }
+                /* display hide */
+
                 $("#care_of_parmanent").removeAttr('readonly');
+                $("#care_of_parmanent").val('');
                 $("#region_parmanent").select2({
                     disabled: false
                 });
+                $("#region_parmanent").val('').trigger("change");
                 $("#district_parmanent").select2({
                     disabled: false
                 });
+                $("#district_parmanent").val('').trigger("change");
                 $("#thana_parmanent").select2({
                     disabled: false
                 });
+                $("#thana_parmanent").val('').trigger("change");
                 $("#pourosova_union_porishod_parmanent").select2({
                     disabled: false
                 });
+                $("#pourosova_union_porishod_parmanent").val('').trigger("change");
                 $("#ward_no_parmanent").select2({
                     disabled: false
                 });
+                $("#ward_no_parmanent").val('').trigger("change");
                 $("#postcode_parmanent").removeAttr('readonly');
+                $("#postcode_parmanent").val('');
                 $("#post_office_parmanent").removeAttr('readonly');
+                $("#post_office_parmanent").val('');
                 $("#place_parmanent").removeAttr('readonly');
+                $("#place_parmanent").val('');
                 $("#house_and_road_no_parmanent").removeAttr('readonly');
+                $("#house_and_road_no_parmanent").val('');
             }
         })
 
@@ -2637,9 +2685,13 @@
 
         $(document).on("change", "#region", function() {
             var division = $(this).val();
+            console.log($("#district_div").hasClass("d-none"));
+            if ($("#district_div").hasClass("d-none")) {
+                console.log("hello");
+                $("#district_div").removeClass('d-none');
+            }
+
             get_district(division);
-
-
         })
 
         function get_district(division) {
@@ -2664,7 +2716,11 @@
 
         $(document).on("change", "#district", function() {
             var district_id = $(this).val();
+            if ($("#thana_div").hasClass("d-none")) {
+                $("#thana_div").removeClass('d-none');
+            }
             get_thana(district_id);
+
         })
 
         function get_thana(district_id) {
@@ -2688,6 +2744,9 @@
         // get union by thana/paurashava/upazila
         $(document).on("change", "#thana", function() {
             var thana_id = $(this).val();
+            if ($("#union_div").hasClass("d-none")) {
+                $("#union_div").removeClass('d-none');
+            }
             get_union(thana_id);
         })
 
@@ -2708,8 +2767,26 @@
 
         }
 
+        /* ward div display none*/
+        $(document).on("change", "#pourosova_union_porishod", function() {
+            if ($("#ward_div").hasClass("d-none")) {
+                $("#ward_div").removeClass('d-none');
+            }
+        })
+
+
+        $(document).on("change", "#pourosova_union_porishod_parmanent", function() {
+            if ($("#parmanent_ward_div").hasClass("d-none")) {
+                $("#parmanent_ward_div").removeClass('d-none');
+            }
+        })
+
+        /* ward div display none*/
 
         $(document).on("change", "#region_parmanent", function(event) {
+            if ($("#parmanent_district_div").hasClass("d-none")) {
+                $("#parmanent_district_div").removeClass('d-none');
+            }
             if (event.originalEvent) {
                 var division = $(this).val();
                 get_district_parmanent(division);
@@ -2734,11 +2811,13 @@
             });
         }
 
-
-
         $(document).on("change", "#district_parmanent", function(event) {
+            if ($("#parmanent_thana_div").hasClass("d-none")) {
+                    $("#parmanent_thana_div").removeClass('d-none');
+                }
             if (event.originalEvent) {
                 var district_id = $(this).val();
+                
                 get_thana_parmanent(district_id);
             }
         })
@@ -2763,8 +2842,12 @@
 
         // get union by thana/paurashava/upazila
         $(document).on("change", "#thana_parmanent", function(event) {
+            if ($("#parmanent_union_div").hasClass("d-none")) {
+                    $("#parmanent_union_div").removeClass('d-none');
+                }
             if (event.originalEvent) {
                 var thana_id = $(this).val();
+                
                 get_union_parmenent(thana_id);
             }
         })

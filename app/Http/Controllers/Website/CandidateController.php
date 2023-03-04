@@ -151,10 +151,13 @@ class CandidateController extends Controller
         $divisions = DB::table('divisions')->get();
         $unions = DB::table('unions')->get();
         $upazilas = DB::table('upazilas')->get();
-
+        $wards= [];
+        for ($i=1; $i <=10 ; $i++) { 
+            $wards[]= $i;
+        }
         $candidate->load('skills', 'languages', 'experiences', 'educations');
 
-        return view('website.pages.candidate.setting', [
+        return view('website.pages.candidate.profile-setting', [
             'candidate' => $candidate->load('skills', 'languages'),
             'contact' => $contact,
             'socials' => $socials,
@@ -169,7 +172,66 @@ class CandidateController extends Controller
             'divisions' => $divisions,
             'districts' => $districts,
             'unions' => $unions,
-            'upazilas' => $upazilas
+            'upazilas' => $upazilas,
+            'wards' => $wards,
+        ]);
+    }
+    public function accountSetting()
+    {
+        $candidate = auth()->user()->candidate;
+
+        if (empty($candidate)) {
+            Candidate::create([
+                'user_id' => auth()->id()
+            ]);
+        }
+
+        // for contact
+        $contactInfo = ContactInfo::where('user_id', auth()->id())->first();
+        $contact = [];
+        if ($contactInfo) {
+            $contact = $contactInfo;
+        } else {
+            $contact = '';
+        }
+
+        // for social link
+        // $socials = auth()->user()->socialInfo;
+
+        // // for candidate resume/cv
+        // $resumes = $candidate->resumes;
+
+        $job_roles = JobRole::all();
+        // $experiences = Experience::all();
+        // $educations = Education::all();
+        // $nationalities = Nationality::all();
+        // $professions = Profession::all();
+        // $skills = Skill::all(['id', 'name']);
+        // $languages = CandidateLanguage::all(['id', 'name']);
+
+        // $districts = DB::table('districts')->get();
+        // $divisions = DB::table('divisions')->get();
+        // $unions = DB::table('unions')->get();
+        // $upazilas = DB::table('upazilas')->get();
+
+        $candidate->load('skills', 'languages', 'experiences', 'educations');
+
+        return view('website.pages.candidate.account-setting', [
+            'candidate' => $candidate->load('skills', 'languages'),
+            'contact' => $contact,
+            // 'socials' => $socials,
+            'job_roles' => $job_roles,
+            // 'experiences' => $experiences,
+            // 'educations' => $educations,
+            // 'nationalities' => $nationalities,
+            // 'professions' => $professions,
+            // 'resumes' => $resumes,
+            // 'skills' => $skills,
+            // 'candidate_languages' => $languages,
+            // 'divisions' => $divisions,
+            // 'districts' => $districts,
+            // 'unions' => $unions,
+            // 'upazilas' => $upazilas
         ]);
     }
 
@@ -322,6 +384,7 @@ class CandidateController extends Controller
 
     public function candidateProfileInfoUpdate($request, $User, $candidate, $contactInfo)
     {
+        // dd($request->all());
         $request->validate([
             'nationality' => 'required',
             'name_bn' => 'required',
@@ -351,8 +414,11 @@ class CandidateController extends Controller
             $request->validate([
                 'care_of_parmanent' =>  'required',
                 'place_parmanent' =>  'required',
+                'house_and_road_no_parmanent' =>  'required',
                 'post_office_parmanent' =>  'required',
                 'postcode_parmanent' =>  'required',
+                'ward_no_parmanent' =>  'required',
+                'pourosova_union_porishod_parmanent' =>  'required',
                 'thana_parmanent' =>  'required',
                 'district_parmanent' =>  'required',
                 'region_parmanent' =>  'required',
@@ -376,6 +442,10 @@ class CandidateController extends Controller
             'mother_name_bn' => $request->mother_name_bn,
             'gender' => $request->gender,
             'marital_status' => $request->marital_status,
+            'birth_certificate_no' => $request->birth_certificate_no,
+            'nid_no' => $request->nid_no,
+            'passport_no' => $request->passport_no,
+            'quota' => $request->quota,
             'bio' => $request->bio,
             'nationality_id' => $request->nationality,
             'profession_id' => $profession->id,
@@ -383,18 +453,24 @@ class CandidateController extends Controller
             'available_in' => $request->available_in ? Carbon::parse($request->available_in)->format('Y-m-d') : null,
             'care_of' => $request->care_of,
             'place' => $request->place,
+            'house_and_road_no' => $request->house_and_road_no,
             'post_office' => $request->post_office,
             'postcode' => $request->postcode,
             'thana' => $request->thana,
+            'pourosova_union_porishod' => $request->pourosova_union_porishod,
+            'ward_no' => $request->ward_no,
             'district' => $request->district,
             'region' => $request->region,
-            'care_of_parmanent' => ($request->status) ? $request->care_of: $request->care_of_parmanent,
-            'place_parmanent' => ($request->status) ? $request->place: $request->place_parmanent,
-            'post_office_parmanent' => ($request->status) ? $request->post_office: $request->post_office_parmanent,
-            'postcode_parmanent' => ($request->status) ? $request->postcode: $request->postcode_parmanent,
-            'thana_parmanent' => ($request->status) ? $request->thana: $request->thana_parmanent,
-            'district_parmanent' => ($request->status) ? $request->district: $request->district_parmanent,
-            'region_parmanent' => ($request->status) ? $request->region: $request->region_parmanent,
+            'care_of_parmanent' => ($request->same_address) ? $request->care_of: $request->care_of_parmanent,
+            'house_and_road_no_parmanent' => ($request->same_address) ? $request->house_and_road_no: $request->house_and_road_no_parmanent,
+            'place_parmanent' => ($request->same_address) ? $request->place: $request->place_parmanent,
+            'post_office_parmanent' => ($request->same_address) ? $request->post_office: $request->post_office_parmanent,
+            'postcode_parmanent' => ($request->same_address) ? $request->postcode: $request->postcode_parmanent,
+            'ward_no_parmanent' => ($request->same_address) ? $request->ward_no: $request->ward_no_parmanent,
+            'pourosova_union_porishod_parmanent' => ($request->same_address) ? $request->pourosova_union_porishod: $request->pourosova_union_porishod_parmanent,
+            'thana_parmanent' => ($request->same_address) ? $request->thana: $request->thana_parmanent,
+            'district_parmanent' => ($request->same_address) ? $request->district: $request->district_parmanent,
+            'region_parmanent' => ($request->same_address) ? $request->region: $request->region_parmanent,
         ]);
 
         // skill & language

@@ -727,6 +727,11 @@ class WebsiteController extends Controller
             auth('user')->user()->notify(new ApplyJobNotification(auth('user')->user(), $job->company->user));
         }
 
+        // send job application sms
+        $sms= sendSMS(auth('user')->user()->id, "apply");
+
+        dd($sms);
+
         flashSuccess('Job Applied Successfully');
         return back();
     }

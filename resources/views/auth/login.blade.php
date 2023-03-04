@@ -36,9 +36,9 @@
                                     </span>
                                 </span>
                                 <div class="fromGroup rt-mb-15">
-                                    <input type="email" name="email" id="email"
+                                    <input type="text" name="email" id="email"
                                         class="form-control @error('email') is-invalid @enderror"
-                                        value="{{ old('email') }}" placeholder="{{ __('email_address') }}">
+                                        value="{{ old('email') }}" placeholder="{{ __('Mobile Number') }}">
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                                     @enderror

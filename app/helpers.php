@@ -22,6 +22,9 @@ use Modules\Language\Entities\Language;
 use Stevebauman\Location\Facades\Location;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 use AmrShawky\LaravelCurrency\Facade\Currency;
+use App\Models\smsHistory;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 // =====================================================
 // ===================Image Function====================
@@ -956,12 +959,13 @@ if (!function_exists('currentLangCode')) {
  * Date format
  */
 if (!function_exists('dateFormat')) {
-    function dateFormat($date, $format = 'F Y'){
+    function dateFormat($date, $format = 'F Y')
+    {
         return \Carbon\Carbon::createFromFormat($format, $date)->toDateTimeString();
     }
 }
 
- /* Currency position
+/* Currency position
  *
  * @param String $date
  */
@@ -985,7 +989,8 @@ if (!function_exists('currencyPosition')) {
  * Authenticate candidate
  */
 if (!function_exists('currentCandidate')) {
-    function currentCandidate(){
+    function currentCandidate()
+    {
         return auth('user')->user()->candidate;
     }
 }
@@ -994,12 +999,13 @@ if (!function_exists('currentCandidate')) {
  * Authenticate candidate
  */
 if (!function_exists('currentCompany')) {
-    function currentCompany(){
+    function currentCompany()
+    {
         return auth('user')->user()->company;
     }
 }
 
- /* Get format number for currency
+/* Get format number for currency
  *
  * @param String $path
  */
@@ -1031,12 +1037,89 @@ if (!function_exists('getFormattedNumber')) {
  *
  */
 if (!function_exists('isFuture')) {
-    function isFuture($date = null): bool {
+    function isFuture($date = null): bool
+    {
 
         if ($date) {
             return Carbon::parse($date)->isFuture();
         }
 
+        return false;
+    }
+}
+
+
+/**
+ * Send SMS to candidates through elitbuzz api
+ * @param int candidate_id, job_id
+ * @return boolean
+ *
+ */
+if (!function_exists('sendSMS')) {
+    function sendSMS($user_id = null, $content_type, $job_id = null): bool
+    {
+        $user= User::find($user_id);
+        if ($user) {
+                $url = "https://880sms.com/smsapi";
+                $api_key= env('SMS_API_KEY');
+                $type= "unicode";
+                $phone= "88".$user->phone;
+                $sender_id= env('SMS_SENDER_ID');
+                $content= " আসো বাবা জব পোর্টালে আপনাকে স্বাগতম";
+                $template= DB::table('sms_content')->where("content_type", $content_type)->first();
+                $content= $template->content_template;
+                
+                $data = [
+                    "api_key" => $api_key,
+                    "type" => $type,
+                    "contacts" => $phone,
+                    "senderid" => $sender_id,
+                    "msg" => $content,
+                ];
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, $url);
+                curl_setopt($ch, CURLOPT_POST, 1);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                $response = curl_exec($ch);
+                curl_close($ch);
+
+
+                $statusList['1000']= "Message Sent";
+                $statusList['1002']= "Sender Id/Masking Not Found";
+                $statusList['1003']= "API Not Found";
+                $statusList['1004']= "SPAM Detected";
+                $statusList['1005']= "Internal Error";
+                $statusList['1006']= "Internal Error";
+                $statusList['1007']= "Balance Insufficient";
+                $statusList['1008']= "Message is empty";
+                $statusList['1009']= "Message Type Not Set (text/unicode)";
+                $statusList['1010']= "Invalid User & Password";
+                $statusList['1011']= "Invalid User Id";
+                $statusList['1012']= "Invalid Number";
+                $statusList['1013']= "API limit error";
+                $statusList['1014']= "No matching template";
+                $statusList['1015']= "SMS Content Validation Fails";
+                // $response= "1000";
+                $response_code= $response;
+               
+                if(strlen($response)>4){
+                    $response_code= 1000;
+                }
+                $response_meaning= $statusList[$response_code];
+               
+                smsHistory::create([
+                    'user_id' =>$user_id,
+                    'phone' => $phone,
+                    'response_code' => $response_code,
+                    'response_meaning' => $response_meaning,
+                    'sms_content_id' => $template->id,
+                ]);
+                
+                return true;
+        }
         return false;
     }
 }
