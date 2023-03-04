@@ -80,9 +80,9 @@
                             </ul>
                         @endif
                     </x-admin.sidebar-dropdown>
-                    <x-admin.sidebar-list :linkActive="Route::is('settings.upgrade') ? true : false" route="settings.upgrade" icon="fas fa-upload">
+                    {{-- <x-admin.sidebar-list :linkActive="Route::is('settings.upgrade') ? true : false" route="settings.upgrade" icon="fas fa-upload">
                         {{ __('upgrade_guide') }}
-                    </x-admin.sidebar-list>
+                    </x-admin.sidebar-list> --}}
                 </ul>
             </nav>
             <!-- Sidebar Menu -->

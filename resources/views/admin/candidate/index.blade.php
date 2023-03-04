@@ -40,7 +40,7 @@
                                 <input name="phone" type="text" placeholder="{{ __('phone') }}" class="form-control" value="{{ request('phone') }}">
                             </div>
                             <div class="col-4">
-                                <label>{{ __('sort_by') }}</label>
+                                <label>{{ __('email') }}</label>
                                 <input name="email" type="text" placeholder="{{ __('email') }}" class="form-control" value="{{ request('email') }}">
                             </div>
                         </div>

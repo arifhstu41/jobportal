@@ -18,6 +18,11 @@
                                 <i class="ph-list"></i>
                             </span>
                         </div>
+                        @if ($errors->count())
+                            @foreach ($errors->all() as $error)
+                                <div>{{ $error }}</div>
+                            @endforeach
+                        @endif
                         <div class="cadidate-dashboard-tabs">
                             <ul class="nav nav-pills" id="pills-tab" role="tablist">
                                 {{-- Basic Setting  --}}
@@ -59,17 +64,6 @@
                                         type="button" role="tab" aria-controls="pills-social" aria-selected="false">
                                         <x-svg.globe2-icon />
                                         {{ __('social_media') }}
-                                    </button>
-                                </li>
-
-                                {{-- Account Setting  --}}
-                                <li class="nav-item" role="presentation">
-                                    <button
-                                        class="nav-link {{ session('type') == 'alert' || session('type') == 'contact' || session('type') == 'visibility' || session('type') == 'password' || session('type') == 'account-delete' ? 'active' : '' }} @error('password') active @enderror "
-                                        id="pills-setting-tab" data-bs-toggle="pill" data-bs-target="#pills-setting"
-                                        type="button" role="tab" aria-controls="pills-setting" aria-selected="false">
-                                        <x-svg.cog-icon />
-                                        {{ __('account_setting') }}
                                     </button>
                                 </li>
                             </ul>
@@ -391,8 +385,7 @@
                                                         <div class="form-control-icon">
                                                             <x-forms.input type="text" name="nid_no"
                                                                 value="{{ $candidate->nid_no }}"
-                                                                placeholder="{{ __('nid_no') }}"
-                                                                class="" />
+                                                                placeholder="{{ __('nid_no') }}" class="" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -404,22 +397,38 @@
                                                         <div class="form-control-icon">
                                                             <x-forms.input type="text" name="passport_no"
                                                                 value="{{ $candidate->passport_no }}"
-                                                                placeholder="{{ __('passport_no') }}"
-                                                                class="" />
+                                                                placeholder="{{ __('passport_no') }}" class="" />
                                                         </div>
                                                     </div>
                                                 </div>
 
-                                                
+
                                                 <div class="col-lg-6 mb-3">
                                                     <x-forms.label :required="true" name="quota"
                                                         class="body-font-4 d-block text-gray-900 rt-mb-8" />
                                                     <select name="quota" class="rt-selectactive w-100-p">
                                                         <option value="">Please Select</option>
-                                                        <option @if ($candidate->quota == 'Departmental') selected @endif
-                                                            value="Departmental">{{ __('Departmental') }}</option>
-                                                        <option @if ($candidate->quota == 'FFQ') selected @endif
-                                                            value="FFQ">{{ __('FFQ') }}</option>
+                                                        <option @if ($candidate->quota == 'Child of Freedom Fighter' || old('quota') == 'Child of Freedom Fighter') selected @endif
+                                                            value="Child of Freedom Fighter">
+                                                            {{ __('Child of Freedom Fighter') }}</option>
+                                                        <option @if ($candidate->quota == 'Grand Child of Freedom Fighter' || old('quota') == 'Grand Child of Freedom Fighter') selected @endif
+                                                            value="Grand Child of Freedom Fighter">
+                                                            {{ __('Grand Child of Freedom Fighter') }}</option>
+                                                        <option @if ($candidate->quota == 'Physically Handicapped' || old('quota') == 'Physically Handicapped') selected @endif
+                                                            value="Physically Handicapped">
+                                                            {{ __('Physically Handicapped') }}</option>
+                                                        <option @if ($candidate->quota == 'Orphan' || old('quota') == 'Orphan') selected @endif
+                                                            value="Orphan">
+                                                            {{ __('Orphan') }}</option>
+                                                        <option @if ($candidate->quota == 'Ethic Minority' || old('quota') == 'Ethic Minority') selected @endif
+                                                            value="Ethic Minority">
+                                                            {{ __('Ethic Minority') }}</option>
+                                                        <option @if ($candidate->quota == 'Ansar-VDP' || old('quota') == 'Ansar-VDP') selected @endif
+                                                            value="Ansar-VDP">
+                                                            {{ __('Ansar-VDP') }}</option>
+                                                        <option @if ($candidate->quota == 'Non Quota' || old('quota') == 'Non Quota') selected @endif
+                                                            value="Non Quota">
+                                                            {{ __('Non Quota') }}</option>
                                                     </select>
                                                     @error('quota')
                                                         <span class="invalid-feedback"
@@ -448,13 +457,7 @@
                                                     <x-forms.label :required="true" name="nationality"
                                                         class="body-font-4 d-block text-gray-900 rt-mb-8" />
                                                     <select name="nationality" class="rt-selectactive w-100">
-                                                        <option value="">Please Select</option>
-                                                        @foreach ($nationalities as $nationality)
-                                                            <option
-                                                                {{ $candidate->nationality_id == $nationality->id ? 'selected' : '' }}
-                                                                value="{{ $nationality->id }}">
-                                                                {{ $nationality->name }}</option>
-                                                        @endforeach
+                                                        <option value="22" selected>Bangladeshi</option>
                                                     </select>
                                                 </div>
 
@@ -549,11 +552,11 @@
                                                     </div>
                                                     <div class="col-lg-12 mb-3">
                                                         <x-forms.label :required="false" name="care_of"
-                                                        class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                            class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                         <div class="fromGroup">
                                                             <div class="form-control-icon">
                                                                 <x-forms.input type="text" name="care_of"
-                                                                    value="{{ $candidate->care_of }}"
+                                                                    id="care_of" value="{{ $candidate->care_of }}"
                                                                     placeholder="{{ __('care_of') }}" class="" />
                                                             </div>
                                                         </div>
@@ -565,7 +568,7 @@
 
                                                     <div class="col-lg-12 mb-3">
                                                         <x-forms.label :required="true" name="region"
-                                                        class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                            class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                         <div class="fromGroup">
                                                             <select required name="region" id="region"
                                                                 class="rt-selectactive w-100-p">
@@ -583,19 +586,18 @@
                                                         @enderror
                                                     </div>
 
-                                                    
+
                                                     <div class="col-lg-12 mb-3">
                                                         <x-forms.label :required="true" name="district"
-                                                        class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                            class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                         <div class="fromGroup">
                                                             <select required name="district" id="district"
                                                                 class="rt-selectactive w-100-p">
                                                                 <option value="">Please Select</option>
-                                                              
+
                                                                 @foreach ($districts as $district)
-                                                                
                                                                     <option value="{{ $district->id }}"
-                                                                        {{ ($candidate->district == $district->id) ? 'selected' : '' }}>
+                                                                        {{ $candidate->district == $district->id ? 'selected' : '' }}>
                                                                         {{ $district->name }}</option>
                                                                 @endforeach
 
@@ -609,7 +611,7 @@
 
                                                     <div class="col-lg-12 mb-3">
                                                         <x-forms.label :required="true" name="thana"
-                                                        class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                            class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                         <div class="fromGroup">
                                                             <select required name="thana" id="thana"
                                                                 class="rt-selectactive w-100-p">
@@ -629,13 +631,56 @@
                                                     </div>
 
                                                     <div class="col-lg-12 mb-3">
+                                                        <x-forms.label :required="true" name="pourosova_union_porishod"
+                                                            class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                        <div class="fromGroup">
+                                                            <select required name="pourosova_union_porishod"
+                                                                id="pourosova_union_porishod"
+                                                                class="rt-selectactive w-100-p">
+                                                                <option value="">Please Select</option>
+                                                                @foreach ($unions as $union)
+                                                                    <option value="{{ $union->id }}"
+                                                                        {{ $candidate->pourosova_union_porishod == $union->id ? 'selected' : '' }}>
+                                                                        {{ $union->name }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                        @error('pourosova_union_porishod')
+                                                            <span class="invalid-feedback"
+                                                                role="alert">{{ __($message) }}</span>
+                                                        @enderror
+                                                    </div>
+
+                                                    <div class="col-lg-12 mb-3">
+                                                        <x-forms.label :required="true" name="ward_no"
+                                                            class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                        <div class="fromGroup">
+                                                            <select required name="ward_no" id="ward_no"
+                                                                class="rt-selectactive w-100-p">
+                                                                <option value="">Please Select</option>
+                                                                @foreach ($wards as $key => $ward)
+                                                                    <option value="{{ $ward }}"
+                                                                        {{ $candidate->ward_no == $ward ? 'selected' : '' }}>
+                                                                        Ward-{{ $ward }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                        @error('ward_no')
+                                                            <span class="invalid-feedback"
+                                                                role="alert">{{ __($message) }}</span>
+                                                        @enderror
+                                                    </div>
+
+                                                    <div class="col-lg-12 mb-3">
                                                         <x-forms.label :required="true" name="post_office"
-                                                        class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                            class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                         <div class="fromGroup">
                                                             <div class="form-control-icon">
                                                                 <x-forms.input type="text" name="post_office"
+                                                                    id="post_office"
                                                                     value="{{ $candidate->post_office }}"
-                                                                    placeholder="{{ __('post_office') }}" class="" />
+                                                                    placeholder="{{ __('post_office') }}"
+                                                                    class="" />
                                                             </div>
                                                         </div>
                                                         @error('post_office')
@@ -646,11 +691,11 @@
 
                                                     <div class="col-lg-12 mb-3">
                                                         <x-forms.label :required="true" name="postcode"
-                                                        class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                            class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                         <div class="fromGroup">
                                                             <div class="form-control-icon">
                                                                 <x-forms.input type="text" name="postcode"
-                                                                    value="{{ $candidate->postcode }}"
+                                                                    id="postcode" value="{{ $candidate->postcode }}"
                                                                     placeholder="{{ __('postcode') }}" class="" />
                                                             </div>
                                                         </div>
@@ -662,13 +707,31 @@
 
                                                     <div class="col-lg-12 mb-3">
                                                         <x-forms.label :required="true" name="place"
-                                                        class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                            class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                         <div class="fromGroup">
                                                             <div class="form-control-icon">
-                                                                <textarea required class="form-control @error('place') is-invalid @enderror" placeholder="{{ __('enter') }} {{ __('place') }}" name="place" rows="2"></textarea>
+                                                                <textarea required class="form-control @error('place') is-invalid @enderror"
+                                                                    placeholder="{{ __('enter') }} {{ __('place') }}" name="place" id="place" rows="2">{{ $candidate->place }}</textarea>
                                                             </div>
                                                         </div>
                                                         @error('place')
+                                                            <span class="invalid-feedback"
+                                                                role="alert">{{ __($message) }}</span>
+                                                        @enderror
+                                                    </div>
+
+                                                    <div class="col-lg-12 mb-3">
+                                                        <x-forms.label :required="true" name="house_and_road_no"
+                                                            class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                        <div class="fromGroup">
+                                                            <div class="form-control-icon">
+                                                                <x-forms.input type="text" id="house_and_road_no"
+                                                                    name="house_and_road_no"
+                                                                    value="{{ $candidate->house_and_road_no }}"
+                                                                    placeholder="{{ __('postcode') }}" class="" />
+                                                            </div>
+                                                        </div>
+                                                        @error('house_and_road_no')
                                                             <span class="invalid-feedback"
                                                                 role="alert">{{ __($message) }}</span>
                                                         @enderror
@@ -678,16 +741,21 @@
                                                 {{-- parmanent address --}}
                                                 <div class="col-lg-6">
                                                     <div class="col-lg-12 ounded-2">
-                                                        <h4 class="ps-1 d-inline-block">{{ __('parmanent_address') }}</h4>
-                                                        <input type="checkbox" name="same_address" class="form-check-input d-inline-block mt-2" id="same_address">
-                                                        <label class="form-check-label d-inline-block mx-0 px-0" for="same_address">Same as present addresss</label>
+                                                        <h4 class="ps-1 d-inline-block">{{ __('parmanent_address') }}
+                                                        </h4>
+                                                        <input type="checkbox" name="same_address"
+                                                            class="form-check-input d-inline-block mt-2"
+                                                            id="same_address">
+                                                        <label class="form-check-label d-inline-block mx-0 px-0"
+                                                            for="same_address">Same as present addresss</label>
                                                     </div>
                                                     <div class="col-lg-12 mb-3">
                                                         <x-forms.label :required="false" name="care_of"
-                                                        class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                            class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                         <div class="fromGroup">
                                                             <div class="form-control-icon">
-                                                                <x-forms.input type="text" id="care_of_parmanent" name="care_of_parmanent"
+                                                                <x-forms.input type="text" id="care_of_parmanent"
+                                                                    name="care_of_parmanent"
                                                                     value="{{ $candidate->care_of_parmanent }}"
                                                                     placeholder="{{ __('care_of') }}" class="" />
                                                             </div>
@@ -700,7 +768,7 @@
 
                                                     <div class="col-lg-12 mb-3">
                                                         <x-forms.label :required="true" name="region"
-                                                        class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                            class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                         <div class="fromGroup">
                                                             {{-- <div class="form-control-icon">
                                                                 <x-forms.input type="text" id="region_parmanent" name="region_parmanent"
@@ -712,7 +780,7 @@
                                                                 <option value="">Please Select</option>
                                                                 @foreach ($divisions as $division)
                                                                     <option value="{{ $division->id }}"
-                                                                        {{ ($division->id == $candidate->region_parmanent) ? "selected" : "" }}>
+                                                                        {{ $division->id == $candidate->region_parmanent ? 'selected' : '' }}>
                                                                         {{ $division->name }}</option>
                                                                 @endforeach
                                                             </select>
@@ -726,19 +794,19 @@
 
                                                     <div class="col-lg-12 mb-3">
                                                         <x-forms.label :required="true" name="district"
-                                                        class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                            class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                         <div class="fromGroup">
                                                             {{-- <div class="form-control-icon">
                                                                 <x-forms.input type="text" id="district_parmanent" name="district_parmanent"
                                                                     value="{{ $candidate->district_parmanent }}"
                                                                     placeholder="{{ __('district') }}" class="" />
                                                             </div> --}}
-                                                            <select required name="district_parmanent" id="district_parmanent"
-                                                                class="rt-selectactive w-100-p">
+                                                            <select required name="district_parmanent"
+                                                                id="district_parmanent" class="rt-selectactive w-100-p">
                                                                 <option value="">Please Select</option>
                                                                 @foreach ($districts as $district)
                                                                     <option value="{{ $district->id }}"
-                                                                        {{ ($district->id == $candidate->district_parmanent)  ? "selected" : "" }}>
+                                                                        {{ $district->id == $candidate->district_parmanent ? 'selected' : '' }}>
                                                                         {{ $district->name }}</option>
                                                                 @endforeach
                                                             </select>
@@ -751,7 +819,7 @@
 
                                                     <div class="col-lg-12 mb-3">
                                                         <x-forms.label :required="true" name="thana"
-                                                        class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                            class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                         <div class="fromGroup">
                                                             {{-- <div class="form-control-icon">
                                                                 <x-forms.input type="text" id="thana_parmanent" name="thana_parmanent"
@@ -763,7 +831,7 @@
                                                                 <option value="">Please Select</option>
                                                                 @foreach ($upazilas as $upazila)
                                                                     <option value="{{ $upazila->id }}"
-                                                                        {{ ($upazila->id == $candidate->thana_parmanent) ? "selected" : "" }}>
+                                                                        {{ $upazila->id == $candidate->thana_parmanent ? 'selected' : '' }}>
                                                                         {{ $upazila->name }}</option>
                                                                 @endforeach
                                                             </select>
@@ -774,14 +842,61 @@
                                                         @enderror
                                                     </div>
 
+
+                                                    <div class="col-lg-12 mb-3">
+                                                        <x-forms.label :required="true"
+                                                            name="pourosova_union_porishod_parmanent"
+                                                            class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                        <div class="fromGroup">
+                                                            <select required name="pourosova_union_porishod_parmanent"
+                                                                id="pourosova_union_porishod_parmanent"
+                                                                class="rt-selectactive w-100-p">
+                                                                <option value="">Please Select</option>
+                                                                @foreach ($unions as $union)
+                                                                    <option value="{{ $union->id }}"
+                                                                        {{ $candidate->pourosova_union_porishod_parmanent == $union->id ? 'selected' : '' }}>
+                                                                        {{ $union->name }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                        @error('pourosova_union_porishod_parmanent')
+                                                            <span class="invalid-feedback"
+                                                                role="alert">{{ __($message) }}</span>
+                                                        @enderror
+                                                    </div>
+
+
+
+                                                    <div class="col-lg-12 mb-3">
+                                                        <x-forms.label :required="true" name="ward_no_parmanent"
+                                                            class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                        <div class="fromGroup">
+                                                            <select required name="ward_no_parmanent"
+                                                                id="ward_no_parmanent" class="rt-selectactive w-100-p">
+                                                                <option value="">Please Select</option>
+                                                                @foreach ($wards as $key => $ward)
+                                                                    <option value="{{ $ward }}"
+                                                                        {{ $candidate->ward_no_parmanent == $ward ? 'selected' : '' }}>
+                                                                        Ward-{{ $ward }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                        @error('ward_no_parmanent')
+                                                            <span class="invalid-feedback"
+                                                                role="alert">{{ __($message) }}</span>
+                                                        @enderror
+                                                    </div>
+
                                                     <div class="col-lg-12 mb-3">
                                                         <x-forms.label :required="true" name="post_office"
-                                                        class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                            class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                         <div class="fromGroup">
                                                             <div class="form-control-icon">
-                                                                <x-forms.input type="text" id="post_office_parmanent" name="post_office_parmanent"
+                                                                <x-forms.input type="text" id="post_office_parmanent"
+                                                                    name="post_office_parmanent"
                                                                     value="{{ $candidate->post_office }}"
-                                                                    placeholder="{{ __('post_office') }}" class="" />
+                                                                    placeholder="{{ __('post_office') }}"
+                                                                    class="" />
                                                             </div>
                                                         </div>
                                                         @error('post_office_parmanent')
@@ -792,10 +907,11 @@
 
                                                     <div class="col-lg-12 mb-3">
                                                         <x-forms.label :required="true" name="postcode"
-                                                        class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                            class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                         <div class="fromGroup">
                                                             <div class="form-control-icon">
-                                                                <x-forms.input type="text" id="postcode_parmanent" name="postcode_parmanent"
+                                                                <x-forms.input type="text" id="postcode_parmanent"
+                                                                    name="postcode_parmanent"
                                                                     value="{{ $candidate->postcode }}"
                                                                     placeholder="{{ __('postcode') }}" class="" />
                                                             </div>
@@ -808,13 +924,34 @@
 
                                                     <div class="col-lg-12 mb-3">
                                                         <x-forms.label :required="true" name="place"
-                                                        class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                            class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                         <div class="fromGroup">
                                                             <div class="form-control-icon">
-                                                                <textarea required class="form-control @error('place_parmanent') is-invalid @enderror" placeholder="{{ __('enter') }} {{ __('place') }}" name="place_parmanent" id="place_parmanent" rows="2"></textarea>
+                                                                <textarea required class="form-control @error('place_parmanent') is-invalid @enderror"
+                                                                    placeholder="{{ __('enter') }} {{ __('place') }}" name="place_parmanent" id="place_parmanent"
+                                                                    rows="2">{{ $candidate->place_parmanent }}</textarea>
                                                             </div>
                                                         </div>
                                                         @error('place_parmanent')
+                                                            <span class="invalid-feedback"
+                                                                role="alert">{{ __($message) }}</span>
+                                                        @enderror
+                                                    </div>
+
+                                                    <div class="col-lg-12 mb-3">
+                                                        <x-forms.label :required="true"
+                                                            name="house_and_road_no_parmanent"
+                                                            class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                        <div class="fromGroup">
+                                                            <div class="form-control-icon">
+                                                                <x-forms.input type="text"
+                                                                    id="house_and_road_no_parmanent"
+                                                                    name="house_and_road_no_parmanent"
+                                                                    value="{{ $candidate->house_and_road_no_parmanent }}"
+                                                                    placeholder="{{ __('postcode') }}" class="" />
+                                                            </div>
+                                                        </div>
+                                                        @error('house_and_road_no_parmanent')
                                                             <span class="invalid-feedback"
                                                                 role="alert">{{ __($message) }}</span>
                                                         @enderror
@@ -1018,292 +1155,6 @@
                                     </form>
                                 </div>
 
-                                {{-- Account Setting  --}}
-                                <div class="tab-pane fade {{ session('type') == 'alert' || session('type') == 'contact' || session('type') == 'visibility' || session('type') == 'password' || session('type') == 'account-delete' ? 'show active' : '' }} {{ error('password', 'show active') }}"
-                                    id="pills-setting" role="tabpanel" aria-labelledby="pills-setting-tab">
-                                    <form action="{{ route('candidate.settingUpdate') }}" method="POST">
-                                        @csrf
-                                        @method('put')
-                                        <input type="hidden" name="type" value="contact">
-                                        <div class="dashboard-account-setting-item pb-0">
-                                            <h6>{{ __('locations') }}</h6>
-                                            <div class="row">
-                                                <div class="col-lg-12 mb-3">
-                                                    <x-website.map.map-warning />
-                                                    @php
-                                                        $map = setting('default_map');
-                                                    @endphp
-                                                    <div class="map mymap {{ $map == 'map-box' ? '' : 'd-none' }}"
-                                                        id="map-box">
-                                                    </div>
-                                                    <div id="google-map-div"
-                                                        class="{{ $map == 'google-map' ? '' : 'd-none' }}">
-                                                        <input id="searchInput" class="mapClass" type="text"
-                                                            placeholder="Enter a location">
-                                                        <div class="map mymap" id="google-map"></div>
-                                                    </div>
-                                                    <div class="{{ $map == 'leaflet' ? '' : 'd-none' }}">
-                                                        <input type="text" autocomplete="off" id="leaflet_search"
-                                                            placeholder="{{ __('enter_city_name') }}"
-                                                            class="full-width" /> <br>
-                                                        <div id="leaflet-map"></div>
-                                                    </div>
-                                                    @error('location')
-                                                        <span class="ml-3 text-md text-danger">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="dashboard-account-setting-item">
-                                            <h6>{{ __('phone_email') }}</h6>
-                                            <div class="row">
-                                                <div class="col-lg-6 mb-3">
-                                                    <x-forms.label :required="false" name="phone"
-                                                        class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
-                                                    <x-forms.input type="text" name="phone"
-                                                        value="{{ $contact->phone }}" id="phone"
-                                                        placeholder="{{ __('phone') }}" class="phonecode" />
-                                                </div>
-                                                <div class="col-lg-6 mb-3">
-                                                    <x-forms.label :required="false" name="secondary_phone"
-                                                        class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
-                                                    <x-forms.input type="text" name="secondary_phone"
-                                                        value="{{ $contact->secondary_phone }}" id="phone2"
-                                                        placeholder="{{ __('phone') }}" class="phonecode" />
-                                                </div>
-                                                <div class="col-lg-6 mb-3">
-                                                    <x-forms.label :required="false" name="email"
-                                                        class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
-                                                    <div class="fromGroup has-icon2">
-                                                        <div class="form-control-icon">
-                                                            <x-forms.input type="email" name="email"
-                                                                value="{{ $contact->email }}" id=""
-                                                                placeholder="{{ __('email_address') }}"
-                                                                class="" />
-                                                            <div class="icon-badge-2">
-                                                                <x-svg.envelope-icon />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <button type="submit" class="btn btn-primary mt-4">
-                                                {{ __('save_changes') }}
-                                            </button>
-                                        </div>
-                                    </form>
-                                    <hr>
-                                    <div class="dashboard-account-setting-item setting-border">
-                                        {{-- <h6>{{ __('notification') }}</h6> --}}
-                                        <form id="alert" action="{{ route('candidate.settingUpdate') }}"
-                                            method="POST">
-                                            @csrf
-                                            @method('put')
-                                            <input type="hidden" name="type" value="alert">
-                                            {{--
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="form-check from-chekbox-custom rt-mb-15">
-                                                    <input name="shortlisted" class="form-check-input" type="checkbox"
-                                                        value="1" id="check1"
-                                                        {{ auth()->user()->shortlisted_alert ? 'checked' : '' }}>
-                                                    <x-forms.label for="check1" :required="false"
-                                                        name="notify_me_when_employers_shortlisted_me"
-                                                        class="form-check-label pointer f-size-14" />
-                                                </div>
-                                                <div class="form-check from-chekbox-custom rt-mb-15">
-                                                    <input name="job_expired" class="form-check-input" type="checkbox"
-                                                        value="1" id="check2"
-                                                        {{ auth()->user()->job_expired_alert ? 'checked' : '' }}>
-                                                    <x-forms.label for="check2" :required="false"
-                                                        name="notify_me_when_my_applied_jobs_are_expire"
-                                                        class="form-check-label pointer f-size-14" />
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-check from-chekbox-custom">
-                                                    <input name="recent_activity" class="form-check-input"
-                                                        type="checkbox" value="1" id="check3"
-                                                        {{ auth()->user()->recent_activities_alert ? 'checked' : '' }}>
-                                                    <x-forms.label for="check3" :required="false"
-                                                        name="notify_me_my_recent_activities"
-                                                        class="form-check-label pointer f-size-14" />
-                                                </div>
-                                                <div class="form-check from-chekbox-custom">
-                                                    <input name="new_job" class="form-check-input" type="checkbox"
-                                                        value="1" id="check3"
-                                                        {{ auth()->user()->new_job_alert ? 'checked' : '' }}>
-                                                    <x-forms.label for="check3" :required="false"
-                                                        name="notify_me_when_new_job_published"
-                                                        class="form-check-label pointer f-size-14" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <hr> --}}
-                                            <div class="row">
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <h6>{{ __('job_alert') }}</h6>
-                                                    <div class="input-group-text bg-transparent border-0"
-                                                        id="basic-addon1">
-                                                        <div class="form-check form-switch">
-                                                            <input type="hidden" value="0"
-                                                                name="received_job_alert">
-                                                            <input name="received_job_alert" class="form-check-input"
-                                                                type="checkbox" id="flexSwitchCheckDefault"
-                                                                value="1"
-                                                                {{ $candidate->received_job_alert ? 'checked' : '' }}>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6 ">
-                                                    <x-forms.label :required="false" name="job_role"
-                                                        class="f-size-14 text-gray-700" />
-                                                    <div class="fromGroup has-icon2">
-                                                        <div class="form-control-icon">
-                                                            <select name="role_id">
-                                                                @foreach ($job_roles as $job_role)
-                                                                    <option value="{{ $job_role->id }}"
-                                                                        @if ($job_role->id == $candidate->role_id) selected @endif>
-                                                                        {{ $job_role->name }}</option>
-                                                                @endforeach
-                                                            </select>
-                                                            <br>
-                                                            <p>
-                                                                {{ __('note_you_will_be_notified_for_this_role_only') }}
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="dashboard-account-setting-item setting-border">
-                                        <form id="visibility" action="{{ route('candidate.settingUpdate') }}"
-                                            method="POST">
-                                            @csrf
-                                            @method('put')
-                                            <input type="hidden" name="type" value="visibility">
-                                            <div class="row">
-                                                <div class="col-lg-6">
-                                                    <label
-                                                        class="text-gray-900 rt-mb-15 fw-medium">{{ __('profile_privacy') }}</label>
-                                                    <div class="input-group mb-3">
-                                                        <div class="input-group-text bg-transparent border border-gray-50 extra-design"
-                                                            id="basic-addon1">
-                                                            <div class="form-check form-switch">
-                                                                <input name="profile_visibility" class="form-check-input"
-                                                                    type="checkbox" id="flexSwitchCheckDefault"
-                                                                    {{ $candidate->visibility ? 'checked' : '' }}>
-                                                                <span
-                                                                    class="form-check-label f-size-14">{{ __('yes') }}</span>
-                                                            </div>
-                                                        </div>
-                                                        <input disabled type="text" class="form-control"
-                                                            placeholder="Your profile is {{ $candidate->visibility ? 'public' : 'private' }} now"
-                                                            id="msalary">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <x-forms.label :required="false" name="resume_privacy"
-                                                        class="text-gray-900 rt-mb-15 fw-medium" />
-                                                    <div class="input-group mb-3">
-                                                        <div class="input-group-text bg-transparent border border-gray-50 extra-design"
-                                                            id="basic-addon1">
-                                                            <div class="form-check form-switch">
-                                                                <input name="cv_visibility" class="form-check-input"
-                                                                    type="checkbox" id="flexSwitchCheckDefault"
-                                                                    {{ $candidate->cv_visibility ? 'checked' : '' }}>
-                                                                <span
-                                                                    class="form-check-label f-size-14">{{ __('yes') }}</span>
-                                                            </div>
-                                                        </div>
-                                                        <input disabled type="text" class="form-control"
-                                                            placeholder="Your resume is {{ $candidate->cv_visibility ? 'public' : 'private' }} now"
-                                                            id="msalary">
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="dashboard-account-setting-item setting-border">
-                                        <h6>{{ __('change_password') }}</h6>
-                                        <form action="{{ route('candidate.settingUpdate') }}" method="POST">
-                                            @csrf
-                                            @method('put')
-                                            <input type="hidden" name="type" value="password">
-                                            <div class="row">
-                                                <div class="col-lg-6 rt-mb-32">
-                                                    <x-forms.label :required="true" name="new_password"
-                                                        class="f-size-14 text-gray-700 rt-mb-6" />
-                                                    <div class="fromGroup rt-mb-15">
-                                                        <div class="d-flex">
-                                                            <input name="password"
-                                                                class="form-control @error('password') is-invalid @enderror"
-                                                                id="password-hide_show" type="password"
-                                                                placeholder="{{ __('password') }}" required>
-                                                            <div
-                                                                class="has-badge @error('password') has-badge-cutom @enderror">
-                                                                <i class="ph-eye @error('password') m-3 @enderror"></i>
-                                                            </div>
-                                                        </div>
-                                                        @error('password')
-                                                            <span role="alert"
-                                                                class="text-danger">{{ __($message) }}</span>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6 rt-mb-32">
-                                                    <x-forms.label :required="true" name="confirm_password"
-                                                        class="f-size-14 text-gray-700 rt-mb-6" />
-                                                    <div class="fromGroup rt-mb-15">
-                                                        <input name="password_confirmation"
-                                                            class="form-control @error('password_confirmation') is-invalid @enderror"
-                                                            id="password-hide_show1" type="password"
-                                                            placeholder="{{ __('confirm_password') }}" required>
-                                                        <div
-                                                            class="has-badge @error('password') has-badge-cutom @enderror select-icon__one">
-                                                            <i class="ph-eye"></i>
-                                                        </div>
-                                                        @error('password_confirmation')
-                                                            <span class="text-danger">{{ $message }}</span>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <button type="submit" class="btn btn-primary">
-                                                        {{ __('save_changes') }}
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="dashboard-account-setting-item setting-border">
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <h4>{{ __('close_delete_account') }}</h4>
-                                                <p>{{ __('account_delete_msg') }}</p>
-                                                <form action="{{ route('candidate.settingUpdate') }}" id="AccountDelete"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('put')
-                                                    <input type="hidden" name="type" value="account-delete">
-                                                    <button type="button" onclick="AccountDelete()"
-                                                        class="btn p-0 text-danger-500">
-                                                        <span class="button-content-wrapper ">
-                                                            <span class="button-icon">
-                                                                <i class="ph-x-circle"></i>
-                                                            </span>
-                                                            <span class="button-text">
-                                                                {{ __('close_account') }}
-                                                            </span>
-                                                        </span>
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -1753,7 +1604,8 @@
         map.on('click', add_marker);
         marker.on('dragend', onDragEnd);
         // zoom in and out
-        <x-mapbox-zoom-control/>
+        <
+        x - mapbox - zoom - control / >
     </script>
     <script>
         $('.mapboxgl-ctrl-logo').addClass('d-none');
@@ -1991,51 +1843,130 @@
     </script>
 
     <script>
-        $(document).on("change ", "#same_address", function(){
+        // $(document).on("change ", "#same_address", function() {
+        //     let check = this.checked
+
+        //     if (check) {
+        //         $("#care_of_parmanent").val('').attr('readonly', 'readonly');
+        //         $("#region_parmanent").val('').attr('readonly', 'readonly');
+        //         $("#district_parmanent").val('').attr('readonly', 'readonly');
+        //         $("#thana_parmanent").val('').attr('readonly', 'readonly');
+        //         $("#post_office_parmanent").val('').attr('readonly', 'readonly');
+        //         $("#postcode_parmanent").val('').attr('readonly', 'readonly');
+        //         $("#place_parmanent").val('').attr('readonly', 'readonly');
+        //     } else {
+        //         $("#care_of_parmanent").removeAttr('readonly');
+        //         $("#region_parmanent").removeAttr('readonly');
+        //         $("#district_parmanent").removeAttr('readonly');
+        //         $("#thana_parmanent").removeAttr('readonly');
+        //         $("#postcode_parmanent").removeAttr('readonly');
+        //         $("#post_office_parmanent").removeAttr('readonly');
+        //         $("#place_parmanent").removeAttr('readonly');
+        //     }
+        // })
+
+        $(document).on("change ", "#same_address", function() {
             let check = this.checked
 
-            if(check){
-                $("#care_of_parmanent").val('').attr('readonly', 'readonly');
-                $("#region_parmanent").val('').attr('readonly', 'readonly');
-                $("#district_parmanent").val('').attr('readonly', 'readonly');
-                $("#thana_parmanent").val('').attr('readonly', 'readonly');
-                $("#post_office_parmanent").val('').attr('readonly', 'readonly');
-                $("#postcode_parmanent").val('').attr('readonly', 'readonly');
-                $("#place_parmanent").val('').attr('readonly', 'readonly');
+            if (check) {
+                $("#care_of_parmanent").val($("#care_of").val()).attr('readonly', 'readonly');
+                $("#house_and_road_no_parmanent").val($("#house_and_road_no").val()).attr('readonly', 'readonly');
+                $("#place_parmanent").val($("#place").val()).attr('readonly', 'readonly');
+                $("#postcode_parmanent").val($("#postcode").val()).attr('readonly', 'readonly');
+                $("#post_office_parmanent").val($("#post_office").val()).attr('readonly', 'readonly');
+                $("#region_parmanent").select2({
+                    disabled: 'readonly'
+                });
 
-                // region_parmanent
-                // district_parmanent
-                // thana_parmanent
-                // post_office_parmanent
-                // postcode_parmanent
-                // place_parmanent
-            }
-            else{
+
+                $("#district_parmanent").select2({
+                    disabled: 'readonly'
+                });
+
+
+                $("#thana_parmanent").select2({
+                    disabled: 'readonly'
+                });
+
+
+                $("#pourosova_union_porishod_parmanent").select2({
+                    disabled: 'readonly'
+                });
+
+
+                $("#ward_no_parmanent").select2({
+                    disabled: 'readonly'
+                });
+                $("#region_parmanent").val($("#region").val()).trigger("change");
+                $("#district_parmanent").val($("#district").val()).trigger("change");
+                $("#thana_parmanent").val($("#thana").val()).trigger("change");
+                // $("#pourosova_union_porishod_parmanent").val($("#pourosova_union_porishod").val()).trigger(
+                //     "change");
+                $("#ward_no_parmanent").val($("#ward_no").val()).trigger("change");
+            } else {
+                /* display hide */
+                if ($("#parmanent_district_div").hasClass("d-none")) {
+                    $("#parmanent_district_div").removeClass('d-none');
+                }
+                if ($("#parmanent_thana_div").hasClass("d-none")) {
+                    $("#parmanent_thana_div").removeClass('d-none');
+                }
+                if ($("#parmanent_union_div").hasClass("d-none")) {
+                    $("#parmanent_union_div").removeClass('d-none');
+                }
+                if ($("#parmanent_ward_div").hasClass("d-none")) {
+                    $("#parmanent_ward_div").removeClass('d-none');
+                }
+                /* display hide */
+
                 $("#care_of_parmanent").removeAttr('readonly');
-                $("#region_parmanent").removeAttr('readonly');
-                $("#district_parmanent").removeAttr('readonly');
-                $("#thana_parmanent").removeAttr('readonly');
+                $("#care_of_parmanent").val('');
+                $("#region_parmanent").select2({
+                    disabled: false
+                });
+                $("#region_parmanent").val('').trigger("change");
+                $("#district_parmanent").select2({
+                    disabled: false
+                });
+                $("#district_parmanent").val('').trigger("change");
+                $("#thana_parmanent").select2({
+                    disabled: false
+                });
+                $("#thana_parmanent").val('').trigger("change");
+                $("#pourosova_union_porishod_parmanent").select2({
+                    disabled: false
+                });
+                $("#pourosova_union_porishod_parmanent").val('').trigger("change");
+                $("#ward_no_parmanent").select2({
+                    disabled: false
+                });
+                $("#ward_no_parmanent").val('').trigger("change");
                 $("#postcode_parmanent").removeAttr('readonly');
+                $("#postcode_parmanent").val('');
                 $("#post_office_parmanent").removeAttr('readonly');
+                $("#post_office_parmanent").val('');
                 $("#place_parmanent").removeAttr('readonly');
+                $("#place_parmanent").val('');
+                $("#house_and_road_no_parmanent").removeAttr('readonly');
+                $("#house_and_road_no_parmanent").val('');
             }
         })
 
-        $(document).ready(function() {
+        // $(document).ready(function() {
 
-            var division = $("#region").val();
-            get_district(division);
+        //     var division = $("#region").val();
+        //     get_district(division);
 
-            var district_id = $("#district").val();
-            get_thana(district_id);
+        //     var district_id = $("#district").val();
+        //     get_thana(district_id);
 
-            var division = $("#region").val();
-            get_district_parmanent(division);
+        //     var division = $("#region").val();
+        //     get_district_parmanent(division);
 
-            var district_id = $("#district").val();
-            get_thana_parmanent(district_id);
+        //     var district_id = $("#district").val();
+        //     get_thana_parmanent(district_id);
 
-        })
+        // });
 
         $(document).on("change", "#region", function() {
             var division = $(this).val();
@@ -2084,8 +2015,31 @@
 
         }
 
+        // get union by thana
+        $(document).on("change", "#thana", function() {
+            var thana_id = $(this).val();
+            get_union(thana_id);
+        })
 
-        $(document).on("change", "#region_parmanent", function() {
+        function get_union(thana_id) {
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "{{ route('website.union.get.data') }}",
+                data: {
+                    thana_id: thana_id,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+
+                    $("#pourosova_union_porishod").html(response.html);
+                }
+            });
+
+        }
+
+
+        $(document).on("change", "#region_parmanent", function(event) {
             var division = $(this).val();
             get_district_parmanent(division);
         })
@@ -2103,15 +2057,19 @@
                 success: function(response) {
 
                     $("#district_parmanent").html(response.html);
+                    if ($('#same_address:checked').val()) {
+                        $("#district_parmanent").val($("#district").val()).trigger("change");
+                    }
                 }
             });
         }
 
 
 
-        $(document).on("change", "#district_parmanent", function() {
+        $(document).on("change", "#district_parmanent", function(event) {
             var district_id = $(this).val();
             get_thana_parmanent(district_id);
+
         })
 
         function get_thana_parmanent(district_id) {
@@ -2126,6 +2084,38 @@
                 success: function(response) {
 
                     $("#thana_parmanent").html(response.html);
+                    if ($('#same_address:checked').val()) {
+                        $("#thana_parmanent").val($("#thana").val()).trigger("change");
+                    }
+                }
+            });
+
+        }
+
+
+        // get union by thana/paurashava/upazila
+        $(document).on("change", "#thana_parmanent", function(event) {
+            var thana_id = $(this).val();
+            get_union_parmenent(thana_id);
+
+        })
+
+        function get_union_parmenent(thana_id) {
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "{{ route('website.union.get.data') }}",
+                data: {
+                    thana_id: thana_id,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+
+                    $("#pourosova_union_porishod_parmanent").html(response.html);
+                    if ($('#same_address:checked').val()) {
+                        console.log("sfdsf")
+                        $("#pourosova_union_porishod_parmanent_parmanent").val($("#pourosova_union_porishod").val()).trigger("change");
+                    }
                 }
             });
 

@@ -56,9 +56,11 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone' => ['required', 'string', 'max:11'],
+            // 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'g-recaptcha-response' => config('captcha.active') ? 'required|captcha' : ''
         ], [
@@ -84,17 +86,29 @@ class RegisterController extends Controller
             $username = Str::slug($newUsername);
         }
 
-        $user = User::create([
-            'role' => $data['role'] == 'candidate' ? 'candidate' : 'company',
-            'name' => $data['name'],
-            'username' => $username,
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        // $user = User::create([
+        //     'role' => $data['role'] == 'candidate' ? 'candidate' : 'company',
+        //     'name' => $data['name'],
+        //     'name' => $data['phone'],
+        //     'username' => $username,
+        //     'email' => $data['email'],
+        //     'password' => Hash::make($data['password']),
+        // ]);
+        $user= new User();
 
+        $user->role= $data['role'] == 'candidate' ? 'candidate' : 'company';
+        $user->name= $data['name'];
+        $user->phone= $data['phone'];
+        $user->email= $data['email'];
+        $user->username= $username;
+        $user->password= Hash::make($data['password']);
+
+        $user->save();
+        
+        // send register sms 
+        sendSMS($user->id, "register");
 
         // create contact info
-
         ContactInfo::where('user_id', $user->id)->update([
             'phone' => $data['phone'],
             'email' => $data['email'],

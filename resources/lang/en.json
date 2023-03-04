@@ -1122,7 +1122,7 @@
     "present_address": "Present Address",
     "parmanent_address": "Parmanent Address",
     "care_of": "Care Of",
-    "place" : "Village/Road/Ward",
+    "place" : "Village",
     "postcode": "Post Code",
     "post_office" : "Post Office",
     "thana" : "City Corporation/ Cantonment/ Upazila/ Thana",
@@ -1180,6 +1180,8 @@
     "house_and_road_no" : "House and Road(Name, Number)",
     "house_and_road_no_parmanent" : "House and Road(Name, Number)",
     "ward_no" : "Word",
-    "ward_no_parmanent" : "Ward"
+    "ward_no_parmanent" : "Ward",
+    "profile_update": "Profile Update",
+    "quota" : "Quota"
     
 }

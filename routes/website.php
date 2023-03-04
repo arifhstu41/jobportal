@@ -89,6 +89,7 @@ Route::middleware('auth:user', 'verified')->group(function () {
         Route::get('applied-jobs', 'appliedjobs')->name('appliedjob');
         Route::get('bookmarks', 'bookmarks')->name('bookmark');
         Route::get('settings', 'setting')->name('setting');
+        Route::get('account-settings', 'accountSetting')->name('account-setting');
         Route::put('settings/update', 'settingUpdate')->name('settingUpdate');
         Route::post('get/city', 'getCity')->name('getCity');
         Route::post('get/state', 'getState')->name('getState');
@@ -145,6 +146,8 @@ Route::middleware('auth:user', 'verified')->group(function () {
             Route::post('applications/group/store', 'applicationsGroupStore')->name('applications.group.store');
             Route::put('applications/group/update/{group}', 'applicationsGroupUpdate')->name('applications.group.update');
             Route::delete('applications/group/destroy/{group}', 'applicationsGroupDestroy')->name('applications.group.destroy');
+
+            Route::get('applications/send-sms', 'sendSMS')->name('applications.sms');
             // ====== appication group End=======
         });
 

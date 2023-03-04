@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Controllers\Website;
-
-use PDF;
+use Barryvdh\DomPDF\PDF;
+// use PDF;
 use Carbon\Carbon;
 use Faker\Factory;
 use App\Models\cms;
@@ -66,15 +66,22 @@ class CompanyController extends Controller
 
     public function dashboard()
     {
+        // dd("helafdas");
         $data['userplan'] = UserPlan::with('plan')->companyData()->firstOrFail();
         $data['openJobCount'] = auth()->user()->company->jobs()->active()->count();
         $data['pendingJobCount'] = auth()->user()->company->jobs()->pending()->count();
 
         // Recent 4 Jobs
         $data['recentJobs'] = auth()->user()->company->jobs()->latest()->take(4)->with('company.user', 'job_type')->withCount('appliedJobs')->get();
+        $data['appliedJobs']= AppliedJob::with(['candidate', 'job'])->get();
         $data['savedCandidates']  = auth()->user()->company->bookmarkCandidates()->count();
 
         return view('website.pages.company.dashboard', $data);
+    }
+
+    public function sendSMS(){
+        sendSMS(3, "register", 1);
+        dd("sdffd");
     }
 
     public function myjobs(Request $request)

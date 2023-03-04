@@ -59,10 +59,23 @@
                     href="{{ route('candidate.setting') }}">
                     <span class="button-content-wrapper ">
                         <span class="button-icon align-icon-left tw-flex tw-items-center">
+                            <i class="ph-user-circle-gear"></i>
+                        </span>
+                        <span class="button-text">
+                            {{ __('profile_update') }}
+                        </span>
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a class="{{ request()->routeIs('candidate.account-setting') ? 'active' : '' }}"
+                    href="{{ route('candidate.account-setting') }}">
+                    <span class="button-content-wrapper ">
+                        <span class="button-icon align-icon-left tw-flex tw-items-center">
                             <i class="ph-gear"></i>
                         </span>
                         <span class="button-text">
-                            {{ __('settings') }}
+                            {{ __('account_setting') }}
                         </span>
                     </span>
                 </a>

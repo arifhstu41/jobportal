@@ -40,6 +40,12 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    // protected $fillable=[
+    //     'name',
+    //     'phone',
+    //     'email'
+    // ];
+
     protected static function booted()
     {
         static::created(function ($user) {
