@@ -1056,7 +1056,7 @@ if (!function_exists('isFuture')) {
  *
  */
 if (!function_exists('sendSMS')) {
-    function sendSMS($user_id = null, $content_type, $job_id = null): bool
+    function sendSMS($user_id, $content_type, $job_id = null): bool
     {
         $user= User::find($user_id);
         if ($user) {

@@ -52,6 +52,7 @@ Route::controller(WebsiteController::class)->name('website.')->group(function ()
     Route::get('/candidate/application/profile/details', 'candidateApplicationProfileDetails')->name('candidate.application.profile.details');
     Route::get('/candidate/application-form', 'applicationForm')->name('candidate.application.form');
     Route::post('/candidate/application-form-submit', 'applicationFormSubmit')->name('candidate.application.form.submit');
+    Route::get('/candidate/payment', 'makePayment')->name('candidate.payment');
     Route::get('/candidates/download/cv/{resume}', 'candidateDownloadCv')->name('candidate.download.cv');
     Route::get('/employers', 'employees')->name('company');
     Route::get('/employers/{user:username}', 'employersDetails')->name('employe.details');

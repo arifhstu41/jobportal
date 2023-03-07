@@ -1294,4 +1294,9 @@ class WebsiteController extends Controller
         }
 
     }
+
+    public function makePayment(){
+
+        return view('website.pages.candidate.payment');
+    }
 }
