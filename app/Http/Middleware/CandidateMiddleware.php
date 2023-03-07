@@ -20,7 +20,13 @@ class CandidateMiddleware
         
         if (auth('user')->user()->role == 'candidate') {
             $candidate= Candidate::where('user_id', auth('user')->user()->id)->first();
-            // dd(auth('user')->user()->id);
+            if($candidate->balance == 0){
+                return redirect()->route('website.candidate.payment');
+            }
+            if($candidate->is_varified == "false"){
+                return redirect()->route('website.candidate.application.form');
+            }
+        dd("baire");
             if($candidate->profile_complete != 0){
                 return redirect()->route('website.candidate.application.form');
             }

@@ -595,6 +595,7 @@ class WebsiteController extends Controller
 
     public function pricing()
     {
+        
         abort_if(auth('user')->check() && auth('user')->user()->role == 'candidate', 404);
         $plans = Plan::active()->get();
         return view('website.pages.pricing', compact('plans'));
@@ -606,6 +607,7 @@ class WebsiteController extends Controller
 
         // session data storing
         $plan = Plan::where('label', $label)->firstOrFail();
+        
         session(['stripe_amount' => currencyConversion($plan->price) * 100]);
         session(['razor_amount' => currencyConversion($plan->price, null, 'INR', 1) * 100]);
         session(['ssl_amount' => currencyConversion($plan->price, null, 'BDT', 1)]);

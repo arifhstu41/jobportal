@@ -13,6 +13,28 @@
             </div>
             <div class="row py-5">
                 <h5>{{ __('online_payment_gatewats') }}</h5>
+
+
+                <div class="col-4 my-2">
+                    <div class="card jobcardStyle1">
+                        <div class="card-body">
+                            <div class="rt-single-icon-box">
+                                <div class="iconbox-content">
+                                    <div class="body-font-1 rt-mb-12">
+                                        {{ __('Surjo Pay') }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="post-info d-flex">
+                                <div class="flex-grow-1">
+                                    <button id="surjo_pay_btn" type="button" class="btn btn-primary2-50 d-block">
+                                        {{ __('pay_now') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 @if (config('paypal.active') ||
                     config('zakirsoft.stripe_active') ||
                     config('zakirsoft.razorpay_active') ||
@@ -322,6 +344,11 @@
             @endif
         </div>
 
+        {{-- SorjoPay Form --}}
+        <form action="{{ route('surjopay.post') }}" method="POST" class="d-none" id="surjopay-form">
+            @csrf
+        </form>
+
         {{-- Paypal Form --}}
         <form action="{{ route('paypal.post') }}" method="POST" class="d-none" id="paypal-form">
             @csrf
@@ -389,6 +416,11 @@
         </script>
     @endif
     <script>
+        // Paypal
+        $('#surjo_pay_btn').on('click', function(e) {
+            e.preventDefault();
+            $('#surjopay-form').submit();
+        });
         // Paypal
         $('#paypal_btn').on('click', function(e) {
             e.preventDefault();
