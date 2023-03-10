@@ -24,9 +24,8 @@ class CandidateMiddleware
                 return redirect()->route('website.candidate.payment');
             }
             if($candidate->is_varified == "false"){
-                return redirect()->route('website.candidate.application.form');
+                return redirect()->route('website.candidate.verification');
             }
-        dd("baire");
             if($candidate->profile_complete != 0){
                 return redirect()->route('website.candidate.application.form');
             }

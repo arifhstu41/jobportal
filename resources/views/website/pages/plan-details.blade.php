@@ -416,7 +416,7 @@
         </script>
     @endif
     <script>
-        // Paypal
+        // Surjo Pay
         $('#surjo_pay_btn').on('click', function(e) {
             e.preventDefault();
             $('#surjopay-form').submit();

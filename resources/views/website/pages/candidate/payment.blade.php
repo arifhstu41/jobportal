@@ -45,8 +45,8 @@
                             <div class="dashboaed-profile-wrap">
                                 <div class="dashboaed-profile-left">
                                     <div class="dashboaed-profile-data">
-                                        <h6>{{ __('profile_in_title') }}</h6>
-                                        <p>{{ __('profile_in_description') }}</p>
+                                        <h6>Payment Incomplete</h6>
+                                        <p>Make payment to verify your identity</p>
                                     </div>
                                 </div>
                             </div>
@@ -97,4 +97,12 @@
         </form>
 
     </section>
+@endsection
+@section('script')
+<script>
+    $('#surjo_pay_btn').on('click', function(e) {
+            e.preventDefault();
+            $('#surjopay-form').submit();
+        });
+</script>
 @endsection

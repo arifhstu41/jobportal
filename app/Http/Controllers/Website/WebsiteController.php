@@ -595,7 +595,7 @@ class WebsiteController extends Controller
 
     public function pricing()
     {
-        
+
         abort_if(auth('user')->check() && auth('user')->user()->role == 'candidate', 404);
         $plans = Plan::active()->get();
         return view('website.pages.pricing', compact('plans'));
@@ -607,7 +607,7 @@ class WebsiteController extends Controller
 
         // session data storing
         $plan = Plan::where('label', $label)->firstOrFail();
-        
+
         session(['stripe_amount' => currencyConversion($plan->price) * 100]);
         session(['razor_amount' => currencyConversion($plan->price, null, 'INR', 1) * 100]);
         session(['ssl_amount' => currencyConversion($plan->price, null, 'BDT', 1)]);
@@ -730,7 +730,7 @@ class WebsiteController extends Controller
         }
 
         // send job application sms
-        $sms= sendSMS(auth('user')->user()->id, "apply");
+        $sms = sendSMS(auth('user')->user()->id, "apply");
 
         dd($sms);
 
@@ -992,67 +992,136 @@ class WebsiteController extends Controller
     // application form open
     public function applicationForm()
     {
-        $candidate= Candidate::where('user_id', Auth::user()->id)->first();
+        $candidate = Candidate::where('user_id', Auth::user()->id)->first();
         $districts = DB::table('districts')->get();
         $divisions = DB::table('divisions')->get();
         $unions = DB::table('unions')->get();
         $upazilas = DB::table('upazilas')->get();
         $unions = DB::table('unions')->get();
-        $boards= DB::table('bd_education_boards')->get();
-        $wards= [];
-        for ($i=1; $i <=10 ; $i++) { 
-            $wards[]= $i;
+        $boards = DB::table('bd_education_boards')->get();
+        $wards = [];
+        for ($i = 1; $i <= 10; $i++) {
+            $wards[] = $i;
         }
         // echo "<pre>";print_r($districts);die;
-        $universities= DB::table('bd_universities')->get();
-        $years= [];
-        $current_year=  (int)date("Y", strtotime('today'));
-        for ($i=1900; $i <=($current_year+1) ; $i++) { 
-            $years[]= $i;
+        $universities = DB::table('bd_universities')->get();
+        $years = [];
+        $current_year =  (int)date("Y", strtotime('today'));
+        for ($i = 1900; $i <= ($current_year + 1); $i++) {
+            $years[] = $i;
         }
-        $user= Auth::user();
-        return view('website.pages.candidate.application-form', compact('candidate', 'user','divisions', 'districts','unions', 'upazilas', 'unions', 'wards', 'universities', 'years', 'boards'));
+        $user = Auth::user();
+        return view('website.pages.candidate.application-form', compact('candidate', 'user', 'divisions', 'districts', 'unions', 'upazilas', 'unions', 'wards', 'universities', 'years', 'boards'));
     }
 
-    public function getDistrictByDivision(){
+    // Birth Registration/NID Verification
+    public function submitCandidateVerification(Request $request)
+    {
+        $request->validate([
+            'id_type' => 'required',
+            'id_no' => 'required',
+            'dob' => 'required',
+        ]);
+
+        $data = array(
+            "nidNumber" => $request->id_no,
+            "dateOfBirth" => date('Y-m-d', strtotime($request->dob)),
+            "englishTranslation" => true
+        );
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, env('PORICHOY_HOST_URL') );
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+
+        $headers = array();
+        $headers[] = 'Content-Type: application/json';
+        $headers[] = 'X-Api-Key: '. env('PORICHOY_API_KEY');
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        $result = curl_exec($ch);
+        curl_close($ch);
+
+        $result= json_decode($result);
+        if (curl_errno($ch)) {
+            return back()->withInput()->with('error', $result->error->message);
+        }
+        else{
+            $nid=$result->data->nid;
+
+            // update user
+            $user= User::find(Auth::user()->id);
+            $user->name= $nid->fullNameEN;
+            
+            // update candidate
+            $candidate = Candidate::where('user_id', Auth::user()->id)->first();
+            $candidate->name_bn = $nid->fullNameBN;
+            $candidate->father_name = $nid->fathersNameEN;
+            $candidate->father_name_bn = $nid->fathersNameBN;
+            $candidate->mother_name = $nid->mothersNameEN;
+            $candidate->mother_name_bn = $nid->mothersNameBN;
+            $candidate->birth_date = date('Y-m-d', strtotime($nid->dateOfBirth));
+            $candidate->gender = strtolower($nid->gender);
+            $candidate->place = $nid->presentAddressBN;
+            $candidate->place_parmanent = $nid->permanentAddressBN;
+            $candidate->nid_no = $nid->nationalIdNumber;
+            if($nid->spouseNameEN){
+                $candidate->marital_status = "married";
+            }
+            if($nid->spouseNameEN){
+                $candidate->marital_status = "single";
+            }
+
+            $candidate->balance= 100;
+            $candidate->is_varified= "true";
+
+            $candidate->save();
+            return redirect()->route('website.candidate.application.form');
+        }
+    }
+
+    public function getDistrictByDivision()
+    {
 
         $division_id = $_GET['division'];
         $districts = DB::table('districts')->where('division_id', $division_id)->get();
 
         $html = "<option value=''>Please Select</option>";
 
-        foreach($districts as $each){
-            $html.= "<option value=".$each->id.">".$each->name."</option>";
+        foreach ($districts as $each) {
+            $html .= "<option value=" . $each->id . ">" . $each->name . "</option>";
         }
 
         $response['html'] = $html;
         echo json_encode($response);
     }
 
-    public function getThanaByDistrict(){
+    public function getThanaByDistrict()
+    {
 
         $district_id = $_GET['district_id'];
         $thana = DB::table('upazilas')->where('district_id', $district_id)->get();
 
         $html = "<option value=''>Please Select</option>";
 
-        foreach($thana as $each){
-            $html.= "<option value=".$each->id.">".$each->name."</option>";
+        foreach ($thana as $each) {
+            $html .= "<option value=" . $each->id . ">" . $each->name . "</option>";
         }
 
         $response['html'] = $html;
         echo json_encode($response);
     }
 
-    public function getUnionByThana(){
+    public function getUnionByThana()
+    {
 
         $thana_id = $_GET['thana_id'];
         $unions = DB::table('unions')->where('upazilla_id', $thana_id)->get();
 
         $html = "<option value=''>Please Select</option>";
 
-        foreach($unions as $each){
-            $html.= "<option value=".$each->id.">".$each->name."</option>";
+        foreach ($unions as $each) {
+            $html .= "<option value=" . $each->id . ">" . $each->name . "</option>";
         }
 
         $response['html'] = $html;
@@ -1103,9 +1172,9 @@ class WebsiteController extends Controller
                 'psc_school' => 'required',
             ]);
         }
-        
+
         if ($request->jsc) {
-            
+
             $request->validate([
                 'jsc_exam_name' => 'required',
                 'jsc_roll_no' => 'required',
@@ -1125,7 +1194,6 @@ class WebsiteController extends Controller
                 'ssc_result_type' => 'required',
                 'ssc_result_cgpa' => 'required',
             ]);
-            
         }
 
         if ($request->hsc) {
@@ -1139,7 +1207,6 @@ class WebsiteController extends Controller
                 'hsc_result_type' => 'required',
                 'hsc_result_cgpa' => 'required',
             ]);
-            
         }
 
         if ($request->honors) {
@@ -1201,7 +1268,7 @@ class WebsiteController extends Controller
             $candidate->thana_parmanent = ($request->same_address) ? $request->thana : $request->thana_parmanent;
             $candidate->district_parmanent = ($request->same_address) ? $request->district : $request->district_parmanent;
             $candidate->region_parmanent = ($request->same_address) ? $request->region : $request->region_parmanent;
-            $candidate->profile_complete= ($candidate->profile_complete > 0) ? ($candidate->profile_complete-25) : 0;
+            $candidate->profile_complete = ($candidate->profile_complete > 0) ? ($candidate->profile_complete - 25) : 0;
             $candidate->save();
 
             if ($request->psc) {
@@ -1284,18 +1351,18 @@ class WebsiteController extends Controller
                 $education->save();
             }
 
-            $candidate->profile_complete= 0;
+            $candidate->profile_complete = 0;
             $candidate->save();
             DB::commit();
             return redirect()->route('candidate.dashboard')->with('success', 'Application added successfully');
         } catch (\Throwable $th) {
-            $msg= $th->getMessage();
+            $msg = $th->getMessage();
             return back()->withInput()->with('error', $msg);
         }
-
     }
 
-    public function makePayment(){
+    public function makePayment()
+    {
 
         return view('website.pages.candidate.payment');
     }

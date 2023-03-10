@@ -32,8 +32,8 @@ class SurjoPayController extends Controller
         } else{
             $price = 100;
             
-            $customer_address= $user->candidate->place;
-            $customer_city= $user->candidate->district;
+            $customer_address= "dhaka";
+            $customer_city= "dhaka";
             $customer_email= $user->email;
         }
 
@@ -57,7 +57,7 @@ class SurjoPayController extends Controller
             'client_ip'         => "127.0.0.1",
             'customer_name'     => $user->name,
             'customer_phone'    => $user->phone,
-            'email'             => $user->email,
+            'customer_email'    => $user->email,
             'customer_address'  => "Daben babu road",
             'customer_city'     => "Khulna",
             'customer_state'    => "Khulna",
@@ -66,7 +66,7 @@ class SurjoPayController extends Controller
         );
 
         $shurjopay_service = new ShurjopayController();
-        return $shurjopay_service->checkout( $info );
+        return $shurjopay_service->checkout($info);
 
     }
 
@@ -81,7 +81,9 @@ class SurjoPayController extends Controller
         unset( $data['id'] );
         DB::table( 'payments' )->insert( $data );
 
-        $this->orderPlacing();
+        return view('website.pages.candidate.verification');
+
+        // $this->orderPlacing();
 
     }
 
