@@ -37,6 +37,11 @@
     </style>
     <div class="dashboard-wrapper">
         <div class="container">
+            {{-- @if($errors->count())
+            @foreach ($errors->all() as $error)
+                <div>{{$error}}</div>
+            @endforeach
+            @endif --}}
             <form action="{{ route('website.candidate.application.form.submit') }}" method="POST">
                 @csrf
                 <div class="row">
@@ -59,7 +64,7 @@
                                     <div class="card-header">
                                         {{ __('Personal Info') }}
                                     </div>
-                                    <div class="card-body pt-1">
+                                    <div class="card-body pt-1 personal-info">
                                         <div class="form-group form-group-sm row py-0">
                                             <label for="name" class="col-sm-3 col-form-label">{{ __('name') }}<span
                                                     class="required">*</span></label>
@@ -319,9 +324,10 @@
 
                                         <div class="form-group form-group-sm row py-2">
                                             <label for="quota"
-                                                class="col-sm-3 col-form-label">{{ __('quota') }}</label>
+                                                class="col-sm-3 col-form-label">{{ __('quota') }}<span
+                                                class="required">*</span></label>
                                             <div class="col-sm-9">
-                                                <select name="quota" class="rt-selectactive w-100-p">
+                                                <select name="quota" class="rt-selectactive w-100-p @error('quota') is-invalid @enderror" required>
                                                     <option value="">Please Select</option>
                                                     <option @if ($candidate->quota == "Child of Freedom Fighter" || old('quota') == 'Child of Freedom Fighter') selected @endif
                                                         value="Child of Freedom Fighter">
@@ -2579,6 +2585,21 @@
         }).on('click',
             function() {
                 $(this).datepicker('show');
+            }
+        );
+
+        $('.personal-info input, .personal-info select').each(
+            function(index){  
+                if($(this).val()){
+                    $(this).attr('readonly', true)
+                }
+            }
+        );
+        $('.personal-info select').each(
+            function(index){  
+                if($(this).val()){
+                    $(this).attr('readonly', true)
+                }
             }
         );
 

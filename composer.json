@@ -30,6 +30,8 @@
         "nwidart/laravel-modules": "8.2.*",
         "razorpay/razorpay": "^2.8",
         "sentry/sentry-laravel": "^2.13",
+        "shurjomukhi/shurjopay-plugin-php": "^0.1.1",
+        "shurjopayv2/laravel8": "dev-master",
         "spatie/laravel-analytics": "^3.11",
         "spatie/laravel-backup": "^6.16",
         "spatie/laravel-permission": "^3.17",

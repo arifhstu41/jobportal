@@ -164,6 +164,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Jorenvh\Share\Providers\ShareServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        shurjopayv2\ShurjopayLaravelPackage8\ShurjopayServiceProvider::class,
 
         /*
          * Package Service Providers...

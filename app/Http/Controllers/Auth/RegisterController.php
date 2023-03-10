@@ -86,16 +86,7 @@ class RegisterController extends Controller
             $username = Str::slug($newUsername);
         }
 
-        // $user = User::create([
-        //     'role' => $data['role'] == 'candidate' ? 'candidate' : 'company',
-        //     'name' => $data['name'],
-        //     'name' => $data['phone'],
-        //     'username' => $username,
-        //     'email' => $data['email'],
-        //     'password' => Hash::make($data['password']),
-        // ]);
         $user= new User();
-
         $user->role= $data['role'] == 'candidate' ? 'candidate' : 'company';
         $user->name= $data['name'];
         $user->phone= $data['phone'];

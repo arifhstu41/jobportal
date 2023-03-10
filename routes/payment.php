@@ -12,6 +12,14 @@ use App\Http\Controllers\Payment\FlutterwaveController;
 use App\Http\Controllers\Payment\FreePlanPurchaseController;
 use App\Http\Controllers\Payment\ManualPaymentController;
 use App\Http\Controllers\Payment\SslCommerzPaymentController;
+use App\Http\Controllers\Payment\SurjoPayController;
+
+//Surjo Pay
+Route::controller(SurjoPayController::class)->group(function(){
+    Route::post('surjopay/payment', "payment")->name('surjopay.post');
+    Route::get('surjopay/verify', "verifyPayment")->name('surjopay.verify');
+    Route::post('surjopay/cancel', "cancelPayment")->name('surjopay.cancel');
+});
 
 //Paypal
 Route::controller(PayPalController::class)->group(function () {
