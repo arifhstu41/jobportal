@@ -76,9 +76,9 @@
     {{-- Style --}}
     @include('website.partials.links')
 </head>
-<body class="" dir="{{ langDirection() }}">
+<body class="" dir="{{ langDirection() }}" style="background-color: #2e3397">
     <header class="site-header rt-fixed-top auth-header r-z">
-        <div class="main-header">
+        <div class="main-header" style="background-color: #2e3397">
             <div class="navbar">
                 <div class="container container-full-xxl">
                     <a href="/" class="brand-logo"><img src="{{ $setting->dark_logo_url }}" alt=""></a>
