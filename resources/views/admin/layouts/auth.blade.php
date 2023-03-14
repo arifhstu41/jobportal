@@ -39,6 +39,7 @@
     </style>
 
     @yield('backend_auth_link')
+    @include('website.partials.links')
 </head>
 
 <body>
@@ -46,11 +47,11 @@
         <div class="row justify-content-center">
             <div class="col-lg-4 col-md-5">
                 <div class="d-flex flex-column justify-content-between align-items-center py-5 px-4 min-vh-100">
-                    <a href="{{ route('admin.login') }}" class="d-block">
+                    {{-- <a href="{{ route('admin.login') }}" class="d-block">
                         <div class="system-logo d-flex justify-content-center">
                             <img src="{{ $setting->dark_logo_url }}" alt="{{ __('logo') }}" class="img-fluid">
                         </div>
-                    </a>
+                    </a> --}}
                     <div class="login-card-body p-0">
                         @yield('content')
                     </div>
