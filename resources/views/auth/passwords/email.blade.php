@@ -35,7 +35,7 @@
                         @endif
                         <div class="card col-sm-12 col-md-10 mx-auto p-0">
                             <div class="card-header text-center">
-                                <img class="img-fluid img-thumbnail rounded-circle" width="100" height="100" src="{{ asset('images/welfare-logo.png') }}" alt="welfarelogo">
+                                <img class="img-fluid img-thumbnail rounded-circle border border-5 border-primary-600" style="border-color: #1c458e" width="100" height="100" src="{{ asset('images/welfare-logo.png') }}" alt="welfarelogo">
                             </div>
                             <div class="card-body">
                                 <div class="auth-box2">
