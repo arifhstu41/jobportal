@@ -1028,7 +1028,6 @@ class WebsiteController extends Controller
             "dateOfBirth" => date('Y-m-d', strtotime($request->dob)),
             "englishTranslation" => true
         );
-
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, env('PORICHOY_HOST_URL') );
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -1043,8 +1042,12 @@ class WebsiteController extends Controller
         curl_close($ch);
 
         $result= json_decode($result);
-        if (curl_errno($ch)) {
-            return back()->withInput()->with('error', $result->error->message);
+        if (curl_errno($ch) || count($result->errors)) {
+            $error_message= "";
+            foreach ($result->errors as $error) {
+                $error_message.= $error->message."<br>";
+            }
+            return back()->withInput()->with('error', $error_message);
         }
         else{
             $nid=$result->data->nid;

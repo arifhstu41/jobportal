@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-12">
                         <div class="card">
                             <div class="card-header">
                                 {{ __('account_details') }}
@@ -39,6 +39,12 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
+                                        <x-forms.label name="phone" />
+                                        <x-forms.input type="text" name="contact_phone" placeholder="phone" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
                                         <div class="form-group">
                                             <x-forms.label name="password" :required="false" />
                                             <x-forms.input type="password" name="password" placeholder="password" />
@@ -47,7 +53,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card">
+                        {{-- <div class="card">
                             <div class="card-header">
                                 {{ __('location') }}
                                 <span class="text-red font-weight-bold">*</span>
@@ -76,7 +82,7 @@
                                 @enderror
 
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="col-6">
                         <div class="card">
@@ -93,6 +99,9 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-6">
+                        
                         <div class="card">
                             <div class="card-header">
                                 {{ __('files') }}
@@ -309,10 +318,10 @@
         }
     </style>
     <!-- >=>Leaflet Map<=< -->
-    <x-map.leaflet.map_links/>
+    {{-- <x-map.leaflet.map_links/>
     <x-map.leaflet.autocomplete_links/>
     <!-- >=>Mapbox<=< -->
-    @include('map::links')
+    @include('map::links') --}}
     <!-- >=>Mapbox<=< -->
 @endsection
 
@@ -352,7 +361,7 @@
             });
     </script>
     {{-- Leaflet  --}}
-    @include('map::set-leafletmap')
+    {{-- @include('map::set-leafletmap')
     @include('map::set-googlemap')
-    @include('map::set-mapbox')
+    @include('map::set-mapbox') --}}
 @endsection

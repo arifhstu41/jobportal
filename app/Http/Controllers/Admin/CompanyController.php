@@ -97,16 +97,17 @@ class CompanyController extends Controller
 
     public function store(CompanyCreateFormRequest $request)
     {
+        // dd($request->all());
         abort_if(!userCan('company.create'), 403);
         $faker = Factory::create();
 
-        $location = session()->get('location');
-        if (!$location) {
+        // $location = session()->get('location');
+        // if (!$location) {
 
-            $request->validate([
-                'location' => 'required',
-            ]);
-        }
+        //     $request->validate([
+        //         'location' => 'required',
+        //     ]);
+        // }
 
         try {
             if ($request->logo) {
@@ -122,6 +123,7 @@ class CompanyController extends Controller
 
             $company = User::create([
                 'name' =>  $name,
+                'phone' =>  $request->contact_phone,
                 'username' => $username,
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
@@ -163,7 +165,7 @@ class CompanyController extends Controller
             }
 
             // Location
-            updateMap($company->company());
+            // updateMap($company->company());
 
             // make Notification /
             $data[] = $company;
@@ -174,6 +176,7 @@ class CompanyController extends Controller
             flashSuccess('Company added Successfully');
             return redirect()->route('company.index');
         } catch (\Throwable $th) {
+            dd($th->getMessage());
             return redirect()->back()->with('error', config('app.debug') ? $th->getMessage() : 'Something went wrong');
         }
     }

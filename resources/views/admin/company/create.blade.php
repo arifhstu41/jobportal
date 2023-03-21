@@ -45,7 +45,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card">
+                    {{-- <div class="card">
                         <div class="card-header">
                             {{ __('location') }}
                             <span class="text-red font-weight-bold">*</span>
@@ -73,7 +73,7 @@
                             @enderror
 
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="card">
                         <div class="card-header">
                             {{ __('contact') }}
@@ -293,11 +293,11 @@
         }
     </style>
     <!-- >=>Leaflet Map<=< -->
-    <x-map.leaflet.map_links/>
+    {{-- <x-map.leaflet.map_links/>
     <x-map.leaflet.autocomplete_links/>
     <!-- >=>Mapbox<=< -->
     @include('map::links')
-    <!-- >=>Mapbox<=< -->
+    <!-- >=>Mapbox<=< --> --}}
 @endsection
 
 @section('script')
@@ -378,7 +378,7 @@
         }
     </script>
     {{-- Leaflet  --}}
-    @include('map::set-leafletmap')
+    {{-- @include('map::set-leafletmap')
     @include('map::set-googlemap')
-    @include('map::set-mapbox')
+    @include('map::set-mapbox') --}}
 @endsection
