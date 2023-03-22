@@ -97,7 +97,7 @@ class RegisterController extends Controller
         $user->save();
         
         // send register sms 
-        sendSMS($user->id, "register");
+        // sendSMS($user->id, "register");
 
         // create contact info
         ContactInfo::where('user_id', $user->id)->update([

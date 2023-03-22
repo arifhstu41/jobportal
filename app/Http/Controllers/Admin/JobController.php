@@ -187,7 +187,7 @@ class JobController extends Controller
         $this->jobTagsInsert($request->tags, $jobCreated);
 
         // <!--  location  -->
-        updateMap($jobCreated);
+        // updateMap($jobCreated);
 
         if ($jobCreated) {
             flashSuccess('Job Created Successfully');
@@ -282,7 +282,7 @@ class JobController extends Controller
         $this->jobTagsSync($request->tags, $job);
 
         // <!--  location  -->
-        updateMap($job);
+        // updateMap($job);
 
         flashSuccess('Job Update Successfully');
         return back();

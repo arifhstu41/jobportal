@@ -211,7 +211,7 @@
                                 </div>
 
                             </div>
-                            <div class="row">
+                            {{-- <div class="row">
                                 <div class="col-12 rt-mb-15">
                                     @php
                                         $map = setting('default_map');
@@ -266,7 +266,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="post-job-item rt-mb-32">
                                 <h4 class="f-size-18 ft-wt-5 rt-mb-20 lh-1">{{ __('benefits') }}</h4>
                                 <div class="benefits-tags">
@@ -313,7 +313,7 @@
                                                         {{ __('all_application_will_show_on_your_dashboard') }}.</p>
                                                 </label>
                                             </div>
-                                            <div id="applied_on_custom_url"
+                                            {{-- <div id="applied_on_custom_url"
                                                 class="radio-check col-lg-4 d-flex {{ $job->apply_on === 'custom_url' ? 'checked' : '' }}"
                                                 onclick="RadioChecked('custom_url')">
                                                 <input type="radio"
@@ -337,7 +337,7 @@
                                                         {{ __('candidate_apply_job_on_your_email_address_and_all_application_in_your_email') }}.
                                                     </p>
                                                 </label>
-                                            </div>
+                                            </div> --}}
                                             <!-- apply_on end-->
                                             <div class="col-12 d-none" id="apply_on_custom_url">
                                                 <x-forms.label name="website_url" :required="true" />

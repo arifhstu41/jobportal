@@ -49,7 +49,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card">
+                        {{-- <div class="card">
                             <div class="card-header">
                                 {{ __('location') }}
                                 <small class="h6">
@@ -76,7 +76,7 @@
                                     <span class="ml-3 text-md text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="col-6">
                         <div class="card">
@@ -436,13 +436,13 @@
             });
     </script>
     {{-- Leaflet  --}}
-    @include('map::set-edit-leafletmap', ['lat' => $candidate->lat, 'long' => $candidate->long])
+    {{-- @include('map::set-edit-leafletmap', ['lat' => $candidate->lat, 'long' => $candidate->long])
     <!-- >=>Mapbox<=< -->
     @include('map::scripts')
     <!--=============== map box ===============-->
-    <x-website.map.map-box-check />
+    <x-website.map.map-box-check /> --}}
 
-    <script>
+    {{-- <script>
         var country_code = '{{ current_country_code() }}'
         var token = "{{ $setting->map_box_key }}";
         mapboxgl.accessToken = token;
@@ -558,7 +558,7 @@
         marker.on('dragend', onDragEnd);
         // zoom in and out 
         <x-mapbox-zoom-control />
-    </script>
+    </script> --}}
     <script>
         $('.mapboxgl-ctrl-logo').addClass('d-none');
         $('.mapboxgl-compact').addClass('d-none');
@@ -566,7 +566,7 @@
     </script>
     <!-- ============== map box ============= -->
     <!-- ============== google map ========= -->
-    <x-website.map.google-map-check />
+    {{-- <x-website.map.google-map-check />
     <script>
         function initMap() {
             var token = "{{ $setting->google_map_key }}";
@@ -747,16 +747,16 @@
         }
 
         window.initMap = initMap;
-    </script>
-    <script>
+    </script> --}}
+    {{-- <script>
         @php
             $link1 = 'https://maps.googleapis.com/maps/api/js?key=';
             $link2 = $setting->google_map_key;
             $Link3 = '&callback=initMap&libraries=places,geometry';
             $scr = $link1 . $link2 . $Link3;
         @endphp;
-    </script>
-    <script src="{{ $scr }}" async defer></script>
+    </script> --}}
+    {{-- <script src="{{ $scr }}" async defer></script> --}}
     <!-- =============== google map ========= -->
     <script type="text/javascript">
         $(document).ready(function() {

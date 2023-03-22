@@ -683,8 +683,7 @@ class WebsiteController extends Controller
         }
 
 
-        $check['attached'] == [1] ? $message = 'Job added to favorite list' : $message = 'Job removed from favorite list';
-
+        (count($check['attached']) > 0) ? $message = 'Job added to favorite list' : $message = 'Job removed from favorite list';
         flashSuccess($message);
         return back();
     }
@@ -731,8 +730,6 @@ class WebsiteController extends Controller
 
         // send job application sms
         $sms = sendSMS(auth('user')->user()->id, "apply");
-
-        dd($sms);
 
         flashSuccess('Job Applied Successfully');
         return back();
@@ -1029,33 +1026,36 @@ class WebsiteController extends Controller
             "englishTranslation" => true
         );
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, env('PORICHOY_HOST_URL') );
+        curl_setopt($ch, CURLOPT_URL, env('PORICHOY_HOST_URL'));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
 
         $headers = array();
         $headers[] = 'Content-Type: application/json';
-        $headers[] = 'X-Api-Key: '. env('PORICHOY_API_KEY');
+        $headers[] = 'X-Api-Key: ' . env('PORICHOY_API_KEY');
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         $result = curl_exec($ch);
         curl_close($ch);
 
-        $result= json_decode($result);
-        if (curl_errno($ch) || count($result->errors)) {
-            $error_message= "";
-            foreach ($result->errors as $error) {
-                $error_message.= $error->message."<br>";
+        $result = json_decode($result);
+        if (curl_errno($ch) || (!(isset($result->status) && $result->status =="YES"))) {
+            $error_message = "";
+            if (isset($result->errors)) {
+                foreach ($result->errors as $error) {
+                    $error_message .= $error->message . "<br>";
+                }
+            } else {
+                $error_message = "something went wrong";
             }
             return back()->withInput()->with('error', $error_message);
-        }
-        else{
-            $nid=$result->data->nid;
+        } else {
+            $nid = $result->data->nid;
 
             // update user
-            $user= User::find(Auth::user()->id);
-            $user->name= $nid->fullNameEN;
-            
+            $user = User::find(Auth::user()->id);
+            $user->name = $nid->fullNameEN;
+
             // update candidate
             $candidate = Candidate::where('user_id', Auth::user()->id)->first();
             $candidate->name_bn = $nid->fullNameBN;
@@ -1068,15 +1068,15 @@ class WebsiteController extends Controller
             $candidate->place = $nid->presentAddressBN;
             $candidate->place_parmanent = $nid->permanentAddressBN;
             $candidate->nid_no = $nid->nationalIdNumber;
-            if($nid->spouseNameEN){
+            if ($nid->spouseNameEN) {
                 $candidate->marital_status = "married";
             }
-            if($nid->spouseNameEN){
+            if ($nid->spouseNameEN) {
                 $candidate->marital_status = "single";
             }
 
-            $candidate->balance= 100;
-            $candidate->is_varified= "true";
+            $candidate->balance = 100;
+            $candidate->is_varified = "true";
 
             $candidate->save();
             return redirect()->route('website.candidate.application.form');

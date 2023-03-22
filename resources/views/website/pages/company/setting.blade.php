@@ -368,7 +368,7 @@
                                         @csrf
                                         @method('put')
                                         <input type="hidden" name="type" value="contact">
-                                        <div class="dashboard-account-setting-item pb-0">
+                                        {{-- <div class="dashboard-account-setting-item pb-0">
                                             <x-website.map.map-warning />
                                             <h6>
                                                 {{ __('company_location') }}
@@ -394,7 +394,7 @@
                                                     <span class="ml-3 text-md text-danger">{{ $message }}</span>
                                                 @enderror
                                             </div>
-                                        </div>
+                                        </div> --}}
 
                                         <div class="dashboard-account-setting-item">
                                             <h6>{{ __('phone') }} & {{ __('email') }}</h6>

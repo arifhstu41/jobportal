@@ -40,7 +40,7 @@ class JobCreateRequest extends FormRequest
             'featured' => 'nullable|numeric',
             'is_remote' => 'nullable|numeric',
             'apply_on' => 'required',
-            'location' => $this->method() == 'PUT' ? '' : Rule::requiredIf(!session('location'))
+            // 'location' => $this->method() == 'PUT' ? '' : Rule::requiredIf(!session('location'))
         ];
     }
 }

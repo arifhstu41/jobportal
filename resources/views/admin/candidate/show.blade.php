@@ -117,7 +117,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card">
+            {{-- <div class="card">
                 <div class="card-header">
                     <h3 class="card-title line-height-36">
                         {{ __('location') }}
@@ -137,7 +137,7 @@
                         <div id="leaflet-map"></div>
                     @endif
                 </div>
-            </div>
+            </div> --}}
             <x-admin.candidate.card-component title="{{ __('applied_jobs') }}" :jobs="$appliedJobs"
                 link="website.job.apply" />
             <x-admin.candidate.card-component title="{{ __('bookmark_jobs') }}" :jobs="$bookmarkJobs"

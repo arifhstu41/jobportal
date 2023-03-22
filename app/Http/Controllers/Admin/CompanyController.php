@@ -281,7 +281,7 @@ class CompanyController extends Controller
             }
 
             // Location
-            updateMap($company->company());
+            // updateMap($company->company());
 
             if ($request->password) {
                 // make Notification /

@@ -6,7 +6,7 @@
     <input type="hidden" name="field" value="contact">
     <fieldset>
         <div class="form-card mb-4">
-            <div class="dashboard-account-setting-item pb-0">
+            {{-- <div class="dashboard-account-setting-item pb-0">
                 <h6>{{ __('company_location') }}
                     <span class="text-danger">*</span>
                     <small class="h6">
@@ -34,7 +34,7 @@
                         <span class="ml-3 text-md text-danger">{{ $message }}</span>
                     @enderror
                 </div>
-            </div>
+            </div> --}}
 
             <div class="dashboard-account-setting-item">
                 <h6>{{ __('phone_email') }}</h6>

@@ -440,7 +440,7 @@ class CandidateController extends Controller
         }
 
         // Location
-        updateMap($candidate);
+        // updateMap($candidate);
 
         // skills
         $skills = $request->skills;

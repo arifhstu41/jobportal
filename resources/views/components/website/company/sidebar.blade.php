@@ -50,7 +50,7 @@
                             <i class="ph-suitcase-simple"></i>
                         </span>
                         <span class="button-text">
-                            {{ __('my_jobs') }}
+                            {{ __('all_jobs') }}
                         </span>
                     </span>
                 </a>
@@ -115,7 +115,7 @@
                             <i class="ph-gear"></i>
                         </span>
                         <span class="button-text">
-                            {{ __('settings') }}
+                            {{ __('update_profile') }}
                         </span>
                     </span>
                 </a>

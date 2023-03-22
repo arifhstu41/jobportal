@@ -112,7 +112,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card">
+                    {{-- <div class="card">
                         <div class="card-header">
                             <div class="card-title">
                                 {{ __('location') }}
@@ -141,6 +141,52 @@
                                 <span class="ml-3 text-md text-danger">{{ $message }}</span>
                             @enderror
 
+                        </div>
+                    </div> --}}
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">{{ __('others') }}</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row p-4">
+                                <div class="col-md-4 form-check">
+                                    <div class="icheck-success d-inline">
+                                        <input value="featured" name="badge" type="radio" class="form-check-input"
+                                            id="featured" {{ $job->featured ? 'checked' : '' }}>
+                                        <label class="form-check-label mr-5" for="featured">{{ __('featured') }}</label>
+                                    </div>
+                                    @error('featured')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ __($message) }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="col-md-4 form-check">
+                                    <div class="icheck-success d-inline">
+                                        <input value="highlight" name="badge" type="radio" class="form-check-input"
+                                            id="highlight" {{ $job->highlight ? 'checked' : '' }}>
+                                        <label class="form-check-label mr-5"
+                                            for="highlight">{{ __('highlight') }}</label>
+                                    </div>
+                                    @error('highlight')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ __($message) }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="col-md-4 form-check">
+                                    <div class="icheck-success d-inline">
+                                        <input value="1" name="is_remote" type="checkbox" class="form-check-input"
+                                            id="is_remote" {{ $job->is_remote ? 'checked' : '' }}>
+                                        <label class="form-check-label mr-5" for="is_remote">{{ __('remote') }}</label>
+                                    </div>
+                                    @error('is_remote')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ __($message) }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -211,15 +257,15 @@
                                     <x-forms.label name="receive_applications" for="apply_on" :required="true" />
                                     <select name="apply_on" class="form-control @error('apply_on') is-invalid @enderror"
                                         id="apply_on">
-                                        <option value="" {{ $job->apply_on === '' ? 'selected' : '' }}>
-                                            {{ __('select_one') }}</option>
+                                        {{-- <option value="" {{ $job->apply_on === '' ? 'selected' : '' }}>
+                                            {{ __('select_one') }}</option> --}}
                                         <option value="app" {{ $job->apply_on === 'app' ? 'selected' : '' }}>
                                             {{ __('on_our_platform') }}</option>
-                                        <option value="email" {{ $job->apply_on === 'email' ? 'selected' : '' }}>
+                                        {{-- <option value="email" {{ $job->apply_on === 'email' ? 'selected' : '' }}>
                                             {{ __('on_your_email_address') }}</option>
                                         <option value="custom_url"
                                             {{ $job->apply_on === 'custom_url' ? 'selected' : '' }}>
-                                            {{ __('on_a_custom_url') }}</option>
+                                            {{ __('on_a_custom_url') }}</option> --}}
                                     </select>
                                     @error('apply_on')
                                         <span class="invalid-feedback" role="alert">
@@ -227,7 +273,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-sm-12 col-md-12 {{ $job->apply_on === 'email' ? '' : 'd-none' }}"
+                                {{-- <div class="col-sm-12 col-md-12 {{ $job->apply_on === 'email' ? '' : 'd-none' }}"
                                     id="apply_email_div">
                                     <x-forms.label name="apply_email" for="apply_email" :required="true" />
                                     <input id="apply_email" type="email" name="apply_email"
@@ -238,7 +284,7 @@
                                             <strong>{{ __($message) }}</strong>
                                         </span>
                                     @enderror
-                                </div>
+                                </div> --}}
                                 <div class="col-sm-12 col-md-12 {{ $job->apply_on == 'custom_url' ? '' : 'd-none' }}"
                                     id="apply_url_div">
                                     <x-forms.label name="apply_url" for="apply_url" :required="true" />
@@ -254,52 +300,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">{{ __('others') }}</div>
-                        </div>
-                        <div class="card-body">
-                            <div class="row p-4">
-                                <div class="col-md-4 form-check">
-                                    <div class="icheck-success d-inline">
-                                        <input value="featured" name="badge" type="radio" class="form-check-input"
-                                            id="featured" {{ $job->featured ? 'checked' : '' }}>
-                                        <label class="form-check-label mr-5" for="featured">{{ __('featured') }}</label>
-                                    </div>
-                                    @error('featured')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ __($message) }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="col-md-4 form-check">
-                                    <div class="icheck-success d-inline">
-                                        <input value="highlight" name="badge" type="radio" class="form-check-input"
-                                            id="highlight" {{ $job->highlight ? 'checked' : '' }}>
-                                        <label class="form-check-label mr-5"
-                                            for="highlight">{{ __('highlight') }}</label>
-                                    </div>
-                                    @error('highlight')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ __($message) }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="col-md-4 form-check">
-                                    <div class="icheck-success d-inline">
-                                        <input value="1" name="is_remote" type="checkbox" class="form-check-input"
-                                            id="is_remote" {{ $job->is_remote ? 'checked' : '' }}>
-                                        <label class="form-check-label mr-5" for="is_remote">{{ __('remote') }}</label>
-                                    </div>
-                                    @error('is_remote')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ __($message) }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
                 <div class="col-12">
                     <div class="card">

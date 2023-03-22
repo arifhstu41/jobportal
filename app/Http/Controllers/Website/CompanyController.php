@@ -59,6 +59,7 @@ use App\Notifications\Website\Company\JobCreatedNotification;
 use App\Notifications\Website\Company\JobDeletedNotification;
 use App\Notifications\Website\Company\CandidateBookmarkNotification;
 use App\Notifications\Website\Company\EditApproveNotification;
+use PhpParser\Node\Stmt\Return_;
 
 class CompanyController extends Controller
 {
@@ -81,7 +82,8 @@ class CompanyController extends Controller
 
     public function sendSMS(){
         sendSMS(3, "register", 1);
-        dd("sdffd");
+
+        return back()->with('success', 'Message Sent Successfully!');
     }
 
     public function myjobs(Request $request)
@@ -176,12 +178,12 @@ class CompanyController extends Controller
     public function storePayPerJob(JobCreateRequest $request)
     {
         $location = session()->get('location');
-        if (!$location) {
+        // if (!$location) {
 
-            $request->validate([
-                'location' => 'required',
-            ]);
-        }
+        //     $request->validate([
+        //         'location' => 'required',
+        //     ]);
+        // }
 
         if ($request->apply_on === "custom_url") {
             $request->validate([
@@ -363,7 +365,7 @@ class CompanyController extends Controller
         ]);
 
         // Location
-        updateMap($jobCreated);
+        // updateMap($jobCreated);
 
         // Benefits
         $this->jobBenefitsInsert($request->benefits, $jobCreated);
@@ -456,9 +458,9 @@ class CompanyController extends Controller
 
         // Location
         $location = session()->get('location');
-        if ($location) {
-            updateMap($main_job);
-        }
+        // if ($location) {
+        //     updateMap($main_job);
+        // }
 
         if (setting('edited_job_auto_approved')) {
             flashSuccess('Job Updated Successfully');
@@ -1052,11 +1054,11 @@ class CompanyController extends Controller
                 ]);
 
                 $location = session()->get('location');
-                if (!$location) {
-                    $request->validate([
-                        'location' => 'required',
-                    ]);
-                }
+                // if (!$location) {
+                //     $request->validate([
+                //         'location' => 'required',
+                //     ]);
+                // }
 
                 $request->validate([
                     'phone' => 'required|min:4|max:16',

@@ -1087,7 +1087,7 @@ if (!function_exists('sendSMS')) {
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         $response = curl_exec($ch);
         curl_close($ch);
-
+        // dd($response);
 
         $statusList['1000'] = "Message Sent";
         $statusList['1002'] = "Sender Id/Masking Not Found";
@@ -1104,6 +1104,7 @@ if (!function_exists('sendSMS')) {
         $statusList['1013'] = "API limit error";
         $statusList['1014'] = "No matching template";
         $statusList['1015'] = "SMS Content Validation Fails";
+        $statusList['2001'] = "UnKnown Error";
         // $response= "1000";
         $response_code = $response;
 

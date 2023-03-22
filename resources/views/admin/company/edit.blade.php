@@ -50,7 +50,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card">
+                    {{-- <div class="card">
                         <div class="card-header">
                             {{ __('location') }}
                             <small class="h6">
@@ -77,7 +77,7 @@
                             @enderror
 
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="card">
                         <div class="card-header">
                             {{ __('contact') }}
