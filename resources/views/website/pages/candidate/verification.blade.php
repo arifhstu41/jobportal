@@ -73,7 +73,7 @@
                                 <div class="post-info d-flex row">
                                     <div class="col-sm-4 col-md-3 py-2">
                                         <select class="rt-selectactive w-100-p @error('id_type') is-invalid @enderror"
-                                            name="id_type" required>
+                                            name="id_type" id="id_type" required>
                                             <option value="NID"> {{ __('NID') }} </option>
                                             <option value="Birth Certificate"> {{ __('Birth Certificate') }} </option>
                                         </select>
@@ -122,5 +122,18 @@
                 $(this).datepicker('show');
             }
         );
+
+        $("#id_type").on("change", function(){
+            let id_type= $(this).val();
+
+            if(id_type == "NID"){
+                $("#id_no").attr('placeholder','ID NO');
+            }
+
+            if(id_type == "Birth Certificate"){
+                $("#id_no").attr('placeholder','Birth Certificate No');
+            }
+        })
+    
 </script>
 @endsection
