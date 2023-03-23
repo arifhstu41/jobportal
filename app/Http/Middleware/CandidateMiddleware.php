@@ -33,6 +33,7 @@ class CandidateMiddleware
         }
 
         if (auth('user')->user()->role == 'company') {
+         
             return redirect()->route('company.dashboard');
         }
 

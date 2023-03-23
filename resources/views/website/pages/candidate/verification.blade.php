@@ -70,8 +70,8 @@
                     <div class="col-10 mx-auto my-2 ">
                         <div class="card jobcardStyle1">
                             <div class="card-body">
-                                <div class="post-info d-flex">
-                                    <div class="flex-grow-1 mr-5 d-flex align-items-center">
+                                <div class="post-info d-flex row">
+                                    <div class="col-sm-4 col-md-3 py-2">
                                         <select class="rt-selectactive w-100-p @error('id_type') is-invalid @enderror"
                                             name="id_type" required>
                                             <option value="NID"> {{ __('NID') }} </option>
@@ -81,21 +81,21 @@
                                             <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                                         @enderror
                                     </div>
-                                    <div class="flex-grow-1 ms-5">
+                                    <div class="col-sm-4 col-md-3 py-2">
                                         <input class="form-control @error('id_no') is-invalid @enderror" name="id_no"
                                             type="text" value="" id="id_no" placeholder="ID No" required>
                                         @error('id_no')
                                             <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                                         @enderror
                                     </div>
-                                    <div class="flex-grow-1 ms-5">
+                                    <div class="col-sm-4 col-md-3 py-2">
                                         <input class="form-control @error('dob') is-invalid @enderror datepicker" name="dob"
                                             type="text" value="" id="date" placeholder="mm-dd-yyyy" required>
                                         @error('dob')
                                             <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                                         @enderror
                                     </div>
-                                    <div class="flex-grow-1 ms-5">
+                                    <div class="col-sm-4 col-md-3 py-2">
                                         <button id="surjo_pay_btn" type="submit" class="btn btn-primary2-50 d-block">
                                             Submit
                                         </button>

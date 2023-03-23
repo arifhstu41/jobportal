@@ -81,7 +81,15 @@ class SurjoPayController extends Controller
         unset( $data['id'] );
         DB::table( 'payments' )->insert( $data );
 
-        return view('website.pages.candidate.verification');
+        if(auth()->user()->role == "candidate"){
+            return view('website.pages.candidate.verification');
+        }
+
+        if(auth()->user()->role == "company"){
+            return redirect()->route('company.dashboard');
+        }
+
+        return redirect()->route('website');
 
         // $this->orderPlacing();
 

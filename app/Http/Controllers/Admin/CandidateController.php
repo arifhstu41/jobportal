@@ -189,7 +189,8 @@ class CandidateController extends Controller
     {
         $request->validate([
             'username' => 'unique:users,username',
-            'email' => 'unique:users,email'
+            'email' => 'unique:users,email',
+            'contact_phone' => 'required'
         ]);
 
         $password = $request->password ?? Str::random(8);
@@ -197,6 +198,7 @@ class CandidateController extends Controller
         $data = User::create([
             'role' => 'candidate',
             'name' => $request->name,
+            'phone' => $request->contact_phone,
             'username' => Str::slug('K' . $request->name . '122'),
             'email' => $request->email,
             'email_verified_at' => now(),
@@ -272,15 +274,16 @@ class CandidateController extends Controller
 
     public function store(CandidateRequest $request)
     {
+        // dd($request->all());
         abort_if(!userCan('candidate.create'), 403);
 
-        $location = session()->get('location');
-        if (!$location) {
+        // $location = session()->get('location');
+        // if (!$location) {
 
-            $request->validate([
-                'location' => 'required',
-            ]);
-        }
+        //     $request->validate([
+        //         'location' => 'required',
+        //     ]);
+        // }
 
         try {
 
@@ -296,18 +299,19 @@ class CandidateController extends Controller
             }
 
             $data = $this->userCreate($request);
-
+           
             $candidate = $this->candidateCreate($request, $data);
 
             // Location
-            updateMap($candidate);
+            // updateMap($candidate);
 
             // make Notification /
-            checkMailConfig() ? Notification::route('mail', $data[1]->email)->notify(new CandidateCreateNotification($data)) : '';
+            // checkMailConfig() ? Notification::route('mail', $data[1]->email)->notify(new CandidateCreateNotification($data)) : '';
 
             flashSuccess('Candidate Created Successfully');
             return redirect()->route('candidate.index');
         } catch (\Throwable $th) {
+            dd( $th->getMessage());
             return redirect()->back()->with('error', config('app.debug') ? $th->getMessage() : 'Something went wrong');
         }
     }
@@ -436,7 +440,7 @@ class CandidateController extends Controller
         }
 
         // Location
-        updateMap($candidate);
+        // updateMap($candidate);
 
         // skills
         $skills = $request->skills;

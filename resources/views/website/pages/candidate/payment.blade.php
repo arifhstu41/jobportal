@@ -65,7 +65,7 @@
                 {{-- <h5>{{ __('online_payment_gatewats') }}</h5> --}}
 
 
-                <div class="col-8 mx-auto my-2 ">
+                <div class="col-sm-10 col-md-8 mx-auto my-2 ">
                     <div class="card jobcardStyle1">
                         <div class="card-body">
                             {{-- <div class="rt-single-icon-box">
@@ -75,12 +75,12 @@
                                     </div>
                                 </div>
                             </div> --}}
-                            <div class="post-info d-flex">
-                                <div class="flex-grow-1 mr-5 d-flex align-items-center">
+                            <div class="post-info d-flex text-center row">
+                                <div class="d-flex align-items-center col-sm-12 col-md-6">
                                     <h5>Amount to Pay: 100 BDT</h5>
                                 </div>
-                                <div class="flex-grow-1 ms-5">
-                                    <button id="surjo_pay_btn" type="button" class="btn btn-primary2-50 d-block">
+                                <div class="col-sm-12 col-md-6 ">
+                                    <button id="surjo_pay_btn" type="button" class="btn btn-primary2-50 ">
                                         {{ __('pay_now') }} to verify your Account
                                     </button>
                                 </div>

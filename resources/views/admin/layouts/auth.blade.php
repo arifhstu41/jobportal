@@ -45,14 +45,14 @@
 <body>
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-lg-4 col-md-5">
+            <div class="{{ request()->is('register') ? "col-lg-5 col-md-6 col-sm-12" : "col-lg-4 col-md-5" }}">
                 <div class="d-flex flex-column justify-content-between align-items-center py-5 px-4 min-vh-100">
                     {{-- <a href="{{ route('admin.login') }}" class="d-block">
                         <div class="system-logo d-flex justify-content-center">
                             <img src="{{ $setting->dark_logo_url }}" alt="{{ __('logo') }}" class="img-fluid">
                         </div>
                     </a> --}}
-                    <div class="login-card-body p-0">
+                    <div class="{{ request()->is('register') ? "card-body" : "login-card-body" }}  p-0">
                         @yield('content')
                     </div>
                     <div class="text-center text-secondary quote">
@@ -60,7 +60,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-8 col-md-7 col d-lg-block d-none">
+            <div class="{{ request()->is('register') ? "col-lg-7 col-md-6 col-sm-12" : "col-lg-8 col-md-7" }}  col d-lg-block d-none">
                 <div class="h-100 min-vh-100 background-view">
                 </div>
             </div>

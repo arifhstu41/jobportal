@@ -108,7 +108,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card">
+                    {{-- <div class="card">
                         <div class="card-header">
                             <div class="card-title">
                                 {{ __('location') }}
@@ -137,6 +137,53 @@
                             @error('location')
                                 <span class="ml-3 text-md text-danger">{{ $message }}</span>
                             @enderror
+                        </div>
+                    </div> --}}
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">{{ __('others') }}</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row p-4">
+                                <div class="col-md-4 form-check">
+                                    <div class="icheck-success d-inline">
+                                        <input value="featured" name="badge" type="radio" class="form-check-input"
+                                            id="featured" {{ old('badge') == 'featured' ? 'checked' : '' }}>
+                                        <label class="form-check-label mr-5" for="featured">{{ __('featured') }}</label>
+                                    </div>
+                                    @error('featured')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ __($message) }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="col-md-4 form-check">
+                                    <div class="icheck-success d-inline">
+                                        <input value="highlight" name="badge" type="radio" class="form-check-input"
+                                            id="highlight" {{ old('badge') == 'highlight' ? 'checked' : '' }}>
+                                        <label class="form-check-label mr-5"
+                                            for="highlight">{{ __('highlight') }}</label>
+                                    </div>
+                                    @error('highlight')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ __($message) }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="col-md-4 form-check">
+                                    <div class="icheck-success d-inline">
+                                        <input value="1" name="is_remote" type="checkbox" class="form-check-input"
+                                            id="is_remote" {{ old('is_remote') ? 'checked' : '' }}>
+                                        <label class="form-check-label mr-5" for="is_remote">{{ __('remote') }}</label>
+                                    </div>
+                                    @error('is_remote')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ __($message) }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -207,15 +254,15 @@
                                     <x-forms.label name="receive_applications" for="apply_on" :required="true" />
                                     <select name="apply_on" class="form-control @error('apply_on') is-invalid @enderror"
                                         id="apply_on">
-                                        <option {{ old('apply_on') ? '' : 'selected' }} value="" class="d-none">
-                                            {{ __('select_one') }}</option>
+                                        {{-- <option {{ old('apply_on') ? '' : 'selected' }} value="" class="d-none">
+                                            {{ __('select_one') }}</option> --}}
                                         <option {{ old('apply_on') == 'app' ? 'selected' : '' }} value="app" selected>
                                             {{ __('on_our_platform') }}</option>
-                                        <option {{ old('apply_on') == 'email' ? 'selected' : '' }} value="email">
+                                        {{-- <option {{ old('apply_on') == 'email' ? 'selected' : '' }} value="email">
                                             {{ __('on_your_email_address') }}</option>
                                         <option {{ old('apply_on') == 'custom_url' ? 'selected' : '' }}
                                             value="custom_url">
-                                            {{ __('on_a_custom_url') }}</option>
+                                            {{ __('on_a_custom_url') }}</option> --}}
                                     </select>
                                     @error('apply_on')
                                         <span class="invalid-feedback" role="alert">
@@ -223,7 +270,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-sm-12 col-md-12 d-none mt-2" id="apply_email_div">
+                                {{-- <div class="col-sm-12 col-md-12 d-none mt-2" id="apply_email_div">
                                     <x-forms.label name="apply_email" for="apply_email" :required="true" />
                                     <input id="apply_email" type="email" name="apply_email"
                                         placeholder="{{ __('apply_email') }}"
@@ -233,59 +280,13 @@
                                             <strong>{{ __($message) }}</strong>
                                         </span>
                                     @enderror
-                                </div>
+                                </div> --}}
                                 <div class="col-sm-12 col-md-12 d-none mt-2" id="apply_url_div">
                                     <x-forms.label name="apply_url" for="apply_url" :required="true" />
                                     <input id="apply_url" type="url" name="apply_url"
                                         placeholder="{{ __('apply_url') }}"
                                         class="form-control @error('apply_url') is-invalid @enderror">
                                     @error('apply_url')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ __($message) }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">{{ __('others') }}</div>
-                        </div>
-                        <div class="card-body">
-                            <div class="row p-4">
-                                <div class="col-md-4 form-check">
-                                    <div class="icheck-success d-inline">
-                                        <input value="featured" name="badge" type="radio" class="form-check-input"
-                                            id="featured" {{ old('badge') == 'featured' ? 'checked' : '' }}>
-                                        <label class="form-check-label mr-5" for="featured">{{ __('featured') }}</label>
-                                    </div>
-                                    @error('featured')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ __($message) }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="col-md-4 form-check">
-                                    <div class="icheck-success d-inline">
-                                        <input value="highlight" name="badge" type="radio" class="form-check-input"
-                                            id="highlight" {{ old('badge') == 'highlight' ? 'checked' : '' }}>
-                                        <label class="form-check-label mr-5"
-                                            for="highlight">{{ __('highlight') }}</label>
-                                    </div>
-                                    @error('highlight')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ __($message) }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="col-md-4 form-check">
-                                    <div class="icheck-success d-inline">
-                                        <input value="1" name="is_remote" type="checkbox" class="form-check-input"
-                                            id="is_remote" {{ old('is_remote') ? 'checked' : '' }}>
-                                        <label class="form-check-label mr-5" for="is_remote">{{ __('remote') }}</label>
-                                    </div>
-                                    @error('is_remote')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ __($message) }}</strong>
                                         </span>

@@ -1,0 +1,10537 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.0
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Mar 21, 2023 at 03:33 AM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.1.6
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `job`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `abouts`
+--
+
+CREATE TABLE `abouts` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `about_title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `about_sub_title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `about_description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `about_brand_logo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'frontend/assets/images/all-img/brand-1.png',
+  `about_brand_logo1` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'frontend/assets/images/all-img/brand-2.png',
+  `about_brand_logo2` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'frontend/assets/images/all-img/brand-3.png',
+  `about_brand_logo3` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'frontend/assets/images/all-img/brand-1.png',
+  `about_brand_logo4` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'frontend/assets/images/all-img/brand-2.png',
+  `about_brand_logo5` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'frontend/assets/images/all-img/brand-3.png',
+  `about_banner_img` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'frontend/assets/images/banner/about-banner-1.jpg',
+  `about_banner_img1` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'frontend/assets/images/banner/about-banner-1.jpg',
+  `about_banner_img2` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'frontend/assets/images/banner/about-banner-1.jpg',
+  `about_banner_img3` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'frontend/assets/images/banner/about-banner-1.jpg',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admins`
+--
+
+CREATE TABLE `admins` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'backend/image/default.png',
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `admins`
+--
+
+INSERT INTO `admins` (`id`, `name`, `email`, `email_verified_at`, `password`, `image`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Admin', 'admin@mail.com', '2022-12-26 12:59:28', '$2y$10$AVpo2QI19mpWa3seNjKTwOoZ1a6TubNEBd8vn.73Jtg9bMxdaKRc2', 'uploads/user/1676484382_63ed1f1e2f4f7.png', 'gr1VVx7AAHDQAip2SaLLhNQZEyMauTFs2md3hC4x62FP4CwQqN11ckoEtxRD', '2022-12-26 12:59:28', '2023-02-15 23:06:22');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin_searches`
+--
+
+CREATE TABLE `admin_searches` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `page_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `application_groups`
+--
+
+CREATE TABLE `application_groups` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `company_id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `order` smallint(6) NOT NULL DEFAULT 0,
+  `is_deleteable` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `application_groups`
+--
+
+INSERT INTO `application_groups` (`id`, `company_id`, `name`, `order`, `is_deleteable`, `created_at`, `updated_at`) VALUES
+(1, 1, 'No Group', 1, 0, '2023-02-15 23:24:48', '2023-02-15 23:24:48'),
+(2, 1, 'All Applications', 1, 1, '2023-02-15 23:24:48', '2023-02-15 23:24:48'),
+(3, 1, 'Shortlisted', 2, 1, '2023-02-15 23:24:48', '2023-02-15 23:24:48'),
+(4, 1, 'Interview', 3, 1, '2023-02-15 23:24:48', '2023-02-15 23:24:48'),
+(5, 1, 'Rejected', 4, 1, '2023-02-15 23:24:48', '2023-02-15 23:24:48'),
+(6, 2, 'No Group', 1, 0, '2023-02-18 16:16:05', '2023-02-18 16:16:05'),
+(11, 3, 'No Group', 1, 0, '2023-02-25 05:13:02', '2023-02-25 05:13:02'),
+(12, 3, 'All Applications', 1, 1, '2023-02-25 05:13:02', '2023-02-25 05:13:02'),
+(13, 3, 'Shortlisted', 2, 1, '2023-02-25 05:13:02', '2023-02-25 05:13:02'),
+(14, 3, 'Interview', 3, 1, '2023-02-25 05:13:02', '2023-02-25 05:13:02'),
+(15, 3, 'Rejected', 4, 1, '2023-02-25 05:13:02', '2023-02-25 05:13:02'),
+(17, 4, 'No Group', 1, 0, '2023-03-15 10:59:29', '2023-03-15 10:59:29'),
+(18, 4, 'All Applications', 1, 1, '2023-03-15 10:59:29', '2023-03-15 10:59:29'),
+(19, 4, 'Shortlisted', 2, 1, '2023-03-15 10:59:29', '2023-03-15 10:59:29'),
+(20, 4, 'Interview', 3, 1, '2023-03-15 10:59:29', '2023-03-15 10:59:29'),
+(21, 4, 'Rejected', 4, 1, '2023-03-15 10:59:29', '2023-03-15 10:59:29'),
+(22, 5, 'No Group', 1, 0, '2023-03-20 11:44:50', '2023-03-20 11:44:50'),
+(23, 5, 'All Applications', 1, 1, '2023-03-20 11:44:50', '2023-03-20 11:44:50'),
+(24, 5, 'Shortlisted', 2, 1, '2023-03-20 11:44:50', '2023-03-20 11:44:50'),
+(25, 5, 'Interview', 3, 1, '2023-03-20 11:44:50', '2023-03-20 11:44:50'),
+(26, 5, 'Rejected', 4, 1, '2023-03-20 11:44:50', '2023-03-20 11:44:50');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `applied_jobs`
+--
+
+CREATE TABLE `applied_jobs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `candidate_id` bigint(20) UNSIGNED NOT NULL,
+  `job_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `candidate_resume_id` bigint(20) UNSIGNED NOT NULL,
+  `cover_letter` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `application_group_id` bigint(20) UNSIGNED NOT NULL,
+  `order` smallint(6) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `applied_jobs`
+--
+
+INSERT INTO `applied_jobs` (`id`, `candidate_id`, `job_id`, `created_at`, `updated_at`, `candidate_resume_id`, `cover_letter`, `application_group_id`, `order`) VALUES
+(2, 1, 3, '2023-02-26 20:15:04', '2023-02-26 20:15:05', 1, 'This is a cover letter', 6, 0),
+(5, 1, 2, '2023-03-03 14:48:59', '2023-03-03 14:48:59', 1, 'oiiii', 1, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bd_education_boards`
+--
+
+CREATE TABLE `bd_education_boards` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `bd_education_boards`
+--
+
+INSERT INTO `bd_education_boards` (`id`, `name`) VALUES
+(1, 'Dhaka'),
+(2, 'Comilla'),
+(3, 'Rajshahi'),
+(4, 'Jessore'),
+(5, 'Chittagong'),
+(6, 'Barisal'),
+(7, 'Sylhet'),
+(8, 'Dinajpur'),
+(9, 'Mymensingh'),
+(10, 'Madrasah'),
+(11, 'Open University'),
+(12, 'The State Medical Faculty of Bangladesh'),
+(13, 'Pharmacy Council of Bangladesh'),
+(14, 'Cambridge International - IGCE'),
+(15, 'Edexcel International'),
+(16, 'Bangladesh Technical Education Board (BTEB)'),
+(99, 'Other');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bd_universities`
+--
+
+CREATE TABLE `bd_universities` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `type` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `bd_universities`
+--
+
+INSERT INTO `bd_universities` (`id`, `name`, `type`) VALUES
+(1, 'University of Dhaka', 'Public'),
+(2, 'University of Rajshahi', 'Public'),
+(3, 'Bangladesh Agricultural University', 'Public'),
+(4, 'Bangladesh University of Engineering & Technology', 'Public'),
+(5, 'University of Chittagong', 'Public'),
+(6, 'Jahangirnagar University', 'Public'),
+(7, 'Islamic University, Bangladesh', 'Public'),
+(8, 'Shahjalal University of Science and Technology', 'Public'),
+(9, 'Khulna University', 'Public'),
+(10, 'Bangabandhu Sheikh Mujib Medical University ', 'Public'),
+(11, 'Bangabandhu Sheikh Mujibur Rahman Agricultural University', 'Public'),
+(12, 'Hajee Mohammad Danesh Science & Technology University', 'Public'),
+(13, 'Mawlana Bhashani Science and Technology University', 'Public'),
+(14, 'Patuakhali Science and Technology University', 'Public'),
+(15, 'Sher-e-Bangla Agricultural University', 'Public'),
+(16, 'Dhaka University of Engineering & Technology', 'Public'),
+(17, 'Rajshahi University of Engineering & Technology', 'Public'),
+(18, 'Chittagong University of Engineering & Technology', 'Public'),
+(19, 'Khulna University of Engineering & Technology', 'Public'),
+(20, 'Jagannath University', 'Public'),
+(21, 'Jatiya Kabi Kazi Nazrul Islam University', 'Public'),
+(22, 'Chittagong Veterinary and Animal Sciences University', 'Public'),
+(23, 'Sylhet Agricultural University', 'Public'),
+(24, 'Comilla University', 'Public'),
+(25, 'Noakhali Science and Technology University', 'Public'),
+(26, 'Jessore University of Science & Technology', 'Public'),
+(27, 'Pabna University of Science and Technology', 'Public'),
+(28, 'Bangladesh University of Professionals', 'Public'),
+(29, 'Begum Rokeya University', 'Public'),
+(30, 'Bangladesh University of Textiles', 'Public'),
+(31, 'University of Barisal', 'Public'),
+(32, 'Bangabandhu Sheikh Mujibur Rahman Science and Technology University', 'Public'),
+(33, 'Islamic Arabic University', 'Public'),
+(34, 'Bangabandhu Sheikh Mujibur Rahman Maritime University', 'Public'),
+(35, 'Rangamati Science and Technology University', 'Public'),
+(36, 'Dhaka International University', 'Private'),
+(37, 'Ahsanullah University of Science and Technology', 'Private'),
+(38, 'BRAC University', 'Private'),
+(39, 'East West University', 'Private'),
+(40, 'North South University', 'Private'),
+(41, 'American International University-Bangladesh', 'Private'),
+(42, 'Independent University, Bangladesh', 'Private'),
+(43, 'Bangladesh University of Business and Technology', 'Private'),
+(44, 'Gono Bishwabidyalay', 'Private'),
+(45, 'Hamdard University Bangladesh', 'Private'),
+(46, 'International Islamic University, Chittagong', 'Private'),
+(47, 'Chittagong Independent University (CIU)', 'Private'),
+(48, 'University of Science & Technology Chittagong', 'Private'),
+(49, 'Begum Gulchemonara Trust University', 'Private'),
+(50, 'East Delta University', 'Private'),
+(51, 'Bangladesh Army University of Science and Technology', 'Private'),
+(52, 'Bangladesh Army International University of Science & Technology', 'Private'),
+(53, 'Britannia University', 'Private'),
+(54, 'Feni University', 'Private'),
+(55, 'Bangladesh Army University of Engineering & Technology', 'Private'),
+(56, 'Premier University, Chittagong', 'Private'),
+(57, 'Exim Bank Agricultural University Bangladesh', 'Private'),
+(58, 'Southern University, Bangladesh', 'Private'),
+(59, 'Port City International University', 'Private'),
+(60, 'Coxs Bazar International University', 'Private'),
+(61, 'Notre Dame University Bangladesh', 'Private'),
+(62, 'Asian University of Bangladesh', 'Private'),
+(63, 'Asa University Bangladesh', 'Private'),
+(64, 'Atish Dipankar University of Science and Technology', 'Private'),
+(65, 'Bangladesh Islami University', 'Private'),
+(66, 'Bangladesh University', 'Private'),
+(67, 'Central Women\'s University', 'Private'),
+(68, 'City University, Bangladesh', 'Private'),
+(69, 'Daffodil International University', 'Private'),
+(70, 'Eastern University, Bangladesh', 'Private'),
+(71, 'Green University of Bangladesh', 'Private'),
+(72, 'IBAIS University', 'Private'),
+(73, 'Sonargaon University', 'Private'),
+(74, 'International University of Business Agriculture and Technology', 'Private'),
+(75, 'Manarat International University', 'Private'),
+(76, 'Millennium University', 'Private'),
+(77, 'Northern University, Bangladesh', 'Private'),
+(78, 'North Western University, Bangladesh', 'Private'),
+(79, 'People\'s University of Bangladesh', 'Private'),
+(80, 'Presidency University', 'Private'),
+(81, 'Pundra University of Science and Technology', 'Private'),
+(82, 'Prime University', 'Private'),
+(83, 'European University of Bangladesh', 'Private'),
+(84, 'Primeasia University', 'Private'),
+(85, 'Queens University', 'Private'),
+(86, 'Rajshahi Science & Technology University', 'Private'),
+(87, 'Royal University of Dhaka', 'Private'),
+(88, 'Shanto-Mariam University of Creative Technology', 'Private'),
+(89, 'Southeast University', 'Private'),
+(90, 'Stamford University Bangladesh', 'Private'),
+(91, 'State University of Bangladesh', 'Private'),
+(92, 'United International University', 'Private'),
+(93, 'University of Asia Pacific (Bangladesh)', 'Private'),
+(94, 'University of Development Alternative', 'Private'),
+(95, 'University of Information Technology and Sciences', 'Private'),
+(96, 'University of Liberal Arts Bangladesh', 'Private'),
+(97, 'Fareast International University', 'Private'),
+(98, 'University of South Asia, Bangladesh', 'Private'),
+(99, 'Uttara University', 'Private'),
+(100, 'Victoria University of Bangladesh', 'Private'),
+(101, 'Varendra University', 'Private'),
+(102, 'World University of Bangladesh', 'Private'),
+(103, 'Leading University', 'Private'),
+(104, 'Metropolitan University', 'Private'),
+(105, 'North East University Bangladesh', 'Private'),
+(106, 'Sylhet International University', 'Private'),
+(107, 'Khwaja Yunus Ali University', 'Private'),
+(108, 'Global University Bangladesh', 'Private'),
+(109, 'University of Creative Technology Chittagong', 'Private'),
+(110, 'Z H Sikder University of Science & Technology', 'Private'),
+(111, 'Central University of Science and Technology', 'Private'),
+(112, 'Canadian University of Bangladesh', 'Private'),
+(113, 'First Capital University of Bangladesh', 'Private'),
+(114, 'Ishaka International University', 'Private'),
+(115, 'Northern University of Business & Technology, Khulna', 'Private'),
+(116, 'North Bengal International University', 'Private'),
+(117, 'Ranada Prasad Shaha University', 'Private'),
+(118, 'Islamic University of Technology', 'International'),
+(119, 'Asian University for Women', 'International'),
+(120, 'Bangladesh Open University', 'Special'),
+(121, 'National University of Bangladesh', 'Special'),
+(122, 'Islamic Arabic University', 'Special'),
+(999, 'Others', 'NotListed');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `benefits`
+--
+
+CREATE TABLE `benefits` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `benefits`
+--
+
+INSERT INTO `benefits` (`id`, `name`, `slug`, `created_at`, `updated_at`) VALUES
+(1, '400k', '400k', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(2, 'Distribution team', 'distribution-team', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(3, 'Async', 'async', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(4, 'Vision insurance', 'vision-insurance', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(5, 'Unlimited vacation', 'unlimited-vacation', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(6, 'Paid time off', 'paid-time-off', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(7, '4 day workweek', '4-day-workweek', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(8, 'Company retreats', 'company-retreats', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(9, 'Coworking budget', 'coworking-budget', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(10, 'Learning budget', 'learning-budget', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(11, 'Free gym membership', 'free-gym-membership', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(12, 'Home office budget', 'home-office-budget', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(13, 'Pay in crypto', 'pay-in-crypto', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(14, 'Profit sharing', 'profit-sharing', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(15, 'No policies at work', 'no-policies-at-work', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(16, 'Equity compensation', 'equity-compensation', '2022-12-26 12:59:28', '2022-12-26 12:59:28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bookmark_candidate_company`
+--
+
+CREATE TABLE `bookmark_candidate_company` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `candidate_id` bigint(20) UNSIGNED NOT NULL,
+  `company_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bookmark_candidate_job`
+--
+
+CREATE TABLE `bookmark_candidate_job` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `candidate_id` bigint(20) UNSIGNED NOT NULL,
+  `job_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bookmark_company`
+--
+
+CREATE TABLE `bookmark_company` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `company_id` bigint(20) UNSIGNED NOT NULL,
+  `candidate_id` bigint(20) UNSIGNED NOT NULL,
+  `category_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bookmark_company_category`
+--
+
+CREATE TABLE `bookmark_company_category` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `bookmark_id` bigint(20) UNSIGNED NOT NULL,
+  `category_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `candidates`
+--
+
+CREATE TABLE `candidates` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `role_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `profession_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `experience_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `education_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `nationality_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `gender` enum('male','female','other') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `religion` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `website` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `cv` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `bio` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name_bn` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `father_name` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `father_name_bn` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mother_name` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mother_name_bn` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `birth_certificate_no` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nid_no` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `passport_no` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `quota` varchar(128) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `marital_status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `birth_date` datetime DEFAULT NULL,
+  `visibility` tinyint(1) NOT NULL DEFAULT 1,
+  `cv_visibility` tinyint(1) NOT NULL DEFAULT 1,
+  `received_job_alert` tinyint(1) NOT NULL DEFAULT 1,
+  `profile_complete` int(11) NOT NULL DEFAULT 100,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `neighborhood` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `locality` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `care_of` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `house_and_road_no` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `place` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ward_no` int(11) DEFAULT NULL,
+  `post_office` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `postcode` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `pourosova_union_porishod` int(11) DEFAULT NULL,
+  `thana` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `district` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `region` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `care_of_parmanent` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `house_and_road_no_parmanent` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `place_parmanent` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `post_office_parmanent` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `postcode_parmanent` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `pourosova_union_porishod_parmanent` int(11) DEFAULT NULL,
+  `thana_parmanent` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ward_no_parmanent` int(11) DEFAULT NULL,
+  `district_parmanent` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `region_parmanent` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `country` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `long` double DEFAULT NULL,
+  `lat` double DEFAULT NULL,
+  `status` enum('available','not_available','available_in') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'available',
+  `available_in` date DEFAULT NULL,
+  `balance` double DEFAULT NULL,
+  `is_varified` enum('true','false') COLLATE utf8mb4_unicode_ci DEFAULT 'false'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `candidates`
+--
+
+INSERT INTO `candidates` (`id`, `user_id`, `role_id`, `profession_id`, `experience_id`, `education_id`, `nationality_id`, `title`, `gender`, `religion`, `website`, `photo`, `cv`, `bio`, `name_bn`, `father_name`, `father_name_bn`, `mother_name`, `mother_name_bn`, `birth_certificate_no`, `nid_no`, `passport_no`, `quota`, `marital_status`, `birth_date`, `visibility`, `cv_visibility`, `received_job_alert`, `profile_complete`, `created_at`, `updated_at`, `address`, `neighborhood`, `locality`, `care_of`, `house_and_road_no`, `place`, `ward_no`, `post_office`, `postcode`, `pourosova_union_porishod`, `thana`, `district`, `region`, `care_of_parmanent`, `house_and_road_no_parmanent`, `place_parmanent`, `post_office_parmanent`, `postcode_parmanent`, `pourosova_union_porishod_parmanent`, `thana_parmanent`, `ward_no_parmanent`, `district_parmanent`, `region_parmanent`, `country`, `long`, `lat`, `status`, `available_in`, `balance`, `is_varified`) VALUES
+(1, 1, 4, 1, 1, 1, 22, NULL, 'male', 'Islam', NULL, NULL, NULL, '<p>sfdsfdssdfsdfd</p>', 'খয়রাত হোসেন', 'Anchar Ali', 'আনছার আলী', 'Fatema Begum', 'ফাতেমা বেগম', '1323123123213213', '123456789', '123456789', 'Child of Freedom Fighter', 'single', '2023-02-06 00:00:00', 1, 1, 1, 0, '2023-02-18 15:49:40', '2023-03-04 09:01:00', NULL, NULL, NULL, 'Anchar Ali', '1234', 'DSDAS', 3, 'Kazi Hat', '5300', 1051, '115', '13', '2', 'Anchar Ali', '1234', 'DSDAS', 'Kazi Hat', '5300', 1051, '115', 3, '13', '2', NULL, NULL, NULL, 'available', '1970-01-01', NULL, 'false'),
+(2, 8, 1, 1, 1, 1, 1, NULL, 'male', 'christian', NULL, NULL, NULL, NULL, 'Amos Hale', 'Nelle Forbes', 'Melanie Rowe', 'Wing Hardin', 'Tate Allen', 'Aut lorem facilis ut', 'Voluptas odit blandi', 'Ut totam enim asperi', '2', 'married', '2023-02-28 00:00:00', 1, 1, 1, 0, '2023-02-18 15:53:46', '2023-02-19 18:42:28', NULL, NULL, NULL, 'Nulla quis consequat', NULL, 'ff', NULL, 'Dolores non vel exce', 'Necessitatibus repel', NULL, '1', '1', '1', 'Nulla quis consequat', NULL, 'ff', 'Dolores non vel exce', 'Necessitatibus repel', NULL, '1', NULL, '1', '1', NULL, NULL, NULL, 'available', '1970-01-01', NULL, 'false'),
+(3, 10, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 100, '2023-02-19 15:57:16', '2023-02-19 15:57:16', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'available', NULL, NULL, 'false'),
+(4, 11, 1, 1, 1, 1, NULL, NULL, 'male', 'muslim', NULL, NULL, NULL, NULL, 'à¦†à¦°à¦¿à¦«', 'arif', 'à¦†à¦°à¦¿à¦«', 'arif', 'à¦†à¦°à¦¿à¦«', NULL, NULL, NULL, '1', 'single', '2023-02-14 00:00:00', 1, 1, 1, 0, '2023-02-19 16:18:04', '2023-02-19 16:19:23', NULL, NULL, NULL, 'arif', NULL, '9623345111', NULL, 'afsdf', '4343', NULL, '1', '1', '1', 'arif', NULL, '9623345111', 'afsdf', '4343', NULL, '1', NULL, '1', '1', NULL, NULL, NULL, 'available', NULL, NULL, 'false'),
+(5, 12, 1, 1, 1, 1, NULL, NULL, 'male', 'muslim', NULL, NULL, NULL, NULL, 'à¦®à¦¾à¦Ÿà¦¿', 'mati', 'à¦®à¦¾à¦Ÿà¦¿', 'mati', 'à¦®à¦¾à¦Ÿà¦¿', NULL, NULL, NULL, '1', 'single', '2023-02-21 00:00:00', 1, 1, 1, 0, '2023-02-19 17:25:23', '2023-02-19 17:26:34', NULL, NULL, NULL, 'arif', NULL, 'qeqeqe', NULL, 'afsdf', 'werwe', NULL, '1', '1', '1', 'arif', NULL, 'qeqeqe', 'afsdf', 'werwe', NULL, '1', NULL, '1', '1', NULL, NULL, NULL, 'available', NULL, NULL, 'false'),
+(6, 13, 1, 1, 1, 1, 1, NULL, 'male', 'muslim', NULL, NULL, NULL, NULL, 'SM Mahdi', 'Fathers Name', 'à¦ªà¦¿à¦¤à¦¾à¦° à¦¨à¦¾à¦®', 'Mothers Name', 'à¦®à¦¾à¦¤à¦¾à¦° à¦¨à¦¾à¦®', '5436546', '19963925803007774', '5464564', '1', 'single', '1990-03-10 00:00:00', 1, 1, 1, 0, '2023-02-19 19:32:05', '2023-02-19 19:38:00', NULL, NULL, NULL, 'hgfhdh', NULL, 'Amlapara', NULL, '2000', '1000', NULL, 'Jamalpur', 'Jamalpur', 'Dhaka', 'hgfhdh', NULL, 'Amlapara', '2000', '1000', NULL, 'Jamalpur', NULL, 'Jamalpur', 'Dhaka', NULL, NULL, NULL, 'available', '1970-01-01', NULL, 'false'),
+(7, 14, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 100, '2023-02-20 04:02:53', '2023-02-20 04:02:53', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'available', NULL, NULL, 'false'),
+(8, 15, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 100, '2023-02-21 01:49:15', '2023-02-21 01:49:15', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'available', NULL, NULL, 'false'),
+(9, 16, 1, 100, 1, 1, NULL, NULL, 'male', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'married', '1970-01-01 00:00:00', 1, 1, 1, 100, '2023-02-23 18:50:42', '2023-02-24 04:32:16', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'available', NULL, NULL, 'false'),
+(10, 17, 1, 1, 1, 1, NULL, NULL, 'male', 'muslim', NULL, NULL, NULL, NULL, 'tt', 'gdsf', 'fdg', 'gfds', 'fdgs', '5436546', '19963925803007774', '5464564', '1', 'single', '2023-03-01 00:00:00', 1, 1, 0, 0, '2023-02-24 03:26:00', '2023-02-24 16:40:10', NULL, NULL, NULL, 'hhj', NULL, 'dfsfasdf', NULL, '2000', '2500', NULL, '19', '2', '1', 'hhj', NULL, 'dfsfasdf', '2000', '2500', NULL, '19', NULL, '2', '1', NULL, NULL, NULL, 'available', NULL, NULL, 'false'),
+(11, 18, 1, 1, 1, 1, NULL, NULL, 'male', 'muslim', NULL, NULL, NULL, NULL, 'cc', 'cc', 'cc', 'cc', 'cc', '555', '555', '55', '2', 'single', '2023-02-28 00:00:00', 1, 1, 1, 0, '2023-02-24 04:35:44', '2023-02-24 04:36:39', NULL, NULL, NULL, 'fdfd', NULL, '55', NULL, '2000', '5020', NULL, '20', '2', '1', 'fdfd', NULL, '55', '2000', '5020', NULL, '20', NULL, '2', '1', NULL, NULL, NULL, 'available', NULL, NULL, 'false'),
+(12, 19, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 100, '2023-02-24 04:57:17', '2023-02-24 04:57:17', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'available', NULL, NULL, 'false'),
+(13, 20, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 100, '2023-02-24 15:09:46', '2023-02-24 15:09:46', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'available', NULL, NULL, 'false'),
+(14, 22, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 100, '2023-02-25 06:03:34', '2023-02-25 06:03:34', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'available', NULL, NULL, 'false'),
+(15, 23, 1, 1, 1, 1, NULL, NULL, 'male', 'Islam', NULL, NULL, NULL, NULL, 'আব্দুর রহিম', 'Abdul Karim', 'আব্দুল করিম', 'Rahima Begum', 'রহিমা বেগম', NULL, '19947316488000169', NULL, 'Non Quota', 'single', '0001-01-01 00:00:00', 1, 1, 1, 0, '2023-03-03 10:51:58', '2023-03-20 08:09:21', NULL, NULL, NULL, 'Anchar Ali', 'aasdasdas', '19947316488000169', 2, 'Kazi Hat', '5300', 193, '18', '2', '1', 'Anchar Ali', 'aasdasdas', '19947316488000169', 'Kazi Hat', '5300', 193, '18', 2, '2', '1', NULL, NULL, NULL, 'available', NULL, 100, 'true'),
+(20, 28, 1, 1, 1, 1, NULL, NULL, 'male', NULL, NULL, NULL, NULL, NULL, 'আব্দুর রহিম', 'Abdul Karim', 'আব্দুল করিম', 'Rahima Begum', 'রহিমা বেগম', NULL, '19947316488000169', NULL, NULL, 'single', '0001-01-01 00:00:00', 1, 1, 1, 100, '2023-03-10 11:02:13', '2023-03-10 12:13:27', NULL, NULL, NULL, NULL, NULL, 'মুন্সিগঞ্জ লৌহজং শিমুলিয়া যাত্রাবাড়ি তেজগাঁও, গুলশান লিঙ্ক রোড, ঢাকা-১২০৮', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'মুন্সিগঞ্জ লৌহজং শিমুলিয়া যাত্রাবাড়ি তেজগাঁও, গুলশান লিঙ্ক রোড, ঢাকা-১২০৮', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'available', NULL, 100, 'true'),
+(21, 30, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 100, '2023-03-15 11:22:08', '2023-03-15 11:22:08', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'available', NULL, NULL, 'false'),
+(22, 31, 1, 1, 1, 1, NULL, NULL, 'male', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'married', '2023-03-15 17:22:50', 1, 1, 1, 100, '2023-03-15 11:22:50', '2023-03-15 11:22:50', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'available', NULL, NULL, 'false'),
+(24, 34, 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 100, '2023-03-20 12:30:40', '2023-03-20 12:30:40', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'available', NULL, NULL, 'false');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `candidate_cv_views`
+--
+
+CREATE TABLE `candidate_cv_views` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `company_id` bigint(20) UNSIGNED NOT NULL,
+  `candidate_id` bigint(20) UNSIGNED NOT NULL,
+  `view_date` datetime NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `candidate_education`
+--
+
+CREATE TABLE `candidate_education` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `candidate_id` bigint(20) UNSIGNED NOT NULL,
+  `level` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `degree` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `board` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `roll` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `registration` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `group` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `subject` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `year` int(11) DEFAULT NULL,
+  `institute` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `result_type` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `result_gpa` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `notes` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `course_duration` int(1) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `candidate_education`
+--
+
+INSERT INTO `candidate_education` (`id`, `candidate_id`, `level`, `degree`, `board`, `roll`, `registration`, `group`, `subject`, `year`, `institute`, `result_type`, `result_gpa`, `notes`, `course_duration`, `created_at`, `updated_at`) VALUES
+(1, 1, 'masters', 'BSc', NULL, NULL, NULL, NULL, 'Physics', 2022, 'Dhaka University', 'GPA', NULL, NULL, 4, '2023-02-19 07:38:40', '2023-02-19 07:38:40'),
+(2, 1, 'masters', 'BSc', NULL, NULL, NULL, NULL, 'Physics', 2022, 'Dhaka University', 'GPA', NULL, NULL, 4, '2023-02-19 07:39:54', '2023-02-19 07:39:54'),
+(3, 1, 'psc', NULL, NULL, 'rwerew', NULL, NULL, NULL, 2010, NULL, NULL, NULL, NULL, NULL, '2023-02-19 07:42:30', '2023-02-19 07:42:30'),
+(4, 1, 'jsc', NULL, NULL, 'werwr', NULL, NULL, NULL, 2010, NULL, NULL, NULL, NULL, NULL, '2023-02-19 07:42:30', '2023-02-19 07:42:30'),
+(5, 1, 'ssc', 'ssc', 'Dhaka', '142893', '142893', 'science', NULL, 2022, NULL, 'gpa', '5', NULL, NULL, '2023-02-19 07:42:30', '2023-02-19 07:42:30'),
+(6, 1, 'honors', 'BSc', NULL, NULL, NULL, NULL, 'Physics', 2022, 'Dhaka University', 'GPA', NULL, NULL, 4, '2023-02-19 07:42:30', '2023-02-19 07:42:30'),
+(7, 1, 'masters', 'BSc', NULL, NULL, NULL, NULL, 'Physics', 2022, 'Dhaka University', 'GPA', NULL, NULL, 4, '2023-02-19 07:42:30', '2023-02-19 07:42:30'),
+(8, 4, 'masters', 'BSc', NULL, NULL, NULL, NULL, 'Physics', 2022, 'Dhaka University', 'GPA', NULL, NULL, 4, '2023-02-19 16:19:23', '2023-02-19 16:19:23'),
+(9, 2, 'psc', 'werwer', NULL, 'Sit itaque dolor lo', NULL, NULL, NULL, 2017, NULL, NULL, NULL, 'ertert', NULL, '2023-02-19 16:33:18', '2023-02-20 04:09:27'),
+(10, 2, 'jsc', NULL, NULL, 'Quidem exercitatione', NULL, NULL, NULL, 2018, NULL, NULL, NULL, NULL, NULL, '2023-02-19 16:33:18', '2023-02-19 16:33:18'),
+(11, 2, 'ssc', 'ssc', 'Dhaka', 'Ut molestias occaeca', 'Beatae eos tempora m', 'Ratione laudantium', NULL, 2022, NULL, 'Laborum dolor ex deb', 'Qui libero deleniti', NULL, NULL, '2023-02-19 16:33:18', '2023-02-19 16:33:18'),
+(12, 2, 'hsc', 'dakhil', 'Dhaka', 'Culpa dolor id dolo', 'Cupiditate voluptate', 'Sed quidem quis in e', NULL, 2023, NULL, 'Quae odit enim conse', 'Animi nulla repudia', NULL, NULL, '2023-02-19 16:33:18', '2023-02-19 16:33:18'),
+(13, 1, 'psc', NULL, NULL, '12345', NULL, NULL, NULL, 1900, 'mirpur school', NULL, NULL, NULL, NULL, '2023-02-25 04:33:53', '2023-02-25 04:33:53'),
+(14, 1, 'ssc', 'S.S.C', '2', '142893', '142893', 'General', NULL, 1901, NULL, 'GPA5', '4.75', NULL, NULL, '2023-02-25 04:33:53', '2023-02-25 04:33:53');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `candidate_experiences`
+--
+
+CREATE TABLE `candidate_experiences` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `candidate_id` bigint(20) UNSIGNED NOT NULL,
+  `company` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `department` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `designation` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `start` date NOT NULL,
+  `end` date DEFAULT NULL,
+  `responsibilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `candidate_experiences`
+--
+
+INSERT INTO `candidate_experiences` (`id`, `candidate_id`, `company`, `department`, `designation`, `start`, `end`, `responsibilities`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Test COmp', 'xxx', 'xxxx', '2022-12-01', '2023-03-30', 'sfsgsfgfs', '2023-03-04 04:36:47', '2023-03-04 04:36:47');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `candidate_language`
+--
+
+CREATE TABLE `candidate_language` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `candidate_id` bigint(20) UNSIGNED NOT NULL,
+  `candidate_language_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `candidate_language`
+--
+
+INSERT INTO `candidate_language` (`id`, `candidate_id`, `candidate_language_id`, `created_at`, `updated_at`) VALUES
+(3, 1, 19, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `candidate_languages`
+--
+
+CREATE TABLE `candidate_languages` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `candidate_languages`
+--
+
+INSERT INTO `candidate_languages` (`id`, `name`, `slug`, `created_at`, `updated_at`) VALUES
+(1, 'Abkhaz', 'abkhaz', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(2, 'Afar', 'afar', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(3, 'Afrikaans', 'afrikaans', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(4, 'Akan', 'akan', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(5, 'Albanian', 'albanian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(6, 'Amharic', 'amharic', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(7, 'Arabic', 'arabic', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(8, 'Aragonese', 'aragonese', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(9, 'Armenian', 'armenian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(10, 'Assamese', 'assamese', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(11, 'Avaric', 'avaric', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(12, 'Avestan', 'avestan', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(13, 'Aymara', 'aymara', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(14, 'Azerbaijani', 'azerbaijani', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(15, 'Bambara', 'bambara', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(16, 'Bashkir', 'bashkir', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(17, 'Basque', 'basque', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(18, 'Belarusian', 'belarusian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(19, 'Bengali', 'bengali', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(20, 'Bihari', 'bihari', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(21, 'Bislama', 'bislama', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(22, 'Bosnian', 'bosnian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(23, 'Breton', 'breton', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(24, 'Bulgarian', 'bulgarian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(25, 'Burmese', 'burmese', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(26, 'Catalan; Valencian', 'catalan-valencian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(27, 'Chamorro', 'chamorro', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(28, 'Chechen', 'chechen', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(29, 'Chichewa; Chewa; Nyanja', 'chichewa-chewa-nyanja', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(30, 'Chinese', 'chinese', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(31, 'Chuvash', 'chuvash', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(32, 'Cornish', 'cornish', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(33, 'Corsican', 'corsican', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(34, 'Cree', 'cree', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(35, 'Croatian', 'croatian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(36, 'Czech', 'czech', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(37, 'Danish', 'danish', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(38, 'Divehi; Dhivehi; Maldivian;', 'divehi-dhivehi-maldivian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(39, 'Dutch', 'dutch', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(40, 'Esperanto', 'esperanto', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(41, 'Estonian', 'estonian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(42, 'Ewe', 'ewe', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(43, 'Faroese', 'faroese', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(44, 'Fijian', 'fijian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(45, 'Finnish', 'finnish', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(46, 'French', 'french', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(47, 'Fula; Fulah; Pulaar; Pular', 'fula-fulah-pulaar-pular', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(48, 'Galician', 'galician', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(49, 'Georgian', 'georgian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(50, 'German', 'german', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(51, 'Greek, Modern', 'greek-modern', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(52, 'GuaranÃƒÂ­', 'guarani', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(53, 'Gujarati', 'gujarati', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(54, 'Haitian; Haitian Creole', 'haitian-haitian-creole', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(55, 'Hausa', 'hausa', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(56, 'Hebrew', 'hebrew', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(57, 'Hebrew', 'hebrew', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(58, 'Herero', 'herero', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(59, 'Hindi', 'hindi', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(60, 'Hiri Motu', 'hiri-motu', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(61, 'Hungarian', 'hungarian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(62, 'Interlingua', 'interlingua', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(63, 'Indonesian', 'indonesian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(64, 'Interlingue', 'interlingue', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(65, 'Irish', 'irish', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(66, 'Igbo', 'igbo', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(67, 'Inupiaq', 'inupiaq', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(68, 'Ido', 'ido', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(69, 'Icelandic', 'icelandic', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(70, 'Italian', 'italian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(71, 'Inuktitut', 'inuktitut', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(72, 'Japanese', 'japanese', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(73, 'Javanese', 'javanese', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(74, 'Kalaallisut, Greenlandic', 'kalaallisut-greenlandic', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(75, 'Kannada', 'kannada', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(76, 'Kanuri', 'kanuri', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(77, 'Kashmiri', 'kashmiri', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(78, 'Kazakh', 'kazakh', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(79, 'Khmer', 'khmer', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(80, 'Kikuyu, Gikuyu', 'kikuyu-gikuyu', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(81, 'Kinyarwanda', 'kinyarwanda', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(82, 'Kirghiz, Kyrgyz', 'kirghiz-kyrgyz', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(83, 'Komi', 'komi', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(84, 'Kongo', 'kongo', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(85, 'Korean', 'korean', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(86, 'Kurdish', 'kurdish', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(87, 'Kwanyama, Kuanyama', 'kwanyama-kuanyama', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(88, 'Latin', 'latin', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(89, 'Luxembourgish, Letzeburgesch', 'luxembourgish-letzeburgesch', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(90, 'Luganda', 'luganda', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(91, 'Limburgish, Limburgan, Limburger', 'limburgish-limburgan-limburger', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(92, 'Lingala', 'lingala', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(93, 'Lao', 'lao', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(94, 'Lithuanian', 'lithuanian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(95, 'Luba-Katanga', 'luba-katanga', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(96, 'Latvian', 'latvian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(97, 'Manx', 'manx', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(98, 'Macedonian', 'macedonian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(99, 'Malagasy', 'malagasy', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(100, 'Malay', 'malay', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(101, 'Malayalam', 'malayalam', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(102, 'Maltese', 'maltese', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(103, 'MÃ„Âori', 'maori', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(104, 'Marathi (MarÃ„ÂÃ¡Â¹Â­hÃ„Â«)', 'marathi-marathi', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(105, 'Marshallese', 'marshallese', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(106, 'Mongolian', 'mongolian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(107, 'Nauru', 'nauru', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(108, 'Navajo, Navaho', 'navajo-navaho', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(109, 'Norwegian BokmÃƒÂ¥l', 'norwegian-bokmal', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(110, 'North Ndebele', 'north-ndebele', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(111, 'Nepali', 'nepali', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(112, 'Ndonga', 'ndonga', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(113, 'Norwegian Nynorsk', 'norwegian-nynorsk', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(114, 'Norwegian', 'norwegian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(115, 'Nuosu', 'nuosu', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(116, 'South Ndebele', 'south-ndebele', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(117, 'Occitan', 'occitan', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(118, 'Ojibwe, Ojibwa', 'ojibwe-ojibwa', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(119, 'Old Church Slavonic, Church Slavic, Church Slavonic, Old Bulgarian, Old Slavonic', 'old-church-slavonic-church-slavic-church-slavonic-old-bulgarian-old-slavonic', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(120, 'Oromo', 'oromo', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(121, 'Oriya', 'oriya', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(122, 'Ossetian, Ossetic', 'ossetian-ossetic', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(123, 'Panjabi, Punjabi', 'panjabi-punjabi', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(124, 'PÃ„Âli', 'pali', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(125, 'Persian', 'persian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(126, 'Polish', 'polish', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(127, 'Pashto, Pushto', 'pashto-pushto', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(128, 'Portuguese', 'portuguese', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(129, 'Quechua', 'quechua', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(130, 'Romansh', 'romansh', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(131, 'Kirundi', 'kirundi', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(132, 'Romanian, Moldavian, Moldovan', 'romanian-moldavian-moldovan', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(133, 'Russian', 'russian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(134, 'Sanskrit (SaÃ¡Â¹ÂskÃ¡Â¹â€ºta)', 'sanskrit-saskta', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(135, 'Sardinian', 'sardinian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(136, 'Sindhi', 'sindhi', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(137, 'Northern Sami', 'northern-sami', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(138, 'Samoan', 'samoan', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(139, 'Sango', 'sango', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(140, 'Serbian', 'serbian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(141, 'Scottish Gaelic; Gaelic', 'scottish-gaelic-gaelic', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(142, 'Shona', 'shona', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(143, 'Sinhala, Sinhalese', 'sinhala-sinhalese', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(144, 'Slovak', 'slovak', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(145, 'Slovene', 'slovene', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(146, 'Somali', 'somali', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(147, 'Southern Sotho', 'southern-sotho', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(148, 'Spanish; Castilian', 'spanish-castilian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(149, 'Sundanese', 'sundanese', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(150, 'Swahili', 'swahili', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(151, 'Swati', 'swati', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(152, 'Swedish', 'swedish', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(153, 'Tamil', 'tamil', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(154, 'Telugu', 'telugu', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(155, 'Tajik', 'tajik', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(156, 'Thai', 'thai', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(157, 'Tigrinya', 'tigrinya', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(158, 'Tibetan Standard, Tibetan, Central', 'tibetan-standard-tibetan-central', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(159, 'Turkmen', 'turkmen', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(160, 'Tagalog', 'tagalog', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(161, 'Tswana', 'tswana', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(162, 'Tonga (Tonga Islands)', 'tonga-tonga-islands', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(163, 'Turkish', 'turkish', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(164, 'Tsonga', 'tsonga', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(165, 'Tatar', 'tatar', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(166, 'Twi', 'twi', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(167, 'Tahitian', 'tahitian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(168, 'Uighur, Uyghur', 'uighur-uyghur', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(169, 'Ukrainian', 'ukrainian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(170, 'Urdu', 'urdu', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(171, 'Uzbek', 'uzbek', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(172, 'Venda', 'venda', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(173, 'Vietnamese', 'vietnamese', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(174, 'VolapÃƒÂ¼k', 'volapuk', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(175, 'Walloon', 'walloon', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(176, 'Welsh', 'welsh', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(177, 'Wolof', 'wolof', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(178, 'Western Frisian', 'western-frisian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(179, 'Xhosa', 'xhosa', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(180, 'Yiddish', 'yiddish', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(181, 'Yoruba', 'yoruba', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(182, 'Zhuang, Chuang', 'zhuang-chuang', '2022-12-26 12:59:28', '2022-12-26 12:59:28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `candidate_resumes`
+--
+
+CREATE TABLE `candidate_resumes` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `candidate_id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `file` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `candidate_resumes`
+--
+
+INSERT INTO `candidate_resumes` (`id`, `candidate_id`, `name`, `file`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Basic Resume', 'uploads/file/candidates\\sVupXRPgRtRtwFf04skkgyfIYuGmO3zWn71PargI.pdf', '2023-02-26 14:14:45', '2023-02-26 14:14:45');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `candidate_skill`
+--
+
+CREATE TABLE `candidate_skill` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `candidate_id` bigint(20) UNSIGNED NOT NULL,
+  `skill_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `candidate_skill`
+--
+
+INSERT INTO `candidate_skill` (`id`, `candidate_id`, `skill_id`, `created_at`, `updated_at`) VALUES
+(42, 1, 1, NULL, NULL),
+(43, 1, 2, NULL, NULL),
+(44, 1, 4, NULL, NULL),
+(45, 1, 7, NULL, NULL),
+(46, 1, 12, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cities`
+--
+
+CREATE TABLE `cities` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `state_id` bigint(20) UNSIGNED NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cms`
+--
+
+CREATE TABLE `cms` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `about_brand_logo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `about_brand_logo1` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `about_brand_logo2` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `about_brand_logo3` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `about_brand_logo4` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `about_brand_logo5` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `about_banner_img` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `about_banner_img1` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `about_banner_img2` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `about_banner_img3` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mission_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `candidate_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `employers_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `contact_map` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `register_page_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `login_page_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `home_page_banner_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `page403_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `page404_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `page500_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `page503_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `comingsoon_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `footer_phone_no` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `footer_address` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `footer_facebook_link` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `footer_instagram_link` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `footer_twitter_link` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `footer_youtube_link` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `privary_page` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `terms_page` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `maintenance_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `cms`
+--
+
+INSERT INTO `cms` (`id`, `about_brand_logo`, `about_brand_logo1`, `about_brand_logo2`, `about_brand_logo3`, `about_brand_logo4`, `about_brand_logo5`, `about_banner_img`, `about_banner_img1`, `about_banner_img2`, `about_banner_img3`, `mission_image`, `candidate_image`, `employers_image`, `contact_map`, `register_page_image`, `login_page_image`, `home_page_banner_image`, `page403_image`, `page404_image`, `page500_image`, `page503_image`, `comingsoon_image`, `footer_phone_no`, `footer_address`, `footer_facebook_link`, `footer_instagram_link`, `footer_twitter_link`, `footer_youtube_link`, `privary_page`, `terms_page`, `maintenance_image`, `created_at`, `updated_at`) VALUES
+(1, 'frontend/assets/images/all-img/brand-1.png', 'frontend/assets/images/all-img/brand-2.png', 'frontend/assets/images/all-img/brand-1.png', 'frontend/assets/images/all-img/brand-2.png', 'frontend/assets/images/all-img/brand-1.png', 'frontend/assets/images/all-img/brand-2.png', 'frontend/assets/images/banner/about-banner-1.jpg', 'frontend/assets/images/banner/about-banner-2.jpg', 'frontend/assets/images/banner/about-banner-3.jpg', 'frontend/assets/images/banner/about-banner-4.jpg', 'frontend/assets/images/banner/about-banner-5.png', 'frontend/assets/images/all-img/cta-1.png', 'frontend/assets/images/all-img/cta-2.png', '<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.2278794778554!2d90.34898411536302!3d23.77489829375602!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c1e1938cc90b%3A0xbcfacb6b89117685!2sZakir%20Soft%20-%20Innovative%20Software%20%26%20Web%20Development%20Solutions!5e0!3m2!1sen!2sbd!4v1629355846404!5m2!1sen!2sbd\" width=\"100%\" height=\"536\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\"></iframe>', 'frontend/assets/images/all-img/auth-img.png', 'frontend/assets/images/all-img/auth-img.png', NULL, 'frontend/assets/images/banner/error-banner.png', 'frontend/assets/images/banner/error-banner.png', 'frontend/assets/images/banner/error-banner.png', 'frontend/assets/images/banner/error-banner.png', 'frontend/assets/images/all-img/coming-banner.png', '+8802333304511', 'House No. 64, Kathaltali, Rangamati Sadar, Rangamati Hill District, Bangladesh', 'https://www.facebook.com/WelfareFamilyBangladesh', 'https://www.instagram.com/WelfareFamilyBangladesh', 'https://www.twitter.com/WelfareFamilyBangladesh', 'https://www.youtube.com/WelfareFamilyBangladesh', '<h2>01. Privacy Policy</h2><p>Praesent placerat dictum elementum. Nam pulvinar urna vel lectus maximus, eget faucibus turpis hendrerit. Sed iaculis molestie arcu, et accumsan nisi. Quisque molestie velit vitae ligula luctus bibendum. Duis sit amet eros mollis, viverra ipsum sed, convallis sapien. Donec justo erat, pulvinar vitae dui ut, finibus euismod enim. Donec velit tortor, mollis eu tortor euismod, gravida lacinia arcu.</p><ul><li>In ac turpis mi. Donec quis semper neque. Nulla cursus gravida interdum.</li><li>Curabitur luctus sapien augue, mattis faucibus nisl vehicula nec. Mauris at scelerisque lorem. Nullam tempus felis ipsum, sagittis malesuada nulla vulputate et.</li><li>Aenean vel metus leo. Vivamus nec neque a libero sodales aliquam a et dolor.</li><li>Vestibulum rhoncus sagittis dolor vel finibus.</li><li>Integer feugiat lacus ut efficitur mattis. Sed quis molestie velit.</li></ul><h2>02. Limitations</h2><p>Praesent placerat dictum elementum. Nam pulvinar urna vel lectus maximus, eget faucibus turpis hendrerit. Sed iaculis molestie arcu, et accumsan nisi. Quisque molestie velit vitae ligula luctus bibendum. Duis sit amet eros mollis, viverra ipsum sed, convallis sapien. Donec justo erat, pulvinar vitae dui ut, finibus euismod enim. Donec velit tortor, mollis eu tortor euismod, gravida lacinia arcu.</p><ul><li>In ac turpis mi. Donec quis semper neque. Nulla cursus gravida interdum.</li><li>Curabitur luctus sapien augue.</li><li>mattis faucibus nisl vehicula nec, Mauris at scelerisque lorem.</li><li>Nullam tempus felis ipsum, sagittis malesuada nulla vulputate et. Aenean vel metus leo.</li><li>Vivamus nec neque a libero sodales aliquam a et dolor.</li></ul><h2>03. Security</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ex neque, elementum eu blandit in, ornare eu purus. Fusce eu rhoncus mi, quis ultrices lacus. Phasellus id pellentesque nulla. Cras erat nisi, mattis et efficitur et, iaculis a lacus. Fusce gravida augue quis leo facilisis.</p><h2>04. Privacy Policy</h2><p>Praesent non sem facilisis, hendrerit nisi vitae, volutpat quam. Aliquam metus mauris, semper eu eros vitae, blandit tristique metus. Vestibulum maximus nec justo sed maximus. Vivamus sit amet turpis sem. Integer vitae tortor ac ex scelerisque facilisis ac vitae urna. In hac habitasse platea dictumst. Maecenas imperdiet tortor arcu, nec tincidunt neque malesuada volutpat.</p><ul><li>In ac turpis mi. Donec quis semper neque. Nulla cursus gravida interdum.</li><li>Mauris at scelerisque lorem. Nullam tempus felis ipsum, sagittis malesuada nulla vulputate et.</li><li>Aenean vel metus leo.</li><li>Vestibulum rhoncus sagittis dolor vel finibus.</li><li>Integer feugiat lacus ut efficitur mattis. Sed quis molestie velit.</li></ul><p>Fusce rutrum mauris sit amet justo rutrum, ut sodales lorem ullamcorper. Aliquam vitae iaculis urna. Nulla vitae mi vel nisl viverra ullamcorper vel elementum est. Mauris vitae elit nec enim tincidunt aliquet. Donec ultrices nulla a enim pulvinar, quis pulvinar lacus consectetur. Donec dignissim, risus nec mollis efficitur, turpis erat blandit urna, eget elementum lacus lectus eget lorem.</p><p><br>&nbsp;</p>', '<h2>01. Terms &amp; Condition</h2><p>Praesent placerat dictum elementum. Nam pulvinar urna vel lectus maximus, eget faucibus turpis hendrerit. Sed iaculis molestie arcu, et accumsan nisi. Quisque molestie velit vitae ligula luctus bibendum. Duis sit amet eros mollis, viverra ipsum sed, convallis sapien. Donec justo erat, pulvinar vitae dui ut, finibus euismod enim. Donec velit tortor, mollis eu tortor euismod, gravida lacinia arcu.</p><ul><li>In ac turpis mi. Donec quis semper neque. Nulla cursus gravida interdum.</li><li>Curabitur luctus sapien augue, mattis faucibus nisl vehicula nec. Mauris at scelerisque lorem. Nullam tempus felis ipsum, sagittis malesuada nulla vulputate et.</li><li>Aenean vel metus leo. Vivamus nec neque a libero sodales aliquam a et dolor.</li><li>Vestibulum rhoncus sagittis dolor vel finibus.</li><li>Integer feugiat lacus ut efficitur mattis. Sed quis molestie velit.</li></ul><h2>02. Limitations</h2><p>Praesent placerat dictum elementum. Nam pulvinar urna vel lectus maximus, eget faucibus turpis hendrerit. Sed iaculis molestie arcu, et accumsan nisi. Quisque molestie velit vitae ligula luctus bibendum. Duis sit amet eros mollis, viverra ipsum sed, convallis sapien. Donec justo erat, pulvinar vitae dui ut, finibus euismod enim. Donec velit tortor, mollis eu tortor euismod, gravida lacinia arcu.</p><ul><li>In ac turpis mi. Donec quis semper neque. Nulla cursus gravida interdum.</li><li>Curabitur luctus sapien augue.</li><li>mattis faucibus nisl vehicula nec, Mauris at scelerisque lorem.</li><li>Nullam tempus felis ipsum, sagittis malesuada nulla vulputate et. Aenean vel metus leo.</li><li>Vivamus nec neque a libero sodales aliquam a et dolor.</li></ul><h2>03. Security</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ex neque, elementum eu blandit in, ornare eu purus. Fusce eu rhoncus mi, quis ultrices lacus. Phasellus id pellentesque nulla. Cras erat nisi, mattis et efficitur et, iaculis a lacus. Fusce gravida augue quis leo facilisis.</p><h2>04. Privacy Policy</h2><p>Praesent non sem facilisis, hendrerit nisi vitae, volutpat quam. Aliquam metus mauris, semper eu eros vitae, blandit tristique metus. Vestibulum maximus nec justo sed maximus. Vivamus sit amet turpis sem. Integer vitae tortor ac ex scelerisque facilisis ac vitae urna. In hac habitasse platea dictumst. Maecenas imperdiet tortor arcu, nec tincidunt neque malesuada volutpat.</p><ul><li>In ac turpis mi. Donec quis semper neque. Nulla cursus gravida interdum.</li><li>Mauris at scelerisque lorem. Nullam tempus felis ipsum, sagittis malesuada nulla vulputate et.</li><li>Aenean vel metus leo.</li><li>Vestibulum rhoncus sagittis dolor vel finibus.</li><li>Integer feugiat lacus ut efficitur mattis. Sed quis molestie velit.</li></ul><p>Fusce rutrum mauris sit amet justo rutrum, ut sodales lorem ullamcorper. Aliquam vitae iaculis urna. Nulla vitae mi vel nisl viverra ullamcorper vel elementum est. Mauris vitae elit nec enim tincidunt aliquet. Donec ultrices nulla a enim pulvinar, quis pulvinar lacus consectetur. Donec dignissim, risus nec mollis efficitur, turpis erat blandit urna, eget elementum lacus lectus eget lorem.</p><p><br>&nbsp;</p>', 'frontend/assets/images/all-img/coming-banner.png', '2022-12-26 12:59:28', '2023-02-15 23:09:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cms_contents`
+--
+
+CREATE TABLE `cms_contents` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `page_slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `translation_code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `text` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `cms_contents`
+--
+
+INSERT INTO `cms_contents` (`id`, `page_slug`, `translation_code`, `text`, `created_at`, `updated_at`) VALUES
+(1, 'terms_condition_page', 'en', '<h2>01. Terms &amp; Condition</h2><p>Praesent placerat dictum elementum. Nam pulvinar urna vel lectus maximus, eget faucibus turpis hendrerit. Sed iaculis molestie arcu, et accumsan nisi. Quisque molestie velit vitae ligula luctus bibendum. Duis sit amet eros mollis, viverra ipsum sed, convallis sapien. Donec justo erat, pulvinar vitae dui ut, finibus euismod enim. Donec velit tortor, mollis eu tortor euismod, gravida lacinia arcu.</p><ul><li>In ac turpis mi. Donec quis semper neque. Nulla cursus gravida interdum.</li><li>Curabitur luctus sapien augue, mattis faucibus nisl vehicula nec. Mauris at scelerisque lorem. Nullam tempus felis ipsum, sagittis malesuada nulla vulputate et.</li><li>Aenean vel metus leo. Vivamus nec neque a libero sodales aliquam a et dolor.</li><li>Vestibulum rhoncus sagittis dolor vel finibus.</li><li>Integer feugiat lacus ut efficitur mattis. Sed quis molestie velit.</li></ul><h2>02. Limitations</h2><p>Praesent placerat dictum elementum. Nam pulvinar urna vel lectus maximus, eget faucibus turpis hendrerit. Sed iaculis molestie arcu, et accumsan nisi. Quisque molestie velit vitae ligula luctus bibendum. Duis sit amet eros mollis, viverra ipsum sed, convallis sapien. Donec justo erat, pulvinar vitae dui ut, finibus euismod enim. Donec velit tortor, mollis eu tortor euismod, gravida lacinia arcu.</p><ul><li>In ac turpis mi. Donec quis semper neque. Nulla cursus gravida interdum.</li><li>Curabitur luctus sapien augue.</li><li>mattis faucibus nisl vehicula nec, Mauris at scelerisque lorem.</li><li>Nullam tempus felis ipsum, sagittis malesuada nulla vulputate et. Aenean vel metus leo.</li><li>Vivamus nec neque a libero sodales aliquam a et dolor.</li></ul><h2>03. Security</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ex neque, elementum eu blandit in, ornare eu purus. Fusce eu rhoncus mi, quis ultrices lacus. Phasellus id pellentesque nulla. Cras erat nisi, mattis et efficitur et, iaculis a lacus. Fusce gravida augue quis leo facilisis.</p><h2>04. Privacy Policy</h2><p>Praesent non sem facilisis, hendrerit nisi vitae, volutpat quam. Aliquam metus mauris, semper eu eros vitae, blandit tristique metus. Vestibulum maximus nec justo sed maximus. Vivamus sit amet turpis sem. Integer vitae tortor ac ex scelerisque facilisis ac vitae urna. In hac habitasse platea dictumst. Maecenas imperdiet tortor arcu, nec tincidunt neque malesuada volutpat.</p><ul><li>In ac turpis mi. Donec quis semper neque. Nulla cursus gravida interdum.</li><li>Mauris at scelerisque lorem. Nullam tempus felis ipsum, sagittis malesuada nulla vulputate et.</li><li>Aenean vel metus leo.</li><li>Vestibulum rhoncus sagittis dolor vel finibus.</li><li>Integer feugiat lacus ut efficitur mattis. Sed quis molestie velit.</li></ul><p>Fusce rutrum mauris sit amet justo rutrum, ut sodales lorem ullamcorper. Aliquam vitae iaculis urna. Nulla vitae mi vel nisl viverra ullamcorper vel elementum est. Mauris vitae elit nec enim tincidunt aliquet. Donec ultrices nulla a enim pulvinar, quis pulvinar lacus consectetur. Donec dignissim, risus nec mollis efficitur, turpis erat blandit urna, eget elementum lacus lectus eget lorem.</p><p><br>&nbsp;</p>', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(2, 'privacy_page', 'en', '<h2>01. Privacy Policy</h2><p>Praesent placerat dictum elementum. Nam pulvinar urna vel lectus maximus, eget faucibus turpis hendrerit. Sed iaculis molestie arcu, et accumsan nisi. Quisque molestie velit vitae ligula luctus bibendum. Duis sit amet eros mollis, viverra ipsum sed, convallis sapien. Donec justo erat, pulvinar vitae dui ut, finibus euismod enim. Donec velit tortor, mollis eu tortor euismod, gravida lacinia arcu.</p><ul><li>In ac turpis mi. Donec quis semper neque. Nulla cursus gravida interdum.</li><li>Curabitur luctus sapien augue, mattis faucibus nisl vehicula nec. Mauris at scelerisque lorem. Nullam tempus felis ipsum, sagittis malesuada nulla vulputate et.</li><li>Aenean vel metus leo. Vivamus nec neque a libero sodales aliquam a et dolor.</li><li>Vestibulum rhoncus sagittis dolor vel finibus.</li><li>Integer feugiat lacus ut efficitur mattis. Sed quis molestie velit.</li></ul><h2>02. Limitations</h2><p>Praesent placerat dictum elementum. Nam pulvinar urna vel lectus maximus, eget faucibus turpis hendrerit. Sed iaculis molestie arcu, et accumsan nisi. Quisque molestie velit vitae ligula luctus bibendum. Duis sit amet eros mollis, viverra ipsum sed, convallis sapien. Donec justo erat, pulvinar vitae dui ut, finibus euismod enim. Donec velit tortor, mollis eu tortor euismod, gravida lacinia arcu.</p><ul><li>In ac turpis mi. Donec quis semper neque. Nulla cursus gravida interdum.</li><li>Curabitur luctus sapien augue.</li><li>mattis faucibus nisl vehicula nec, Mauris at scelerisque lorem.</li><li>Nullam tempus felis ipsum, sagittis malesuada nulla vulputate et. Aenean vel metus leo.</li><li>Vivamus nec neque a libero sodales aliquam a et dolor.</li></ul><h2>03. Security</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ex neque, elementum eu blandit in, ornare eu purus. Fusce eu rhoncus mi, quis ultrices lacus. Phasellus id pellentesque nulla. Cras erat nisi, mattis et efficitur et, iaculis a lacus. Fusce gravida augue quis leo facilisis.</p><h2>04. Privacy Policy</h2><p>Praesent non sem facilisis, hendrerit nisi vitae, volutpat quam. Aliquam metus mauris, semper eu eros vitae, blandit tristique metus. Vestibulum maximus nec justo sed maximus. Vivamus sit amet turpis sem. Integer vitae tortor ac ex scelerisque facilisis ac vitae urna. In hac habitasse platea dictumst. Maecenas imperdiet tortor arcu, nec tincidunt neque malesuada volutpat.</p><ul><li>In ac turpis mi. Donec quis semper neque. Nulla cursus gravida interdum.</li><li>Mauris at scelerisque lorem. Nullam tempus felis ipsum, sagittis malesuada nulla vulputate et.</li><li>Aenean vel metus leo.</li><li>Vestibulum rhoncus sagittis dolor vel finibus.</li><li>Integer feugiat lacus ut efficitur mattis. Sed quis molestie velit.</li></ul><p>Fusce rutrum mauris sit amet justo rutrum, ut sodales lorem ullamcorper. Aliquam vitae iaculis urna. Nulla vitae mi vel nisl viverra ullamcorper vel elementum est. Mauris vitae elit nec enim tincidunt aliquet. Donec ultrices nulla a enim pulvinar, quis pulvinar lacus consectetur. Donec dignissim, risus nec mollis efficitur, turpis erat blandit urna, eget elementum lacus lectus eget lorem.</p><p><br>&nbsp;</p>', '2022-12-26 12:59:28', '2022-12-26 12:59:28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `companies`
+--
+
+CREATE TABLE `companies` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `industry_type_id` bigint(20) UNSIGNED NOT NULL,
+  `organization_type_id` bigint(20) UNSIGNED NOT NULL,
+  `team_size_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `nationality_id` bigint(20) UNSIGNED NOT NULL,
+  `logo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `banner` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `establishment_date` date DEFAULT NULL,
+  `website` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `visibility` tinyint(1) NOT NULL DEFAULT 1,
+  `profile_completion` tinyint(1) NOT NULL DEFAULT 0,
+  `bio` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `vision` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `total_views` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `neighborhood` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `locality` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `place` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `district` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `postcode` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `region` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `country` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `long` double DEFAULT NULL,
+  `lat` double DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `companies`
+--
+
+INSERT INTO `companies` (`id`, `user_id`, `industry_type_id`, `organization_type_id`, `team_size_id`, `nationality_id`, `logo`, `banner`, `establishment_date`, `website`, `visibility`, `profile_completion`, `bio`, `vision`, `total_views`, `created_at`, `updated_at`, `address`, `neighborhood`, `locality`, `place`, `district`, `postcode`, `region`, `country`, `long`, `lat`) VALUES
+(1, 6, 1, 1, 1, 1, 'uploads/company/gvWzAKmnYWZAO3C35rBGhM6WwZn6Od1LWQ1Sv4al.jpg', NULL, '2023-02-16', NULL, 1, 0, '<h2><strong>Company Information</strong></h2><p>Assort Housing and Engineering Ltd.Address : ASSORT ARK, House#12, Road#04, Block#F, Banani, Dhaka.Web :&nbsp;</p><p><a href=\"http://www.assorthousing.com/\">www.assorthousing.com</a></p><p>Business : Front line Real Estate Developer.</p>', '<p>Bachelor of Business Administration (BBA) or Master in Business Administration (MBA) in accounting and finance from any reputed university. Any kind of professional degree will be added advantage.</p>', 0, '2023-02-15 23:24:48', '2023-02-24 04:15:56', NULL, NULL, NULL, 'Dhaka', NULL, NULL, NULL, NULL, NULL, NULL),
+(2, 9, 15, 4, 2, 15, 'uploads/company/gvWzAKmnYWZAO3C35rBGhM6WwZn6Od1LWQ1Sv4al.jpg', 'uploads/images/company/1677441670_63fbba86e9144.png', '2023-02-18', 'https://www.fiha.com.bd', 1, 1, 'Test Biography', '<p>Company Vision</p>', 0, '2023-02-18 16:16:05', '2023-02-26 14:02:48', 'dhaka-division-bangladesh', '', '', 'Dhaka', 'Dhaka District', '', 'Dhaka Division', 'Bangladesh', 90.4152831528336, 23.822536297161676),
+(3, 21, 1, 1, 1, 1, 'uploads/images/company/1678123943_640623a7a4909.jpg', 'uploads/images/company/1678123943_640623a7ac055.png', NULL, NULL, 1, 0, 'assdff', NULL, 0, '2023-02-25 05:13:02', '2023-03-06 11:32:23', NULL, NULL, NULL, 'Dhaka', NULL, NULL, NULL, NULL, NULL, NULL),
+(4, 29, 15, 4, NULL, 15, '', '', '2023-03-15', NULL, 1, 0, NULL, NULL, 0, '2023-03-15 10:59:29', '2023-03-15 10:59:29', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(5, 32, 1, 1, 1, 1, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, 0, '2023-03-20 11:44:50', '2023-03-20 11:44:50', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `company_applied_job_rejected`
+--
+
+CREATE TABLE `company_applied_job_rejected` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `company_id` bigint(20) UNSIGNED NOT NULL,
+  `applied_job_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `company_applied_job_shortlist`
+--
+
+CREATE TABLE `company_applied_job_shortlist` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `company_id` bigint(20) UNSIGNED NOT NULL,
+  `applied_job_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `company_bookmark_categories`
+--
+
+CREATE TABLE `company_bookmark_categories` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `company_id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `contacts`
+--
+
+CREATE TABLE `contacts` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `subject` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `message` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `contact_infos`
+--
+
+CREATE TABLE `contact_infos` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `secondary_phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `secondary_email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `contact_infos`
+--
+
+INSERT INTO `contact_infos` (`id`, `user_id`, `phone`, `secondary_phone`, `email`, `secondary_email`, `created_at`, `updated_at`) VALUES
+(1, 1, '', '', '', '', '2023-02-14 03:14:56', '2023-02-14 03:14:56'),
+(2, 2, '', '', '', '', '2023-02-15 22:42:40', '2023-02-15 22:42:40'),
+(3, 3, '', '', '', '', '2023-02-15 22:52:49', '2023-02-15 22:52:49'),
+(4, 4, '', '', '', '', '2023-02-15 22:54:19', '2023-02-15 22:54:19'),
+(5, 5, '', '', '', '', '2023-02-15 22:55:05', '2023-02-15 22:55:05'),
+(6, 6, NULL, '', NULL, '', '2023-02-15 23:24:48', '2023-02-24 04:15:56'),
+(7, 7, '', '', '', '', '2023-02-18 15:49:40', '2023-02-18 15:49:40'),
+(8, 8, '', '', '', '', '2023-02-18 15:53:46', '2023-02-18 15:53:46'),
+(9, 9, '+8801611137157', '', 'mahdism182@gmail.com', '', '2023-02-18 16:16:05', '2023-02-26 14:02:48'),
+(10, 10, '', '', '', '', '2023-02-19 15:57:16', '2023-02-19 15:57:16'),
+(11, 11, '', '', '', '', '2023-02-19 16:18:04', '2023-02-19 16:18:04'),
+(12, 12, '', '', '', '', '2023-02-19 17:25:23', '2023-02-19 17:25:23'),
+(13, 13, '', '', '', '', '2023-02-19 19:32:05', '2023-02-19 19:32:05'),
+(14, 14, '', '', '', '', '2023-02-20 04:02:53', '2023-02-20 04:02:53'),
+(15, 15, '', '', '', '', '2023-02-21 01:49:16', '2023-02-21 01:49:16'),
+(16, 16, '', '', '', '', '2023-02-23 18:50:42', '2023-02-23 18:50:42'),
+(17, 17, '+88016111111111', NULL, 'm182@gmail.com', NULL, '2023-02-24 03:26:00', '2023-02-24 16:39:38'),
+(18, 18, '', '', '', '', '2023-02-24 04:35:44', '2023-02-24 04:35:44'),
+(19, 19, '', '', '', '', '2023-02-24 04:57:17', '2023-02-24 04:57:17'),
+(20, 20, '', '', '', '', '2023-02-24 15:09:46', '2023-02-24 15:09:46'),
+(21, 21, '', '', '', '', '2023-02-25 05:13:02', '2023-02-25 05:13:02'),
+(22, 22, '', '', '', '', '2023-02-25 06:03:34', '2023-02-25 06:03:34'),
+(23, 23, '01925764432', '', NULL, '', '2023-03-03 10:51:59', '2023-03-03 10:51:59'),
+(28, 28, '01925764432', '', 'john@doe.com', '', '2023-03-10 11:02:13', '2023-03-10 11:02:14'),
+(29, 29, '01751767359', '', 'test@comp', '', '2023-03-15 10:59:29', '2023-03-15 10:59:29'),
+(30, 30, '', '', '', '', '2023-03-15 11:22:08', '2023-03-15 11:22:08'),
+(31, 31, '', '', '', '', '2023-03-15 11:22:50', '2023-03-15 11:22:50'),
+(32, 32, '', '', '', '', '2023-03-20 11:44:51', '2023-03-20 11:44:51'),
+(34, 34, '01794851087', '', NULL, '', '2023-03-20 12:30:40', '2023-03-20 12:30:42');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cookies`
+--
+
+CREATE TABLE `cookies` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `allow_cookies` tinyint(1) NOT NULL DEFAULT 1,
+  `cookie_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'gdpr_cookie',
+  `cookie_expiration` tinyint(4) NOT NULL DEFAULT 30,
+  `force_consent` tinyint(1) NOT NULL DEFAULT 0,
+  `darkmode` tinyint(1) NOT NULL DEFAULT 0,
+  `language` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'en',
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `approve_button_text` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `decline_button_text` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `cookies`
+--
+
+INSERT INTO `cookies` (`id`, `allow_cookies`, `cookie_name`, `cookie_expiration`, `force_consent`, `darkmode`, `language`, `title`, `description`, `approve_button_text`, `decline_button_text`, `created_at`, `updated_at`) VALUES
+(1, 1, 'gdpr_cookie', 30, 0, 0, 'en', 'We use cookies!', 'Hi, this website uses essential cookies to ensure its proper operation and tracking cookies to understand how you interact with it. The latter will be set only after consent. <button type=\"button\" data-cc=\"c-settings\" class=\"cc-link\">Let me choose</button>', 'Allow all Cookies', 'Reject all Cookies', '2022-12-26 12:59:28', '2022-12-26 12:59:28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `countries`
+--
+
+CREATE TABLE `countries` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `icon` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sortname` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `latitude` double DEFAULT NULL,
+  `longitude` double DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `countries`
+--
+
+INSERT INTO `countries` (`id`, `name`, `image`, `slug`, `icon`, `sortname`, `latitude`, `longitude`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Aruba', 'backend/image/flags/flag-of-Aruba.jpg', 'aruba', 'flag-icon-aw', 'AW', 12.5, -69.96666666, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(2, 'Afghanistan', 'backend/image/flags/flag-of-Afghanistan.jpg', 'afghanistan', 'flag-icon-af', 'AF', 33, 65, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(3, 'Angola', 'backend/image/flags/flag-of-Angola.jpg', 'angola', 'flag-icon-ao', 'AO', -12.5, 18.5, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(4, 'Anguilla', 'backend/image/flags/flag-of-Anguilla.jpg', 'anguilla', 'flag-icon-ai', 'AI', 18.25, -63.16666666, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(5, 'Ãƒâ€¦land Islands', 'backend/image/flags/flag-of-Ãƒâ€¦land-Islands.jpg', 'aland-islands', 'flag-icon-ax', 'AX', 60.116667, 19.9, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(6, 'Albania', 'backend/image/flags/flag-of-Albania.jpg', 'albania', 'flag-icon-al', 'AL', 41, 20, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(7, 'Andorra', 'backend/image/flags/flag-of-Andorra.jpg', 'andorra', 'flag-icon-ad', 'AD', 42.5, 1.5, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(8, 'United Arab Emirates', 'backend/image/flags/flag-of-United-Arab-Emirates.jpg', 'united-arab-emirates', 'flag-icon-ae', 'AE', 24, 54, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(9, 'Argentina', 'backend/image/flags/flag-of-Argentina.jpg', 'argentina', 'flag-icon-ar', 'AR', -34, -64, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(10, 'Armenia', 'backend/image/flags/flag-of-Armenia.jpg', 'armenia', 'flag-icon-am', 'AM', 40, 45, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(11, 'American Samoa', 'backend/image/flags/flag-of-American-Samoa.jpg', 'american-samoa', 'flag-icon-as', 'AS', -14.33333333, -170, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(12, 'Antarctica', 'backend/image/flags/flag-of-Antarctica.jpg', 'antarctica', 'flag-icon-aq', 'AQ', -90, 0, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(13, 'French Southern and Antarctic Lands', 'backend/image/flags/flag-of-French-Southern-and-Antarctic-Lands.jpg', 'french-southern-and-antarctic-lands', 'flag-icon-tf', 'TF', -49.25, 69.167, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(14, 'Antigua and Barbuda', 'backend/image/flags/flag-of-Antigua-and-Barbuda.jpg', 'antigua-and-barbuda', 'flag-icon-ag', 'AG', 17.05, -61.8, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(15, 'Australia', 'backend/image/flags/flag-of-Australia.jpg', 'australia', 'flag-icon-au', 'AU', -27, 133, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(16, 'Austria', 'backend/image/flags/flag-of-Austria.jpg', 'austria', 'flag-icon-at', 'AT', 47.33333333, 13.33333333, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(17, 'Azerbaijan', 'backend/image/flags/flag-of-Azerbaijan.jpg', 'azerbaijan', 'flag-icon-az', 'AZ', 40.5, 47.5, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(18, 'Burundi', 'backend/image/flags/flag-of-Burundi.jpg', 'burundi', 'flag-icon-bi', 'BI', -3.5, 30, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(19, 'Belgium', 'backend/image/flags/flag-of-Belgium.jpg', 'belgium', 'flag-icon-be', 'BE', 50.83333333, 4, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(20, 'Benin', 'backend/image/flags/flag-of-Benin.jpg', 'benin', 'flag-icon-bj', 'BJ', 9.5, 2.25, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(21, 'Burkina Faso', 'backend/image/flags/flag-of-Burkina-Faso.jpg', 'burkina-faso', 'flag-icon-bf', 'BF', 13, -2, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(22, 'Bangladesh', 'backend/image/flags/flag-of-Bangladesh.jpg', 'bangladesh', 'flag-icon-bd', 'BD', 24, 90, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(23, 'Bulgaria', 'backend/image/flags/flag-of-Bulgaria.jpg', 'bulgaria', 'flag-icon-bg', 'BG', 43, 25, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(24, 'Bahrain', 'backend/image/flags/flag-of-Bahrain.jpg', 'bahrain', 'flag-icon-bh', 'BH', 26, 50.55, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(25, 'Bahamas', 'backend/image/flags/flag-of-Bahamas.jpg', 'bahamas', 'flag-icon-bs', 'BS', 24.25, -76, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(26, 'Bosnia and Herzegovina', 'backend/image/flags/flag-of-Bosnia-and-Herzegovina.jpg', 'bosnia-and-herzegovina', 'flag-icon-ba', 'BA', 44, 18, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(27, 'Saint BarthÃƒÂ©lemy', 'backend/image/flags/flag-of-Saint-BarthÃƒÂ©lemy.jpg', 'saint-barthelemy', 'flag-icon-bl', 'BL', 18.5, -63.41666666, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(28, 'Belarus', 'backend/image/flags/flag-of-Belarus.jpg', 'belarus', 'flag-icon-by', 'BY', 53, 28, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(29, 'Belize', 'backend/image/flags/flag-of-Belize.jpg', 'belize', 'flag-icon-bz', 'BZ', 17.25, -88.75, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(30, 'Bermuda', 'backend/image/flags/flag-of-Bermuda.jpg', 'bermuda', 'flag-icon-bm', 'BM', 32.33333333, -64.75, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(31, 'Bolivia', 'backend/image/flags/flag-of-Bolivia.jpg', 'bolivia', 'flag-icon-bo', 'BO', -17, -65, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(32, 'Brazil', 'backend/image/flags/flag-of-Brazil.jpg', 'brazil', 'flag-icon-br', 'BR', -10, -55, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(33, 'Barbados', 'backend/image/flags/flag-of-Barbados.jpg', 'barbados', 'flag-icon-bb', 'BB', 13.16666666, -59.53333333, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(34, 'Brunei', 'backend/image/flags/flag-of-Brunei.jpg', 'brunei', 'flag-icon-bn', 'BN', 4.5, 114.66666666, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(35, 'Bhutan', 'backend/image/flags/flag-of-Bhutan.jpg', 'bhutan', 'flag-icon-bt', 'BT', 27.5, 90.5, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(36, 'Bouvet Island', 'backend/image/flags/flag-of-Bouvet-Island.jpg', 'bouvet-island', 'flag-icon-bv', 'BV', -54.43333333, 3.4, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(37, 'Botswana', 'backend/image/flags/flag-of-Botswana.jpg', 'botswana', 'flag-icon-bw', 'BW', -22, 24, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(38, 'Central African Republic', 'backend/image/flags/flag-of-Central-African-Republic.jpg', 'central-african-republic', 'flag-icon-cf', 'CF', 7, 21, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(39, 'Canada', 'backend/image/flags/flag-of-Canada.jpg', 'canada', 'flag-icon-ca', 'CA', 60, -95, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(40, 'Cocos (Keeling) Islands', 'backend/image/flags/flag-of-Cocos-(Keeling)-Islands.jpg', 'cocos-keeling-islands', 'flag-icon-cc', 'CC', -12.5, 96.83333333, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(41, 'Switzerland', 'backend/image/flags/flag-of-Switzerland.jpg', 'switzerland', 'flag-icon-ch', 'CH', 47, 8, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(42, 'Chile', 'backend/image/flags/flag-of-Chile.jpg', 'chile', 'flag-icon-cl', 'CL', -30, -71, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(43, 'China', 'backend/image/flags/flag-of-China.jpg', 'china', 'flag-icon-cn', 'CN', 35, 105, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(44, 'Ivory Coast', 'backend/image/flags/flag-of-Ivory-Coast.jpg', 'ivory-coast', 'flag-icon-ci', 'CI', 8, -5, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(45, 'Cameroon', 'backend/image/flags/flag-of-Cameroon.jpg', 'cameroon', 'flag-icon-cm', 'CM', 6, 12, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(46, 'DR Congo', 'backend/image/flags/flag-of-DR-Congo.jpg', 'dr-congo', 'flag-icon-cd', 'CD', 0, 25, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(47, 'Republic of the Congo', 'backend/image/flags/flag-of-Republic-of-the-Congo.jpg', 'republic-of-the-congo', 'flag-icon-cg', 'CG', -1, 15, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(48, 'Cook Islands', 'backend/image/flags/flag-of-Cook-Islands.jpg', 'cook-islands', 'flag-icon-ck', 'CK', -21.23333333, -159.76666666, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(49, 'Colombia', 'backend/image/flags/flag-of-Colombia.jpg', 'colombia', 'flag-icon-co', 'CO', 4, -72, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(50, 'Comoros', 'backend/image/flags/flag-of-Comoros.jpg', 'comoros', 'flag-icon-km', 'KM', -12.16666666, 44.25, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(51, 'Cape Verde', 'backend/image/flags/flag-of-Cape-Verde.jpg', 'cape-verde', 'flag-icon-cv', 'CV', 16, -24, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(52, 'Costa Rica', 'backend/image/flags/flag-of-Costa-Rica.jpg', 'costa-rica', 'flag-icon-cr', 'CR', 10, -84, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(53, 'Cuba', 'backend/image/flags/flag-of-Cuba.jpg', 'cuba', 'flag-icon-cu', 'CU', 21.5, -80, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(54, 'CuraÃƒÂ§ao', 'backend/image/flags/flag-of-CuraÃƒÂ§ao.jpg', 'curacao', 'flag-icon-cw', 'CW', 12.116667, -68.933333, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(55, 'Christmas Island', 'backend/image/flags/flag-of-Christmas-Island.jpg', 'christmas-island', 'flag-icon-cx', 'CX', -10.5, 105.66666666, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(56, 'Cayman Islands', 'backend/image/flags/flag-of-Cayman-Islands.jpg', 'cayman-islands', 'flag-icon-ky', 'KY', 19.5, -80.5, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(57, 'Cyprus', 'backend/image/flags/flag-of-Cyprus.jpg', 'cyprus', 'flag-icon-cy', 'CY', 35, 33, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(58, 'Czech Republic', 'backend/image/flags/flag-of-Czech-Republic.jpg', 'czech-republic', 'flag-icon-cz', 'CZ', 49.75, 15.5, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(59, 'Germany', 'backend/image/flags/flag-of-Germany.jpg', 'germany', 'flag-icon-de', 'DE', 51, 9, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(60, 'Djibouti', 'backend/image/flags/flag-of-Djibouti.jpg', 'djibouti', 'flag-icon-dj', 'DJ', 11.5, 43, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(61, 'Dominica', 'backend/image/flags/flag-of-Dominica.jpg', 'dominica', 'flag-icon-dm', 'DM', 15.41666666, -61.33333333, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(62, 'Denmark', 'backend/image/flags/flag-of-Denmark.jpg', 'denmark', 'flag-icon-dk', 'DK', 56, 10, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(63, 'Dominican Republic', 'backend/image/flags/flag-of-Dominican-Republic.jpg', 'dominican-republic', 'flag-icon-do', 'DO', 19, -70.66666666, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(64, 'Algeria', 'backend/image/flags/flag-of-Algeria.jpg', 'algeria', 'flag-icon-dz', 'DZ', 28, 3, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(65, 'Ecuador', 'backend/image/flags/flag-of-Ecuador.jpg', 'ecuador', 'flag-icon-ec', 'EC', -2, -77.5, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(66, 'Egypt', 'backend/image/flags/flag-of-Egypt.jpg', 'egypt', 'flag-icon-eg', 'EG', 27, 30, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(67, 'Eritrea', 'backend/image/flags/flag-of-Eritrea.jpg', 'eritrea', 'flag-icon-er', 'ER', 15, 39, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(68, 'Western Sahara', 'backend/image/flags/flag-of-Western-Sahara.jpg', 'western-sahara', 'flag-icon-eh', 'EH', 24.5, -13, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(69, 'Spain', 'backend/image/flags/flag-of-Spain.jpg', 'spain', 'flag-icon-es', 'ES', 40, -4, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(70, 'Estonia', 'backend/image/flags/flag-of-Estonia.jpg', 'estonia', 'flag-icon-ee', 'EE', 59, 26, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(71, 'Ethiopia', 'backend/image/flags/flag-of-Ethiopia.jpg', 'ethiopia', 'flag-icon-et', 'ET', 8, 38, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(72, 'Finland', 'backend/image/flags/flag-of-Finland.jpg', 'finland', 'flag-icon-fi', 'FI', 64, 26, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(73, 'Fiji', 'backend/image/flags/flag-of-Fiji.jpg', 'fiji', 'flag-icon-fj', 'FJ', -18, 175, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(74, 'Falkland Islands', 'backend/image/flags/flag-of-Falkland-Islands.jpg', 'falkland-islands', 'flag-icon-fk', 'FK', -51.75, -59, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(75, 'France', 'backend/image/flags/flag-of-France.jpg', 'france', 'flag-icon-fr', 'FR', 46, 2, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(76, 'Faroe Islands', 'backend/image/flags/flag-of-Faroe-Islands.jpg', 'faroe-islands', 'flag-icon-fo', 'FO', 62, -7, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(77, 'Micronesia', 'backend/image/flags/flag-of-Micronesia.jpg', 'micronesia', 'flag-icon-fm', 'FM', 6.91666666, 158.25, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(78, 'Gabon', 'backend/image/flags/flag-of-Gabon.jpg', 'gabon', 'flag-icon-ga', 'GA', -1, 11.75, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(79, 'United Kingdom', 'backend/image/flags/flag-of-United-Kingdom.jpg', 'united-kingdom', 'flag-icon-gb', 'GB', 54, -2, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(80, 'Georgia', 'backend/image/flags/flag-of-Georgia.jpg', 'georgia', 'flag-icon-ge', 'GE', 42, 43.5, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(81, 'Guernsey', 'backend/image/flags/flag-of-Guernsey.jpg', 'guernsey', 'flag-icon-gg', 'GG', 49.46666666, -2.58333333, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(82, 'Ghana', 'backend/image/flags/flag-of-Ghana.jpg', 'ghana', 'flag-icon-gh', 'GH', 8, -2, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(83, 'Gibraltar', 'backend/image/flags/flag-of-Gibraltar.jpg', 'gibraltar', 'flag-icon-gi', 'GI', 36.13333333, -5.35, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(84, 'Guinea', 'backend/image/flags/flag-of-Guinea.jpg', 'guinea', 'flag-icon-gn', 'GN', 11, -10, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(85, 'Guadeloupe', 'backend/image/flags/flag-of-Guadeloupe.jpg', 'guadeloupe', 'flag-icon-gp', 'GP', 16.25, -61.583333, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(86, 'Gambia', 'backend/image/flags/flag-of-Gambia.jpg', 'gambia', 'flag-icon-gm', 'GM', 13.46666666, -16.56666666, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(87, 'Guinea-Bissau', 'backend/image/flags/flag-of-Guinea-Bissau.jpg', 'guinea-bissau', 'flag-icon-gw', 'GW', 12, -15, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(88, 'Equatorial Guinea', 'backend/image/flags/flag-of-Equatorial-Guinea.jpg', 'equatorial-guinea', 'flag-icon-gq', 'GQ', 2, 10, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(89, 'Greece', 'backend/image/flags/flag-of-Greece.jpg', 'greece', 'flag-icon-gr', 'GR', 39, 22, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(90, 'Grenada', 'backend/image/flags/flag-of-Grenada.jpg', 'grenada', 'flag-icon-gd', 'GD', 12.11666666, -61.66666666, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(91, 'Greenland', 'backend/image/flags/flag-of-Greenland.jpg', 'greenland', 'flag-icon-gl', 'GL', 72, -40, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(92, 'Guatemala', 'backend/image/flags/flag-of-Guatemala.jpg', 'guatemala', 'flag-icon-gt', 'GT', 15.5, -90.25, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(93, 'French Guiana', 'backend/image/flags/flag-of-French-Guiana.jpg', 'french-guiana', 'flag-icon-gf', 'GF', 4, -53, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(94, 'Guam', 'backend/image/flags/flag-of-Guam.jpg', 'guam', 'flag-icon-gu', 'GU', 13.46666666, 144.78333333, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(95, 'Guyana', 'backend/image/flags/flag-of-Guyana.jpg', 'guyana', 'flag-icon-gy', 'GY', 5, -59, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(96, 'Hong Kong', 'backend/image/flags/flag-of-Hong-Kong.jpg', 'hong-kong', 'flag-icon-hk', 'HK', 22.267, 114.188, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(97, 'Honduras', 'backend/image/flags/flag-of-Honduras.jpg', 'honduras', 'flag-icon-hn', 'HN', 15, -86.5, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(98, 'Croatia', 'backend/image/flags/flag-of-Croatia.jpg', 'croatia', 'flag-icon-hr', 'HR', 45.16666666, 15.5, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(99, 'Haiti', 'backend/image/flags/flag-of-Haiti.jpg', 'haiti', 'flag-icon-ht', 'HT', 19, -72.41666666, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(100, 'Hungary', 'backend/image/flags/flag-of-Hungary.jpg', 'hungary', 'flag-icon-hu', 'HU', 47, 20, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(101, 'Indonesia', 'backend/image/flags/flag-of-Indonesia.jpg', 'indonesia', 'flag-icon-id', 'ID', -5, 120, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(102, 'Isle of Man', 'backend/image/flags/flag-of-Isle-of-Man.jpg', 'isle-of-man', 'flag-icon-im', 'IM', 54.25, -4.5, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(103, 'India', 'backend/image/flags/flag-of-India.jpg', 'india', 'flag-icon-in', 'IN', 20, 77, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(104, 'British Indian Ocean Territory', 'backend/image/flags/flag-of-British-Indian-Ocean-Territory.jpg', 'british-indian-ocean-territory', 'flag-icon-io', 'IO', -6, 71.5, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(105, 'Ireland', 'backend/image/flags/flag-of-Ireland.jpg', 'ireland', 'flag-icon-ie', 'IE', 53, -8, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(106, 'Iran', 'backend/image/flags/flag-of-Iran.jpg', 'iran', 'flag-icon-ir', 'IR', 32, 53, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(107, 'Iraq', 'backend/image/flags/flag-of-Iraq.jpg', 'iraq', 'flag-icon-iq', 'IQ', 33, 44, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(108, 'Iceland', 'backend/image/flags/flag-of-Iceland.jpg', 'iceland', 'flag-icon-is', 'IS', 65, -18, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(109, 'Israel', 'backend/image/flags/flag-of-Israel.jpg', 'israel', 'flag-icon-il', 'IL', 31.47, 35.13, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(110, 'Italy', 'backend/image/flags/flag-of-Italy.jpg', 'italy', 'flag-icon-it', 'IT', 42.83333333, 12.83333333, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(111, 'Jamaica', 'backend/image/flags/flag-of-Jamaica.jpg', 'jamaica', 'flag-icon-jm', 'JM', 18.25, -77.5, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(112, 'Jersey', 'backend/image/flags/flag-of-Jersey.jpg', 'jersey', 'flag-icon-je', 'JE', 49.25, -2.16666666, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(113, 'Jordan', 'backend/image/flags/flag-of-Jordan.jpg', 'jordan', 'flag-icon-jo', 'JO', 31, 36, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(114, 'Japan', 'backend/image/flags/flag-of-Japan.jpg', 'japan', 'flag-icon-jp', 'JP', 36, 138, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(115, 'Kazakhstan', 'backend/image/flags/flag-of-Kazakhstan.jpg', 'kazakhstan', 'flag-icon-kz', 'KZ', 48, 68, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(116, 'Kenya', 'backend/image/flags/flag-of-Kenya.jpg', 'kenya', 'flag-icon-ke', 'KE', 1, 38, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(117, 'Kyrgyzstan', 'backend/image/flags/flag-of-Kyrgyzstan.jpg', 'kyrgyzstan', 'flag-icon-kg', 'KG', 41, 75, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(118, 'Cambodia', 'backend/image/flags/flag-of-Cambodia.jpg', 'cambodia', 'flag-icon-kh', 'KH', 13, 105, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(119, 'Kiribati', 'backend/image/flags/flag-of-Kiribati.jpg', 'kiribati', 'flag-icon-ki', 'KI', 1.41666666, 173, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(120, 'Saint Kitts and Nevis', 'backend/image/flags/flag-of-Saint-Kitts-and-Nevis.jpg', 'saint-kitts-and-nevis', 'flag-icon-kn', 'KN', 17.33333333, -62.75, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(121, 'South Korea', 'backend/image/flags/flag-of-South-Korea.jpg', 'south-korea', 'flag-icon-kr', 'KR', 37, 127.5, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(122, 'Kosovo', 'backend/image/flags/flag-of-Kosovo.jpg', 'kosovo', 'flag-icon-xk', 'XK', 42.666667, 21.166667, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(123, 'Kuwait', 'backend/image/flags/flag-of-Kuwait.jpg', 'kuwait', 'flag-icon-kw', 'KW', 29.5, 45.75, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(124, 'Laos', 'backend/image/flags/flag-of-Laos.jpg', 'laos', 'flag-icon-la', 'LA', 18, 105, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(125, 'Lebanon', 'backend/image/flags/flag-of-Lebanon.jpg', 'lebanon', 'flag-icon-lb', 'LB', 33.83333333, 35.83333333, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(126, 'Liberia', 'backend/image/flags/flag-of-Liberia.jpg', 'liberia', 'flag-icon-lr', 'LR', 6.5, -9.5, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(127, 'Libya', 'backend/image/flags/flag-of-Libya.jpg', 'libya', 'flag-icon-ly', 'LY', 25, 17, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(128, 'Saint Lucia', 'backend/image/flags/flag-of-Saint-Lucia.jpg', 'saint-lucia', 'flag-icon-lc', 'LC', 13.88333333, -60.96666666, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(129, 'Liechtenstein', 'backend/image/flags/flag-of-Liechtenstein.jpg', 'liechtenstein', 'flag-icon-li', 'LI', 47.26666666, 9.53333333, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(130, 'Sri Lanka', 'backend/image/flags/flag-of-Sri-Lanka.jpg', 'sri-lanka', 'flag-icon-lk', 'LK', 7, 81, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(131, 'Lesotho', 'backend/image/flags/flag-of-Lesotho.jpg', 'lesotho', 'flag-icon-ls', 'LS', -29.5, 28.5, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(132, 'Lithuania', 'backend/image/flags/flag-of-Lithuania.jpg', 'lithuania', 'flag-icon-lt', 'LT', 56, 24, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(133, 'Luxembourg', 'backend/image/flags/flag-of-Luxembourg.jpg', 'luxembourg', 'flag-icon-lu', 'LU', 49.75, 6.16666666, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(134, 'Latvia', 'backend/image/flags/flag-of-Latvia.jpg', 'latvia', 'flag-icon-lv', 'LV', 57, 25, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(135, 'Macau', 'backend/image/flags/flag-of-Macau.jpg', 'macau', 'flag-icon-mo', 'MO', 22.16666666, 113.55, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(136, 'Saint Martin', 'backend/image/flags/flag-of-Saint-Martin.jpg', 'saint-martin', 'flag-icon-mf', 'MF', 18.08333333, -63.95, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(137, 'Morocco', 'backend/image/flags/flag-of-Morocco.jpg', 'morocco', 'flag-icon-ma', 'MA', 32, -5, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(138, 'Monaco', 'backend/image/flags/flag-of-Monaco.jpg', 'monaco', 'flag-icon-mc', 'MC', 43.73333333, 7.4, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(139, 'Moldova', 'backend/image/flags/flag-of-Moldova.jpg', 'moldova', 'flag-icon-md', 'MD', 47, 29, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(140, 'Madagascar', 'backend/image/flags/flag-of-Madagascar.jpg', 'madagascar', 'flag-icon-mg', 'MG', -20, 47, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(141, 'Maldives', 'backend/image/flags/flag-of-Maldives.jpg', 'maldives', 'flag-icon-mv', 'MV', 3.25, 73, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(142, 'Mexico', 'backend/image/flags/flag-of-Mexico.jpg', 'mexico', 'flag-icon-mx', 'MX', 23, -102, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(143, 'Marshall Islands', 'backend/image/flags/flag-of-Marshall-Islands.jpg', 'marshall-islands', 'flag-icon-mh', 'MH', 9, 168, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(144, 'Macedonia', 'backend/image/flags/flag-of-Macedonia.jpg', 'macedonia', 'flag-icon-mk', 'MK', 41.83333333, 22, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(145, 'Mali', 'backend/image/flags/flag-of-Mali.jpg', 'mali', 'flag-icon-ml', 'ML', 17, -4, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(146, 'Malta', 'backend/image/flags/flag-of-Malta.jpg', 'malta', 'flag-icon-mt', 'MT', 35.83333333, 14.58333333, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(147, 'Myanmar', 'backend/image/flags/flag-of-Myanmar.jpg', 'myanmar', 'flag-icon-mm', 'MM', 22, 98, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(148, 'Montenegro', 'backend/image/flags/flag-of-Montenegro.jpg', 'montenegro', 'flag-icon-me', 'ME', 42.5, 19.3, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(149, 'Mongolia', 'backend/image/flags/flag-of-Mongolia.jpg', 'mongolia', 'flag-icon-mn', 'MN', 46, 105, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(150, 'Northern Mariana Islands', 'backend/image/flags/flag-of-Northern-Mariana-Islands.jpg', 'northern-mariana-islands', 'flag-icon-mp', 'MP', 15.2, 145.75, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(151, 'Mozambique', 'backend/image/flags/flag-of-Mozambique.jpg', 'mozambique', 'flag-icon-mz', 'MZ', -18.25, 35, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(152, 'Mauritania', 'backend/image/flags/flag-of-Mauritania.jpg', 'mauritania', 'flag-icon-mr', 'MR', 20, -12, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(153, 'Montserrat', 'backend/image/flags/flag-of-Montserrat.jpg', 'montserrat', 'flag-icon-ms', 'MS', 16.75, -62.2, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(154, 'Martinique', 'backend/image/flags/flag-of-Martinique.jpg', 'martinique', 'flag-icon-mq', 'MQ', 14.666667, -61, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(155, 'Mauritius', 'backend/image/flags/flag-of-Mauritius.jpg', 'mauritius', 'flag-icon-mu', 'MU', -20.28333333, 57.55, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(156, 'Malawi', 'backend/image/flags/flag-of-Malawi.jpg', 'malawi', 'flag-icon-mw', 'MW', -13.5, 34, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(157, 'Malaysia', 'backend/image/flags/flag-of-Malaysia.jpg', 'malaysia', 'flag-icon-my', 'MY', 2.5, 112.5, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(158, 'Mayotte', 'backend/image/flags/flag-of-Mayotte.jpg', 'mayotte', 'flag-icon-yt', 'YT', -12.83333333, 45.16666666, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(159, 'Namibia', 'backend/image/flags/flag-of-Namibia.jpg', 'namibia', 'flag-icon-na', 'NA', -22, 17, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(160, 'New Caledonia', 'backend/image/flags/flag-of-New-Caledonia.jpg', 'new-caledonia', 'flag-icon-nc', 'NC', -21.5, 165.5, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(161, 'Niger', 'backend/image/flags/flag-of-Niger.jpg', 'niger', 'flag-icon-ne', 'NE', 16, 8, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(162, 'Norfolk Island', 'backend/image/flags/flag-of-Norfolk-Island.jpg', 'norfolk-island', 'flag-icon-nf', 'NF', -29.03333333, 167.95, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(163, 'Nigeria', 'backend/image/flags/flag-of-Nigeria.jpg', 'nigeria', 'flag-icon-ng', 'NG', 10, 8, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(164, 'Nicaragua', 'backend/image/flags/flag-of-Nicaragua.jpg', 'nicaragua', 'flag-icon-ni', 'NI', 13, -85, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(165, 'Niue', 'backend/image/flags/flag-of-Niue.jpg', 'niue', 'flag-icon-nu', 'NU', -19.03333333, -169.86666666, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(166, 'Netherlands', 'backend/image/flags/flag-of-Netherlands.jpg', 'netherlands', 'flag-icon-nl', 'NL', 52.5, 5.75, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(167, 'Norway', 'backend/image/flags/flag-of-Norway.jpg', 'norway', 'flag-icon-no', 'NO', 62, 10, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(168, 'Nepal', 'backend/image/flags/flag-of-Nepal.jpg', 'nepal', 'flag-icon-np', 'NP', 28, 84, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(169, 'Nauru', 'backend/image/flags/flag-of-Nauru.jpg', 'nauru', 'flag-icon-nr', 'NR', -0.53333333, 166.91666666, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(170, 'New Zealand', 'backend/image/flags/flag-of-New-Zealand.jpg', 'new-zealand', 'flag-icon-nz', 'NZ', -41, 174, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(171, 'Oman', 'backend/image/flags/flag-of-Oman.jpg', 'oman', 'flag-icon-om', 'OM', 21, 57, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(172, 'Pakistan', 'backend/image/flags/flag-of-Pakistan.jpg', 'pakistan', 'flag-icon-pk', 'PK', 30, 70, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(173, 'Panama', 'backend/image/flags/flag-of-Panama.jpg', 'panama', 'flag-icon-pa', 'PA', 9, -80, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(174, 'Pitcairn Islands', 'backend/image/flags/flag-of-Pitcairn-Islands.jpg', 'pitcairn-islands', 'flag-icon-pn', 'PN', -25.06666666, -130.1, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(175, 'Peru', 'backend/image/flags/flag-of-Peru.jpg', 'peru', 'flag-icon-pe', 'PE', -10, -76, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(176, 'Philippines', 'backend/image/flags/flag-of-Philippines.jpg', 'philippines', 'flag-icon-ph', 'PH', 13, 122, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(177, 'Palau', 'backend/image/flags/flag-of-Palau.jpg', 'palau', 'flag-icon-pw', 'PW', 7.5, 134.5, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(178, 'Papua New Guinea', 'backend/image/flags/flag-of-Papua-New-Guinea.jpg', 'papua-new-guinea', 'flag-icon-pg', 'PG', -6, 147, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(179, 'Poland', 'backend/image/flags/flag-of-Poland.jpg', 'poland', 'flag-icon-pl', 'PL', 52, 20, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(180, 'Puerto Rico', 'backend/image/flags/flag-of-Puerto-Rico.jpg', 'puerto-rico', 'flag-icon-pr', 'PR', 18.25, -66.5, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(181, 'North Korea', 'backend/image/flags/flag-of-North-Korea.jpg', 'north-korea', 'flag-icon-kp', 'KP', 40, 127, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(182, 'Portugal', 'backend/image/flags/flag-of-Portugal.jpg', 'portugal', 'flag-icon-pt', 'PT', 39.5, -8, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(183, 'Paraguay', 'backend/image/flags/flag-of-Paraguay.jpg', 'paraguay', 'flag-icon-py', 'PY', -23, -58, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(184, 'Palestine', 'backend/image/flags/flag-of-Palestine.jpg', 'palestine', 'flag-icon-ps', 'PS', 31.9, 35.2, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(185, 'French Polynesia', 'backend/image/flags/flag-of-French-Polynesia.jpg', 'french-polynesia', 'flag-icon-pf', 'PF', -15, -140, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(186, 'Qatar', 'backend/image/flags/flag-of-Qatar.jpg', 'qatar', 'flag-icon-qa', 'QA', 25.5, 51.25, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(187, 'RÃƒÂ©union', 'backend/image/flags/flag-of-RÃƒÂ©union.jpg', 'reunion', 'flag-icon-re', 'RE', -21.15, 55.5, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(188, 'Romania', 'backend/image/flags/flag-of-Romania.jpg', 'romania', 'flag-icon-ro', 'RO', 46, 25, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(189, 'Russia', 'backend/image/flags/flag-of-Russia.jpg', 'russia', 'flag-icon-ru', 'RU', 60, 100, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(190, 'Rwanda', 'backend/image/flags/flag-of-Rwanda.jpg', 'rwanda', 'flag-icon-rw', 'RW', -2, 30, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(191, 'Saudi Arabia', 'backend/image/flags/flag-of-Saudi-Arabia.jpg', 'saudi-arabia', 'flag-icon-sa', 'SA', 25, 45, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(192, 'Sudan', 'backend/image/flags/flag-of-Sudan.jpg', 'sudan', 'flag-icon-sd', 'SD', 15, 30, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(193, 'Senegal', 'backend/image/flags/flag-of-Senegal.jpg', 'senegal', 'flag-icon-sn', 'SN', 14, -14, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(194, 'Singapore', 'backend/image/flags/flag-of-Singapore.jpg', 'singapore', 'flag-icon-sg', 'SG', 1.36666666, 103.8, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(195, 'South Georgia', 'backend/image/flags/flag-of-South-Georgia.jpg', 'south-georgia', 'flag-icon-gs', 'GS', -54.5, -37, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(196, 'Svalbard and Jan Mayen', 'backend/image/flags/flag-of-Svalbard-and-Jan-Mayen.jpg', 'svalbard-and-jan-mayen', 'flag-icon-sj', 'SJ', 78, 20, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(197, 'Solomon Islands', 'backend/image/flags/flag-of-Solomon-Islands.jpg', 'solomon-islands', 'flag-icon-sb', 'SB', -8, 159, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(198, 'Sierra Leone', 'backend/image/flags/flag-of-Sierra-Leone.jpg', 'sierra-leone', 'flag-icon-sl', 'SL', 8.5, -11.5, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(199, 'El Salvador', 'backend/image/flags/flag-of-El-Salvador.jpg', 'el-salvador', 'flag-icon-sv', 'SV', 13.83333333, -88.91666666, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(200, 'San Marino', 'backend/image/flags/flag-of-San-Marino.jpg', 'san-marino', 'flag-icon-sm', 'SM', 43.76666666, 12.41666666, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(201, 'Somalia', 'backend/image/flags/flag-of-Somalia.jpg', 'somalia', 'flag-icon-so', 'SO', 10, 49, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(202, 'Saint Pierre and Miquelon', 'backend/image/flags/flag-of-Saint-Pierre-and-Miquelon.jpg', 'saint-pierre-and-miquelon', 'flag-icon-pm', 'PM', 46.83333333, -56.33333333, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(203, 'Serbia', 'backend/image/flags/flag-of-Serbia.jpg', 'serbia', 'flag-icon-rs', 'RS', 44, 21, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(204, 'South Sudan', 'backend/image/flags/flag-of-South-Sudan.jpg', 'south-sudan', 'flag-icon-ss', 'SS', 7, 30, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(205, 'SÃƒÂ£o TomÃƒÂ© and PrÃƒÂ­ncipe', 'backend/image/flags/flag-of-SÃƒÂ£o-TomÃƒÂ©-and-PrÃƒÂ­ncipe.jpg', 'sao-tome-and-principe', 'flag-icon-st', 'ST', 1, 7, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(206, 'Suriname', 'backend/image/flags/flag-of-Suriname.jpg', 'suriname', 'flag-icon-sr', 'SR', 4, -56, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(207, 'Slovakia', 'backend/image/flags/flag-of-Slovakia.jpg', 'slovakia', 'flag-icon-sk', 'SK', 48.66666666, 19.5, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(208, 'Slovenia', 'backend/image/flags/flag-of-Slovenia.jpg', 'slovenia', 'flag-icon-si', 'SI', 46.11666666, 14.81666666, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(209, 'Sweden', 'backend/image/flags/flag-of-Sweden.jpg', 'sweden', 'flag-icon-se', 'SE', 62, 15, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(210, 'Swaziland', 'backend/image/flags/flag-of-Swaziland.jpg', 'swaziland', 'flag-icon-sz', 'SZ', -26.5, 31.5, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(211, 'Sint Maarten', 'backend/image/flags/flag-of-Sint-Maarten.jpg', 'sint-maarten', 'flag-icon-sx', 'SX', 18.033333, -63.05, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(212, 'Seychelles', 'backend/image/flags/flag-of-Seychelles.jpg', 'seychelles', 'flag-icon-sc', 'SC', -4.58333333, 55.66666666, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(213, 'Syria', 'backend/image/flags/flag-of-Syria.jpg', 'syria', 'flag-icon-sy', 'SY', 35, 38, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(214, 'Turks and Caicos Islands', 'backend/image/flags/flag-of-Turks-and-Caicos-Islands.jpg', 'turks-and-caicos-islands', 'flag-icon-tc', 'TC', 21.75, -71.58333333, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(215, 'Chad', 'backend/image/flags/flag-of-Chad.jpg', 'chad', 'flag-icon-td', 'TD', 15, 19, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(216, 'Togo', 'backend/image/flags/flag-of-Togo.jpg', 'togo', 'flag-icon-tg', 'TG', 8, 1.16666666, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(217, 'Thailand', 'backend/image/flags/flag-of-Thailand.jpg', 'thailand', 'flag-icon-th', 'TH', 15, 100, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(218, 'Tajikistan', 'backend/image/flags/flag-of-Tajikistan.jpg', 'tajikistan', 'flag-icon-tj', 'TJ', 39, 71, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(219, 'Tokelau', 'backend/image/flags/flag-of-Tokelau.jpg', 'tokelau', 'flag-icon-tk', 'TK', -9, -172, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(220, 'Turkmenistan', 'backend/image/flags/flag-of-Turkmenistan.jpg', 'turkmenistan', 'flag-icon-tm', 'TM', 40, 60, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(221, 'Timor-Leste', 'backend/image/flags/flag-of-Timor-Leste.jpg', 'timor-leste', 'flag-icon-tl', 'TL', -8.83333333, 125.91666666, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(222, 'Tonga', 'backend/image/flags/flag-of-Tonga.jpg', 'tonga', 'flag-icon-to', 'TO', -20, -175, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(223, 'Trinidad and Tobago', 'backend/image/flags/flag-of-Trinidad-and-Tobago.jpg', 'trinidad-and-tobago', 'flag-icon-tt', 'TT', 11, -61, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(224, 'Tunisia', 'backend/image/flags/flag-of-Tunisia.jpg', 'tunisia', 'flag-icon-tn', 'TN', 34, 9, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(225, 'Turkey', 'backend/image/flags/flag-of-Turkey.jpg', 'turkey', 'flag-icon-tr', 'TR', 39, 35, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(226, 'Tuvalu', 'backend/image/flags/flag-of-Tuvalu.jpg', 'tuvalu', 'flag-icon-tv', 'TV', -8, 178, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(227, 'Taiwan', 'backend/image/flags/flag-of-Taiwan.jpg', 'taiwan', 'flag-icon-tw', 'TW', 23.5, 121, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(228, 'Tanzania', 'backend/image/flags/flag-of-Tanzania.jpg', 'tanzania', 'flag-icon-tz', 'TZ', -6, 35, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(229, 'Uganda', 'backend/image/flags/flag-of-Uganda.jpg', 'uganda', 'flag-icon-ug', 'UG', 1, 32, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(230, 'Ukraine', 'backend/image/flags/flag-of-Ukraine.jpg', 'ukraine', 'flag-icon-ua', 'UA', 49, 32, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(231, 'United States Minor Outlying Islands', 'backend/image/flags/flag-of-United-States-Minor-Outlying-Islands.jpg', 'united-states-minor-outlying-islands', 'flag-icon-um', 'UM', 19.2911437, 166.618332, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(232, 'Uruguay', 'backend/image/flags/flag-of-Uruguay.jpg', 'uruguay', 'flag-icon-uy', 'UY', -33, -56, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(233, 'United States', 'backend/image/flags/flag-of-United-States.jpg', 'united-states', 'flag-icon-us', 'US', 38, -97, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(234, 'Uzbekistan', 'backend/image/flags/flag-of-Uzbekistan.jpg', 'uzbekistan', 'flag-icon-uz', 'UZ', 41, 64, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(235, 'Vatican City', 'backend/image/flags/flag-of-Vatican-City.jpg', 'vatican-city', 'flag-icon-va', 'VA', 41.9, 12.45, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(236, 'Saint Vincent and the Grenadines', 'backend/image/flags/flag-of-Saint-Vincent-and-the-Grenadines.jpg', 'saint-vincent-and-the-grenadines', 'flag-icon-vc', 'VC', 13.25, -61.2, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(237, 'Venezuela', 'backend/image/flags/flag-of-Venezuela.jpg', 'venezuela', 'flag-icon-ve', 'VE', 8, -66, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(238, 'British Virgin Islands', 'backend/image/flags/flag-of-British-Virgin-Islands.jpg', 'british-virgin-islands', 'flag-icon-vg', 'VG', 18.431383, -64.62305, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(239, 'United States Virgin Islands', 'backend/image/flags/flag-of-United-States-Virgin-Islands.jpg', 'united-states-virgin-islands', 'flag-icon-vi', 'VI', 18.35, -64.933333, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(240, 'Vietnam', 'backend/image/flags/flag-of-Vietnam.jpg', 'vietnam', 'flag-icon-vn', 'VN', 16.16666666, 107.83333333, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(241, 'Vanuatu', 'backend/image/flags/flag-of-Vanuatu.jpg', 'vanuatu', 'flag-icon-vu', 'VU', -16, 167, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(242, 'Wallis and Futuna', 'backend/image/flags/flag-of-Wallis-and-Futuna.jpg', 'wallis-and-futuna', 'flag-icon-wf', 'WF', -13.3, -176.2, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(243, 'Samoa', 'backend/image/flags/flag-of-Samoa.jpg', 'samoa', 'flag-icon-ws', 'WS', -13.58333333, -172.33333333, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(244, 'Yemen', 'backend/image/flags/flag-of-Yemen.jpg', 'yemen', 'flag-icon-ye', 'YE', 15, 48, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(245, 'South Africa', 'backend/image/flags/flag-of-South-Africa.jpg', 'south-africa', 'flag-icon-za', 'ZA', -29, 24, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(246, 'Zambia', 'backend/image/flags/flag-of-Zambia.jpg', 'zambia', 'flag-icon-zm', 'ZM', -15, 30, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(247, 'Zimbabwe', 'backend/image/flags/flag-of-Zimbabwe.jpg', 'zimbabwe', 'flag-icon-zw', 'ZW', -20, 30, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `currencies`
+--
+
+CREATE TABLE `currencies` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `symbol` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `symbol_position` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'left',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `currencies`
+--
+
+INSERT INTO `currencies` (`id`, `name`, `code`, `symbol`, `symbol_position`, `created_at`, `updated_at`) VALUES
+(1, 'United State Dollar', 'USD', '$', 'left', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(2, 'Bangladeshi taka', 'BDT', 'à§³', 'right', '2023-02-16 00:00:29', '2023-02-16 00:00:29');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `districts`
+--
+
+CREATE TABLE `districts` (
+  `id` int(2) NOT NULL,
+  `division_id` int(1) NOT NULL,
+  `name` varchar(25) NOT NULL,
+  `bn_name` varchar(25) NOT NULL,
+  `lat` varchar(15) DEFAULT NULL,
+  `lon` varchar(15) DEFAULT NULL,
+  `url` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `districts`
+--
+
+INSERT INTO `districts` (`id`, `division_id`, `name`, `bn_name`, `lat`, `lon`, `url`) VALUES
+(1, 1, 'Comilla', 'à¦•à§à¦®à¦¿à¦²à§à¦²à¦¾', '23.4682747', '91.1788135', 'www.comilla.gov.bd'),
+(2, 1, 'Feni', 'à¦«à§‡à¦¨à§€', '23.023231', '91.3840844', 'www.feni.gov.bd'),
+(3, 1, 'Brahmanbaria', 'à¦¬à§à¦°à¦¾à¦¹à§à¦®à¦£à', '23.9570904', '91.1119286', 'www.brahmanbaria.gov.bd'),
+(4, 1, 'Rangamati', 'à¦°à¦¾à¦™à§à¦—à¦¾à¦®à¦¾à', '22.65561018', '92.17541121', 'www.rangamati.gov.bd'),
+(5, 1, 'Noakhali', 'à¦¨à§‹à¦¯à¦¼à¦¾à¦–à¦¾à¦²à', '22.869563', '91.099398', 'www.noakhali.gov.bd'),
+(6, 1, 'Chandpur', 'à¦šà¦¾à¦à¦¦à¦ªà§à¦°', '23.2332585', '90.6712912', 'www.chandpur.gov.bd'),
+(7, 1, 'Lakshmipur', 'à¦²à¦•à§à¦·à§à¦®à§€à¦ªà', '22.942477', '90.841184', 'www.lakshmipur.gov.bd'),
+(8, 1, 'Chattogram', 'à¦šà¦Ÿà§à¦Ÿà¦—à§à¦°à¦¾à', '22.335109', '91.834073', 'www.chittagong.gov.bd'),
+(9, 1, 'Coxsbazar', 'à¦•à¦•à§à¦¸à¦¬à¦¾à¦œà¦¾à', '21.44315751', '91.97381741', 'www.coxsbazar.gov.bd'),
+(10, 1, 'Khagrachhari', 'à¦–à¦¾à¦—à§œà¦¾à¦›à§œà¦¿', '23.119285', '91.984663', 'www.khagrachhari.gov.bd'),
+(11, 1, 'Bandarban', 'à¦¬à¦¾à¦¨à§à¦¦à¦°à¦¬à¦¾à', '22.1953275', '92.2183773', 'www.bandarban.gov.bd'),
+(12, 2, 'Sirajganj', 'à¦¸à¦¿à¦°à¦¾à¦œà¦—à¦žà§à', '24.4533978', '89.7006815', 'www.sirajganj.gov.bd'),
+(13, 2, 'Pabna', 'à¦ªà¦¾à¦¬à¦¨à¦¾', '23.998524', '89.233645', 'www.pabna.gov.bd'),
+(14, 2, 'Bogura', 'à¦¬à¦—à§à§œà¦¾', '24.8465228', '89.377755', 'www.bogra.gov.bd'),
+(15, 2, 'Rajshahi', 'à¦°à¦¾à¦œà¦¶à¦¾à¦¹à§€', '24.37230298', '88.56307623', 'www.rajshahi.gov.bd'),
+(16, 2, 'Natore', 'à¦¨à¦¾à¦Ÿà§‹à¦°', '24.420556', '89.000282', 'www.natore.gov.bd'),
+(17, 2, 'Joypurhat', 'à¦œà§Ÿà¦ªà§à¦°à¦¹à¦¾à¦Ÿ', '25.09636876', '89.04004280', 'www.joypurhat.gov.bd'),
+(18, 2, 'Chapainawabganj', 'à¦šà¦¾à¦à¦ªà¦¾à¦‡à¦¨à¦¬à', '24.5965034', '88.2775122', 'www.chapainawabganj.gov.bd'),
+(19, 2, 'Naogaon', 'à¦¨à¦“à¦—à¦¾à¦', '24.83256191', '88.92485205', 'www.naogaon.gov.bd'),
+(20, 3, 'Jashore', 'à¦¯à¦¶à§‹à¦°', '23.16643', '89.2081126', 'www.jessore.gov.bd'),
+(21, 3, 'Satkhira', 'à¦¸à¦¾à¦¤à¦•à§à¦·à§€à¦°à', NULL, NULL, 'www.satkhira.gov.bd'),
+(22, 3, 'Meherpur', 'à¦®à§‡à¦¹à§‡à¦°à¦ªà§à¦°', '23.762213', '88.631821', 'www.meherpur.gov.bd'),
+(23, 3, 'Narail', 'à¦¨à¦¡à¦¼à¦¾à¦‡à¦²', '23.172534', '89.512672', 'www.narail.gov.bd'),
+(24, 3, 'Chuadanga', 'à¦šà§à§Ÿà¦¾à¦¡à¦¾à¦™à§à', '23.6401961', '88.841841', 'www.chuadanga.gov.bd'),
+(25, 3, 'Kushtia', 'à¦•à§à¦·à§à¦Ÿà¦¿à§Ÿà¦¾', '23.901258', '89.120482', 'www.kushtia.gov.bd'),
+(26, 3, 'Magura', 'à¦®à¦¾à¦—à§à¦°à¦¾', '23.487337', '89.419956', 'www.magura.gov.bd'),
+(27, 3, 'Khulna', 'à¦–à§à¦²à¦¨à¦¾', '22.815774', '89.568679', 'www.khulna.gov.bd'),
+(28, 3, 'Bagerhat', 'à¦¬à¦¾à¦—à§‡à¦°à¦¹à¦¾à¦Ÿ', '22.651568', '89.785938', 'www.bagerhat.gov.bd'),
+(29, 3, 'Jhenaidah', 'à¦à¦¿à¦¨à¦¾à¦‡à¦¦à¦¹', '23.5448176', '89.1539213', 'www.jhenaidah.gov.bd'),
+(30, 4, 'Jhalakathi', 'à¦à¦¾à¦²à¦•à¦¾à¦ à¦¿', NULL, NULL, 'www.jhalakathi.gov.bd'),
+(31, 4, 'Patuakhali', 'à¦ªà¦Ÿà§à§Ÿà¦¾à¦–à¦¾à¦²à', '22.3596316', '90.3298712', 'www.patuakhali.gov.bd'),
+(32, 4, 'Pirojpur', 'à¦ªà¦¿à¦°à§‹à¦œà¦ªà§à¦°', NULL, NULL, 'www.pirojpur.gov.bd'),
+(33, 4, 'Barisal', 'à¦¬à¦°à¦¿à¦¶à¦¾à¦²', NULL, NULL, 'www.barisal.gov.bd'),
+(34, 4, 'Bhola', 'à¦­à§‹à¦²à¦¾', '22.685923', '90.648179', 'www.bhola.gov.bd'),
+(35, 4, 'Barguna', 'à¦¬à¦°à¦—à§à¦¨à¦¾', NULL, NULL, 'www.barguna.gov.bd'),
+(36, 5, 'Sylhet', 'à¦¸à¦¿à¦²à§‡à¦Ÿ', '24.8897956', '91.8697894', 'www.sylhet.gov.bd'),
+(37, 5, 'Moulvibazar', 'à¦®à§Œà¦²à¦­à§€à¦¬à¦¾à¦œà', '24.482934', '91.777417', 'www.moulvibazar.gov.bd'),
+(38, 5, 'Habiganj', 'à¦¹à¦¬à¦¿à¦—à¦žà§à¦œ', '24.374945', '91.41553', 'www.habiganj.gov.bd'),
+(39, 5, 'Sunamganj', 'à¦¸à§à¦¨à¦¾à¦®à¦—à¦žà§à', '25.0658042', '91.3950115', 'www.sunamganj.gov.bd'),
+(40, 6, 'Narsingdi', 'à¦¨à¦°à¦¸à¦¿à¦‚à¦¦à§€', '23.932233', '90.71541', 'www.narsingdi.gov.bd'),
+(41, 6, 'Gazipur', 'à¦—à¦¾à¦œà§€à¦ªà§à¦°', '24.0022858', '90.4264283', 'www.gazipur.gov.bd'),
+(42, 6, 'Shariatpur', 'à¦¶à¦°à§€à¦¯à¦¼à¦¤à¦ªà§à', NULL, NULL, 'www.shariatpur.gov.bd'),
+(43, 6, 'Narayanganj', 'à¦¨à¦¾à¦°à¦¾à§Ÿà¦£à¦—à¦žà', '23.63366', '90.496482', 'www.narayanganj.gov.bd'),
+(44, 6, 'Tangail', 'à¦Ÿà¦¾à¦™à§à¦—à¦¾à¦‡à¦²', '24.26361358', '89.91794786', 'www.tangail.gov.bd'),
+(45, 6, 'Kishoreganj', 'à¦•à¦¿à¦¶à§‹à¦°à¦—à¦žà§à', '24.444937', '90.776575', 'www.kishoreganj.gov.bd'),
+(46, 6, 'Manikganj', 'à¦®à¦¾à¦¨à¦¿à¦•à¦—à¦žà§à', NULL, NULL, 'www.manikganj.gov.bd'),
+(47, 6, 'Dhaka', 'à¦¢à¦¾à¦•à¦¾', '23.7115253', '90.4111451', 'www.dhaka.gov.bd'),
+(48, 6, 'Munshiganj', 'à¦®à§à¦¨à§à¦¸à¦¿à¦—à¦žà', NULL, NULL, 'www.munshiganj.gov.bd'),
+(49, 6, 'Rajbari', 'à¦°à¦¾à¦œà¦¬à¦¾à§œà§€', '23.7574305', '89.6444665', 'www.rajbari.gov.bd'),
+(50, 6, 'Madaripur', 'à¦®à¦¾à¦¦à¦¾à¦°à§€à¦ªà§à', '23.164102', '90.1896805', 'www.madaripur.gov.bd'),
+(51, 6, 'Gopalganj', 'à¦—à§‹à¦ªà¦¾à¦²à¦—à¦žà§à', '23.0050857', '89.8266059', 'www.gopalganj.gov.bd'),
+(52, 6, 'Faridpur', 'à¦«à¦°à¦¿à¦¦à¦ªà§à¦°', '23.6070822', '89.8429406', 'www.faridpur.gov.bd'),
+(53, 7, 'Panchagarh', 'à¦ªà¦žà§à¦šà¦—à¦¡à¦¼', '26.3411', '88.5541606', 'www.panchagarh.gov.bd'),
+(54, 7, 'Dinajpur', 'à¦¦à¦¿à¦¨à¦¾à¦œà¦ªà§à¦°', '25.6217061', '88.6354504', 'www.dinajpur.gov.bd'),
+(55, 7, 'Lalmonirhat', 'à¦²à¦¾à¦²à¦®à¦¨à¦¿à¦°à¦¹à', NULL, NULL, 'www.lalmonirhat.gov.bd'),
+(56, 7, 'Nilphamari', 'à¦¨à§€à¦²à¦«à¦¾à¦®à¦¾à¦°à', '25.931794', '88.856006', 'www.nilphamari.gov.bd'),
+(57, 7, 'Gaibandha', 'à¦—à¦¾à¦‡à¦¬à¦¾à¦¨à§à¦§à', '25.328751', '89.528088', 'www.gaibandha.gov.bd'),
+(58, 7, 'Thakurgaon', 'à¦ à¦¾à¦•à§à¦°à¦—à¦¾à¦à', '26.0336945', '88.4616834', 'www.thakurgaon.gov.bd'),
+(59, 7, 'Rangpur', 'à¦°à¦‚à¦ªà§à¦°', '25.7558096', '89.244462', 'www.rangpur.gov.bd'),
+(60, 7, 'Kurigram', 'à¦•à§à§œà¦¿à¦—à§à¦°à¦¾à', '25.805445', '89.636174', 'www.kurigram.gov.bd'),
+(61, 8, 'Sherpur', 'à¦¶à§‡à¦°à¦ªà§à¦°', '25.0204933', '90.0152966', 'www.sherpur.gov.bd'),
+(62, 8, 'Mymensingh', 'à¦®à§Ÿà¦®à¦¨à¦¸à¦¿à¦‚à¦¹', '24.7465670', '90.4072093', 'www.mymensingh.gov.bd'),
+(63, 8, 'Jamalpur', 'à¦œà¦¾à¦®à¦¾à¦²à¦ªà§à¦°', '24.937533', '89.937775', 'www.jamalpur.gov.bd'),
+(64, 8, 'Netrokona', 'à¦¨à§‡à¦¤à§à¦°à¦•à§‹à¦£à', '24.870955', '90.727887', 'www.netrokona.gov.bd');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `divisions`
+--
+
+CREATE TABLE `divisions` (
+  `id` int(1) NOT NULL,
+  `name` varchar(25) NOT NULL,
+  `bn_name` varchar(25) NOT NULL,
+  `url` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `divisions`
+--
+
+INSERT INTO `divisions` (`id`, `name`, `bn_name`, `url`) VALUES
+(1, 'Chattagram', 'à¦šà¦Ÿà§à¦Ÿà¦—à§à¦°à¦¾à', 'www.chittagongdiv.gov.bd'),
+(2, 'Rajshahi', 'à¦°à¦¾à¦œà¦¶à¦¾à¦¹à§€', 'www.rajshahidiv.gov.bd'),
+(3, 'Khulna', 'à¦–à§à¦²à¦¨à¦¾', 'www.khulnadiv.gov.bd'),
+(4, 'Barisal', 'à¦¬à¦°à¦¿à¦¶à¦¾à¦²', 'www.barisaldiv.gov.bd'),
+(5, 'Sylhet', 'à¦¸à¦¿à¦²à§‡à¦Ÿ', 'www.sylhetdiv.gov.bd'),
+(6, 'Dhaka', 'à¦¢à¦¾à¦•à¦¾', 'www.dhakadiv.gov.bd'),
+(7, 'Rangpur', 'à¦°à¦‚à¦ªà§à¦°', 'www.rangpurdiv.gov.bd'),
+(8, 'Mymensingh', 'à¦®à§Ÿà¦®à¦¨à¦¸à¦¿à¦‚à¦¹', 'www.mymensinghdiv.gov.bd');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `earnings`
+--
+
+CREATE TABLE `earnings` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `order_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payment_provider` enum('surjopay','flutterwave','mollie','midtrans','paypal','paystack','razorpay','sslcommerz','stripe','instamojo','offline') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `company_id` bigint(20) UNSIGNED NOT NULL,
+  `amount` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `currency_symbol` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `usd_amount` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `payment_status` enum('paid','unpaid') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'unpaid',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `manual_payment_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `transaction_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `plan_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `payment_type` enum('subscription_based','per_job_based') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'subscription_based'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `earnings`
+--
+
+INSERT INTO `earnings` (`id`, `order_id`, `payment_provider`, `company_id`, `amount`, `currency_symbol`, `usd_amount`, `payment_status`, `created_at`, `updated_at`, `manual_payment_id`, `transaction_id`, `plan_id`, `payment_type`) VALUES
+(1, '670567100', 'surjopay', 3, '10682.3', '৳', '100', 'paid', '2023-03-06 10:40:58', '2023-03-06 10:40:58', NULL, 'tr_6406179a83696', 2, 'subscription_based'),
+(2, '366635852', 'surjopay', 3, '10682.3', '৳', '100', 'paid', '2023-03-06 11:31:01', '2023-03-06 11:31:01', NULL, 'tr_640623554228e', 2, 'subscription_based');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `education`
+--
+
+CREATE TABLE `education` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `education`
+--
+
+INSERT INTO `education` (`id`, `name`, `slug`, `created_at`, `updated_at`) VALUES
+(1, 'High School', 'high-school', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(2, 'Intermediate', 'intermediate', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(3, 'Bachelor Degree', 'bachelor-degree', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(4, 'Master Degree', 'master-degree', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(5, 'Graduated', 'graduated', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(6, 'PhD', 'phd', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(7, 'Any', 'any', '2022-12-26 12:59:28', '2022-12-26 12:59:28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `emails`
+--
+
+CREATE TABLE `emails` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `experiences`
+--
+
+CREATE TABLE `experiences` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `experiences`
+--
+
+INSERT INTO `experiences` (`id`, `name`, `slug`, `created_at`, `updated_at`) VALUES
+(1, 'Fresher', 'fresher', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(2, '1 Year', '1-year', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(3, '2 Years', '2-years', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(4, '3+ Years', '3-years', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(5, '5+ Years', '5-years', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(6, '8+ Years', '8-years', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(7, '10+ Years', '10-years', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(8, '15+ Years', '15-years', '2022-12-26 12:59:28', '2022-12-26 12:59:28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `failed_jobs`
+--
+
+CREATE TABLE `failed_jobs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `faqs`
+--
+
+CREATE TABLE `faqs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `faq_category_id` bigint(20) UNSIGNED NOT NULL,
+  `question` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `answer` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'en'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `faq_categories`
+--
+
+CREATE TABLE `faq_categories` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `icon` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `order` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `faq_categories`
+--
+
+INSERT INTO `faq_categories` (`id`, `name`, `slug`, `icon`, `order`, `created_at`, `updated_at`) VALUES
+(1, 'Job', 'job', 'fas fa-briefcase', 0, '2022-12-26 12:59:28', '2022-12-26 12:59:28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `industry_types`
+--
+
+CREATE TABLE `industry_types` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `industry_types`
+--
+
+INSERT INTO `industry_types` (`id`, `name`, `slug`, `created_at`, `updated_at`) VALUES
+(1, 'Agro Based Industry', 'agro-based-industry', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(2, 'Archi/Enggr/Construction', 'archienggrconstruction', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(3, 'Automobile/Industrial Machine', 'automobileindustrial-machine', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(4, 'Bank/Mon-Bank Fin. Institute', 'bankmon-bank-fin-institute', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(5, 'Electronics/Consumer Durables', 'electronicsconsumer-durables', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(6, 'Energy/Power/Fuel', 'energypowerfuel', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(7, 'Garments/Textile', 'garmentstextile', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(8, 'Govt./Semi-Govt./Autonomous', 'govtsemi-govtautonomous', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(9, 'Pharmaceuticals', 'pharmaceuticals', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(10, 'Hospital/Diagnostic Center', 'hospitaldiagnostic-center', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(11, 'Airline/Travel/Tourism', 'airlinetraveltourism', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(12, 'Manufacturing (Light Industry)', 'manufacturing-light-industry', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(13, 'Manufacturing (Heavy Industry)', 'manufacturing-heavy-industry', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(14, 'Hotel/Restaurant', 'hotelrestaurant', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(15, 'Information Technology', 'information-technology', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(16, 'Logistics/Transportation', 'logisticstransportation', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(17, 'Entertainment/Recreation', 'entertainmentrecreation', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(18, 'Media/Advertising/Event Mgt.', 'mediaadvertisingevent-mgt', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(19, 'NGO/Development', 'ngodevelopment', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(20, 'Real Estate/Development', 'real-estatedevelopment', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(21, 'Wholesale/Retail/Export-Import', 'wholesaleretailexport-import', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(22, 'Telecommunication', 'telecommunication', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(23, 'Food & Beverage Industry', 'food-beverage-industry', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(24, 'Security Service', 'security-service', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(25, 'Fire, Safety & Protection', 'fire-safety-protection', '2022-12-26 12:59:28', '2022-12-26 12:59:28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jobs`
+--
+
+CREATE TABLE `jobs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `company_id` bigint(20) UNSIGNED NOT NULL,
+  `category_id` bigint(20) UNSIGNED NOT NULL,
+  `role_id` bigint(20) UNSIGNED NOT NULL,
+  `experience_id` bigint(20) UNSIGNED NOT NULL,
+  `education_id` bigint(20) UNSIGNED NOT NULL,
+  `job_type_id` bigint(20) UNSIGNED NOT NULL,
+  `salary_type_id` bigint(20) UNSIGNED NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `vacancies` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `min_salary` int(11) DEFAULT 0,
+  `max_salary` int(11) DEFAULT 0,
+  `deadline` date DEFAULT NULL,
+  `description` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` enum('pending','active','expired') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pending',
+  `apply_on` enum('app','email','custom_url') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'app',
+  `apply_email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `apply_url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `featured` tinyint(1) NOT NULL DEFAULT 0,
+  `featured_until` date DEFAULT NULL,
+  `highlight` tinyint(1) NOT NULL DEFAULT 0,
+  `highlight_until` date DEFAULT NULL,
+  `is_remote` tinyint(1) NOT NULL DEFAULT 0,
+  `total_views` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `neighborhood` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `locality` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `place` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `district` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `postcode` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `region` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `country` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `long` double DEFAULT NULL,
+  `lat` double DEFAULT NULL,
+  `location_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `parent_job_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `waiting_for_edit_approval` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `jobs`
+--
+
+INSERT INTO `jobs` (`id`, `company_id`, `category_id`, `role_id`, `experience_id`, `education_id`, `job_type_id`, `salary_type_id`, `title`, `slug`, `vacancies`, `min_salary`, `max_salary`, `deadline`, `description`, `status`, `apply_on`, `apply_email`, `apply_url`, `featured`, `featured_until`, `highlight`, `highlight_until`, `is_remote`, `total_views`, `created_at`, `updated_at`, `address`, `neighborhood`, `locality`, `place`, `district`, `postcode`, `region`, `country`, `long`, `lat`, `location_name`, `parent_job_id`, `waiting_for_edit_approval`) VALUES
+(2, 1, 9, 1, 2, 5, 1, 1, 'Officer - Accounts and Finance', 'officer-accounts-and-finance-1677172931-63f7a0c3a98ff', '10', 15000, 20000, '2023-05-28', '<h4><strong>Vacancy</strong></h4><p>02</p><h4><strong>Job Context</strong></h4><h4><strong>Job Responsibilities</strong></h4><ul><li>Sales reconciliations with all records.</li><li>Petty cash maintenance.</li><li>Voucher preparations and maintenance with proper documentation</li><li>Staff salary sheet preparation and keeping all the records</li><li>Inventory audit and verify all the data.</li><li>Data input into the POS system.</li><li>Proper and timely communication between all the concerned departments.</li><li>Carrying out the responsibilities as assigned by the supervisor from time to time.</li></ul><h4><strong>Employment Status</strong></h4><p>Full-time</p><h4><strong>Educational Requirements</strong></h4><ul><li>Bachelor of Business Administration (BBA) or Master in Business Administration (MBA) in accounting and finance from any reputed university. Any kind of professional degree will be added advantage.</li></ul><h4><strong>Additional Requirements</strong></h4><ul><li>Age 24 to 35 years</li><li>Both males and females are allowed to apply</li><li>Must be fluent in English</li><li>Sound knowledge in MS word, MS excel</li><li>Good communication skills</li><li>Ability to do multitask</li><li>Ability to do work under pressure</li><li>Teamwork skills with demonstrative abilities to both work collaboratively and influence outcomes.</li></ul><h4><strong>Job Location</strong></h4><p>Dhaka (Banani)</p><h4><strong>Salary</strong></h4><h4><strong>Compensation &amp; Other Benefits</strong></h4><ul><li>Lunch facilities</li><li>Tea- coffee facilities</li><li>Weekly two holidays</li></ul>', 'active', 'app', NULL, NULL, 1, NULL, 0, NULL, 0, 0, '2023-02-24 04:05:51', '2023-02-24 04:22:11', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'DHA, Islamia Park, Sialkot, Sialkot Tehsil, Punjab, 51310, Pakistan', NULL, 0),
+(3, 2, 1, 1, 3, 3, 2, 1, 'Executive (Accounts)', 'executive-accounts-1677172903-63f7a0a7e07d1', '10', 20000, 24999, '2023-03-31', '<h4><strong>Vacancy</strong></h4><p>02</p><h4><strong>Job Context</strong></h4><h4><strong>Job Responsibilities</strong></h4><ul><li>Sales reconciliations with all records.</li><li>Petty cash maintenance.</li><li>Voucher preparations and maintenance with proper documentation</li><li>Staff salary sheet preparation and keeping all the records</li><li>Inventory audit and verify all the data.</li><li>Data input into the POS system.</li><li>Proper and timely communication between all the concerned departments.</li><li>Carrying out the responsibilities as assigned by the supervisor from time to time.</li></ul><h4><strong>Employment Status</strong></h4><p>Full-time</p><h4><strong>Educational Requirements</strong></h4><ul><li>Bachelor of Business Administration (BBA) or Master in Business Administration (MBA) in accounting and finance from any reputed university. Any kind of professional degree will be added advantage.</li></ul><h4><strong>Additional Requirements</strong></h4><ul><li>Age 24 to 35 years</li><li>Both males and females are allowed to apply</li><li>Must be fluent in English</li><li>Sound knowledge in MS word, MS excel</li><li>Good communication skills</li><li>Ability to do multitask</li><li>Ability to do work under pressure</li><li>Teamwork skills with demonstrative abilities to both work collaboratively and influence outcomes.</li></ul><h4><strong>Job Location</strong></h4><p>Dhaka (Banani)</p><h4><strong>Salary</strong></h4><h4><strong>Compensation &amp; Other Benefits</strong></h4><ul><li>Lunch facilities</li><li>Tea- coffee facilities</li><li>Weekly two holidays</li></ul>', 'active', 'app', NULL, NULL, 0, NULL, 1, NULL, 0, 0, '2023-02-24 04:13:28', '2023-02-24 04:21:43', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(4, 1, 7, 3, 6, 5, 1, 1, 'title', 'title-1677212445-63f83b1d9cdb2', 'Developer', 100, 200, '2023-05-28', '<p>des</p>', 'active', 'app', NULL, NULL, 0, NULL, 0, NULL, 0, 0, '2023-02-24 15:20:45', '2023-02-24 15:21:05', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Datu Hoffer Ampatuan, Maguindanao del Sur, Bangsamoro, 9624, Philippines', NULL, 0),
+(5, 2, 1, 4, 4, 2, 1, 3, 'esdfdf', 'esdfdf-1677258396-63f8ee9c29f87', 'Developer', 1000, 10000, '2023-06-25', '<p>des</p>', 'active', 'email', NULL, NULL, 0, NULL, 0, NULL, 0, 0, '2023-02-25 04:06:36', '2023-02-25 04:06:36', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `job_benefit`
+--
+
+CREATE TABLE `job_benefit` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `job_id` bigint(20) UNSIGNED NOT NULL,
+  `benefit_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `job_benefit`
+--
+
+INSERT INTO `job_benefit` (`id`, `job_id`, `benefit_id`, `created_at`, `updated_at`) VALUES
+(2, 2, 8, NULL, NULL),
+(3, 3, 2, NULL, NULL),
+(4, 4, 1, NULL, NULL),
+(5, 5, 3, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `job_categories`
+--
+
+CREATE TABLE `job_categories` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `icon` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `job_categories`
+--
+
+INSERT INTO `job_categories` (`id`, `name`, `slug`, `image`, `icon`, `created_at`, `updated_at`) VALUES
+(1, 'Engineer/Architects', 'engineerarchitects', 'backend/image/default.png', 'fas fa-hammer', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(2, 'Garments/Textile', 'garmentstextile', 'backend/image/default.png', 'fas fa-tshirt', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(3, 'Design/Creative', 'designcreative', 'backend/image/default.png', 'fas fa-pen', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(4, 'Hospitality/ Travel/ Tourism', 'hospitality-travel-tourism', 'backend/image/default.png', 'fas fa-hospital', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(5, 'IT & Telecommunication', 'it-telecommunication', 'backend/image/default.png', 'fas fa-desktop', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(6, 'Medical/Pharma', 'medicalpharma', 'backend/image/default.png', 'fas fa-user-md', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(7, 'Driving/Motor Technician', 'drivingmotor-technician', 'backend/image/default.png', 'fas fa-car', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(8, 'Law/Legal', 'lawlegal', 'backend/image/default.png', 'fas fa-gavel', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(9, 'Others', 'others', 'backend/image/default.png', 'fas fa-ellipsis-v', '2022-12-26 12:59:28', '2022-12-26 12:59:28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `job_roles`
+--
+
+CREATE TABLE `job_roles` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `job_roles`
+--
+
+INSERT INTO `job_roles` (`id`, `name`, `slug`, `created_at`, `updated_at`) VALUES
+(1, 'Team Leader', 'team-leader', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(2, 'Manager', 'manager', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(3, 'Assistant Manager', 'assistant-manager', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(4, 'Executive', 'executive', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(5, 'Director', 'director', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(6, 'Administrator', 'administrator', '2022-12-26 12:59:28', '2022-12-26 12:59:28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `job_tag`
+--
+
+CREATE TABLE `job_tag` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `job_id` bigint(20) UNSIGNED NOT NULL,
+  `tag_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `job_tag`
+--
+
+INSERT INTO `job_tag` (`id`, `job_id`, `tag_id`, `created_at`, `updated_at`) VALUES
+(2, 2, 15, NULL, NULL),
+(3, 3, 16, NULL, NULL),
+(4, 4, 7, NULL, NULL),
+(5, 5, 15, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `job_types`
+--
+
+CREATE TABLE `job_types` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `job_types`
+--
+
+INSERT INTO `job_types` (`id`, `name`, `slug`, `created_at`, `updated_at`) VALUES
+(1, 'Full Time', 'full-time', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(2, 'Part Time', 'part-time', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(3, 'Contractual', 'contractual', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(4, 'Intern', 'intern', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(5, 'Freelance', 'freelance', '2022-12-26 12:59:28', '2022-12-26 12:59:28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `languages`
+--
+
+CREATE TABLE `languages` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `icon` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `direction` varchar(3) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'ltr',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `languages`
+--
+
+INSERT INTO `languages` (`id`, `name`, `code`, `icon`, `direction`, `created_at`, `updated_at`) VALUES
+(1, 'English', 'en', 'flag-icon-gb', 'ltr', '2022-12-26 12:59:28', '2022-12-26 12:59:28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `manual_payments`
+--
+
+CREATE TABLE `manual_payments` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `type` enum('bank_payment','cash_payment','check_payment','custom_payment') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `migrations`
+--
+
+CREATE TABLE `migrations` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `migrations`
+--
+
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
+(1, '2014_10_12_100000_create_password_resets_table', 1),
+(2, '2019_08_19_000000_create_failed_jobs_table', 1),
+(3, '2020_11_12_184107_create_permission_tables', 1),
+(4, '2020_12_23_122556_create_contacts_table', 1),
+(5, '2021_02_18_112239_create_admins_table', 1),
+(6, '2021_07_14_154223_create_users_table', 1),
+(7, '2021_08_23_115402_create_settings_table', 1),
+(8, '2021_08_25_061331_create_languages_table', 1),
+(9, '2021_12_14_142236_create_emails_table', 1),
+(10, '2021_12_17_110211_create_testimonials_table', 1),
+(11, '2021_12_19_152529_create_faq_categories_table', 1),
+(12, '2021_12_21_105713_create_faqs_table', 1),
+(13, '2022_01_25_131111_add_fields_to_settings_table', 1),
+(14, '2022_01_26_091457_add_social_login_fields_to_users_table', 1),
+(15, '2022_01_27_044638_create_experiences_table', 1),
+(16, '2022_01_27_044649_create_education_table', 1),
+(17, '2022_01_27_055733_create_job_types_table', 1),
+(18, '2022_01_27_060057_create_salary_types_table', 1),
+(19, '2022_01_27_081546_create_organization_types_table', 1),
+(20, '2022_01_27_095019_create_team_sizes_table', 1),
+(21, '2022_01_27_101204_create_nationalities_table', 1),
+(22, '2022_01_27_121442_create_countries_table', 1),
+(23, '2022_01_27_121452_create_states_table', 1),
+(24, '2022_01_27_121453_create_cities_table', 1),
+(25, '2022_01_28_030131_create_industry_types_table', 1),
+(26, '2022_01_28_030802_create_professions_table', 1),
+(27, '2022_01_28_033627_create_job_roles_table', 1),
+(28, '2022_01_29_110746_create_companies_table', 1),
+(29, '2022_01_29_120010_create_job_categories_table', 1),
+(30, '2022_01_29_120020_create_candidates_table', 1),
+(31, '2022_01_29_133751_create_jobs_table', 1),
+(32, '2022_01_30_051177_create_post_categories_table', 1),
+(33, '2022_01_30_051199_create_posts_table', 1),
+(34, '2022_02_09_154506_create_company_bookmark_categories_table', 1),
+(35, '2022_02_10_154506_create_bookmark_company_table', 1),
+(36, '2022_02_10_160813_create_bookmark_candidate_job_table', 1),
+(37, '2022_02_10_160821_create_bookmark_candidate_company_table', 1),
+(38, '2022_02_10_161917_create_social_links_table', 1),
+(39, '2022_02_10_162218_create_contact_infos_table', 1),
+(40, '2022_02_19_141812_create_plans_table', 1),
+(41, '2022_02_22_114329_create_post_comments_table', 1),
+(42, '2022_02_22_183128_create_application_groups_table', 1),
+(43, '2022_02_22_183129_create_applied_jobs_table', 1),
+(44, '2022_03_01_213343_create_website_settings_table', 1),
+(45, '2022_03_05_125615_create_currencies_table', 1),
+(46, '2022_03_05_145248_create_abouts_table', 1),
+(47, '2022_03_05_181737_create_our_missions_table', 1),
+(48, '2022_03_08_110106_create_notifications_table', 1),
+(49, '2022_03_10_110704_create_cms_table', 1),
+(50, '2022_03_13_143318_create_payment_settings_table', 1),
+(51, '2022_03_13_162626_create_user_plans_table', 1),
+(52, '2022_03_13_193937_create_orders_table', 1),
+(53, '2022_03_13_204812_create_earnings_table', 1),
+(54, '2022_03_15_100012_create_terms_categories_table', 1),
+(55, '2022_03_24_045305_create_seos_table', 1),
+(56, '2022_03_26_130136_create_queue_jobs_table', 1),
+(57, '2022_03_28_093629_add_socialite_column_to_users_table', 1),
+(58, '2022_03_28_123603_create_theme_settings_table', 1),
+(59, '2022_03_29_100616_create_timezones_table', 1),
+(60, '2022_03_29_121851_create_admin_searches_table', 1),
+(61, '2022_03_30_082959_create_cookies_table', 1),
+(62, '2022_04_25_132657_create_setup_guides_table', 1),
+(63, '2022_04_27_090501_create_bookmark_company_category_table', 1),
+(64, '2022_04_30_041155_create_company_applied_job_rejected_table', 1),
+(65, '2022_04_30_043011_create_company_applied_job_shortlist_table', 1),
+(66, '2022_06_18_031525_add_full_address_to_candidates_table', 1),
+(67, '2022_06_18_031525_add_full_address_to_companies_table', 1),
+(68, '2022_06_18_031525_add_full_address_to_jobs_table', 1),
+(69, '2022_06_27_050337_add_map_to_settings_table', 1),
+(70, '2022_07_19_062856_create_manual_payments_table', 1),
+(71, '2022_07_20_033046_add_manual_payment_id_to_earnings_table', 1),
+(72, '2022_07_23_044852_add_transaction_id_to_earnings_table', 1),
+(73, '2022_08_02_103529_create_candidate_resumes_table', 1),
+(74, '2022_08_03_061932_add_fields_to_applied_jobs_table', 1),
+(75, '2022_08_29_035902_add_employer_activation_field_to_settings_table', 1),
+(76, '2022_08_29_063449_remove_some_columns_from_cms_table', 1),
+(77, '2022_08_29_090125_create_cms_contents_table', 1),
+(78, '2022_08_30_115827_remove_add_settings_table', 1),
+(79, '2022_09_06_052408_create_skills_table', 1),
+(80, '2022_09_06_052409_create_candidate_languages_table', 1),
+(81, '2022_09_06_053034_create_candidate_skill_table', 1),
+(82, '2022_09_06_053045_create_candidate_language_table', 1),
+(83, '2022_10_16_063305_add_language_field_to_faqs_tables', 1),
+(84, '2022_10_16_063328_add_language_field_to_testimonials_tables', 1),
+(85, '2022_10_16_071227_add_available_status_fields_to_candidates_table', 1),
+(86, '2022_10_16_100636_add_payperjob_field_to_settings_table', 1),
+(87, '2022_10_17_024137_add_plan_id_field_to_earnings_table', 1),
+(88, '2022_11_07_091932_add_candidate_account_auto_activation_to_settings_table', 1),
+(89, '2022_11_09_040558_create_seo_page_contents_table', 1),
+(90, '2022_11_11_085423_add_leaflet_map_field_to_settings_table', 1),
+(91, '2022_11_12_060938_create_candidate_experiences_table', 1),
+(92, '2022_11_12_091250_create_candidate_education_table', 1),
+(93, '2022_11_15_095541_add_profile_limitaion_field_to_plans_table', 1),
+(94, '2022_11_15_102325_add_profile_limitaion_field_to_user_plans_table', 1),
+(95, '2022_11_17_083919_add_job_auto_approve_columns_to_settings', 1),
+(96, '2022_11_17_090506_add_job_edited_columns_to_jobs', 1),
+(97, '2022_11_18_032938_create_benefits_table', 1),
+(98, '2022_11_18_032939_create_tags_table', 1),
+(99, '2022_11_18_032940_create_job_benefit_table', 1),
+(100, '2022_11_18_032941_create_job_tag_table', 1),
+(101, '2022_11_23_104905_add_delete_columns_to_seos_table', 1),
+(102, '2022_12_20_094532_change_salary_column_to_jobs_table', 1),
+(103, '2022_12_20_102724_add_currency_switcher_field_to_settings_table', 1),
+(104, '2022_12_23_104503_create_candidate_language_permission_table', 1),
+(105, '2022_12_25_062232_add_highlight_features_job_duration_to_settings_table', 1),
+(106, '2022_12_25_062645_add_highlight_featured_job_duration_field_to_jobs_table', 1),
+(107, '2022_12_25_110928_create_benefit_permission_seeder_table', 1),
+(108, '2022_12_26_082221_create_candidate_cv_views_table', 1),
+(109, '2023_03_03_033750_create_sms_histories_table', 2),
+(110, '2023_03_03_035206_create_sms_statuses_table', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `model_has_permissions`
+--
+
+CREATE TABLE `model_has_permissions` (
+  `permission_id` bigint(20) UNSIGNED NOT NULL,
+  `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model_id` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `model_has_roles`
+--
+
+CREATE TABLE `model_has_roles` (
+  `role_id` bigint(20) UNSIGNED NOT NULL,
+  `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model_id` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `model_has_roles`
+--
+
+INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
+(1, 'App\\Models\\Admin', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `nationalities`
+--
+
+CREATE TABLE `nationalities` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `nationalities`
+--
+
+INSERT INTO `nationalities` (`id`, `name`, `slug`, `created_at`, `updated_at`) VALUES
+(1, 'Afghan', 'afghan', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(2, 'Albanian', 'albanian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(3, 'Algerian', 'algerian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(4, 'American', 'american', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(5, 'Andorran', 'andorran', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(6, 'Angolan', 'angolan', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(7, 'Antiguans', 'antiguans', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(8, 'Argentinean', 'argentinean', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(9, 'Armenian', 'armenian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(10, 'Australian', 'australian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(11, 'Austrian', 'austrian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(12, 'Azerbaijani', 'azerbaijani', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(13, 'Bahamian', 'bahamian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(14, 'Bahraini', 'bahraini', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(15, 'Bangladeshi', 'bangladeshi', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(16, 'Barbadian', 'barbadian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(17, 'Barbudans', 'barbudans', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(18, 'Batswana', 'batswana', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(19, 'Belarusian', 'belarusian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(20, 'Belgian', 'belgian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(21, 'Belizean', 'belizean', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(22, 'Beninese', 'beninese', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(23, 'Bhutanese', 'bhutanese', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(24, 'Bolivian', 'bolivian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(25, 'Bosnian', 'bosnian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(26, 'Brazilian', 'brazilian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(27, 'British', 'british', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(28, 'Bruneian', 'bruneian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(29, 'Bulgarian', 'bulgarian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(30, 'Burkinabe', 'burkinabe', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(31, 'Burmese', 'burmese', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(32, 'Burundian', 'burundian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(33, 'Cambodian', 'cambodian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(34, 'Cameroonian', 'cameroonian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(35, 'Canadian', 'canadian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(36, 'Cape Verdean', 'cape-verdean', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(37, 'Central African', 'central-african', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(38, 'Chadian', 'chadian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(39, 'Chilean', 'chilean', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(40, 'Chinese', 'chinese', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(41, 'Colombian', 'colombian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(42, 'Comoran', 'comoran', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(43, 'Congolese', 'congolese', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(44, 'Costa Rican', 'costa-rican', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(45, 'Croatian', 'croatian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(46, 'Cuban', 'cuban', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(47, 'Cypriot', 'cypriot', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(48, 'Czech', 'czech', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(49, 'Danish', 'danish', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(50, 'Djibouti', 'djibouti', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(51, 'Dominican', 'dominican', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(52, 'Dutch', 'dutch', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(53, 'East Timorese', 'east-timorese', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(54, 'Ecuadorean', 'ecuadorean', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(55, 'Egyptian', 'egyptian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(56, 'Emirian', 'emirian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(57, 'Equatorial Guinean', 'equatorial-guinean', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(58, 'Eritrean', 'eritrean', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(59, 'Estonian', 'estonian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(60, 'Ethiopian', 'ethiopian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(61, 'Fijian', 'fijian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(62, 'Filipino', 'filipino', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(63, 'Finnish', 'finnish', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(64, 'French', 'french', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(65, 'Gabonese', 'gabonese', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(66, 'Gambian', 'gambian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(67, 'Georgian', 'georgian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(68, 'German', 'german', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(69, 'Ghanaian', 'ghanaian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(70, 'Greek', 'greek', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(71, 'Grenadian', 'grenadian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(72, 'Guatemalan', 'guatemalan', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(73, 'Guinea-Bissauan', 'guinea-bissauan', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(74, 'Guinean', 'guinean', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(75, 'Guyanese', 'guyanese', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(76, 'Haitian', 'haitian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(77, 'Herzegovinian', 'herzegovinian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(78, 'Honduran', 'honduran', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(79, 'Hungarian', 'hungarian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(80, 'I-Kiribati', 'i-kiribati', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(81, 'Icelander', 'icelander', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(82, 'Indian', 'indian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(83, 'Indonesian', 'indonesian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(84, 'Iranian', 'iranian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(85, 'Iraqi', 'iraqi', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(86, 'Irish', 'irish', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(87, 'Israeli', 'israeli', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(88, 'Italian', 'italian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(89, 'Ivorian', 'ivorian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(90, 'Jamaican', 'jamaican', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(91, 'Japanese', 'japanese', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(92, 'Jordanian', 'jordanian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(93, 'Kazakhstani', 'kazakhstani', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(94, 'Kenyan', 'kenyan', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(95, 'Kittian and Nevisian', 'kittian-and-nevisian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(96, 'Kuwaiti', 'kuwaiti', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(97, 'Kyrgyz', 'kyrgyz', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(98, 'Laotian', 'laotian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(99, 'Latvian', 'latvian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(100, 'Lebanese', 'lebanese', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(101, 'Liberian', 'liberian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(102, 'Libyan', 'libyan', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(103, 'Liechtensteiner', 'liechtensteiner', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(104, 'Lithuanian', 'lithuanian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(105, 'Luxembourger', 'luxembourger', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(106, 'Macedonian', 'macedonian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(107, 'Malagasy', 'malagasy', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(108, 'Malawian', 'malawian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(109, 'Malaysian', 'malaysian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(110, 'Maldivan', 'maldivan', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(111, 'Malian', 'malian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(112, 'Maltese', 'maltese', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(113, 'Marshallese', 'marshallese', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(114, 'Mauritanian', 'mauritanian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(115, 'Mauritian', 'mauritian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(116, 'Mexican', 'mexican', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(117, 'Micronesian', 'micronesian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(118, 'Moldovan', 'moldovan', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(119, 'Monacan', 'monacan', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(120, 'Mongolian', 'mongolian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(121, 'Moroccan', 'moroccan', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(122, 'Mosotho', 'mosotho', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(123, 'Motswana', 'motswana', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(124, 'Mozambican', 'mozambican', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(125, 'Namibian', 'namibian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(126, 'Nauruan', 'nauruan', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(127, 'Nepalese', 'nepalese', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(128, 'New Zealander', 'new-zealander', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(129, 'Nicaraguan', 'nicaraguan', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(130, 'Nigerian', 'nigerian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(131, 'Nigerien', 'nigerien', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(132, 'North Korean', 'north-korean', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(133, 'Northern Irish', 'northern-irish', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(134, 'Norwegian', 'norwegian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(135, 'Omani', 'omani', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(136, 'Pakistani', 'pakistani', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(137, 'Palauan', 'palauan', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(138, 'Panamanian', 'panamanian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(139, 'Papua New Guinean', 'papua-new-guinean', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(140, 'Paraguayan', 'paraguayan', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(141, 'Peruvian', 'peruvian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(142, 'Polish', 'polish', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(143, 'Portuguese', 'portuguese', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(144, 'Qatari', 'qatari', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(145, 'Romanian', 'romanian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(146, 'Russian', 'russian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(147, 'Rwandan', 'rwandan', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(148, 'Saint Lucian', 'saint-lucian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(149, 'Salvadoran', 'salvadoran', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(150, 'Samoan', 'samoan', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(151, 'San Marinese', 'san-marinese', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(152, 'Sao Tomean', 'sao-tomean', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(153, 'Saudi', 'saudi', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(154, 'Scottish', 'scottish', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(155, 'Senegalese', 'senegalese', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(156, 'Serbian', 'serbian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(157, 'Seychellois', 'seychellois', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(158, 'Sierra Leonean', 'sierra-leonean', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(159, 'Singaporean', 'singaporean', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(160, 'Slovakian', 'slovakian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(161, 'Slovenian', 'slovenian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(162, 'Solomon Islander', 'solomon-islander', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(163, 'Somali', 'somali', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(164, 'South African', 'south-african', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(165, 'South Korean', 'south-korean', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(166, 'Spanish', 'spanish', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(167, 'Sri Lankan', 'sri-lankan', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(168, 'Sudanese', 'sudanese', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(169, 'Surinamer', 'surinamer', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(170, 'Swazi', 'swazi', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(171, 'Swedish', 'swedish', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(172, 'Swiss', 'swiss', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(173, 'Syrian', 'syrian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(174, 'Taiwanese', 'taiwanese', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(175, 'Tajik', 'tajik', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(176, 'Tanzanian', 'tanzanian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(177, 'Thai', 'thai', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(178, 'Togolese', 'togolese', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(179, 'Tongan', 'tongan', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(180, 'Trinidadian or Tobagonian', 'trinidadian-or-tobagonian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(181, 'Tunisian', 'tunisian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(182, 'Turkish', 'turkish', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(183, 'Tuvaluan', 'tuvaluan', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(184, 'Ugandan', 'ugandan', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(185, 'Ukrainian', 'ukrainian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(186, 'Uruguayan', 'uruguayan', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(187, 'Uzbekistani', 'uzbekistani', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(188, 'Venezuelan', 'venezuelan', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(189, 'Vietnamese', 'vietnamese', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(190, 'Welsh', 'welsh', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(191, 'Yemenite', 'yemenite', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(192, 'Zambian', 'zambian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(193, 'Zimbabwean', 'zimbabwean', '2022-12-26 12:59:28', '2022-12-26 12:59:28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notifications`
+--
+
+CREATE TABLE `notifications` (
+  `id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `notifiable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `notifiable_id` bigint(20) UNSIGNED NOT NULL,
+  `data` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `read_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `notifications`
+--
+
+INSERT INTO `notifications` (`id`, `type`, `notifiable_type`, `notifiable_id`, `data`, `read_at`, `created_at`, `updated_at`) VALUES
+('0a84483a-6d6f-4a32-85d3-661108dcfb32', 'App\\Notifications\\Admin\\NewUserRegisteredNotification', 'App\\Models\\Admin', 1, '{\"title\":\"A Candidate registered recently\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/admin\\/candidate\\/9\"}', '2023-02-24 05:23:36', '2023-02-23 18:50:43', '2023-02-24 05:23:36'),
+('10595d1f-5099-493f-9ab7-8b279d423ae0', 'App\\Notifications\\Website\\Candidate\\RelatedJobNotification', 'App\\Models\\User', 15, '{\"title\":\"New job posted suiting your profile\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/jobs\\/ff-1677171951-63f79cef277c9\"}', NULL, '2023-02-24 04:05:59', '2023-02-24 04:05:59'),
+('1090df8d-0ffd-4da3-a3d7-928ba077ddea', 'App\\Notifications\\Website\\Candidate\\RelatedJobNotification', 'App\\Models\\User', 8, '{\"title\":\"New job posted suiting your profile\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/jobs\\/executive-accounts-1677172408-63f79eb8b6c19\"}', NULL, '2023-02-24 04:13:36', '2023-02-24 04:13:36'),
+('11600f61-99d2-49a6-9741-948eed05e669', 'App\\Notifications\\Admin\\NewUserRegisteredNotification', 'App\\Models\\Admin', 1, '{\"title\":\"A Candidate registered recently\",\"url\":\"http:\\/\\/127.0.0.1:8000\\/admin\\/candidate\\/15\"}', NULL, '2023-03-03 10:52:01', '2023-03-03 10:52:01'),
+('13d7e040-f36f-41cb-9bb3-a1403050821d', 'App\\Notifications\\Website\\Candidate\\RelatedJobNotification', 'App\\Models\\User', 10, '{\"title\":\"New job posted suiting your profile\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/jobs\\/executive-accounts-1677172408-63f79eb8b6c19\"}', NULL, '2023-02-24 04:13:36', '2023-02-24 04:13:36'),
+('1555ff12-8535-47ef-a6c3-d5de91f9374a', 'App\\Notifications\\Website\\Candidate\\RelatedJobNotification', 'App\\Models\\User', 10, '{\"title\":\"New job posted suiting your profile\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/jobs\\/test-job-1676904634-63f388ba60a4f\"}', NULL, '2023-02-24 04:06:03', '2023-02-24 04:06:03'),
+('18f04812-98e8-4c2b-a89f-c728207a1cbe', 'App\\Notifications\\Admin\\NewUserRegisteredNotification', 'App\\Models\\Admin', 1, '{\"title\":\"A Candidate registered recently\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/admin\\/candidate\\/13\"}', NULL, '2023-02-24 15:09:46', '2023-02-24 15:09:46'),
+('208cb8c8-75a4-41e2-ae6e-3801c08459de', 'App\\Notifications\\Website\\Candidate\\RelatedJobNotification', 'App\\Models\\User', 15, '{\"title\":\"New job posted suiting your profile\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/jobs\\/executive-accounts-1677172408-63f79eb8b6c19\"}', NULL, '2023-02-24 04:13:36', '2023-02-24 04:13:36'),
+('2179f616-f35e-41f9-9ba0-7166688aa38f', 'App\\Notifications\\JobApprovalNotification', 'App\\Models\\User', 6, '{\"title\":\"Admin has approved your job. Your job is live now.\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/jobs\\/test-job-1676904634-63f388ba60a4f\"}', NULL, '2023-02-24 04:06:03', '2023-02-24 04:06:03'),
+('28ba4c6c-14ad-416a-a443-1a4c5b4498bb', 'App\\Notifications\\Admin\\NewUserRegisteredNotification', 'App\\Models\\Admin', 1, '{\"title\":\"A Company registered recently\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/admin\\/company\\/3\"}', NULL, '2023-02-25 05:13:02', '2023-02-25 05:13:02'),
+('34e82da6-a129-4bf7-b4f9-fe392b581d44', 'App\\Notifications\\Website\\Candidate\\RelatedJobNotification', 'App\\Models\\User', 11, '{\"title\":\"New job posted suiting your profile\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/jobs\\/executive-accounts-1677172408-63f79eb8b6c19\"}', NULL, '2023-02-24 04:13:36', '2023-02-24 04:13:36'),
+('366e3628-7ec8-483c-b53b-d78121daadb1', 'App\\Notifications\\Website\\Candidate\\ApplyJobNotification', 'App\\Models\\User', 6, '{\"title\":\"Khairat Hossin has applied your job\",\"url\":\"http:\\/\\/127.0.0.1:8000\\/company\\/my-jobs\",\"title2\":\"You have applied the job of ABC Company\",\"url2\":\"http:\\/\\/127.0.0.1:8000\\/company\\/my-jobs\"}', NULL, '2023-03-03 14:48:59', '2023-03-03 14:48:59'),
+('4182d0af-b32f-4acd-bc52-88c495b683f7', 'App\\Notifications\\Website\\Candidate\\RelatedJobNotification', 'App\\Models\\User', 11, '{\"title\":\"New job posted suiting your profile\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/jobs\\/ff-1677171951-63f79cef277c9\"}', NULL, '2023-02-24 04:05:59', '2023-02-24 04:05:59'),
+('4268b191-f024-454a-8469-5af19c29f42b', 'App\\Notifications\\Website\\Candidate\\RelatedJobNotification', 'App\\Models\\User', 17, '{\"title\":\"New job posted suiting your profile\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/jobs\\/test-job-1676904634-63f388ba60a4f\"}', '2023-02-24 05:33:27', '2023-02-24 04:06:03', '2023-02-24 05:33:27'),
+('43f3e297-0bca-4b60-98ca-35455e259838', 'App\\Notifications\\Admin\\NewUserRegisteredNotification', 'App\\Models\\Admin', 1, '{\"title\":\"A Candidate registered recently\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/admin\\/candidate\\/2\"}', '2023-02-15 23:22:45', '2023-02-15 22:42:40', '2023-02-15 23:22:45'),
+('4a01aca9-3e2d-415d-8a03-c4d174bd3a84', 'App\\Notifications\\Admin\\NewUserRegisteredNotification', 'App\\Models\\Admin', 1, '{\"title\":\"A Candidate registered recently\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/admin\\/candidate\\/6\"}', '2023-02-21 01:25:13', '2023-02-19 19:32:05', '2023-02-21 01:25:13'),
+('4e591e48-67dd-4135-b7c6-9d6e193fadff', 'App\\Notifications\\Admin\\NewUserRegisteredNotification', 'App\\Models\\Admin', 1, '{\"title\":\"A Candidate registered recently\",\"url\":\"http:\\/\\/127.0.0.1:8000\\/admin\\/candidate\\/17\"}', NULL, '2023-03-10 09:06:12', '2023-03-10 09:06:12'),
+('54d858e9-7257-4173-a041-872fcbe21b4b', 'App\\Notifications\\Admin\\NewUserRegisteredNotification', 'App\\Models\\Admin', 1, '{\"title\":\"A Candidate registered recently\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/admin\\/candidate\\/7\"}', '2023-02-21 01:25:13', '2023-02-20 04:02:53', '2023-02-21 01:25:13'),
+('54e2f615-0551-41b3-8a8f-d837e18dae9a', 'App\\Notifications\\Admin\\NewUserRegisteredNotification', 'App\\Models\\Admin', 1, '{\"title\":\"A Company registered recently\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/admin\\/company\\/1\"}', '2023-02-16 06:05:26', '2023-02-15 23:24:48', '2023-02-16 06:05:26'),
+('5e8f6fcc-b0df-4f47-a79c-54cc39b8a3b2', 'App\\Notifications\\Admin\\NewUserRegisteredNotification', 'App\\Models\\Admin', 1, '{\"title\":\"A Candidate registered recently\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/admin\\/candidate\\/1\"}', '2023-02-18 16:09:58', '2023-02-18 15:49:40', '2023-02-18 16:09:58'),
+('5eb11e09-9842-474b-874d-bc0db4a913cf', 'App\\Notifications\\Admin\\NewUserRegisteredNotification', 'App\\Models\\Admin', 1, '{\"title\":\"A Candidate registered recently\",\"url\":\"http:\\/\\/127.0.0.1:8000\\/admin\\/candidate\\/1\"}', '2023-02-15 23:22:45', '2023-02-14 03:14:57', '2023-02-15 23:22:45'),
+('5edce5ed-d9e7-491b-a2ea-30868568183b', 'App\\Notifications\\Website\\Candidate\\RelatedJobNotification', 'App\\Models\\User', 17, '{\"title\":\"New job posted suiting your profile\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/jobs\\/ff-1677171951-63f79cef277c9\"}', '2023-02-24 05:33:27', '2023-02-24 04:05:59', '2023-02-24 05:33:27'),
+('60ff1fb1-669e-47e7-a0c0-48ea99a08f1c', 'App\\Notifications\\Website\\Candidate\\RelatedJobNotification', 'App\\Models\\User', 16, '{\"title\":\"New job posted suiting your profile\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/jobs\\/ff-1677171951-63f79cef277c9\"}', NULL, '2023-02-24 04:05:59', '2023-02-24 04:05:59'),
+('6199a060-5d4c-4ec1-a2ec-b9976b81ff13', 'App\\Notifications\\Admin\\NewUserRegisteredNotification', 'App\\Models\\Admin', 1, '{\"title\":\"A Candidate registered recently\",\"url\":\"http:\\/\\/127.0.0.1:8000\\/admin\\/candidate\\/20\"}', NULL, '2023-03-10 11:02:14', '2023-03-10 11:02:14'),
+('62b69bc5-3a8d-45cb-82dd-496b779e3b1d', 'App\\Notifications\\Website\\Candidate\\ApplyJobNotification', 'App\\Models\\User', 6, '{\"title\":\"Khairat Hossin has applied your job\",\"url\":\"http:\\/\\/127.0.0.1:8000\\/company\\/my-jobs\",\"title2\":\"You have applied the job of ABC Company\",\"url2\":\"http:\\/\\/127.0.0.1:8000\\/company\\/my-jobs\"}', NULL, '2023-03-03 14:42:37', '2023-03-03 14:42:37'),
+('62fdd38b-6d5f-45ec-a515-3d7e5e08d707', 'App\\Notifications\\Admin\\NewUserRegisteredNotification', 'App\\Models\\Admin', 1, '{\"title\":\"A Candidate registered recently\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/admin\\/candidate\\/2\"}', '2023-02-18 16:09:58', '2023-02-18 15:53:46', '2023-02-18 16:09:58'),
+('673cd4ee-0b6c-4621-af6e-bca66b5a8b99', 'App\\Notifications\\Website\\Candidate\\RelatedJobNotification', 'App\\Models\\User', 13, '{\"title\":\"New job posted suiting your profile\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/jobs\\/test-job-1676904634-63f388ba60a4f\"}', NULL, '2023-02-24 04:06:03', '2023-02-24 04:06:03'),
+('6ae58850-0d79-4b31-bc53-fde63db72275', 'App\\Notifications\\Admin\\NewUserRegisteredNotification', 'App\\Models\\Admin', 1, '{\"title\":\"A Candidate registered recently\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/admin\\/candidate\\/3\"}', '2023-02-15 23:22:45', '2023-02-15 22:52:49', '2023-02-15 23:22:45'),
+('6ed448d3-fac5-4b08-974b-a7eac74601ee', 'App\\Notifications\\Website\\Candidate\\RelatedJobNotification', 'App\\Models\\User', 7, '{\"title\":\"New job posted suiting your profile\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/jobs\\/ff-1677171951-63f79cef277c9\"}', NULL, '2023-02-24 04:05:59', '2023-02-24 04:05:59'),
+('75775f32-dc04-450b-a161-6a6eff9d3f11', 'App\\Notifications\\Admin\\NewUserRegisteredNotification', 'App\\Models\\Admin', 1, '{\"title\":\"A Candidate registered recently\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/admin\\/candidate\\/5\"}', '2023-02-21 01:25:13', '2023-02-19 17:25:23', '2023-02-21 01:25:13'),
+('760410a1-bbea-498f-8c61-bbedb78a7c8a', 'App\\Notifications\\Website\\Candidate\\RelatedJobNotification', 'App\\Models\\User', 13, '{\"title\":\"New job posted suiting your profile\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/jobs\\/executive-accounts-1677172408-63f79eb8b6c19\"}', NULL, '2023-02-24 04:13:36', '2023-02-24 04:13:36'),
+('79bfe1c5-5e4c-4630-b4df-b8c56cc9b2ee', 'App\\Notifications\\Admin\\NewUserRegisteredNotification', 'App\\Models\\Admin', 1, '{\"title\":\"A Candidate registered recently\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/admin\\/candidate\\/11\"}', '2023-02-24 05:23:36', '2023-02-24 04:35:44', '2023-02-24 05:23:36'),
+('7bd071fc-f703-409d-a1b2-bc7a544bf44f', 'App\\Notifications\\Website\\Candidate\\RelatedJobNotification', 'App\\Models\\User', 16, '{\"title\":\"New job posted suiting your profile\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/jobs\\/test-job-1676904634-63f388ba60a4f\"}', NULL, '2023-02-24 04:06:03', '2023-02-24 04:06:03'),
+('7c62768f-e23f-490d-b3bc-20d312d09238', 'App\\Notifications\\Website\\Candidate\\RelatedJobNotification', 'App\\Models\\User', 14, '{\"title\":\"New job posted suiting your profile\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/jobs\\/executive-accounts-1677172408-63f79eb8b6c19\"}', NULL, '2023-02-24 04:13:36', '2023-02-24 04:13:36'),
+('7d492e87-7e67-4bd1-8e5e-1f4fa967f653', 'App\\Notifications\\Admin\\NewUserRegisteredNotification', 'App\\Models\\Admin', 1, '{\"title\":\"A Candidate registered recently\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/admin\\/candidate\\/3\"}', '2023-02-21 01:25:13', '2023-02-19 15:57:16', '2023-02-21 01:25:13'),
+('80ab8526-1dbb-4b63-aca7-ef9d341968a2', 'App\\Notifications\\Admin\\NewUserRegisteredNotification', 'App\\Models\\Admin', 1, '{\"title\":\"A Candidate registered recently\",\"url\":\"http:\\/\\/127.0.0.1:8000\\/admin\\/candidate\\/18\"}', NULL, '2023-03-10 09:10:17', '2023-03-10 09:10:17'),
+('845fed84-1634-453c-95e9-7e8f042235a8', 'App\\Notifications\\JobApprovalNotification', 'App\\Models\\User', 9, '{\"title\":\"Admin has approved your job. Your job is live now.\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/jobs\\/executive-accounts-1677172408-63f79eb8b6c19\"}', '2023-02-26 14:19:29', '2023-02-24 04:13:36', '2023-02-26 14:19:29'),
+('860038b5-4734-4fc5-ab51-3a99cb20eb61', 'App\\Notifications\\Website\\Candidate\\RelatedJobNotification', 'App\\Models\\User', 10, '{\"title\":\"New job posted suiting your profile\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/jobs\\/ff-1677171951-63f79cef277c9\"}', NULL, '2023-02-24 04:05:59', '2023-02-24 04:05:59'),
+('87438a1a-0a68-4147-b3e2-b13bbd943585', 'App\\Notifications\\Website\\Candidate\\RelatedJobNotification', 'App\\Models\\User', 7, '{\"title\":\"New job posted suiting your profile\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/jobs\\/test-job-1676904634-63f388ba60a4f\"}', NULL, '2023-02-24 04:06:03', '2023-02-24 04:06:03'),
+('962e7e78-7df5-4a1b-91bc-86b5c0683f7a', 'App\\Notifications\\Admin\\NewUserRegisteredNotification', 'App\\Models\\Admin', 1, '{\"title\":\"A Candidate registered recently\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/admin\\/candidate\\/4\"}', '2023-02-15 23:22:45', '2023-02-15 22:54:19', '2023-02-15 23:22:45'),
+('99201b07-0e40-43bf-bf90-839be007d1cf', 'App\\Notifications\\Admin\\NewUserRegisteredNotification', 'App\\Models\\Admin', 1, '{\"title\":\"A Candidate registered recently\",\"url\":\"http:\\/\\/127.0.0.1:8000\\/admin\\/candidate\\/19\"}', NULL, '2023-03-10 09:13:41', '2023-03-10 09:13:41'),
+('9a819b9b-6a07-43c6-a1d5-f2b3aee70edc', 'App\\Notifications\\Website\\Candidate\\RelatedJobNotification', 'App\\Models\\User', 14, '{\"title\":\"New job posted suiting your profile\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/jobs\\/ff-1677171951-63f79cef277c9\"}', NULL, '2023-02-24 04:05:59', '2023-02-24 04:05:59'),
+('9a826963-92b4-4070-aafb-5368f8f3b61c', 'App\\Notifications\\Admin\\NewUserRegisteredNotification', 'App\\Models\\Admin', 1, '{\"title\":\"A Candidate registered recently\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/admin\\/candidate\\/8\"}', '2023-02-21 01:50:52', '2023-02-21 01:49:16', '2023-02-21 01:50:52'),
+('9bf5edad-1a4c-43d0-92af-ceb6cc205aa1', 'App\\Notifications\\Admin\\NewUserRegisteredNotification', 'App\\Models\\Admin', 1, '{\"title\":\"A Candidate registered recently\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/admin\\/candidate\\/10\"}', '2023-02-24 05:23:36', '2023-02-24 03:26:00', '2023-02-24 05:23:36'),
+('9ff8118a-4d0e-4b4b-a1bd-c07d12d36002', 'App\\Notifications\\Website\\Candidate\\RelatedJobNotification', 'App\\Models\\User', 13, '{\"title\":\"New job posted suiting your profile\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/jobs\\/ff-1677171951-63f79cef277c9\"}', NULL, '2023-02-24 04:05:59', '2023-02-24 04:05:59'),
+('a57caa7c-9dc9-4a37-834b-aa1596f0e34e', 'App\\Notifications\\Admin\\NewUserRegisteredNotification', 'App\\Models\\Admin', 1, '{\"title\":\"A Candidate registered recently\",\"url\":\"http:\\/\\/127.0.0.1:8000\\/admin\\/candidate\\/24\"}', NULL, '2023-03-20 12:30:42', '2023-03-20 12:30:42'),
+('b1a71896-f1c2-4add-b12a-806ec8819c5f', 'App\\Notifications\\Website\\Candidate\\RelatedJobNotification', 'App\\Models\\User', 17, '{\"title\":\"New job posted suiting your profile\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/jobs\\/executive-accounts-1677172408-63f79eb8b6c19\"}', '2023-02-24 05:33:27', '2023-02-24 04:13:36', '2023-02-24 05:33:27'),
+('b64a5509-bc65-4df6-9991-c835860b33b9', 'App\\Notifications\\Website\\Candidate\\RelatedJobNotification', 'App\\Models\\User', 15, '{\"title\":\"New job posted suiting your profile\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/jobs\\/test-job-1676904634-63f388ba60a4f\"}', NULL, '2023-02-24 04:06:03', '2023-02-24 04:06:03'),
+('bc2ad8dc-79bd-495d-a0d3-6beb0a98863d', 'App\\Notifications\\Website\\Candidate\\RelatedJobNotification', 'App\\Models\\User', 11, '{\"title\":\"New job posted suiting your profile\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/jobs\\/test-job-1676904634-63f388ba60a4f\"}', NULL, '2023-02-24 04:06:03', '2023-02-24 04:06:03'),
+('c4441b80-42b2-4875-81ab-102345ab6c01', 'App\\Notifications\\JobApprovalNotification', 'App\\Models\\User', 6, '{\"title\":\"Admin has approved your job. Your job is live now.\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/jobs\\/title-1677212445-63f83b1d9cdb2\"}', NULL, '2023-02-24 15:21:05', '2023-02-24 15:21:05'),
+('c44c1628-e67f-4f0d-8b8b-af96c3b91a01', 'App\\Notifications\\JobApprovalNotification', 'App\\Models\\User', 6, '{\"title\":\"Admin has approved your job. Your job is live now.\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/jobs\\/ff-1677171951-63f79cef277c9\"}', NULL, '2023-02-24 04:05:59', '2023-02-24 04:05:59'),
+('c729872d-e6a0-41a7-bfaf-d4df73464ae8', 'App\\Notifications\\Admin\\NewUserRegisteredNotification', 'App\\Models\\Admin', 1, '{\"title\":\"A Candidate registered recently\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/admin\\/candidate\\/5\"}', '2023-02-15 23:22:45', '2023-02-15 22:55:05', '2023-02-15 23:22:45'),
+('c7408a93-e49c-42c9-8727-8944e4aa5270', 'App\\Notifications\\Website\\Candidate\\RelatedJobNotification', 'App\\Models\\User', 12, '{\"title\":\"New job posted suiting your profile\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/jobs\\/ff-1677171951-63f79cef277c9\"}', NULL, '2023-02-24 04:05:59', '2023-02-24 04:05:59'),
+('cf7799a6-86e4-40e3-bd0c-75265af5d393', 'App\\Notifications\\Website\\Candidate\\RelatedJobNotification', 'App\\Models\\User', 8, '{\"title\":\"New job posted suiting your profile\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/jobs\\/ff-1677171951-63f79cef277c9\"}', NULL, '2023-02-24 04:05:59', '2023-02-24 04:05:59'),
+('d1c3e0b8-605c-45d4-87e4-9bbc358196e1', 'App\\Notifications\\Admin\\NewUserRegisteredNotification', 'App\\Models\\Admin', 1, '{\"title\":\"A Candidate registered recently\",\"url\":\"http:\\/\\/127.0.0.1:8000\\/admin\\/candidate\\/23\"}', NULL, '2023-03-20 12:05:06', '2023-03-20 12:05:06'),
+('d3b650a4-39fc-450b-9d49-d96077e826c9', 'App\\Notifications\\Admin\\NewUserRegisteredNotification', 'App\\Models\\Admin', 1, '{\"title\":\"A Candidate registered recently\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/admin\\/candidate\\/4\"}', '2023-02-21 01:25:13', '2023-02-19 16:18:04', '2023-02-21 01:25:13'),
+('d6f0b250-cb44-49fa-88ac-49410c24192d', 'App\\Notifications\\Admin\\NewUserRegisteredNotification', 'App\\Models\\Admin', 1, '{\"title\":\"A Candidate registered recently\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/admin\\/candidate\\/14\"}', NULL, '2023-02-25 06:03:34', '2023-02-25 06:03:34'),
+('d7b77f11-bf8b-4745-9608-e2246e020511', 'App\\Notifications\\Website\\Candidate\\RelatedJobNotification', 'App\\Models\\User', 7, '{\"title\":\"New job posted suiting your profile\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/jobs\\/executive-accounts-1677172408-63f79eb8b6c19\"}', NULL, '2023-02-24 04:13:36', '2023-02-24 04:13:36'),
+('da30cd5f-f3b1-4285-8dad-6b36bbaf9b3a', 'App\\Notifications\\Admin\\NewUserRegisteredNotification', 'App\\Models\\Admin', 1, '{\"title\":\"A Candidate registered recently\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/public\\/admin\\/candidate\\/12\"}', '2023-02-24 05:23:36', '2023-02-24 04:57:17', '2023-02-24 05:23:36'),
+('db279f64-2c94-4938-b428-277addcbfaf0', 'App\\Notifications\\Website\\Candidate\\RelatedJobNotification', 'App\\Models\\User', 12, '{\"title\":\"New job posted suiting your profile\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/jobs\\/executive-accounts-1677172408-63f79eb8b6c19\"}', NULL, '2023-02-24 04:13:36', '2023-02-24 04:13:36'),
+('decee495-2fc8-42e8-84b6-7abcfd20dc4b', 'App\\Notifications\\Website\\Candidate\\RelatedJobNotification', 'App\\Models\\User', 14, '{\"title\":\"New job posted suiting your profile\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/jobs\\/test-job-1676904634-63f388ba60a4f\"}', NULL, '2023-02-24 04:06:03', '2023-02-24 04:06:03'),
+('e1509ce6-02b8-41c8-af38-4e160ea5610b', 'App\\Notifications\\Website\\Candidate\\RelatedJobNotification', 'App\\Models\\User', 16, '{\"title\":\"New job posted suiting your profile\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/jobs\\/executive-accounts-1677172408-63f79eb8b6c19\"}', NULL, '2023-02-24 04:13:36', '2023-02-24 04:13:36'),
+('ed3cab83-9a1f-44c6-aaf6-51bde6cf346f', 'App\\Notifications\\Website\\Candidate\\RelatedJobNotification', 'App\\Models\\User', 8, '{\"title\":\"New job posted suiting your profile\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/jobs\\/test-job-1676904634-63f388ba60a4f\"}', NULL, '2023-02-24 04:06:03', '2023-02-24 04:06:03'),
+('f00d9587-8c39-4300-9183-7d09290ad291', 'App\\Notifications\\Website\\Candidate\\RelatedJobNotification', 'App\\Models\\User', 12, '{\"title\":\"New job posted suiting your profile\",\"url\":\"https:\\/\\/job.welfarefamily.org\\/jobs\\/test-job-1676904634-63f388ba60a4f\"}', NULL, '2023-02-24 04:06:03', '2023-02-24 04:06:03'),
+('f8bfbce2-50c3-497c-a7e9-2953fe23e8c2', 'App\\Notifications\\Website\\Candidate\\ApplyJobNotification', 'App\\Models\\User', 6, '{\"title\":\"Khairat Hossin has applied your job\",\"url\":\"http:\\/\\/127.0.0.1:8000\\/company\\/my-jobs\",\"title2\":\"You have applied the job of ABC Company\",\"url2\":\"http:\\/\\/127.0.0.1:8000\\/company\\/my-jobs\"}', NULL, '2023-03-03 14:46:17', '2023-03-03 14:46:17');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `amount` double(8,2) NOT NULL,
+  `address` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `transaction_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `plan_id` int(11) NOT NULL,
+  `currency` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `organization_types`
+--
+
+CREATE TABLE `organization_types` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `organization_types`
+--
+
+INSERT INTO `organization_types` (`id`, `name`, `slug`, `created_at`, `updated_at`) VALUES
+(1, 'Government', 'government', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(2, 'Semi Government', 'semi-government', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(3, 'Public', 'public', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(4, 'Private', 'private', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(5, 'NGO', 'ngo', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(6, 'International Agencies', 'international-agencies', '2022-12-26 12:59:28', '2022-12-26 12:59:28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `our_missions`
+--
+
+CREATE TABLE `our_missions` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `mission_image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'frontend/assets/images/banner/about-banner-5.png',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `password_resets`
+--
+
+CREATE TABLE `password_resets` (
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payments`
+--
+
+CREATE TABLE `payments` (
+  `id` int(11) NOT NULL,
+  `surjopay_id` int(11) DEFAULT NULL,
+  `order_id` varchar(50) DEFAULT NULL,
+  `currency` varchar(5) DEFAULT NULL,
+  `amount` float DEFAULT NULL,
+  `payable_amount` float DEFAULT NULL,
+  `discsount_amount` float DEFAULT NULL,
+  `disc_percent` float DEFAULT NULL,
+  `received_amount` float DEFAULT NULL,
+  `usd_amt` float DEFAULT NULL,
+  `usd_rate` float DEFAULT NULL,
+  `card_holder_name` varchar(128) DEFAULT NULL,
+  `card_number` varchar(20) DEFAULT NULL,
+  `phone_no` varchar(20) DEFAULT NULL,
+  `bank_trx_id` varchar(20) DEFAULT NULL,
+  `invoice_no` varchar(20) DEFAULT NULL,
+  `bank_status` varchar(20) DEFAULT NULL,
+  `customer_order_id` varchar(20) DEFAULT NULL,
+  `sp_code` varchar(20) DEFAULT NULL,
+  `sp_message` varchar(20) DEFAULT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
+  `address` text DEFAULT NULL,
+  `city` varchar(45) DEFAULT NULL,
+  `value1` varchar(45) DEFAULT NULL,
+  `value2` varchar(45) DEFAULT NULL,
+  `value3` varchar(45) DEFAULT NULL,
+  `value4` varchar(45) DEFAULT NULL,
+  `transaction_status` varchar(45) DEFAULT NULL,
+  `method` varchar(45) DEFAULT NULL,
+  `date_time` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `payments`
+--
+
+INSERT INTO `payments` (`id`, `surjopay_id`, `order_id`, `currency`, `amount`, `payable_amount`, `discsount_amount`, `disc_percent`, `received_amount`, `usd_amt`, `usd_rate`, `card_holder_name`, `card_number`, `phone_no`, `bank_trx_id`, `invoice_no`, `bank_status`, `customer_order_id`, `sp_code`, `sp_message`, `name`, `email`, `address`, `city`, `value1`, `value2`, `value3`, `value4`, `transaction_status`, `method`, `date_time`) VALUES
+(1, 38022, 'sp6406133626a07', 'BDT', 120, 120, NULL, 0, 120, 0, 0, NULL, NULL, '01777777777', '64061341', 'sp6406133626a07', 'Success', 'Sh556HJjdP', '1000', 'Success', 'Sabbir Alam', NULL, 'Daben babu road', 'Khulna', NULL, NULL, NULL, NULL, NULL, 'Nagad', '2023-03-06 22:22:25'),
+(2, 38022, 'sp6406133626a07', 'BDT', 120, 120, NULL, 0, 120, 0, 0, NULL, NULL, '01777777777', '64061341', 'sp6406133626a07', 'Success', 'Sh556HJjdP', '1000', 'Success', 'Sabbir Alam', NULL, 'Daben babu road', 'Khulna', NULL, NULL, NULL, NULL, NULL, 'Nagad', '2023-03-06 22:22:25'),
+(3, 38044, 'sp6406233cd4edb', 'BDT', 120, 120, NULL, 0, 120, 0, 0, NULL, NULL, '01751767550', '64062354', 'sp6406233cd4edb', 'Success', 'Sh556HJjdP', '1000', 'Success', 'Sabbir Alam', NULL, 'Daben babu road', 'Khulna', NULL, NULL, NULL, NULL, NULL, 'Nagad', '2023-03-06 23:31:00'),
+(4, 38297, 'sp640acf40cbe49', 'BDT', 100, 100, NULL, 0, 100, 0, 0, NULL, NULL, '01925764432', '640acf51', 'sp640acf40cbe49', 'Success', '640acf3f05b24', '1000', 'Success', 'Forhad Hosen', NULL, 'Daben babu road', 'Khulna', NULL, NULL, NULL, NULL, NULL, 'Nagad', '2023-03-10 12:33:53'),
+(5, 38297, 'sp640acf40cbe49', 'BDT', 100, 100, NULL, 0, 100, 0, 0, NULL, NULL, '01925764432', '640acf51', 'sp640acf40cbe49', 'Success', '640acf3f05b24', '1000', 'Success', 'Forhad Hosen', NULL, 'Daben babu road', 'Khulna', NULL, NULL, NULL, NULL, NULL, 'Nagad', '2023-03-10 12:33:53'),
+(6, 38297, 'sp640acf40cbe49', 'BDT', 100, 100, NULL, 0, 100, 0, 0, NULL, NULL, '01925764432', '640acf51', 'sp640acf40cbe49', 'Success', '640acf3f05b24', '1000', 'Success', 'Forhad Hosen', NULL, 'Daben babu road', 'Khulna', NULL, NULL, NULL, NULL, NULL, 'Nagad', '2023-03-10 12:33:53'),
+(7, 38297, 'sp640acf40cbe49', 'BDT', 100, 100, NULL, 0, 100, 0, 0, NULL, NULL, '01925764432', '640acf51', 'sp640acf40cbe49', 'Success', '640acf3f05b24', '1000', 'Success', 'Forhad Hosen', NULL, 'Daben babu road', 'Khulna', NULL, NULL, NULL, NULL, NULL, 'Nagad', '2023-03-10 12:33:53'),
+(8, 38297, 'sp640acf40cbe49', 'BDT', 100, 100, NULL, 0, 100, 0, 0, NULL, NULL, '01925764432', '640acf51', 'sp640acf40cbe49', 'Success', '640acf3f05b24', '1000', 'Success', 'Forhad Hosen', NULL, 'Daben babu road', 'Khulna', NULL, NULL, NULL, NULL, NULL, 'Nagad', '2023-03-10 12:33:53'),
+(9, 38297, 'sp640acf40cbe49', 'BDT', 100, 100, NULL, 0, 100, 0, 0, NULL, NULL, '01925764432', '640acf51', 'sp640acf40cbe49', 'Success', '640acf3f05b24', '1000', 'Success', 'Forhad Hosen', NULL, 'Daben babu road', 'Khulna', NULL, NULL, NULL, NULL, NULL, 'Nagad', '2023-03-10 12:33:53'),
+(10, 38297, 'sp640acf40cbe49', 'BDT', 100, 100, NULL, 0, 100, 0, 0, NULL, NULL, '01925764432', '640acf51', 'sp640acf40cbe49', 'Success', '640acf3f05b24', '1000', 'Success', 'Forhad Hosen', NULL, 'Daben babu road', 'Khulna', NULL, NULL, NULL, NULL, NULL, 'Nagad', '2023-03-10 12:33:53'),
+(11, 38297, 'sp640acf40cbe49', 'BDT', 100, 100, NULL, 0, 100, 0, 0, NULL, NULL, '01925764432', '640acf51', 'sp640acf40cbe49', 'Success', '640acf3f05b24', '1000', 'Success', 'Forhad Hosen', NULL, 'Daben babu road', 'Khulna', NULL, NULL, NULL, NULL, NULL, 'Nagad', '2023-03-10 12:33:53'),
+(12, 38297, 'sp640acf40cbe49', 'BDT', 100, 100, NULL, 0, 100, 0, 0, NULL, NULL, '01925764432', '640acf51', 'sp640acf40cbe49', 'Success', '640acf3f05b24', '1000', 'Success', 'Forhad Hosen', NULL, 'Daben babu road', 'Khulna', NULL, NULL, NULL, NULL, NULL, 'Nagad', '2023-03-10 12:33:53'),
+(13, 38297, 'sp640acf40cbe49', 'BDT', 100, 100, NULL, 0, 100, 0, 0, NULL, NULL, '01925764432', '640acf51', 'sp640acf40cbe49', 'Success', '640acf3f05b24', '1000', 'Success', 'Forhad Hosen', NULL, 'Daben babu road', 'Khulna', NULL, NULL, NULL, NULL, NULL, 'Nagad', '2023-03-10 12:33:53'),
+(14, 38297, 'sp640acf40cbe49', 'BDT', 100, 100, NULL, 0, 100, 0, 0, NULL, NULL, '01925764432', '640acf51', 'sp640acf40cbe49', 'Success', '640acf3f05b24', '1000', 'Success', 'Forhad Hosen', NULL, 'Daben babu road', 'Khulna', NULL, NULL, NULL, NULL, NULL, 'Nagad', '2023-03-10 12:33:53'),
+(15, 38297, 'sp640acf40cbe49', 'BDT', 100, 100, NULL, 0, 100, 0, 0, NULL, NULL, '01925764432', '640acf51', 'sp640acf40cbe49', 'Success', '640acf3f05b24', '1000', 'Success', 'Forhad Hosen', NULL, 'Daben babu road', 'Khulna', NULL, NULL, NULL, NULL, NULL, 'Nagad', '2023-03-10 12:33:53'),
+(16, 38297, 'sp640acf40cbe49', 'BDT', 100, 100, NULL, 0, 100, 0, 0, NULL, NULL, '01925764432', '640acf51', 'sp640acf40cbe49', 'Success', '640acf3f05b24', '1000', 'Success', 'Forhad Hosen', NULL, 'Daben babu road', 'Khulna', NULL, NULL, NULL, NULL, NULL, 'Nagad', '2023-03-10 12:33:53'),
+(17, 38297, 'sp640acf40cbe49', 'BDT', 100, 100, NULL, 0, 100, 0, 0, NULL, NULL, '01925764432', '640acf51', 'sp640acf40cbe49', 'Success', '640acf3f05b24', '1000', 'Success', 'Forhad Hosen', NULL, 'Daben babu road', 'Khulna', NULL, NULL, NULL, NULL, NULL, 'Nagad', '2023-03-10 12:33:53'),
+(18, 38326, 'sp640b40e4a6de8', 'BDT', 100, 100, NULL, 0, 100, 0, 0, NULL, NULL, '01925764432', '640b40f5', 'sp640b40e4a6de8', 'Success', '640b40e28faf3', '1000', 'Success', 'Forhad Hosen', NULL, 'Daben babu road', 'Khulna', NULL, NULL, NULL, NULL, NULL, 'Nagad', '2023-03-10 20:38:45'),
+(19, 38326, 'sp640b40e4a6de8', 'BDT', 100, 100, NULL, 0, 100, 0, 0, NULL, NULL, '01925764432', '640b40f5', 'sp640b40e4a6de8', 'Success', '640b40e28faf3', '1000', 'Success', 'Forhad Hosen', NULL, 'Daben babu road', 'Khulna', NULL, NULL, NULL, NULL, NULL, 'Nagad', '2023-03-10 20:38:45'),
+(20, 38327, 'sp640b4a3d07d25', 'BDT', 100, 100, NULL, 0, 100, 0, 0, NULL, NULL, '01925764432', '640b4a50', 'sp640b4a3d07d25', 'Success', '640b4a3ae9308', '1000', 'Success', 'John Doe', 'john@doe.com', 'Daben babu road', 'Khulna', NULL, NULL, NULL, NULL, NULL, 'Nagad', '2023-03-10 21:18:40'),
+(21, 38333, 'sp640b62b007e32', 'BDT', 100, 100, NULL, 0, 100, 0, 0, NULL, NULL, '01925764432', '640b62c3', 'sp640b62b007e32', 'Success', '640b62ae0ffdb', '1000', 'Success', 'John Doe', 'john@doe.com', 'Daben babu road', 'Khulna', NULL, NULL, NULL, NULL, NULL, 'Nagad', '2023-03-10 23:02:59'),
+(22, 38334, 'sp640b73233edc0', 'BDT', 100, 100, NULL, 0, 100, 0, 0, NULL, NULL, '01925764432', '640b7330', 'sp640b73233edc0', 'Success', '640b73220b3a7', '1000', 'Success', 'Khairat Hossin 5', 'khairat5@gmail.com', 'Daben babu road', 'Khulna', NULL, NULL, NULL, NULL, NULL, 'Nagad', '2023-03-11 00:13:05'),
+(23, 39122, 'sp6418a0926b4f0', 'BDT', 100, 100, NULL, 0, 100, 0, 0, NULL, NULL, '01751767350', '6418a0a1', 'sp6418a0926b4f0', 'Success', '6418a09144405', '1000', 'Success', 'Khairat Hossin er bou', NULL, 'Daben babu road', 'Khulna', NULL, NULL, NULL, NULL, NULL, 'Nagad', '2023-03-21 00:06:25'),
+(24, 39122, 'sp6418a0926b4f0', 'BDT', 100, 100, NULL, 0, 100, 0, 0, NULL, NULL, '01751767350', '6418a0a1', 'sp6418a0926b4f0', 'Success', '6418a09144405', '1000', 'Success', 'Khairat Hossin er bou', NULL, 'Daben babu road', 'Khulna', NULL, NULL, NULL, NULL, NULL, 'Nagad', '2023-03-21 00:06:25'),
+(25, 39126, 'sp6418a83e9613d', 'BDT', 100, 100, NULL, 0, 100, 0, 0, NULL, NULL, '01432423423', '6418a84f', 'sp6418a83e9613d', 'Success', '6418a83e967b3', '1000', 'Success', 'Ivy', NULL, 'Daben babu road', 'Khulna', NULL, NULL, NULL, NULL, NULL, 'Nagad', '2023-03-21 00:39:11'),
+(26, 39126, 'sp6418a83e9613d', 'BDT', 100, 100, NULL, 0, 100, 0, 0, NULL, NULL, '01432423423', '6418a84f', 'sp6418a83e9613d', 'Success', '6418a83e967b3', '1000', 'Success', 'Ivy', NULL, 'Daben babu road', 'Khulna', NULL, NULL, NULL, NULL, NULL, 'Nagad', '2023-03-21 00:39:11'),
+(27, 39126, 'sp6418a83e9613d', 'BDT', 100, 100, NULL, 0, 100, 0, 0, NULL, NULL, '01432423423', '6418a84f', 'sp6418a83e9613d', 'Success', '6418a83e967b3', '1000', 'Success', 'Ivy', NULL, 'Daben babu road', 'Khulna', NULL, NULL, NULL, NULL, NULL, 'Nagad', '2023-03-21 00:39:11'),
+(28, 39126, 'sp6418a83e9613d', 'BDT', 100, 100, NULL, 0, 100, 0, 0, NULL, NULL, '01432423423', '6418a84f', 'sp6418a83e9613d', 'Success', '6418a83e967b3', '1000', 'Success', 'Ivy', NULL, 'Daben babu road', 'Khulna', NULL, NULL, NULL, NULL, NULL, 'Nagad', '2023-03-21 00:39:11'),
+(29, 39126, 'sp6418a83e9613d', 'BDT', 100, 100, NULL, 0, 100, 0, 0, NULL, NULL, '01432423423', '6418a84f', 'sp6418a83e9613d', 'Success', '6418a83e967b3', '1000', 'Success', 'Ivy', NULL, 'Daben babu road', 'Khulna', NULL, NULL, NULL, NULL, NULL, 'Nagad', '2023-03-21 00:39:11'),
+(30, 39126, 'sp6418a83e9613d', 'BDT', 100, 100, NULL, 0, 100, 0, 0, NULL, NULL, '01432423423', '6418a84f', 'sp6418a83e9613d', 'Success', '6418a83e967b3', '1000', 'Success', 'Ivy', NULL, 'Daben babu road', 'Khulna', NULL, NULL, NULL, NULL, NULL, 'Nagad', '2023-03-21 00:39:11'),
+(31, 39126, 'sp6418a83e9613d', 'BDT', 100, 100, NULL, 0, 100, 0, 0, NULL, NULL, '01432423423', '6418a84f', 'sp6418a83e9613d', 'Success', '6418a83e967b3', '1000', 'Success', 'Ivy', NULL, 'Daben babu road', 'Khulna', NULL, NULL, NULL, NULL, NULL, 'Nagad', '2023-03-21 00:39:11');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payment_settings`
+--
+
+CREATE TABLE `payment_settings` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `paypal` tinyint(1) NOT NULL DEFAULT 1,
+  `paypal_live_mode` tinyint(1) NOT NULL DEFAULT 0,
+  `stripe` tinyint(1) NOT NULL DEFAULT 1,
+  `razorpay` tinyint(1) NOT NULL DEFAULT 1,
+  `paystack` tinyint(1) NOT NULL DEFAULT 1,
+  `ssl_commerz` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `payment_settings`
+--
+
+INSERT INTO `payment_settings` (`id`, `paypal`, `paypal_live_mode`, `stripe`, `razorpay`, `paystack`, `ssl_commerz`, `created_at`, `updated_at`) VALUES
+(1, 1, 0, 1, 1, 1, 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `permissions`
+--
+
+CREATE TABLE `permissions` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `guard_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `group_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `permissions`
+--
+
+INSERT INTO `permissions` (`id`, `name`, `guard_name`, `group_name`, `created_at`, `updated_at`) VALUES
+(1, 'admin.create', 'admin', 'admin', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(2, 'admin.view', 'admin', 'admin', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(3, 'admin.edit', 'admin', 'admin', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(4, 'admin.delete', 'admin', 'admin', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(5, 'order.view', 'admin', 'order', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(6, 'order.download', 'admin', 'order', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(7, 'company.create', 'admin', 'company', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(8, 'company.view', 'admin', 'company', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(9, 'company.update', 'admin', 'company', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(10, 'company.delete', 'admin', 'company', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(11, 'map.create', 'admin', 'map', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(12, 'map.view', 'admin', 'map', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(13, 'map.update', 'admin', 'map', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(14, 'map.delete', 'admin', 'map', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(15, 'candidate.create', 'admin', 'candidate', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(16, 'candidate.view', 'admin', 'candidate', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(17, 'candidate.update', 'admin', 'candidate', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(18, 'candidate.delete', 'admin', 'candidate', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(19, 'job.create', 'admin', 'job', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(20, 'job.view', 'admin', 'job', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(21, 'job.update', 'admin', 'job', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(22, 'job.delete', 'admin', 'job', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(23, 'job_category.create', 'admin', 'job_category', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(24, 'job_category.view', 'admin', 'job_category', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(25, 'job_category.update', 'admin', 'job_category', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(26, 'job_category.delete', 'admin', 'job_category', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(27, 'job_role.view', 'admin', 'job_role', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(28, 'job_role.create', 'admin', 'job_role', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(29, 'job_role.update', 'admin', 'job_role', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(30, 'job_role.delete', 'admin', 'job_role', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(31, 'plan.create', 'admin', 'price_plan', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(32, 'plan.view', 'admin', 'price_plan', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(33, 'plan.update', 'admin', 'price_plan', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(34, 'plan.delete', 'admin', 'price_plan', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(35, 'industry_types.create', 'admin', 'attributes', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(36, 'industry_types.view', 'admin', 'attributes', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(37, 'industry_types.update', 'admin', 'attributes', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(38, 'industry_types.delete', 'admin', 'attributes', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(39, 'professions.create', 'admin', 'attributes', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(40, 'professions.view', 'admin', 'attributes', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(41, 'professions.update', 'admin', 'attributes', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(42, 'professions.delete', 'admin', 'attributes', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(43, 'skills.create', 'admin', 'attributes', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(44, 'skills.view', 'admin', 'attributes', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(45, 'skills.update', 'admin', 'attributes', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(46, 'skills.delete', 'admin', 'attributes', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(47, 'post.create', 'admin', 'blog', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(48, 'post.view', 'admin', 'blog', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(49, 'post.update', 'admin', 'blog', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(50, 'post.delete', 'admin', 'blog', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(51, 'country.create', 'admin', 'location', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(52, 'country.view', 'admin', 'location', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(53, 'country.update', 'admin', 'location', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(54, 'country.delete', 'admin', 'location', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(55, 'state.create', 'admin', 'location', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(56, 'state.view', 'admin', 'location', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(57, 'state.update', 'admin', 'location', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(58, 'state.delete', 'admin', 'location', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(59, 'city.create', 'admin', 'location', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(60, 'city.view', 'admin', 'location', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(61, 'city.update', 'admin', 'location', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(62, 'city.delete', 'admin', 'location', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(63, 'newsletter.view', 'admin', 'newsletter', '2022-12-26 12:59:27', '2022-12-26 12:59:27'),
+(64, 'newsletter.sendmail', 'admin', 'newsletter', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(65, 'newsletter.delete', 'admin', 'newsletter', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(66, 'contact.view', 'admin', 'contact', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(67, 'contact.delete', 'admin', 'contact', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(68, 'testimonial.create', 'admin', 'testimonial', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(69, 'testimonial.view', 'admin', 'testimonial', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(70, 'testimonial.update', 'admin', 'testimonial', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(71, 'testimonial.delete', 'admin', 'testimonial', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(72, 'faq.create', 'admin', 'faq', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(73, 'faq.view', 'admin', 'faq', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(74, 'faq.update', 'admin', 'faq', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(75, 'faq.delete', 'admin', 'faq', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(76, 'role.create', 'admin', 'role', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(77, 'role.view', 'admin', 'role', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(78, 'role.edit', 'admin', 'role', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(79, 'role.delete', 'admin', 'role', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(80, 'setting.view', 'admin', 'settings', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(81, 'setting.update', 'admin', 'settings', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(82, 'candidate-language.create', 'admin', 'candidate-language', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(83, 'candidate-language.view', 'admin', 'candidate-language', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(84, 'candidate-language.update', 'admin', 'candidate-language', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(85, 'candidate-language.delete', 'admin', 'candidate-language', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(86, 'benefits.create', 'admin', 'attributes', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(87, 'benefits.view', 'admin', 'attributes', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(88, 'benefits.update', 'admin', 'attributes', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(89, 'benefits.delete', 'admin', 'attributes', '2022-12-26 12:59:28', '2022-12-26 12:59:28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `plans`
+--
+
+CREATE TABLE `plans` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `label` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `price` double(8,2) NOT NULL,
+  `job_limit` int(11) NOT NULL,
+  `featured_job_limit` int(11) NOT NULL,
+  `highlight_job_limit` int(11) NOT NULL,
+  `candidate_cv_view_limit` int(11) NOT NULL DEFAULT 0,
+  `recommended` tinyint(1) NOT NULL DEFAULT 0,
+  `frontend_show` tinyint(1) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `candidate_cv_view_limitation` enum('unlimited','limited') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'limited'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `plans`
+--
+
+INSERT INTO `plans` (`id`, `label`, `description`, `price`, `job_limit`, `featured_job_limit`, `highlight_job_limit`, `candidate_cv_view_limit`, `recommended`, `frontend_show`, `created_at`, `updated_at`, `candidate_cv_view_limitation`) VALUES
+(1, 'Trial', 'This is the trial plan', 0.00, 1, 1, 1, 5, 0, 0, '2022-12-26 12:59:28', '2022-12-26 12:59:28', 'limited'),
+(2, 'Basic', 'Basic Plan', 100.00, 100, 10, 5, 10000, 0, 1, '2023-02-26 13:57:50', '2023-02-26 13:57:50', 'limited');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `posts`
+--
+
+CREATE TABLE `posts` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `category_id` bigint(20) UNSIGNED NOT NULL,
+  `author_id` bigint(20) UNSIGNED NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `short_description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` enum('draft','published') COLLATE utf8mb4_unicode_ci DEFAULT 'published',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `post_categories`
+--
+
+CREATE TABLE `post_categories` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `post_comments`
+--
+
+CREATE TABLE `post_comments` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `author_id` bigint(20) UNSIGNED NOT NULL,
+  `post_id` bigint(20) UNSIGNED NOT NULL,
+  `parent_id` int(10) UNSIGNED DEFAULT NULL,
+  `body` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `professions`
+--
+
+CREATE TABLE `professions` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `professions`
+--
+
+INSERT INTO `professions` (`id`, `name`, `slug`, `created_at`, `updated_at`) VALUES
+(1, 'Physician', 'physician', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(2, 'Engineer', 'engineer', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(3, 'Chef', 'chef', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(4, 'Lawyer', 'lawyer', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(5, 'Designer', 'designer', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(6, 'Labourer', 'labourer', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(7, 'Dentist', 'dentist', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(8, 'Accountant', 'accountant', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(9, 'Dental Hygienist', 'dental-hygienist', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(10, 'Actor', 'actor', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(11, 'Electrician', 'electrician', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(12, 'Software Developer', 'software-developer', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(13, 'Pharmacist', 'pharmacist', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(14, 'Technician', 'technician', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(15, 'Artist', 'artist', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(16, 'Teacher', 'teacher', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(17, 'Journalist', 'journalist', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(18, 'Cashier', 'cashier', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(19, 'Secretary', 'secretary', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(20, 'Scientist', 'scientist', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(21, 'Soldier', 'soldier', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(22, 'Gardener', 'gardener', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(23, 'Farmer', 'farmer', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(24, 'Librarian', 'librarian', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(25, 'Driver', 'driver', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(26, 'Fishermen', 'fishermen', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(27, 'Police Officer ', 'police-officer', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(28, 'Tailor', 'tailor', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(100, 'Student', 'student', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `queue_jobs`
+--
+
+CREATE TABLE `queue_jobs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `queue` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `attempts` tinyint(3) UNSIGNED NOT NULL,
+  `reserved_at` int(10) UNSIGNED DEFAULT NULL,
+  `available_at` int(10) UNSIGNED NOT NULL,
+  `created_at` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `roles`
+--
+
+CREATE TABLE `roles` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `guard_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `roles`
+--
+
+INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
+(1, 'superadmin', 'admin', '2022-12-26 12:59:27', '2022-12-26 12:59:27');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `role_has_permissions`
+--
+
+CREATE TABLE `role_has_permissions` (
+  `permission_id` bigint(20) UNSIGNED NOT NULL,
+  `role_id` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `role_has_permissions`
+--
+
+INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
+(1, 1),
+(2, 1),
+(3, 1),
+(4, 1),
+(5, 1),
+(6, 1),
+(7, 1),
+(8, 1),
+(9, 1),
+(10, 1),
+(11, 1),
+(12, 1),
+(13, 1),
+(14, 1),
+(15, 1),
+(16, 1),
+(17, 1),
+(18, 1),
+(19, 1),
+(20, 1),
+(21, 1),
+(22, 1),
+(23, 1),
+(24, 1),
+(25, 1),
+(26, 1),
+(27, 1),
+(28, 1),
+(29, 1),
+(30, 1),
+(31, 1),
+(32, 1),
+(33, 1),
+(34, 1),
+(35, 1),
+(36, 1),
+(37, 1),
+(38, 1),
+(39, 1),
+(40, 1),
+(41, 1),
+(42, 1),
+(43, 1),
+(44, 1),
+(45, 1),
+(46, 1),
+(47, 1),
+(48, 1),
+(49, 1),
+(50, 1),
+(51, 1),
+(52, 1),
+(53, 1),
+(54, 1),
+(55, 1),
+(56, 1),
+(57, 1),
+(58, 1),
+(59, 1),
+(60, 1),
+(61, 1),
+(62, 1),
+(63, 1),
+(64, 1),
+(65, 1),
+(66, 1),
+(67, 1),
+(68, 1),
+(69, 1),
+(70, 1),
+(71, 1),
+(72, 1),
+(73, 1),
+(74, 1),
+(75, 1),
+(76, 1),
+(77, 1),
+(78, 1),
+(79, 1),
+(80, 1),
+(81, 1),
+(82, 1),
+(83, 1),
+(84, 1),
+(85, 1),
+(86, 1),
+(87, 1),
+(88, 1),
+(89, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `salary_types`
+--
+
+CREATE TABLE `salary_types` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `salary_types`
+--
+
+INSERT INTO `salary_types` (`id`, `name`, `slug`, `created_at`, `updated_at`) VALUES
+(1, 'Monthly', 'monthly', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(2, 'Project Basis', 'project-basis', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(3, 'Hourly', 'hourly', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(4, 'Yearly', 'yearly', '2022-12-26 12:59:28', '2022-12-26 12:59:28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `seos`
+--
+
+CREATE TABLE `seos` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `page_slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `seos`
+--
+
+INSERT INTO `seos` (`id`, `page_slug`, `created_at`, `updated_at`) VALUES
+(1, 'home', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(2, 'jobs', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(3, 'job-details', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(4, 'candidates', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(5, 'candidate-details', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(6, 'company', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(7, 'company-details', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(8, 'blog', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(9, 'post-details', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(10, 'pricing', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(11, 'login', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(12, 'register', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(13, 'about', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(14, 'contact', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(15, 'faq', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(16, 'terms-condition', '2022-12-26 12:59:28', '2022-12-26 12:59:28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `seo_page_contents`
+--
+
+CREATE TABLE `seo_page_contents` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `page_id` bigint(20) UNSIGNED NOT NULL,
+  `language_code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `seo_page_contents`
+--
+
+INSERT INTO `seo_page_contents` (`id`, `page_id`, `language_code`, `title`, `description`, `image`, `created_at`, `updated_at`) VALUES
+(1, 1, 'en', 'Welcome To job.welfarefamily', 'job.welfarefamily is job portal designed to create, manage and publish jobs posts. Companies can create their profile and publish jobs posts. Candidate can apply job posts.', 'uploads/images/seo/1676484591_63ed1fef8ca8e.png', '2022-12-26 12:59:28', '2023-02-16 00:01:16'),
+(2, 2, 'en', 'Jobs', 'job.welfarefamily is job portal laravel script designed to create, manage and publish jobs posts. Companies can create their profile and publish jobs posts. Candidate can apply job posts.', 'uploads/images/seo/1676484610_63ed2002a42f2.png', '2022-12-26 12:59:28', '2023-02-15 23:11:13'),
+(3, 3, 'en', 'Job Details', 'job.welfarefamily is job portal laravel script designed to create, manage and publish jobs posts. Companies can create their profile and publish jobs posts. Candidate can apply job posts.', 'uploads/images/seo/1676484687_63ed204fcd9ad.png', '2022-12-26 12:59:28', '2023-02-15 23:11:27'),
+(4, 4, 'en', 'Candidates', 'job.welfarefamily is job portal laravel script designed to create, manage and publish jobs posts. Companies can create their profile and publish jobs posts. Candidate can apply job posts.', 'uploads/images/seo/1676484705_63ed206172f4b.png', '2022-12-26 12:59:28', '2023-02-15 23:11:45'),
+(5, 5, 'en', 'Candidate Details', 'job.welfarefamily is job portal laravel script designed to create, manage and publish jobs posts. Companies can create their profile and publish jobs posts. Candidate can apply job posts.', 'uploads/images/seo/1676484720_63ed2070db9f6.png', '2022-12-26 12:59:28', '2023-02-15 23:12:00'),
+(6, 6, 'en', 'Company', 'job.welfarefamily is job portal laravel script designed to create, manage and publish jobs posts. Companies can create their profile and publish jobs posts. Candidate can apply job posts.', 'uploads/images/seo/1676484744_63ed2088ac204.png', '2022-12-26 12:59:28', '2023-02-15 23:12:24'),
+(7, 7, 'en', 'Company Details', 'job.welfarefamily is job portal laravel script designed to create, manage and publish jobs posts. Companies can create their profile and publish jobs posts. Candidate can apply job posts.', 'uploads/images/seo/1676484770_63ed20a2ab6f0.png', '2022-12-26 12:59:28', '2023-02-15 23:12:50'),
+(8, 8, 'en', 'Blog', 'job.welfarefamily is job portal laravel script designed to create, manage and publish jobs posts. Companies can create their profile and publish jobs posts. Candidate can apply job posts.', 'uploads/images/seo/1676484924_63ed213c019ce.png', '2022-12-26 12:59:28', '2023-02-15 23:15:24'),
+(9, 9, 'en', 'Post Details', 'job.welfarefamily is job portal laravel script designed to create, manage and publish jobs posts. Companies can create their profile and publish jobs posts. Candidate can apply job posts.', 'uploads/images/seo/1676484908_63ed212cd2259.png', '2022-12-26 12:59:28', '2023-02-15 23:15:08'),
+(10, 10, 'en', 'Pricing', 'job.welfarefamily is job portal laravel script designed to create, manage and publish jobs posts. Companies can create their profile and publish jobs posts. Candidate can apply job posts.', 'uploads/images/seo/1676484888_63ed2118e92b9.png', '2022-12-26 12:59:28', '2023-02-15 23:14:48'),
+(11, 11, 'en', 'Login', 'job.welfarefamily is job portal laravel script designed to create, manage and publish jobs posts. Companies can create their profile and publish jobs posts. Candidate can apply job posts.', 'uploads/images/seo/1676484874_63ed210a542cc.png', '2022-12-26 12:59:28', '2023-02-15 23:14:34'),
+(12, 12, 'en', 'Register', 'job.welfarefamily is job portal laravel script designed to create, manage and publish jobs posts. Companies can create their profile and publish jobs posts. Candidate can apply job posts.', 'uploads/images/seo/1676484853_63ed20f5c4a3f.png', '2022-12-26 12:59:28', '2023-02-15 23:14:13'),
+(13, 13, 'en', 'About', 'job.welfarefamily is job portal laravel script designed to create, manage and publish jobs posts. Companies can create their profile and publish jobs posts. Candidate can apply job posts.', 'uploads/images/seo/1676484835_63ed20e34a10c.png', '2022-12-26 12:59:28', '2023-02-15 23:13:55'),
+(14, 14, 'en', 'Contact', 'job.welfarefamily is job portal laravel script designed to create, manage and publish jobs posts. Companies can create their profile and publish jobs posts. Candidate can apply job posts.', 'uploads/images/seo/1676484815_63ed20cf88c4d.png', '2022-12-26 12:59:28', '2023-02-15 23:13:35'),
+(15, 15, 'en', 'FAQ', 'job.welfarefamily is job portal laravel script designed to create, manage and publish jobs posts. Companies can create their profile and publish jobs posts. Candidate can apply job posts.', 'uploads/images/seo/1676484797_63ed20bd1e01a.png', '2022-12-26 12:59:28', '2023-02-15 23:13:17'),
+(16, 16, 'en', 'Terms Condition', 'job.welfarefamily  is job portal laravel script designed to create, manage and publish jobs posts. Companies can create their profile and publish jobs posts. Candidate can apply job posts.', 'uploads/images/seo/1676484643_63ed20230a115.png', '2022-12-26 12:59:28', '2023-02-15 23:10:43');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `settings`
+--
+
+CREATE TABLE `settings` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `dark_logo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `light_logo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `favicon_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `header_css` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `header_script` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `body_script` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sidebar_color` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nav_color` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sidebar_txt_color` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nav_txt_color` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `main_color` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `accent_color` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `frontend_primary_color` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `frontend_secondary_color` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `working_process_step1_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `working_process_step1_description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `working_process_step2_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `working_process_step2_description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `working_process_step3_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `working_process_step3_description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `working_process_step4_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `working_process_step4_description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `dark_mode` tinyint(1) NOT NULL DEFAULT 0,
+  `google_analytics` tinyint(1) NOT NULL DEFAULT 0,
+  `search_engine_indexing` tinyint(1) NOT NULL DEFAULT 1,
+  `default_layout` tinyint(1) NOT NULL DEFAULT 1,
+  `default_plan` int(10) UNSIGNED NOT NULL DEFAULT 1,
+  `job_limit` int(10) UNSIGNED NOT NULL DEFAULT 1,
+  `featured_job_limit` int(10) UNSIGNED NOT NULL DEFAULT 1,
+  `highlight_job_limit` int(10) UNSIGNED NOT NULL DEFAULT 1,
+  `timezone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'UTC',
+  `language_changing` tinyint(1) NOT NULL DEFAULT 1,
+  `email_verification` tinyint(1) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `default_map` enum('google-map','map-box','leaflet') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'leaflet',
+  `google_map_key` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `map_box_key` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `default_long` double DEFAULT NULL,
+  `default_lat` double DEFAULT NULL,
+  `app_country_type` enum('single_base','multiple_base') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'multiple_base',
+  `app_country` bigint(20) UNSIGNED DEFAULT NULL,
+  `employer_auto_activation` tinyint(1) NOT NULL DEFAULT 1,
+  `per_job_active` tinyint(1) NOT NULL DEFAULT 1,
+  `per_job_price` double(8,2) DEFAULT 100.00,
+  `highlight_job_price` double(8,2) DEFAULT 50.00,
+  `featured_job_price` double(8,2) DEFAULT 50.00,
+  `candidate_account_auto_activation` tinyint(1) NOT NULL DEFAULT 1,
+  `job_auto_approved` tinyint(1) NOT NULL DEFAULT 0,
+  `edited_job_auto_approved` tinyint(1) NOT NULL DEFAULT 1,
+  `currency_switcher` tinyint(1) NOT NULL DEFAULT 1,
+  `highlight_job_days` int(11) DEFAULT 0,
+  `featured_job_days` int(11) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `settings`
+--
+
+INSERT INTO `settings` (`id`, `email`, `dark_logo`, `light_logo`, `favicon_image`, `header_css`, `header_script`, `body_script`, `sidebar_color`, `nav_color`, `sidebar_txt_color`, `nav_txt_color`, `main_color`, `accent_color`, `frontend_primary_color`, `frontend_secondary_color`, `working_process_step1_title`, `working_process_step1_description`, `working_process_step2_title`, `working_process_step2_description`, `working_process_step3_title`, `working_process_step3_description`, `working_process_step4_title`, `working_process_step4_description`, `dark_mode`, `google_analytics`, `search_engine_indexing`, `default_layout`, `default_plan`, `job_limit`, `featured_job_limit`, `highlight_job_limit`, `timezone`, `language_changing`, `email_verification`, `created_at`, `updated_at`, `default_map`, `google_map_key`, `map_box_key`, `default_long`, `default_lat`, `app_country_type`, `app_country`, `employer_auto_activation`, `per_job_active`, `per_job_price`, `highlight_job_price`, `featured_job_price`, `candidate_account_auto_activation`, `job_auto_approved`, `edited_job_auto_approved`, `currency_switcher`, `highlight_job_days`, `featured_job_days`) VALUES
+(1, 'mail@job.welfarefamily.org', 'uploads/app/logo/rWS1gmgbt0mLlZuIPAFEgBvIq369Cqxlgl9SfpxA.png', 'uploads/app/logo/8ZddmMxyQ8gPg9kAheBrBTfIGxR8J4ZO8iY2zUIL.png', 'uploads/app/logo/Q2jod2SNJxlHwwmNm7IksDO9zZZ6YtID6YdjekxA.png', NULL, NULL, NULL, '#092433', '#0A243E', '#C1D6F0', '#C1D6F0', '#0A65CC', '#487CB8', '#262261', '#253D80', 'Create Account', 'Aliquam facilisis egestas sapien, nec tempor leo tristique at.', 'Upload Cv Resume', 'Curabitur sit amet maximus ligula. Nam a nulla ante. Nam sodales', 'Find Suitable Job', 'Curabitur sit amet maximus ligula. Nam a nulla ante. Nam sodales', 'Apply Job', 'Curabitur sit amet maximus ligula. Nam a nulla ante. Nam sodales', 0, 0, 1, 1, 1, 1, 1, 1, 'UTC', 0, 0, '2022-12-26 12:59:28', '2023-02-24 04:53:23', 'leaflet', NULL, NULL, 90.411270491741, 23.757853442383, 'single_base', 22, 1, 1, 100.00, 50.00, 50.00, 1, 0, 1, 0, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `setup_guides`
+--
+
+CREATE TABLE `setup_guides` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `task_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `action_route` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `action_label` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `setup_guides`
+--
+
+INSERT INTO `setup_guides` (`id`, `task_name`, `title`, `description`, `action_route`, `action_label`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'app_setting', 'App Information ', 'Add your app logo, name, description, owner and other information.', 'settings.general', 'Add App Information', 1, '2022-12-26 12:59:28', '2023-02-15 23:30:45'),
+(2, 'smtp_setting', 'SMTP Configuration', 'Add your app logo, name, description, owner and other information.', 'settings.email', 'Add Mail Configuration', 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(3, 'payment_setting', 'Enable Payment Method', 'Enable to payment methods to receive payments from your customer.', 'settings.payment', 'Add Payment', 1, '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(4, 'theme_setting', 'Customize Theme', 'Customize your theme to make your app look more attractive.', 'settings.theme', 'Customize Your App Now', 1, '2022-12-26 12:59:28', '2023-02-24 04:53:23');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `skills`
+--
+
+CREATE TABLE `skills` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `skills`
+--
+
+INSERT INTO `skills` (`id`, `name`, `slug`, `created_at`, `updated_at`) VALUES
+(1, 'html', 'html', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(2, 'css', 'css', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(3, 'js', 'js', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(4, 'php', 'php', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(5, 'laravel', 'laravel', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(6, 'mysql', 'mysql', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(7, 'vuejs', 'vuejs', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(8, 'reactjs', 'reactjs', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(9, 'nodejs', 'nodejs', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(10, 'expressjs', 'expressjs', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(11, 'python', 'python', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(12, 'django', 'django', '2022-12-26 12:59:28', '2022-12-26 12:59:28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sms_content`
+--
+
+CREATE TABLE `sms_content` (
+  `id` int(11) NOT NULL,
+  `content_type` varchar(50) DEFAULT NULL,
+  `content_template` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `sms_content`
+--
+
+INSERT INTO `sms_content` (`id`, `content_type`, `content_template`) VALUES
+(1, 'register', 'জব পোর্টালে আপনাকে স্বাগতম'),
+(2, 'apply', 'চাকরিতে আবেদনের জন্য ধন্যবাদ');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sms_histories`
+--
+
+CREATE TABLE `sms_histories` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `phone` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `response_code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `response_meaning` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sms_content_id` int(11) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `sms_histories`
+--
+
+INSERT INTO `sms_histories` (`id`, `user_id`, `phone`, `response_code`, `response_meaning`, `sms_content_id`, `created_at`, `updated_at`) VALUES
+(1, 1, '1751767350', '1015', '', 0, '2023-03-03 04:06:22', '2023-03-03 04:06:23'),
+(2, 3, '17505497', '2001', '', 0, '2023-03-02 22:30:42', '2023-03-02 22:30:42'),
+(3, 3, '17505497', '2001', '', 0, '2023-03-03 05:48:34', '2023-03-03 05:48:34'),
+(4, 23, '8801925764432', '1000', 'Message Sent', 1, '2023-03-03 13:22:50', '2023-03-03 13:22:50'),
+(5, 1, '8801751767350', '1000', 'Message Sent', 2, '2023-03-03 14:42:37', '2023-03-03 14:42:37'),
+(6, 1, '8801751767350', '1000', 'Message Sent', 2, '2023-03-03 14:46:17', '2023-03-03 14:46:17'),
+(7, 1, '8801925764432', '1000', 'Message Sent', 2, '2023-03-03 14:48:59', '2023-03-03 14:48:59'),
+(8, 25, '8801925764432', '1015', 'SMS Content Validation Fails', 1, '2023-03-10 09:06:09', '2023-03-10 09:06:09'),
+(9, 26, '8801925764432', '1015', 'SMS Content Validation Fails', 1, '2023-03-10 09:10:17', '2023-03-10 09:10:17'),
+(10, 27, '8801925764432', '1000', 'Message Sent', 1, '2023-03-10 09:13:41', '2023-03-10 09:13:41'),
+(11, 28, '8801925764432', '1000', 'Message Sent', 1, '2023-03-10 11:02:14', '2023-03-10 11:02:14'),
+(12, 33, '8801794851087', '1000', 'Message Sent', 1, '2023-03-20 12:05:05', '2023-03-20 12:05:05'),
+(13, 34, '8801794851087', '1000', 'Message Sent', 1, '2023-03-20 12:30:42', '2023-03-20 12:30:42');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sms_statuses`
+--
+
+CREATE TABLE `sms_statuses` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `sms_statuses`
+--
+
+INSERT INTO `sms_statuses` (`id`, `code`, `description`, `created_at`, `updated_at`) VALUES
+(1, '1002', 'Sender Id/Masking Not Found', '2023-03-03 04:02:14', '2023-03-03 04:02:16'),
+(2, '1003', 'API Not Found', '2023-03-03 04:02:14', '2023-03-03 04:02:16'),
+(3, '1004', 'SPAM Detected', '2023-03-03 04:02:14', '2023-03-03 04:02:16'),
+(4, '1005', 'Internal Error', '2023-03-03 04:02:14', '2023-03-03 04:02:16'),
+(5, '1006', 'Internal Error', '2023-03-03 04:02:14', '2023-03-03 04:02:16'),
+(6, '1007', 'Balance Insufficient', '2023-03-03 04:02:14', '2023-03-03 04:02:16'),
+(7, '1008', 'Message is empty', '2023-03-03 04:02:14', '2023-03-03 04:02:16'),
+(8, '1009', 'Message Type Not Set (text/unicode)', '2023-03-03 04:02:14', '2023-03-03 04:02:16'),
+(9, '1010', 'Invalid User & Password', '2023-03-03 04:02:14', '2023-03-03 04:02:16'),
+(10, '1011', 'Invalid User Id', '2023-03-03 04:02:14', '2023-03-03 04:02:16'),
+(11, '1012', 'Invalid Number', '2023-03-03 04:02:14', '2023-03-03 04:02:16'),
+(12, '1013', 'API limit error', '2023-03-03 04:02:14', '2023-03-03 04:02:16'),
+(13, '1014', 'No matching template', '2023-03-03 04:02:14', '2023-03-03 04:02:16'),
+(14, '1015', 'SMS Content Validation Fails', '2023-03-03 04:02:14', '2023-03-03 04:02:16'),
+(15, '1016', 'Sender not found', '2023-03-03 04:14:39', '2023-03-03 04:14:40');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `social_links`
+--
+
+CREATE TABLE `social_links` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `social_media` enum('facebook','twitter','instagram','youtube','linkedin','pinterest','reddit','github','other') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `social_links`
+--
+
+INSERT INTO `social_links` (`id`, `user_id`, `social_media`, `url`, `created_at`, `updated_at`) VALUES
+(1, 9, 'facebook', 'https://www.facebook.com', '2023-02-26 14:02:13', '2023-02-26 14:02:13');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `states`
+--
+
+CREATE TABLE `states` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `country_id` bigint(20) UNSIGNED NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tags`
+--
+
+CREATE TABLE `tags` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `tags`
+--
+
+INSERT INTO `tags` (`id`, `name`, `slug`, `created_at`, `updated_at`) VALUES
+(1, 'php', 'php', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(2, 'laravel', 'laravel', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(3, 'mysql', 'mysql', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(4, 'job', 'job', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(5, 'frontend', 'frontend', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(6, 'backend', 'backend', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(7, 'bootstrap', 'bootstrap', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(8, 'team', 'team', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(9, 'testing', 'testing', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(10, 'database', 'database', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(11, 'jobs', 'jobs', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(12, 'remote', 'remote', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(13, 'others', 'others', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(14, 'seeker', 'seeker', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(15, 'candidate', 'candidate', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(16, 'company', 'company', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(17, 'technology', 'technology', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(18, 'work', 'work', '2022-12-26 12:59:28', '2022-12-26 12:59:28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `team_sizes`
+--
+
+CREATE TABLE `team_sizes` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `team_sizes`
+--
+
+INSERT INTO `team_sizes` (`id`, `name`, `slug`, `created_at`, `updated_at`) VALUES
+(1, 'Only Me', 'only-me', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(2, '10 Members', '10-members', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(3, '10-20 Members', '10-20-members', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(4, '20-50 Members', '20-50-members', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(5, '50-100 Members', '50-100-members', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(6, '100-200 Members', '100-200-members', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(7, '200-500 Members', '200-500-members', '2022-12-26 12:59:28', '2022-12-26 12:59:28'),
+(8, '500+ Members', '500-members', '2022-12-26 12:59:28', '2022-12-26 12:59:28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `terms_categories`
+--
+
+CREATE TABLE `terms_categories` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `testimonials`
+--
+
+CREATE TABLE `testimonials` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `position` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `stars` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'en'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `theme_settings`
+--
+
+CREATE TABLE `theme_settings` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `timezones`
+--
+
+CREATE TABLE `timezones` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `value` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `timezones`
+--
+
+INSERT INTO `timezones` (`id`, `value`) VALUES
+(1, 'Africa/Abidjan'),
+(2, 'Africa/Accra'),
+(3, 'Africa/Addis_Ababa'),
+(4, 'Africa/Algiers'),
+(5, 'Africa/Asmara'),
+(6, 'Africa/Bamako'),
+(7, 'Africa/Bangui'),
+(8, 'Africa/Banjul'),
+(9, 'Africa/Bissau'),
+(10, 'Africa/Blantyre'),
+(11, 'Africa/Brazzaville'),
+(12, 'Africa/Bujumbura'),
+(13, 'Africa/Cairo'),
+(14, 'Africa/Casablanca'),
+(15, 'Africa/Ceuta'),
+(16, 'Africa/Conakry'),
+(17, 'Africa/Dakar'),
+(18, 'Africa/Dar_es_Salaam'),
+(19, 'Africa/Djibouti'),
+(20, 'Africa/Douala'),
+(21, 'Africa/El_Aaiun'),
+(22, 'Africa/Freetown'),
+(23, 'Africa/Gaborone'),
+(24, 'Africa/Harare'),
+(25, 'Africa/Johannesburg'),
+(26, 'Africa/Juba'),
+(27, 'Africa/Kampala'),
+(28, 'Africa/Khartoum'),
+(29, 'Africa/Kigali'),
+(30, 'Africa/Kinshasa'),
+(31, 'Africa/Lagos'),
+(32, 'Africa/Libreville'),
+(33, 'Africa/Lome'),
+(34, 'Africa/Luanda'),
+(35, 'Africa/Lubumbashi'),
+(36, 'Africa/Lusaka'),
+(37, 'Africa/Malabo'),
+(38, 'Africa/Maputo'),
+(39, 'Africa/Maseru'),
+(40, 'Africa/Mbabane'),
+(41, 'Africa/Mogadishu'),
+(42, 'Africa/Monrovia'),
+(43, 'Africa/Nairobi'),
+(44, 'Africa/Ndjamena'),
+(45, 'Africa/Niamey'),
+(46, 'Africa/Nouakchott'),
+(47, 'Africa/Ouagadougou'),
+(48, 'Africa/Porto-Novo'),
+(49, 'Africa/Sao_Tome'),
+(50, 'Africa/Tripoli'),
+(51, 'Africa/Tunis'),
+(52, 'Africa/Windhoek'),
+(53, 'America/Adak'),
+(54, 'America/Anchorage'),
+(55, 'America/Anguilla'),
+(56, 'America/Antigua'),
+(57, 'America/Araguaina'),
+(58, 'America/Argentina/Buenos_Aires'),
+(59, 'America/Argentina/Catamarca'),
+(60, 'America/Argentina/Cordoba'),
+(61, 'America/Argentina/Jujuy'),
+(62, 'America/Argentina/La_Rioja'),
+(63, 'America/Argentina/Mendoza'),
+(64, 'America/Argentina/Rio_Gallegos'),
+(65, 'America/Argentina/Salta'),
+(66, 'America/Argentina/San_Juan'),
+(67, 'America/Argentina/San_Luis'),
+(68, 'America/Argentina/Tucuman'),
+(69, 'America/Argentina/Ushuaia'),
+(70, 'America/Aruba'),
+(71, 'America/Asuncion'),
+(72, 'America/Atikokan'),
+(73, 'America/Bahia'),
+(74, 'America/Bahia_Banderas'),
+(75, 'America/Barbados'),
+(76, 'America/Belem'),
+(77, 'America/Belize'),
+(78, 'America/Blanc-Sablon'),
+(79, 'America/Boa_Vista'),
+(80, 'America/Bogota'),
+(81, 'America/Boise'),
+(82, 'America/Cambridge_Bay'),
+(83, 'America/Campo_Grande'),
+(84, 'America/Cancun'),
+(85, 'America/Caracas'),
+(86, 'America/Cayenne'),
+(87, 'America/Cayman'),
+(88, 'America/Chicago'),
+(89, 'America/Chihuahua'),
+(90, 'America/Costa_Rica'),
+(91, 'America/Creston'),
+(92, 'America/Cuiaba'),
+(93, 'America/Curacao'),
+(94, 'America/Danmarkshavn'),
+(95, 'America/Dawson'),
+(96, 'America/Dawson_Creek'),
+(97, 'America/Denver'),
+(98, 'America/Detroit'),
+(99, 'America/Dominica'),
+(100, 'America/Edmonton'),
+(101, 'America/Eirunepe'),
+(102, 'America/El_Salvador'),
+(103, 'America/Fort_Nelson'),
+(104, 'America/Fortaleza'),
+(105, 'America/Glace_Bay'),
+(106, 'America/Goose_Bay'),
+(107, 'America/Grand_Turk'),
+(108, 'America/Grenada'),
+(109, 'America/Guadeloupe'),
+(110, 'America/Guatemala'),
+(111, 'America/Guayaquil'),
+(112, 'America/Guyana'),
+(113, 'America/Halifax'),
+(114, 'America/Havana'),
+(115, 'America/Hermosillo'),
+(116, 'America/Indiana/Indianapolis'),
+(117, 'America/Indiana/Knox'),
+(118, 'America/Indiana/Marengo'),
+(119, 'America/Indiana/Petersburg'),
+(120, 'America/Indiana/Tell_City'),
+(121, 'America/Indiana/Vevay'),
+(122, 'America/Indiana/Vincennes'),
+(123, 'America/Indiana/Winamac'),
+(124, 'America/Inuvik'),
+(125, 'America/Iqaluit'),
+(126, 'America/Jamaica'),
+(127, 'America/Juneau'),
+(128, 'America/Kentucky/Louisville'),
+(129, 'America/Kentucky/Monticello'),
+(130, 'America/Kralendijk'),
+(131, 'America/La_Paz'),
+(132, 'America/Lima'),
+(133, 'America/Los_Angeles'),
+(134, 'America/Lower_Princes'),
+(135, 'America/Maceio'),
+(136, 'America/Managua'),
+(137, 'America/Manaus'),
+(138, 'America/Marigot'),
+(139, 'America/Martinique'),
+(140, 'America/Matamoros'),
+(141, 'America/Mazatlan'),
+(142, 'America/Menominee'),
+(143, 'America/Merida'),
+(144, 'America/Metlakatla'),
+(145, 'America/Mexico_City'),
+(146, 'America/Miquelon'),
+(147, 'America/Moncton'),
+(148, 'America/Monterrey'),
+(149, 'America/Montevideo'),
+(150, 'America/Montserrat'),
+(151, 'America/Nassau'),
+(152, 'America/New_York'),
+(153, 'America/Nipigon'),
+(154, 'America/Nome'),
+(155, 'America/Noronha'),
+(156, 'America/North_Dakota/Beulah'),
+(157, 'America/North_Dakota/Center'),
+(158, 'America/North_Dakota/New_Salem'),
+(159, 'America/Nuuk'),
+(160, 'America/Ojinaga'),
+(161, 'America/Panama'),
+(162, 'America/Pangnirtung'),
+(163, 'America/Paramaribo'),
+(164, 'America/Phoenix'),
+(165, 'America/Port-au-Prince'),
+(166, 'America/Port_of_Spain'),
+(167, 'America/Porto_Velho'),
+(168, 'America/Puerto_Rico'),
+(169, 'America/Punta_Arenas'),
+(170, 'America/Rainy_River'),
+(171, 'America/Rankin_Inlet'),
+(172, 'America/Recife'),
+(173, 'America/Regina'),
+(174, 'America/Resolute'),
+(175, 'America/Rio_Branco'),
+(176, 'America/Santarem'),
+(177, 'America/Santiago'),
+(178, 'America/Santo_Domingo'),
+(179, 'America/Sao_Paulo'),
+(180, 'America/Scoresbysund'),
+(181, 'America/Sitka'),
+(182, 'America/St_Barthelemy'),
+(183, 'America/St_Johns'),
+(184, 'America/St_Kitts'),
+(185, 'America/St_Lucia'),
+(186, 'America/St_Thomas'),
+(187, 'America/St_Vincent'),
+(188, 'America/Swift_Current'),
+(189, 'America/Tegucigalpa'),
+(190, 'America/Thule'),
+(191, 'America/Thunder_Bay'),
+(192, 'America/Tijuana'),
+(193, 'America/Toronto'),
+(194, 'America/Tortola'),
+(195, 'America/Vancouver'),
+(196, 'America/Whitehorse'),
+(197, 'America/Winnipeg'),
+(198, 'America/Yakutat'),
+(199, 'America/Yellowknife'),
+(200, 'Antarctica/Casey'),
+(201, 'Antarctica/Davis'),
+(202, 'Antarctica/DumontDUrville'),
+(203, 'Antarctica/Macquarie'),
+(204, 'Antarctica/Mawson'),
+(205, 'Antarctica/McMurdo'),
+(206, 'Antarctica/Palmer'),
+(207, 'Antarctica/Rothera'),
+(208, 'Antarctica/Syowa'),
+(209, 'Antarctica/Troll'),
+(210, 'Antarctica/Vostok'),
+(211, 'Arctic/Longyearbyen'),
+(212, 'Asia/Aden'),
+(213, 'Asia/Almaty'),
+(214, 'Asia/Amman'),
+(215, 'Asia/Anadyr'),
+(216, 'Asia/Aqtau'),
+(217, 'Asia/Aqtobe'),
+(218, 'Asia/Ashgabat'),
+(219, 'Asia/Atyrau'),
+(220, 'Asia/Baghdad'),
+(221, 'Asia/Bahrain'),
+(222, 'Asia/Baku'),
+(223, 'Asia/Bangkok'),
+(224, 'Asia/Barnaul'),
+(225, 'Asia/Beirut'),
+(226, 'Asia/Bishkek'),
+(227, 'Asia/Brunei'),
+(228, 'Asia/Chita'),
+(229, 'Asia/Choibalsan'),
+(230, 'Asia/Colombo'),
+(231, 'Asia/Damascus'),
+(232, 'Asia/Dhaka'),
+(233, 'Asia/Dili'),
+(234, 'Asia/Dubai'),
+(235, 'Asia/Dushanbe'),
+(236, 'Asia/Famagusta'),
+(237, 'Asia/Gaza'),
+(238, 'Asia/Hebron'),
+(239, 'Asia/Ho_Chi_Minh'),
+(240, 'Asia/Hong_Kong'),
+(241, 'Asia/Hovd'),
+(242, 'Asia/Irkutsk'),
+(243, 'Asia/Jakarta'),
+(244, 'Asia/Jayapura'),
+(245, 'Asia/Jerusalem'),
+(246, 'Asia/Kabul'),
+(247, 'Asia/Kamchatka'),
+(248, 'Asia/Karachi'),
+(249, 'Asia/Kathmandu'),
+(250, 'Asia/Khandyga'),
+(251, 'Asia/Kolkata'),
+(252, 'Asia/Krasnoyarsk'),
+(253, 'Asia/Kuala_Lumpur'),
+(254, 'Asia/Kuching'),
+(255, 'Asia/Kuwait'),
+(256, 'Asia/Macau'),
+(257, 'Asia/Magadan'),
+(258, 'Asia/Makassar'),
+(259, 'Asia/Manila'),
+(260, 'Asia/Muscat'),
+(261, 'Asia/Nicosia'),
+(262, 'Asia/Novokuznetsk'),
+(263, 'Asia/Novosibirsk'),
+(264, 'Asia/Omsk'),
+(265, 'Asia/Oral'),
+(266, 'Asia/Phnom_Penh'),
+(267, 'Asia/Pontianak'),
+(268, 'Asia/Pyongyang'),
+(269, 'Asia/Qatar'),
+(270, 'Asia/Qostanay'),
+(271, 'Asia/Qyzylorda'),
+(272, 'Asia/Riyadh'),
+(273, 'Asia/Sakhalin'),
+(274, 'Asia/Samarkand'),
+(275, 'Asia/Seoul'),
+(276, 'Asia/Shanghai'),
+(277, 'Asia/Singapore'),
+(278, 'Asia/Srednekolymsk'),
+(279, 'Asia/Taipei'),
+(280, 'Asia/Tashkent'),
+(281, 'Asia/Tbilisi'),
+(282, 'Asia/Tehran'),
+(283, 'Asia/Thimphu'),
+(284, 'Asia/Tokyo'),
+(285, 'Asia/Tomsk'),
+(286, 'Asia/Ulaanbaatar'),
+(287, 'Asia/Urumqi'),
+(288, 'Asia/Ust-Nera'),
+(289, 'Asia/Vientiane'),
+(290, 'Asia/Vladivostok'),
+(291, 'Asia/Yakutsk'),
+(292, 'Asia/Yangon'),
+(293, 'Asia/Yekaterinburg'),
+(294, 'Asia/Yerevan'),
+(295, 'Atlantic/Azores'),
+(296, 'Atlantic/Bermuda'),
+(297, 'Atlantic/Canary'),
+(298, 'Atlantic/Cape_Verde'),
+(299, 'Atlantic/Faroe'),
+(300, 'Atlantic/Madeira'),
+(301, 'Atlantic/Reykjavik'),
+(302, 'Atlantic/South_Georgia'),
+(303, 'Atlantic/St_Helena'),
+(304, 'Atlantic/Stanley'),
+(305, 'Australia/Adelaide'),
+(306, 'Australia/Brisbane'),
+(307, 'Australia/Broken_Hill'),
+(308, 'Australia/Darwin'),
+(309, 'Australia/Eucla'),
+(310, 'Australia/Hobart'),
+(311, 'Australia/Lindeman'),
+(312, 'Australia/Lord_Howe'),
+(313, 'Australia/Melbourne'),
+(314, 'Australia/Perth'),
+(315, 'Australia/Sydney'),
+(316, 'Europe/Amsterdam'),
+(317, 'Europe/Andorra'),
+(318, 'Europe/Astrakhan'),
+(319, 'Europe/Athens'),
+(320, 'Europe/Belgrade'),
+(321, 'Europe/Berlin'),
+(322, 'Europe/Bratislava'),
+(323, 'Europe/Brussels'),
+(324, 'Europe/Bucharest'),
+(325, 'Europe/Budapest'),
+(326, 'Europe/Busingen'),
+(327, 'Europe/Chisinau'),
+(328, 'Europe/Copenhagen'),
+(329, 'Europe/Dublin'),
+(330, 'Europe/Gibraltar'),
+(331, 'Europe/Guernsey'),
+(332, 'Europe/Helsinki'),
+(333, 'Europe/Isle_of_Man'),
+(334, 'Europe/Istanbul'),
+(335, 'Europe/Jersey'),
+(336, 'Europe/Kaliningrad'),
+(337, 'Europe/Kiev'),
+(338, 'Europe/Kirov'),
+(339, 'Europe/Lisbon'),
+(340, 'Europe/Ljubljana'),
+(341, 'Europe/London'),
+(342, 'Europe/Luxembourg'),
+(343, 'Europe/Madrid'),
+(344, 'Europe/Malta'),
+(345, 'Europe/Mariehamn'),
+(346, 'Europe/Minsk'),
+(347, 'Europe/Monaco'),
+(348, 'Europe/Moscow'),
+(349, 'Europe/Oslo'),
+(350, 'Europe/Paris'),
+(351, 'Europe/Podgorica'),
+(352, 'Europe/Prague'),
+(353, 'Europe/Riga'),
+(354, 'Europe/Rome'),
+(355, 'Europe/Samara'),
+(356, 'Europe/San_Marino'),
+(357, 'Europe/Sarajevo'),
+(358, 'Europe/Saratov'),
+(359, 'Europe/Simferopol'),
+(360, 'Europe/Skopje'),
+(361, 'Europe/Sofia'),
+(362, 'Europe/Stockholm'),
+(363, 'Europe/Tallinn'),
+(364, 'Europe/Tirane'),
+(365, 'Europe/Ulyanovsk'),
+(366, 'Europe/Uzhgorod'),
+(367, 'Europe/Vaduz'),
+(368, 'Europe/Vatican'),
+(369, 'Europe/Vienna'),
+(370, 'Europe/Vilnius'),
+(371, 'Europe/Volgograd'),
+(372, 'Europe/Warsaw'),
+(373, 'Europe/Zagreb'),
+(374, 'Europe/Zaporozhye'),
+(375, 'Europe/Zurich'),
+(376, 'Indian/Antananarivo'),
+(377, 'Indian/Chagos'),
+(378, 'Indian/Christmas'),
+(379, 'Indian/Cocos'),
+(380, 'Indian/Comoro'),
+(381, 'Indian/Kerguelen'),
+(382, 'Indian/Mahe'),
+(383, 'Indian/Maldives'),
+(384, 'Indian/Mauritius'),
+(385, 'Indian/Mayotte'),
+(386, 'Indian/Reunion'),
+(387, 'Pacific/Apia'),
+(388, 'Pacific/Auckland'),
+(389, 'Pacific/Bougainville'),
+(390, 'Pacific/Chatham'),
+(391, 'Pacific/Chuuk'),
+(392, 'Pacific/Easter'),
+(393, 'Pacific/Efate'),
+(394, 'Pacific/Fakaofo'),
+(395, 'Pacific/Fiji'),
+(396, 'Pacific/Funafuti'),
+(397, 'Pacific/Galapagos'),
+(398, 'Pacific/Gambier'),
+(399, 'Pacific/Guadalcanal'),
+(400, 'Pacific/Guam'),
+(401, 'Pacific/Honolulu'),
+(402, 'Pacific/Kanton'),
+(403, 'Pacific/Kiritimati'),
+(404, 'Pacific/Kosrae'),
+(405, 'Pacific/Kwajalein'),
+(406, 'Pacific/Majuro'),
+(407, 'Pacific/Marquesas'),
+(408, 'Pacific/Midway'),
+(409, 'Pacific/Nauru'),
+(410, 'Pacific/Niue'),
+(411, 'Pacific/Norfolk'),
+(412, 'Pacific/Noumea'),
+(413, 'Pacific/Pago_Pago'),
+(414, 'Pacific/Palau'),
+(415, 'Pacific/Pitcairn'),
+(416, 'Pacific/Pohnpei'),
+(417, 'Pacific/Port_Moresby'),
+(418, 'Pacific/Rarotonga'),
+(419, 'Pacific/Saipan'),
+(420, 'Pacific/Tahiti'),
+(421, 'Pacific/Tarawa'),
+(422, 'Pacific/Tongatapu'),
+(423, 'Pacific/Wake'),
+(424, 'Pacific/Wallis'),
+(425, 'UTC');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `unions`
+--
+
+CREATE TABLE `unions` (
+  `id` int(4) NOT NULL,
+  `upazilla_id` int(3) NOT NULL,
+  `name` varchar(25) NOT NULL,
+  `bn_name` varchar(25) NOT NULL,
+  `url` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `unions`
+--
+
+INSERT INTO `unions` (`id`, `upazilla_id`, `name`, `bn_name`, `url`) VALUES
+(1, 1, 'Subil', 'à¦¸à§à¦¬à¦¿à¦²', 'subilup.comilla.gov.bd'),
+(2, 1, 'North Gunaighor', 'à¦‰à¦¤à§à¦¤à¦° à¦—à§à¦¨', 'gunaighornorthup.comilla.gov.bd'),
+(3, 1, 'South Gunaighor', 'à¦¦à¦•à§à¦·à¦¿à¦£ à¦—à§', 'gunaighorsouth.comilla.gov.bd'),
+(4, 1, 'Boroshalghor', 'à¦¬à¦¡à¦¼à¦¶à¦¾à¦²à¦˜à¦°', 'boroshalghorup.comilla.gov.bd'),
+(5, 1, 'Rajameher', 'à¦°à¦¾à¦œà¦¾à¦®à§‡à¦¹à¦¾à', 'rajameherup.comila.gov.bd'),
+(6, 1, 'Yousufpur', 'à¦‡à¦‰à¦¸à§à¦«à¦ªà§à¦°', 'yousufpurup.comilla.gov.bd'),
+(7, 1, 'Rasulpur', 'à¦°à¦¸à§à¦²à¦ªà§à¦°', 'rasulpurup.comilla.gov.bd'),
+(8, 1, 'Fatehabad', 'à¦«à¦¤à§‡à¦¹à¦¾à¦¬à¦¾à¦¦', 'fatehabadup.comilla.gov.bd'),
+(9, 1, 'Elahabad', 'à¦à¦²à¦¾à¦¹à¦¾à¦¬à¦¾à¦¦', 'elahabadup.comilla.gov.bd'),
+(10, 1, 'Jafargonj', 'à¦œà¦¾à¦«à¦°à¦—à¦žà§à¦œ', 'jafargonjup.comilla.gov.bd'),
+(11, 1, 'Dhampti', 'à¦§à¦¾à¦®à¦¤à§€', 'dhamptiup.comilla.gov.bd'),
+(12, 1, 'Mohanpur', 'à¦®à§‹à¦¹à¦¨à¦ªà§à¦°', 'mohanpurup.comilla.gov.bd'),
+(13, 1, 'Vani', 'à¦­à¦¾à¦¨à§€', 'vaniup.comilla.gov.bd'),
+(14, 1, 'Barkamta', 'à¦¬à¦°à¦•à¦¾à¦®à¦¤à¦¾', 'barkamtaup.comilla.gov.bd'),
+(15, 1, 'Sultanpur', 'à¦¸à§à¦²à¦¤à¦¾à¦¨à¦ªà§à', 'sultanpurup.comilla.gov.bd'),
+(16, 2, 'Aganagar', 'à¦†à¦—à¦¾à¦¨à¦—à¦°', 'aganagarup.comilla.gov.bd'),
+(17, 2, 'Bhabanipur', 'à¦­à¦¬à¦¾à¦¨à§€à¦ªà§à¦°', 'bhabanipurup.comilla.gov.bd'),
+(18, 2, 'North Khoshbas', 'à¦‰à¦¤à§à¦¤à¦° à¦–à§‹à¦¶', 'khoshbasnorthup.comilla.gov.bd'),
+(19, 2, 'South Khoshbas', 'à¦¦à¦•à§à¦·à¦¿à¦¨ à¦–à§‹', 'khoshbassouthup.comilla.gov.bd'),
+(20, 2, 'Jhalam', 'à¦à¦²à¦®', 'jhalamup.comilla.gov.bd'),
+(21, 2, 'Chitodda', 'à¦šà¦¿à¦¤à¦¡à§à¦¡à¦¾', 'chitoddaup.comilla.gov.bd'),
+(22, 2, 'North Shilmuri', 'à¦‰à¦¤à§à¦¤à¦° à¦¶à¦¿à¦²', 'shilmurinorthup.comilla.gov.bd'),
+(23, 2, 'South Shilmuri', 'à¦¦à¦•à§à¦·à¦¿à¦¨ à¦¶à¦¿', 'shilmurisouthup.comilla.gov.bd'),
+(24, 2, 'Galimpur', 'à¦—à¦¾à¦²à¦¿à¦®à¦ªà§à¦°', 'galimpurup.comilla.gov.bd'),
+(25, 2, 'Shakpur', 'à¦¶à¦¾à¦•à¦ªà§à¦°', 'shakpurup.comilla.gov.bd'),
+(26, 2, 'Bhaukshar', 'à¦­à¦¾à¦‰à¦•à¦¸à¦¾à¦°', 'bhauksharup.comilla.gov.bd'),
+(27, 2, 'Adda', 'à¦†à¦¡à§à¦¡à¦¾', 'addaup.comilla.gov.bd'),
+(28, 2, 'Adra', 'à¦†à¦¦à§à¦°à¦¾', 'adraup.comilla.gov.bd'),
+(29, 2, 'Payalgacha', 'à¦ªà¦¯à¦¼à¦¾à¦²à¦—à¦¾à¦›à', 'payalgachaup.comilla.gov.bd'),
+(30, 2, 'Laxmipur', 'à¦²à¦•à§à¦·à§€à¦ªà§à¦°', 'laxmipurup.comilla.gov.bd'),
+(31, 3, 'Shidli', 'à¦¶à¦¿à¦¦à¦²à¦¾à¦‡', 'shidliup.comilla.gov.bd'),
+(32, 3, 'Chandla', 'à¦šà¦¾à¦¨à§à¦¦à¦²à¦¾', 'chandlaup.comilla.gov.bd'),
+(33, 3, 'Shashidal', 'à¦¶à¦¶à§€à¦¦à¦²', 'shashidalup.comilla.gov.bd'),
+(34, 3, 'Dulalpur', 'à¦¦à§à¦²à¦¾à¦²à¦ªà§à¦°', 'dulalpurup2.comilla.gov.bd'),
+(35, 3, 'Brahmanpara Sadar', 'à¦¬à§à¦°à¦¾à¦¹à§à¦®à¦¨à', 'brahmanparasadarup.comilla.gov.bd'),
+(36, 3, 'Shahebabad', 'à¦¸à¦¾à¦¹à§‡à¦¬à¦¾à¦¬à¦¾à', 'shahebabadup.comilla.gov.bd'),
+(37, 3, 'Malapara', 'à¦®à¦¾à¦²à¦¾à¦ªà¦¾à¦¡à¦¼à', 'malaparaup.comilla.gov.bd'),
+(38, 3, 'Madhabpur', 'à¦®à¦¾à¦§à¦¬à¦ªà§à¦°', 'madhabpurup.comilla.gov.bd'),
+(39, 4, 'Shuhilpur', 'à¦¸à§à¦¹à¦¿à¦²à¦ªà§à¦°', 'shuhilpurup.comilla.gov.bd'),
+(40, 4, 'Bataghashi', 'à¦¬à¦¾à¦¤à¦¾à¦˜à¦¾à¦¸à¦¿', 'bataghashiup.comilla.gov.bd'),
+(41, 4, 'Joag', 'à¦œà§‹à¦¯à¦¼à¦¾à¦—', 'joagup.comilla.gov.bd'),
+(42, 4, 'Borcarai', 'à¦¬à¦°à¦•à¦°à¦‡', 'borcaraiup.comilla.gov.bd'),
+(43, 4, 'Madhaiya', 'à¦®à¦¾à¦§à¦¾à¦‡à¦¯à¦¼à¦¾', 'madhaiyaup.comilla.gov.bd'),
+(44, 4, 'Dollai Nowabpur', 'à¦¦à§‹à¦²à§à¦²à¦¾à¦‡ à¦¨', 'dollainowabpurup.comilla.gov.bd'),
+(45, 4, 'Mohichial', 'à¦®à¦¹à¦¿à¦šà¦¾à¦‡à¦²', 'mohichialup.comilla.gov.bd'),
+(46, 4, 'Gollai', 'à¦—à¦²à§à¦²à¦¾à¦‡', 'gollaiup.comilla.gov.bd'),
+(47, 4, 'Keronkhal', 'à¦•à§‡à¦°à¦£à¦–à¦¾à¦²', 'keronkhalup.comilla.gov.bd'),
+(48, 4, 'Maijkhar', 'à¦®à¦¾à¦‡à¦œà¦–à¦¾à¦°', 'maijkharup.comilla.gov.bd'),
+(49, 4, 'Etberpur', 'à¦à¦¤à¦¬à¦¾à¦°à¦ªà§à¦°', 'etberpurup.comilla.gov.bd'),
+(50, 4, 'Barera', 'à¦¬à¦¾à¦¡à¦¼à§‡à¦°à¦¾', 'bareraup.comilla.gov.bd'),
+(51, 4, 'Borcoit', 'à¦¬à¦°à¦•à¦‡à¦Ÿ', 'borcoitup.comilla.gov.bd'),
+(52, 5, 'Sreepur', 'à¦¶à§à¦°à§€à¦ªà§à¦°', 'sreepurup.comilla.gov.bd'),
+(53, 5, 'Kashinagar', 'à¦•à¦¾à¦¶à¦¿à¦¨à¦—à¦°', 'kashinagarup.comilla.gov.bd'),
+(54, 5, 'Kalikapur', 'à¦•à¦¾à¦²à¦¿à¦•à¦¾à¦ªà§à', 'kalikapurup.comilla.gov.bd'),
+(55, 5, 'Shuvapur', 'à¦¶à§à¦­à¦ªà§à¦°', 'shuvapurup.comilla.gov.bd'),
+(56, 5, 'Ghulpasha', 'à¦˜à§‹à¦²à¦ªà¦¾à¦¶à¦¾', 'ghulpashaup.comilla.gov.bd'),
+(57, 5, 'Moonshirhat', 'à¦®à§à¦¨à§à¦¸à§€à¦°à¦¹à', 'moonshirhatup.comilla.gov.bd'),
+(58, 5, 'Batisha', 'à¦¬à¦¾à¦¤à¦¿à¦¸à¦¾', 'batishaup.comilla.gov.bd'),
+(59, 5, 'Kankapait', 'à¦•à¦¨à¦•à¦¾à¦ªà§ˆà¦¤', 'kankapaitup.comilla.gov.bd'),
+(60, 5, 'Cheora', 'à¦šà¦¿à¦“à¦¡à¦¼à¦¾', 'cheoraup.comilla.gov.bd'),
+(61, 5, 'Jagannatdighi', 'à¦œà¦—à¦¨à§à¦¨à¦¾à¦¥à¦¦à', 'jagannatdighiup.comilla.gov.bd'),
+(62, 5, 'Goonabati', 'à¦—à§à¦¨à¦¬à¦¤à§€', 'goonabatiup.comilla.gov.bd'),
+(63, 5, 'Alkara', 'à¦†à¦²à¦•à¦°à¦¾', 'alkaraup.comilla.gov.bd'),
+(64, 6, 'Doulotpur', 'à¦¦à§Œà¦²à¦¤à¦ªà§à¦°', 'doulotpurup.comilla.gov.bd'),
+(65, 6, 'Daudkandi', 'à¦¦à¦¾à¦‰à¦¦à¦•à¦¾à¦¨à§à', 'daudkandinorthup.comilla.gov.bd'),
+(66, 6, 'North Eliotgonj', 'à¦‰à¦¤à§à¦¤à¦° à¦‡à¦²à¦¿', 'eliotgonjnorthup.comilla.gov.bd'),
+(67, 6, 'South Eliotgonj', 'à¦¦à¦•à§à¦·à¦¿à¦¨ à¦‡à¦²', 'eliotgonjsouthup.comilla.gov.bd'),
+(68, 6, 'Zinglatoli', 'à¦œà¦¿à¦‚à¦²à¦¾à¦¤à¦²à§€', 'zinglatoliup.comilla.gov.bd'),
+(69, 6, 'Sundolpur', 'à¦¸à§à¦¨à§à¦¦à¦²à¦ªà§à', 'sundolpurup.comilla.gov.bd'),
+(70, 6, 'Gouripur', 'à¦—à§Œà¦°à§€à¦ªà§à¦°', 'gouripurup.comilla.gov.bd'),
+(71, 6, 'East Mohammadpur', 'à¦ªà§à¦°à§à¦¬ à¦®à§‹à¦¹', 'mohammadpureastup.comilla.gov.bd'),
+(72, 6, 'West Mohammadpur', 'à¦ªà¦¶à§à¦šà¦¿à¦® à¦®à§‹', 'mohammadpurwestup.comilla.gov.bd'),
+(73, 6, 'Goalmari', 'à¦—à§‹à¦¯à¦¼à¦¾à¦²à¦®à¦¾à', 'goalmariup.comilla.gov.bd'),
+(74, 6, 'Maruka', 'à¦®à¦¾à¦°à§à¦•à¦¾', 'marukaup.comilla.gov.bd'),
+(75, 6, 'Betessor', 'à¦¬à¦¿à¦Ÿà§‡à¦¶à§à¦¬à¦°', 'betessorup.comilla.gov.bd'),
+(76, 6, 'Podua', 'à¦ªà¦¦à§à¦¯à¦¼à¦¾', 'poduaup.comilla.gov.bd'),
+(77, 6, 'West Passgacia', 'à¦ªà¦¶à§à¦šà¦¿à¦® à¦ªà¦¾', 'passgaciawestup.comilla.gov.bd'),
+(78, 6, 'Baropara', 'à¦¬à¦¾à¦°à¦ªà¦¾à¦¡à¦¼à¦¾', 'baroparaup2.comilla.gov.bd'),
+(79, 7, 'Mathabanga', 'à¦®à¦¾à¦¥à¦¾à¦­à¦¾à¦™à§à', 'mathabangaup.comilla.gov.bd'),
+(80, 7, 'Gagutiea', 'à¦˜à¦¾à¦—à§à¦Ÿà¦¿à¦¯à¦¼à', 'gagutieaup.comilla.gov.bd'),
+(81, 7, 'Asadpur', 'à¦†à¦›à¦¾à¦¦à¦ªà§à¦°', 'asadpurup.comilla.gov.bd'),
+(82, 7, 'Chanderchor', 'à¦šà¦¾à¦¨à§à¦¦à§‡à¦°à¦šà', 'chanderchorup.comilla.gov.bd'),
+(83, 7, 'Vashania', 'à¦­à¦¾à¦·à¦¾à¦¨à¦¿à¦¯à¦¼à', 'vashaniaup.comilla.gov.bd'),
+(84, 7, 'Nilokhi', 'à¦¨à¦¿à¦²à¦–à§€', 'nilokhiup.comilla.gov.bd'),
+(85, 7, 'Garmora', 'à¦˜à¦¾à¦°à¦®à§‹à¦¡à¦¼à¦¾', 'garmoraup.comilla.gov.bd'),
+(86, 7, 'Joypur', 'à¦œà¦¯à¦¼à¦ªà§à¦°', 'joypurup.comilla.gov.bd'),
+(87, 7, 'Dulalpur', 'à¦¦à§à¦²à¦¾à¦²à¦ªà§à¦°', 'dulalpurup1.comilla.gov.bd'),
+(88, 8, 'Bakoi', 'à¦¬à¦¾à¦•à¦‡', 'bakoiup.comilla.gov.bd'),
+(89, 8, 'Mudafargonj', 'à¦®à§à¦¦à¦¾à¦«à¦«à¦° à¦—', 'mudafargonjup.comilla.gov.bd'),
+(90, 8, 'Kandirpar', 'à¦•à¦¾à¦¨à§à¦¦à¦¿à¦°à¦ªà', 'kandirparup.comilla.gov.bd'),
+(91, 8, 'Gobindapur', 'à¦—à§‹à¦¬à¦¿à¦¨à§à¦¦à¦ªà', 'gobindapurup.comilla.gov.bd'),
+(92, 8, 'Uttarda', 'à¦‰à¦¤à§à¦¤à¦°à¦¦à¦¾', 'uttardaup.comilla.gov.bd'),
+(93, 8, 'Laksam Purba', 'à¦²à¦¾à¦•à¦¸à¦¾à¦® à¦ªà§', 'laksampurbaup.comilla.gov.bd'),
+(94, 8, 'Azgora', 'à¦†à¦œà¦—à¦°à¦¾', 'azgoraup.comilla.gov.bd'),
+(95, 9, 'Sreekil', 'à¦¶à§à¦°à§€à¦•à¦¾à¦‡à¦²', 'sreekilup.comilla.gov.bd'),
+(96, 9, 'Akubpur', 'à¦†à¦•à§à¦¬à¦ªà§à¦°', 'akubpurup.comilla.gov.bd'),
+(97, 9, 'Andicot', 'à¦†à¦¨à§à¦¦à¦¿à¦•à§‹à¦Ÿ', 'andicotup.comilla.gov.bd'),
+(98, 9, 'Purbadair (East)', 'à¦ªà§à¦°à§à¦¬à¦§à§ˆà¦‡à', 'purbadaireastup.comilla.gov.bd'),
+(99, 9, 'Purbadair (West)', 'à¦ªà§à¦°à§à¦¬à¦§à§ˆà¦‡à', 'purbadairwestup.comilla.gov.bd'),
+(100, 9, 'Bangara (East)', 'à¦¬à¦¾à¦™à§à¦—à¦°à¦¾ (à¦', 'bangaraeastup.comilla.gov.bd'),
+(101, 9, 'Bangara (West)', 'à¦¬à¦¾à¦™à§à¦—à¦°à¦¾ (à¦', 'bangarawestup.comilla.gov.bd'),
+(102, 9, 'Chapitala', 'à¦šà¦¾à¦ªà¦¿à¦¤à¦²à¦¾', 'chapitalaup.comilla.gov.bd'),
+(103, 9, 'Camalla', 'à¦•à¦¾à¦®à¦¾à¦²à§à¦²à¦¾', 'camallaup.comilla.gov.bd'),
+(104, 9, 'Jatrapur', 'à¦¯à¦¾à¦¤à§à¦°à¦¾à¦ªà§à', 'jatrapurup.comilla.gov.bd'),
+(105, 9, 'Ramachandrapur (North)', 'à¦°à¦¾à¦®à¦šà¦¨à§à¦¦à§à', 'ramachandrapurnorthup.comilla.gov.bd'),
+(106, 9, 'Ramachandrapur (South)', 'à¦°à¦¾à¦®à¦šà¦¨à§à¦¦à§à', 'ramachandrapursouthup.comilla.gov.bd'),
+(107, 9, 'Muradnagar Sadar', 'à¦®à§à¦°à¦¾à¦¦à¦¨à¦—à¦° ', 'muradnagarsadarup.comilla.gov.bd'),
+(108, 9, 'Nobipur (East)', 'à¦¨à¦¬à§€à¦ªà§à¦° (à¦ªà§', 'nobipureastup.comilla.gov.bd'),
+(109, 9, 'Nobipur (West)', 'à¦¨à¦¬à§€à¦ªà§à¦° (à¦ªà¦', 'nobipurwestup.comilla.gov.bd'),
+(110, 9, 'Damgar', 'à¦§à¦¾à¦®à¦˜à¦°', 'damgarup.comilla.gov.bd'),
+(111, 9, 'Jahapur', 'à¦œà¦¾à¦¹à¦¾à¦ªà§à¦°', 'jahapurup.comilla.gov.bd'),
+(112, 9, 'Salikandi', 'à¦›à¦¾à¦²à¦¿à¦¯à¦¼à¦¾à¦•à', 'salikandiup.comilla.gov.bd'),
+(113, 9, 'Darura', 'à¦¦à¦¾à¦°à§‹à¦°à¦¾', 'daruraup.comilla.gov.bd'),
+(114, 9, 'Paharpur', 'à¦ªà¦¾à¦¹à¦¾à¦¡à¦¼à¦ªà§à', 'paharpurup.comilla.gov.bd'),
+(115, 9, 'Babutipara', 'à¦¬à¦¾à¦¬à§à¦Ÿà¦¿à¦ªà¦¾à', 'babutiparaup.comilla.gov.bd'),
+(116, 9, 'Tanki', 'à¦Ÿà¦¨à¦•à§€', 'tankiup.comilla.gov.bd'),
+(117, 10, 'Bangadda', 'à¦¬à¦¾à¦™à§à¦—à¦¡à§à¦¡à', 'bangadda.comilla.gov.bd'),
+(118, 10, 'Paria', 'à¦ªà§‡à¦°à¦¿à¦¯à¦¼à¦¾', 'pariaup.comilla.gov.bd'),
+(119, 10, 'Raykot', 'à¦°à¦¾à¦¯à¦¼à¦•à§‹à¦Ÿ', 'raykotup.comilla.gov.bd'),
+(120, 10, 'Mokara', 'à¦®à§‹à¦•à¦°à¦¾', 'mokaraup.comilla.gov.bd'),
+(121, 10, 'Makrabpur', 'à¦®à¦•à§à¦°à¦¬à¦ªà§à¦°', 'makrabpurup.comilla.gov.bd'),
+(122, 10, 'Heshakhal', 'à¦¹à§‡à¦¸à¦¾à¦–à¦¾à¦²', 'heshakhalup.comilla.gov.bd'),
+(123, 10, 'Adra', 'à¦†à¦¦à§à¦°à¦¾', 'adraup.comilla.gov.bd'),
+(124, 10, 'Judda', 'à¦œà§‹à¦¡à§à¦¡à¦¾', 'juddaup.comilla.gov.bd'),
+(125, 10, 'Dhalua', 'à¦¢à¦¾à¦²à§à¦¯à¦¼à¦¾', 'dhaluaup.comilla.gov.bd'),
+(126, 10, 'Doulkha', 'à¦¦à§Œà¦²à¦–à¦¾à¦à¦¡à¦¼', 'doulkhaup.comilla.gov.bd'),
+(127, 10, 'Boxgonj', 'à¦¬à¦•à§à¦¸à¦—à¦žà§à¦œ', 'boxgonjup.comilla.gov.bd'),
+(128, 10, 'Satbaria', 'à¦¸à¦¾à¦¤à¦¬à¦¾à¦¡à¦¼à§€à', 'satbariaup.comilla.gov.bd'),
+(129, 11, 'Kalirbazer', 'à¦•à¦¾à¦²à§€à¦° à¦¬à¦¾à¦œ', 'kalirbazerup.comilla.gov.bd'),
+(130, 11, 'North Durgapur', 'à¦‰à¦¤à§à¦¤à¦° à¦¦à§à¦°', 'durgapurnorthup.comilla.gov.bd'),
+(131, 11, 'South Durgapur', 'à¦¦à¦•à§à¦·à¦¿à¦¨ à¦¦à§', 'durgapursouthup.comilla.gov.bd'),
+(132, 11, 'Amratoli', 'à¦†à¦®à¦¡à¦¼à¦¾à¦¤à¦²à§€', 'amratoliup.comilla.gov.bd'),
+(133, 11, 'Panchthubi', 'à¦ªà¦¾à¦à¦šà¦¥à§à¦¬à§€', 'panchthubiup.comilla.gov.bd'),
+(134, 11, 'Jagannatpur', 'à¦œà¦—à¦¨à§à¦¨à¦¾à¦¥à¦ªà', 'jagannatpurup.comilla.gov.bd'),
+(135, 12, 'Chandanpur', 'à¦šà¦¨à§à¦¦à¦¨à¦ªà§à¦°', 'chandanpurup.comilla.gov.bd'),
+(136, 12, 'Chalibanga', 'à¦šà¦¾à¦²à¦¿à¦­à¦¾à¦™à§à', 'chalibangaup.comilla.gov.bd'),
+(137, 12, 'Radanagar', 'à¦°à¦¾à¦§à¦¾à¦¨à¦—à¦°', 'radanagarup.comilla.gov.bd'),
+(138, 12, 'Manikarchar', 'à¦®à¦¾à¦¨à¦¿à¦•à¦¾à¦°à¦šà', 'manikarcharup.comilla.gov.bd'),
+(139, 12, 'Barakanda', 'à¦¬à¦¡à¦¼à¦•à¦¾à¦¨à§à¦¦à', 'barakandaup.comilla.gov.bd'),
+(140, 12, 'Govindapur', 'à¦—à§‹à¦¬à¦¿à¦¨à§à¦¦à¦ªà', 'govindapurup1.comilla.gov.bd'),
+(141, 12, 'Luterchar', 'à¦²à§à¦Ÿà§‡à¦°à¦šà¦°', 'lutercharup.comilla.gov.bd'),
+(142, 12, 'Vaorkhola', 'à¦­à¦¾à¦“à¦°à¦–à§‹à¦²à¦¾', 'vaorkholaup.comilla.gov.bd'),
+(143, 13, 'Baishgaon', 'à¦¬à¦¾à¦‡à¦¶à¦—à¦¾à¦à¦“', 'baishgaonup.comilla.gov.bd'),
+(144, 13, 'Shoroshpur', 'à¦¸à¦°à¦¸à¦ªà§à¦°', 'shoroshpurup.comilla.gov.bd'),
+(145, 13, 'Hasnabad', 'à¦¹à¦¾à¦¸à¦¨à¦¾à¦¬à¦¾à¦¦', 'hasnabadup.comilla.gov.bd'),
+(146, 13, 'Jholam (North)', 'à¦à¦²à¦® (à¦‰à¦¤à§à¦¤à¦', 'jholamnorthup.comilla.gov.bd'),
+(147, 13, 'Jholam (South)', 'à¦à¦²à¦® (à¦¦à¦•à§à¦·à¦', 'jholamsouthup.comilla.gov.bd'),
+(148, 13, 'Moishatua', 'à¦®à§ˆà¦¶à¦¾à¦¤à§à¦¯à¦¼à', 'moishatuaup.comilla.gov.bd'),
+(149, 13, 'Lokkhanpur', 'à¦²à¦•à§à¦·à¦¨à¦ªà§à¦°', 'lokkhanpurup.comilla.gov.bd'),
+(150, 13, 'Khela', 'à¦–à¦¿à¦²à¦¾', 'khelaup.comilla.gov.bd'),
+(151, 13, 'Uttarhowla', 'à¦‰à¦¤à§à¦¤à¦° à¦¹à¦¾à¦“', 'uttarhowlaup.comilla.gov.bd'),
+(152, 13, 'Natherpetua', 'à¦¨à¦¾à¦¥à§‡à¦°à¦ªà§‡à¦Ÿà', 'natherpetuaup.comilla.gov.bd'),
+(153, 13, 'Bipulashar', 'à¦¬à¦¿à¦ªà§à¦²à¦¾à¦¸à¦¾à', 'bipulasharup.comilla.gov.bd'),
+(154, 14, 'Chuwara', 'à¦šà§Œà¦¯à¦¼à¦¾à¦°à¦¾', 'chuwaraup.comilla.gov.bd'),
+(155, 14, 'Baropara', 'à¦¬à¦¾à¦°à¦ªà¦¾à¦¡à¦¼à¦¾', 'baroparaup1.comilla.gov.bd'),
+(156, 14, 'Jorkanoneast', 'à¦œà§‹à¦¡à¦¼à¦•à¦¾à¦¨à¦¨ ', 'jorkanoneastup.comilla.gov.bd'),
+(157, 14, 'Goliara', 'à¦—à¦²à¦¿à¦¯à¦¼à¦¾à¦°à¦¾', 'goliaraup.comilla.gov.bd'),
+(158, 14, 'Jorkanonwest', 'à¦œà§‹à¦¡à¦¼à¦•à¦¾à¦¨à¦¨ ', 'jorkanonwestup.comilla.gov.bd'),
+(159, 14, 'Bagmara (North)', 'à¦¬à¦¾à¦—à¦®à¦¾à¦°à¦¾ (à¦', 'bagmaranorthup.comilla.gov.bd'),
+(160, 14, 'Bagmara (South)', 'à¦¬à¦¾à¦—à¦®à¦¾à¦°à¦¾ (à¦', 'bagmarasouthup.comilla.gov.bd'),
+(161, 14, 'Bhuloin (North)', 'à¦­à§‚à¦²à¦‡à¦¨ (à¦‰à¦¤à§', 'bhuloinnorthup.comilla.gov.bd'),
+(162, 14, 'Bhuloin (South)', 'à¦­à§‚à¦²à¦‡à¦¨ (à¦¦à¦•à§', 'bhuloinsouthup.comilla.gov.bd'),
+(163, 14, 'Belgor (North)', 'à¦¬à§‡à¦²à¦˜à¦° (à¦‰à¦¤à§', 'belgornorthup.comilla.gov.bd'),
+(164, 14, 'Belgor (South)', 'à¦¬à§‡à¦²à¦˜à¦° (à¦¦à¦•à§', 'belgorsouthup.comilla.gov.bd'),
+(165, 14, 'Perul (North)', 'à¦ªà§‡à¦°à§à¦² (à¦‰à¦¤à§', 'perulnorthup.comilla.gov.bd'),
+(166, 14, 'Perul (South)', 'à¦ªà§‡à¦°à§à¦² (à¦¦à¦•à§', 'perulsouthup.comilla.gov.bd'),
+(167, 14, 'Bijoypur', 'à¦¬à¦¿à¦œà¦¯à¦¼à¦ªà§à¦°', 'bijoypurup.comilla.gov.bd'),
+(168, 15, 'Satani', 'à¦¸à¦¾à¦¤à¦¾à¦¨à§€', 'sataniup.comilla.gov.bd'),
+(169, 15, 'Jagatpur', 'à¦œà¦—à¦¤à¦ªà§à¦°', 'jagatpurup.comilla.gov.bd'),
+(170, 15, 'Balorampur', 'à¦¬à¦²à¦°à¦¾à¦®à¦ªà§à¦°', 'balorampurup.comilla.gov.bd'),
+(171, 15, 'Karikandi', 'à¦•à¦¡à¦¼à¦¿à¦•à¦¾à¦¨à§à', 'karikandiup.comilla.gov.bd'),
+(172, 15, 'Kalakandi', 'à¦•à¦²à¦¾à¦•à¦¾à¦¨à§à¦¦à', 'kalakandiup.comilla.gov.bd'),
+(173, 15, 'Vitikandi', 'à¦­à¦¿à¦Ÿà¦¿à¦•à¦¾à¦¨à§à', 'vitikandiup.comilla.gov.bd'),
+(174, 15, 'Narayandia', 'à¦¨à¦¾à¦°à¦¾à¦¨à§à¦¦à¦¿à', 'narayandiaup.comilla.gov.bd'),
+(175, 15, 'Zearkandi', 'à¦œà¦¿à¦¯à¦¼à¦¾à¦°à¦•à¦¾à', 'zearkandiup.comilla.gov.bd'),
+(176, 15, 'Majidpur', 'à¦®à¦œà¦¿à¦¦à¦ªà§à¦°', 'majidpurup.comilla.gov.bd'),
+(177, 16, 'Moynamoti', 'à¦®à¦¯à¦¼à¦¨à¦¾à¦®à¦¤à¦¿', 'moynamotiup.comilla.gov.bd'),
+(178, 16, 'Varella', 'à¦­à¦¾à¦°à§‡à¦²à§à¦²à¦¾', 'varellaup.comilla.gov.bd'),
+(179, 16, 'Mokam', 'à¦®à§‹à¦•à¦¾à¦®', 'mokamup.comilla.gov.bd'),
+(180, 16, 'Burichang Sadar', 'à¦¬à§à¦¡à¦¼à¦¿à¦šà¦‚ à¦¸', 'burichangsadarup.comilla.gov.bd'),
+(181, 16, 'Bakshimul', 'à¦¬à¦¾à¦•à¦¶à§€à¦®à§‚à¦²', 'bakshimulup.comilla.gov.bd'),
+(182, 16, 'Pirjatrapur', 'à¦ªà§€à¦°à¦¯à¦¾à¦¤à§à¦°à', 'pirjatrapurup.comilla.gov.bd'),
+(183, 16, 'Sholonal', 'à¦·à§‹à¦²à¦¨à¦²', 'sholonalup.comilla.gov.bd'),
+(184, 16, 'Rajapur', 'à¦°à¦¾à¦œà¦¾à¦ªà§à¦°', 'rajapurup.comilla.gov.bd'),
+(185, 17, 'Bagmara (North)', 'à¦¬à¦¾à¦—à¦®à¦¾à¦°à¦¾ (à¦', 'bagmaranorthup.comilla.gov.bd'),
+(186, 17, 'Bagmara (South)', 'à¦¬à¦¾à¦—à¦®à¦¾à¦°à¦¾ (à¦', 'bagmarasouthup.comilla.gov.bd'),
+(187, 17, 'Bhuloin (North)', 'à¦­à§‚à¦²à¦‡à¦¨ (à¦‰à¦¤à§', 'bhuloinnorthup.comilla.gov.bd'),
+(188, 17, 'Bhuloin (South)', 'à¦­à§‚à¦²à¦‡à¦¨ (à¦¦à¦•à§', 'bhuloinsouthup.comilla.gov.bd'),
+(189, 17, 'Belgor (North)', 'à¦¬à§‡à¦²à¦˜à¦° (à¦‰à¦¤à§', 'belgornorthup.comilla.gov.bd'),
+(190, 17, 'Belgor (South)', 'à¦¬à§‡à¦²à¦˜à¦° (à¦¦à¦•à§', 'belgorsouthup.comilla.gov.bd'),
+(191, 17, 'Perul (North)', 'à¦ªà§‡à¦°à§à¦² (à¦‰à¦¤à§', 'perulnorthup.comilla.gov.bd'),
+(192, 17, 'Perul (South)', 'à¦ªà§‡à¦°à§à¦² (à¦¦à¦•à§', 'perulsouthup.comilla.gov.bd'),
+(193, 18, 'Mohamaya', 'à¦®à¦¹à¦¾à¦®à¦¾à§Ÿà¦¾', 'mohamayaup.feni.gov.bd'),
+(194, 18, 'Pathannagar', 'à¦ªà¦¾à¦ à¦¾à¦¨à¦¨à¦—à¦°', 'pathannagarup.feni.gov.bd'),
+(195, 18, 'Subhapur', 'à¦¶à§à¦­à¦ªà§à¦°', 'subhapurup.feni.gov.bd'),
+(196, 18, 'Radhanagar', 'à¦°à¦¾à¦§à¦¾à¦¨à¦—à¦°', 'radhanagarup.feni.gov.bd'),
+(197, 18, 'Gopal', 'à¦˜à§‹à¦ªà¦¾à¦²', 'gopalup.feni.gov.bd'),
+(198, 19, 'Sarishadi', 'à¦¶à¦°à§à¦¶à¦¦à¦¿', 'sarishadiup.feni.gov.bd'),
+(199, 19, 'Panchgachia', 'à¦ªà¦¾à¦à¦šà¦—à¦¾à¦›à¦¿à', 'panchgachiaup.feni.gov.bd'),
+(200, 19, 'Dhormapur', 'à¦§à¦°à§à¦®à¦ªà§à¦°', 'dhormapurup.feni.gov.bd'),
+(201, 19, 'Kazirbag', 'à¦•à¦¾à¦œà¦¿à¦°à¦¬à¦¾à¦—', 'kazirbagup.feni.gov.bd'),
+(202, 19, 'Kalidah', 'à¦•à¦¾à¦²à¦¿à¦¦à¦¹', 'kalidahup.feni.gov.bd'),
+(203, 19, 'Baligaon', 'à¦¬à¦¾à¦²à¦¿à¦—à¦¾à¦à¦“', 'baligaonup.feni.gov.bd'),
+(204, 19, 'Dholia', 'à¦§à¦²à¦¿à§Ÿà¦¾', 'dholiaup.feni.gov.bd'),
+(205, 19, 'Lemua', 'à¦²à§‡à¦®à§à§Ÿà¦¾', 'lemuaup.feni.gov.bd'),
+(206, 19, 'Chonua', 'à¦›à¦¨à§à§Ÿà¦¾', 'chonuaup.feni.gov.bd'),
+(207, 19, 'Motobi', 'à¦®à§‹à¦Ÿà¦¬à§€', 'motobiup.feni.gov.bd'),
+(208, 19, 'Fazilpur', 'à¦«à¦¾à¦œà¦¿à¦²à¦ªà§à¦°', 'fazilpurup.feni.gov.bd'),
+(209, 19, 'Forhadnogor', 'à¦«à¦°à¦¹à¦¾à¦¦à¦¨à¦—à¦°', 'forhadnogorup.feni.gov.bd'),
+(210, 20, 'Charmozlishpur', 'à¦šà¦°à¦®à¦œà¦²à¦¿à¦¶à¦ªà', 'charmozlishpurup.feni.gov.bd'),
+(211, 20, 'Bogadana', 'à¦¬à¦—à¦¾à¦¦à¦¾à¦¨à¦¾', 'bogadanaup.feni.gov.bd'),
+(212, 20, 'Motigonj', 'à¦®à¦¤à¦¿à¦—à¦žà§à¦œ', 'motigonjup.feni.gov.bd'),
+(213, 20, 'Mongolkandi', 'à¦®à¦™à§à¦—à¦²à¦•à¦¾à¦¨à', 'mongolkandiup.feni.gov.bd'),
+(214, 20, 'Chardorbesh', 'à¦šà¦°à¦¦à¦°à¦¬à§‡à¦¶', 'chardorbeshup.feni.gov.bd'),
+(215, 20, 'Chorchandia', 'à¦šà¦°à¦šà¦¾à¦¨à§à¦¦à¦¿à', 'chorchandiaup.feni.gov.bd'),
+(216, 20, 'Sonagazi', 'à¦¸à§‹à¦¨à¦¾à¦—à¦¾à¦œà§€', 'sonagaziup.feni.gov.bd'),
+(217, 20, 'Amirabad', 'à¦†à¦®à¦¿à¦°à¦¾à¦¬à¦¾à¦¦', 'amirabadup.feni.gov.bd'),
+(218, 20, 'Nababpur', 'à¦¨à¦¬à¦¾à¦¬à¦ªà§à¦°', 'nababpurup.feni.gov.bd'),
+(219, 21, 'Fulgazi', 'à¦«à§à¦²à¦—à¦¾à¦œà§€', 'fulgaziup.feni.gov.bd'),
+(220, 21, 'Munshirhat', 'à¦®à§à¦¨à§à¦¸à¦¿à¦°à¦¹à', 'munshirhatup.feni.gov.bd'),
+(221, 21, 'Dorbarpur', 'à¦¦à¦°à¦¬à¦¾à¦°à¦ªà§à¦°', 'dorbarpurup.feni.gov.bd'),
+(222, 21, 'Anandopur', 'à¦†à¦¨à¦¨à§à¦¦à¦ªà§à¦°', 'anandopurup.feni.gov.bd'),
+(223, 21, 'Amzadhat', 'à¦†à¦®à¦œà¦¾à¦¦à¦¹à¦¾à¦Ÿ', 'amzadhatup.feni.gov.bd'),
+(224, 21, 'Gmhat', 'à¦œà¦¿,à¦à¦®, à¦¹à¦¾à¦Ÿ', 'gmhatup.feni.gov.bd'),
+(225, 22, 'Mizanagar', 'à¦®à¦¿à¦°à§à¦œà¦¾à¦¨à¦—à', 'mizanagarup.feni.gov.bd'),
+(226, 22, 'Ctholia', 'à¦šà¦¿à¦¥à¦²à¦¿à§Ÿà¦¾', 'ctholiaup.feni.gov.bd'),
+(227, 22, 'Boxmahmmud', 'à¦¬à¦•à§à¦¸à¦®à¦¾à¦¹à¦®à', 'boxmahmmudup.feni.gov.bd'),
+(228, 23, 'Sindurpur', 'à¦¸à¦¿à¦¨à§à¦¦à§à¦°à¦ªà', 'sindurpurup.feni.gov.bd'),
+(229, 23, 'Rajapur', 'à¦°à¦¾à¦œà¦¾à¦ªà§à¦°', 'rajapurup.feni.gov.bd'),
+(230, 23, 'Purbachandrapur', 'à¦ªà§‚à¦°à§à¦¬à¦šà¦¨à§à', 'purbachandrapurup.feni.gov.bd'),
+(231, 23, 'Ramnagar', 'à¦°à¦¾à¦®à¦¨à¦—à¦°', 'ramnagarup.feni.gov.bd'),
+(232, 23, 'Yeakubpur', 'à¦‡à§Ÿà¦¾à¦•à§à¦¬à¦ªà§à', 'yeakubpur.feni.gov.bd'),
+(233, 23, 'Daganbhuiyan', 'à¦¦à¦¾à¦—à¦¨à¦­à§‚à¦žà¦¾', 'daganbhuiyanup.feni.gov.bd'),
+(234, 23, 'Matubhuiyan', 'à¦®à¦¾à¦¤à§à¦­à§‚à¦žà¦¾', 'matubhuiyanup.feni.gov.bd'),
+(235, 23, 'Jayloskor', 'à¦œà¦¾à§Ÿà¦²à¦¸à§à¦•à¦°', 'jayloskorup.feni.gov.bd'),
+(236, 24, 'Basudeb', 'à¦¬à¦¾à¦¸à§à¦¦à§‡à¦¬', 'basudeb.brahmanbaria.gov.bd'),
+(237, 24, 'Machihata', 'à¦®à¦¾à¦›à¦¿à¦¹à¦¾à¦¤à¦¾', 'machihata.brahmanbaria.gov.bd'),
+(238, 24, 'Sultanpur', 'à¦¸à§à¦²à¦¤à¦¾à¦¨à¦ªà§à', 'sultanpur.brahmanbaria.gov.bd'),
+(239, 24, 'Ramrail', 'à¦°à¦¾à¦®à¦°à¦¾à¦‡à¦²', 'ramrail.brahmanbaria.gov.bd'),
+(240, 24, 'Sadekpur', 'à¦¸à¦¾à¦¦à§‡à¦•à¦ªà§à¦°', 'sadekpur.brahmanbaria.gov.bd'),
+(241, 24, 'Talsahar', 'à¦¤à¦¾à¦²à¦¶à¦¹à¦°', 'talsahar.brahmanbaria.gov.bd'),
+(242, 24, 'Natai', 'à¦¨à¦¾à¦Ÿà¦¾à¦‡ (à¦¦à¦•à§', 'natais.brahmanbaria.gov.bd'),
+(243, 24, 'Natai', 'à¦¨à¦¾à¦Ÿà¦¾à¦‡ (à¦‰à¦¤à§', 'natain.brahmanbaria.gov.bd'),
+(244, 24, 'Shuhilpur', 'à¦¸à§à¦¹à¦¿à¦²à¦ªà§à¦°', 'shuhilpur.brahmanbaria.gov.bd'),
+(245, 24, 'Bodhal', 'à¦¬à§à¦§à¦²', 'bodhal.brahmanbaria.gov.bd'),
+(246, 24, 'Majlishpur', 'à¦®à¦œà¦²à¦¿à¦¶à¦ªà§à¦°', 'majlishpur.brahmanbaria.gov.bd'),
+(247, 25, 'Mulagram', 'à¦®à§‚à¦²à¦—à§à¦°à¦¾à¦®', 'mulagramup.brahmanbaria.gov.bd'),
+(248, 25, 'Mehari', 'à¦®à§‡à¦¹à¦¾à¦°à§€', 'mehariup.brahmanbaria.gov.bd'),
+(249, 25, 'Badair', 'à¦¬à¦¾à¦¦à§ˆà¦°', 'badairup.brahmanbaria.gov.bd'),
+(250, 25, 'Kharera', 'à¦–à¦¾à§œà§‡à¦°à¦¾', 'khareraup.brahmanbaria.gov.bd'),
+(251, 25, 'Benauty', 'à¦¬à¦¿à¦¨à¦¾à¦‰à¦Ÿà¦¿', 'benautyup.brahmanbaria.gov.bd'),
+(252, 25, 'Gopinathpur', 'à¦—à§‹à¦ªà§€à¦¨à¦¾à¦¥à¦ªà', 'gopinathpurup.brahmanbaria.gov.bd'),
+(253, 25, 'Kasbaw', 'à¦•à¦¸à¦¬à¦¾', 'kasbawup.brahmanbaria.gov.bd'),
+(254, 25, 'Kuti', 'à¦•à§à¦Ÿà¦¿', 'kutiup.brahmanbaria.gov.bd'),
+(255, 25, 'Kayempur', 'à¦•à¦¾à¦‡à¦®à¦ªà§à¦°', 'kayempurup.brahmanbaria.gov.bd'),
+(256, 25, 'Bayek', 'à¦¬à¦¾à§Ÿà§‡à¦•', 'bayekup.brahmanbaria.gov.bd'),
+(257, 26, 'Chatalpar', 'à¦šà¦¾à¦¤à¦²à¦ªà¦¾à§œ', 'chatalparup.brahmanbaria.gov.bd'),
+(258, 26, 'Bhalakut', 'à¦­à¦²à¦¾à¦•à§à¦Ÿ', 'bhalakutup.brahmanbaria.gov.bd '),
+(259, 26, 'Kunda', 'à¦•à§à¦¨à§à¦¡à¦¾', 'kundaup.brahmanbaria.gov.bd'),
+(260, 26, 'Goalnagar', 'à¦—à§‹à§Ÿà¦¾à¦²à¦¨à¦—à¦°', 'goalnagarup.brahmanbaria.gov.bd'),
+(261, 26, 'Nasirnagar', 'à¦¨à¦¾à¦¸à¦¿à¦°à¦¨à¦—à¦°', 'nasirnagarup.brahmanbaria.gov.bd'),
+(262, 26, 'Burishwar', 'à¦¬à§à§œà¦¿à¦¶à§à¦¬à¦°', 'burishwarup.brahmanbaria.gov.bd'),
+(263, 26, 'Fandauk', 'à¦«à¦¾à¦¨à§à¦¦à¦¾à¦‰à¦•', 'fandaukup.brahmanbaria.gov.bd'),
+(264, 26, 'Goniauk', 'à¦—à§à¦¨à¦¿à§Ÿà¦¾à¦‰à¦•', 'goniaukup.brahmanbaria.gov.bd'),
+(265, 26, 'Chapartala', 'à¦šà¦¾à¦ªà§ˆà¦°à¦¤à¦²à¦¾', 'chapartalaup.brahmanbaria.gov.bd'),
+(266, 26, 'Dharnondol', 'à¦§à¦°à¦®à¦¨à§à¦¡à¦²', 'dharnondolup.brahmanbaria.gov.bd'),
+(267, 26, 'Haripur', 'à¦¹à¦°à¦¿à¦ªà§à¦°', 'haripurup.brahmanbaria.gov.bd'),
+(268, 26, 'Purbabhag', 'à¦ªà§‚à¦°à§à¦¬à¦­à¦¾à¦—', 'purbabhagup.brahmanbaria.gov.bd'),
+(269, 26, 'Gokarna', 'à¦—à§‹à¦•à¦°à§à¦£', 'gokarnaup.brahmanbaria.gov.bd'),
+(270, 27, 'Auraol', 'à¦…à¦°à§à§Ÿà¦¾à¦‡à¦²', 'auraolup.brahmanbaria.gov.bd'),
+(271, 27, 'Pakshimuul', 'à¦ªà¦¾à¦•à¦¶à¦¿à¦®à§à¦²', 'pakshimuulup.brahmanbaria.gov.bd'),
+(272, 27, 'Chunta', 'à¦šà§à¦¨à§à¦Ÿà¦¾', 'chuntaup.brahmanbaria.gov.bd'),
+(273, 27, 'Kalikaccha', 'à¦•à¦¾à¦²à§€à¦•à¦šà§à¦›', 'kalikacchaup.brahmanbaria.gov.bd'),
+(274, 27, 'Panishor', 'à¦ªà¦¾à¦¨à¦¿à¦¶à§à¦¬à¦°', 'panishorup.brahmanbaria.gov.bd'),
+(275, 27, 'Sarail', 'à¦¸à¦°à¦¾à¦‡à¦² à¦¸à¦¦à¦°', 'sarailup.brahmanbaria.gov.bd'),
+(276, 27, 'Noagoun', 'à¦¨à§‹à§Ÿà¦¾à¦—à¦¾à¦à¦“', 'noagounup.brahmanbaria.gov.bd'),
+(277, 27, 'Shahajadapur', 'à¦¶à¦¾à¦¹à¦œà¦¾à¦¦à¦¾à¦ªà', 'shahajadapurup.brahmanbaria.gov.bd'),
+(278, 27, 'Shahbazpur', 'à¦¶à¦¾à¦¹à¦¬à¦¾à¦œà¦ªà§à', 'shahbazpurup.brahmanbaria.gov.bd'),
+(279, 28, 'Ashuganj', 'à¦†à¦¶à§à¦—à¦žà§à¦œ à¦¸', 'ashuganjup.brahmanbaria.gov.bd'),
+(280, 28, 'Charchartala', 'à¦šà¦°à¦šà¦¾à¦°à¦¤à¦²à¦¾', 'charchartalaup.brahmanbaria.gov.bd'),
+(281, 28, 'Durgapur', 'à¦¦à§à¦°à§à¦—à¦¾à¦ªà§à', 'durgapurup.brahmanbaria.gov.bd'),
+(282, 28, 'Araishidha', 'à¦†à§œà¦¾à¦‡à¦¸à¦¿à¦§à¦¾', 'araishidhaup.brahmanbaria.gov.bd'),
+(283, 28, 'Talshaharw', 'à¦¤à¦¾à¦²à¦¶à¦¹à¦°(à¦ªà¦ƒ', 'talshaharwup.brahmanbaria.gov.bd'),
+(284, 28, 'Sarifpur', 'à¦¶à¦°à§€à¦«à¦ªà§à¦°', 'sarifpurup.brahmanbaria.gov.bd'),
+(285, 28, 'Lalpur', 'à¦²à¦¾à¦²à¦ªà§à¦°', 'lalpurup.brahmanbaria.gov.bd'),
+(286, 28, 'Tarua', 'à¦¤à¦¾à¦°à§à§Ÿà¦¾', 'taruaup.brahmanbaria.gov.bd'),
+(287, 29, 'Monionda', 'à¦®à¦¨à¦¿à§Ÿà¦¨à§à¦¦', 'moniondaup.brahmanbaria.gov.bd'),
+(288, 29, 'Dharkhar', 'à¦§à¦°à¦–à¦¾à¦°', 'dharkharup.brahmanbaria.gov.bd'),
+(289, 29, 'Mogra', 'à¦®à§‹à¦—à§œà¦¾', 'mograup.brahmanbaria.gov.bd'),
+(290, 29, 'Akhauran', 'à¦†à¦–à¦¾à¦‰à§œà¦¾ (à¦‰à¦', 'akhauranup.brahmanbaria.gov.bd'),
+(291, 29, 'Akhauras', 'à¦†à¦–à¦¾à¦‰à§œà¦¾ (à¦¦à¦', 'akhaurasup.brahmanbaria.gov.bd'),
+(292, 30, 'Barail', 'à¦¬à§œà¦¾à¦‡à¦²', 'barailup.brahmanbaria.gov.bd'),
+(293, 30, 'Birgaon', 'à¦¬à§€à¦°à¦—à¦¾à¦à¦“', 'birgaonup.brahmanbaria.gov.bd'),
+(294, 30, 'Krishnanagar', 'à¦•à§ƒà¦·à§à¦£à¦¨à¦—à¦°', 'krishnanagarup.brahmanbaria.gov.bd'),
+(295, 30, 'Nathghar', 'à¦¨à¦¾à¦Ÿà¦˜à¦°', 'nathgharup.brahmanbaria.gov.bd'),
+(296, 30, 'Biddayakut', 'à¦¬à¦¿à¦¦à§à¦¯à¦¾à¦•à§à', 'biddayakutup.brahmanbaria.gov.bd'),
+(297, 30, 'Nabinagare', 'à¦¨à¦¬à§€à¦¨à¦—à¦° (à¦ªà§', 'nabinagareup.brahmanbaria.gov.bd'),
+(298, 30, 'Nabinagarw', 'à¦¨à¦¬à§€à¦¨à¦—à¦°(à¦ªà¦¶', 'nabinagarwup.brahmanbaria.gov.bd'),
+(299, 30, 'Bitghar', 'à¦¬à¦¿à¦Ÿà¦˜à¦°', 'bitgharup.brahmanbaria.gov.bd'),
+(300, 30, 'Shibpur', 'à¦¶à¦¿à¦¬à¦ªà§à¦°', 'shibpurup.brahmanbaria.gov.bd'),
+(301, 30, 'Sreerampur', 'à¦¶à§à¦°à§€à¦°à¦¾à¦®à¦ªà', 'sreerampurup.brahmanbaria.gov.bd'),
+(302, 30, 'Jinudpur', 'à¦œà¦¿à¦¨à§‹à¦¦à¦ªà§à¦°', 'jinudpurup.brahmanbaria.gov.bd'),
+(303, 30, 'Laurfatehpur', 'à¦²à¦¾à¦‰à¦°à¦«à¦¤à§‡à¦ªà', 'laurfatehpurup.brahmanbaria.gov.bd'),
+(304, 30, 'Ibrahimpur', 'à¦‡à¦¬à§à¦°à¦¾à¦¹à¦¿à¦®à', 'ibrahimpurup.brahmanbaria.gov.bd'),
+(305, 30, 'Satmura', 'à¦¸à¦¾à¦¤à¦®à§‹à§œà¦¾', 'satmuraup.brahmanbaria.gov.bd'),
+(306, 30, 'Shamogram', 'à¦¶à§à¦¯à¦¾à¦®à¦—à§à¦°à', 'shamogramup.brahmanbaria.gov.bd'),
+(307, 30, 'Rasullabad', 'à¦°à¦¸à§à¦²à§à¦²à¦¾à¦¬à', 'rasullabadup.brahmanbaria.gov.bd'),
+(308, 30, 'Barikandi', 'à¦¬à§œà¦¿à¦•à¦¾à¦¨à§à¦¦à', 'barikandiup.brahmanbaria.gov.bd'),
+(309, 30, 'Salimganj', 'à¦›à¦²à¦¿à¦®à¦—à¦žà§à¦œ', 'salimganjup.brahmanbaria.gov.bd'),
+(310, 30, 'Ratanpur', 'à¦°à¦¤à¦¨à¦ªà§à¦°', 'ratanpurup.brahmanbaria.gov.bd'),
+(311, 30, 'Kaitala (North)', 'à¦•à¦¾à¦‡à¦¤à¦²à¦¾ (à¦‰à¦', 'kaitalanup.brahmanbaria.gov.bd'),
+(312, 30, 'Kaitala (South)', 'à¦•à¦¾à¦‡à¦¤à¦²à¦¾ (à¦¦à¦', 'kaitalasup.brahmanbaria.gov.bd'),
+(313, 31, 'Tazkhali', 'à¦¤à§‡à¦œà¦–à¦¾à¦²à§€', 'tazkhaliup.brahmanbaria.gov.bd'),
+(314, 31, 'Pahariya Kandi', 'à¦ªà¦¾à¦¹à¦¾à§œà¦¿à§Ÿà¦¾ ', 'pahariyakandiup.brahmanbaria.gov.bd'),
+(315, 31, 'Dariadulat', 'à¦¦à¦°à¦¿à§Ÿà¦¾à¦¦à§Œà¦²à', 'dariadulatup.brahmanbaria.gov.bd'),
+(316, 31, 'Sonarampur', 'à¦¸à§‹à¦¨à¦¾à¦°à¦¾à¦®à¦ªà', 'sonarampurup.brahmanbaria.gov.bd'),
+(317, 31, 'Darikandi', 'à¦¦à§œà¦¿à¦•à¦¾à¦¨à§à¦¦à', 'darikandiup.brahmanbaria.gov.bd'),
+(318, 31, 'Saifullyakandi', 'à¦›à§Ÿà¦«à§à¦²à§à¦²à¦¾à', 'saifullyakandiup.brahmanbaria.gov.bd'),
+(319, 31, 'Bancharampur', 'à¦¬à¦¾à¦žà§à¦›à¦¾à¦°à¦¾à', 'bancharampurup.brahmanbaria.gov.bd'),
+(320, 31, 'Ayabpur', 'à¦†à¦‡à§Ÿà§à¦¬à¦ªà§à¦°', 'ayabpurup.brahmanbaria.gov.bd'),
+(321, 31, 'Fardabad', 'à¦«à¦°à¦¦à¦¾à¦¬à¦¾à¦¦', 'fardabadup.brahmanbaria.gov.bd'),
+(322, 31, 'Rupushdi', 'à¦°à§à¦ªà¦¸à¦¦à§€ à¦ªà¦¶', 'rupushdiup.brahmanbaria.gov.bd'),
+(323, 31, 'Salimabad', 'à¦›à¦²à¦¿à¦®à¦¾à¦¬à¦¾à¦¦', 'salimabadup.brahmanbaria.gov.bd'),
+(324, 31, 'Ujanchar', 'à¦‰à¦œà¦¾à¦¨à¦šà¦° à¦ªà§‚', 'ujancharup.brahmanbaria.gov.bd'),
+(325, 31, 'Manikpur', 'à¦®à¦¾à¦¨à¦¿à¦•à¦ªà§à¦°', 'manikpurup.brahmanbaria.gov.bd'),
+(326, 32, 'Bhudanty', 'à¦¬à§à¦§à¦¨à§à¦¤à¦¿', 'bhudantyup.brahmanbaria.gov.bd'),
+(327, 32, 'Chandura', 'à¦šà¦¾à¦¨à§à¦¦à§à¦°à¦¾', 'chanduraup.brahmanbaria.gov.bd'),
+(328, 32, 'Ichapura', 'à¦‡à¦›à¦¾à¦ªà§à¦°à¦¾', 'ichapuraup.brahmanbaria.gov.bd'),
+(329, 32, 'Champaknagar', 'à¦šà¦®à§à¦ªà¦•à¦¨à¦—à¦°', 'champaknagarup.brahmanbaria.gov.bd'),
+(330, 32, 'Harashpur', 'à¦¹à¦°à¦·à¦ªà§à¦°', 'harashpurup.brahmanbaria.gov.bd'),
+(331, 32, 'Pattan', 'à¦ªà¦¤à§à¦¤à¦¨', 'pattanup.brahmanbaria.gov.bd'),
+(332, 32, 'Singerbil', 'à¦¸à¦¿à¦‚à¦—à¦¾à¦°à¦¬à¦¿à', 'singerbilup.brahmanbaria.gov.bd'),
+(333, 32, 'Bishupor', 'à¦¬à¦¿à¦·à§à¦£à§à¦ªà§à', 'bishuporup.brahmanbaria.gov.bd'),
+(334, 32, 'Charislampur', 'à¦šà¦°-à¦‡à¦¸à¦²à¦¾à¦®à¦ª', 'charislampurup.brahmanbaria.gov.bd'),
+(335, 32, 'Paharpur', 'à¦ªà¦¾à¦¹à¦¾à§œà¦ªà§à¦°', 'paharpurup.brahmanbaria.gov.bd'),
+(336, 33, 'Jibtali', 'à¦œà§€à¦¬à¦¤à¦²à¦¿', 'jibtaliup.rangamati.gov.bd'),
+(337, 33, 'Sapchari', 'à¦¸à¦¾à¦ªà¦›à§œà¦¿', 'sapchariup.rangamati.gov.bd'),
+(338, 33, 'Kutukchari', 'à¦•à§à¦¤à§à¦•à¦›à§œà¦¿', 'kutukchariup.rangamati.gov.bd'),
+(339, 33, 'Bandukbhanga', 'à¦¬à¦¨à§à¦¦à§à¦•à¦­à¦¾à', 'bandukbhangaup.rangamati.gov.bd'),
+(340, 33, 'Balukhali', 'à¦¬à¦¾à¦²à§à¦–à¦¾à¦²à§€', 'balukhaliup.rangamati.gov.bd'),
+(341, 33, 'Mogban', 'à¦®à¦—à¦¬à¦¾à¦¨', 'mogbanup.rangamati.gov.bd'),
+(342, 34, 'Raikhali', 'à¦°à¦¾à¦‡à¦–à¦¾à¦²à§€', 'raikhaliup.rangamati.gov.bd'),
+(343, 34, 'Kaptai', 'à¦•à¦¾à¦ªà§à¦¤à¦¾à¦‡', 'kaptaiup.rangamati.gov.bd'),
+(344, 34, 'Wagga', 'à¦“à§Ÿà¦¾à¦œà§à¦žà¦¾', 'waggaup.rangamati.gov.bd'),
+(345, 34, 'Chandraghona', 'à¦šà¦¨à§à¦¦à§à¦°à¦˜à§‹à', 'chandraghonaup.rangamati.gov.bd'),
+(346, 34, 'Chitmorom', 'à¦šà¦¿à§Žà¦®à¦°à¦®', 'chitmoromup.rangamati.gov.bd'),
+(347, 35, 'Ghagra', 'à¦˜à¦¾à¦—à§œà¦¾', 'ghagraup.rangamati.gov.bd'),
+(348, 35, 'Fatikchari', 'à¦«à¦Ÿà¦¿à¦•à¦›à§œà¦¿', 'fatikchariup.rangamati.gov.bd'),
+(349, 35, 'Betbunia', 'à¦¬à§‡à¦¤à¦¬à§à¦¨à¦¿à§Ÿà', 'betbuniaup.rangamati.gov.bd'),
+(350, 35, 'Kalampati', 'à¦•à¦²à¦®à¦ªà¦¤à¦¿', 'kalampatiup.rangamati.gov.bd'),
+(351, 36, 'Sajek', 'à¦¸à¦¾à¦œà§‡à¦•', 'sajekup.rangamati.gov.bd'),
+(352, 36, 'Amtali', 'à¦†à¦®à¦¤à¦²à§€', 'amtaliup.rangamati.gov.bd'),
+(353, 36, 'Bongoltali', 'à¦¬à¦™à§à¦—à¦²à¦¤à¦²à§€', 'bongoltaliup.rangamati.gov.bd'),
+(354, 36, 'Rupokari', 'à¦°à§à¦ªà¦•à¦¾à¦°à§€', 'rupokariup.rangamati.gov.bd'),
+(355, 36, 'Marisha', 'à¦®à¦¾à¦°à¦¿à¦¶à§à¦¯à¦¾', 'marishaup.rangamati.gov.bd'),
+(356, 36, 'Khedarmara', 'à¦–à§‡à¦¦à¦¾à¦°à¦®à¦¾à¦°à', 'khedarmaraup.rangamati.gov.bd'),
+(357, 36, 'Sharoyatali', 'à¦¸à¦¾à¦°à§‹à§Ÿà¦¾à¦¤à¦²à', 'sharoyataliup.rangamati.gov.bd'),
+(358, 36, 'Baghaichari', 'à¦¬à¦¾à¦˜à¦¾à¦‡à¦›à§œà¦¿', 'baghaichariup.rangamati.gov.bd'),
+(359, 37, 'Subalong', 'à¦¸à§à¦¬à¦²à¦‚', 'subalongup.rangamati.gov.bd'),
+(360, 37, 'Barkal', 'à¦¬à¦°à¦•à¦²', 'barkalup.rangamati.gov.bd'),
+(361, 37, 'Bushanchara', 'à¦­à§‚à¦·à¦¨à¦›à§œà¦¾', 'bushancharaup.rangamati.gov.bd'),
+(362, 37, 'Aimachara', 'à¦†à¦‡à¦®à¦¾à¦›à§œà¦¾', 'aimacharaup.rangamati.gov.bd'),
+(363, 37, 'Borohorina', 'à¦¬à§œ à¦¹à¦°à¦¿à¦£à¦¾', 'borohorinaup.rangamati.gov.bd'),
+(364, 38, 'Langad', 'à¦²à¦‚à¦—à¦¦à§', 'langaduup.rangamati.gov.bd'),
+(365, 38, 'Maeinimukh', 'à¦®à¦¾à¦‡à¦¨à§€à¦®à§à¦–', 'maeinimukhup.rangamati.gov.bd'),
+(366, 38, 'Vasannadam', 'à¦­à¦¾à¦¸à¦¾à¦¨à§à¦¯à¦¾à', 'vasannadamup.rangamati.gov.bd'),
+(367, 38, 'Bogachattar', 'à¦¬à¦—à¦¾à¦šà¦¤à¦°', 'bogachattarup.rangamati.gov.bd'),
+(368, 38, 'Gulshakhali', 'à¦—à§à¦²à¦¶à¦¾à¦–à¦¾à¦²à', 'gulshakhaliup.rangamati.gov.bd'),
+(369, 38, 'Kalapakujja', 'à¦•à¦¾à¦²à¦¾à¦ªà¦¾à¦•à§à', 'kalapakujjaup.rangamati.gov.bd'),
+(370, 38, 'Atarakchara', 'à¦†à¦Ÿà¦¾à¦°à¦•à¦›à§œà¦¾', 'atarakcharaup.rangamati.gov.bd'),
+(371, 39, 'Ghilachari', 'à¦˜à¦¿à¦²à¦¾à¦›à§œà¦¿', 'ghilachariup.rangamati.gov.bd'),
+(372, 39, 'Gaindya', 'à¦—à¦¾à¦‡à¦¨à§à¦¦à§à¦¯à', 'gaindyaup.rangamati.gov.bd'),
+(373, 39, 'Bangalhalia', 'à¦¬à¦¾à¦™à§à¦—à¦¾à¦²à¦¹à', 'bangalhaliaup.rangamati.gov.bd'),
+(374, 40, 'Kengrachari', 'à¦•à§‡à¦‚à§œà¦¾à¦›à§œà¦¿', 'kengrachariup.rangamati.gov.bd'),
+(375, 40, 'Belaichari', 'à¦¬à¦¿à¦²à¦¾à¦‡à¦›à§œà¦¿', 'belaichariup.rangamati.gov.bd'),
+(376, 40, 'Farua', 'à¦«à¦¾à¦°à§à§Ÿà¦¾', 'faruaup.rangamati.gov.bd'),
+(377, 41, 'Juraichari', 'à¦œà§à¦°à¦¾à¦›à§œà¦¿', 'juraichariup.rangamati.gov.bd'),
+(378, 41, 'Banajogichara', 'à¦¬à¦¨à¦¯à§‹à¦—à§€à¦›à§œà', 'banajogicharaup.rangamati.gov.bd'),
+(379, 41, 'Moidong', 'à¦®à§ˆà¦¦à¦‚', 'moidongup.rangamati.gov.bd'),
+(380, 41, 'Dumdumya', 'à¦¦à§à¦®à¦¦à§à¦®à§à¦¯à', 'dumdumyaup.rangamati.gov.bd'),
+(381, 42, 'Sabekkhong', 'à¦¸à¦¾à¦¬à§‡à¦•à§à¦·à§à', 'sabekkhongup.rangamati.gov.bd'),
+(382, 42, 'Naniarchar', 'à¦¨à¦¾à¦¨à¦¿à§Ÿà¦¾à¦°à¦šà', 'naniarcharup.rangamati.gov.bd'),
+(383, 42, 'Burighat', 'à¦¬à§à§œà¦¿à¦˜à¦¾à¦Ÿ', 'burighatup.rangamati.gov.bd'),
+(384, 42, 'Ghilachhari', 'à¦˜à¦¿à¦²à¦¾à¦›à§œà¦¿', 'ghilachhariup.rangamati.gov.bd'),
+(385, 43, 'Charmatua', 'à¦šà¦°à¦®à¦Ÿà§à¦¯à¦¼à¦¾', 'charmatuaup.noakhali.gov.bd'),
+(386, 43, 'Dadpur', 'à¦¦à¦¾à¦¦à¦ªà§à¦°', 'dadpurup.noakhali.gov.bd'),
+(387, 43, 'Noannoi', 'à¦¨à§‹à¦¯à¦¼à¦¾à¦¨à§à¦¨à', 'noannoiup.noakhali.gov.bd'),
+(388, 43, 'Kadirhanif', 'à¦•à¦¾à¦¦à¦¿à¦° à¦¹à¦¾à¦¨', 'kadirhanifup.noakhali.gov.bd'),
+(389, 43, 'Binodpur', 'à¦¬à¦¿à¦¨à§‹à¦¦à¦ªà§à¦°', 'binodpurup.noakhali.gov.bd'),
+(390, 43, 'Dharmapur', 'à¦§à¦°à§à¦®à¦ªà§à¦°', 'dharmapurup.noakhali.gov.bd'),
+(391, 43, 'Aujbalia', 'à¦à¦“à¦œà¦¬à¦¾à¦²à¦¿à¦¯à', 'aujbaliaup.noakhali.gov.bd'),
+(392, 43, 'Kaladara', 'à¦•à¦¾à¦²à¦¾à¦¦à¦°à¦ª', 'kaladarapup.noakhali.gov.bd'),
+(393, 43, 'Ashwadia', 'à¦…à¦¶à§à¦¬à¦¦à¦¿à¦¯à¦¼à', 'ashwadiaup.noakhali.gov.bd'),
+(394, 43, 'Newajpur', 'à¦¨à¦¿à¦¯à¦¼à¦¾à¦œà¦ªà§à', 'newajpurup.noakhali.gov.bd'),
+(395, 43, 'East Charmatua', 'à¦ªà§‚à¦°à§à¦¬ à¦šà¦°à¦®', 'eastcharmatuap.noakhali.gov.bd'),
+(396, 43, 'Andarchar', 'à¦†à¦¨à§à¦¡à¦¾à¦°à¦šà¦°', 'andarcharup.noakhali.gov.bd'),
+(397, 43, 'Noakhali', 'à¦¨à§‹à¦¯à¦¼à¦¾à¦–à¦¾à¦²à', 'noakhaliup.noakhali.gov.bd'),
+(398, 44, 'Sirajpur', 'à¦¸à¦¿à¦°à¦¾à¦œà¦ªà§à¦°', 'sirajpurup.noakhali.gov.bd'),
+(399, 44, 'Charparboti', 'à¦šà¦°à¦ªà¦¾à¦°à§à¦¬à¦¤à', 'charparbotiup.noakhali.gov.bd'),
+(400, 44, 'Charhazari', 'à¦šà¦°à¦¹à¦¾à¦œà¦¾à¦°à§€', 'charhazariup.noakhali.gov.bd'),
+(401, 44, 'Charkakra', 'à¦šà¦°à¦•à¦¾à¦à¦•à¦¡à¦¼à', 'charkakraup.noakhali.gov.bd'),
+(402, 44, 'Charfakira', 'à¦šà¦°à¦«à¦•à¦¿à¦°à¦¾', 'charfakiraup.noakhali.gov.bd'),
+(403, 44, 'Musapur', 'à¦®à§à¦¸à¦¾à¦ªà§à¦°', 'musapurup.noakhali.gov.bd'),
+(404, 44, 'Charelahi', 'à¦šà¦°à¦à¦²à¦¾à¦¹à§€', 'charelahiup.noakhali.gov.bd'),
+(405, 44, 'Rampur', 'à¦°à¦¾à¦®à¦ªà§à¦°', 'rampurup.noakhali.gov.bd'),
+(406, 45, 'Amanullapur', 'à¦†à¦®à¦¾à¦¨à¦‰à¦²à§à¦²à', 'amanullapurup.noakhali.gov.bd'),
+(407, 45, 'Gopalpur', 'à¦—à§‹à¦ªà¦¾à¦²à¦ªà§à¦°', 'gopalpurup.noakhali.gov.bd'),
+(408, 45, 'Jirtali', 'à¦œà¦¿à¦°à¦¤à¦²à§€', 'jirtaliup.noakhali.gov.bd'),
+(409, 45, 'Kutubpur', 'à¦•à§à¦¤à¦¬à¦ªà§à¦°', 'kutubpurup.noakhali.gov.bd'),
+(410, 45, 'Alyearpur', 'à¦†à¦²à¦¾à¦‡à¦¯à¦¼à¦¾à¦°à', 'alyearpurup.noakhali.gov.bd'),
+(411, 45, 'Chayani', 'à¦›à¦¯à¦¼à¦¾à¦¨à§€', 'chayaniup.noakhali.gov.bd'),
+(412, 45, 'Rajganj', 'à¦°à¦¾à¦œà¦—à¦žà§à¦œ', 'rajganjup.noakhali.gov.bd'),
+(413, 45, 'Eklashpur', 'à¦à¦•à¦²à¦¾à¦¶à¦ªà§à¦°', 'eklashpurup.noakhali.gov.bd'),
+(414, 45, 'Begumganj', 'à¦¬à§‡à¦—à¦®à¦—à¦žà§à¦œ', 'begumganjup.noakhali.gov.bd'),
+(415, 45, 'Mirwarishpur', 'à¦®à¦¿à¦°à¦“à¦¯à¦¼à¦¾à¦°à', 'mirwarishpurup.noakhali.gov.bd'),
+(416, 45, 'Narottampur', 'à¦¨à¦°à§‹à¦¤à§à¦¤à¦®à¦ªà', 'narottampurup.noakhali.gov.bd'),
+(417, 45, 'Durgapur', 'à¦¦à§‚à¦°à§à¦—à¦¾à¦ªà§à', 'durgapurup.noakhali.gov.bd'),
+(418, 45, 'Rasulpur', 'à¦°à¦¸à§à¦²à¦ªà§à¦°', 'rasulpurup.noakhali.gov.bd'),
+(419, 45, 'Hajipur', 'à¦¹à¦¾à¦œà§€à¦ªà§à¦°', 'hajipurup.noakhali.gov.bd'),
+(420, 45, 'Sharifpur', 'à¦¶à¦°à§€à¦«à¦ªà§à¦°', 'sharifpurup.noakhali.gov.bd'),
+(421, 45, 'Kadirpur', 'à¦•à¦¾à¦¦à¦¿à¦°à¦ªà§à¦°', 'kadirpurup.noakhali.gov.bd'),
+(422, 46, 'Sukhchar', 'à¦¸à§à¦–à¦šà¦°', 'sukhcharup.noakhali.gov.bd'),
+(423, 46, 'Nolchira', 'à¦¨à¦²à¦šà¦¿à¦°à¦¾', 'nolchiraup.noakhali.gov.bd'),
+(424, 46, 'Charishwar', 'à¦šà¦°à¦ˆà¦¶à§à¦¬à¦°', 'charishwarup.noakhali.gov.bd'),
+(425, 46, 'Charking', 'à¦šà¦°à¦•à¦¿à¦‚', 'charkingup.noakhali.gov.bd'),
+(426, 46, 'Tomoroddi', 'à¦¤à¦®à¦°à¦¦à§à¦¦à¦¿', 'tomoroddiup.noakhali.gov.bd'),
+(427, 46, 'Sonadiya', 'à¦¸à§‹à¦¨à¦¾à¦¦à¦¿à¦¯à¦¼à', 'sonadiyaup.noakhali.gov.bd'),
+(428, 46, 'Burirchar', 'à¦¬à§à¦¡à¦¼à¦¿à¦°à¦šà¦°', 'burircharup.noakhali.gov.bd'),
+(429, 46, 'Jahajmara', 'à¦œà¦¾à¦¹à¦¾à¦œà¦®à¦¾à¦°à', 'jahajmaraup.noakhali.gov.bd'),
+(430, 46, 'Nijhumdwi', 'à¦¨à¦¿à¦à§à¦®à¦¦à§à¦¬à', 'nijhumdwipup.noakhali.gov.bd'),
+(431, 47, 'Charjabbar', 'à¦šà¦°à¦œà¦¾à¦¬à§à¦¬à¦¾à', 'charjabbarup.noakhali.gov.bd'),
+(432, 47, 'Charbata', 'à¦šà¦°à¦¬à¦¾à¦Ÿà¦¾', 'charbataup.noakhali.gov.bd'),
+(433, 47, 'Charclerk', 'à¦šà¦°à¦•à§à¦²à¦¾à¦°à§à', 'charclerkup.noakhali.gov.bd'),
+(434, 47, 'Charwapda', 'à¦šà¦°à¦“à¦¯à¦¼à¦¾à¦ªà¦¦à', 'charwapdaup.noakhali.gov.bd'),
+(435, 47, 'Charjubilee', 'à¦šà¦°à¦œà§à¦¬à¦²à§€', 'charjubileeup.noakhali.gov.bd'),
+(436, 47, 'Charaman Ullah', 'à¦šà¦°à¦†à¦®à¦¾à¦¨ à¦‰à¦²', 'charamanullahup.noakhali.gov.bd'),
+(437, 47, 'East Charbata', 'à¦ªà§‚à¦°à§à¦¬ à¦šà¦°à¦¬', 'eastcharbataup.noakhali.gov.bd'),
+(438, 47, 'Mohammadpur', 'à¦®à§‹à¦¹à¦¾à¦®à§à¦®à¦¦à', 'mohammadpurup.noakhali.gov.bd'),
+(439, 48, 'Narottampur', 'à¦¨à¦°à§‹à¦¤à§à¦¤à¦®à¦ªà', 'narottampurup1.noakhali.gov.bd'),
+(440, 48, 'Dhanshiri', 'à¦§à¦¾à¦¨à¦¸à¦¿à¦à¦¡à¦¼à', 'dhanshiriup.noakhali.gov.bd'),
+(441, 48, 'Sundalpur', 'à¦¸à§à¦¨à§à¦¦à¦²à¦ªà§à', 'sundalpurup.noakhali.gov.bd'),
+(442, 48, 'Ghoshbag', 'à¦˜à§‹à¦·à¦¬à¦¾à¦—', 'ghoshbagup.noakhali.gov.bd'),
+(443, 48, 'Chaprashirhat', 'à¦šà¦¾à¦ªà¦°à¦¾à¦¶à¦¿à¦°à', 'chaprashirhatup.noakhali.gov.bd'),
+(444, 48, 'Dhanshalik', 'à¦§à¦¾à¦¨à¦¶à¦¾à¦²à¦¿à¦•', 'dhanshalikup.noakhali.gov.bd'),
+(445, 48, 'Batoiya', 'à¦¬à¦¾à¦Ÿà¦‡à¦¯à¦¼à¦¾', 'batoiyaup.noakhali.gov.bd'),
+(446, 49, 'Chhatarpaia', 'à¦›à¦¾à¦¤à¦¾à¦°à¦ªà¦¾à¦‡à', 'chhatarpaiaup.noakhali.gov.bd'),
+(447, 49, 'Kesharpar', 'à¦•à§‡à¦¶à¦°à¦ªà¦¾à¦¡à¦¼à', 'kesharparup.noakhali.gov.bd'),
+(448, 49, 'Dumurua', 'à¦¡à§à¦®à§à¦°à§à¦¯à¦¼à', 'dumuruaup.noakhali.gov.bd'),
+(449, 49, 'Kadra', 'à¦•à¦¾à¦¦à¦°à¦¾', 'kadraup.noakhali.gov.bd'),
+(450, 49, 'Arjuntala', 'à¦…à¦°à§à¦œà§à¦¨à¦¤à¦²à', 'arjuntalaup.noakhali.gov.bd'),
+(451, 49, 'Kabilpur', 'à¦•à¦¾à¦¬à¦¿à¦²à¦ªà§à¦°', 'kabilpurup.noakhali.gov.bd'),
+(452, 49, 'Mohammadpur', 'à¦®à§‹à¦¹à¦¾à¦®à§à¦®à¦¦à', 'mohammadpurup7.noakhali.gov.bd'),
+(453, 49, 'Nabipur', 'à¦¨à¦¬à§€à¦ªà§à¦°', 'nabipurup.noakhali.gov.bd'),
+(454, 49, 'Bejbagh', 'à¦¬à¦¿à¦œà¦¬à¦¾à¦—', 'bejbaghup.noakhali.gov.bd'),
+(455, 50, 'Sahapur', 'à¦¸à¦¾à¦¹à¦¾à¦ªà§à¦°', 'sahapurup.noakhali.gov.bd'),
+(456, 50, 'Ramnarayanpur', 'à¦°à¦¾à¦®à¦¨à¦¾à¦°à¦¾à¦¯à', 'ramnarayanpurup.noakhali.gov.bd'),
+(457, 50, 'Porokote', 'à¦ªà¦°à¦•à§‹à¦Ÿ', 'porokoteup.noakhali.gov.bd'),
+(458, 50, 'Badalkot', 'à¦¬à¦¾à¦¦à¦²à¦•à§‹à¦Ÿ', 'badalkotup.noakhali.gov.bd'),
+(459, 50, 'Panchgaon', 'à¦ªà¦¾à¦à¦šà¦—à¦¾à¦à¦“', 'panchgaonup.noakhali.gov.bd'),
+(460, 50, 'Hat-Pukuria Ghatlabag', 'à¦¹à¦¾à¦Ÿ-à¦ªà§à¦•à§à¦°', 'hatpukuriaghatlabagup.noakhali.gov.bd'),
+(461, 50, 'Noakhala', 'à¦¨à§‹à¦¯à¦¼à¦¾à¦–à¦²à¦¾', 'noakhalaup.noakhali.gov.bd'),
+(462, 50, 'Khilpara', 'à¦–à¦¿à¦²à¦ªà¦¾à¦¡à¦¼à¦¾', 'khilparaup.noakhali.gov.bd'),
+(463, 50, 'Mohammadpur', 'à¦®à§‹à¦¹à¦¾à¦®à§à¦®à¦¦à', 'mohammadpuru5p.noakhali.gov.bd'),
+(464, 51, 'Joyag', 'à¦œà¦¯à¦¼à¦¾à¦—', 'joyagup.noakhali.gov.bd'),
+(465, 51, 'Nodona', 'à¦¨à¦¦à¦¨à¦¾', 'nodonaup.noakhali.gov.bd'),
+(466, 51, 'Chashirhat', 'à¦šà¦¾à¦·à§€à¦°à¦¹à¦¾à¦Ÿ', 'chashirhatup.noakhali.gov.bd'),
+(467, 51, 'Barogaon', 'à¦¬à¦¾à¦°à¦—à¦¾à¦à¦“', 'barogaonup.noakhali.gov.bd'),
+(468, 51, 'Ambarnagor', 'à¦…à¦®à§à¦¬à¦°à¦¨à¦—à¦°', 'ambarnagorup.noakhali.gov.bd'),
+(469, 51, 'Nateshwar', 'à¦¨à¦¾à¦Ÿà§‡à¦¶à§à¦¬à¦°', 'nateshwarup.noakhali.gov.bd'),
+(470, 51, 'Bajra', 'à¦¬à¦œà¦°à¦¾', 'bajraup.noakhali.gov.bd'),
+(471, 51, 'Sonapur', 'à¦¸à§‹à¦¨à¦¾à¦ªà§à¦°', 'sonapurup.noakhali.gov.bd'),
+(472, 51, 'Deoti', 'à¦¦à§‡à¦“à¦Ÿà¦¿', 'deotiup.noakhali.gov.bd'),
+(473, 51, 'Amishapara', 'à¦†à¦®à¦¿à¦¶à¦¾à¦ªà¦¾à¦¡à', 'amishaparaup.noakhali.gov.bd'),
+(474, 52, 'Gazipur', 'à¦—à¦¾à¦œà§€à¦ªà§à¦°', 'gazipurup.chandpur.gov.bd'),
+(475, 52, 'Algidurgapur (North)', 'à¦†à¦²à¦—à§€ à¦¦à§à¦°à§', 'algidurgapurnorthup.chandpur.gov.bd'),
+(476, 52, 'Algidurgapur (South)', 'à¦†à¦²à¦—à§€ à¦¦à§à¦°à§', 'algidurgapursouth.chandpur.gov.bd'),
+(477, 52, 'Nilkamal', 'à¦¨à§€à¦²à¦•à¦®à¦²', 'nilkamalup.chandpur.gov.bd'),
+(478, 52, 'Haimchar', 'à¦¹à¦¾à¦‡à¦®à¦šà¦°', 'haimcharup.chandpur.gov.bd'),
+(479, 52, 'Charbhairabi', 'à¦šà¦°à¦­à§ˆà¦°à¦¬à§€', 'charbhairabiup.chandpur.gov.bd'),
+(480, 53, 'Pathair', 'à¦ªà¦¾à¦¥à§ˆà¦°', 'pathairup.chandpur.gov.bd'),
+(481, 53, 'Bitara', 'à¦¬à¦¿à¦¤à¦¾à¦°à¦¾', 'bitaraup.chandpur.gov.bd'),
+(482, 53, 'Shohodebpur (East)', 'à¦¸à¦¹à¦¦à§‡à¦¬à¦ªà§à¦° ', 'shohodebpureastup.chandpur.gov.bd'),
+(483, 53, 'Shohodebpur (West)', 'à¦¸à¦¹à¦¦à§‡à¦¬à¦ªà§à¦° ', 'shohodebpurwestup.chandpur.gov.bd'),
+(484, 53, 'Kachua (North)', 'à¦•à¦šà§à¦¯à¦¼à¦¾ (à¦‰à¦', 'kachuanorthup.chandpur.gov.bd'),
+(485, 53, 'Kachua (South)', 'à¦•à¦šà§à¦¯à¦¼à¦¾ (à¦¦à¦', 'kachuasouthup.chandpur.gov.bd'),
+(486, 53, 'Gohat (North)', 'à¦—à§‹à¦¹à¦¾à¦Ÿ (à¦‰à¦¤à§', 'gohatnorthup.chandpur.gov.bd'),
+(487, 53, 'Kadla', 'à¦•à¦¾à¦¦à¦²à¦¾', 'kadlaup.chandpur.gov.bd'),
+(488, 53, 'Ashrafpur', 'à¦†à¦¸à¦°à¦¾à¦«à¦ªà§à¦°', 'ashrafpurup.chandpur.gov.bd'),
+(489, 53, 'Gohat (South)', 'à¦—à§‹à¦¹à¦¾à¦Ÿ (à¦¦à¦•à§', 'gohatsouthup.chandpur.gov.bd'),
+(490, 53, 'Sachar', 'à¦¸à¦¾à¦šà¦¾à¦°', 'sacharup.chandpur.gov.bd'),
+(491, 53, 'Koroia', 'à¦•à¦¡à¦¼à¦‡à¦¯à¦¼à¦¾', 'koroiaup.chandpur.gov.bd'),
+(492, 54, 'Tamta (South)', 'à¦Ÿà¦¾à¦®à¦Ÿà¦¾ (à¦¦à¦•à§', 'tamtasouthup.chandpur.gov.bd'),
+(493, 54, 'Tamta (North)', 'à¦Ÿà¦¾à¦®à¦Ÿà¦¾ (à¦‰à¦¤à§', 'tamtanorthup.chandpur.gov.bd'),
+(494, 54, 'Meher (North)', 'à¦®à§‡à¦¹à§‡à¦° (à¦‰à¦¤à§', 'mehernorthup.chandpur.gov.bd'),
+(495, 54, 'Meher (South)', 'à¦®à§‡à¦¹à§‡à¦° (à¦¦à¦•à§', 'mehersouthup.chandpur.gov.bd'),
+(496, 54, 'Suchipara (North)', 'à¦¸à§à¦šà¦¿à¦ªà¦¾à¦¡à¦¼à', 'suchiparanorthup.chandpur.gov.bd'),
+(497, 54, 'Suchipara (South)', 'à¦¸à§à¦šà¦¿à¦ªà¦¾à¦¡à¦¼à', 'suchiparasouthup.chandpur.gov.bd'),
+(498, 54, 'Chitoshi (East)', 'à¦šà¦¿à¦¤à¦·à§€ (à¦ªà§‚à¦', 'chitoshieastup.chandpur.gov.bd'),
+(499, 54, 'Raysree (South)', 'à¦°à¦¾à¦¯à¦¼à¦¶à§à¦°à§€ ', 'raysreesouthup.chandpur.gov.bd'),
+(500, 54, 'Raysree (North)', 'à¦°à¦¾à¦¯à¦¼à¦¶à§à¦°à§€ ', 'raysreenorthup.chandpur.gov.bd'),
+(501, 54, 'Chitoshiwest', 'à¦šà¦¿à¦¤à¦·à§€ (à¦ªà¦¶à§', 'chitoshiwestup.chandpur.gov.bd'),
+(502, 55, 'Bishnapur', 'à¦¬à¦¿à¦·à§à¦£à¦ªà§à¦°', 'bishnapurup.chandpur.gov.bd'),
+(503, 55, 'Ashikati', 'à¦†à¦¶à¦¿à¦•à¦¾à¦Ÿà¦¿', 'ashikatiup.chandpur.gov.bd'),
+(504, 55, 'Shahmahmudpur', 'à¦¶à¦¾à¦¹à§â€Œ à¦®à¦¾à¦¹', 'shahmahmudpurup.chandpur.gov.bd'),
+(505, 55, 'Kalyanpur', 'à¦•à¦²à§à¦¯à¦¾à¦£à¦ªà§à', 'kalyanpurup.chandpur.gov.bd'),
+(506, 55, 'Rampur', 'à¦°à¦¾à¦®à¦ªà§à¦°', 'rampurup.chandpur.gov.bd'),
+(507, 55, 'Maishadi', 'à¦®à§ˆà¦¶à¦¾à¦¦à§€', 'maishadiup.chandpur.gov.bd'),
+(508, 55, 'Tarpurchandi', 'à¦¤à¦°à¦ªà§à¦šà¦¨à§à¦¡à', 'tarpurchandiup.chandpur.gov.bd'),
+(509, 55, 'Baghadi', 'à¦¬à¦¾à¦—à¦¾à¦¦à§€', 'baghadiup.chandpur.gov.bd'),
+(510, 55, 'Laxmipur Model', 'à¦²à¦•à§à¦·à§€à¦ªà§à¦° ', 'laxmipurmodelup.chandpur.gov.bd'),
+(511, 55, 'Hanarchar', 'à¦¹à¦¾à¦¨à¦¾à¦°à¦šà¦°', 'hanarcharup.chandpur.gov.bd'),
+(512, 55, 'Chandra', 'à¦šà¦¾à¦¨à§à¦¦à§à¦°à¦¾', 'chandraup.chandpur.gov.bd'),
+(513, 55, 'Rajrajeshwar', 'à¦°à¦¾à¦œà¦°à¦¾à¦œà§‡à¦¶à', 'rajrajeshwarup.chandpur.gov.bd'),
+(514, 55, 'Ibrahimpur', 'à¦‡à¦¬à§à¦°à¦¾à¦¹à§€à¦®à', 'ibrahimpurup.chandpur.gov.bd'),
+(515, 55, 'Balia', 'à¦¬à¦¾à¦²à¦¿à¦¯à¦¼à¦¾', 'baliaup.chandpur.gov.bd'),
+(516, 56, 'Nayergaon (North)', 'à¦¨à¦¾à¦¯à¦¼à§‡à¦°à¦—à¦¾à', 'nayergaonnorthup.chandpur.gov.bd'),
+(517, 56, 'Nayergaon (South)', 'à¦¨à¦¾à¦¯à¦¼à§‡à¦°à¦—à¦¾à', 'nayergaonsouthup.chandpur.gov.bd'),
+(518, 56, 'Khadergaon', 'à¦–à¦¾à¦¦à§‡à¦°à¦—à¦¾à¦à', 'khadergaonup.chandpur.gov.bd'),
+(519, 56, 'Narayanpur', 'à¦¨à¦¾à¦°à¦¾à¦¯à¦¼à¦¨à¦ªà', 'narayanpurup.chandpur.gov.bd'),
+(520, 56, 'Upadi (South)', 'à¦‰à¦ªà¦¾à¦¦à§€ (à¦¦à¦•à§', 'upadisouthup.chandpur.gov.bd'),
+(521, 56, 'Upadi (North)', 'à¦‰à¦ªà¦¾à¦¦à§€ (à¦‰à¦¤à§', 'upadinorthup.chandpur.gov.bd'),
+(522, 57, 'Rajargaon (North)', 'à¦°à¦¾à¦œà¦¾à¦°à¦—à¦¾à¦à', 'rajargaonnorthup.chandpur.gov.bd'),
+(523, 57, 'Bakila', 'à¦¬à¦¾à¦•à¦¿à¦²à¦¾', 'bakilaup.chandpur.gov.bd'),
+(524, 57, 'Kalocho (North)', 'à¦•à¦¾à¦²à¦šà§‹à¦ (à¦‰à¦', 'kalochonorthup.chandpur.gov.bd'),
+(525, 57, 'Hajiganj Sadar', 'à¦¹à¦¾à¦œà§€à¦—à¦žà§à¦œ ', 'hajiganjsadarup.chandpur.gov.bd'),
+(526, 57, 'Kalocho (South)', 'à¦•à¦¾à¦²à¦šà§‹à¦ (à¦¦à¦', 'kalochosouthup.chandpur.gov.bd'),
+(527, 57, 'Barkul (East)', 'à¦¬à¦¡à¦¼à¦•à§à¦² (à¦ªà§', 'barkuleastup.chandpur.gov.bd'),
+(528, 57, 'Barkul (West)', 'à¦¬à¦¡à¦¼à¦•à§à¦² (à¦ªà¦', 'barkulwestup.chandpur.gov.bd'),
+(529, 57, 'Hatila (East)', 'à¦¹à¦¾à¦Ÿà¦¿à¦²à¦¾ (à¦ªà§', 'hatilaeastup.chandpur.gov.bd'),
+(530, 57, 'Hatila (West)', 'à¦¹à¦¾à¦Ÿà¦¿à¦²à¦¾ (à¦ªà¦', 'hatilawestup.chandpur.gov.bd'),
+(531, 57, 'Gandharbapur (North)', 'à¦—à¦¨à§à¦§à¦°à§à¦¬à§à', 'gandharbapurnorthup.chandpur.gov.bd'),
+(532, 57, 'Gandharbapur (South)', 'à¦—à¦¨à§à¦§à¦°à§à¦¬à§à', 'gandharbapursouthup.chandpur.gov.bd'),
+(533, 58, 'Satnal', 'à¦·à¦¾à¦Ÿà¦¨à¦²', 'satnalup.chandpur.gov.bd'),
+(534, 58, 'Banganbari', 'à¦¬à¦¾à¦—à¦¾à¦¨à¦¬à¦¾à¦¡à', 'banganbariup.chandpur.gov.bd'),
+(535, 58, 'Sadullapur', 'à¦¸à¦¾à¦¦à§à¦²à§à¦²à§à', 'sadullapurup.chandpur.gov.bd'),
+(536, 58, 'Durgapur', 'à¦¦à§‚à¦°à§à¦—à¦¾à¦ªà§à', 'durgapurup.chandpur.gov.bd'),
+(537, 58, 'Kalakanda', 'à¦•à¦¾à¦²à¦¾à¦•à¦¾à¦¨à§à', 'kalakandaup.chandpur.gov.bd'),
+(538, 58, 'Mohanpur', 'à¦®à§‹à¦¹à¦¨à¦ªà§à¦°', 'mohanpurup.chandpur.gov.bd'),
+(539, 58, 'Eklaspur', 'à¦à¦–à¦²à¦¾à¦›à¦ªà§à¦°', 'eklaspurup.chandpur.gov.bd'),
+(540, 58, 'Jahirabad', 'à¦œà¦¹à¦¿à¦°à¦¾à¦¬à¦¾à¦¦', 'jahirabadup.chandpur.gov.bd'),
+(541, 58, 'Fatehpur (East)', 'à¦«à¦¤à§‡à¦¹à¦ªà§à¦° (à¦', 'eastfatehpur.chandpur.gov.bd'),
+(542, 58, 'Fatehpur (West)', 'à¦«à¦¤à§‡à¦¹à¦ªà§à¦° (à¦', 'westfatehpurup.chandpur.gov.bd'),
+(543, 58, 'Farajikandi', 'à¦«à¦°à¦¾à¦œà§€à¦•à¦¾à¦¨à', 'farajikandiup.chandpur.gov.bd'),
+(544, 58, 'Islamabad', 'à¦‡à¦¸à¦²à¦¾à¦®à¦¾à¦¬à¦¾à', 'islamabadup.chandpur.gov.bd'),
+(545, 58, 'Sultanabad', 'à¦¸à§à¦²à¦¤à¦¾à¦¨à¦¾à¦¬à', 'sultanabadup.chandpur.gov.bd'),
+(546, 58, 'Gazra', 'à¦—à¦œà¦°à¦¾', 'gazraup.chandpur.gov.bd'),
+(547, 59, 'Balithuba (West)', 'à¦¬à¦¾à¦²à¦¿à¦¥à§à¦¬à¦¾ ', 'balithubawestup.chandpur.gov.bd'),
+(548, 59, 'Balithuba (East)', 'à¦¬à¦¾à¦²à¦¿à¦¥à§à¦¬à¦¾ ', 'balithubaeastup.chandpur.gov.bd'),
+(549, 59, 'Subidpur (East)', 'à¦¸à§à¦¬à¦¿à¦¦à¦ªà§à¦° ', 'subidpureastup.chandpur.gov.bd'),
+(550, 59, 'Subidpur (West)', 'à¦¸à§à¦¬à¦¿à¦¦à¦ªà§à¦° ', 'subidpurwestup.chandpur.gov.bd'),
+(551, 59, 'Gupti (West)', 'à¦—à§à¦ªà§à¦¤à¦¿ (à¦ªà¦', 'guptiwestup.chandpur.gov.bd'),
+(552, 59, 'Gupti (East)', 'à¦—à§à¦ªà§à¦¤à¦¿ (à¦ªà§', 'guptieastup.chandpur.gov.bd'),
+(553, 59, 'Paikpara (North)', 'à¦ªà¦¾à¦‡à¦•à¦ªà¦¾à¦¡à¦¼à', 'paikparanorthup.chandpur.gov.bd'),
+(554, 59, 'Paikpara (South)', 'à¦ªà¦¾à¦‡à¦•à¦ªà¦¾à¦¡à¦¼à', 'paikparasouthup.chandpur.gov.bd'),
+(555, 59, 'Gobindapur (North)', 'à¦—à¦¬à¦¿à¦¨à§à¦¦à¦ªà§à', 'gobindapurnorthup.chandpur.gov.bd'),
+(556, 59, 'Gobindapur (South)', 'à¦—à¦¬à¦¿à¦¨à§à¦¦à¦ªà§à', 'gobindapursouthup.chandpur.gov.bd'),
+(557, 59, 'Chardukhia (East)', 'à¦šà¦°à¦¦à§à¦–à¦¿à¦¯à¦¼à', 'chardukhiaeastup.chandpur.gov.bd'),
+(558, 59, 'Chardukhia (West)', 'à¦šà¦°à¦¦à§à¦ƒà¦–à¦¿à¦¯à', 'chardukhiawestup.chandpur.gov.bd'),
+(559, 59, 'Faridgonj (South)', 'à¦«à¦°à¦¿à¦¦à§à¦—à¦žà§à', 'faridgonjsouthup.chandpur.gov.bd'),
+(560, 59, 'Rupsha (South)', 'à¦°à§à¦ªà¦¸à¦¾ (à¦¦à¦•à§', 'rupshasouthup.chandpur.gov.bd'),
+(561, 59, 'Rupsha (North)', 'à¦°à§à¦ªà¦¸à¦¾ (à¦‰à¦¤à§', 'rupshanorthup.chandpur.gov.bd'),
+(562, 60, 'Hamsadi (North)', 'à¦¹à¦¾à¦®à¦›à¦¾à¦¦à§€ (à¦', 'northhamsadiup.lakshmipur.gov.bd'),
+(563, 60, 'Hamsadi (South)', 'à¦¹à¦¾à¦®à¦›à¦¾à¦¦à§€ (à¦', 'southhamsadiup.lakshmipur.gov.bd'),
+(564, 60, 'Dalalbazar', 'à¦¦à¦¾à¦²à¦¾à¦² à¦¬à¦¾à¦œ', 'dalalbazarup.lakshmipur.gov.bd'),
+(565, 60, 'Charruhita', 'à¦šà¦°à¦°à§à¦¹à¦¿à¦¤à¦¾', 'charruhitaup.lakshmipur.gov.bd'),
+(566, 60, 'Parbotinagar', 'à¦ªà¦¾à¦°à§à¦¬à¦¤à§€à¦¨à', 'parbotinagarup.lakshmipur.gov.bd'),
+(567, 60, 'Bangakha', 'à¦¬à¦¾à¦™à§à¦—à¦¾à¦–à¦¾à', 'bangakhaup.lakshmipur.gov.bd'),
+(568, 60, 'Dattapara', 'à¦¦à¦¤à§à¦¤à¦ªà¦¾à§œà¦¾', 'dattaparaup.lakshmipur.gov.bd'),
+(569, 60, 'Basikpur', 'à¦¬à¦¶à¦¿à¦•à¦ªà§à¦°', 'basikpurup.lakshmipur.gov.bd'),
+(570, 60, 'Chandrogonj', 'à¦šà¦¨à§à¦¦à§à¦°à¦—à¦žà', 'chandrogonjup.lakshmipur.gov.bd'),
+(571, 60, 'Nourthjoypur', 'à¦‰à¦¤à§à¦¤à¦° à¦œà§Ÿà¦ª', 'nourthjoypurup.lakshmipur.gov.bd'),
+(572, 60, 'Hazirpara', 'à¦¹à¦¾à¦œà¦¿à¦°à¦ªà¦¾à§œà', 'hazirparaup.lakshmipur.gov.bd'),
+(573, 60, 'Charshahi', 'à¦šà¦°à¦¶à¦¾à¦¹à§€', 'charshahiup.lakshmipur.gov.bd'),
+(574, 60, 'Digli', 'à¦¦à¦¿à¦˜à¦²à§€', 'digliup.lakshmipur.gov.bd'),
+(575, 60, 'Laharkandi', 'à¦²à¦¾à¦¹à¦¾à¦°à¦•à¦¾à¦¨à', 'laharkandiup.lakshmipur.gov.bd'),
+(576, 60, 'Vobanigonj', 'à¦­à¦¬à¦¾à¦¨à§€à¦—à¦žà§à', 'vobanigonjup.lakshmipur.gov.bd'),
+(577, 60, 'Kusakhali', 'à¦•à§à¦¶à¦¾à¦–à¦¾à¦²à§€', 'kusakhaliup.lakshmipur.gov.bd'),
+(578, 60, 'Sakchor', 'à¦¶à¦¾à¦•à¦šà¦°', 'sakchorup.lakshmipur.gov.bd'),
+(579, 60, 'Tearigonj', 'à¦¤à§‡à§Ÿà¦¾à¦°à§€à¦—à¦žà', 'tearigonjup.lakshmipur.gov.bd'),
+(580, 60, 'Tumchor', 'à¦Ÿà§à¦®à¦šà¦°', 'tumchorup.lakshmipur.gov.bd'),
+(581, 60, 'Charramoni Mohon', 'à¦šà¦°à¦°à¦®à¦¨à§€ à¦®à§‹', 'charramonimohonup.lakshmipur.gov.bd'),
+(582, 61, 'Charkalkini', 'à¦šà¦° à¦•à¦¾à¦²à¦•à¦¿à¦¨', 'charkalkiniup.lakshmipur.gov.bd'),
+(583, 61, 'Shaheberhat', 'à¦¸à¦¾à¦¹à§‡à¦¬à§‡à¦°à¦¹à', 'shaheberhatup.lakshmipur.gov.bd'),
+(584, 61, 'Char Martin', 'à¦šà¦° à¦®à¦¾à¦°à§à¦Ÿà¦¿', 'charmartinup.lakshmipur.gov.bd'),
+(585, 61, 'Char Folcon', 'à¦šà¦° à¦«à¦²à¦•à¦¨', 'charfolconup.lakshmipur.gov.bd'),
+(586, 61, 'Patarirhat', 'à¦ªà¦¾à¦Ÿà¦¾à¦°à§€à¦°à¦¹à', 'patarirhatup.lakshmipur.gov.bd'),
+(587, 61, 'Hajirhat', 'à¦¹à¦¾à¦œà¦¿à¦°à¦¹à¦¾à¦Ÿ', 'hajirhatup.lakshmipur.gov.bd'),
+(588, 61, 'Char Kadira', 'à¦šà¦° à¦•à¦¾à¦¦à¦¿à¦°à¦¾', 'charkadiraup.lakshmipur.gov.bd'),
+(589, 61, 'Torabgonj', 'à¦¤à§‹à¦°à¦¾à¦¬à¦—à¦žà§à', 'torabgonjup.lakshmipur.gov.bd'),
+(590, 61, 'Charlorench', 'à¦šà¦° à¦²à¦°à§‡à¦žà§à¦š', 'charlorenchup.lakshmipur.gov.bd'),
+(591, 62, 'North Char Ababil', 'à¦‰à¦¤à§à¦¤à¦° à¦šà¦° à¦', 'northcharababilup.lakshmipur.gov.bd'),
+(592, 62, 'North Char Bangshi', 'à¦‰à¦¤à§à¦¤à¦° à¦šà¦° à¦', 'northcharbangshiup.lakshmipur.gov.bd'),
+(593, 62, 'Char Mohana', 'à¦šà¦° à¦®à§‹à¦¹à¦¨à¦¾', 'charmohanaup.lakshmipur.gov.bd'),
+(594, 62, 'Sonapur', 'à¦¸à§‹à¦¨à¦¾à¦ªà§à¦°', 'sonapurup.lakshmipur.gov.bd'),
+(595, 62, 'Charpata', 'à¦šà¦° à¦ªà¦¾à¦¤à¦¾', 'charpataup.lakshmipur.gov.bd'),
+(596, 62, 'Bamni', 'à¦¬à¦¾à¦®à¦¨à§€', 'bamniup.lakshmipur.gov.bd'),
+(597, 62, 'South Char Bangshi', 'à¦¦à¦•à§à¦·à¦¿à¦¨ à¦šà¦°', 'southcharbangshiup.lakshmipur.gov.bd'),
+(598, 62, 'South Char Ababil', 'à¦¦à¦•à§à¦·à¦¿à¦¨ à¦šà¦°', 'southcharababilup.lakshmipur.gov.bd'),
+(599, 62, 'Raipur', 'à¦°à¦¾à§Ÿà¦ªà§à¦°', 'raipurup.lakshmipur.gov.bd'),
+(600, 62, 'Keora', 'à¦•à§‡à¦°à§‹à§Ÿà¦¾', 'keoraup.lakshmipur.gov.bd'),
+(601, 63, 'Char Poragacha', 'à¦šà¦° à¦ªà§‹à§œà¦¾à¦—à¦¾', 'charporagachaup.lakshmipur.gov.bd'),
+(602, 63, 'Charbadam', 'à¦šà¦° à¦¬à¦¾à¦¦à¦¾à¦®', 'charbadamup.lakshmipur.gov.bd'),
+(603, 63, 'Char Abdullah', 'à¦šà¦° à¦†à¦¬à¦¦à§à¦²à§', 'charabdullahup.lakshmipur.gov.bd'),
+(604, 63, 'Alxendar', 'à¦†à¦²à§‡à¦•à¦œà¦¾à¦¨à§à', 'alxendarup.lakshmipur.gov.bd'),
+(605, 63, 'Char Algi', 'à¦šà¦° à¦†à¦²à¦—à§€', 'charalgiup.lakshmipur.gov.bd'),
+(606, 63, 'Char Ramiz', 'à¦šà¦° à¦°à¦®à¦¿à¦œ', 'charramizup.lakshmipur.gov.bd'),
+(607, 63, 'Borokheri', 'à¦¬à§œà¦–à§‡à§œà§€', 'borokheriup.lakshmipur.gov.bd'),
+(608, 63, 'Chargazi', 'à¦šà¦°à¦—à¦¾à¦œà§€', 'chargaziup.lakshmipur.gov.bd'),
+(609, 64, 'Kanchanpur', 'à¦•à¦¾à¦žà§à¦šà¦¨à¦ªà§à', 'kanchanpurup.lakshmipur.gov.bd'),
+(610, 64, 'Noagaon', 'à¦¨à§‹à§Ÿà¦¾à¦—à¦¾à¦à¦“', 'noagaonup.lakshmipur.gov.bd'),
+(611, 64, 'Bhadur', 'à¦­à¦¾à¦¦à§à¦°', 'bhadurup.lakshmipur.gov.bd'),
+(612, 64, 'Ichhapur', 'à¦‡à¦›à¦¾à¦ªà§à¦°', 'ichhapurup.lakshmipur.gov.bd'),
+(613, 64, 'Chandipur', 'à¦šà¦¨à§à¦¡à¦¿à¦ªà§à¦°', 'chandipurup.lakshmipur.gov.bd'),
+(614, 64, 'Lamchar', 'à¦²à¦¾à¦®à¦šà¦°', 'lamcharup.lakshmipur.gov.bd'),
+(615, 64, 'Darbeshpur', 'à¦¦à¦°à¦¬à§‡à¦¶à¦ªà§à¦°', 'darbeshpurup.lakshmipur.gov.bd'),
+(616, 64, 'Karpara', 'à¦•à¦°à¦ªà¦¾à§œà¦¾', 'karparaup.lakshmipur.gov.bd'),
+(617, 64, 'Bholakot', 'à¦­à§‹à¦²à¦¾à¦•à§‹à¦Ÿ', 'bholakotup.lakshmipur.gov.bd'),
+(618, 64, 'Bhatra', 'à¦­à¦¾à¦Ÿà¦°à¦¾', 'bhatraup.lakshmipur.gov.bd'),
+(619, 65, 'Rajanagar', 'à¦°à¦¾à¦œà¦¾à¦¨à¦—à¦°', 'rajanagarup.chittagong.gov.bd'),
+(620, 65, 'Hosnabad', 'à¦¹à§‹à¦›à¦¨à¦¾à¦¬à¦¾à¦¦', 'hosnabadup.chittagong.gov.bd'),
+(621, 65, 'Swanirbor Rangunia', 'à¦¸à§à¦¬à¦¨à¦¿à¦°à§à¦­à', 'swanirborranguniaup.chittagong.gov.bd'),
+(622, 65, 'Mariumnagar', 'à¦®à¦°à¦¿à§Ÿà¦®à¦¨à¦—à¦°', 'mariumnagarup.chittagong.gov.bd'),
+(623, 65, 'Parua', 'à¦ªà¦¾à¦°à§à§Ÿà¦¾', 'paruaup.chittagong.gov.bd');
+INSERT INTO `unions` (`id`, `upazilla_id`, `name`, `bn_name`, `url`) VALUES
+(624, 65, 'Pomra', 'à¦ªà§‹à¦®à¦°à¦¾', 'pomraup.chittagong.gov.bd'),
+(625, 65, 'Betagi', 'à¦¬à§‡à¦¤à¦¾à¦—à§€', 'betagiup.chittagong.gov.bd'),
+(626, 65, 'Sharafbhata', 'à¦¸à¦°à¦«à¦­à¦¾à¦Ÿà¦¾', 'sharafbhataup.chittagong.gov.bd'),
+(627, 65, 'Shilok', 'à¦¶à¦¿à¦²à¦•', 'shilokup.chittagong.gov.bd'),
+(628, 65, 'Chandraghona', 'à¦šà¦¨à§à¦¦à§à¦°à¦˜à§‹à', 'chandraghonaup.chittagong.gov.bd'),
+(629, 65, 'Kodala', 'à¦•à§‹à¦¦à¦¾à¦²à¦¾', 'kodalaup.chittagong.gov.bd'),
+(630, 65, 'Islampur', 'à¦‡à¦¸à¦²à¦¾à¦®à¦ªà§à¦°', 'islampurup.chittagong.gov.bd'),
+(631, 65, 'South Rajanagar', 'à¦¦à¦•à§à¦·à¦¿à¦£ à¦°à¦¾', 'southrajanagarup.chittagong.gov.bd'),
+(632, 65, 'Lalanagar', 'à¦²à¦¾à¦²à¦¾à¦¨à¦—à¦°', 'lalanagarup.chittagong.gov.bd'),
+(633, 66, 'Kumira', 'à¦•à§à¦®à¦¿à¦°à¦¾', 'kumiraup.chittagong.gov.bd'),
+(634, 66, 'Banshbaria', 'à¦¬à¦¾à¦à¦¶à¦¬à¦¾à¦°à§€à', 'banshbariaup.chittagong.gov.bd'),
+(635, 66, 'Barabkunda', 'à¦¬à¦¾à¦°à¦¬à¦•à§à¦¨à§à', 'barabkundaup.chittagong.gov.bd'),
+(636, 66, 'Bariadyala', 'à¦¬à¦¾à§œà¦¿à§Ÿà¦¾à¦¡à¦¿à', 'bariadyalaup.chittagong.gov.bd'),
+(637, 66, 'Muradpur', 'à¦®à§à¦°à¦¾à¦¦à¦ªà§à¦°', 'muradpurup.chittagong.gov.bd'),
+(638, 66, 'Saidpur', 'à¦¸à¦¾à¦ˆà¦¦à¦ªà§à¦°', 'saidpurup.chittagong.gov.bd'),
+(639, 66, 'Salimpur', 'à¦¸à¦¾à¦²à¦¿à¦®à¦ªà§à¦°', 'salimpurup.chittagong.gov.bd'),
+(640, 66, 'Sonaichhari', 'à¦¸à§‹à¦¨à¦¾à¦‡à¦›à§œà¦¿', 'sonaichhariup.chittagong.gov.bd'),
+(641, 66, 'Bhatiari', 'à¦­à¦¾à¦Ÿà¦¿à§Ÿà¦¾à¦°à§€', 'bhatiariup.chittagong.gov.bd'),
+(642, 67, 'Korerhat', 'à¦•à¦°à§‡à¦°à¦¹à¦¾à¦Ÿ', 'korerhatup.chittagong.gov.bd'),
+(643, 67, 'Hinguli', 'à¦¹à¦¿à¦‚à¦—à§à¦²à¦¿', 'hinguliup.chittagong.gov.bd'),
+(644, 67, 'Jorarganj', 'à¦œà§‹à¦°à¦¾à¦°à¦—à¦žà§à', 'jorarganjup.chittagong.gov.bd'),
+(645, 67, 'Dhoom', 'à¦§à§à¦®', 'dhoomup.chittagong.gov.bd'),
+(646, 67, 'Osmanpur', 'à¦“à¦¸à¦®à¦¾à¦¨à¦ªà§à¦°', 'osmanpurup.chittagong.gov.bd'),
+(647, 67, 'Ichakhali', 'à¦‡à¦›à¦¾à¦–à¦¾à¦²à§€', 'ichakhaliup.chittagong.gov.bd'),
+(648, 67, 'Katachhara', 'à¦•à¦¾à¦Ÿà¦¾à¦›à¦°à¦¾', 'katachharaup.chittagong.gov.bd'),
+(649, 67, 'Durgapur', 'à¦¦à§‚à¦°à§à¦—à¦¾à¦ªà§à', 'durgapurup.chittagong.gov.bd'),
+(650, 67, 'Mirsharai', 'à¦®à§€à¦°à¦¸à¦°à¦¾à¦‡', 'mirsharaiup.chittagong.gov.bd'),
+(651, 67, 'Mithanala', 'à¦®à¦¿à¦ à¦¾à¦¨à¦¾à¦²à¦¾', 'mithanalaup.chittagong.gov.bd'),
+(652, 67, 'Maghadia', 'à¦®à¦˜à¦¾à¦¦à¦¿à§Ÿà¦¾', 'maghadiaup.chittagong.gov.bd'),
+(653, 67, 'Khaiyachhara', 'à¦–à§ˆà§Ÿà¦¾à¦›à¦°à¦¾', 'khaiyachharaup.chittagong.gov.bd'),
+(654, 67, 'Mayani', 'à¦®à¦¾à§Ÿà¦¾à¦¨à§€', 'mayaniup.chittagong.gov.bd'),
+(655, 67, 'Haitkandi', 'à¦¹à¦¾à¦‡à¦¤à¦•à¦¾à¦¨à§à', 'haitkandiup.chittagong.gov.bd'),
+(656, 67, 'Wahedpur', 'à¦“à§Ÿà¦¾à¦¹à§‡à¦¦à¦ªà§à', 'wahedpurup.chittagong.gov.bd'),
+(657, 67, 'Saherkhali', 'à¦¸à¦¾à¦¹à§‡à¦°à¦–à¦¾à¦²à', 'saherkhaliup.chittagong.gov.bd'),
+(658, 68, 'Asia', 'à¦†à¦¶à¦¿à§Ÿà¦¾', 'asiaup.chittagong.gov.bd'),
+(659, 68, 'Kachuai', 'à¦•à¦¾à¦šà§à§Ÿà¦¾à¦‡', 'kachuaiup.chittagong.gov.bd'),
+(660, 68, 'Kasiais', 'à¦•à¦¾à¦¶à¦¿à§Ÿà¦¾à¦‡à¦¶', 'kasiaisup.chittagong.gov.bd'),
+(661, 68, 'Kusumpura', 'à¦•à§à¦¸à§à¦®à¦ªà§à¦°à', 'kusumpuraup.chittagong.gov.bd'),
+(662, 68, 'Kelishahar', 'à¦•à§‡à¦²à¦¿à¦¶à¦¹à¦°', 'kelishaharup.chittagong.gov.bd'),
+(663, 68, 'Kolagaon', 'à¦•à§‹à¦²à¦¾à¦—à¦¾à¦à¦“', 'kolagaonup.chittagong.gov.bd'),
+(664, 68, 'Kharana', 'à¦–à¦°à¦¨à¦¾', 'kharanaup.chittagong.gov.bd'),
+(665, 68, 'Char Patharghata', 'à¦šà¦° à¦ªà¦¾à¦¥à¦°à¦˜à¦¾', 'charpatharghataup.chittagong.gov.bd'),
+(666, 68, 'Char Lakshya', 'à¦šà¦° à¦²à¦•à§à¦·à§à¦¯', 'charlakshyaup.chittagong.gov.bd'),
+(667, 68, 'Chanhara', 'à¦›à¦¨à¦¹à¦°à¦¾', 'chanharaup.chittagong.gov.bd'),
+(668, 68, 'Janglukhain', 'à¦œà¦™à§à¦—à¦²à¦–à¦¾à¦‡à', 'janglukhainup.chittagong.gov.bd'),
+(669, 68, 'Jiri', 'à¦œà¦¿à¦°à¦¿', 'jiriup.chittagong.gov.bd'),
+(670, 68, 'Juldha', 'à¦œà§à¦²à¦§à¦¾', 'juldhaup.chittagong.gov.bd'),
+(671, 68, 'Dakkhin Bhurshi', 'à¦¦à¦•à§à¦·à¦¿à¦£ à¦­à§‚', 'dakhinbhurshiup.chittagong.gov.bd'),
+(672, 68, 'Dhalghat', 'à¦§à¦²à¦˜à¦¾à¦Ÿ', 'dhalghatup.chittagong.gov.bd'),
+(673, 68, 'Bara Uthan', 'à¦¬à§œ à¦‰à¦ à¦¾à¦¨', 'barauthanup.chittagong.gov.bd'),
+(674, 68, 'Baralia', 'à¦¬à¦°à¦²à¦¿à§Ÿà¦¾', 'baraliaup.chittagong.gov.bd'),
+(675, 68, 'Bhatikhain', 'à¦­à¦¾à¦Ÿà¦¿à¦–à¦¾à¦‡à¦¨', 'bhatikhainup.chittagong.gov.bd'),
+(676, 68, 'Sikalbaha', 'à¦¶à¦¿à¦•à¦²à¦¬à¦¾à¦¹à¦¾', 'sikalbahaup.chittagong.gov.bd'),
+(677, 68, 'Sobhandandi', 'à¦¶à§‹à¦­à¦¨à¦¦à¦¨à§à¦¡à', 'sobhandandiup.chittagong.gov.bd'),
+(678, 68, 'Habilasdwi', 'à¦¹à¦¾à¦¬à¦¿à¦²à¦¾à¦¸à¦¦à', 'habilasdwipup.chittagong.gov.bd'),
+(679, 68, 'Haidgaon', 'à¦¹à¦¾à¦‡à¦¦à¦—à¦¾à¦à¦“', 'haidgaonup.chittagong.gov.bd'),
+(680, 69, 'Rahmatpur', 'à¦°à¦¹à¦®à¦¤à¦ªà§à¦°', 'rahmatpurup.chittagong.gov.bd'),
+(681, 69, 'Harispur', 'à¦¹à¦°à¦¿à¦¶à¦ªà§à¦°', 'harispurup.chittagong.gov.bd'),
+(682, 69, 'Kalapania', 'à¦•à¦¾à¦²à¦¾à¦ªà¦¾à¦¨à¦¿à', 'kalapaniaup.chittagong.gov.bd'),
+(683, 69, 'Amanullah', 'à¦†à¦®à¦¾à¦¨à¦‰à¦²à§à¦¯à', 'amanullahup.chittagong.gov.bd'),
+(684, 69, 'Santoshpur', 'à¦¸à¦¨à§à¦¤à§‹à¦·à¦ªà§à', 'santoshpurup.chittagong.gov.bd'),
+(685, 69, 'Gachhua', 'à¦—à¦¾à¦›à§à§Ÿà¦¾', 'gachhuaup.chittagong.gov.bd'),
+(686, 69, 'Bauria', 'à¦¬à¦¾à¦‰à¦°à¦¿à§Ÿà¦¾', 'bauriaup.chittagong.gov.bd'),
+(687, 69, 'Haramia', 'à¦¹à¦¾à¦°à¦¾à¦®à¦¿à§Ÿà¦¾', 'haramiaup.chittagong.gov.bd'),
+(688, 69, 'Magdhara', 'à¦®à¦—à¦§à¦°à¦¾', 'magdharaup.chittagong.gov.bd'),
+(689, 69, 'Maitbhanga', 'à¦®à¦¾à¦‡à¦Ÿà¦­à¦¾à¦™à§à', 'maitbhangaup.chittagong.gov.bd'),
+(690, 69, 'Sarikait', 'à¦¸à¦¾à¦°à¦¿à¦•à¦¾à¦‡à¦¤', 'sarikaitup.chittagong.gov.bd'),
+(691, 69, 'Musapur', 'à¦®à§à¦›à¦¾à¦ªà§à¦°', 'musapurup.chittagong.gov.bd'),
+(692, 69, 'Azimpur', 'à¦†à¦œà¦¿à¦®à¦ªà§à¦°', 'azimpurup.chittagong.gov.bd'),
+(693, 69, 'Urirchar', 'à¦‰à§œà¦¿à¦°à¦šà¦°', 'urircharup.chittagong.gov.bd'),
+(694, 70, 'Pukuria', 'à¦ªà§à¦•à§à¦°à¦¿à§Ÿà¦¾', 'pukuriaup.chittagong.gov.bd'),
+(695, 70, 'Sadhanpur', 'à¦¸à¦¾à¦§à¦¨à¦ªà§à¦°', 'sadhanpurup.chittagong.gov.bd'),
+(696, 70, 'Khankhanabad', 'à¦–à¦¾à¦¨à¦–à¦¾à¦¨à¦¾à¦¬à', 'khankhanabadup.chittagong.gov.bd'),
+(697, 70, 'Baharchhara', 'à¦¬à¦¾à¦¹à¦¾à¦°à¦›à§œà¦¾', 'baharchharaup.chittagong.gov.bd'),
+(698, 70, 'Kalipur', 'à¦•à¦¾à¦²à§€à¦ªà§à¦°', 'kalipurup.chittagong.gov.bd'),
+(699, 70, 'Bailchhari', 'à¦¬à§ˆà¦²à¦›à§œà¦¿', 'bailchhariup.chittagong.gov.bd'),
+(700, 70, 'Katharia', 'à¦•à¦¾à¦¥à¦°à¦¿à§Ÿà¦¾', 'kathariaup.chittagong.gov.bd'),
+(701, 70, 'Saral', 'à¦¸à¦°à¦²', 'saralup.chittagong.gov.bd'),
+(702, 70, 'Silk', 'à¦¶à§€à¦²à¦•à§à¦ª', 'silkupup.chittagong.gov.bd'),
+(703, 70, 'Chambal', 'à¦šà¦¾à¦®à§à¦¬à¦²', 'chambalup.chittagong.gov.bd'),
+(704, 70, 'Gandamara', 'à¦—à¦¨à§à¦¡à¦¾à¦®à¦¾à¦°à', 'gandamaraup.chittagong.gov.bd'),
+(705, 70, 'Sekherkhil', 'à¦¶à§‡à¦–à§‡à¦°à¦–à§€à¦²', 'sekherkhilup.chittagong.gov.bd'),
+(706, 70, 'Puichhari', 'à¦ªà§à¦à¦‡à¦›à§œà¦¿', 'puichhariup.chittagong.gov.bd'),
+(707, 70, 'Chhanua', 'à¦›à¦¨à§à§Ÿà¦¾', 'chhanuaup.chittagong.gov.bd'),
+(708, 71, 'Kandhurkhil', 'à¦•à¦§à§à¦°à¦–à§€à¦²', 'kandhurkhilup.chittagong.gov.bd'),
+(709, 71, 'Pashchim Gamdandi', 'à¦ªà¦¶à§à¦šà¦¿à¦® à¦—à§‹', 'pashchimgamdandiup.chittagong.gov.bd'),
+(710, 71, 'Purba Gomdandi', 'à¦ªà§à¦°à§à¦¬ à¦—à§‹à¦®', 'purbagomdandiup.chittagong.gov.bd'),
+(711, 71, 'Sakpura', 'à¦¶à¦¾à¦•à¦ªà§à¦°à¦¾', 'sakpuraup.chittagong.gov.bd'),
+(712, 71, 'Saroatali', 'à¦¸à¦¾à¦°à§‹à§Ÿà¦¾à¦¤à¦²à', 'saroataliup.chittagong.gov.bd'),
+(713, 71, 'Popadia', 'à¦ªà§‹à¦ªà¦¾à¦¦à¦¿à§Ÿà¦¾', 'popadiaup.chittagong.gov.bd'),
+(714, 71, 'Charandwi', 'à¦šà¦°à¦¨à¦¦à§à¦¬à§€à¦ª', 'charandwipup.chittagong.gov.bd'),
+(715, 71, 'Sreepur-Kharandwi', 'à¦¶à§à¦°à§€à¦ªà§à¦°-à¦–', 'sreepurkharandwipup.chittagong.gov.bd'),
+(716, 71, 'Amuchia', 'à¦†à¦®à§à¦šà¦¿à§Ÿà¦¾', 'amuchiaup.chittagong.gov.bd'),
+(717, 71, 'Ahla Karaldenga', 'à¦†à¦¹à¦²à§à¦²à¦¾ à¦•à¦°', 'ahlakaraldengaup.chittagong.gov.bd'),
+(718, 72, 'Boirag', 'à¦¬à§ˆà¦°à¦¾à¦—', 'boiragup.chittagong.gov.bd'),
+(719, 72, 'Barasat', 'à¦¬à¦¾à¦°à¦¶à¦¤', 'barasatup.chittagong.gov.bd'),
+(720, 72, 'Raipur', 'à¦°à¦¾à§Ÿà¦ªà§à¦°', 'raipurup.chittagong.gov.bd'),
+(721, 72, 'Battali', 'à¦¬à¦Ÿà¦¤à¦²à§€', 'battaliup.chittagong.gov.bd'),
+(722, 72, 'Barumchara', 'à¦¬à¦°à¦®à§à¦¨à¦®à¦šà§œà', 'barumcharaup.chittagong.gov.bd'),
+(723, 72, 'Baroakhan', 'à¦¬à¦¾à¦°à¦–à¦¾à¦‡à¦¨', 'baroakhanup.chittagong.gov.bd'),
+(724, 72, 'Anwara', 'à¦†à¦¨à§‹à§Ÿà¦¾à¦°à¦¾', 'anwaraup.chittagong.gov.bd'),
+(725, 72, 'Chatari', 'à¦šà¦¾à¦¤à¦°à§€', 'chatariup.chittagong.gov.bd'),
+(726, 72, 'Paraikora', 'à¦ªà¦°à§ˆà¦•à§‹à§œà¦¾', 'paraikoraup.chittagong.gov.bd'),
+(727, 72, 'Haildhar', 'à¦¹à¦¾à¦‡à¦²à¦§à¦°', 'haildharup.chittagong.gov.bd'),
+(728, 72, 'Juidandi', 'à¦œà§à¦à¦‡à¦¦à¦¨à§à¦¡à', 'juidandiup.chittagong.gov.bd'),
+(729, 73, 'Kanchanabad', 'à¦•à¦¾à¦žà§à¦šà¦¨à¦¾à¦¬à', 'kanchanabadup.chittagong.gov.bd'),
+(730, 73, 'Joara', 'à¦œà§‹à§Ÿà¦¾à¦°à¦¾', 'joaraup.chittagong.gov.bd'),
+(731, 73, 'Barkal', 'à¦¬à¦°à¦•à¦²', 'barkalup.chittagong.gov.bd'),
+(732, 73, 'Barama', 'à¦¬à¦°à¦®à¦¾', 'baramaup.chittagong.gov.bd'),
+(733, 73, 'Bailtali', 'à¦¬à§ˆà¦²à¦¤à¦²à§€', 'bailtaliup.chittagong.gov.bd'),
+(734, 73, 'Satbaria', 'à¦¸à¦¾à¦¤à¦¬à¦¾à§œà¦¿à§Ÿà', 'satbariaup.chittagong.gov.bd'),
+(735, 73, 'Hashimpur', 'à¦¹à¦¾à¦¶à¦¿à¦®à¦ªà§à¦°', 'hashimpurup.chittagong.gov.bd'),
+(736, 73, 'Dohazari', 'à¦¦à§‹à¦¹à¦¾à¦œà¦¾à¦°à§€', 'dohazariup.chittagong.gov.bd'),
+(737, 73, 'Dhopachhari', 'à¦§à§‹à¦ªà¦¾à¦›à§œà§€', 'dhopachhariup.chittagong.gov.bd'),
+(738, 74, 'Charati', 'à¦šà¦°à¦¤à§€', 'charatiup.chittagong.gov.bd'),
+(739, 74, 'Khagaria', 'à¦–à¦¾à¦—à¦°à¦¿à§Ÿà¦¾', 'khagariaup.chittagong.gov.bd'),
+(740, 74, 'Nalua', 'à¦¨à¦²à§à§Ÿà¦¾', 'naluaup.chittagong.gov.bd'),
+(741, 74, 'Kanchana', 'à¦•à¦¾à¦žà§à¦šà¦¨à¦¾', 'kanchanaup.chittagong.gov.bd'),
+(742, 74, 'Amilaisi', 'à¦†à¦®à¦¿à¦²à¦¾à¦‡à¦¶', 'amilaisiup.chittagong.gov.bd'),
+(743, 74, 'Eochiai', 'à¦à¦“à¦šà¦¿à§Ÿà¦¾', 'eochiaiup.chittagong.gov.bd'),
+(744, 74, 'Madarsa', 'à¦®à¦¾à¦¦à¦¾à¦°à§à¦¶à¦¾', 'madarsaup.chittagong.gov.bd'),
+(745, 74, 'Dhemsa', 'à¦¢à§‡à¦®à¦¶à¦¾', 'dhemsaup.chittagong.gov.bd'),
+(746, 74, 'Paschim Dhemsa', 'à¦ªà¦¶à§à¦šà¦¿à¦® à¦¢à§‡', 'paschimdhemsaup.chittagong.gov.bd'),
+(747, 74, 'Keochia', 'à¦•à§‡à¦à¦“à¦šà¦¿à§Ÿà¦¾', 'keochiaup.chittagong.gov.bd'),
+(748, 74, 'Kaliais', 'à¦•à¦¾à¦²à¦¿à§Ÿà¦¾à¦‡à¦¶', 'kaliaisup.chittagong.gov.bd'),
+(749, 74, 'Bazalia', 'à¦¬à¦¾à¦œà¦¾à¦²à¦¿à§Ÿà¦¾', 'bazaliaup.chittagong.gov.bd'),
+(750, 74, 'Puranagar', 'à¦ªà§à¦°à¦¾à¦¨à¦—à§œ', 'puranagarup.chittagong.gov.bd'),
+(751, 74, 'Sadaha', 'à¦›à¦¦à¦¾à¦¹à¦¾', 'sadahaup.chittagong.gov.bd'),
+(752, 74, 'Satkania', 'à¦¸à¦¾à¦¤à¦•à¦¾à¦¨à¦¿à§Ÿà', 'satkaniaup.chittagong.gov.bd'),
+(753, 74, 'Sonakania', 'à¦¸à§‹à¦¨à¦¾à¦•à¦¾à¦¨à¦¿à', 'sonakaniaup.chittagong.gov.bd'),
+(754, 75, 'Padua', 'à¦ªà¦¦à§à§Ÿà¦¾', 'paduaup.chittagong.gov.bd'),
+(755, 75, 'Barahatia', 'à¦¬à§œà¦¹à¦¾à¦¤à¦¿à§Ÿà¦¾', 'barahatiaup.chittagong.gov.bd'),
+(756, 75, 'Amirabad', 'à¦†à¦®à¦¿à¦°à¦¾à¦¬à¦¾à¦¦', 'amirabadup.chittagong.gov.bd'),
+(757, 75, 'Charamba', 'à¦šà¦°à¦®à§à¦¬à¦¾', 'charambaup.chittagong.gov.bd'),
+(758, 75, 'Kalauzan', 'à¦•à¦²à¦¾à¦‰à¦œà¦¾à¦¨', 'kalauzanup.chittagong.gov.bd'),
+(759, 75, 'Lohagara', 'à¦²à§‹à¦¹à¦¾à¦—à¦¾à§œà¦¾', 'lohagaraup.chittagong.gov.bd'),
+(760, 75, 'Putibila', 'à¦ªà§à¦Ÿà¦¿à¦¬à¦¿à¦²à¦¾', 'putibilaup.chittagong.gov.bd'),
+(761, 75, 'Chunati', 'à¦šà§à¦¨à¦¤à¦¿', 'chunatiup.chittagong.gov.bd'),
+(762, 75, 'Adhunagar', 'à¦†à¦§à§à¦¨à¦—à¦°', 'adhunagarup.chittagong.gov.bd'),
+(763, 76, 'Farhadabad', 'à¦«à¦°à¦¹à¦¾à¦¦à¦¾à¦¬à¦¾à', 'farhadabadup.chittagong.gov.bd'),
+(764, 76, 'Dhalai', 'à¦§à¦²à¦‡', 'dhalaiup.chittagong.gov.bd'),
+(765, 76, 'Mirjapur', 'à¦®à¦¿à¦°à§à¦œà¦¾à¦ªà§à', 'mirjapurup.chittagong.gov.bd'),
+(766, 76, 'Nangolmora', 'à¦¨à¦¾à¦™à§à¦—à¦²à¦®à§‹à', 'nangolmoraup.chittagong.gov.bd'),
+(767, 76, 'Gomanmordan', 'à¦—à§à¦®à¦¾à¦¨à¦®à¦°à§à', 'gomanmordanup.chittagong.gov.bd'),
+(768, 76, 'Chipatali', 'à¦›à¦¿à¦ªà¦¾à¦¤à¦²à§€', 'chipataliup.chittagong.gov.bd'),
+(769, 76, 'Mekhal', 'à¦®à§‡à¦–à¦²', 'mekhalup.chittagong.gov.bd'),
+(770, 76, 'Garduara', 'à¦—à§œà¦¦à§à§Ÿà¦¾à¦°à¦¾', 'garduaraup.chittagong.gov.bd'),
+(771, 76, 'Fathepur', 'à¦«à¦¤à§‡à¦ªà§à¦°', 'fathepurup.chittagong.gov.bd'),
+(772, 76, 'Chikondandi', 'à¦šà¦¿à¦•à¦¨à¦¦à¦¨à§à¦¡à', 'chikondandiup.chittagong.gov.bd'),
+(773, 76, 'Uttar Madrasha', 'à¦‰à¦¤à§à¦¤à¦° à¦®à¦¾à¦¦', 'uttarmadrashaup.chittagong.gov.bd'),
+(774, 76, 'Dakkin Madrasha', 'à¦¦à¦•à§à¦·à¦¿à¦¨ à¦®à¦¾', 'dakkinmadrashaup.chittagong.gov.bd'),
+(775, 76, 'Sikarpur', 'à¦¶à¦¿à¦•à¦¾à¦°à¦ªà§à¦°', 'sikarpurup.chittagong.gov.bd'),
+(776, 76, 'Budirchar', 'à¦¬à§à¦¡à¦¿à¦°à¦¶à§à¦šà', 'budircharup.chittagong.gov.bd'),
+(777, 76, 'Hathazari', 'à¦¹à¦¾à¦Ÿà¦¹à¦¾à¦œà¦¾à¦°à', 'hathazariup.chittagong.gov.bd'),
+(778, 77, 'Dharmapur', 'à¦§à¦°à§à¦®à¦ªà§à¦°', 'dharmapurup.chittagong.gov.bd'),
+(779, 77, 'Baganbazar', 'à¦¬à¦¾à¦—à¦¾à¦¨ à¦¬à¦¾à¦œ', 'baganbazarup.chittagong.gov.bd'),
+(780, 77, 'Dantmara', 'à¦¦à¦¾à¦à¦¤à¦®à¦¾à¦°à¦¾', 'dantmaraup.chittagong.gov.bd'),
+(781, 77, 'Narayanhat', 'à¦¨à¦¾à¦°à¦¾à§Ÿà¦¨à¦¹à¦¾à', 'narayanhatup.chittagong.gov.bd'),
+(782, 77, 'Bhujpur', 'à¦­à§‚à¦œà¦ªà§à¦°', 'bhujpurup.chittagong.gov.bd'),
+(783, 77, 'Harualchari', 'à¦¹à¦¾à¦°à§à§Ÿà¦¾à¦²à¦›à', 'harualchariup.chittagong.gov.bd'),
+(784, 77, 'Paindong', 'à¦ªà¦¾à¦‡à¦¨à¦¦à¦‚', 'paindongup.chittagong.gov.bd'),
+(785, 77, 'Kanchannagor', 'à¦•à¦¾à¦žà§à¦šà¦¨à¦—à¦°', 'kanchannagorup.chittagong.gov.bd'),
+(786, 77, 'Sunderpur', 'à¦¸à§à¦¨à¦¦à¦°à¦ªà§à¦°', 'sunderpurup.chittagong.gov.bd'),
+(787, 77, 'Suabil', 'à¦¸à§à§Ÿà¦¾à¦¬à¦¿à¦²', 'Suabilup.chittagong.gov.bd'),
+(788, 77, 'Abdullapur', 'à¦†à¦¬à¦¦à§à¦²à§à¦²à¦¾à', 'abdullapurup.chittagong.gov.bd'),
+(789, 77, 'Samitirhat', 'à¦¸à¦®à¦¿à¦¤à¦¿à¦° à¦¹à¦¾', 'samitirhatup.chittagong.gov.bd'),
+(790, 77, 'Jafathagar', 'à¦œà¦¾à¦«à¦¤à¦¨à¦—à¦°', 'jafathagarup.chittagong.gov.bd'),
+(791, 77, 'Bokhtapur', 'à¦¬à¦•à§à¦¤à¦ªà§à¦°', 'bokhtapurup.chittagong.gov.bd'),
+(792, 77, 'Roshangiri', 'à¦°à§‹à¦¸à¦¾à¦‚à¦—à¦¿à¦°à', 'roshangiriup.chittagong.gov.bd'),
+(793, 77, 'Nanupur', 'à¦¨à¦¾à¦¨à§à¦ªà§à¦°', 'nanupurup.chittagong.gov.bd'),
+(794, 77, 'Lelang', 'à¦²à§‡à¦²à¦¾à¦‚', 'lelangup.chittagong.gov.bd'),
+(795, 77, 'Daulatpur', 'à¦¦à§Œà¦²à¦¤à¦ªà§à¦°', 'daulatpurup.chittagong.gov.bd'),
+(796, 78, 'Raozan', 'à¦°à¦¾à¦‰à¦œà¦¾à¦¨', 'raozanup.chittagong.gov.bd'),
+(797, 78, 'Bagoan', 'à¦¬à¦¾à¦—à§‹à§Ÿà¦¾à¦¨', 'bagoanup.chittagong.gov.bd'),
+(798, 78, 'Binajuri', 'à¦¬à¦¿à¦¨à¦¾à¦œà§à¦°à§€', 'binajuriup.chittagong.gov.bd'),
+(799, 78, 'Chikdair', 'à¦šà¦¿à¦•à¦¦à¦¾à¦‡à¦°', 'chikdairup.chittagong.gov.bd'),
+(800, 78, 'Dabua', 'à¦¡à¦¾à¦¬à§à§Ÿà¦¾', 'dabuaup.chittagong.gov.bd'),
+(801, 78, 'Purbagujra', 'à¦ªà§‚à¦°à§à¦¬ à¦—à§à¦œ', 'purbagujraup.chittagong.gov.bd'),
+(802, 78, 'Paschim Gujra', 'à¦ªà¦¶à§à¦šà¦¿à¦® à¦—à§', 'paschimgujraup.chittagong.gov.bd'),
+(803, 78, 'Gohira', 'à¦—à¦¹à¦¿à¦°à¦¾', 'gohiraup.chittagong.gov.bd'),
+(804, 78, 'Holdia', 'à¦¹à¦²à¦¦à¦¿à§Ÿà¦¾', 'holdiaup.chittagong.gov.bd'),
+(805, 78, 'Kodolpur', 'à¦•à¦¦à¦²à¦ªà§‚à¦°', 'kodolpurup.chittagong.gov.bd'),
+(806, 78, 'Noapara', 'à¦¨à§‹à¦¯à¦¼à¦¾à¦ªà¦¾à¦¡à', 'noaparaup.chittagong.gov.bd'),
+(807, 78, 'Pahartali', 'à¦ªà¦¾à¦¹à¦¾à§œà¦¤à¦²à§€', 'pahartaliup.chittagong.gov.bd'),
+(808, 78, 'Urkirchar', 'à¦‰à§œà¦•à¦¿à¦°à¦šà¦°', 'urkircharup.chittagong.gov.bd'),
+(809, 78, 'Nowajushpur', 'à¦¨à¦“à§Ÿà¦¾à¦œà¦¿à¦¶à¦ªà', 'nowajushpurup.chittagong.gov.bd'),
+(810, 79, 'Char Patharghata', 'à¦šà¦° à¦ªà¦¾à¦¥à¦°à¦˜à¦¾', 'charpatharghataup.chittagong.gov.bd'),
+(811, 79, 'Char Lakshya', 'à¦šà¦° à¦²à¦•à§à¦·à§à¦¯', 'charlakshyaup.chittagong.gov.bd'),
+(812, 79, 'Juldha', 'à¦œà§à¦²à¦§à¦¾', 'juldhaup.chittagong.gov.bd'),
+(813, 79, 'Barauthan', 'à¦¬à§œ à¦‰à¦ à¦¾à¦¨', 'barauthanup.chittagong.gov.bd'),
+(814, 79, 'Sikalbaha', 'à¦¶à¦¿à¦•à¦²à¦¬à¦¾à¦¹à¦¾', 'sikalbahaup.chittagong.gov.bd'),
+(815, 80, 'Islamabad', 'à¦‡à¦¸à¦²à¦¾à¦®à¦¾à¦¬à¦¾à', 'islamabadup.coxsbazar.gov.bd'),
+(816, 80, 'Islampur', 'à¦‡à¦¸à¦²à¦¾à¦®à¦ªà§à¦°', 'islampurup.coxsbazar.gov.bd'),
+(817, 80, 'Pokkhali', 'à¦ªà§‹à¦•à¦–à¦¾à¦²à§€', 'pokkhaliup.coxsbazar.gov.bd'),
+(818, 80, 'Eidgaon', 'à¦ˆà¦¦à¦—à¦¾à¦à¦“', 'eidgaonup.coxsbazar.gov.bd'),
+(819, 80, 'Jalalabad', 'à¦œà¦¾à¦²à¦¾à¦²à¦¾à¦¬à¦¾à', 'jalalabadup.coxsbazar.gov.bd'),
+(820, 80, 'Chowfaldandi', 'à¦šà§Œà¦«à¦²à¦¦à¦¨à§à¦¡à', 'chowfaldandi.coxsbazar.gov.bd'),
+(821, 80, 'Varuakhali', 'à¦­à¦¾à¦°à§à§Ÿà¦¾à¦–à¦¾à', 'varuakhaliup.coxsbazar.gov.bd'),
+(822, 80, 'Pmkhali', 'à¦ªà¦¿à¦à¦®à¦–à¦¾à¦²à§€', 'pmkhaliup.coxsbazar.gov.bd'),
+(823, 80, 'Khurushkhul', 'à¦–à§à¦°à§à¦¶à¦•à§à¦²', 'khurushkhulup.coxsbazar.gov.bd'),
+(824, 80, 'Jhilongjha', 'à¦à¦¿à¦²à¦‚à¦à¦¾', 'jhilongjhaup.coxsbazar.gov.bd'),
+(825, 81, 'Kakhara', 'à¦•à¦¾à¦•à¦¾à¦°à¦¾', 'Kakharaup.coxsbazar.gov.bd'),
+(826, 81, 'Kaiar Bil', 'à¦•à¦¾à¦‡à¦¯à¦¼à¦¾à¦° à¦¬', 'kaiarbilup.coxsbazar.gov.bd'),
+(827, 81, 'Konakhali', 'à¦•à§‹à¦¨à¦¾à¦–à¦¾à¦²à§€', 'konakhaliup.coxsbazar.gov.bd'),
+(828, 81, 'Khuntakhali', 'à¦–à§à¦Ÿà¦¾à¦–à¦¾à¦²à§€', 'khuntakhaliup.coxsbazar.gov.bd'),
+(829, 81, 'Chiringa', 'à¦šà¦¿à¦°à¦¿à¦™à§à¦—à¦¾', 'chiringaup.coxsbazar.gov.bd'),
+(830, 81, 'Demusia', 'à¦¢à§‡à¦®à§à¦¶à¦¿à¦¯à¦¼à', 'demusiaup.coxsbazar.gov.bd'),
+(831, 81, 'Dulahazara', 'à¦¡à§à¦²à¦¾à¦¹à¦¾à¦œà¦¾à', 'dulahazaraup.coxsbazar.gov.bd'),
+(832, 81, 'Paschim Bara Bheola', 'à¦ªà¦¶à§à¦šà¦¿à¦® à¦¬à¦¡', 'paschimbarabheolaup.coxsbazar.gov.bd'),
+(833, 81, 'Badarkhali', 'à¦¬à¦¦à¦°à¦–à¦¾à¦²à§€', 'badarkhaliup.coxsbazar.gov.bd'),
+(834, 81, 'Bamobil Chari', 'à¦¬à¦¾à¦®à§ à¦¬à¦¿à¦²à¦›', 'bamobilchariup.coxsbazar.gov.bd'),
+(835, 81, 'Baraitali', 'à¦¬à¦¡à¦¼à¦‡à¦¤à¦²à§€', 'baraitaliup.coxsbazar.gov.bd'),
+(836, 81, 'Bheola Manik Char', 'à¦­à§‡à¦“à¦²à¦¾ à¦®à¦¾à¦¨', 'bheolamanikcharup.coxsbazar.gov.bd'),
+(837, 81, 'Saharbil', 'à¦¶à¦¾à¦¹à¦¾à¦°à¦¬à¦¿à¦²', 'saharbilup.coxsbazar.gov.bd'),
+(838, 81, 'Surajpur Manikpur', 'à¦¸à§à¦°à¦œà¦ªà§à¦° à¦®', 'surajpurmanikpurup.coxsbazar.gov.bd'),
+(839, 81, 'Harbang', 'à¦¹à¦¾à¦°à¦¬à¦¾à¦™à§à¦—', 'harbangup.coxsbazar.gov.bd'),
+(840, 81, 'Fashiakhali', 'à¦«à¦¾à¦à¦¸à¦¿à§Ÿà¦¾à¦–à', 'fashiakhaliup.coxsbazar.gov.bd'),
+(841, 82, 'Ali Akbar Deil', 'à¦†à¦²à¦¿ à¦†à¦•à¦¬à¦° à¦', 'aliakbardeilup.coxsbazar.gov.bd'),
+(842, 82, 'Uttar Dhurung', 'à¦‰à¦¤à§à¦¤à¦° à¦§à§à¦°', 'uttardhurungup.coxsbazar.gov.bd'),
+(843, 82, 'Kaiyarbil', 'à¦•à§ˆà§Ÿà¦¾à¦°à¦¬à¦¿à¦²', 'kaiyarbilup.coxsbazar.gov.bd'),
+(844, 82, 'Dakshi Dhurung', 'à¦¦à¦•à§à¦·à¦¿à¦£ à¦§à§', 'dakshidhurungup.coxsbazar.gov.bd'),
+(845, 82, 'Baragho', 'à¦¬à¦¡à¦¼à¦˜à§‹à¦ª', 'baraghopup.coxsbazar.gov.bd'),
+(846, 82, 'Lemsikhali', 'à¦²à§‡à¦®à¦¸à¦¿à¦–à¦¾à¦²à', 'lemsikhaliup.coxsbazar.gov.bd'),
+(847, 83, 'Rajapalong', 'à¦°à¦¾à¦œà¦¾à¦ªà¦¾à¦²à¦‚', 'rajapalongup.coxsbazar.gov.bd'),
+(848, 83, 'Jaliapalong', 'à¦œà¦¾à¦²à¦¿à§Ÿà¦¾à¦ªà¦¾à', 'jaliapalongup.coxsbazar.gov.bd'),
+(849, 83, 'Holdiapalong', 'à¦¹à¦²à¦¦à¦¿à§Ÿà¦¾à¦ªà¦¾à', 'holdiapalongup.coxsbazar.gov.bd'),
+(850, 83, 'Ratnapalong', 'à¦°à¦¤à§à¦¨à¦¾à¦ªà¦¾à¦²à', 'ratnapalongup.coxsbazar.gov.bd'),
+(851, 83, 'Palongkhali', 'à¦ªà¦¾à¦²à¦‚à¦–à¦¾à¦²à§€', 'palongkhali.coxsbazar.gov.bd'),
+(852, 84, 'Boro Moheshkhali', 'à¦¬à§œ à¦®à¦¹à§‡à¦¶à¦–à¦¾', 'boramoheshkhaliup.coxsbazar.gov.bd'),
+(853, 84, 'Choto Moheshkhali', 'à¦›à§‹à¦Ÿ à¦®à¦¹à§‡à¦¶à¦–', 'chotamoheshkhaliup.coxsbazar.gov.bd'),
+(854, 84, 'Shaplapur', 'à¦¶à¦¾à¦ªà¦²à¦¾à¦ªà§à¦°', 'shaplapurup.coxsbazar.gov.bd'),
+(855, 84, 'Kutubjum', 'à¦•à§à¦¤à§à¦¬à¦œà§‹à¦®', 'kutubjumup.coxsbazar.gov.bd'),
+(856, 84, 'Hoanak', 'à¦¹à§‹à§Ÿà¦¾à¦¨à¦•', 'hoanakup.coxsbazar.gov.bd'),
+(857, 84, 'Kalarmarchhara', 'à¦•à¦¾à¦²à¦¾à¦°à¦®à¦¾à¦°à', 'kalarmarchharaup.coxsbazar.gov.bd'),
+(858, 84, 'Matarbari', 'à¦®à¦¾à¦¤à¦¾à¦°à¦¬à¦¾à§œà', 'matarbariup.coxsbazar.gov.bd'),
+(859, 84, 'Dhalghata', 'à¦§à¦²à¦˜à¦¾à¦Ÿà¦¾', 'dhalghataup.coxsbazar.gov.bd'),
+(860, 85, 'Ujantia', 'à¦‰à¦œà¦¾à¦¨à¦Ÿà¦¿à§Ÿà¦¾', 'ujantiaup.coxsbazar.gov.bd'),
+(861, 85, 'Taitong', 'à¦Ÿà¦¾à¦‡à¦Ÿà¦‚', 'taitongup.coxsbazar.gov.bd'),
+(862, 85, 'Pekua', 'à¦ªà§‡à¦•à§à§Ÿà¦¾', 'pekuaup.coxsbazar.gov.bd'),
+(863, 85, 'Barabakia', 'à¦¬à§œ à¦¬à¦¾à¦•à¦¿à§Ÿà¦¾', 'barabakiaup.coxsbazar.gov.bd'),
+(864, 85, 'Magnama', 'à¦®à¦—à¦¨à¦¾à¦®à¦¾', 'magnamaup.coxsbazar.gov.bd'),
+(865, 85, 'Rajakhali', 'à¦°à¦¾à¦œà¦¾à¦–à¦¾à¦²à§€', 'rajakhaliup.coxsbazar.gov.bd'),
+(866, 85, 'Shilkhali', 'à¦¶à§€à¦²à¦–à¦¾à¦²à§€', 'shilkhaliup.coxsbazar.gov.bd'),
+(867, 86, 'Fotekharkul', 'à¦«à¦¤à§‡à¦–à¦¾à¦à¦°à¦•à', 'fotekharkulup.coxsbazar.gov.bd'),
+(868, 86, 'Rajarkul', 'à¦°à¦¾à¦œà¦¾à¦°à¦•à§à¦²', 'rajarkulup.coxsbazar.gov.bd'),
+(869, 86, 'Rashidnagar', 'à¦°à¦¶à§€à¦¦à¦¨à¦—à¦°', 'rashidnagarup.coxsbazar.gov.bd'),
+(870, 86, 'Khuniapalong', 'à¦–à§à¦¨à¦¿à¦¯à¦¼à¦¾à¦ªà', 'khuniapalongup.coxsbazar.gov.bd'),
+(871, 86, 'Eidghar', 'à¦ˆà¦¦à¦—à¦¡à¦¼', 'eidgharup.coxsbazar.gov.bd'),
+(872, 86, 'Chakmarkul', 'à¦šà¦¾à¦•à¦®à¦¾à¦°à¦•à§à', 'chakmarkulup.coxsbazar.gov.bd'),
+(873, 86, 'Kacchapia', 'à¦•à¦šà§à¦›à¦ªà¦¿à¦¯à¦¼à', 'kacchapiaup.coxsbazar.gov.bd'),
+(874, 86, 'Kauwarkho', 'à¦•à¦¾à¦‰à¦¯à¦¼à¦¾à¦°à¦–à', 'kauwarkhopup.coxsbazar.gov.bd'),
+(875, 86, 'Dakkhin Mithachhari', 'à¦¦à¦•à§à¦·à¦¿à¦£ à¦®à¦¿', 'dakkhinmithachhariup.coxsbazar.gov.bd'),
+(876, 86, 'Jouarianala', 'à¦œà§‹à¦¯à¦¼à¦¾à¦°à¦¿à¦¯à', 'jouarianalaup.coxsbazar.gov.bd'),
+(877, 86, 'Garjoniya', 'à¦—à¦°à§à¦œà¦¨à¦¿à¦¯à¦¼à', 'garjoniyaup.coxsbazar.gov.bd'),
+(878, 87, 'Subrang', 'à¦¸à¦¾à¦¬à¦°à¦¾à¦‚', 'subrangup.coxsbazar.gov.bd'),
+(879, 87, 'Baharchara', 'à¦¬à¦¾à¦¹à¦¾à¦°à¦›à§œà¦¾', 'baharcharaup.coxsbazar.gov.bd'),
+(880, 87, 'Hnila', 'à¦¹à§à¦¨à§€à¦²à¦¾', 'hnilaup.coxsbazar.gov.bd'),
+(881, 87, 'Whykong', 'à¦¹à§‹à§Ÿà¦¾à¦‡à¦•à§à¦¯à', 'whykongup.coxsbazar.gov.bd'),
+(882, 87, 'Saintmartin', 'à¦¸à§‡à¦¨à§à¦Ÿ à¦®à¦¾à¦°', 'saintmartinup.coxsbazar.gov.bd'),
+(883, 87, 'Teknaf Sadar', 'à¦Ÿà§‡à¦•à¦¨à¦¾à¦« à¦¸à¦¦', 'teknafsadarup.coxsbazar.gov.bd'),
+(884, 88, 'Khagrachhari Sadar', 'à¦–à¦¾à¦—à¦°à¦¾à¦›à§œà¦¿ ', 'sadarup.khagrachhari.gov.bd'),
+(885, 88, 'Golabari', 'à¦—à§‹à¦²à¦¾à¦¬à¦¾à§œà§€', 'golabariup.khagrachhari.gov.bd'),
+(886, 88, 'Parachara', 'à¦ªà§‡à¦°à¦¾à¦›à§œà¦¾', 'paracharaup.khagrachhari.gov.bd'),
+(887, 88, 'Kamalchari', 'à¦•à¦®à¦²à¦›à§œà¦¿', 'kamalchariup.khagrachhari.gov.bd'),
+(888, 89, 'Merung', 'à¦®à§‡à¦°à§à¦‚', 'merungup.khagrachhari.gov.bd'),
+(889, 89, 'Boalkhali', 'à¦¬à§‹à§Ÿà¦¾à¦²à¦–à¦¾à¦²à', 'boalkhaliup.khagrachhari.gov.bd'),
+(890, 89, 'Kabakhali', 'à¦•à¦¬à¦¾à¦–à¦¾à¦²à§€', 'kabakhaliup.khagrachhari.gov.bd'),
+(891, 89, 'Dighinala', 'à¦¦à¦¿à¦˜à§€à¦¨à¦¾à¦²à¦¾', 'dighinalaup.khagrachhari.gov.bd'),
+(892, 89, 'Babuchara', 'à¦¬à¦¾à¦¬à§à¦›à§œà¦¾', 'babucharaup.khagrachhari.gov.bd'),
+(893, 90, 'Logang', 'à¦²à§‹à¦—à¦¾à¦‚', 'logangup.khagrachhari.gov.bd'),
+(894, 90, 'Changi', 'à¦šà§‡à¦‚à¦—à§€', 'changiup.khagrachhari.gov.bd'),
+(895, 90, 'Panchari', 'à¦ªà¦¾à¦¨à¦›à§œà¦¿', 'panchariup.khagrachhari.gov.bd'),
+(896, 90, 'Latiban', 'à¦²à¦¤à¦¿à¦¬à¦¾à¦¨', 'latibanup.khagrachhari.gov.bd'),
+(897, 91, 'Dullyatali', 'à¦¦à§à¦²à§à¦¯à¦¾à¦¤à¦²à', 'dullyataliup.khagrachhari.gov.bd'),
+(898, 91, 'Barmachari', 'à¦¬à¦°à§à¦®à¦¾à¦›à§œà¦¿', 'barmachariup.khagrachhari.gov.bd'),
+(899, 91, 'Laxmichhari', 'à¦²à¦•à§à¦·à§€à¦›à§œà¦¿', 'laxmichhariup.khagrachhari.gov.bd'),
+(900, 92, 'Bhaibonchara', 'à¦­à¦¾à¦‡à¦¬à§‹à¦¨à¦›à§œà', 'bhaiboncharaup.khagrachhari.gov.bd'),
+(901, 92, 'Mahalchari', 'à¦®à¦¹à¦¾à¦²à¦›à§œà¦¿', 'mahalchariup.khagrachhari.gov.bd'),
+(902, 92, 'Mobachari', 'à¦®à§à¦¬à¦¾à¦›à§œà¦¿', 'mobachariup.khagrachhari.gov.bd'),
+(903, 92, 'Kayanghat', 'à¦•à§à¦¯à¦¾à§Ÿà¦¾à¦‚à¦˜à', 'kayanghatup.khagrachhari.gov.bd'),
+(904, 92, 'Maischari', 'à¦®à¦¾à¦‡à¦¸à¦›à§œà¦¿', 'maischariup.khagrachhari.gov.bd'),
+(905, 93, 'Manikchari', 'à¦®à¦¾à¦¨à¦¿à¦•à¦›à§œà¦¿', 'manikchariup.khagrachhari.gov.bd'),
+(906, 93, 'Batnatali', 'à¦¬à¦¾à¦Ÿà¦¨à¦¾à¦¤à¦²à§€', 'batnataliup.khagrachhari.gov.bd'),
+(907, 93, 'Jogyachola', 'à¦¯à§‹à¦—à§à¦¯à¦›à§‹à¦²à', 'jogyacholaup.khagrachhari.gov.bd'),
+(908, 93, 'Tintahari', 'à¦¤à¦¿à¦¨à¦Ÿà¦¹à¦°à§€', 'tintahariup.khagrachhari.gov.bd'),
+(909, 94, 'Ramgarh', 'à¦°à¦¾à¦®à¦—à§œ', 'ramgarhup.khagrachhari.gov.bd'),
+(910, 94, 'Patachara', 'à¦ªà¦¾à¦¤à¦¾à¦›à§œà¦¾', 'patacharaup.khagrachhari.gov.bd'),
+(911, 94, 'Hafchari', 'à¦¹à¦¾à¦«à¦›à§œà¦¿', 'hafchariup.khagrachhari.gov.bd'),
+(912, 95, 'Taindong', 'à¦¤à¦¾à¦‡à¦¨à§à¦¦à¦‚', 'taindongup.khagrachhari.gov.bd'),
+(913, 95, 'Tabalchari', 'à¦¤à¦¬à¦²à¦›à§œà¦¿', 'tabalchariup.khagrachhari.gov.bd'),
+(914, 95, 'Barnal', 'à¦¬à¦°à§à¦£à¦¾à¦²', 'barnalup.khagrachhari.gov.bd'),
+(915, 95, 'Gomti', 'à¦—à§‹à¦®à¦¤à¦¿', 'gomtiup.khagrachhari.gov.bd'),
+(916, 95, 'Balchari', 'à¦¬à§‡à¦²à¦›à§œà¦¿', 'balchariup.khagrachhari.gov.bd'),
+(917, 95, 'Matiranga', 'à¦®à¦¾à¦Ÿà¦¿à¦°à¦¾à¦™à§à', 'matirangaup.khagrachhari.gov.bd'),
+(918, 95, 'Guimara', 'à¦—à§à¦‡à¦®à¦¾à¦°à¦¾', 'guimaraup.khagrachhari.gov.bd'),
+(919, 95, 'Amtali', 'à¦†à¦®à¦¤à¦²à¦¿', 'amtaliup.khagrachhari.gov.bd'),
+(920, 97, 'Rajbila', 'à¦°à¦¾à¦œà¦¬à¦¿à¦²à¦¾', 'rajbilaup.bandarban.gov.bd'),
+(921, 97, 'Tongkaboty', 'à¦Ÿà¦‚à¦•à¦¾à¦¬à¦¤à§€', 'tongkabotyup.bandarban.gov.bd'),
+(922, 97, 'Suwalok', 'à¦¸à§à¦¯à¦¼à¦¾à¦²à¦•', 'suwalokup.bandarban.gov.bd'),
+(923, 97, 'Bandarban Sadar', 'à¦¬à¦¾à¦¨à§à¦¦à¦°à¦¬à¦¾à', 'bandarbansadarup.bandarban.gov.bd'),
+(924, 97, 'Kuhalong', 'à¦•à§à¦¹à¦¾à¦²à¦‚', 'kuhalongup.bandarban.gov.bd'),
+(925, 98, 'Alikadam Sadar', 'à¦†à¦²à§€à¦•à¦¦à¦® à¦¸à¦¦', 'alikadamsadarup.bandarban.gov.bd'),
+(926, 98, 'Chwekhyong', 'à¦šà§ˆà¦•à§à¦·à§à¦¯à¦‚', 'chwekhyongup.bandarban.gov.bd'),
+(927, 99, 'Naikhyongchari Sadar', 'à¦¨à¦¾à¦‡à¦•à§à¦·à§à¦¯à', 'naikhyongcharisadarup.bandarban.gov.bd'),
+(928, 99, 'Gumdhum', 'à¦˜à§à¦®à¦§à§à¦®', 'gumdhumup.bandarban.gov.bd'),
+(929, 99, 'Baishari', 'à¦¬à¦¾à¦‡à¦¶à¦¾à¦°à§€', 'baishariup.bandarban.gov.bd'),
+(930, 99, 'Sonaychari', 'à¦¸à§‹à¦¨à¦¾à¦‡à¦›à¦¡à¦¼à', 'sonaychariup.bandarban.gov.bd'),
+(931, 99, 'Duwchari', 'à¦¦à§‹à¦›à¦¡à¦¼à¦¿', 'duwchariup.bandarban.gov.bd'),
+(932, 100, 'Rowangchari Sadar', 'à¦°à§‹à§Ÿà¦¾à¦‚à¦›à§œà¦¿ ', 'rowangcharisadarup.bandarban.gov.bd'),
+(933, 100, 'Taracha', 'à¦¤à¦¾à¦°à¦¾à¦›à¦¾', 'tarachaup.bandarban.gov.bd'),
+(934, 100, 'Alekyong', 'à¦†à¦²à§‡à¦•à§à¦·à§à¦¯à', 'alekyongup.bandarban.gov.bd'),
+(935, 100, 'Nawapotong', 'à¦¨à§‹à§Ÿà¦¾à¦ªà¦¤à¦‚', 'nawapotongup.bandarban.gov.bd'),
+(936, 101, 'Gajalia', 'à¦—à¦œà¦¾à¦²à¦¿à¦¯à¦¼à¦¾', 'gajaliaup.bandarban.gov.bd'),
+(937, 101, 'Lama Sadar', 'à¦²à¦¾à¦®à¦¾ à¦¸à¦¦à¦°', 'lamasadarup.bandarban.gov.bd'),
+(938, 101, 'Fasiakhali', 'à¦«à¦¾à¦¸à¦¿à¦¯à¦¼à¦¾à¦–à', 'fasiakhaliup.bandarban.gov.bd'),
+(939, 101, 'Fythong', 'à¦«à¦¾à¦‡à¦¤à¦‚', 'fythongup.bandarban.gov.bd'),
+(940, 101, 'Rupushipara', 'à¦°à§‚à¦ªà¦¸à§€à¦ªà¦¾à¦¡à', 'rupushiparaup.bandarban.gov.bd'),
+(941, 101, 'Sarai', 'à¦¸à¦°à¦‡', 'saraiup.bandarban.gov.bd'),
+(942, 101, 'Aziznagar', 'à¦†à¦œà¦¿à¦œà¦¨à¦—à¦°', 'aziznagarup.bandarban.gov.bd'),
+(943, 102, 'Paind', 'à¦ªà¦¾à¦‡à¦¨à§à¦¦à§', 'painduup.bandarban.gov.bd'),
+(944, 102, 'Ruma Sadar', 'à¦°à§à¦®à¦¾ à¦¸à¦¦à¦°', 'rumasadarup.bandarban.gov.bd'),
+(945, 102, 'Ramakreprangsa', 'à¦°à§‡à¦®à¦¾à¦•à§à¦°à§€à', 'ramakreprangsaup.bandarban.gov.bd'),
+(946, 102, 'Galanggya', 'à¦—à§à¦¯à¦¾à¦²à§‡à¦‚à¦—à', 'galanggyaup.bandarban.gov.bd'),
+(947, 103, 'Remakre', 'à¦°à§‡à¦®à¦¾à¦•à§à¦°à§€', 'remakreup.bandarban.gov.bd'),
+(948, 103, 'Tind', 'à¦¤à¦¿à¦¨à§à¦¦à§', 'tinduup.bandarban.gov.bd'),
+(949, 103, 'Thanchi Sadar', 'à¦¥à¦¾à¦¨à¦šà¦¿ à¦¸à¦¦à¦°', 'thanchisadarup.bandarban.gov.bd'),
+(950, 103, 'Balipara', 'à¦¬à¦²à¦¿à¦ªà¦¾à§œà¦¾', 'baliparaup.bandarban.gov.bd'),
+(951, 104, 'Rajapur', 'à¦°à¦¾à¦œà¦¾à¦ªà§à¦°', 'rajapurup.sirajganj.gov.bd'),
+(952, 104, 'Baradhul', 'à¦¬à§œà¦§à§à¦²', 'baradhulup.sirajganj.gov.bd'),
+(953, 104, 'Belkuchi Sadar', 'à¦¬à§‡à¦²à¦•à§à¦šà¦¿ à¦¸', 'belkuchisadarup.sirajganj.gov.bd'),
+(954, 104, 'Dhukuriabera', 'à¦§à§à¦•à§à¦°à¦¿à§Ÿà¦¾ ', 'dhukuriaberaup.sirajganj.gov.bd'),
+(955, 104, 'Doulatpur', 'à¦¦à§Œà¦²à¦¤à¦ªà§à¦°', 'doulatpurup.sirajganj.gov.bd'),
+(956, 104, 'Bhangabari', 'à¦­à¦¾à¦™à§à¦—à¦¾à¦¬à¦¾à', 'bhangabariup.sirajganj.gov.bd'),
+(957, 105, 'Baghutia', 'à¦¬à¦¾à¦˜à§à¦Ÿà¦¿à§Ÿà¦¾', 'baghutiaup.sirajganj.gov.bd'),
+(958, 105, 'Gharjan', 'à¦˜à§‹à¦°à¦œà¦¾à¦¨', 'gharjanup.sirajganj.gov.bd'),
+(959, 105, 'Khaskaulia', 'à¦–à¦¾à¦¸à¦•à¦¾à¦‰à¦²à¦¿à', 'khaskauliaup.sirajganj.gov.bd'),
+(960, 105, 'Khaspukuria', 'à¦–à¦¾à¦¸à¦ªà§à¦•à§à¦°à', 'khaspukuriaup.sirajganj.gov.bd'),
+(961, 105, 'Omarpur', 'à¦‰à¦®à¦¾à¦°à¦ªà§à¦°', 'omarpurup.sirajganj.gov.bd'),
+(962, 105, 'Sadia Chandpur', 'à¦¸à¦¦à¦¿à§Ÿà¦¾ à¦šà¦¾à¦', 'sadiachandpurup.sirajganj.gov.bd'),
+(963, 105, 'Sthal', 'à¦¸à§à¦¥à¦²', 'sthalup.sirajganj.gov.bd'),
+(964, 106, 'Bhadraghat', 'à¦­à¦¦à§à¦°à¦˜à¦¾à¦Ÿ', 'bhadraghatup.sirajganj.gov.bd'),
+(965, 106, 'Jamtail', 'à¦œà¦¾à¦®à¦¤à§ˆà¦²', 'jamtailup.sirajganj.gov.bd'),
+(966, 106, 'Jhawail', 'à¦à¦¾à¦à¦²', 'jhawailup.sirajganj.gov.bd'),
+(967, 106, 'Roydaulatpur', 'à¦°à¦¾à§Ÿà¦¦à§Œà¦²à¦¤à¦ªà', 'roydaulatpurup.sirajganj.gov.bd'),
+(968, 107, 'Chalitadangha', 'à¦šà¦¾à¦²à¦¿à¦¤à¦¾à¦¡à¦¾à', 'chalitadanghaup.sirajganj.gov.bd'),
+(969, 107, 'Chargirish', 'à¦šà¦°à¦—à¦¿à¦°à¦¿à¦¶', 'chargirishup.sirajganj.gov.bd'),
+(970, 107, 'Gandail', 'à¦—à¦¾à¦¨à§à¦§à¦¾à¦‡à¦²', 'gandailup.sirajganj.gov.bd'),
+(971, 107, 'Kazipur Sadar', 'à¦•à¦¾à¦œà¦¿à¦ªà§à¦° à¦¸', 'kazipursadarup.sirajganj.gov.bd'),
+(972, 107, 'Khasrajbari', 'à¦–à¦¾à¦¸à¦°à¦¾à¦œà¦¬à¦¾à', 'khasrajbariup.sirajganj.gov.bd'),
+(973, 107, 'Maijbari', 'à¦®à¦¾à¦‡à¦œà¦¬à¦¾à§œà§€', 'maijbariup.sirajganj.gov.bd'),
+(974, 107, 'Monsur Nagar', 'à¦®à¦¨à¦¸à§à¦° à¦¨à¦—à¦°', 'monsurnagarup.sirajganj.gov.bd'),
+(975, 107, 'Natuarpara', 'à¦¨à¦¾à¦Ÿà§à§Ÿà¦¾à¦°à¦ªà', 'natuarparaup.sirajganj.gov.bd'),
+(976, 107, 'Nishchintapur', 'à¦¨à¦¿à¦¶à§à¦šà¦¿à¦¨à§à', 'nishchintapurup.sirajganj.gov.bd'),
+(977, 107, 'Sonamukhi', 'à¦¸à§‹à¦¨à¦¾à¦®à§à¦–à§€', 'sonamukhiup.sirajganj.gov.bd'),
+(978, 107, 'Subhagacha', 'à¦¶à§à¦­à¦—à¦¾à¦›à¦¾', 'subhagachaup.sirajganj.gov.bd'),
+(979, 107, 'Tekani', 'à¦¤à§‡à¦•à¦¾à¦¨à§€', 'tekaniup.sirajganj.gov.bd'),
+(980, 108, 'Brommogacha', 'à¦¬à§à¦°à¦¹à§à¦®à¦—à¦¾à', 'brommogachaup.sirajganj.gov.bd'),
+(981, 108, 'Chandaikona', 'à¦šà¦¾à¦¨à§à¦¦à¦¾à¦‡à¦•à', 'chandaikonaup.sirajganj.gov.bd'),
+(982, 108, 'Dhamainagar', 'à¦§à¦¾à¦®à¦¾à¦‡à¦¨à¦—à¦°', 'dhamainagarup.sirajganj.gov.bd'),
+(983, 108, 'Dhangora', 'à¦§à¦¾à¦¨à¦—à§œà¦¾', 'dhangoraup.sirajganj.gov.bd'),
+(984, 108, 'Dhubil', 'à¦§à§à¦¬à¦¿à¦²', 'dhubilup.sirajganj.gov.bd'),
+(985, 108, 'Ghurka', 'à¦˜à§à§œà¦•à¦¾', 'ghurkaup.sirajganj.gov.bd'),
+(986, 108, 'Nalka', 'à¦¨à¦²à¦•à¦¾', 'nalkaup.sirajganj.gov.bd'),
+(987, 108, 'Pangashi', 'à¦ªà¦¾à¦™à§à¦—à¦¾à¦¸à§€', 'pangashiup.sirajganj.gov.bd'),
+(988, 108, 'Sonakhara', 'à¦¸à§‹à¦¨à¦¾à¦–à¦¾à§œà¦¾', 'sonakharaup.sirajganj.gov.bd'),
+(989, 109, 'Beltail', 'à¦¬à§‡à¦²à¦¤à§ˆà¦²', 'beltailup.sirajganj.gov.bd'),
+(990, 109, 'Jalalpur', 'à¦œà¦¾à¦²à¦¾à¦²à¦ªà§à¦°', 'jalalpurup.sirajganj.gov.bd'),
+(991, 109, 'Kayempure', 'à¦•à¦¾à§Ÿà§‡à¦®à¦ªà§à¦°', 'kayempureup.sirajganj.gov.bd'),
+(992, 109, 'Garadah', 'à¦—à¦¾à§œà¦¾à¦¦à¦¹', 'garadahup.sirajganj.gov.bd'),
+(993, 109, 'Potazia', 'à¦ªà§‹à¦¤à¦¾à¦œà¦¿à§Ÿà¦¾', 'potaziaup.sirajganj.gov.bd'),
+(994, 109, 'Rupbati', 'à¦°à§‚à¦ªà¦¬à¦¾à¦Ÿà¦¿', 'rupbatiup.sirajganj.gov.bd'),
+(995, 109, 'Gala', 'à¦—à¦¾à¦²à¦¾', 'galaup.sirajganj.gov.bd'),
+(996, 109, 'Porzona', 'à¦ªà§‹à¦°à¦œà¦¨à¦¾', 'porzonaup.sirajganj.gov.bd'),
+(997, 109, 'Habibullah Nagar', 'à¦¹à¦¾à¦¬à¦¿à¦¬à§à¦²à§à', 'habibullahnagarup.sirajganj.gov.bd'),
+(998, 109, 'Khukni', 'à¦–à§à¦•à¦¨à§€', 'khukniup.sirajganj.gov.bd'),
+(999, 109, 'Koizuri', 'à¦•à§ˆà¦œà§à¦°à§€', 'koizuriup.sirajganj.gov.bd'),
+(1000, 109, 'Sonatoni', 'à¦¸à§‹à¦¨à¦¾à¦¤à¦¨à§€', 'sonatoniup.sirajganj.gov.bd'),
+(1001, 109, 'Narina', 'à¦¨à¦°à¦¿à¦¨à¦¾', 'narinaup.sirajganj.gov.bd'),
+(1002, 110, 'Bagbati', 'à¦¬à¦¾à¦—à¦¬à¦¾à¦Ÿà¦¿', 'bagbatiup.sirajganj.gov.bd'),
+(1003, 110, 'Ratankandi', 'à¦°à¦¤à¦¨à¦•à¦¾à¦¨à§à¦¦à', 'ratankandiup.sirajganj.gov.bd'),
+(1004, 110, 'Bohuli', 'à¦¬à¦¹à§à¦²à§€', 'bohuliup.sirajganj.gov.bd'),
+(1005, 110, 'Sheyalkol', 'à¦¶à¦¿à§Ÿà¦¾à¦²à¦•à§‹à¦²', 'sheyalkolup.sirajganj.gov.bd'),
+(1006, 110, 'Khokshabari', 'à¦–à§‹à¦•à¦¶à¦¾à¦¬à¦¾à§œà', 'khokshabariup.nilphamari.gov.bd'),
+(1007, 110, 'Songacha', 'à¦›à§‹à¦¨à¦—à¦¾à¦›à¦¾', 'songachaup.sirajganj.gov.bd'),
+(1008, 110, 'Mesra', 'à¦®à§‡à¦›à§œà¦¾', 'mesraup.sirajganj.gov.bd'),
+(1009, 110, 'Kowakhola', 'à¦•à¦¾à¦“à§Ÿà¦¾à¦–à§‹à¦²à', 'kowakholaup.sirajganj.gov.bd'),
+(1010, 110, 'Kaliahoripur', 'à¦•à¦¾à¦²à¦¿à§Ÿà¦¾à¦¹à¦°à', 'kaliahoripurup.sirajganj.gov.bd'),
+(1011, 110, 'Soydabad', 'à¦¸à§Ÿà¦¦à¦¾à¦¬à¦¾à¦¦', 'soydabadup.sirajganj.gov.bd'),
+(1012, 111, 'Baruhas', 'à¦¬à¦¾à¦°à§à¦¹à¦¾à¦¸', 'baruhasup.sirajganj.gov.bd'),
+(1013, 111, 'Talam', 'à¦¤à¦¾à¦²à¦®', 'talamup.sirajganj.gov.bd'),
+(1014, 111, 'Soguna', 'à¦¸à¦—à§à¦¨à¦¾', 'sogunaup.sirajganj.gov.bd'),
+(1015, 111, 'Magura Binod', 'à¦®à¦¾à¦—à§à§œà¦¾ à¦¬à¦¿', 'magurabinodup.sirajganj.gov.bd'),
+(1016, 111, 'Naogaon', 'à¦¨à¦“à¦—à¦¾à¦', 'naogaonup.sirajganj.gov.bd'),
+(1017, 111, 'Tarash Sadar', 'à¦¤à¦¾à§œà¦¾à¦¶ à¦¸à¦¦à¦°', 'tarashsadarup.sirajganj.gov.bd'),
+(1018, 111, 'Madhainagar', 'à¦®à¦¾à¦§à¦¾à¦‡à¦¨à¦—à¦°', 'madhainagarup.sirajganj.gov.bd'),
+(1019, 111, 'Deshigram', 'à¦¦à§‡à¦¶à§€à¦—à§à¦°à¦¾à', 'deshigramup.sirajganj.gov.bd'),
+(1020, 112, 'Ullapara Sadar', 'à¦‰à¦²à§à¦²à¦¾à¦ªà¦¾à§œà', 'ullaparasadarup.sirajganj.gov.bd'),
+(1021, 112, 'Ramkrisnopur', 'à¦°à¦¾à¦®à¦•à§ƒà¦·à§à¦£à', 'ramkrisnopurup.sirajganj.gov.bd'),
+(1022, 112, 'Bangala', 'à¦¬à¦¾à¦™à§à¦—à¦¾à¦²à¦¾', 'bangalaup.sirajganj.gov.bd'),
+(1023, 112, 'Udhunia', 'à¦‰à¦§à§à¦¨à¦¿à§Ÿà¦¾', 'udhuniaup.sirajganj.gov.bd'),
+(1024, 112, 'Boropangashi', 'à¦¬à§œà¦ªà¦¾à¦™à§à¦—à¦¾à', 'boropangashiup.sirajganj.gov.bd'),
+(1025, 112, 'Durga Nagar', 'à¦¦à§à¦°à§à¦—à¦¾ à¦¨à¦—', 'durganagarup.sirajganj.gov.bd'),
+(1026, 112, 'Purnimagati', 'à¦ªà§‚à¦°à§à¦£à¦¿à¦®à¦¾à', 'purnimagatiup.sirajganj.gov.bd'),
+(1027, 112, 'Salanga', 'à¦¸à¦²à¦™à§à¦—à¦¾', 'salangaup.sirajganj.gov.bd'),
+(1028, 112, 'Hatikumrul', 'à¦¹à¦Ÿà¦¿à¦•à§à¦®à¦°à§à', 'hatikumrulup.sirajganj.gov.bd'),
+(1029, 112, 'Borohor', 'à¦¬à§œà¦¹à¦°', 'borohorup.sirajganj.gov.bd'),
+(1030, 112, 'Ponchocroshi', 'à¦ªà¦žà§à¦šà¦•à§à¦°à§‹à', 'ponchocroshiup.sirajganj.gov.bd'),
+(1031, 112, 'Salo', 'à¦¸à¦²à¦ª', 'salopup.sirajganj.gov.bd'),
+(1032, 112, 'Mohonpur', 'à¦®à§‹à¦¹à¦¨à¦ªà§à¦°', 'mohonpurup.sirajganj.gov.bd'),
+(1033, 113, 'Vaina', 'à¦­à¦¾à§Ÿà¦¨à¦¾', 'vainaup.pabna.gov.bd'),
+(1034, 113, 'Tantibonda', 'à¦¤à¦¾à¦à¦¤à¦¿à¦¬à¦¨à§à', 'tantibondaup.pabna.gov.bd'),
+(1035, 113, 'Manikhat', 'à¦®à¦¾à¦¨à¦¿à¦•à¦¹à¦¾à¦Ÿ', 'manikhatup.pabna.gov.bd'),
+(1036, 113, 'Dulai', 'à¦¦à§à¦²à¦¾à¦‡', 'dulaiup.pabna.gov.bd'),
+(1037, 113, 'Ahammadpur', 'à¦†à¦¹à¦®à§à¦®à¦¦à¦ªà§à', 'ahammadpurup.pabna.gov.bd'),
+(1038, 113, 'Raninagar', 'à¦°à¦¾à¦£à§€à¦¨à¦—à¦°', 'raninagarup.pabna.gov.bd'),
+(1039, 113, 'Satbaria', 'à¦¸à¦¾à¦¤à¦¬à¦¾à§œà§€à§Ÿà', 'satbariaup.pabna.gov.bd'),
+(1040, 113, 'Hatkhali', 'à¦¹à¦¾à¦Ÿà¦–à¦¾à¦²à§€', 'hatkhaliup.pabna.gov.bd'),
+(1041, 113, 'Nazirganj', 'à¦¨à¦¾à¦œà¦¿à¦°à¦—à¦žà§à', 'nazirganjup.pabna.gov.bd'),
+(1042, 113, 'Sagorkandi', 'à¦¸à¦¾à¦—à¦°à¦•à¦¾à¦¨à§à', 'sagorkandiup.pabna.gov.bd'),
+(1043, 114, 'Sara', 'à¦¸à¦¾à¦à§œà¦¾', 'saraup.pabna.gov.bd'),
+(1044, 114, 'Pakshi', 'à¦ªà¦¾à¦•à¦¶à§€', 'pakshiup.pabna.gov.bd'),
+(1045, 114, 'Muladuli', 'à¦®à§à¦²à¦¾à¦¡à§à¦²à¦¿', 'muladuliup.pabna.gov.bd'),
+(1046, 114, 'Dashuria', 'à¦¦à¦¾à¦¶à§à¦°à¦¿à§Ÿà¦¾', 'dashuriaup.pabna.gov.bd'),
+(1047, 114, 'Silimpur', 'à¦›à¦²à¦¿à¦®à¦ªà§à¦°', 'silimpurup.pabna.gov.bd'),
+(1048, 114, 'Sahapur', 'à¦¸à¦¾à¦¹à¦¾à¦ªà§à¦°', 'sahapurup.pabna.gov.bd'),
+(1049, 114, 'Luxmikunda', 'à¦²à¦•à§à¦·à§€à¦•à§à¦¨à', 'luxmikundaup.pabna.gov.bd'),
+(1050, 115, 'Bhangura', 'à¦­à¦¾à¦™à§à¦—à§à§œà¦¾', 'bhanguraup.pabna.gov.bd'),
+(1051, 115, 'Khanmarich', 'à¦–à¦¾à¦¨à¦®à¦°à¦¿à¦š', 'khanmarichup.pabna.gov.bd'),
+(1052, 115, 'Ashtamanisha', 'à¦…à¦·à§à¦Ÿà¦®à¦£à¦¿à¦·à', 'ashtamanishaup.pabna.gov.bd'),
+(1053, 115, 'Dilpasar', 'à¦¦à¦¿à¦²à¦ªà¦¾à¦¶à¦¾à¦°', 'dilpasarup.pabna.gov.bd'),
+(1054, 115, 'Parbhangura', 'à¦ªà¦¾à¦°à¦­à¦¾à¦™à§à¦—à', 'parbhanguraup.pabna.gov.bd'),
+(1055, 116, 'Maligachha', 'à¦®à¦¾à¦²à¦¿à¦—à¦¾à¦›à¦¾', 'maligachhaup.pabna.gov.bd'),
+(1056, 116, 'Malanchi', 'à¦®à¦¾à¦²à¦žà§à¦šà¦¿', 'malanchiup.pabna.gov.bd'),
+(1057, 116, 'Gayeshpur', 'à¦—à§Ÿà§‡à¦¶à¦ªà§à¦°', 'gayeshpurup.pabna.gov.bd'),
+(1058, 116, 'Ataikula', 'à¦†à¦¤à¦¾à¦‡à¦•à§à¦²à¦¾', 'ataikulaup.pabna.gov.bd'),
+(1059, 116, 'Chartarapur', 'à¦šà¦°à¦¤à¦¾à¦°à¦¾à¦ªà§à', 'chartarapurup.pabna.gov.bd'),
+(1060, 116, 'Sadullahpur', 'à¦¸à¦¾à¦¦à§à¦²à§à¦²à¦¾à', 'sadullahpurup.pabna.gov.bd'),
+(1061, 116, 'Bharara', 'à¦­à¦¾à¦à§œà¦¾à¦°à¦¾', 'bhararaup.pabna.gov.bd'),
+(1062, 116, 'Dogachi', 'à¦¦à§‹à¦—à¦¾à¦›à§€', 'dogachiup.pabna.gov.bd'),
+(1063, 116, 'Hemayetpur', 'à¦¹à§‡à¦®à¦¾à§Ÿà§‡à¦¤à¦ªà', 'hemayetpurup.pabna.gov.bd'),
+(1064, 116, 'Dapunia', 'à¦¦à¦¾à¦ªà§à¦¨à¦¿à§Ÿà¦¾', 'dapuniaup.pabna.gov.bd'),
+(1065, 117, 'Haturia Nakalia', 'à¦¹à¦¾à¦Ÿà§à¦°à¦¿à§Ÿà¦¾ ', 'haturianakaliaup.pabna.gov.bd'),
+(1066, 117, 'Notun Varenga', 'à¦¨à¦¤à§à¦¨ à¦­à¦¾à¦°à§‡', 'notunvarengaup.pabna.gov.bd'),
+(1067, 117, 'Koitola', 'à¦•à§ˆà¦Ÿà§‹à¦²à¦¾', 'koitolaup.pabna.gov.bd'),
+(1068, 117, 'Chakla', 'à¦šà¦¾à¦•à¦²à¦¾', 'chaklaup.pabna.gov.bd'),
+(1069, 117, 'Jatsakhini', 'à¦œà¦¾à¦¤à¦¸à¦¾à¦–à¦¿à¦¨à', 'jatsakhiniup.pabna.gov.bd'),
+(1070, 117, 'Puran Varenga', 'à¦ªà§à¦°à¦¾à¦¨ à¦­à¦¾à¦°', 'puranvarengaup.pabna.gov.bd'),
+(1071, 117, 'Ruppur', 'à¦°à§‚à¦ªà¦ªà§à¦°', 'ruppurup.pabna.gov.bd'),
+(1072, 117, 'Masumdia', 'à¦®à¦¾à¦¸à§à¦®à¦¦à¦¿à§Ÿà', 'masumdiaup.pabna.gov.bd'),
+(1073, 117, 'Dhalar Char', 'à¦¢à¦¾à¦²à¦¾à¦° à¦šà¦°', 'dhalarcharup.pabna.gov.bd'),
+(1074, 118, 'Majhpara', 'à¦®à¦¾à¦œà¦ªà¦¾à§œà¦¾', 'majhparaup.pabna.gov.bd'),
+(1075, 118, 'Chandba', 'à¦šà¦¾à¦à¦¦à¦­à¦¾', 'chandbaup.pabna.gov.bd'),
+(1076, 118, 'Debottar', 'à¦¦à§‡à¦¬à§‹à¦¤à§à¦¤à¦°', 'debottarup.pabna.gov.bd'),
+(1077, 118, 'Ekdanta', 'à¦à¦•à¦¦à¦¨à§à¦¤', 'ekdantaup.pabna.gov.bd'),
+(1078, 118, 'Laxshmipur', 'à¦²à¦•à§à¦·à§€à¦ªà§à¦°', 'laxshmipurup.pabna.gov.bd'),
+(1079, 119, 'Handial', 'à¦¹à¦¾à¦¨à§à¦¡à¦¿à§Ÿà¦¾à', 'handialup.pabna.gov.bd'),
+(1080, 119, 'Chhaikola', 'à¦›à¦¾à¦‡à¦•à§‹à¦²à¦¾', 'chhaikolaup.pabna.gov.bd'),
+(1081, 119, 'Nimaichara', 'à¦¨à¦¿à¦®à¦¾à¦‡à¦šà§œà¦¾', 'nimaicharaup.pabna.gov.bd'),
+(1082, 119, 'Gunaigachha', 'à¦—à§à¦¨à¦¾à¦‡à¦—à¦¾à¦›à', 'gunaigachhaup.pabna.gov.bd'),
+(1083, 119, 'Parshadanga', 'à¦ªà¦¾à¦°à§à¦¶à§à¦¬à¦¡à', 'parshadangaup.pabna.gov.bd'),
+(1084, 119, 'Failjana', 'à¦«à§ˆà¦²à¦œà¦¾à¦¨à¦¾', 'failjanaup.pabna.gov.bd'),
+(1085, 119, 'Mulgram', 'à¦®à§à¦²à¦—à§à¦°à¦¾à¦®', 'mulgramup.pabna.gov.bd'),
+(1086, 119, 'Haripur', 'à¦¹à¦°à¦¿à¦ªà§à¦°', 'haripurup.pabna.gov.bd'),
+(1087, 119, 'Mothurapur', 'à¦®à¦¥à§à¦°à¦¾à¦ªà§à¦°', 'mothurapurup.pabna.gov.bd'),
+(1088, 119, 'Bilchalan', 'à¦¬à¦¿à¦²à¦šà¦²à¦¨', 'bilchalanup.pabna.gov.bd'),
+(1089, 119, 'Danthia Bamangram', 'à¦¦à¦¾à¦¤à¦¿à§Ÿà¦¾ à¦¬à¦¾', 'danthiabamangramup.pabna.gov.bd'),
+(1090, 120, 'Nagdemra', 'à¦¨à¦¾à¦—à¦¡à§‡à¦®à§œà¦¾', 'nagdemraup.pabna.gov.bd'),
+(1091, 120, 'Dhulauri', 'à¦§à§à¦²à¦¾à¦‰à§œà¦¿', 'dhulauriup.pabna.gov.bd'),
+(1092, 120, 'Bhulbaria', 'à¦­à§à¦²à¦¬à¦¾à§œà§€à§Ÿà', 'bhulbariaup.pabna.gov.bd'),
+(1093, 120, 'Dhopadaha', 'à¦§à§‹à¦ªà¦¾à¦¦à¦¹', 'dhopadahaup.pabna.gov.bd'),
+(1094, 120, 'Karamja', 'à¦•à¦°à¦®à¦œà¦¾', 'karamjaup.pabna.gov.bd'),
+(1095, 120, 'Kashinathpur', 'à¦•à¦¾à¦¶à¦¿à¦¨à¦¾à¦¥à¦ªà', 'kashinathpurup.pabna.gov.bd'),
+(1096, 120, 'Gaurigram', 'à¦—à§Œà¦°à§€à¦—à§à¦°à¦¾à', 'gaurigramup.pabna.gov.bd'),
+(1097, 120, 'Nandanpur', 'à¦¨à¦¨à§à¦¦à¦¨à¦ªà§à¦°', 'nandanpurup.pabna.gov.bd'),
+(1098, 120, 'Khetupara', 'à¦•à§à¦·à§‡à¦¤à§à¦ªà¦¾à', 'khetuparaup.pabna.gov.bd'),
+(1099, 120, 'Ar-Ataikula', 'à¦†à¦°-à¦†à¦¤à¦¾à¦‡à¦•à§', 'rataiqulaup.pabna.gov.bd'),
+(1100, 121, 'Brilahiribari', 'à¦¬à§ƒà¦²à¦¾à¦¹à¦¿à§œà§€à', 'brilahiribariup.pabna.gov.bd'),
+(1101, 121, 'Pungali', 'à¦ªà§à¦™à§à¦—à§à¦²à¦¿', 'pungaliup.pabna.gov.bd'),
+(1102, 121, 'Faridpur', 'à¦«à¦°à¦¿à¦¦à¦ªà§à¦°', 'faridpurup.pabna.gov.bd'),
+(1103, 121, 'Hadal', 'à¦¹à¦¾à¦¦à¦²', 'hadalup.pabna.gov.bd'),
+(1104, 121, 'Banwarinagar', 'à¦¬à¦¨à¦“à§Ÿà¦¾à¦°à§€à¦¨à', 'banwarinagarup.pabna.gov.bd'),
+(1105, 121, 'Demra', 'à¦¡à§‡à¦®à§œà¦¾', 'demraup.pabna.gov.bd'),
+(1106, 122, 'Birkedar', 'à¦¬à§€à¦°à¦•à§‡à¦¦à¦¾à¦°', 'birkedarup.bogra.gov.bd'),
+(1107, 122, 'Kalai', 'à¦•à¦¾à¦²à¦¾à¦‡', 'kalaiup.bogra.gov.bd'),
+(1108, 122, 'Paikar', 'à¦ªà¦¾à¦‡à¦•à§œ', 'paikarup.bogra.gov.bd'),
+(1109, 122, 'Narhatta', 'à¦¨à¦¾à¦°à¦¹à¦Ÿà§à¦Ÿ', 'narhattaup.bogra.gov.bd'),
+(1110, 122, 'Murail', 'à¦®à§à¦°à¦‡à¦²', 'murailup.bogra.gov.bd'),
+(1111, 122, 'Kahaloo', 'à¦•à¦¾à¦¹à¦¾à¦²à§', 'kahalooup.bogra.gov.bd'),
+(1112, 122, 'Durgapur', 'à¦¦à§‚à¦°à§à¦—à¦¾à¦ªà§à', 'durgapurup.bogra.gov.bd'),
+(1113, 122, 'Jamgaon', 'à¦œà¦¾à¦®à¦—à§à¦°à¦¾à¦®', 'jamgaonup.bogra.gov.bd'),
+(1114, 122, 'Malancha', 'à¦®à¦¾à¦²à¦žà§à¦šà¦¾', 'malanchaup.bogra.gov.bd'),
+(1115, 123, 'Fapore', 'à¦«à¦¾à¦à¦ªà§‹à¦°', 'faporeup.bogra.gov.bd'),
+(1116, 123, 'Shabgram', 'à¦¸à¦¾à¦¬à¦—à§à¦°à¦¾à¦®', 'shabgramup.bogra.gov.bd'),
+(1117, 123, 'Nishindara', 'à¦¨à¦¿à¦¶à¦¿à¦¨à§à¦¦à¦¾à', 'nishindaraup.bogra.gov.bd'),
+(1118, 123, 'Erulia', 'à¦à¦°à§à¦²à¦¿à§Ÿà¦¾', 'eruliaup.bogra.gov.bd'),
+(1119, 123, 'Rajapur', 'à¦°à¦¾à¦œà¦¾à¦ªà§à¦°', 'rajapurup.bogra.gov.bd'),
+(1120, 123, 'Shakharia', 'à¦¶à¦¾à¦–à¦¾à¦°à¦¿à§Ÿà¦¾', 'shakhariaup.bogra.gov.bd'),
+(1121, 123, 'Sekherkola', 'à¦¶à§‡à¦–à§‡à¦°à¦•à§‹à¦²à', 'sekherkolaup.bogra.gov.bd'),
+(1122, 123, 'Gokul', 'à¦—à§‹à¦•à§à¦²', 'gokulup.bogra.gov.bd'),
+(1123, 123, 'Noongola', 'à¦¨à§à¦¨à¦—à§‹à¦²à¦¾', 'noongolaup.bogra.gov.bd'),
+(1124, 123, 'Lahiripara', 'à¦²à¦¾à¦¹à¦¿à§œà§€à¦ªà¦¾à', 'lahiriparaup.bogra.gov.bd'),
+(1125, 123, 'Namuja', 'à¦¨à¦¾à¦®à§à¦œà¦¾', 'namujaup.bogra.gov.bd'),
+(1126, 124, 'Sariakandi Sadar', 'à¦¸à¦¾à¦°à¦¿à§Ÿà¦¾à¦•à¦¾à', 'sariakandisadarup.bogra.gov.bd'),
+(1127, 124, 'Narchi', 'à¦¨à¦¾à¦°à¦šà§€', 'narchiup.bogra.gov.bd'),
+(1128, 124, 'Bohail', 'à¦¬à§‹à¦¹à¦¾à¦‡à¦²', 'bohailup.bogra.gov.bd'),
+(1129, 124, 'Chaluabari', 'à¦šà¦¾à¦²à§à§Ÿà¦¾à¦¬à¦¾à', 'chaluabariup.bogra.gov.bd'),
+(1130, 124, 'Chandanbaisha', 'à¦šà¦¨à§à¦¦à¦¨à¦¬à¦¾à¦‡à', 'chandanbaishaup.bogra.gov.bd'),
+(1131, 124, 'Hatfulbari', 'à¦¹à¦¾à¦Ÿà¦«à§à¦²à¦¬à¦¾à', 'hatfulbariup.bogra.gov.bd'),
+(1132, 124, 'Hatsherpur', 'à¦¹à¦¾à¦Ÿà¦¶à§‡à¦°à¦ªà§à', 'hatsherpurup.bogra.gov.bd'),
+(1133, 124, 'Karnibari', 'à¦•à¦°à§à¦£à¦¿à¦¬à¦¾à§œà', 'karnibariup.bogra.gov.bd'),
+(1134, 124, 'Kazla', 'à¦•à¦¾à¦œà¦²à¦¾', 'kazlaup.bogra.gov.bd'),
+(1135, 124, 'Kutubpur', 'à¦•à§à¦¤à§à¦¬à¦ªà§à¦°', 'kutubpurup.bogra.gov.bd'),
+(1136, 124, 'Kamalpur', 'à¦•à¦¾à¦®à¦¾à¦²à¦ªà§à¦°', 'kamalpur.bogra.gov.bd'),
+(1137, 124, 'Bhelabari', 'à¦­à§‡à¦²à¦¾à¦¬à¦¾à§œà§€', 'bhelabari.bogra.gov.bd'),
+(1138, 125, 'Asekpur', 'à¦†à¦¶à§‡à¦•à¦ªà§à¦°', 'asekpurup.bogra.gov.bd'),
+(1139, 125, 'Madla', 'à¦®à¦¾à¦¦à¦²à¦¾', 'madlaup.bogra.gov.bd'),
+(1140, 125, 'Majhira', 'à¦®à¦¾à¦à¦¿à§œà¦¾', 'majhiraup.bogra.gov.bd'),
+(1141, 125, 'Aria', 'à¦†à§œà¦¿à§Ÿà¦¾', 'ariaup.bogra.gov.bd'),
+(1142, 125, 'Kharna', 'à¦–à¦°à¦¨à¦¾', 'kharnaup.bogra.gov.bd'),
+(1143, 125, 'Khottapara', 'à¦–à§‹à¦Ÿà§à¦Ÿà¦¾à¦ªà¦¾à', 'Khottaparaup.bogra.gov.bd'),
+(1144, 125, 'Chopinagar', 'à¦šà§‹à¦ªà¦¿à¦¨à¦—à¦°', 'chopinagarup.bogra.gov.bd'),
+(1145, 125, 'Amrul', 'à¦†à¦®à¦°à§à¦²', 'amrulup.bogra.gov.bd'),
+(1146, 125, 'Gohail', 'à¦—à§‹à¦¹à¦¾à¦‡à¦²', 'gohailup.bogra.gov.bd'),
+(1147, 126, 'Zianagar', 'à¦œà¦¿à§Ÿà¦¾à¦¨à¦—à¦°', 'zianagarup.bogra.gov.bd'),
+(1148, 126, 'Chamrul', 'à¦šà¦¾à¦®à¦°à§à¦²', 'chamrulup.bogra.gov.bd'),
+(1149, 126, 'Dupchanchia', 'à¦¦à§à¦ªà¦šà¦¾à¦à¦šà¦¿à', 'dupchanchiaup.bogra.gov.bd'),
+(1150, 126, 'Gunahar', 'à¦—à§à¦¨à¦¾à¦¹à¦¾à¦°', 'gunaharup.bogra.gov.bd'),
+(1151, 126, 'Gobindapur', 'à¦—à§‹à¦¬à¦¿à¦¨à§à¦¦à¦ªà', 'gobindapurup.bogra.gov.bd'),
+(1152, 126, 'Talora', 'à¦¤à¦¾à¦²à§‹à§œà¦¾', 'taloraup.bogra.gov.bd'),
+(1153, 127, 'Chhatiangram', 'à¦›à¦¾à¦¤à¦¿à§Ÿà¦¾à¦¨à¦—à', 'chhatiangramup.bogra.gov.bd'),
+(1154, 127, 'Nasaratpur', 'à¦¨à¦¶à¦°à¦¤à¦ªà§à¦°', 'nasaratpurup.bogra.gov.bd'),
+(1155, 127, 'Adamdighi', 'à¦†à¦¦à¦®à¦¦à¦¿à¦˜à¦¿', 'adamdighiup.bogra.gov.bd'),
+(1156, 127, 'Kundagram', 'à¦•à§à¦¨à§à¦¦à¦—à§à¦°à', 'kundagramup.bogra.gov.bd'),
+(1157, 127, 'Chapapur', 'à¦šà¦¾à¦à¦ªà¦¾à¦ªà§à¦°', 'chapapurup.bogra.gov.bd'),
+(1158, 127, 'Shantahar', 'à¦¸à¦¾à¦¨à§à¦¤à¦¾à¦¹à¦¾à', 'shantaharup.bogra.gov.bd'),
+(1159, 128, 'Burail', 'à¦¬à§à§œà¦‡à¦²', 'burailup.bogra.gov.bd'),
+(1160, 128, 'Nandigram', 'à¦¨à¦¨à§à¦¦à¦¿à¦—à§à¦°à', 'nandigramup.bogra.gov.bd'),
+(1161, 128, 'Bhatra', 'à¦­à¦¾à¦Ÿà¦°à¦¾', 'bhatraup.bogra.gov.bd'),
+(1162, 128, 'Thalta Majhgram', 'à¦¥à¦¾à¦²à¦¤à¦¾ à¦®à¦¾à¦', 'thaltamajhgramup.bogra.gov.bd'),
+(1163, 128, 'Bhatgram', 'à¦­à¦¾à¦Ÿà¦—à§à¦°à¦¾à¦®', 'bhatgramup.bogra.gov.bd'),
+(1164, 129, 'Sonatala', 'à¦¸à§‹à¦¨à¦¾à¦¤à¦²à¦¾', 'sonatalaup.bogra.gov.bd'),
+(1165, 129, 'Balua', 'à¦¬à¦¾à¦²à§à§Ÿà¦¾', 'baluaup.bogra.gov.bd'),
+(1166, 129, 'Zorgacha', 'à¦œà§‹à§œà¦—à¦¾à¦›à¦¾', 'zorgachaup.bogra.gov.bd'),
+(1167, 129, 'Digdair', 'à¦¦à¦¿à¦—à¦¦à¦¾à¦‡à§œ', 'digdairup.bogra.gov.bd'),
+(1168, 129, 'Madhupur', 'à¦®à¦§à§à¦ªà§à¦°', 'madhupurup.bogra.gov.bd'),
+(1169, 129, 'Pakulla', 'à¦ªà¦¾à¦•à§à¦²à§à¦²à§à', 'pakullaup.bogra.gov.bd'),
+(1170, 129, 'Tekani Chukinagar', 'à¦¤à§‡à¦•à¦¾à¦¨à§€ à¦šà§', 'tekanichukinagarup.bogra.gov.bd'),
+(1171, 130, 'Nimgachi', 'à¦¨à¦¿à¦®à¦—à¦¾à¦›à¦¿', 'nimgachiup.bogra.gov.bd'),
+(1172, 130, 'Kalerpara', 'à¦•à¦¾à¦²à§‡à¦°à¦ªà¦¾à§œà', 'kalerparaup.bogra.gov.bd'),
+(1173, 130, 'Chikashi', 'à¦šà¦¿à¦•à¦¾à¦¶à§€', 'chikashiup.bogra.gov.bd'),
+(1174, 130, 'Gossainbari', 'à¦—à§‹à¦¸à¦¾à¦‡à¦¬à¦¾à§œà', 'gossainbariup.bogra.gov.bd'),
+(1175, 130, 'Bhandarbari', 'à¦­à¦¾à¦¨à§à¦¡à¦¾à¦°à¦¬à', 'bhandarbariup.bogra.gov.bd'),
+(1176, 130, 'Gopalnagar', 'à§§à¦—à§‹à¦ªà¦¾à¦²à¦¨à¦—à', 'gopalnagarup.bogra.gov.bd'),
+(1177, 130, 'Mothurapur', 'à¦®à¦¥à§à¦°à¦¾à¦ªà§à¦°', 'mothurapurup.bogra.gov.bd'),
+(1178, 130, 'Chowkibari', 'à¦šà§Œà¦•à¦¿à¦¬à¦¾à§œà§€', 'chowkibariup.bogra.gov.bd'),
+(1179, 130, 'Elangi', 'à¦à¦²à¦¾à¦™à§à¦—à§€', 'elangiup.bogra.gov.bd'),
+(1180, 130, 'Dhunat Sadar', 'à¦§à§à¦¨à¦Ÿ à¦¸à¦¦à¦°', 'dhunatsadarup.bogra.gov.bd'),
+(1181, 131, 'Baliadighi', 'à¦¬à¦¾à¦²à¦¿à§Ÿà¦¾ à¦¦à¦¿', 'baliadighiup.bogra.gov.bd'),
+(1182, 131, 'Dakshinpara', 'à¦¦à¦•à§à¦·à¦¿à¦£à¦ªà¦¾à', 'dakshinparaup.bogra.gov.bd'),
+(1183, 131, 'Durgahata', 'à¦¦à§à¦°à§à¦—à¦¾à¦¹à¦¾à', 'durgahataup.bogra.gov.bd'),
+(1184, 131, 'Kagail', 'à¦•à¦¾à¦—à¦‡à¦²', 'kagailup.bogra.gov.bd'),
+(1185, 131, 'Sonarai', 'à¦¸à§‹à¦¨à¦¾à¦°à¦¾à§Ÿ', 'sonaraiup.bogra.gov.bd'),
+(1186, 131, 'Rameshwarpur', 'à¦°à¦¾à¦®à§‡à¦¶à§à¦¬à¦°à', 'rameshwarpurup.bogra.gov.bd'),
+(1187, 131, 'Naruamala', 'à¦¨à¦¾à§œà§à§Ÿà¦¾à¦®à¦¾à', 'naruamalaup.bogra.gov.bd'),
+(1188, 131, 'Nepaltali', 'à¦¨à§‡à¦ªà¦¾à¦²à¦¤à¦²à§€', 'nepaltaliup.bogra.gov.bd'),
+(1189, 131, 'Gabtali', 'à¦—à¦¾à¦¬à¦¤à¦²à¦¿', 'gabtaliup.bogra.gov.bd'),
+(1190, 131, 'Mahishaban', 'à¦®à¦¹à¦¿à¦·à¦¾à¦¬à¦¾à¦¨', 'mahishabanup.bogra.gov.bd'),
+(1191, 131, 'Nasipur', 'à¦¨à¦¶à¦¿à¦ªà§à¦°', 'nasipurup.bogra.gov.bd'),
+(1192, 132, 'Mirzapur', 'à¦®à¦¿à¦°à§à¦œà¦¾à¦ªà§à', 'mirzapurup.bogra.gov.bd'),
+(1193, 132, 'Khamarkandi', 'à¦–à¦¾à¦®à¦¾à¦°à¦•à¦¾à¦¨à', 'khamarkandiup.bogra.gov.bd'),
+(1194, 132, 'Garidaha', 'à¦—à¦¾à§œà¦¿à¦¦à¦¹', 'garidahaup.bogra.gov.bd'),
+(1195, 132, 'Kusumbi', 'à¦•à§à¦¸à§à¦®à§à¦¬à§€', 'kusumbiup.bogra.gov.bd'),
+(1196, 132, 'Bishalpur', 'à¦¬à¦¿à¦¶à¦¾à¦²à¦ªà§à¦°', 'bishalpurup.bogra.gov.bd'),
+(1197, 132, 'Shimabari', 'à¦¸à§€à¦®à¦¾à¦¬à¦¾à§œà¦¿', 'shimabariup.bogra.gov.bd'),
+(1198, 132, 'Shahbondegi', 'à¦¶à¦¾à¦¹à¦¬à¦¨à§à¦¦à§‡à', 'shahbondegiup.bogra.gov.bd'),
+(1199, 132, 'Sughat', 'à¦¸à§à¦˜à¦¾à¦Ÿ', 'sughatup.bogra.gov.bd'),
+(1200, 132, 'Khanpur', 'à¦–à¦¾à¦¨à¦ªà§à¦°', 'khanpurup.bogra.gov.bd'),
+(1201, 132, 'Bhabanipur', 'à¦­à¦¬à¦¾à¦¨à§€à¦ªà§à¦°', 'bhabanipurup.bogra.gov.bd'),
+(1202, 133, 'Moidanhatta', 'à¦®à§Ÿà¦¦à¦¾à¦¨à¦¹à¦¾à¦Ÿà', 'moidanhattaup.bogra.gov.bd'),
+(1203, 133, 'Kichok', 'à¦•à¦¿à¦šà¦•', 'kichokup.bogra.gov.bd'),
+(1204, 133, 'Atmul', 'à¦†à¦Ÿà¦®à§‚à¦²', 'atmulup.bogra.gov.bd'),
+(1205, 133, 'Pirob', 'à¦ªà¦¿à¦°à¦¬', 'pirobup.bogra.gov.bd'),
+(1206, 133, 'Majhihatta', 'à¦®à¦¾à¦à¦¿à¦¹à¦Ÿà§à¦Ÿ', 'majhihattaup.bogra.gov.bd'),
+(1207, 133, 'Buriganj', 'à¦¬à§à§œà¦¿à¦—à¦žà§à¦œ', 'buriganjup.bogra.gov.bd'),
+(1208, 133, 'Bihar', 'à¦¬à¦¿à¦¹à¦¾à¦°', 'biharup.bogra.gov.bd'),
+(1209, 133, 'Shibganj', 'à¦¶à¦¿à¦¬à¦—à¦žà§à¦œ', 'shibganjup.bogra.gov.bd'),
+(1210, 133, 'Deuly', 'à¦¦à§‡à¦‰à¦²à¦¿', 'deulyup.bogra.gov.bd'),
+(1211, 133, 'Sayedpur', 'à¦¸à§ˆà§Ÿà¦¦à¦ªà§à¦°', 'sayedpurup.bogra.gov.bd'),
+(1212, 133, 'Mokamtala', 'à¦®à§‹à¦•à¦¾à¦®à¦¤à¦²à¦¾', 'mokamtalaup.bogra.gov.bd'),
+(1213, 133, 'Raynagar', 'à¦°à¦¾à§Ÿà¦¨à¦—à¦°', 'raynagarup.bogra.gov.bd'),
+(1214, 134, 'Darsanpara', 'à¦¦à¦°à§à¦¶à¦¨à¦ªà¦¾à¦¡à', 'darsanparaup.rajshahi.gov.bd'),
+(1215, 134, 'Hujuripara', 'à¦¹à§à¦œà§à¦°à§€ à¦ªà¦¾', 'hujuriparaup.rajshahi.gov.bd'),
+(1216, 134, 'Damkura', 'à¦¦à¦¾à¦®à¦•à§à¦¡à¦¼à¦¾', 'damkuraup.rajshahi.gov.bd'),
+(1217, 134, 'Horipur', 'à¦¹à¦°à¦¿à¦ªà§à¦°', 'horipurup.rajshahi.gov.bd'),
+(1218, 134, 'Horogram', 'à¦¹à¦¡à¦¼à¦—à§à¦°à¦¾à¦®', 'horogramup.rajshahi.gov.bd'),
+(1219, 134, 'Harian', 'à¦¹à¦°à¦¿à¦¯à¦¼à¦¾à¦¨', 'harianup.rajshahi.gov.bd'),
+(1220, 134, 'Borgachi', 'à¦¬à¦¡à¦¼à§à¦—à¦¾à¦›à¦¿', 'borgachiup.rajshahi.gov.bd'),
+(1221, 134, 'Parila', 'à¦ªà¦¾à¦°à¦¿à¦²à¦¾', 'parilaup.rajshahi.gov.bd'),
+(1222, 135, 'Naopara', 'à¦¨à¦“à¦ªà¦¾à¦¡à¦¼à¦¾', 'naoparaup.rajshahi.gov.bd'),
+(1223, 135, 'Kismatgankoir', 'à¦•à¦¿à¦¸à¦®à¦¤à¦—à¦£à¦•à', 'kismatgankoirup.rajshahi.gov.bd'),
+(1224, 135, 'Pananagar', 'à¦ªà¦¾à¦¨à¦¾à¦¨à¦—à¦°', 'pananagarup.rajshahi.gov.bd'),
+(1225, 135, 'Deluabari', 'à¦¦à§‡à¦²à§à¦¯à¦¼à¦¾à¦¬à', 'deluabariup.rajshahi.gov.bd'),
+(1226, 135, 'Jhaluka', 'à¦à¦¾à¦²à§à¦•à¦¾', 'jhalukaup.rajshahi.gov.bd'),
+(1227, 135, 'Maria', 'à¦®à¦¾à¦¡à¦¼à¦¿à¦¯à¦¼à¦¾', 'mariaup.rajshahi.gov.bd'),
+(1228, 135, 'Joynogor', 'à¦œà¦¯à¦¼à¦¨à¦—à¦°', 'joynogorup.rajshahi.gov.bd'),
+(1229, 136, 'Dhuroil', 'à¦§à§à¦°à¦‡à¦²', 'dhuroilup.rajshahi.gov.bd'),
+(1230, 136, 'Ghasigram', 'à¦˜à¦·à¦¿à¦—à§à¦°à¦¾à¦®', 'ghasigramup.rajshahi.gov.bd'),
+(1231, 136, 'Raighati', 'à¦°à¦¾à¦¯à¦¼à¦˜à¦¾à¦Ÿà¦¿', 'raighatiup.rajshahi.gov.bd'),
+(1232, 136, 'Mougachi', 'à¦®à§Œà¦—à¦¾à¦›à¦¿', 'mougachiup.rajshahi.gov.bd'),
+(1233, 136, 'Baksimoil', 'à¦¬à¦¾à¦•à¦¶à¦¿à¦®à¦‡à¦²', 'baksimoilup.rajshahi.gov.bd'),
+(1234, 136, 'Jahanabad', 'à¦œà¦¾à¦¹à¦¾à¦¨à¦¾à¦¬à¦¾à', 'jahanabadup.rajshahi.gov.bd'),
+(1235, 137, 'Yousufpur', 'à¦‡à¦‰à¦¸à§à¦«à¦ªà§à¦°', 'yousufpurup.rajshahi.gov.bd'),
+(1236, 137, 'Solua', 'à¦¶à¦²à§à¦¯à¦¼à¦¾', 'soluaup.rajshahi.gov.bd'),
+(1237, 137, 'Sardah', 'à¦¸à¦°à¦¦à¦¹', 'sardahup.rajshahi.gov.bd'),
+(1238, 137, 'Nimpara', 'à¦¨à¦¿à¦®à¦ªà¦¾à¦¡à¦¼à¦¾', 'nimparaup.rajshahi.gov.bd'),
+(1239, 137, 'Charghat', 'à¦šà¦¾à¦°à¦˜à¦¾à¦Ÿ', 'charghatup.rajshahi.gov.bd'),
+(1240, 137, 'Vialuxmipur', 'à¦­à¦¾à¦¯à¦¼à¦¾à¦²à¦•à§à', 'vialuxmipurup.rajshahi.gov.bd'),
+(1241, 138, 'Puthia', 'à¦ªà§à¦ à¦¿à§Ÿà¦¾', 'puthiaup.rajshahi.gov.bd'),
+(1242, 138, 'Belpukuria', 'à¦¬à§‡à¦²à¦ªà§à¦•à§à¦°à', 'belpukuriaup.rajshahi.gov.bd'),
+(1243, 138, 'Baneswar', 'à¦¬à¦¾à¦¨à§‡à¦¶à§à¦¬à¦°', 'baneswarup.rajshahi.gov.bd'),
+(1244, 138, 'Valukgachi', 'à¦­à¦¾à¦²à§à¦• à¦—à¦¾à¦›', 'valukgachiup.rajshahi.gov.bd'),
+(1245, 138, 'Shilmaria', 'à¦¶à¦¿à¦²à¦®à¦¾à¦¡à¦¼à¦¿à', 'shilmariaup.rajshahi.gov.bd'),
+(1246, 138, 'Jewpara', 'à¦œà¦¿à¦‰à¦ªà¦¾à¦¡à¦¼à¦¾', 'jewparaup.rajshahi.gov.bd'),
+(1247, 139, 'Bajubagha', 'à¦¬à¦¾à¦œà§à¦¬à¦¾à¦˜à¦¾', 'bajubaghaup.rajshahi.gov.bd'),
+(1248, 139, 'Gorgori', 'à¦—à¦¡à¦¼à¦—à¦¡à¦¼à¦¿', 'gorgoriup.rajshahi.gov.bd'),
+(1249, 139, 'Pakuria', 'à¦ªà¦¾à¦•à§à¦¡à¦¼à¦¿à¦¯à', 'pakuriaup.rajshahi.gov.bd'),
+(1250, 139, 'Monigram', 'à¦®à¦¨à¦¿à¦—à§à¦°à¦¾à¦®', 'monigramup.rajshahi.gov.bd'),
+(1251, 139, 'Bausa', 'à¦¬à¦¾à¦‰à¦¸à¦¾', 'bausaup.rajshahi.gov.bd'),
+(1252, 139, 'Arani', 'à¦†à§œà¦¾à¦¨à§€', 'araniup.rajshahi.gov.bd'),
+(1253, 140, 'Godagari', 'à¦—à§‹à¦¦à¦¾à¦—à¦¾à¦¡à¦¼à', 'godagariup.rajshahi.gov.bd');
+INSERT INTO `unions` (`id`, `upazilla_id`, `name`, `bn_name`, `url`) VALUES
+(1254, 140, 'Mohonpur', 'à¦®à§‹à¦¹à¦¨à¦ªà§à¦°', 'mohonpurup.rajshahi.gov.bd'),
+(1255, 140, 'Pakri', 'à¦ªà¦¾à¦•à¦¡à¦¼à§€', 'pakriup.rajshahi.gov.bd'),
+(1256, 140, 'Risikul', 'à¦°à¦¿à¦¶à¦¿à¦•à§à¦²', 'risikulup.rajshahi.gov.bd'),
+(1257, 140, 'Gogram', 'à¦—à§‹à¦—à§à¦°à¦¾à¦®', 'gogramup.rajshahi.gov.bd'),
+(1258, 140, 'Matikata', 'à¦®à¦¾à¦Ÿà¦¿à¦•à¦¾à¦Ÿà¦¾', 'matikataup.rajshahi.gov.bd'),
+(1259, 140, 'Dewpara', 'à¦¦à§‡à¦“à¦ªà¦¾à¦¡à¦¼à¦¾', 'dewparaup.rajshahi.gov.bd'),
+(1260, 140, 'Basudebpur', 'à¦¬à¦¾à¦¸à§à¦¦à§‡à¦¬à¦ªà', 'basudebpurup.rajshahi.gov.bd'),
+(1261, 140, 'Asariadaha', 'à¦†à¦·à¦¾à¦¡à¦¼à¦¿à¦¯à¦¼à', 'asariadahaup.rajshahi.gov.bd'),
+(1262, 141, 'Kalma', 'à¦•à¦²à¦®à¦¾', 'kalmaup.rajshahi.gov.bd'),
+(1263, 141, 'Badhair', 'à¦¬à¦¾à¦§à¦¾à¦‡à¦¡à¦¼', 'badhairup.rajshahi.gov.bd'),
+(1264, 141, 'Panchandar', 'à¦ªà¦¾à¦à¦šà¦¨à§à¦¦à¦°', 'panchandarup.rajshahi.gov.bd'),
+(1265, 141, 'Saranjai', 'à¦¸à¦°à¦žà§à¦œà¦¾à¦‡', 'saranjaiup.rajshahi.gov.bd'),
+(1266, 141, 'Talondo', 'à¦¤à¦¾à¦²à¦¨à§à¦¦', 'talondoup.rajshahi.gov.bd'),
+(1267, 141, 'Kamargaon', 'à¦•à¦¾à¦®à¦¾à¦°à¦—à¦¾à¦', 'kamargaonup.rajshahi.gov.bd'),
+(1268, 141, 'Chanduria', 'à¦šà¦¾à¦¨à§à¦¦à§à¦¡à¦¼à', 'chanduriaup.rajshahi.gov.bd'),
+(1269, 142, 'Gobindopara', 'à¦—à§‹à¦¬à¦¿à¦¨à§à¦¦à¦ªà', 'gobindoparaup.rajshahi.gov.bd'),
+(1270, 142, 'Nordas', 'à¦¨à¦°à¦¦à¦¾à¦¸', 'nordasup.rajshahi.gov.bd'),
+(1271, 142, 'Dippur', 'à¦¦à§à¦¬à§€à¦ªà¦ªà§à¦°', 'dippurup.rajshahi.gov.bd'),
+(1272, 142, 'Borobihanoli', 'à¦¬à¦¡à¦¼à¦¬à¦¿à¦¹à¦¾à¦¨à', 'borobihanoliup.rajshahi.gov.bd'),
+(1273, 142, 'Auchpara', 'à¦†à¦‰à¦šà¦ªà¦¾à¦¡à¦¼à¦¾', 'auchparaup.rajshahi.gov.bd'),
+(1274, 142, 'Sreepur', 'à¦¶à§à¦°à§€à¦ªà§à¦°', 'sreepurup.rajshahi.gov.bd'),
+(1275, 142, 'Basupara', 'à¦¬à¦¾à¦¸à§à¦ªà¦¾à¦¡à¦¼à', 'basuparaup.rajshahi.gov.bd'),
+(1276, 142, 'Kacharikoalipara', 'à¦•à¦¾à¦šà¦¾à¦¡à¦¼à§€ à¦•', 'kacharikoaliparaup.rajshahi.gov.bd'),
+(1277, 142, 'Suvodanga', 'à¦¶à§à¦­à¦¡à¦¾à¦™à§à¦—à', 'suvodangaup.rajshahi.gov.bd'),
+(1278, 142, 'Mariaup', 'à¦®à¦¾à¦¡à¦¼à¦¿à¦¯à¦¼à¦¾', 'mariaup10.rajshahi.gov.bd'),
+(1279, 142, 'Ganipur', 'à¦—à¦£à¦¿à¦ªà§à¦°', 'ganipurup.rajshahi.gov.bd'),
+(1280, 142, 'Zhikara', 'à¦à¦¿à¦•à¦¡à¦¼à¦¾', 'zhikaraup.rajshahi.gov.bd'),
+(1281, 142, 'Gualkandi', 'à¦—à§‹à¦¯à¦¼à¦¾à¦²à¦•à¦¾à', 'gualkandiup.rajshahi.gov.bd'),
+(1282, 142, 'Hamirkutsa', 'à¦¹à¦¾à¦®à¦¿à¦°à¦•à§à§Žà', 'hamirkutsaup.rajshahi.gov.bd'),
+(1283, 142, 'Jogipara', 'à¦¯à§‹à¦—à¦¿à¦ªà¦¾à¦¡à¦¼à', 'jogiparaup.rajshahi.gov.bd'),
+(1284, 142, 'Sonadanga', 'à¦¸à§‹à¦¨à¦¾à¦¡à¦¾à¦™à§à', 'sonadangaup.rajshahi.gov.bd'),
+(1285, 143, 'Brahmapur', 'à¦¬à§à¦°à¦¹à§à¦®à¦ªà§à', 'brahmapurup.natore.gov.bd'),
+(1286, 143, 'Madhnagar', 'à¦®à¦¾à¦§à¦¨à¦—à¦°', 'madhnagar.natore.gov.bd'),
+(1287, 143, 'Khajura', 'à¦–à¦¾à¦œà§à¦°à¦¾', 'khajura.bdgovportal.com'),
+(1288, 143, 'Piprul', 'à¦ªà¦¿à¦ªà¦°à§à¦²', 'piprulup.natore.gov.bd'),
+(1289, 143, 'Biprobelghoria', 'à¦¬à¦¿à¦ªà§à¦°à¦¬à§‡à¦²à', 'biprobelghoria.bdgovportal.com'),
+(1290, 143, 'Chhatni', 'à¦›à¦¾à¦¤à¦¨à§€', 'chhatni.bdgovportal.com'),
+(1291, 143, 'Tebaria', 'à¦¤à§‡à¦¬à¦¾à¦¡à¦¼à¦¿à¦¯à', 'tebariaup.natore.gov.bd'),
+(1292, 143, 'Dighapatia', 'à¦¦à¦¿à¦˜à¦¾à¦ªà¦¤à¦¿à¦¯à', 'dighapatiaup.natore.gov.bd'),
+(1293, 143, 'Luxmipurkholabaria', 'à¦²à¦•à§à¦·à§€à¦ªà§à¦° ', 'luxmipurkholabariaup.natore.gov.bd'),
+(1294, 143, 'Barahorispur', 'à¦¬à¦¡à¦¼à¦¹à¦°à¦¿à¦¶à¦ªà', 'barahorispur.bdgovportal.com'),
+(1295, 143, 'Kaphuria', 'à¦•à¦¾à¦«à§à¦°à¦¿à¦¯à¦¼à', 'kaphuria.bdgovportal.com'),
+(1296, 143, 'Halsa', 'à¦¹à¦¾à¦²à¦¸à¦¾', 'halsa.natore.gov.bd'),
+(1297, 144, 'Sukash', 'à¦¶à§à¦•à¦¾à¦¶', 'sukashup.natore.gov.bd'),
+(1298, 144, 'Dahia', 'à¦¡à¦¾à¦¹à¦¿à¦¯à¦¼à¦¾', 'dahiaup.natore.gov.bd'),
+(1299, 144, 'Italy', 'à¦‡à¦Ÿà¦¾à¦²à§€', 'italyup.natore.gov.bd'),
+(1300, 144, 'Kalam', 'à¦•à¦²à¦®', 'kalamup.natore.gov.bd'),
+(1301, 144, 'Chamari', 'à¦šà¦¾à¦®à¦¾à¦°à§€', 'chamariup.natore.gov.bd'),
+(1302, 144, 'Hatiandaha', 'à¦¹à¦¾à¦¤à¦¿à¦¯à¦¼à¦¾à¦¨à', 'hatiandahaup.natore.gov.bd'),
+(1303, 144, 'Lalore', 'à¦²à¦¾à¦²à§‹à¦°', 'laloreup.natore.gov.bd'),
+(1304, 144, 'Sherkole', 'à¦¶à§‡à¦°à¦•à§‹à¦²', 'sherkoleup.natore.gov.bd'),
+(1305, 144, 'Tajpur', 'à¦¤à¦¾à¦œà¦ªà§à¦°', 'tajpurup.natore.gov.bd'),
+(1306, 144, 'Chaugram', 'à¦šà§Œà¦—à§à¦°à¦¾à¦®', 'chaugramup.natore.gov.bd'),
+(1307, 144, 'Chhatardighi', 'à¦›à¦¾à¦¤à¦¾à¦°à¦¦à¦¿à¦˜à', 'chhatardighiup.natore.gov.bd'),
+(1308, 144, 'Ramanandakhajura', 'à¦°à¦¾à¦®à¦¾à¦¨à§à¦¦à¦–à', 'ramanandakhajuraup.natore.gov.bd'),
+(1309, 145, 'Joari', 'à¦œà§‹à¦¯à¦¼à¦¾à¦¡à¦¼à§€', 'joariup.natore.gov.bd'),
+(1310, 145, 'Baraigram', 'à¦¬à¦¡à¦¼à¦¾à¦‡à¦—à§à¦°à', 'baraigramup.natore.gov.bd'),
+(1311, 145, 'Zonail', 'à¦œà§‹à¦¨à¦¾à¦‡à¦²', 'zonailup.natore.gov.bd'),
+(1312, 145, 'Nagor', 'à¦¨à¦—à¦°', 'nagorup.natore.gov.bd'),
+(1313, 145, 'Majgoan', 'à¦®à¦¾à¦à¦—à¦¾à¦“', 'majgoanup.natore.gov.bd'),
+(1314, 145, 'Gopalpur', 'à¦—à§‹à¦ªà¦¾à¦²à¦ªà§à¦°', 'gopalpurup.natore.gov.bd'),
+(1315, 145, 'Chandai', 'à¦šà¦¾à¦¨à§à¦¦à¦¾à¦‡', 'chandai.bdgovportal.com'),
+(1316, 146, 'Panka', 'à¦ªà¦¾à¦à¦•à¦¾', 'pankaup.natore.gov.bd'),
+(1317, 146, 'Jamnagor', 'à¦œà¦¾à¦®à¦¨à¦—à¦°', 'jamnagorup.natore.gov.bd'),
+(1318, 146, 'Bagatipara', 'à¦¬à¦¾à¦—à¦¾à¦¤à¦¿à¦ªà¦¾à', 'bagatiparaup.natore.gov.bd'),
+(1319, 146, 'Dayarampur', 'à¦¦à¦¯à¦¼à¦¾à¦°à¦¾à¦®à¦ªà', 'dayarampurup.natore.gov.bd'),
+(1320, 146, 'Faguardiar', 'à¦«à¦¾à¦—à§à¦¯à¦¼à¦¾à¦°à', 'faguardiarup.natore.gov.bd'),
+(1321, 147, 'Lalpur', 'à¦²à¦¾à¦²à¦ªà§à¦°', 'lalpurup.natore.gov.bd'),
+(1322, 147, 'Iswardi', 'à¦ˆà¦¶à§à¦¬à¦°à¦¦à§€', 'iswardiup.natore.gov.bd'),
+(1323, 147, 'Chongdhupoil', 'à¦šà¦‚à¦§à§à¦ªà¦‡à¦²', 'chongdhupoilup.natore.gov.bd'),
+(1324, 147, 'Arbab', 'à¦†à¦¡à¦¼à¦¬à¦¾à¦¬', 'arbabup.natore.gov.bd'),
+(1325, 147, 'Bilmaria', 'à¦¬à¦¿à¦²à¦®à¦¾à¦¡à¦¼à¦¿à', 'bilmariaup.natore.gov.bd'),
+(1326, 147, 'Duaria', 'à¦¦à§à¦¯à¦¼à¦¾à¦°à¦¿à¦¯à', 'duariaup.natore.gov.bd'),
+(1327, 147, 'Oalia', 'à¦“à¦¯à¦¼à¦¾à¦²à¦¿à¦¯à¦¼à', 'oaliaup.natore.gov.bd'),
+(1328, 147, 'Durduria', 'à¦¦à§à¦¡à¦¼à¦¦à§à¦°à¦¿à', 'durduriaup.natore.gov.bd'),
+(1329, 147, 'Arjunpur', 'à¦…à¦°à§à¦œà§à¦¨à¦ªà§à', 'arjunpurup.natore.gov.bd'),
+(1330, 147, 'Kadimchilan', 'à¦•à¦¦à¦¿à¦®à¦šà¦¿à¦²à¦¾à', 'kadimchilanup.natore.gov.bd'),
+(1331, 148, 'Nazirpur', 'à¦¨à¦¾à¦œà¦¿à¦°à¦ªà§à¦°', 'nazirpurup.natore.gov.bd'),
+(1332, 148, 'Biaghat', 'à¦¬à¦¿à¦¯à¦¼à¦¾à¦˜à¦¾à¦Ÿ', 'biaghatup.natore.gov.bd'),
+(1333, 148, 'Khubjipur', 'à¦–à§à¦¬à¦œà§€à¦ªà§à¦°', 'khubjipurup.natore.gov.bd'),
+(1334, 148, 'Dharabarisha', 'à¦§à¦¾à¦°à¦¾à¦¬à¦¾à¦°à¦¿à', 'dharabarishaup.natore.gov.bd'),
+(1335, 148, 'Moshindha', 'à¦®à¦¸à¦¿à¦¨à§à¦¦à¦¾', 'moshindhaup.natore.gov.bd'),
+(1336, 148, 'Chapila', 'à¦šà¦¾à¦ªà¦¿à¦²à¦¾', 'chapilaup.natore.gov.bd'),
+(1337, 150, 'Rukindipur', 'à¦°à§à¦•à¦¿à¦¨à§à¦¦à§€à', 'rukindipurup.joypurhat.gov.bd'),
+(1338, 150, 'Sonamukhi', 'à¦¸à§‹à¦¨à¦¾à¦®à§‚à¦–à§€', 'sonamukhiup.joypurhat.gov.bd'),
+(1339, 150, 'Tilakpur', 'à¦¤à¦¿à¦²à¦•à¦ªà§à¦°', 'tilakpurup.joypurhat.gov.bd'),
+(1340, 150, 'Raikali', 'à¦°à¦¾à§Ÿà¦•à¦¾à¦²à§€', 'raikaliup.joypurhat.gov.bd'),
+(1341, 150, 'Gopinathpur', 'à¦—à§‹à¦ªà§€à¦¨à¦¾à¦¥à¦ªà', 'gopinathpurup.joypurhat.gov.bd'),
+(1342, 151, 'Matrai', 'à¦®à¦¾à¦¤à§à¦°à¦¾à¦‡', 'matraiup.joypurhat.gov.bd'),
+(1343, 151, 'Ahammedabad', 'à¦†à¦¹à¦®à§à¦®à§‡à¦¦à¦¾à', 'ahammedabadup.joypurhat.gov.bd'),
+(1344, 151, 'Punot', 'à¦ªà§à¦¨à¦Ÿ', 'punotup.joypurhat.gov.bd'),
+(1345, 151, 'Zindarpur', 'à¦œà¦¿à¦¨à§à¦¦à¦¾à¦°à¦ªà', 'zindarpurup.joypurhat.gov.bd'),
+(1346, 151, 'Udaipur', 'à¦‰à¦¦à§Ÿà¦ªà§à¦°', 'udaipurup.joypurhat.gov.bd'),
+(1347, 152, 'Alampur', 'à¦†à¦²à¦®à¦ªà§à¦°', 'alampurup.joypurhat.gov.bd'),
+(1348, 152, 'Borail', 'à¦¬à§œà¦¾à¦‡à¦²', 'borailup.joypurhat.gov.bd'),
+(1349, 152, 'Tulshiganga', ' à¦¤à§à¦²à¦¶à§€à¦—à¦‚à¦—', 'tulshigangaup.joypurhat.gov.bd'),
+(1350, 152, 'Mamudpur', 'à¦®à¦¾à¦®à§à¦¦à¦ªà§à¦°', 'mamudpurup.joypurhat.gov.bd'),
+(1351, 152, 'Boratara', 'à¦¬à§œà¦¤à¦¾à¦°à¦¾', 'borataraup.joypurhat.gov.bd'),
+(1352, 153, 'Bagjana', 'à¦¬à¦¾à¦—à¦œà¦¾à¦¨à¦¾', 'bagjanaup.joypurhat.gov.bd'),
+(1353, 153, 'Dharanji', 'à¦§à¦°à¦žà§à¦œà¦¿', 'dharanjiup.joypurhat.gov.bd'),
+(1354, 153, 'Aymarasulpur', 'à¦†à§Ÿà¦®à¦¾à¦°à¦¸à§à¦²à', 'aymarasulpurup.joypurhat.gov.bd'),
+(1355, 153, 'Balighata', 'à¦¬à¦¾à¦²à¦¿à¦˜à¦¾à¦Ÿà¦¾', 'balighataup.joypurhat.gov.bd'),
+(1356, 153, 'Atapur', 'à¦†à¦Ÿà¦¾à¦ªà§à¦°', 'atapurup.joypurhat.gov.bd'),
+(1357, 153, 'Mohammadpur', 'à¦®à§‹à¦¹à¦¾à¦®à§à¦®à¦¦à', 'mohammadpurup.joypurhat.gov.bd'),
+(1358, 153, 'Aolai', 'à¦†à¦“à¦²à¦¾à¦‡', 'aolaiup.joypurhat.gov.bd'),
+(1359, 153, 'Kusumba', 'à¦•à§à¦¸à§à¦®à§à¦¬à¦¾', 'kusumbaup.joypurhat.gov.bd'),
+(1360, 154, 'Amdai', 'à¦†à¦®à¦¦à¦‡', 'amdaiup.joypurhat.gov.bd'),
+(1361, 154, 'Bamb', 'à¦¬à¦®à§à¦¬à§', 'bambuup.joypurhat.gov.bd'),
+(1362, 154, 'Dogachi', 'à¦¦à§‹à¦—à¦¾à¦›à¦¿', 'dogachiup.joypurhat.gov.bd'),
+(1363, 154, 'Puranapail', 'à¦ªà§à¦°à¦¾à¦¨à¦¾à¦ªà§ˆà', 'puranapailup.joypurhat.gov.bd'),
+(1364, 154, 'Jamalpur', 'à¦œà¦¾à¦®à¦¾à¦²à¦ªà§à¦°', 'jamalpurup.joypurhat.gov.bd'),
+(1365, 154, 'Chakborkat', 'à¦šà¦•à¦¬à¦°à¦•à¦¤', 'chakborkatup.joypurhat.gov.bd'),
+(1366, 154, 'Mohammadabad', 'à¦®à§‹à¦¹à¦¾à¦®à§à¦®à¦¦à', 'mohammadabadup.joypurhat.gov.bd'),
+(1367, 154, 'Dhalahar', 'à¦§à¦²à¦¾à¦¹à¦¾à¦°', 'dhalaharup.joypurhat.gov.bd'),
+(1368, 154, 'Bhadsha', 'à¦­à¦¾à¦¦à¦¸à¦¾', 'bhadshaup.joypurhat.gov.bd'),
+(1369, 155, 'Alatuli', 'à¦†à¦²à¦¾à¦¤à§à¦²à§€', 'alatuliup.chapainawabganj.gov.bd'),
+(1370, 155, 'Baroghoria', 'à¦¬à¦¾à¦°à¦˜à¦°à¦¿à§Ÿà¦¾', 'baroghoriaup.chapainawabganj.gov.bd'),
+(1371, 155, 'Moharajpur', 'à¦®à¦¹à¦¾à¦°à¦¾à¦œà¦ªà§à', 'moharajpurup.chapainawabganj.gov.bd'),
+(1372, 155, 'Ranihati', 'à¦°à¦¾à¦¨à§€à¦¹à¦¾à¦Ÿà¦¿', 'ranihatiup.chapainawabganj.gov.bd'),
+(1373, 155, 'Baliadanga', 'à¦¬à¦¾à¦²à¦¿à§Ÿà¦¾à¦¡à¦¾à', 'baliadangaup.chapainawabganj.gov.bd'),
+(1374, 155, 'Gobratola', 'à¦—à§‹à¦¬à¦°à¦¾à¦¤à¦²à¦¾', 'gobratolaup.chapainawabganj.gov.bd'),
+(1375, 155, 'Jhilim', 'à¦à¦¿à¦²à¦¿à¦®', 'jhilimup.chapainawabganj.gov.bd'),
+(1376, 155, 'Char Anupnagar', 'à¦šà¦° à¦…à¦¨à§à¦ªà¦¨à¦—', 'charaunupnagarup.chapainawabganj.gov.bd'),
+(1377, 155, 'Debinagar', 'à¦¦à§‡à¦¬à§€à¦¨à¦—à¦°', 'debinagarup.chapainawabganj.gov.bd'),
+(1378, 155, 'Shahjahanpur', 'à¦¶à¦¾à¦¹à¦œà¦¾à¦¹à¦¾à¦¨à', 'shahjahanpurup.chapainawabganj.gov.bd'),
+(1379, 155, 'Islampur', 'à¦‡à¦¸à¦²à¦¾à¦®à¦ªà§à¦°', 'islampurup.chapainawabganj.gov.bd'),
+(1380, 155, 'Charbagdanga', 'à¦šà¦°à¦¬à¦¾à¦—à¦¡à¦¾à¦™à', 'charbagdangaup.chapainawabganj.gov.bd'),
+(1381, 155, 'Narayanpur', 'à¦¨à¦¾à¦°à¦¾à§Ÿà¦¨à¦ªà§à', 'narayanpurup.chapainawabganj.gov.bd'),
+(1382, 155, 'Sundarpur', 'à¦¸à§à¦¨à§à¦¦à¦°à¦ªà§à', 'sundarpurup.chapainawabganj.gov.bd'),
+(1383, 156, 'Radhanagar', 'à¦°à¦¾à¦§à¦¾à¦¨à¦—à¦°', 'radhanagarup.chapainawabganj.gov.bd'),
+(1384, 156, 'Rahanpur', 'à¦°à¦¹à¦¨à¦ªà§à¦°', 'rahanpurup.chapainawabganj.gov.bd'),
+(1385, 156, 'Boalia', 'à¦¬à§‹à§Ÿà¦¾à¦²à¦¿à§Ÿà¦¾', 'boaliaup.chapainawabganj.gov.bd'),
+(1386, 156, 'Bangabari', 'à¦¬à¦¾à¦™à§à¦—à¦¾à¦¬à¦¾à', 'bangabariup.chapainawabganj.gov.bd'),
+(1387, 156, 'Parbotipur', 'à¦ªà¦¾à¦°à§à¦¬à¦¤à§€à¦ªà', 'parbotipurup.chapainawabganj.gov.bd'),
+(1388, 156, 'Chowdala', 'à¦šà§Œà¦¡à¦¾à¦²à¦¾', 'chowdalaup.chapainawabganj.gov.bd'),
+(1389, 156, 'Gomostapur', 'à¦—à§‹à¦®à¦¸à§à¦¤à¦¾à¦ªà', 'gomostapurup.chapainawabganj.gov.bd'),
+(1390, 156, 'Alinagar', 'à¦†à¦²à§€à¦¨à¦—à¦°', 'alinagarup.chapainawabganj.gov.bd'),
+(1391, 157, 'Fhotepur', 'à¦«à¦¤à§‡à¦ªà§à¦°', 'fhotepurup.chapainawabganj.gov.bd'),
+(1392, 157, 'Kosba', 'à¦•à¦¸à¦¬à¦¾', 'kosbaup.chapainawabganj.gov.bd'),
+(1393, 157, 'Nezampur', 'à¦¨à§‡à¦œà¦¾à¦®à¦ªà§à¦°', 'nezampurup.chapainawabganj.gov.bd'),
+(1394, 157, 'Nachol', 'à¦¨à¦¾à¦šà§‹à¦²', 'nacholup.chapainawabganj.gov.bd'),
+(1395, 158, 'Bholahat', 'à¦­à§‹à¦²à¦¾à¦¹à¦¾à¦Ÿ', 'bholahatup.chapainawabganj.gov.bd'),
+(1396, 158, 'Jambaria', 'à¦œà¦¾à¦®à¦¬à¦¾à§œà¦¿à§Ÿà', 'jambariaup.chapainawabganj.gov.bd'),
+(1397, 158, 'Gohalbari', 'à¦—à§‹à¦¹à¦¾à¦²à¦¬à¦¾à§œà', 'gohalbariup.chapainawabganj.gov.bd'),
+(1398, 158, 'Daldoli', 'à¦¦à¦²à¦¦à¦²à§€', 'daldoliup.chapainawabganj.gov.bd'),
+(1399, 159, 'Binodpur', 'à¦¬à¦¿à¦¨à§‹à¦¦à¦ªà§à¦°', 'binodpurup.chapainawabganj.gov.bd'),
+(1400, 159, 'Chakkirti', 'à¦šà¦•à¦•à¦¿à¦°à§à¦¤à§€', 'chakkirtiup.chapainawabganj.gov.bd'),
+(1401, 159, 'Daipukuria', 'à¦¦à¦¾à¦‡à¦ªà§à¦•à§à¦°à', 'daipukuriaup.chapainawabganj.gov.bd'),
+(1402, 159, 'Dhainagar', 'à¦§à¦¾à¦‡à¦¨à¦—à¦°', 'dhainagarup.chapainawabganj.gov.bd'),
+(1403, 159, 'Durlovpur', 'à¦¦à§à¦°à§à¦²à¦­à¦ªà§à', 'durlovpurup.chapainawabganj.gov.bd'),
+(1404, 159, 'Ghorapakhia', 'à¦˜à§‹à§œà¦¾à¦ªà¦¾à¦–à¦¿à', 'ghorapakhiaup.chapainawabganj.gov.bd'),
+(1405, 159, 'Mobarakpur', 'à¦®à§‹à¦¬à¦¾à¦°à¦•à¦ªà§à', 'mobarakpurup.chapainawabganj.gov.bd'),
+(1406, 159, 'Monakasha', 'à¦®à¦¨à¦¾à¦•à¦·à¦¾', 'monakashaup.chapainawabganj.gov.bd'),
+(1407, 159, 'Noyalavanga', 'à¦¨à§Ÿà¦¾à¦²à¦¾à¦­à¦¾à¦™à', 'noyalavangaup.chapainawabganj.gov.bd'),
+(1408, 159, 'Panka', 'à¦ªà¦¾à¦à¦•à¦¾', 'pankaup.chapainawabganj.gov.bd'),
+(1409, 159, 'Chatrajitpur', 'à¦›à¦¤à§à¦°à¦¾à¦œà¦¿à¦¤à', 'chhatrajitpurup.chapainawabganj.gov.bd'),
+(1410, 159, 'Shahabajpur', 'à¦¶à¦¾à¦¹à¦¾à¦¬à¦¾à¦œà¦ªà', 'shahabajpurup.chapainawabganj.gov.bd'),
+(1411, 159, 'Shyampur', 'à¦¶à§à¦¯à¦¾à¦®à¦ªà§à¦°', 'shyampurup.chapainawabganj.gov.bd'),
+(1412, 159, 'Kansat', 'à¦•à¦¾à¦¨à¦¸à¦¾à¦Ÿ', 'kansatup.bdgovportal.com'),
+(1413, 159, 'Ujirpur', 'à¦‰à¦œà¦¿à¦°à¦ªà§à¦°', 'ujirpurup.chapainawabganj.gov.bd'),
+(1414, 160, '1nomohadevpur', 'à¦®à¦¹à¦¾à¦¦à§‡à¦¬à¦ªà§à', '1nomohadevpurup.naogaon.gov.bd'),
+(1415, 160, 'Hatur', 'à¦¹à¦¾à¦¤à§à§œ', '2nohaturup.naogaon.gov.bd'),
+(1416, 160, 'Khajur', 'à¦–à¦¾à¦œà§à¦°', '3nokhajurup.naogaon.gov.bd'),
+(1417, 160, 'Chandas', 'à¦šà¦¾à¦à¦¨à§à¦¦à¦¾à¦¶', '4nochandasup.naogaon.gov.bd'),
+(1418, 160, 'Enayetpur', 'à¦à¦¨à¦¾à§Ÿà§‡à¦¤à¦ªà§à', '6noenayetpurup.naogaon.gov.bd'),
+(1419, 160, 'Sofapur', 'à¦¸à¦«à¦¾à¦ªà§à¦°', '7nosofapurup.naogaon.gov.bd'),
+(1420, 160, 'Uttargram', 'à¦‰à¦¤à§à¦¤à¦°à¦—à§à¦°à', '8nouttargramup.naogaon.gov.bd'),
+(1421, 160, 'Cheragpur', 'à¦šà§‡à¦°à¦¾à¦—à¦ªà§à¦°', '9nocheragpurup.naogaon.gov.bd'),
+(1422, 160, 'Vimpur', 'à¦­à§€à¦®à¦ªà§à¦°', '10novimpurup.naogaon.gov.bd'),
+(1423, 160, 'Roygon', 'à¦°à¦¾à¦‡à¦—à¦¾à¦', 'roygonup.naogaon.gov.bd'),
+(1424, 161, 'Badalgachi', 'à¦¬à¦¦à¦²à¦—à¦¾à¦›à§€', '1nobadalgachiup.naogaon.gov.bd'),
+(1425, 161, 'Mothurapur', 'à¦®à¦¥à§à¦°à¦¾à¦ªà§à¦°', '2nomothurapurup.naogaon.gov.bd'),
+(1426, 161, 'Paharpur', 'à¦ªà¦¾à¦¹à¦¾à¦°à¦ªà§à¦°', '3nopaharpurup.naogaon.gov.bd'),
+(1427, 161, 'Mithapur', 'à¦®à¦¿à¦ à¦¾à¦ªà§à¦°', '4nomithapurup.naogaon.gov.bd'),
+(1428, 161, 'Kola', 'à¦•à§‹à¦²à¦¾', '5nokolaup.naogaon.gov.bd'),
+(1429, 161, 'Bilashbari', 'à¦¬à¦¿à¦²à¦¾à¦¶à¦¬à¦¾à§œà', '6nobilashbariup.naogaon.gov.bd'),
+(1430, 161, 'Adhaipur', 'à¦†à¦§à¦¾à¦‡à¦ªà§à¦°', '7noadhaipurup.naogaon.gov.bd'),
+(1431, 161, 'Balubhara', 'à¦¬à¦¾à¦²à§à¦­à¦°à¦¾', '8nobalubharaup.naogaon.gov.bd'),
+(1432, 162, 'Patnitala', 'à¦ªà¦¤à§à¦¨à§€à¦¤à¦²à¦¾', '1nopatnitalaup.naogaon.gov.bd'),
+(1433, 162, 'Nirmail', 'à¦¨à¦¿à¦®à¦‡à¦²', '2nonirmailup.naogaon.gov.bd'),
+(1434, 162, 'Dibar', 'à¦¦à¦¿à¦¬à¦°', '3nodibarup.naogaon.gov.bd'),
+(1435, 162, 'Akbarpur', 'à¦†à¦•à¦¬à¦°à¦ªà§à¦°', '4noakbarpurup.naogaon.gov.bd'),
+(1436, 162, 'Matindar', 'à¦®à¦¾à¦Ÿà¦¿à¦¨à§à¦¦à¦°', '5nomatindarup.naogaon.gov.bd'),
+(1437, 162, 'Krishnapur', 'à¦•à§ƒà¦·à§à¦£à¦ªà§à¦°', '6nokrishnapurup.naogaon.gov.bd'),
+(1438, 162, 'Patichrara', 'à¦ªà¦¾à¦Ÿà¦¿à¦šà§œà¦¾', '7nopatichraraup.naogaon.gov.bd'),
+(1439, 162, 'Nazipur', 'à¦¨à¦œà¦¿à¦ªà§à¦°', '8nonazipurup.naogaon.gov.bd'),
+(1440, 162, 'Ghasnagar', 'à¦˜à¦·à¦¨à¦—à¦°', '9noghasnagarup.naogaon.gov.bd'),
+(1441, 162, 'Amair', 'à¦†à¦®à¦¾à¦‡à§œ', '10noamairup.naogaon.gov.bd'),
+(1442, 162, 'Shihara', 'à¦¶à¦¿à¦¹à¦¾à¦°à¦¾', '11noahiharaup.naogaon.gov.bd'),
+(1443, 163, 'Dhamoirhat', 'à¦§à¦¾à¦®à¦‡à¦°à¦¹à¦¾à¦Ÿ', '1nodhamoirhatup.naogaon.gov.bd'),
+(1444, 163, 'Alampur', 'à¦†à¦²à¦®à¦ªà§à¦°', '3noalampurup.naogaon.gov.bd'),
+(1445, 163, 'Umar', 'à¦‰à¦®à¦¾à¦°', '4noumarup.naogaon.gov.bd'),
+(1446, 163, 'Aranagar', 'à¦†à§œà¦¾à¦¨à¦—à¦°', '5noaranagarup.naogaon.gov.bd'),
+(1447, 163, 'Jahanpur', 'à¦œà¦¾à¦¹à¦¾à¦¨à¦ªà§à¦°', '6nojahanpurup.naogaon.gov.bd'),
+(1448, 163, 'Isabpur', 'à¦‡à¦¸à¦¬à¦ªà§à¦°', '7noisabpurup.naogaon.gov.bd'),
+(1449, 163, 'Khelna', 'à¦–à§‡à¦²à¦¨à¦¾', '8nokhelnaup.naogaon.gov.bd'),
+(1450, 163, 'Agradigun', 'à¦†à¦—à§à¦°à¦¾à¦¦à§à¦¬à', '2noagradigunup.naogaon.gov.bd'),
+(1451, 164, 'Hajinagar', 'à¦¹à¦¾à¦œà§€à¦¨à¦—à¦°', '1nohajinagarup.naogaon.gov.bd'),
+(1452, 164, 'Chandannagar', 'à¦šà¦¨à§à¦¦à¦¨à¦¨à¦—à¦°', '2nochandannagarup.naogaon.gov.bd'),
+(1453, 164, 'Bhabicha', 'à¦­à¦¾à¦¬à¦¿à¦šà¦¾', '3nobhabichaup.naogaon.gov.bd'),
+(1454, 164, 'Niamatpur', 'à¦¨à¦¿à§Ÿà¦¾à¦®à¦¤à¦ªà§à', '4noniamatpurup.naogaon.gov.bd'),
+(1455, 164, 'Rasulpur', 'à¦°à¦¸à§à¦²à¦ªà§à¦°', '5norasulpurup.naogaon.gov.bd'),
+(1456, 164, 'Paroil', 'à¦ªà¦¾à§œà¦‡à¦²', '6noparoilup.naogaon.gov.bd'),
+(1457, 164, 'Sremantapur', 'à¦¶à§à¦°à§€à¦®à¦¨à§à¦¤à', '7nosremantapurup.naogaon.gov.bd'),
+(1458, 164, 'Bahadurpur', 'à¦¬à¦¾à¦¹à¦¾à¦¦à§à¦°à¦ªà', '8nobahadurpurup.naogaon.gov.bd'),
+(1459, 165, 'Varsho', 'à¦­à¦¾à¦°à¦¶à§‹', '1novarshoup.naogaon.gov.bd'),
+(1460, 165, 'Valain', 'à¦­à¦¾à¦²à¦¾à¦‡à¦¨', '2novalainup.naogaon.gov.bd'),
+(1461, 165, 'Paranpur', 'à¦ªà¦°à¦¾à¦¨à¦ªà§à¦°', '3noparanpurup.naogaon.gov.bd'),
+(1462, 165, 'Manda', 'à¦®à¦¾à¦¨à§à¦¦à¦¾', '4nomandaup.naogaon.gov.bd'),
+(1463, 165, 'Goneshpur', 'à¦—à¦¨à§‡à¦¶à¦ªà§à¦°', '5nogoneshpurup.naogaon.gov.bd'),
+(1464, 165, 'Moinom', 'à¦®à§ˆà¦¨à¦®', '6nomoinomup.naogaon.gov.bd'),
+(1465, 165, 'Proshadpur', 'à¦ªà§à¦°à¦¸à¦¾à¦¦à¦ªà§à', '7noproshadpurup.naogaon.gov.bd'),
+(1466, 165, 'Kosomba', 'à¦•à§à¦¸à§à¦®à§à¦¬à¦¾', '8nokosombaup.naogaon.gov.bd'),
+(1467, 165, 'Tetulia', 'à¦¤à§‡à¦à¦¤à§à¦²à¦¿à§Ÿà', '9notetuliaup.naogaon.gov.bd'),
+(1468, 165, 'Nurullabad', 'à¦¨à§‚à¦°à§à¦²à§à¦¯à¦¾à', '10nonurullabadup.naogaon.gov.bd'),
+(1469, 165, 'Kalikapur', 'à¦•à¦¾à¦²à¦¿à¦•à¦¾à¦ªà§à', '11nokalikapurup.naogaon.gov.bd'),
+(1470, 165, 'Kashopara', 'à¦•à¦¾à¦à¦¶à§‹à¦•à¦¾à¦ªà', '12nokashoparaup.naogaon.gov.bd'),
+(1471, 165, 'Koshob', 'à¦•à¦¶à¦¬', '13nokoshobup.naogaon.gov.bd'),
+(1472, 165, 'Bisnopur', 'à¦¬à¦¿à¦·à§à¦£à¦ªà§à¦°', '14nobisnopurup.naogaon.gov.bd'),
+(1473, 166, 'Shahagola', 'à¦¶à¦¾à¦¹à¦¾à¦—à§‹à¦²à¦¾', '1noshahagolaup.naogaon.gov.bd'),
+(1474, 166, 'Bhonpara', 'à¦­à§‹à¦à¦ªà§œà¦¾', '2nobhonparaup.naogaon.gov.bd'),
+(1475, 166, 'Ahsanganj', 'à¦†à¦¹à¦¸à¦¾à¦¨à¦—à¦žà§à', '3noahsanganjup.naogaon.gov.bd'),
+(1476, 166, 'Panchupur', 'à¦ªà¦¾à¦à¦šà§à¦ªà§à¦°', '4nopanchupurup.naogaon.gov.bd'),
+(1477, 166, 'Bisha', 'à¦¬à¦¿à¦¶à¦¾', '5nobishaup.naogaon.gov.bd'),
+(1478, 166, 'Maniary', 'à¦®à¦¨à¦¿à§Ÿà¦¾à¦°à§€', '6nomaniaryup.naogaon.gov.bd'),
+(1479, 166, 'Kalikapur', 'à¦•à¦¾à¦²à¦¿à¦•à¦¾à¦ªà§à', '7nokalikapurup.naogaon.gov.bd'),
+(1480, 166, 'Hatkalupara', 'à¦¹à¦¾à¦Ÿà¦•à¦¾à¦²à§à¦ªà', '8nohatkaluparaup.naogaon.gov.bd'),
+(1481, 167, 'Khatteshawr', 'à¦–à¦Ÿà§à¦Ÿà§‡à¦¶à§à¦¬à', '1nokhatteshawrup.naogaon.gov.bd'),
+(1482, 167, 'Kashimpur', 'à¦•à¦¾à¦¶à¦¿à¦®à¦ªà§à¦°', '2nokashimpurup.naogaon.gov.bd'),
+(1483, 167, 'Gona', 'à¦—à§‹à¦¨à¦¾', '3nogonaup.naogaon.gov.bd'),
+(1484, 167, 'Paroil', 'à¦ªà¦¾à¦°à¦‡à¦²', '4noparoilup.naogaon.gov.bd'),
+(1485, 167, 'Borgoca', 'à¦¬à¦°à¦—à¦¾à¦›à¦¾', '5noborgocaup.naogaon.gov.bd'),
+(1486, 167, 'Kaligram', 'à¦•à¦¾à¦²à¦¿à¦—à§à¦°à¦¾à', '6nokaligramup.naogaon.gov.bd'),
+(1487, 167, 'Ekdala', 'à¦à¦•à¦¡à¦¾à¦²à¦¾', '7noekdalaup.naogaon.gov.bd'),
+(1488, 167, 'Mirat', 'à¦®à¦¿à¦°à¦¾à¦Ÿ', '8nomiratup.naogaon.gov.bd'),
+(1489, 168, 'Barshail', 'à¦¬à¦°à§à¦·à¦¾à¦‡à¦²', '1nobarshailup.naogaon.gov.bd'),
+(1490, 168, 'Kritipur', 'à¦•à¦¿à¦°à§à¦¤à§à¦¤à¦¿à', '2nokritipurup.naogaon.gov.bd'),
+(1491, 168, 'Baktiarpur', 'à¦¬à¦•à§à¦¤à¦¾à¦°à¦ªà§à', '3nobaktiarpurup.naogaon.gov.bd'),
+(1492, 168, 'Tilakpur', 'à¦¤à¦¿à¦²à§‹à¦•à¦ªà§à¦°', '4notilakpurup.naogaon.gov.bd'),
+(1493, 168, 'Hapaniya', 'à¦¹à¦¾à¦ªà¦¾à¦¨à¦¿à§Ÿà¦¾', '5nohapaniyaup.naogaon.gov.bd'),
+(1494, 168, 'Dubalhati', 'à¦¦à§à¦¬à¦²à¦¹à¦¾à¦Ÿà§€', '6nodubalhatiup.naogaon.gov.bd'),
+(1495, 168, 'Boalia', 'à¦¬à§‹à§Ÿà¦¾à¦²à¦¿à§Ÿà¦¾', '7noboaliaup.naogaon.gov.bd'),
+(1496, 168, 'Hashaigari', 'à¦¹à¦¾à¦à¦¸à¦¾à¦‡à¦—à¦¾à', '8nohashaigariup.naogaon.gov.bd'),
+(1497, 168, 'Chandipur', 'à¦šà¦¨à§à¦¡à¦¿à¦ªà§à¦°', '9nochandipurup.naogaon.gov.bd'),
+(1498, 168, 'Bolihar', 'à¦¬à¦²à¦¿à¦¹à¦¾à¦°', '10noboliharup.naogaon.gov.bd'),
+(1499, 168, 'Shekerpur', 'à¦¶à¦¿à¦•à¦¾à¦°à¦ªà§à¦°', '11noshekerpurup.naogaon.gov.bd'),
+(1500, 168, 'Shailgachhi', 'à¦¶à§ˆà¦²à¦—à¦¾à¦›à§€', '12noshailgachhiup.naogaon.gov.bd'),
+(1501, 169, 'Nitpur', 'à¦¨à¦¿à¦¤à¦ªà§à¦°', 'nitpurup.naogaon.gov.bd'),
+(1502, 169, 'Tetulia', 'à¦¤à§‡à¦à¦¤à§à¦²à¦¿à§Ÿà', '2notetuliaup.naogaon.gov.bd'),
+(1503, 169, 'Chhaor', 'à¦›à¦¾à¦“à§œ', '3nochhaorup.naogaon.gov.bd'),
+(1504, 169, 'Ganguria', 'à¦—à¦¾à¦™à§à¦—à§à¦°à¦¿à', '4noganguriaup.naogaon.gov.bd'),
+(1505, 169, 'Ghatnagar', 'à¦˜à¦¾à¦Ÿà¦¨à¦—à¦°', '5noghatnagarup.naogaon.gov.bd'),
+(1506, 169, 'Moshidpur', 'à¦®à¦¶à¦¿à¦¦à¦ªà§à¦°', '6nomoshidpurup.naogaon.gov.bd'),
+(1507, 170, 'Sapahar', 'à¦¸à¦¾à¦ªà¦¾à¦¹à¦¾à¦°', '1nosapaharup.naogaon.gov.bd'),
+(1508, 170, 'Tilna', 'à¦¤à¦¿à¦²à¦¨à¦¾', '3notilnaup.naogaon.gov.bd'),
+(1509, 170, 'Aihai', 'à¦†à¦‡à¦¹à¦¾à¦‡', '4noaihaiup.naogaon.gov.bd'),
+(1510, 170, 'Shironti', 'à¦¶à¦¿à¦°à¦¨à§à¦Ÿà§€', '6noshirontiup.naogaon.gov.bd'),
+(1511, 170, 'Goala', 'à¦—à§‹à§Ÿà¦¾à¦²à¦¾', 'goalaup.naogaon.gov.bd'),
+(1512, 170, 'Patari', 'à¦ªà¦¾à¦¤à¦¾à§œà§€', 'patariup.naogaon.gov.bd'),
+(1513, 171, 'Nehalpur', 'à¦¨à§‡à¦¹à¦¾à¦²à¦ªà§à¦°', 'nehalpurup.jessore.gov.bd'),
+(1514, 171, 'Hariharnagar', 'à¦¹à¦°à¦¿à¦¹à¦°à¦¨à¦—à¦°', 'hariharnagarup.jessore.gov.bd'),
+(1515, 171, 'Haridaskati', 'à¦¹à¦°à¦¿à¦¦à¦¾à¦¸à¦•à¦¾à', 'haridaskatiup.jessore.gov.bd'),
+(1516, 171, 'Shyamkur', 'à¦¶à§à¦¯à¦¾à¦®à¦•à§à¦¡à', 'shyamkurup.jessore.gov.bd'),
+(1517, 171, 'Rohita', 'à¦°à§‹à¦¹à¦¿à¦¤à¦¾', 'rohitaup.jessore.gov.bd'),
+(1518, 171, 'Maswimnagar', 'à¦®à¦¶à§à¦®à¦¿à¦®à¦¨à¦—à', 'maswimnagarup.jessore.gov.bd'),
+(1519, 171, 'Manoharpur', 'à¦®à¦¨à§‹à¦¹à¦°à¦ªà§à¦°', 'manoharpurup.jessore.gov.bd'),
+(1520, 171, 'Manirampur', 'à¦®à¦¨à¦¿à¦°à¦¾à¦®à¦ªà§à', 'manirampurup.jessore.gov.bd'),
+(1521, 171, 'Bhojgati', 'à¦­à§‹à¦œà¦—à¦¾à¦¤à¦¿', 'bhojgatiup.jessore.gov.bd'),
+(1522, 171, 'Durbadanga', 'à¦¦à§à¦°à§à¦¬à¦¾à¦¡à¦¾à', 'durbadangaup.jessore.gov.bd'),
+(1523, 171, 'Dhakuria', 'à¦¢à¦¾à¦•à§à¦°à¦¿à¦¯à¦¼à', 'dhakuriaup.jessore.gov.bd'),
+(1524, 171, 'Jhanpa', 'à¦à¦¾à¦à¦ªà¦¾', 'jhanpaup.jessore.gov.bd'),
+(1525, 171, 'Chaluahati', 'à¦šà¦¾à¦²à§à¦¯à¦¼à¦¾à¦¹à', 'chaluahatiup.jessore.gov.bd'),
+(1526, 171, 'Khedapara', 'à¦–à§‡à¦¦à¦¾à¦ªà¦¾à¦¡à¦¼à', 'khedaparaup.jessore.gov.bd'),
+(1527, 171, 'Khanpur', 'à¦–à¦¾à¦¨à¦ªà§à¦°', 'khanpurup.jessore.gov.bd'),
+(1528, 171, 'Kultia', 'à¦•à§à¦²à¦Ÿà¦¿à¦¯à¦¼à¦¾', 'kultiaup.jessore.gov.bd'),
+(1529, 171, 'Kashimnagar', 'à¦•à¦¾à¦¶à¦¿à¦®à¦¨à¦—à¦°', 'kashimnagarup.jessore.gov.bd'),
+(1530, 172, 'Baghutia', 'à¦¬à¦¾à¦˜à§à¦Ÿà¦¿à¦¯à¦¼à', 'baghutia.jessore.gov.bd'),
+(1531, 172, 'Chalishia', 'à¦šà¦²à¦¿à¦¶à¦¿à¦¯à¦¼à¦¾', 'chalishiaup.jessore.gov.bd'),
+(1532, 172, 'Sundoli', 'à¦¸à§à¦¨à§à¦¦à¦²à§€', 'sundoliup.jessore.gov.bd'),
+(1533, 172, 'Siddhipasha', 'à¦¸à¦¿à¦¦à§à¦¦à¦¿à¦ªà¦¾à', 'siddhipashaup.jessore.gov.bd'),
+(1534, 172, 'Sreedharpur', 'à¦¶à§à¦°à§€à¦§à¦°à¦ªà§à', 'sreedharpurup.jessore.gov.bd'),
+(1535, 172, 'Subharara', 'à¦¶à§à¦­à¦°à¦¾à¦¡à¦¼à¦¾', 'subhararaup.jessore.gov.bd'),
+(1536, 172, 'Prambag', 'à¦ªà§à¦°à§‡à¦®à¦¬à¦¾à¦—', 'prambagup.jessore.gov.bd'),
+(1537, 172, 'Payra', 'à¦ªà¦¾à¦¯à¦¼à¦°à¦¾', 'payraup.jessore.gov.bd'),
+(1538, 173, 'Jaharpur', 'à¦œà¦¹à§à¦°à¦ªà§à¦°', 'jaharpurup.jessore.gov.bd'),
+(1539, 173, 'Jamdia', 'à¦œà¦¾à¦®à¦¦à¦¿à¦¯à¦¼à¦¾', 'jamdiaup.jessore.gov.bd'),
+(1540, 173, 'Darajhat', 'à¦¦à¦°à¦¾à¦œà¦¹à¦¾à¦Ÿ', 'darajhatup.jessore.gov.bd'),
+(1541, 173, 'Dhalgram', 'à¦§à¦²à¦—à§à¦°à¦¾à¦®', 'dhalgramup.jessore.gov.bd'),
+(1542, 173, 'Narikelbaria', 'à¦¨à¦¾à¦°à¦¿à¦•à§‡à¦²à¦¬à', 'narikelbariaup.jessore.gov.bd'),
+(1543, 173, 'Bandabilla', 'à¦¬à¦¨à§à¦¦à¦¬à¦¿à¦²à¦¾', 'bandabillaup.jessore.gov.bd'),
+(1544, 173, 'Basuari', 'à¦¬à¦¾à¦¸à§à¦¯à¦¼à¦¾à¦¡à', 'basuariup.jessore.gov.bd'),
+(1545, 173, 'Roypur', 'à¦°à¦¾à¦¯à¦¼à¦ªà§à¦°', 'roypurup.jessore.gov.bd'),
+(1546, 173, 'Dohakula', 'à¦¦à§‹à¦¹à¦¾à¦•à§à¦²à¦¾', 'dohakulaup.jessore.gov.bd'),
+(1547, 174, 'Chougachha', 'à¦šà§Œà¦—à¦¾à¦›à¦¾', 'chougachhaup5.jessore.gov.bd'),
+(1548, 174, 'Jagadishpur', 'à¦œà¦—à¦¦à§€à¦¶à¦ªà§à¦°', 'jagadishpurup6.jessore.gov.bd'),
+(1549, 174, 'Dhuliani', 'à¦§à§à¦²à¦¿à¦¯à¦¼à¦¾à¦¨à', 'dhulianiup4.jessore.gov.bd'),
+(1550, 174, 'Narayanpur', 'à¦¨à¦¾à¦°à¦¾à¦¯à¦¼à¦¨à¦ªà', 'narayanpurup10.jessore.gov.bd'),
+(1551, 174, 'Patibila', 'à¦ªà¦¾à¦¤à¦¿à¦¬à¦¿à¦²à¦¾', 'patibilaup7.jessore.gov.bd'),
+(1552, 174, 'Pashapole', 'à¦ªà¦¾à¦¶à¦¾à¦ªà§‹à¦²', 'pashapoleup2.jessore.gov.bd'),
+(1553, 174, 'Fulsara', 'à¦«à§à¦²à¦¸à¦¾à¦°à¦¾', 'fulsaraup1.jessore.gov.bd'),
+(1554, 174, 'Singhajhuli', 'à¦¸à¦¿à¦‚à¦¹à¦à§à¦²à¦¿', 'singhajhuliup3.jessore.gov.bd'),
+(1555, 174, 'Sukpukhuria', 'à¦¸à§à¦–à¦ªà§à¦•à§à¦°à', 'sukpukhuriaup11.jessore.gov.bd'),
+(1556, 174, 'Swarupdaha', 'à¦¸à¦°à§à¦ªà¦¦à¦¾à¦¹', 'swarupdahaup9.jessore.gov.bd'),
+(1557, 174, 'Hakimpur', 'à¦¹à¦¾à¦•à¦¿à¦®à¦ªà§à¦°', 'hakimpurup8.jessore.gov.bd'),
+(1558, 175, 'Gangananda', 'à¦—à¦‚à¦—à¦¾à¦¨à¦¨à§à¦¦à', 'ganganandapurup.jessore.gov.bd'),
+(1559, 175, 'Gadkhali', 'à¦—à¦¦à¦–à¦¾à¦²à§€', 'gadkhaliup.jessore.gov.bd'),
+(1560, 175, 'Jhikargachha', 'à¦à¦¿à¦•à¦°à¦—à¦¾à¦›à¦¾', 'jhikargachhaup.jessore.gov.bd'),
+(1561, 175, 'Nabharan', 'à¦¨à¦¾à¦­à¦¾à¦°à¦¨', 'nabharanup.jessore.gov.bd'),
+(1562, 175, 'Nibaskhola', 'à¦¨à¦¿à¦°à§à¦¬à¦¾à¦¸à¦–à', 'nibaskholaup.jessore.gov.bd'),
+(1563, 175, 'Panisara', 'à¦ªà¦¾à¦¨à¦¿à¦¸à¦¾à¦°à¦¾', 'panisaraup.jessore.gov.bd'),
+(1564, 175, 'Bankra', 'à¦¬à¦¾à¦à¦•à¦¡à¦¼à¦¾', 'bankraup.jessore.gov.bd'),
+(1565, 175, 'Shankarpur', 'à¦¶à¦‚à¦•à¦°à¦ªà§à¦°', 'shankarpurup10.jessore.gov.bd'),
+(1566, 175, 'Shimulia', 'à¦¶à¦¿à¦®à§à¦²à¦¿à¦¯à¦¼à', 'shimuliaup3.jessore.gov.bd'),
+(1567, 175, 'Hajirbagh', 'à¦¹à¦¾à¦œà¦¿à¦°à¦¬à¦¾à¦—', 'hajirbaghup9.jessore.gov.bd'),
+(1568, 175, 'Magura', 'à¦®à¦¾à¦—à§à¦°à¦¾', 'maguraup.jessore.gov.bd'),
+(1569, 176, 'Sufalakati', 'à¦¸à§à¦«à¦²à¦¾à¦•à¦¾à¦Ÿà', 'sufalakatiup8.jessore.gov.bd'),
+(1570, 176, 'Sagardari', 'à¦¸à¦¾à¦—à¦°à¦¦à¦¾à¦¡à¦¼à', 'sagardariup2.jessore.gov.bd'),
+(1571, 176, 'Majidpur', 'à¦®à¦œà¦¿à¦¦à¦ªà§à¦°', 'majidpurup3.jessore.gov.bd'),
+(1572, 176, 'Mongolkot', 'à¦®à¦™à§à¦—à¦²à¦•à§‹à¦°à', 'mongolkotup5.jessore.gov.bd'),
+(1573, 176, 'Bidyanandakati', 'à¦¬à¦¿à¦¦à§à¦¯à¦¾à¦¨à¦¨à', 'bidyanandakatiup4.jessore.gov.bd'),
+(1574, 176, 'Panjia', 'à¦ªà¦¾à¦œà¦¿à¦¯à¦¼à¦¾', 'panjiaup7.jessore.gov.bd'),
+(1575, 176, 'Trimohini', 'à¦¤à§à¦°à¦¿à¦®à§‹à¦¹à¦¿à', 'trimohiniup1.jessore.gov.bd'),
+(1576, 176, 'Gaurighona', 'à¦—à§Œà¦°à¦¿à¦˜à§‹à¦¨à¦¾', 'gaurighonaup9.jessore.gov.bd'),
+(1577, 176, 'Keshabpur', 'à¦•à§‡à¦¶à¦¬à¦ªà§à¦°', 'keshabpurup6.jessore.gov.bd'),
+(1578, 177, 'Lebutala', 'à¦²à§‡à¦¬à§à¦¤à¦²à¦¾', 'lebutalaup.jessore.gov.bd'),
+(1579, 177, 'Ichhali', 'à¦‡à¦›à¦¾à¦²à§€', 'ichhaliup.jessore.gov.bd'),
+(1580, 177, 'Arabpur', 'à¦†à¦°à¦¬à¦ªà§à¦°', 'arabpurup9.jessore.gov.bd'),
+(1581, 177, 'Upasahar', 'à¦‰à¦ªà¦¶à¦¹à¦°', 'upasaharup.jessore.gov.bd'),
+(1582, 177, 'Kachua', 'à¦•à¦šà§à¦¯à¦¼à¦¾', 'kachuaup13.jessore.gov.bd'),
+(1583, 177, 'Kashimpur', 'à¦•à¦¾à¦¶à¦¿à¦®à¦ªà§à¦°', 'kashimpurup6.jessore.gov.bd'),
+(1584, 177, 'Chanchra', 'à¦šà¦¾à¦à¦šà¦¡à¦¼à¦¾', 'chanchraup.jessore.gov.bd'),
+(1585, 177, 'Churamankati', 'à¦šà§‚à¦¡à¦¼à¦¾à¦®à¦¨à¦•à', 'churamankatiup.jessore.gov.bd'),
+(1586, 177, 'Narendrapur', 'à¦¨à¦°à§‡à¦¨à§à¦¦à§à¦°à', 'narendrapurup.jessore.gov.bd'),
+(1587, 177, 'Noapara', 'à¦¨à¦“à¦¯à¦¼à¦¾à¦ªà¦¾à¦¡à', 'noaparaup4.jessore.gov.bd'),
+(1588, 177, 'Fathehpur', 'à¦«à¦¤à§‡à¦ªà§à¦°', 'fathehpurup.jessore.gov.bd'),
+(1589, 177, 'Basundia', 'à¦¬à¦¸à§à¦¨à§à¦¦à¦¿à¦¯à', 'basundiaup.jessore.gov.bd'),
+(1590, 177, 'Ramnagar', 'à¦°à¦¾à¦®à¦¨à¦—à¦°', 'ramnagarup.jessore.gov.bd'),
+(1591, 177, 'Haibatpur', 'à¦¹à§ˆà¦¬à¦¤à¦ªà§à¦°', 'haibatpurup.jessore.gov.bd'),
+(1592, 177, 'Dearamodel', 'à¦¦à§‡à§Ÿà¦¾à¦°à¦¾ à¦®à¦¡', 'dearamodelup.jessore.gov.bd'),
+(1593, 178, 'Ulshi', 'à¦‰à¦²à¦¶à§€', 'ulshiup9.jessore.gov.bd'),
+(1594, 178, 'Sharsha', 'à¦¶à¦¾à¦°à§à¦¶à¦¾', 'sharshaup10.jessore.gov.bd'),
+(1595, 178, 'Lakshmanpur', 'à¦²à¦•à§à¦·à¦£à¦ªà§à¦°', 'lakshmanpurup2.jessore.gov.bd'),
+(1596, 178, 'Benapole', 'à¦¬à§‡à¦¨à¦¾à¦ªà§‹à¦²', 'benapoleup4.jessore.gov.bd'),
+(1597, 178, 'Bahadurpur', 'à¦¬à¦¾à¦¹à¦¾à¦¦à§à¦°à¦ªà', 'bahadurpurup3.jessore.gov.bd'),
+(1598, 178, 'Bagachra', 'à¦¬à¦¾à¦—à¦†à¦šà¦¡à¦¼à¦¾', 'bagachraup8.jessore.gov.bd'),
+(1599, 178, 'Putkhali', 'à¦ªà§à¦Ÿà¦–à¦¾à¦²à§€', 'putkhaliup5.jessore.gov.bd'),
+(1600, 178, 'Nizampur', 'à¦¨à¦¿à¦œà¦¾à¦®à¦ªà§à¦°', 'nizampurup11.jessore.gov.bd'),
+(1601, 178, 'Dihi', 'à¦¡à¦¿à¦¹à¦¿', 'dihiup1.jessore.gov.bd'),
+(1602, 178, 'Goga', 'à¦—à§‹à¦—à¦¾', 'gogaup6.jessore.gov.bd'),
+(1603, 178, 'Kayba', 'à¦•à¦¾à¦¯à¦¼à¦¬à¦¾', 'kaybaup7.jessore.gov.bd'),
+(1604, 179, 'Anulia', 'à¦†à¦¨à§à¦²à¦¿à¦¯à¦¼à¦¾', 'anuliaup.satkhira.gov.bd'),
+(1605, 179, 'Assasuni', 'à¦†à¦¶à¦¾à¦¶à§à¦¨à¦¿', 'assasuniup.satkhira.gov.bd'),
+(1606, 179, 'Kadakati', 'à¦•à¦¾à¦¦à¦¾à¦•à¦¾à¦Ÿà¦¿', 'kadakatiup.satkhira.gov.bd'),
+(1607, 179, 'Kulla', 'à¦•à§à¦²à§à¦¯à¦¾', 'kullaup.satkhira.gov.bd'),
+(1608, 179, 'Khajra', 'à¦–à¦¾à¦œà¦°à¦¾', 'khajraup.satkhira.gov.bd'),
+(1609, 179, 'Durgapur', 'à¦¦à¦°à¦—à¦¾à¦¹à¦ªà§à¦°', 'durgapurup.satkhira.gov.bd'),
+(1610, 179, 'Pratapnagar', 'à¦ªà§à¦°à¦¤à¦¾à¦ªà¦¨à¦—à', 'pratapnagarup.satkhira.gov.bd'),
+(1611, 179, 'Budhhata', 'à¦¬à§à¦§à¦¹à¦¾à¦Ÿà¦¾', 'budhhataup.satkhira.gov.bd'),
+(1612, 179, 'Baradal', 'à¦¬à¦¡à¦¼à¦¦à¦²', 'baradalup.satkhira.gov.bd'),
+(1613, 179, 'Sreeula', 'à¦¶à§à¦°à§€à¦‰à¦²à¦¾', 'sreeulaup.satkhira.gov.bd'),
+(1614, 179, 'Sobhnali', 'à¦¶à§‹à¦­à¦¨à¦¾à¦²à§€', 'sobhnaliup.satkhira.gov.bd'),
+(1615, 180, 'Kulia', 'à¦•à§à¦²à¦¿à¦¯à¦¼à¦¾', 'kuliaup.satkhira.gov.bd'),
+(1616, 180, 'Debhata', 'à¦¦à§‡à¦¬à¦¹à¦¾à¦Ÿà¦¾', 'debhataup.satkhira.gov.bd'),
+(1617, 180, 'Noapara', 'à¦¨à¦“à¦¯à¦¼à¦¾à¦ªà¦¾à¦¡à', 'noaparaup.satkhira.gov.bd'),
+(1618, 180, 'Parulia', 'à¦ªà¦¾à¦°à§à¦²à¦¿à¦¯à¦¼à', 'paruliaup.satkhira.gov.bd'),
+(1619, 180, 'Sakhipur', 'à¦¸à¦–à¦¿à¦ªà§à¦°', 'sakhipurup.satkhira.gov.bd'),
+(1620, 181, 'Kushadanga', 'à¦•à§à¦¶à§‹à¦¡à¦¾à¦‚à¦—à', 'kushadangaup.satkhira.gov.bd'),
+(1621, 181, 'Keralkata', 'à¦•à§‡à¦°à¦¾à¦²à¦•à¦¾à¦¤à', 'keralkataup.satkhira.gov.bd'),
+(1622, 181, 'Keragachhi', 'à¦•à§‡à¦à¦¡à¦¼à¦¾à¦—à¦¾à', 'keragachhiup.satkhira.gov.bd'),
+(1623, 181, 'Kaila', 'à¦•à¦¯à¦¼à¦²à¦¾', 'kailaup.satkhira.gov.bd'),
+(1624, 181, 'Jallabad', 'à¦œà¦¾à¦²à¦¾à¦²à¦¾à¦¬à¦¾à', 'jallabadup.satkhira.gov.bd'),
+(1625, 181, 'Jogikhali', 'à¦¯à§à¦—à¦¿à¦–à¦¾à¦²à§€', 'jogikhaliup.satkhira.gov.bd'),
+(1626, 181, 'Langaljhara', 'à¦²à¦¾à¦™à§à¦—à¦²à¦à¦¾à', 'langaljharaup.satkhira.gov.bd'),
+(1627, 181, 'Sonabaria', 'à¦¸à§‹à¦¨à¦¾à¦¬à¦¾à¦¡à¦¼à', 'sonabariaup.satkhira.gov.bd'),
+(1628, 181, 'Helatala', 'à¦¹à§‡à¦²à¦¾à¦¤à¦²à¦¾', 'helatalaup.satkhira.gov.bd'),
+(1629, 181, 'Chandanpur', 'à¦šà¦¨à§à¦¦à¦¨à¦ªà§à¦°', 'chandanpurup.satkhira.gov.bd'),
+(1630, 181, 'Deara', 'à¦¦à§‡à§Ÿà¦¾à¦°à¦¾', 'dearaup.satkhira.gov.bd'),
+(1631, 181, 'Joynagar', 'à¦œà§Ÿà¦¨à¦—à¦°', 'joynagarup.satkhira.gov.bd'),
+(1632, 182, 'Shibpur', 'à¦¶à¦¿à¦¬à¦ªà§à¦°', 'shibpurup.satkhira.gov.bd'),
+(1633, 182, 'Labsa', 'à¦²à¦¾à¦¬à¦¸à¦¾', 'labsaup.satkhira.gov.bd'),
+(1634, 182, 'Bhomra', 'à¦­à§‹à¦®à¦°à¦¾', 'bhomraup.satkhira.gov.bd'),
+(1635, 182, 'Brahmarajpur', 'à¦¬à§à¦°à¦•à§à¦·à§à¦®à', 'brahmarajpurup.satkhira.gov.bd'),
+(1636, 182, 'Balli', 'à¦¬à¦²à§à¦²à§€', 'balliup.satkhira.gov.bd'),
+(1637, 182, 'Banshdaha', 'à¦¬à¦¾à¦à¦¶à¦¦à¦¹', 'banshdahaup.satkhira.gov.bd'),
+(1638, 182, 'Baikari', 'à¦¬à§ˆà¦•à¦¾à¦°à§€', 'baikariup.satkhira.gov.bd'),
+(1639, 182, 'Fingri', 'à¦«à¦¿à¦‚à¦¡à¦¼à¦¿', 'fingriup.satkhira.gov.bd'),
+(1640, 182, 'Dhulihar', 'à¦§à§à¦²à¦¿à¦¹à¦°', 'dhuliharup.satkhira.gov.bd'),
+(1641, 182, 'Jhaudanga', 'à¦à¦¾à¦‰à¦¡à¦¾à¦™à§à¦—à', 'jhaudangaup.satkhira.gov.bd'),
+(1642, 182, 'Ghona', 'à¦˜à§‹à¦¨à¦¾', 'ghonaup.satkhira.gov.bd'),
+(1643, 182, 'Kuskhali', 'à¦•à§à¦¶à¦–à¦¾à¦²à§€', 'kuskhaliup.satkhira.gov.bd'),
+(1644, 182, 'Alipur', 'à¦†à¦²à¦¿à¦ªà§à¦°', 'alipurup.satkhira.gov.bd'),
+(1645, 182, 'Agardari', 'à¦†à¦—à¦°à¦¦à¦¾à¦¡à¦¼à§€', 'agardariup.satkhira.gov.bd'),
+(1646, 183, 'Atulia', 'à¦†à¦Ÿà§à¦²à¦¿à¦¯à¦¼à¦¾', 'atuliaup.satkhira.gov.bd'),
+(1647, 183, 'Ishwaripur', 'à¦ˆà¦¶à§à¦¬à¦°à§€à¦ªà§à', 'ishwaripurup.satkhira.gov.bd'),
+(1648, 183, 'Kaikhali', 'à¦•à§ˆà¦–à¦¾à¦²à§€', 'kaikhaliup.satkhira.gov.bd'),
+(1649, 183, 'Kashimari', 'à¦•à¦¾à¦¶à¦¿à¦®à¦¾à¦¡à¦¼à', 'kashimariup.satkhira.gov.bd'),
+(1650, 183, 'Nurnagar', 'à¦¨à§à¦°à¦¨à¦—à¦°', 'nurnagarup.satkhira.gov.bd'),
+(1651, 183, 'Padmapukur', 'à¦ªà¦¦à§à¦®à¦ªà§à¦•à§à', 'padmapukurup.satkhira.gov.bd'),
+(1652, 183, 'Burigoalini', 'à¦¬à§à¦¡à¦¼à¦¿à¦—à§‹à¦¯à', 'burigoaliniup.satkhira.gov.bd'),
+(1653, 183, 'Bhurulia', 'à¦­à§à¦°à§à¦²à¦¿à¦¯à¦¼à', 'bhuruliaup.satkhira.gov.bd'),
+(1654, 183, 'Munshiganj', 'à¦®à§à¦¨à§à¦¸à§€à¦—à¦œà', 'munshiganjup.satkhira.gov.bd'),
+(1655, 183, 'Ramjannagar', 'à¦°à¦®à¦œà¦¾à¦¨à¦¨à¦—à¦°', 'ramjannagarup.satkhira.gov.bd'),
+(1656, 183, 'Shyamnagar', 'à¦¶à§à¦¯à¦¾à¦®à¦¨à¦—à¦°', 'shyamnagarup.satkhira.gov.bd'),
+(1657, 183, 'Gabura', 'à¦—à¦¾à¦¬à§à¦°à¦¾', 'gaburaup.satkhira.gov.bd'),
+(1658, 184, 'Sarulia', 'à¦¸à¦°à§à¦²à¦¿à¦¯à¦¼à¦¾', 'saruliaup3.satkhira.gov.bd'),
+(1659, 184, 'Magura', 'à¦®à¦¾à¦—à§à¦°à¦¾', 'maguraup8.satkhira.gov.bd'),
+(1660, 184, 'Nagarghata', 'à¦¨à¦—à¦°à¦˜à¦¾à¦Ÿà¦¾', 'nagarghataup1.satkhira.gov.bd'),
+(1661, 184, 'Dhandia', 'à¦§à¦¾à¦¨à¦¦à¦¿à¦¯à¦¼à¦¾', 'dhandiaup1.satkhira.gov.bd'),
+(1662, 184, 'Tentulia', 'à¦¤à§‡à¦¤à§à¦²à¦¿à¦¯à¦¼à', 'tentuliaup5.satkhira.gov.bd'),
+(1663, 184, 'Tala', 'à¦¤à¦¾à¦²à¦¾', 'talaup6.satkhira.gov.bd'),
+(1664, 184, 'Jalalpur', 'à¦œà¦¾à¦²à¦¾à¦²à¦ªà§à¦°', 'jalalpurup11.satkhira.gov.bd'),
+(1665, 184, 'Khesra', 'à¦–à§‡à¦¶à¦°à¦¾', 'khesraup10.satkhira.gov.bd'),
+(1666, 184, 'Khalishkhali', 'à¦–à¦²à¦¿à¦¶à¦–à¦¾à¦²à§€', 'khalishkhaliup9.satkhira.gov.bd'),
+(1667, 184, 'Khalilnagar', 'à¦–à¦²à¦¿à¦²à¦¨à¦—à¦°', 'khalilnagarup12.satkhira.gov.bd'),
+(1668, 184, 'Kumira', 'à¦•à§à¦®à¦¿à¦°à¦¾', 'kumiraup4.satkhira.gov.bd'),
+(1669, 184, 'Islamkati', 'à¦‡à¦¸à¦²à¦¾à¦®à¦•à¦¾à¦Ÿà', 'islamkatiup7.satkhira.gov.bd'),
+(1670, 185, 'Kushlia', 'à¦•à§à¦¶à§à¦²à¦¿à¦¯à¦¼à', 'kushliaup.satkhira.gov.bd'),
+(1671, 185, 'Champaphul', 'à¦šà¦¾à¦®à§à¦ªà¦¾à¦«à§à', 'champaphulup.satkhira.gov.bd'),
+(1672, 185, 'Tarali', 'à¦¤à¦¾à¦°à¦¾à¦²à§€', 'taraliup.satkhira.gov.bd'),
+(1673, 185, 'Dakshin Sreepur', 'à¦¦à¦•à§à¦·à¦¿à¦£ à¦¶à§', 'dakshinsreepurup.satkhira.gov.bd'),
+(1674, 185, 'Dhalbaria', 'à¦§à¦²à¦¬à¦¾à¦¡à¦¼à¦¿à¦¯à', 'dhalbariaup.satkhira.gov.bd'),
+(1675, 185, 'Nalta', 'à¦¨à¦²à¦¤à¦¾', 'naltaup.satkhira.gov.bd'),
+(1676, 185, 'Bishnupur', 'à¦¬à¦¿à¦·à§à¦£à§à¦ªà§à', 'bishnupurup.satkhira.gov.bd'),
+(1677, 185, 'Bharasimla', 'à¦­à¦¾à¦¡à¦¼à¦¾à¦¶à¦¿à¦®à', 'bharasimlaup.satkhira.gov.bd'),
+(1678, 185, 'Mathureshpur', 'à¦®à¦¥à§à¦°à§‡à¦¶à¦ªà§à', 'mathureshpurup.satkhira.gov.bd'),
+(1679, 185, 'Ratanpur', 'à¦°à¦¤à¦¨à¦ªà§à¦°', 'ratanpurup.satkhira.gov.bd'),
+(1680, 185, 'Mautala', 'à¦®à§Œà¦¤à¦²à¦¾', 'mautalaup.satkhira.gov.bd'),
+(1681, 185, 'Krishnanagar', 'à¦•à§ƒà¦·à§à¦£à¦¨à¦—à¦°', 'krishnanagarup.satkhira.gov.bd'),
+(1682, 186, 'Dariapur', 'à¦¦à¦¾à¦°à¦¿à¦¯à¦¼à¦¾à¦ªà', 'dariapurup.meherpur.gov.bd'),
+(1683, 186, 'Monakhali', 'à¦®à§‹à¦¨à¦¾à¦–à¦¾à¦²à§€', 'monakhali.meherpur.gov.bd'),
+(1684, 186, 'Bagowan', 'à¦¬à¦¾à¦—à§‹à¦¯à¦¼à¦¾à¦¨', 'bagowanup.meherpur.gov.bd'),
+(1685, 186, 'Mohajanpur', 'à¦®à¦¹à¦¾à¦œà¦¨à¦ªà§à¦°', 'mohajanpurup.meherpur.gov.bd'),
+(1686, 187, 'Amjhupi', 'à¦†à¦®à¦à§à¦ªà¦¿', 'amjhupi.meherpur.gov.bd'),
+(1687, 187, 'Pirojpur', 'à¦ªà¦¿à¦°à§‹à¦œà¦ªà§à¦°', 'pirojpurup.meherpur.gov.bd'),
+(1688, 187, 'Kutubpur', 'à¦•à¦¤à§à¦¬à¦ªà§à¦°', 'kutubpurup.meherpur.gov.bd'),
+(1689, 187, 'Amdah', 'à¦†à¦®à¦¦à¦¹', 'amdahup.meherpur.gov.bd'),
+(1690, 187, 'Buripota', 'à¦¬à§à¦¡à¦¼à¦¿à¦ªà§‹à¦¤à', 'buripotaup.meherpur.gov.bd'),
+(1691, 188, 'Tentulbaria', 'à¦¤à§‡à¦à¦¤à§à¦²à¦¬à¦¾à', 'tentulbaria.meherpur.gov.bd'),
+(1692, 188, 'Kazipur', 'à¦•à¦¾à¦œà¦¿à¦ªà§à¦°', 'kazipurup.meherpur.gov.bd'),
+(1693, 188, 'Bamondi', 'à¦¬à¦¾à¦®à¦¨à§à¦¦à§€', 'bamondiup.meherpur.gov.bd'),
+(1694, 188, 'Motmura', 'à¦®à¦Ÿà¦®à§à¦¡à¦¼à¦¾', 'motmuraup.meherpur.gov.bd'),
+(1695, 188, 'Sholotaka', 'à¦·à§‹à¦²à¦Ÿà¦¾à¦•à¦¾', 'sholotakaup.meherpur.gov.bd'),
+(1696, 188, 'Shaharbati', 'à¦¸à¦¾à¦¹à¦¾à¦°à¦¬à¦¾à¦Ÿà', 'shaharbatiup.meherpur.gov.bd'),
+(1697, 188, 'Dhankolla', 'à¦§à¦¾à¦¨à¦–à§‹à¦²à¦¾', 'dhankollaup.meherpur.gov.bd'),
+(1698, 188, 'Raipur', 'à¦°à¦¾à¦¯à¦¼à¦ªà§à¦°', 'raipurup.meherpur.gov.bd'),
+(1699, 188, 'Kathuli', 'à¦•à¦¾à¦¥à§à¦²à§€', 'kathuli.meherpur.gov.bd'),
+(1700, 189, 'Sheikhati', 'à¦¸à§‡à¦–à¦¹à¦¾à¦Ÿà§€', 'sheikhatiup.narail.gov.bd'),
+(1701, 189, 'Tularampur', 'à¦¤à§à¦²à¦¾à¦°à¦¾à¦®à¦ªà', 'tularampurup.narail.gov.bd'),
+(1702, 189, 'Kalora', 'à¦•à¦²à§‹à§œà¦¾', 'kaloraup.narail.gov.bd'),
+(1703, 189, 'Shahabad', 'à¦¶à¦¾à¦¹à¦¾à¦¬à¦¾à¦¦', 'shahabadup.narail.gov.bd'),
+(1704, 189, 'Bashgram', 'à¦¬à¦¾à¦¶à¦—à§à¦°à¦¾à¦®', 'bashgramup.narail.gov.bd'),
+(1705, 189, 'Habokhali', 'à¦¹à¦¬à¦–à¦¾à¦²à§€', 'habokhaliup.narail.gov.bd'),
+(1706, 189, 'Maijpara', 'à¦®à¦¾à¦‡à¦œà¦ªà¦¾à§œà¦¾', 'maijparaup.narail.gov.bd'),
+(1707, 189, 'Bisali', 'à¦¬à¦¿à¦›à¦¾à¦²à§€', 'bisaliup.narail.gov.bd'),
+(1708, 189, 'Chandiborpur', 'à¦šà¦¨à§à¦¡à¦¿à¦¬à¦°à¦ªà', 'chandiborpurup.narail.gov.bd'),
+(1709, 189, 'Bhadrabila', 'à¦­à¦¦à§à¦°à¦¬à¦¿à¦²à¦¾', 'bhadrabilaup.narail.gov.bd'),
+(1710, 189, 'Auria', 'à¦†à¦‰à§œà¦¿à§Ÿà¦¾', 'auriaup.narail.gov.bd'),
+(1711, 189, 'Singasholpur', 'à¦¸à¦¿à¦™à§à¦—à¦¾à¦¶à§‹à', 'singasholpurup.narail.gov.bd'),
+(1712, 189, 'Mulia', 'à¦®à§à¦²à¦¿à§Ÿà¦¾', 'muliaup.narail.gov.bd'),
+(1713, 190, 'Lohagora', 'à¦²à§‹à¦¹à¦¾à¦—à§œà¦¾', 'lohagoraup.narail.gov.bd'),
+(1714, 190, 'Kashipur', 'à¦•à¦¾à¦¶à¦¿à¦ªà§à¦°', 'kashipurup.narail.gov.bd'),
+(1715, 190, 'Naldi', 'à¦¨à¦²à¦¦à§€', 'naldiup.narail.gov.bd'),
+(1716, 190, 'Noagram', 'à¦¨à§‹à§Ÿà¦¾à¦—à§à¦°à¦¾à', 'noagramup.narail.gov.bd'),
+(1717, 190, 'Lahuria', 'à¦²à¦¾à¦¹à§à§œà¦¿à§Ÿà¦¾', 'lahuriaup.narail.gov.bd'),
+(1718, 190, 'Mallikpur', 'à¦®à¦²à§à¦²à¦¿à¦•à¦ªà§à', 'mallikpurup.narail.gov.bd'),
+(1719, 190, 'Salnagar', 'à¦¶à¦¾à¦²à¦¨à¦—à¦°', 'salnagarup.narail.gov.bd'),
+(1720, 190, 'Lakshmipasha', 'à¦²à¦•à§à¦·à§€à¦ªà¦¾à¦¶à', 'lakshmipashaup.narail.gov.bd'),
+(1721, 190, 'Joypur', 'à¦œà§Ÿà¦ªà§à¦°', 'joypurup.narail.gov.bd'),
+(1722, 190, 'Kotakol', 'à¦•à§‹à¦Ÿà¦¾à¦•à§‹à¦²', 'kotakolup.narail.gov.bd'),
+(1723, 190, 'Digholia', 'à¦¦à¦¿à¦˜à¦²à¦¿à§Ÿà¦¾', 'digholiaup1.narail.gov.bd'),
+(1724, 190, 'Itna', 'à¦‡à¦¤à¦¨à¦¾', 'itnaup.narail.gov.bd'),
+(1725, 191, 'Jaynagor', 'à¦œà§Ÿà¦¨à¦—à¦°', 'jaynagorup.narail.gov.bd'),
+(1726, 191, 'Pahordanga', 'à¦ªà¦¹à¦°à¦¡à¦¾à¦™à§à¦—à', 'pahordangaup.narail.gov.bd'),
+(1727, 191, 'Babrahasla', 'à¦¬à¦¾à¦¬à¦°à¦¾-à¦¹à¦¾à¦š', 'babrahaslaup.narail.gov.bd'),
+(1728, 191, 'Salamabad', 'à¦¸à¦¾à¦²à¦¾à¦®à¦¾à¦¬à¦¾à', 'salamabadup.narail.gov.bd'),
+(1729, 191, 'Baioshona', 'à¦¬à¦¾à¦à¦¸à§‹à¦¨à¦¾', 'baioshonaup.narail.gov.bd'),
+(1730, 191, 'Chacuri', 'à¦šà¦¾à¦šà§à§œà§€', 'chacuriup.narail.gov.bd'),
+(1731, 191, 'Hamidpur', 'à¦¹à¦¾à¦®à¦¿à¦¦à¦ªà§à¦°', 'hamidpurup.narail.gov.bd'),
+(1732, 191, 'Peroli', 'à¦ªà§‡à§œà¦²à§€', 'peroliup.narail.gov.bd'),
+(1733, 191, 'Khashial', 'à¦–à¦¾à¦¸à¦¿à§Ÿà¦¾à¦²', 'khashialup.narail.gov.bd'),
+(1734, 191, 'Purulia', 'à¦ªà§à¦°à§à¦²à¦¿à§Ÿà¦¾', 'puruliaup.narail.gov.bd'),
+(1735, 191, 'Kalabaria', 'à¦•à¦²à¦¾à¦¬à¦¾à§œà§€à§Ÿà', 'kalabariaup.narail.gov.bd'),
+(1736, 191, 'Mauli', 'à¦®à¦¾à¦‰à¦²à§€', 'mauliup.narail.gov.bd'),
+(1737, 191, 'Boronaleliasabad', 'à¦¬à§œà¦¨à¦¾à¦²-à¦‡à¦²à¦¿', 'boronaleliasabadup.narail.gov.bd'),
+(1738, 191, 'Panchgram', 'à¦ªà¦¾à¦à¦šà¦—à§à¦°à¦¾à', 'panchgramup.narail.gov.bd'),
+(1739, 192, 'Alukdia', 'à¦†à¦²à§à¦•à¦¦à¦¿à¦¯à¦¼à', 'alukdia.chuadanga.gov.bd'),
+(1740, 192, 'Mominpur', 'à¦®à§‹à¦®à¦¿à¦¨à¦ªà§à¦°', 'mominpur.chuadanga.gov.bd'),
+(1741, 192, 'Titudah', 'à¦¤à¦¿à¦¤à§à¦¦à¦¾à¦¹', 'titudah.chuadanga.gov.bd'),
+(1742, 192, 'Shankarchandra', 'à¦¶à¦‚à¦•à¦°à¦šà¦¨à§à¦¦à', 'shankarchandra.chuadanga.gov.bd'),
+(1743, 192, 'Begumpur', 'à¦¬à§‡à¦—à¦®à¦ªà§à¦°', 'begumpur.chuadanga.gov.bd'),
+(1744, 192, 'Kutubpur', 'à¦•à§à¦¤à§à¦¬à¦ªà§à¦°', 'kutubpur.chuadanga.gov.bd'),
+(1745, 192, 'Padmabila', 'à¦ªà¦¦à§à¦®à¦¬à¦¿à¦²à¦¾', 'padmabila.chuadanga.gov.bd'),
+(1746, 193, 'Bhangbaria', 'à¦­à¦¾à¦‚à¦¬à¦¾à¦¡à¦¼à§€à', 'bhangbaria.chuadanga.gov.bd'),
+(1747, 193, 'Baradi', 'à¦¬à¦¾à¦¡à¦¼à¦¾à¦¦à§€', 'baradiup.chuadanga.gov.bd'),
+(1748, 193, 'Gangni', 'à¦—à¦¾à¦‚à¦¨à§€', 'gangniup.chuadanga.gov.bd'),
+(1749, 193, 'Khadimpur', 'à¦–à¦¾à¦¦à¦¿à¦®à¦ªà§à¦°', 'khadimpurup.chuadanga.gov.bd'),
+(1750, 193, 'Jehala', 'à¦œà§‡à¦¹à¦¾à¦²à¦¾', 'jehalaup.chuadanga.gov.bd'),
+(1751, 193, 'Belgachi', 'à¦¬à§‡à¦²à¦—à¦¾à¦›à¦¿', 'belgachiup.chuadanga.gov.bd'),
+(1752, 193, 'Dauki', 'à¦¡à¦¾à¦‰à¦•à§€', 'daukiup.chuadanga.gov.bd'),
+(1753, 193, 'Jamjami', 'à¦œà¦¾à¦®à¦œà¦¾à¦®à¦¿', 'jamjamiup.chuadanga.gov.bd'),
+(1754, 193, 'Nagdah', 'à¦¨à¦¾à¦—à¦¦à¦¾à¦¹', 'nagdahup.chuadanga.gov.bd'),
+(1755, 193, 'Kashkorara', 'à¦–à¦¾à¦¸à¦•à¦°à¦°à¦¾', 'kashkoraraup.chuadanga.gov.bd'),
+(1756, 193, 'Chitla', 'à¦šà¦¿à§Žà¦²à¦¾', 'chitlaup.chuadanga.gov.bd'),
+(1757, 193, 'Kalidashpur', 'à¦•à¦¾à¦²à¦¿à¦¦à¦¾à¦¸à¦ªà', 'kalidashpurup.chuadanga.gov.bd'),
+(1758, 193, 'Kumari', 'à¦•à§à¦®à¦¾à¦°à§€', 'kumariup.chuadanga.gov.bd'),
+(1759, 193, 'Hardi', 'à¦¹à¦¾à¦°à¦¦à§€', 'hardiup.chuadanga.gov.bd'),
+(1760, 193, 'Ailhash', 'à¦†à¦‡à¦²à¦¹à¦¾à¦à¦¸', 'ailhashup.chuadanga.gov.bd'),
+(1761, 194, 'Damurhuda', 'à¦¦à¦¾à¦®à§à¦¡à¦¼à¦¹à§à', 'damurhudaup.chuadanga.gov.bd'),
+(1762, 194, 'Karpashdanga', 'à¦•à¦¾à¦°à§à¦ªà¦¾à¦¸à¦¡à', 'karpashdanga.chuadanga.gov.bd'),
+(1763, 194, 'Natipota', 'à¦¨à¦¤à¦¿à¦ªà§‹à¦¤à¦¾', 'natipota.chuadanga.gov.bd'),
+(1764, 194, 'Hawli', 'à¦¹à¦¾à¦“à¦²à§€', 'hawli.chuadanga.gov.bd'),
+(1765, 194, 'Kurulgachhi', 'à¦•à§à¦¡à¦¼à¦¾à¦²à¦—à¦¾à', 'kurulgachhi.chuadanga.gov.bd'),
+(1766, 194, 'Perkrishnopur Madna', 'à¦ªà¦¾à¦°à¦•à§ƒà¦·à§à¦£à', 'perkrishnopurmadna.chuadanga.gov.bd'),
+(1767, 194, 'Juranpur', 'à¦œà§à¦¡à¦¼à¦¾à¦¨à¦ªà§à', 'juranpurup.chuadanga.gov.bd'),
+(1768, 195, 'Uthali', 'à¦‰à¦¥à¦²à§€', 'uthaliup.chuadanga.gov.bd'),
+(1769, 195, 'Andulbaria', 'à¦†à¦¨à§à¦¦à§à¦²à¦¬à¦¾à', 'andulbaria.chuadanga.gov.bd'),
+(1770, 195, 'Banka', 'à¦¬à¦¾à¦à¦•à¦¾', 'bankaup.chuadanga.gov.bd'),
+(1771, 195, 'Shimanto', 'à¦¸à§€à¦®à¦¾à¦¨à§à¦¤', 'shimanto.chuadanga.gov.bd'),
+(1772, 195, 'Raypur', 'à¦°à¦¾à¦¯à¦¼à¦ªà§à¦°', 'raypurup.chuadanga.gov.bd'),
+(1773, 195, 'Hasadah', 'à¦¹à¦¾à¦¸à¦¾à¦¦à¦¾à¦¹', 'hasadahup.chuadanga.gov.bd'),
+(1774, 196, 'Hatash Haripur', 'à¦¹à¦¾à¦Ÿà¦¶ à¦¹à¦°à¦¿à¦ª', '1nohatashharipurup.kushtia.gov.bd'),
+(1775, 196, 'Barkhada', 'à¦¬à¦¾à¦°à¦–à¦¾à¦¦à¦¾', '2nobarkhadaup.kushtia.gov.bd'),
+(1776, 196, 'Mazampur', 'à¦®à¦œà¦®à¦ªà§à¦°', '3nomazampurup.kushtia.gov.bd'),
+(1777, 196, 'Bottail', 'à¦¬à¦Ÿà¦¤à§ˆà¦²', '4nobottailup.kushtia.gov.bd'),
+(1778, 196, 'Alampur', 'à¦†à¦²à¦¾à¦®à¦ªà§à¦°', '5noalampurup.kushtia.gov.bd'),
+(1779, 196, 'Ziaraakhi', 'à¦œà¦¿à§Ÿà¦¾à¦°à¦¾à¦–à§€', '6noziaraakhiup.kushtia.gov.bd'),
+(1780, 196, 'Ailchara', 'à¦†à¦‡à¦²à¦šà¦¾à¦°à¦¾', '7noailcharaup.kushtia.gov.bd'),
+(1781, 196, 'Patikabari', 'à¦ªà¦¾à¦Ÿà¦¿à¦•à¦¾à¦¬à¦¾à', '8nopatikabariup.kushtia.gov.bd'),
+(1782, 196, 'Jhaudia', 'à¦à¦¾à¦‰à¦¦à¦¿à§Ÿà¦¾', '9nojhaudiaup.kushtia.gov.bd'),
+(1783, 196, 'Ujangram', 'à¦‰à¦œà¦¾à¦¨à¦—à§à¦°à¦¾à', '10noujangramup.kushtia.gov.bd'),
+(1784, 196, 'Abdulpur', 'à¦†à¦¬à§à¦¦à¦¾à¦²à¦ªà§à', '11noabdulpurup.kushtia.gov.bd'),
+(1785, 196, 'Harinarayanpur', 'à¦¹à¦°à¦¿à¦¨à¦¾à¦°à¦¾à§Ÿà', '12noharinarayanpurup.kushtia.gov.bd'),
+(1786, 196, 'Monohardia', 'à¦®à¦¨à§‹à¦¹à¦°à¦¦à¦¿à§Ÿà', '13nomonohardiaup.kushtia.gov.bd'),
+(1787, 196, 'Goswami Durgapur', 'à¦—à§‹à¦¸à§à¦¬à¦¾à¦®à§€ ', '14nogoswamidurgapurup.kushtia.gov.bd'),
+(1788, 197, 'Kaya', 'à¦•à§Ÿà¦¾', '1nokayaup.kushtia.gov.bd'),
+(1789, 197, 'Jagonnathpur', 'à¦œà¦—à¦¨à§à¦¨à¦¾à¦¥à¦ªà', '3nojagonnathpurup.kushtia.gov.bd'),
+(1790, 197, 'Sadki', 'à¦¸à¦¦à¦•à§€', '4nosadkiup.kushtia.gov.bd'),
+(1791, 197, 'Shelaidah', 'à¦¶à¦¿à¦²à¦¾à¦‡à¦¦à¦¹', '2noshelaidahup.kushtia.gov.bd'),
+(1792, 197, 'Nandolalpur', 'à¦¨à¦¨à§à¦¦à¦²à¦¾à¦²à¦ªà', '5nonandolalpurup.kushtia.gov.bd'),
+(1793, 197, 'Chapra', 'à¦šà¦¾à¦ªà§œà¦¾', '6nochapraup.kushtia.gov.bd'),
+(1794, 197, 'Bagulat', 'à¦¬à¦¾à¦—à§à¦²à¦¾à¦Ÿ', '7nobagulatup.kushtia.gov.bd'),
+(1795, 197, 'Jaduboyra', 'à¦¯à¦¦à§à¦¬à§Ÿà¦°à¦¾', '8nojaduboyraup.kushtia.gov.bd'),
+(1796, 197, 'Chadpur', 'à¦šà¦¾à¦à¦¦à¦ªà§à¦°', '9nochadpurup.kushtia.gov.bd'),
+(1797, 197, 'Panti', 'à¦ªà¦¾à¦¨à§à¦Ÿà¦¿', '10nopantiup.kushtia.gov.bd'),
+(1798, 197, 'Charsadipur', 'à¦šà¦°à¦¸à¦¾à¦¦à§€à¦ªà§à', '11nocharsadipurup.kushtia.gov.bd'),
+(1799, 198, 'Khoksa', 'à¦–à§‹à¦•à¦¸à¦¾', '1nokhoksaup.kushtia.gov.bd'),
+(1800, 198, 'Osmanpur', 'à¦“à¦¸à¦®à¦¾à¦¨à¦ªà§à¦°', '2noosmanpurup.kushtia.gov.bd'),
+(1801, 198, 'Janipur', 'à¦œà¦¾à¦¨à¦¿à¦ªà§à¦°', '4nojanipurup.kushtia.gov.bd'),
+(1802, 198, 'Shimulia', 'à¦¶à¦¿à¦®à§à¦²à¦¿à§Ÿà¦¾', '5noshimuliaup.kushtia.gov.bd'),
+(1803, 198, 'Joyntihazra', 'à¦œà§Ÿà¦¨à§à¦¤à§€à¦¹à¦¾à', '8nojoyntihazraup.kushtia.gov.bd'),
+(1804, 198, 'Ambaria', 'à¦†à¦®à¦¬à¦¾à§œà§€à§Ÿà¦¾', '9noambariaup.kushtia.gov.bd'),
+(1805, 198, 'Bethbaria', 'à¦¬à§‡à¦¤à¦¬à¦¾à§œà§€à§Ÿà', '3nobethbariaup.kushtia.gov.bd'),
+(1806, 198, 'Shomospur', 'à¦¶à§‹à¦®à¦¸à¦ªà§à¦°', '6noshomospurup.kushtia.gov.bd'),
+(1807, 198, 'Gopgram', 'à¦—à§‹à¦ªà¦—à§à¦°à¦¾à¦®', 'gopgram7up.kushtia.gov.bd'),
+(1808, 199, 'Chithalia', 'à¦šà¦¿à¦¥à¦²à¦¿à§Ÿà¦¾', 'chithaliaup.kushtia.gov.bd'),
+(1809, 199, 'Bahalbaria', 'à¦¬à¦¹à¦²à¦¬à¦¾à§œà§€à§Ÿà', 'bahalbariaup.kushtia.gov.bd'),
+(1810, 199, 'Talbaria', 'à¦¤à¦¾à¦²à¦¬à¦¾à§œà§€à§Ÿà', 'talbariaup.kushtia.gov.bd'),
+(1811, 199, 'Baruipara', 'à¦¬à¦¾à¦°à§à¦‡à¦ªà¦¾à§œà', 'baruiparaup.kushtia.gov.bd'),
+(1812, 199, 'Fulbaria', 'à¦«à§à¦²à¦¬à¦¾à§œà§€à§Ÿà', 'fulbariaup.kushtia.gov.bd'),
+(1813, 199, 'Amla', 'à¦†à¦®à¦²à¦¾', 'amlaup.kushtia.gov.bd'),
+(1814, 199, 'Sadarpur', 'à¦¸à¦¦à¦°à¦ªà§à¦°', 'sadarpurup.kushtia.gov.bd'),
+(1815, 199, 'Chhatian', 'à¦›à¦¾à¦¤à¦¿à§Ÿà¦¾à¦¨', 'chhatianup.kushtia.gov.bd'),
+(1816, 199, 'Poradaha', 'à¦ªà§‹à§œà¦¾à¦¦à¦¹', 'poradahaup.kushtia.gov.bd'),
+(1817, 199, 'Kursha', 'à¦•à§à¦°à§à¦¶à¦¾', 'kurshaup.kushtia.gov.bd'),
+(1818, 199, 'Ambaria', 'à¦†à¦®à¦¬à¦¾à§œà§€à§Ÿà¦¾', 'ambariaup.kushtia.gov.bd'),
+(1819, 199, 'Dhubail', 'à¦§à§‚à¦¬à¦‡à¦²', 'dhubailup.kushtia.gov.bd'),
+(1820, 199, 'Malihad', 'à¦®à¦¾à¦²à¦¿à¦¹à¦¾à¦¦', '11nomalihadup.kushtia.gov.bd'),
+(1821, 200, 'Daulatpur', 'à¦¦à§Œà¦²à¦¤à¦ªà§à¦°', 'daulatpurup.kushtia.gov.bd'),
+(1822, 200, 'Adabaria', 'à§œà§€à§Ÿà¦¾', 'adabariaup.kushtia.gov.bd'),
+(1823, 200, 'Hogolbaria', 'à¦¹à§‹à¦—à¦²à¦¬à¦¾à§œà§€à', 'hogolbariaup.kushtia.gov.bd'),
+(1824, 200, 'Boalia', 'à¦¬à§‹à§Ÿà¦¾à¦²à¦¿', 'boaliaup.kushtia.gov.bd'),
+(1825, 200, 'Philipnagor', 'à¦«à¦¿à¦²à¦¿à¦ªà¦¨à¦—à¦°', 'philipnagorup.kushtia.gov.bd'),
+(1826, 200, 'Aria', 'à¦†à§œà¦¿à§Ÿà¦¾', 'ariaup.kushtia.gov.bd'),
+(1827, 200, 'Khalishakundi', 'à¦–à¦²à¦¿à¦¶à¦¾à¦•à§à¦¨à', 'khalishakundiup.kushtia.gov.bd'),
+(1828, 200, 'Chilmary', 'à¦šà¦¿à¦²à¦®à¦¾à¦°à§€', 'chilmaryup.kushtia.gov.bd'),
+(1829, 200, 'Mothurapur', 'à¦®à¦¥à§à¦°à¦¾à¦ªà§à¦°', 'mothurapurup.kushtia.gov.bd'),
+(1830, 200, 'Pragpur', 'à¦ªà§à¦°à¦¾à¦—à¦ªà§à¦°', 'pragpurup.kushtia.gov.bd'),
+(1831, 200, 'Piarpur', 'à¦ªà¦¿à§Ÿà¦¾à¦°à¦ªà§à¦°', 'piarpurup.kushtia.gov.bd'),
+(1832, 200, 'Moricha', 'à¦®à¦°à¦¿à¦šà¦¾', 'morichaup.kushtia.gov.bd'),
+(1833, 200, 'Refaitpur', 'à¦°à¦¿à¦«à¦¾à¦‡à¦¤à¦ªà§à', '9norefaitpurup.kushtia.gov.bd'),
+(1834, 200, 'Ramkrishnopur', 'à¦°à¦¾à¦®à¦•à§ƒà¦·à§à¦£à', '5noramkrishnopurup.kushtia.gov.bd'),
+(1835, 201, 'Dharampur', 'à¦§à¦°à¦®à¦ªà§à¦°', '5nodharampurup.kushtia.gov.bd'),
+(1836, 201, 'Bahirchar', 'à¦¬à¦¾à¦¹à¦¿à¦°à¦šà¦°', '3nobahircharup.kushtia.gov.bd'),
+(1837, 201, 'Mukarimpur', 'à¦®à§‹à¦•à¦¾à¦°à¦¿à¦®à¦ªà', '2nomukarimpurup.kushtia.gov.bd'),
+(1838, 201, 'Juniadah', 'à¦œà§à¦¨à¦¿à§Ÿà¦¾à¦¦à¦¹', '6nojuniadahup.kushtia.gov.bd'),
+(1839, 201, 'Chandgram', 'à¦šà¦¾à¦à¦¦à¦—à§à¦°à¦¾à', '4nochandgramup.kushtia.gov.bd'),
+(1840, 201, 'Bahadurpur', 'à¦¬à¦¾à¦¹à¦¾à¦¦à§à¦°à¦ªà', '1nobahadurpurup.kushtia.gov.bd'),
+(1841, 202, 'Dhaneshwargati', 'à¦§à¦¨à§‡à¦¶à§à¦¬à¦°à¦—à', 'dhaneshwargatiup.magura.gov.bd'),
+(1842, 202, 'Talkhari', 'à¦¤à¦¾à¦²à¦–à§œà¦¿', 'talkhariup.magura.gov.bd'),
+(1843, 202, 'Arpara', 'à¦†à§œà¦ªà¦¾à§œà¦¾', 'arparaup.magura.gov.bd'),
+(1844, 202, 'Shatakhali', 'à¦¶à¦¤à¦–à¦¾à¦²à§€', 'shatakhaliup.magura.gov.bd'),
+(1845, 202, 'Shalikha', 'à¦¶à¦¾à¦²à¦¿à¦–à¦¾', 'shalikhaup.magura.gov.bd'),
+(1846, 202, 'Bunagati', 'à¦¬à§à¦¨à¦¾à¦—à¦¾à¦¤à§€', 'bunagatiup.magura.gov.bd'),
+(1847, 202, 'Gongarampur', 'à¦—à¦™à§à¦—à¦¾à¦°à¦¾à¦®à', 'gongarampurup.magura.gov.bd'),
+(1848, 203, 'Goyespur', 'à¦—à§Ÿà§‡à¦¶à¦ªà§à¦°', 'goyespurup.magura.gov.bd'),
+(1849, 203, 'Sreekol', 'à¦¶à§à¦°à§€à¦•à§‹à¦²', 'sreekolup.magura.gov.bd'),
+(1850, 203, 'Dariapur', 'à¦¦à§à¦¬à¦¾à¦°à¦¿à§Ÿà¦¾à', 'dariapurup.magura.gov.bd'),
+(1851, 203, 'Kadirpara', 'à¦•à¦¾à¦¦à¦¿à¦°à¦ªà¦¾à§œà', 'kadirparaup.magura.gov.bd'),
+(1852, 203, 'Shobdalpur', 'à¦¸à¦¬à§à¦¦à¦¾à¦²à¦ªà§à', 'shobdalpurup.magura.gov.bd'),
+(1853, 203, 'Sreepur', 'à¦¶à§à¦°à§€à¦ªà§à¦°', 'sreepurup.magura.gov.bd'),
+(1854, 203, 'Nakol', 'à¦¨à¦¾à¦•à§‹à¦²', 'nakolup.magura.gov.bd'),
+(1855, 203, 'Amalshar', 'à¦†à¦®à¦²à¦¸à¦¾à¦°', 'amalsharup.magura.gov.bd'),
+(1856, 204, 'Hazipur', 'à¦¹à¦¾à¦œà§€à¦ªà§à¦°', 'hazipurup.magura.gov.bd'),
+(1857, 204, 'Atharokhada', 'à¦†à¦ à¦¾à¦°à¦–à¦¾à¦¦à¦¾', 'atharokhadaup.magura.gov.bd'),
+(1858, 204, 'Kosundi', 'à¦•à¦›à§à¦¨à§à¦¦à§€', 'kosundiup.magura.gov.bd'),
+(1859, 204, 'Bogia', 'à¦¬à¦—à¦¿à§Ÿà¦¾', 'bogiaup.magura.gov.bd'),
+(1860, 204, 'Hazrapur', 'à¦¹à¦¾à¦œà¦°à¦¾à¦ªà§à¦°', 'hazrapurup.magura.gov.bd'),
+(1861, 204, 'Raghobdair', 'à¦°à¦¾à¦˜à¦¬à¦¦à¦¾à¦‡à§œ', 'raghobdairup.magura.gov.bd'),
+(1862, 204, 'Jagdal', 'à¦œà¦—à¦¦à¦²', 'jagdalup.magura.gov.bd'),
+(1863, 204, 'Chawlia', 'à¦šà¦¾à¦‰à¦²à¦¿à§Ÿà¦¾', 'chawliaup.magura.gov.bd'),
+(1864, 204, 'Satrijitpur', 'à¦¶à¦¤à§à¦°à§à¦œà¦¿à§Žà', 'satrijitpurup.magura.gov.bd'),
+(1865, 204, 'Baroilpolita', 'à¦¬à§‡à¦°à¦‡à¦² à¦ªà¦²à¦¿', 'baroilpolitaup.magura.gov.bd'),
+(1866, 204, 'Kuchiamora', 'à¦•à§à¦šà¦¿à§Ÿà¦¾à¦®à§‹', 'kuchiamoraup.magura.gov.bd'),
+(1867, 204, 'Gopalgram', 'à¦—à§‹à¦ªà¦¾à¦²à¦—à§à¦°à', 'gopalgramup.magura.gov.bd'),
+(1868, 204, 'Moghi', 'à¦®à¦˜à§€', 'moghiup.magura.gov.bd'),
+(1869, 205, 'Digha', 'à¦¦à§€à¦˜à¦¾', 'dighaup.magura.gov.bd'),
+(1870, 205, 'Nohata', 'à¦¨à¦¹à¦¾à¦Ÿà¦¾', 'nohataup.magura.gov.bd'),
+(1871, 205, 'Palashbaria', 'à¦ªà¦²à¦¾à¦¶à¦¬à¦¾à§œà§€à', 'palashbariaup.magura.gov.bd'),
+(1872, 205, 'Babukhali', 'à¦¬à¦¾à¦¬à§à¦–à¦¾à¦²à§€', 'babukhaliup.magura.gov.bd'),
+(1873, 205, 'Balidia', 'à¦¬à¦¾à¦²à¦¿à¦¦à¦¿à§Ÿà¦¾', 'balidiaup.magura.gov.bd'),
+(1874, 205, 'Binodpur', 'à¦¬à¦¿à¦¨à§‹à¦¦à¦ªà§à¦°', 'binodpurup.magura.gov.bd'),
+(1875, 205, 'Mohammadpur', 'à¦®à¦¹à¦®à§à¦®à¦¦à¦ªà§à', 'mohammadpurup.magura.gov.bd'),
+(1876, 205, 'Rajapur', 'à¦°à¦¾à¦œà¦¾à¦ªà§à¦°', 'rajapurup.magura.gov.bd'),
+(1877, 206, 'Horidhali', 'à¦¹à¦°à¦¿à¦¢à¦¾à¦²à§€', 'horidhaliup.khulna.gov.bd'),
+(1878, 206, 'Goroikhali', 'à¦—à¦¡à¦¼à¦‡à¦–à¦¾à¦²à§€', 'goroikhaliup.khulna.gov.bd'),
+(1879, 206, 'Kopilmuni', 'à¦•à¦ªà¦¿à¦²à¦®à§à¦¨à¦¿', 'kopilmuniup.khulna.gov.bd'),
+(1880, 206, 'Lota', 'à¦²à¦¤à¦¾', 'lotaup.khulna.gov.bd'),
+(1881, 206, 'Deluti', 'à¦¦à§‡à¦²à§à¦Ÿà¦¿', 'delutiup.khulna.gov.bd'),
+(1882, 206, 'Loskor', 'à¦²à¦¸à§à¦•à¦°', 'loskorup.khulna.gov.bd'),
+(1883, 206, 'Godaipur', 'à¦—à¦¦à¦¾à¦‡à¦ªà§à¦°', 'godaipurup.khulna.gov.bd');
+INSERT INTO `unions` (`id`, `upazilla_id`, `name`, `bn_name`, `url`) VALUES
+(1884, 206, 'Raruli', 'à¦°à¦¾à¦¡à¦¼à§à¦²à§€', 'www.raruliup.khulna.gov.bd'),
+(1885, 206, 'Chandkhali', 'à¦šà¦¾à¦à¦¦à¦–à¦¾à¦²à§€', 'chandkhaliup.khulna.gov.bd'),
+(1886, 206, 'Soladana', 'à¦¸à§‹à¦²à¦¾à¦¦à¦¾à¦¨à¦¾', 'soladanaup.khulna.gov.bd'),
+(1887, 207, 'Fultola', 'à¦«à§à¦²à¦¤à¦²à¦¾', 'www.fultolaup.khulna.gov.bd'),
+(1888, 207, 'Damodar', 'à¦¦à¦¾à¦®à§‹à¦¦à¦°', 'www.damodarup.khulna.gov.bd'),
+(1889, 207, 'Atra Gilatola', 'à¦†à¦Ÿà¦°à¦¾ à¦—à¦¿à¦²à¦¾', 'www.atragilatolaup.khulna.gov.bd'),
+(1890, 207, 'Jamira', 'à¦œà¦¾à¦®à¦¿à¦°à¦¾', 'www.jamiraup.khulna.gov.bd'),
+(1891, 208, 'Senhati', 'à¦¸à§‡à¦¨à¦¹à¦¾à¦Ÿà¦¿', 'www.senhatiup.khulna.gov.bd'),
+(1892, 208, 'Gajirhat', 'à¦—à¦¾à¦œà§€à¦°à¦¹à¦¾à¦Ÿ', 'www.gajirhatup.khulna.gov.bd'),
+(1893, 208, 'Barakpur', 'à¦¬à¦¾à¦°à¦¾à¦•à¦ªà§à¦°', 'www.barakpurup.khulna.gov.bd'),
+(1894, 208, 'Aronghata', 'à¦†à¦¡à¦¼à¦‚à¦˜à¦¾à¦Ÿà¦¾', 'www.aronghataup.khulna.gov.bd'),
+(1895, 208, 'Jogipol', 'à¦¯à§‹à¦—à§€à¦ªà§‹à¦²', 'www.jogipolup.khulna.gov.bd'),
+(1896, 208, 'Digholia', 'à¦¦à¦¿à¦˜à¦²à¦¿à§Ÿà¦¾', 'www.digholiaup.khulna.gov.bd'),
+(1897, 209, 'Aichgati', 'à¦†à¦‡à¦šà¦—à¦¾à¦¤à§€', 'aichgatiup.khulna.gov.bd'),
+(1898, 209, 'Srifoltola', 'à¦¶à§à¦°à§€à¦«à¦²à¦¤à¦²à', 'srifoltolaup.khulna.gov.bd'),
+(1899, 209, 'Noihati', 'à¦¨à§ˆà¦¹à¦¾à¦Ÿà¦¿', 'noihatiup.khulna.gov.bd'),
+(1900, 209, 'Tsb', 'à¦Ÿà¦¿à¦à¦¸à¦¬à¦¿', 'tsbup.khulna.gov.bd'),
+(1901, 209, 'Ghatvog', 'à¦˜à¦¾à¦Ÿà¦­à§‹à¦—', 'ghatvogup.khulna.gov.bd'),
+(1902, 210, 'Terokhada', 'à¦¤à§‡à¦°à¦–à¦¾à¦¦à¦¾', 'terokhadaup.khulna.gov.bd'),
+(1903, 210, 'Chagladoho', 'à¦›à¦¾à¦—à¦²à¦¾à¦¦à¦¹', 'chagladohoup.khulna.gov.bd'),
+(1904, 210, 'Barasat', 'à¦¬à¦¾à¦°à¦¾à¦¸à¦¾à¦¤', 'www.barasatup.khulna.gov.bd'),
+(1905, 210, 'Sochiadaho', 'à¦¸à¦¾à¦šà¦¿à¦¯à¦¼à¦¾à¦¦à', 'www.sochiadahoup.khulna.gov.bd'),
+(1906, 210, 'Modhupur', 'à¦®à¦§à§à¦ªà§à¦°', 'www.modhupurup.khulna.gov.bd'),
+(1907, 210, 'Ajgora', 'à¦†à¦œà¦—à¦¡à¦¼à¦¾', 'www.ajgoraup.khulna.gov.bd'),
+(1908, 211, 'Dumuria', 'à¦¡à§à¦®à§à¦°à¦¿à¦¯à¦¼à', 'dumuriaup.khulna.gov.bd'),
+(1909, 211, 'Magurghona', 'à¦®à¦¾à¦—à§à¦°à¦¾à¦˜à§‹à', 'magurghonaup.khulna.gov.bd'),
+(1910, 211, 'Vandarpara', 'à¦­à¦¾à¦¨à§à¦¡à¦¾à¦°à¦ªà', 'vandarparaup.khulna.gov.bd'),
+(1911, 211, 'Sahos', 'à¦¸à¦¾à¦¹à¦¸', 'sahosup.khulna.gov.bd'),
+(1912, 211, 'Rudaghora', 'à¦°à§à¦¦à¦¾à¦˜à¦°à¦¾', 'rudaghoraup.khulna.gov.bd'),
+(1913, 211, 'Ghutudia', 'à¦—à§à¦Ÿà§à¦¦à¦¿à¦¯à¦¼à', 'ghutudiaup.khulna.gov.bd'),
+(1914, 211, 'Shovna', 'à¦¶à§‹à¦­à¦¨à¦¾', 'shovnaup.khulna.gov.bd'),
+(1915, 211, 'Khornia', 'à¦–à¦°à§à¦£à¦¿à¦¯à¦¼à¦¾', 'khorniaup.khulna.gov.bd'),
+(1916, 211, 'Atlia', 'à¦†à¦Ÿà¦²à¦¿à¦¯à¦¼à¦¾', 'atliaup.khulna.gov.bd'),
+(1917, 211, 'Dhamalia', 'à¦§à¦¾à¦®à¦¾à¦²à¦¿à¦¯à¦¼à', 'dhamaliaup.khulna.gov.bd'),
+(1918, 211, 'Raghunathpur', 'à¦°à¦˜à§à¦¨à¦¾à¦¥à¦ªà§à', 'raghunathpurup.khulna.gov.bd'),
+(1919, 211, 'Rongpur', 'à¦°à¦‚à¦ªà§à¦°', 'rongpurup.khulna.gov.bd'),
+(1920, 211, 'Shorafpur', 'à¦¶à¦°à¦¾à¦«à¦ªà§à¦°', 'shorafpurup.khulna.gov.bd'),
+(1921, 211, 'Magurkhali', 'à¦®à¦¾à¦—à§à¦°à¦–à¦¾à¦²à', 'magurkhaliup.khulna.gov.bd'),
+(1922, 212, 'Botiaghata', 'à¦¬à¦Ÿà¦¿à§Ÿà¦¾à¦˜à¦¾à¦Ÿà', 'www.botiaghataup.khulna.gov.bd'),
+(1923, 212, 'Amirpur', 'à¦†à¦®à¦¿à¦°à¦ªà§à¦°', 'www.amirpurup.khulna.gov.bd'),
+(1924, 212, 'Gongarampur', 'à¦—à¦™à§à¦—à¦¾à¦°à¦¾à¦®à', 'www.gongarampurup.khulna.gov.bd'),
+(1925, 212, 'Surkhali', 'à¦¸à§à¦°à¦–à¦¾à¦²à§€', 'www.surkhaliup.khulna.gov.bd'),
+(1926, 212, 'Vandarkot', 'à¦­à¦¾à¦¨à§à¦¡à¦¾à¦°à¦•à', 'www.vandarkotup.khulna.gov.bd'),
+(1927, 212, 'Baliadanga', 'à¦¬à¦¾à¦²à¦¿à¦¯à¦¼à¦¾à¦¡à', 'www.baliadangaup.khulna.gov.bd'),
+(1928, 212, 'Jolma', 'à¦œà¦²à¦®à¦¾', 'www.jolmaup.khulna.gov.bd'),
+(1929, 213, 'Dakop', 'à¦¦à¦¾à¦•à§‹à¦ª', 'www.dakopup.khulna.gov.bd'),
+(1930, 213, 'Bajua', 'à¦¬à¦¾à¦œà§à¦¯à¦¼à¦¾', 'bajuaup.khulna.gov.bd'),
+(1931, 213, 'Kamarkhola', 'à¦•à¦¾à¦®à¦¾à¦°à¦–à§‹à¦²à', 'www.kamarkholaup.khulna.gov.bd'),
+(1932, 213, 'Tildanga', 'à¦¤à¦¿à¦²à¦¡à¦¾à¦™à§à¦—à', 'www.tildangaup.khulna.gov.bd'),
+(1933, 213, 'Sutarkhali', 'à¦¸à§à¦¤à¦¾à¦°à¦–à¦¾à¦²à', 'www.sutarkhaliup.khulna.gov.bd'),
+(1934, 213, 'Laudoba', 'à¦²à¦¾à¦‰à¦¡à§‹à¦¬', 'laudobaup.khulna.gov.bd'),
+(1935, 213, 'Pankhali', 'à¦ªà¦¾à¦¨à¦–à¦¾à¦²à§€', 'pankhaliup.khulna.gov.bd'),
+(1936, 213, 'Banishanta', 'à¦¬à¦¾à¦¨à¦¿à¦¶à¦¾à¦¨à§à', 'banishantaup.khulna.gov.bd'),
+(1937, 213, 'Koilashgonj', 'à¦•à§ˆà¦²à¦¾à¦¶à¦—à¦žà§à', 'koilashgonjup.khulna.gov.bd'),
+(1938, 214, 'Koyra', 'à¦•à¦¯à¦¼à¦°à¦¾', 'koyraup.khulna.gov.bd'),
+(1939, 214, 'Moharajpur', 'à¦®à¦¹à¦¾à¦°à¦¾à¦œà¦ªà§à', 'moharajpurup.khulna.gov.bd'),
+(1940, 214, 'Moheswaripur', 'à¦®à¦¹à§‡à¦¶à§à¦¬à¦°à§€à', 'moheswaripurup.khulna.gov.bd'),
+(1941, 214, 'North Bedkashi', 'à¦‰à¦¤à§à¦¤à¦° à¦¬à§‡à¦¦', 'northbedkashiup.khulna.gov.bd'),
+(1942, 214, 'South Bedkashi', 'à¦¦à¦•à§à¦·à¦¿à¦£ à¦¬à§‡', 'southbedkashiup.khulna.gov.bd'),
+(1943, 214, 'Amadi', 'à¦†à¦®à¦¾à¦¦à¦¿', 'amadiup.khulna.gov.bd'),
+(1944, 214, 'Bagali', 'à¦¬à¦¾à¦—à¦¾à¦²à§€', 'bagaliup.khulna.gov.bd'),
+(1945, 215, 'Betaga', 'à¦¬à§‡à¦¤à¦¾à¦—à¦¾', 'betagaup.bagerhat.gov.bd'),
+(1946, 215, 'Lakhpur', 'à¦²à¦–à¦ªà§à¦°', 'lakhpurup.bagerhat.gov.bd'),
+(1947, 215, 'Fakirhat', 'à¦«à¦•à¦¿à¦°à¦¹à¦¾à¦Ÿ', 'fakirhatup.bagerhat.gov.bd'),
+(1948, 215, 'Bahirdia-Mansa', 'à¦¬à¦¾à¦¹à¦¿à¦°à¦¦à¦¿à§Ÿà', 'bahirdiamansaup.bagerhat.gov.bd'),
+(1949, 215, 'Piljanga', 'à¦ªà¦¿à¦²à¦œà¦‚à¦—', 'piljangaup.bagerhat.gov.bd'),
+(1950, 215, 'Naldha-Mouvhog', 'à¦¨à¦²à¦§à¦¾-à¦®à§Œà¦­à§‹', 'naldhamauvhogup.bagerhat.gov.bd'),
+(1951, 215, 'Mulghar', 'à¦®à§‚à¦²à¦˜à¦°', 'mulgharup.bagerhat.gov.bd'),
+(1952, 215, 'Suvhadia', 'à¦¶à§à¦­à¦¦à¦¿à§Ÿà¦¾', 'suvhadiaup.bagerhat.gov.bd'),
+(1953, 216, 'Karapara', 'à¦•à¦¾à§œà¦¾à¦ªà¦¾à§œà¦¾', 'karaparaup.bagerhat.gov.bd'),
+(1954, 216, 'Bamorta', 'à¦¬à§‡à¦®à¦°à¦¤à¦¾', 'bamortaup.bagerhat.gov.bd'),
+(1955, 216, 'Gotapara', 'à¦—à§‹à¦Ÿà¦¾à¦ªà¦¾à§œà¦¾', 'gotaparaup.bagerhat.gov.bd'),
+(1956, 216, 'Bishnapur', 'à¦¬à¦¿à¦·à§à¦£à§à¦ªà§à', 'bishnapurup.bagerhat.gov.bd'),
+(1957, 216, 'Baruipara', 'à¦¬à¦¾à¦°à§à¦‡à¦ªà¦¾à§œà', 'baruiparaup.bagerhat.gov.bd'),
+(1958, 216, 'Jatharapur', 'à¦¯à¦¾à¦¤à§à¦°à¦¾à¦ªà§à', 'jatharapurup.bagerhat.gov.bd'),
+(1959, 216, 'Shaitgomboj', 'à¦·à¦¾à¦Ÿà¦—à§à¦®à§à¦¬à', 'shaitgombojup.bagerhat.gov.bd'),
+(1960, 216, 'Khanpur', 'à¦–à¦¾à¦¨à¦ªà§à¦°', 'khanpurup.bagerhat.gov.bd'),
+(1961, 216, 'Rakhalgachi', 'à¦°à¦¾à¦–à¦¾à¦²à¦—à¦¾à¦›à', 'rakhalgachiup.bagerhat.gov.bd'),
+(1962, 216, 'Dema', 'à¦¡à§‡à¦®à¦¾', 'demaup.bagerhat.gov.bd'),
+(1963, 217, 'Udoypur', 'à¦‰à¦¦à§Ÿà¦ªà§à¦°', 'udoypurup.bagerhat.gov.bd'),
+(1964, 217, 'Chunkhola', 'à¦šà§à¦¨à¦–à§‹à¦²à¦¾', 'chunkholaup.bagerhat.gov.bd'),
+(1965, 217, 'Gangni', 'à¦—à¦¾à¦‚à¦¨à§€', 'gangniup.bagerhat.gov.bd'),
+(1966, 217, 'Kulia', 'à¦•à§à¦²à¦¿à§Ÿà¦¾', 'kuliaup.bagerhat.gov.bd'),
+(1967, 217, 'Gaola', 'à¦—à¦¾à¦“à¦²à¦¾', 'gaolaup.bagerhat.gov.bd'),
+(1968, 217, 'Kodalia', 'à¦•à§‹à¦¦à¦¾à¦²à¦¿à§Ÿà¦¾', 'kodaliaup.bagerhat.gov.bd'),
+(1969, 217, 'Atjuri', 'à¦†à¦Ÿà¦œà§à§œà§€', 'atjuriup.bagerhat.gov.bd'),
+(1970, 218, 'Dhanshagor', 'à¦§à¦¾à¦¨à¦¸à¦¾à¦—à¦°', 'dhanshagorup.bagerhat.gov.bd'),
+(1971, 218, 'Khontakata', 'à¦–à§‹à¦¨à§à¦¤à¦¾à¦•à¦¾à', 'khontakataup.bagerhat.gov.bd'),
+(1972, 218, 'Rayenda', 'à¦°à¦¾à§Ÿà§‡à¦¨à§à¦¦à¦¾', 'rayendaup.bagerhat.gov.bd'),
+(1973, 218, 'Southkhali', 'à¦¸à¦¾à¦‰à¦¥à¦–à¦¾à¦²à§€', 'southkhaliup.bagerhat.gov.bd'),
+(1974, 219, 'Gouramva', 'à¦—à§Œà¦°à¦®à§à¦­à¦¾', 'gouramvaup.bagerhat.gov.bd'),
+(1975, 219, 'Uzzalkur', 'à¦‰à¦œà¦²à¦•à§à§œ', 'uzzalkurup.bagerhat.gov.bd'),
+(1976, 219, 'Baintala', 'à¦¬à¦¾à¦‡à¦¨à¦¤à¦²à¦¾', 'baintalaup.bagerhat.gov.bd'),
+(1977, 219, 'Rampal', 'à¦°à¦¾à¦®à¦ªà¦¾à¦²', 'rampalup.bagerhat.gov.bd'),
+(1978, 219, 'Rajnagar', 'à¦°à¦¾à¦œà¦¨à¦—à¦°', 'rajnagarup.bagerhat.gov.bd'),
+(1979, 219, 'Hurka', 'à¦¹à§à§œà¦•à¦¾', 'hurkaup.bagerhat.gov.bd'),
+(1980, 219, 'Perikhali', 'à¦ªà§‡à§œà¦¿à¦–à¦¾à¦²à§€', 'perikhaliup.bagerhat.gov.bd'),
+(1981, 219, 'Vospatia', 'à¦­à§‹à¦œà¦ªà¦¾à¦¤à¦¿à§Ÿà', 'vospatiaup.bagerhat.gov.bd'),
+(1982, 219, 'Mollikerbar', 'à¦®à¦²à§à¦²à¦¿à¦•à§‡à¦°à', 'mollikerbarup.bagerhat.gov.bd'),
+(1983, 219, 'Bastoli', 'à¦¬à¦¾à¦à¦¶à¦¤à¦²à§€', 'bastoliup.bagerhat.gov.bd'),
+(1984, 220, 'Teligati', 'à¦¤à§‡à¦²à¦¿à¦—à¦¾à¦¤à§€', 'teligatiup.bagerhat.gov.bd'),
+(1985, 220, 'Panchakaran', 'à¦ªà¦žà§à¦šà¦•à¦°à¦£', 'panchakaranup.bagerhat.gov.bd'),
+(1986, 220, 'Putikhali', 'à¦ªà§à¦Ÿà¦¿à¦–à¦¾à¦²à§€', 'putikhaliup.bagerhat.gov.bd'),
+(1987, 220, 'Daibagnyahati', 'à¦¦à§ˆà¦¬à¦œà§à¦žà¦¹à¦¾à', 'daibagnyahatiup.bagerhat.gov.bd'),
+(1988, 220, 'Ramchandrapur', 'à¦°à¦¾à¦®à¦šà¦¨à§à¦¦à§à', 'ramchandrapurup.bagerhat.gov.bd'),
+(1989, 220, 'Chingrakhali', 'à¦šà¦¿à¦‚à§œà¦¾à¦–à¦¾à¦²à', 'chingrakhaliup.bagerhat.gov.bd'),
+(1990, 220, 'Jiudhara', 'à¦œà¦¿à¦‰à¦§à¦°à¦¾', 'jiudharaup.bagerhat.gov.bd'),
+(1991, 220, 'Hoglapasha', 'à¦¹à§‹à¦—à¦²à¦¾à¦ªà¦¾à¦¶à', 'hoglapashaup.bagerhat.gov.bd'),
+(1992, 220, 'Banagram', 'à¦¬à¦¨à¦—à§à¦°à¦¾à¦®', 'banagramup.bagerhat.gov.bd'),
+(1993, 220, 'Balaibunia', 'à¦¬à¦²à¦‡à¦¬à§à¦¨à¦¿à§Ÿà', 'balaibuniaup.bagerhat.gov.bd'),
+(1994, 220, 'Hoglabunia', 'à¦¹à§‹à¦—à¦²à¦¾à¦¬à§à¦¨à', 'hoglabuniaup.bagerhat.gov.bd'),
+(1995, 220, 'Baharbunia', 'à¦¬à¦¹à¦°à¦¬à§à¦¨à¦¿à§Ÿà', 'baharbuniaup.bagerhat.gov.bd'),
+(1996, 220, 'Morrelganj', 'à¦®à§‹à§œà§‡à¦²à¦—à¦žà§à', 'morrelganjup.bagerhat.gov.bd'),
+(1997, 220, 'Khaulia', 'à¦–à¦¾à¦‰à¦²à¦¿à§Ÿà¦¾', 'khauliaup.bagerhat.gov.bd'),
+(1998, 220, 'Nishanbaria', 'à¦¨à¦¿à¦¶à¦¾à¦¨à¦¬à¦¾à§œà', 'nishanbariaup.bagerhat.gov.bd'),
+(1999, 220, 'Baraikhali', 'à¦¬à¦¾à¦°à¦‡à¦–à¦¾à¦²à§€', 'baraikhaliup.bagerhat.gov.bd'),
+(2000, 221, 'Gojalia', 'à¦—à¦œà¦¾à¦²à¦¿à§Ÿà¦¾', 'gojaliaup.bagerhat.gov.bd'),
+(2001, 221, 'Dhopakhali', 'à¦§à§‹à¦ªà¦¾à¦–à¦¾à¦²à§€', 'dhopakhaliup.bagerhat.gov.bd'),
+(2002, 221, 'Moghia', 'à¦®à¦˜à¦¿à§Ÿà¦¾', 'moghiaup.bagerhat.gov.bd'),
+(2003, 221, 'Kachua', 'à¦•à¦šà§à§Ÿà¦¾', 'kachuaup.bagerhat.gov.bd'),
+(2004, 221, 'Gopalpur', 'à¦—à§‹à¦ªà¦¾à¦²à¦ªà§à¦°', 'gopalpurup.bagerhat.gov.bd'),
+(2005, 221, 'Raripara', 'à¦°à¦¾à§œà§€à¦ªà¦¾à§œà¦¾', 'rariparaup.bagerhat.gov.bd'),
+(2006, 221, 'Badhal', 'à¦¬à¦¾à¦§à¦¾à¦²', 'badhalup.bagerhat.gov.bd'),
+(2007, 222, 'Burrirdangga', 'à¦¬à§à§œà¦¿à¦°à¦¡à¦¾à¦™à', 'burrirdanggaup.bagerhat.gov.bd'),
+(2008, 222, 'Mithakhali', 'à¦®à¦¿à¦ à¦¾à¦–à¦¾à¦²à§€', 'mithakhaliup.bagerhat.gov.bd'),
+(2009, 222, 'Sonailtala', 'à¦¸à§‹à¦¨à¦¾à¦‡à¦²à¦¤à¦²à', 'sonailtalaup.bagerhat.gov.bd'),
+(2010, 222, 'Chadpai', 'à¦šà¦¾à¦à¦¦à¦ªà¦¾à¦‡', 'chadpaiup.bagerhat.gov.bd'),
+(2011, 222, 'Chila', 'à¦šà¦¿à¦²à¦¾', 'chilaup.bagerhat.gov.bd'),
+(2012, 222, 'Sundarban', 'à¦¸à§à¦¨à§à¦¦à¦°à¦¬à¦¨', 'sundarbanup.bagerhat.gov.bd'),
+(2013, 223, 'Barobaria', 'à¦¬à§œà¦¬à¦¾à§œà¦¿à§Ÿà¦¾', 'barobariaup.bagerhat.gov.bd'),
+(2014, 223, 'Kalatala', 'à¦•à¦²à¦¾à¦¤à¦²à¦¾', 'kalatalaup.bagerhat.gov.bd'),
+(2015, 223, 'Hizla', 'à¦¹à¦¿à¦œà¦²à¦¾', 'hizlaup.bagerhat.gov.bd'),
+(2016, 223, 'Shibpur', 'à¦¶à¦¿à¦¬à¦ªà§à¦°', 'shibpurup.bagerhat.gov.bd'),
+(2017, 223, 'Chitalmari', 'à¦šà¦¿à¦¤à¦²à¦®à¦¾à¦°à§€', 'chitalmariup.bagerhat.gov.bd'),
+(2018, 223, 'Charbaniri', 'à¦šà¦°à¦¬à¦¾à¦¨à¦¿à§Ÿà¦¾à', 'charbaniriup.bagerhat.gov.bd'),
+(2019, 223, 'Shantoshpur', 'à¦¸à¦¨à§à¦¤à§‹à¦·à¦ªà§à', 'shantoshpurup.bagerhat.gov.bd'),
+(2020, 224, 'Sadhuhati', 'à¦¸à¦¾à¦§à§à¦¹à¦¾à¦Ÿà§€', 'sadhuhatiup.jhenaidah.gov.bd'),
+(2021, 224, 'Modhuhati', 'à¦®à¦§à§à¦¹à¦¾à¦Ÿà§€', 'modhuhatiup.jhenaidah.gov.bd'),
+(2022, 224, 'Saganna', 'à¦¸à¦¾à¦—à¦¾à¦¨à§à¦¨à¦¾', 'sagannaup.jhenaidah.gov.bd'),
+(2023, 224, 'Halidhani', 'à¦¹à¦²à¦¿à¦§à¦¾à¦¨à§€', 'halidhaniup.jhenaidah.gov.bd'),
+(2024, 224, 'Kumrabaria', 'à¦•à§à¦®à§œà¦¾à¦¬à¦¾à§œà', 'kumrabariaup.jhenaidah.gov.bd'),
+(2025, 224, 'Ganna', 'à¦—à¦¾à¦¨à§à¦¨à¦¾', 'gannaup.jhenaidah.gov.bd'),
+(2026, 224, 'Maharazpur', 'à¦®à¦¹à¦¾à¦°à¦¾à¦œà¦ªà§à', 'maharazpurup.jhenaidah.gov.bd'),
+(2027, 224, 'Paglakanai', 'à¦ªà¦¾à¦—à¦²à¦¾à¦•à¦¾à¦¨à', 'paglakanaiup.jhenaidah.gov.bd'),
+(2028, 224, 'Porahati', 'à¦ªà§‹à§œà¦¾à¦¹à¦¾à¦Ÿà§€', 'porahatiup.jhenaidah.gov.bd'),
+(2029, 224, 'Harishongkorpur', 'à¦¹à¦°à¦¿à¦¶à¦‚à¦•à¦°à¦ªà', 'harishongkorpurup.jhenaidah.gov.bd'),
+(2030, 224, 'Padmakar', 'à¦ªà¦¦à§à¦®à¦¾à¦•à¦°', 'padmakarup.jhenaidah.gov.bd'),
+(2031, 224, 'Dogachhi', 'à¦¦à§‹à¦—à¦¾à¦›à¦¿', 'dogachhiup.jhenaidah.gov.bd'),
+(2032, 224, 'Furshondi', 'à¦«à§à¦°à¦¸à¦¨à§à¦¦à¦¿', 'furshondiup.jhenaidah.gov.bd'),
+(2033, 224, 'Ghorshal', 'à¦˜à§‹à§œà¦¶à¦¾à¦²', 'ghorshalup.jhenaidah.gov.bd'),
+(2034, 224, 'Kalicharanpur', 'à¦•à¦¾à¦²à§€à¦šà¦°à¦£à¦ªà', 'kalicharanpurup.jhenaidah.gov.bd'),
+(2035, 224, 'Surat', 'à¦¸à§à¦°à¦¾à¦Ÿ', 'suratup.jhenaidah.gov.bd'),
+(2036, 224, 'Naldanga', 'à¦¨à¦²à¦¡à¦¾à¦™à§à¦—à¦¾', 'naldangaup.jhenaidah.gov.bd'),
+(2037, 225, 'Tribeni', 'à¦¤à§à¦°à¦¿à¦¬à§‡à¦¨à§€', 'tribeniup.jhenaidah.gov.bd'),
+(2038, 225, 'Mirzapur', 'à¦®à¦¿à¦°à§à¦œà¦¾à¦ªà§à', 'mirzapurup.jhenaidah.gov.bd'),
+(2039, 225, 'Dignagore', 'à¦¦à¦¿à¦—à¦¨à¦—à¦°', 'dignagoreup.jhenaidah.gov.bd'),
+(2040, 225, 'Kancherkol', 'à¦•à¦¾à¦à¦šà§‡à¦°à¦•à§‹à', 'kancherkolup.jhenaidah.gov.bd'),
+(2041, 225, 'Sarutia', 'à¦¸à¦¾à¦°à§à¦Ÿà¦¿à§Ÿà¦¾', 'sarutiaup.jhenaidah.gov.bd'),
+(2042, 225, 'Hakimpur', 'à¦¹à¦¾à¦•à¦¿à¦®à¦ªà§à¦°', 'hakimpurup.jhenaidah.gov.bd'),
+(2043, 225, 'Dhaloharachandra', 'à¦§à¦²à¦¹à¦°à¦¾à¦šà¦¨à§à', 'dhaloharachandraup.jhenaidah.gov.bd'),
+(2044, 225, 'Manoharpur', 'à¦®à¦¨à§‹à¦¹à¦°à¦ªà§à¦°', 'manoharpurup.jhenaidah.gov.bd'),
+(2045, 225, 'Bogura', 'à¦¬à¦—à§à§œà¦¾', 'boguraup.jhenaidah.gov.bd'),
+(2046, 225, 'Abaipur', 'à¦†à¦¬à¦¾à¦‡à¦ªà§à¦°', 'abaipurup.jhenaidah.gov.bd'),
+(2047, 225, 'Nityanandapur', 'à¦¨à¦¿à¦¤à§à¦¯à¦¾à¦¨à¦¨à', 'nityanandapurup.jhenaidah.gov.bd'),
+(2048, 225, 'Umedpur', 'à¦‰à¦®à§‡à¦¦à¦ªà§à¦°', 'umedpurup.jhenaidah.gov.bd'),
+(2049, 225, 'Dudshar', 'à¦¦à§à¦§à¦¸à¦°', 'dudsharup.jhenaidah.gov.bd'),
+(2050, 225, 'Fulhari', 'à¦«à§à¦²à¦¹à¦°à¦¿', 'fulhariup.jhenaidah.gov.bd'),
+(2051, 226, 'Bhayna', 'à¦­à¦¾à§Ÿà¦¨à¦¾', 'bhaynaup.jhenaidah.gov.bd'),
+(2052, 226, 'Joradah', 'à¦œà§‹à§œà¦¾à¦¦à¦¹', 'joradahup.jhenaidah.gov.bd'),
+(2053, 226, 'Taherhuda', 'à¦¤à¦¾à¦¹à§‡à¦°à¦¹à§à¦¦à', 'taherhudaup.jhenaidah.gov.bd'),
+(2054, 226, 'Daulatpur', 'à¦¦à§Œà¦²à¦¤à¦ªà§à¦°', 'daulatpurup.jhenaidah.gov.bd'),
+(2055, 226, 'Kapashatia', 'à¦•à¦¾à¦ªà¦¾à¦¶à¦¹à¦¾à¦Ÿà', 'kapashatiaup.jhenaidah.gov.bd'),
+(2056, 226, 'Falsi', 'à¦«à¦²à¦¸à§€', 'falsiup.jhenaidah.gov.bd'),
+(2057, 226, 'Raghunathpur', 'à¦°à¦˜à§à¦¨à¦¾à¦¥à¦ªà§à', 'raghunathpurup.jhenaidah.gov.bd'),
+(2058, 226, 'Chandpur', 'à¦šà¦¾à¦à¦¦à¦ªà§à¦°', 'chandpurup.jhenaidah.gov.bd'),
+(2059, 227, 'Sundarpurdurgapur', 'à¦¸à§à¦¨à§à¦¦à¦°à¦ªà§à', 'sundarpurdurgapurup.jhenaidah.gov.bd'),
+(2060, 227, 'Jamal', 'à¦œà¦¾à¦®à¦¾à¦²', 'jamalup.jhenaidah.gov.bd'),
+(2061, 227, 'Kola', 'à¦•à§‹à¦²à¦¾', 'kolaup.jhenaidah.gov.bd'),
+(2062, 227, 'Niamatpur', 'à¦¨à¦¿à§Ÿà¦¾à¦®à¦¤à¦ªà§à', 'niamatpurup.jhenaidah.gov.bd'),
+(2063, 227, 'Simla-Rokonpur', 'à¦¶à¦¿à¦®à¦²à¦¾-à¦°à§‹à¦•', 'simlarokonpurup.jhenaidah.gov.bd'),
+(2064, 227, 'Trilochanpur', 'à¦¤à§à¦°à¦¿à¦²à§‹à¦šà¦¨à', 'trilochanpurup.jhenaidah.gov.bd'),
+(2065, 227, 'Raygram', 'à¦°à¦¾à§Ÿà¦—à§à¦°à¦¾à¦®', 'raygramup.jhenaidah.gov.bd'),
+(2066, 227, 'Maliat', 'à¦®à¦¾à¦²à¦¿à§Ÿà¦¾à¦Ÿ', 'maliatup.jhenaidah.gov.bd'),
+(2067, 227, 'Barabazar', 'à¦¬à¦¾à¦°à¦¬à¦¾à¦œà¦¾à¦°', 'barabazarup.jhenaidah.gov.bd'),
+(2068, 227, 'Kashtabhanga', 'à¦•à¦¾à¦·à§à¦Ÿà¦­à¦¾à¦™à', 'kashtabhangaup.jhenaidah.gov.bd'),
+(2069, 227, 'Rakhalgachhi', 'à¦°à¦¾à¦–à¦¾à¦²à¦—à¦¾à¦›à', 'rakhalgachhiup.jhenaidah.gov.bd'),
+(2070, 228, 'Sabdalpur', 'à¦¸à¦¾à¦¬à¦¦à¦¾à¦²à¦ªà§à', 'sabdalpurup.jhenaidah.gov.bd'),
+(2071, 228, 'Dora', 'à¦¦à§‹à§œà¦¾', 'doraup.jhenaidah.gov.bd'),
+(2072, 228, 'Kushna', 'à¦•à§à¦¶à¦¨à¦¾', 'kushnaup.jhenaidah.gov.bd'),
+(2073, 228, 'Baluhar', 'à¦¬à¦²à§à¦¹à¦°', 'baluharup.jhenaidah.gov.bd'),
+(2074, 228, 'Elangi', 'à¦à¦²à¦¾à¦™à§à¦—à§€', 'elangiup.jhenaidah.gov.bd'),
+(2075, 229, 'Sbk', 'à¦à¦¸, à¦¬à¦¿, à¦•à§‡', 'sbkup.jhenaidah.gov.bd'),
+(2076, 229, 'Fatepur', 'à¦«à¦¤à§‡à¦ªà§à¦°', 'fatepurup.jhenaidah.gov.bd'),
+(2077, 229, 'Panthapara', 'à¦ªà¦¾à¦¨à§à¦¥à¦ªà¦¾à§œà', 'panthaparaup.jhenaidah.gov.bd'),
+(2078, 229, 'Swaruppur', 'à¦¸à§à¦¬à¦°à§à¦ªà¦ªà§à', 'swaruppurup.jhenaidah.gov.bd'),
+(2079, 229, 'Shyamkur', 'à¦¶à§à¦¯à¦¾à¦®à¦•à§à§œ', 'shyamkurup.jhenaidah.gov.bd'),
+(2080, 229, 'Nepa', 'à¦¨à§‡à¦ªà¦¾', 'nepaup.jhenaidah.gov.bd'),
+(2081, 229, 'Kazirber', 'à¦•à¦¾à¦œà§€à¦°à¦¬à§‡à§œ', 'kazirberup.jhenaidah.gov.bd'),
+(2082, 229, 'Banshbaria', 'à¦¬à¦¾à¦à¦¶à¦¬à¦¾à§œà§€à', 'banshbariaup.jhenaidah.gov.bd'),
+(2083, 229, 'Jadabpur', 'à¦¯à¦¾à¦¦à¦¬à¦ªà§à¦°', 'jadabpurup.jhenaidah.gov.bd'),
+(2084, 229, 'Natima', 'à¦¨à¦¾à¦Ÿà¦¿à¦®à¦¾', 'natimaup.jhenaidah.gov.bd'),
+(2085, 229, 'Manderbaria', 'à¦®à¦¾à¦¨à§à¦¦à¦¾à¦°à¦¬à', 'manderbariaup.jhenaidah.gov.bd'),
+(2086, 229, 'Azampur', 'à¦†à¦œà¦®à¦ªà§à¦°', 'azampurup.jhenaidah.gov.bd'),
+(2087, 230, 'Basanda', 'à¦¬à¦¾à¦¸à¦¨à§à¦¡à¦¾', 'basandaup.jhalakathi.gov.bd'),
+(2088, 230, 'Binoykati', 'à¦¬à¦¿à¦¨à§Ÿà¦•à¦¾à¦ à§€', 'binoykatiup.jhalakathi.gov.bd'),
+(2089, 230, 'Gabharamchandrapur', 'à¦—à¦¾à¦­à¦¾à¦°à¦¾à¦®à¦šà', 'gabharamchandrapurup.jhalakathi.gov.bd'),
+(2090, 230, 'Keora', 'à¦•à§‡à¦“à§œà¦¾', 'keoraup.jhalakathi.gov.bd'),
+(2091, 230, 'Kirtipasha', 'à¦•à§€à¦°à§à¦¤à¦¿à¦ªà¦¾à', 'kirtipashaup.jhalakathi.gov.bd'),
+(2092, 230, 'Nabagram', 'à¦¨à¦¬à¦—à§à¦°à¦¾à¦®', 'nabagramup.jhalakathi.gov.bd'),
+(2093, 230, 'Nathullabad', 'à¦¨à¦¥à§à¦²à¦²à§à¦²à¦¾à', 'nathullabadup.jhalakathi.gov.bd'),
+(2094, 230, 'Ponabalia', 'à¦ªà§‹à¦¨à¦¾à¦¬à¦¾à¦²à¦¿à', 'ponabaliaup.jhalakathi.gov.bd'),
+(2095, 230, 'Sekherhat', 'à¦¶à§‡à¦–à§‡à¦°à¦¹à¦¾à¦Ÿ', 'sekherhatup.jhalakathi.gov.bd'),
+(2096, 230, 'Gabkhandhansiri', 'à¦—à¦¾à¦¬à¦–à¦¾à¦¨ à¦§à¦¾', 'gabkhandhansiriup.jhalakathi.gov.bd'),
+(2097, 231, 'Amua', 'à¦†à¦®à§à§Ÿà¦¾', 'amuaup.jhalakathi.gov.bd'),
+(2098, 231, 'Awrabunia', 'à¦†à¦“à¦°à¦¾à¦¬à§à¦¨à¦¿à', 'awrabuniaup.jhalakathi.gov.bd'),
+(2099, 231, 'Chenchrirampur', 'à¦šà§‡à¦à¦šà¦°à§€à¦°à¦¾à', 'chenchrirampurup.jhalakathi.gov.bd'),
+(2100, 231, 'Kanthalia', 'à¦•à¦¾à¦ à¦¾à¦²à¦¿à§Ÿà¦¾', 'kanthaliaup.jhalakathi.gov.bd'),
+(2101, 231, 'Patikhalghata', 'à¦ªà¦¾à¦Ÿà¦¿à¦–à¦¾à¦²à¦˜à', 'patikhalghataup.jhalakathi.gov.bd'),
+(2102, 231, 'Shaulajalia', 'à¦¶à§Œà¦²à¦œà¦¾à¦²à¦¿à§Ÿà', 'shaulajaliaup.jhalakathi.gov.bd'),
+(2103, 232, 'Subidpur', 'à¦¸à§à¦¬à¦¿à¦¦à¦ªà§à¦°', 'subidpurup.jhalakathi.gov.bd'),
+(2104, 232, 'Siddhakati', 'à¦¸à¦¿à¦¦à§à¦§à¦•à¦¾à¦ à', 'siddhakatiup.jhalakathi.gov.bd'),
+(2105, 232, 'Ranapasha', 'à¦°à¦¾à¦¨à¦¾à¦ªà¦¾à¦¶à¦¾', 'ranapashaup.jhalakathi.gov.bd'),
+(2106, 232, 'Nachanmohal', 'à¦¨à¦¾à¦šà¦¨à¦®à¦¹à¦²', 'nachanmohalup.jhalakathi.gov.bd'),
+(2107, 232, 'Mollahat', 'à¦®à§‹à¦²à§à¦²à¦¾à¦°à¦¹à', 'mollahatup.jhalakathi.gov.bd'),
+(2108, 232, 'Magar', 'à¦®à¦—à¦°', 'magarup.jhalakathi.gov.bd'),
+(2109, 232, 'Kusanghal', 'à¦•à§à¦¶à¦™à§à¦—à¦²', 'kusanghalup.jhalakathi.gov.bd'),
+(2110, 232, 'Kulkathi', 'à¦•à§à¦²à¦•à¦¾à¦ à§€', 'kulkathiup.jhalakathi.gov.bd'),
+(2111, 232, 'Dapdapia', 'à¦¦à¦ªà¦¦à¦ªà¦¿à§Ÿà¦¾', 'dapdapiaup.jhalakathi.gov.bd'),
+(2112, 232, 'Bharabpasha', 'à¦­à§ˆà¦°à¦¬à¦ªà¦¾à¦¶à¦¾', 'bharabpashaup.jhalakathi.gov.bd'),
+(2113, 233, 'Suktagarh', 'à¦¶à§à¦•à§à¦¤à¦¾à¦—à§œ', 'suktagarhup.jhalakathi.gov.bd'),
+(2114, 233, 'Saturia', 'à¦¸à¦¾à¦¤à§à¦°à¦¿à§Ÿà¦¾', 'saturiaup.jhalakathi.gov.bd'),
+(2115, 233, 'Mathbari', 'à¦®à¦ à¦¬à¦¾à§œà§€', 'mathbariup.jhalakathi.gov.bd'),
+(2116, 233, 'Galua', 'à¦—à¦¾à¦²à§à§Ÿà¦¾', 'galuaup.jhalakathi.gov.bd'),
+(2117, 233, 'Baraia', 'à¦¬à§œà¦‡à§Ÿà¦¾', 'baraiaup.jhalakathi.gov.bd'),
+(2118, 233, 'Rajapur', 'à¦°à¦¾à¦œà¦¾à¦ªà§à¦°', 'rajapurup.jhalakathi.gov.bd'),
+(2119, 234, 'Adabaria', 'à¦†à¦¦à¦¾à¦¬à¦¾à¦°à¦¿à§Ÿà', 'adabariaup.gazipur.gov.bd'),
+(2120, 234, 'Bauphal', 'à¦¬à¦¾à¦‰à¦«à¦²', 'bauphalup.patuakhali.gov.bd'),
+(2121, 234, 'Daspara', 'à¦¦à¦¾à¦¸ à¦ªà¦¾à§œà¦¾', 'dasparaup.gazipur.gov.bd'),
+(2122, 234, 'Kalaiya', 'à¦•à¦¾à¦²à¦¾à¦‡à§Ÿà¦¾', 'kalaiyaup.gazipur.gov.bd'),
+(2123, 234, 'Nawmala', 'à¦¨à¦“à¦®à¦¾à¦²à¦¾', 'nawmalaup.patuakhali.gov.bd'),
+(2124, 234, 'Najirpur', 'à¦¨à¦¾à¦œà¦¿à¦°à¦ªà§à¦°', 'najirpurup.patuakhali.gov.bd'),
+(2125, 234, 'Madanpura', 'à¦®à¦¦à¦¨à¦ªà§à¦°à¦¾', 'madanpuraup.patuakhali.gov.bd'),
+(2126, 234, 'Boga', 'à¦¬à¦—à¦¾', 'bogaup.patuakhali.gov.bd'),
+(2127, 234, 'Kanakdia', 'à¦•à¦¨à¦•à¦¦à¦¿à¦¯à¦¼à¦¾', 'kanakdiaup.patuakhali.gov.bd'),
+(2128, 234, 'Shurjamoni', 'à¦¸à§‚à¦°à§à¦¯à§à¦¯à¦®à', 'shurjamoniup.patuakhali.gov.bd'),
+(2129, 234, 'Keshabpur', 'à¦•à§‡à¦¶à¦¬à¦ªà§à¦°', 'keshabpurup.patuakhali.gov.bd'),
+(2130, 234, 'Dhulia', 'à¦§à§à¦²à¦¿à¦¯à¦¼à¦¾', 'dhuliaup.patuakhali.gov.bd'),
+(2131, 234, 'Kalisuri', 'à¦•à¦¾à¦²à¦¿à¦¶à§à¦°à§€', 'kalisuriup.patuakhali.gov.bd'),
+(2132, 234, 'Kachipara', 'à¦•à¦¾à¦›à¦¿à¦ªà¦¾à¦¡à¦¼à', 'kachiparaup.patuakhali.gov.bd'),
+(2133, 235, 'Laukathi', 'à¦²à¦¾à¦‰à¦•à¦¾à¦ à§€', 'laukathiup.patuakhali.gov.bd'),
+(2134, 235, 'Lohalia', 'à¦²à§‹à¦¹à¦¾à¦²à¦¿à¦¯à¦¼à', 'lohaliaup.patuakhali.gov.bd'),
+(2135, 235, 'Kamalapur', 'à¦•à¦®à¦²à¦¾à¦ªà§à¦°', 'kamalapurup.patuakhali.gov.bd'),
+(2136, 235, 'Jainkathi', 'à¦œà§ˆà¦¨à¦•à¦¾à¦ à§€', 'jainkathiup.patuakhali.gov.bd'),
+(2137, 235, 'Kalikapur', 'à¦•à¦¾à¦²à¦¿à¦•à¦¾à¦ªà§à', 'kalikapurup.patuakhali.gov.bd'),
+(2138, 235, 'Badarpur', 'à¦¬à¦¦à¦°à¦ªà§à¦°', 'badarpurup.patuakhali.gov.bd '),
+(2139, 235, 'Itbaria', 'à¦‡à¦Ÿà¦¬à¦¾à¦¡à¦¼à§€à¦¯à', 'itbariaup.patuakhali.gov.bd '),
+(2140, 235, 'Marichbunia', 'à¦®à¦°à¦¿à¦šà¦¬à§à¦¨à¦¿à', 'marichbuniaup.patuakhali.gov.bd '),
+(2141, 235, 'Auliapur', 'à¦†à¦‰à¦²à¦¿à¦¯à¦¼à¦¾à¦ªà', 'auliapurup.patuakhali.gov.bd'),
+(2142, 235, 'Chotobighai', 'à¦›à§‹à¦Ÿ à¦¬à¦¿à¦˜à¦¾à¦‡', 'chotobighaiup.patuakhali.gov.bd'),
+(2143, 235, 'Borobighai', 'à¦¬à¦¡à¦¼ à¦¬à¦¿à¦˜à¦¾à¦‡', 'borobighaiup.patuakhali.gov.bd'),
+(2144, 235, 'Madarbunia', 'à¦®à¦¾à¦¦à¦¾à¦°à¦¬à§à¦¨à', 'madarbuniaup.patuakhali.gov.bd'),
+(2145, 236, 'Pangasia', 'à¦ªà¦¾à¦‚à¦—à¦¾à¦¶à¦¿à¦¯à', 'pangasiaup.patuakhali.gov.bd'),
+(2146, 236, 'Muradia', 'à¦®à§à¦°à¦¾à¦¦à¦¿à¦¯à¦¼à', 'muradiaup.patuakhali.gov.bd'),
+(2147, 236, 'Labukhali', 'à¦²à§‡à¦¬à§à¦–à¦¾à¦²à§€', 'labukhaliup.patuakhali.gov.bd'),
+(2148, 236, 'Angaria', 'à¦†à¦‚à¦—à¦¾à¦°à¦¿à¦¯à¦¼à', 'angariaup.patuakhali.gov.bd'),
+(2149, 236, 'Sreerampur', 'à¦¶à§à¦°à§€à¦°à¦¾à¦®à¦ªà', 'sreerampurup.patuakhali.gov.bd'),
+(2150, 237, 'Bashbaria', 'à¦¬à¦¾à¦à¦¶à¦¬à¦¾à¦¡à¦¼à', 'bashbariaup.patuakhali.gov.bd'),
+(2151, 237, 'Rangopaldi', 'à¦°à¦£à¦—à§‹à¦ªà¦¾à¦²à¦¦à', 'rangopaldiup.patuakhali.gov.bd'),
+(2152, 237, 'Alipur', 'à¦†à¦²à§€à¦ªà§à¦°', 'alipurup.patuakhali.gov.bd'),
+(2153, 237, 'Betagi Shankipur', 'à¦¬à§‡à¦¤à¦¾à¦—à§€ à¦¸à¦¾', 'betagishankipurup.patuakhali.gov.bd'),
+(2154, 237, 'Dashmina', 'à¦¦à¦¶à¦®à¦¿à¦¨à¦¾', 'dashminaup.patuakhali.gov.bd'),
+(2155, 237, 'Baharampur', 'à¦¬à¦¹à¦°à¦®à¦ªà§à¦°', 'baharampurup.patuakhali.gov.bd'),
+(2156, 238, 'Chakamaia', 'à¦šà¦¾à¦•à¦¾à¦®à¦‡à¦¯à¦¼à', 'chakamaiaup.patuakhali.gov.bd'),
+(2157, 238, 'Tiakhali', 'à¦Ÿà¦¿à¦¯à¦¼à¦¾à¦–à¦¾à¦²à', 'tiakhaliup.patuakhali.gov.bd'),
+(2158, 238, 'Lalua', 'à¦²à¦¾à¦²à§à§Ÿà¦¾', 'laluaup.patuakhali.gov.bd'),
+(2159, 238, 'Dhankhali', 'à¦§à¦¾à¦¨à¦–à¦¾à¦²à§€', 'dhankhaliup.patuakhali.gov.bd'),
+(2160, 238, 'Mithagonj', 'à¦®à¦¿à¦ à¦¾à¦—à¦žà§à¦œ', 'mithagonjup.patuakhali.gov.bd'),
+(2161, 238, 'Nilgonj', 'à¦¨à§€à¦²à¦—à¦žà§à¦œ', 'nilgonjup.patuakhali.gov.bd'),
+(2162, 238, 'Dulaser', 'à¦§à§à¦²à¦¾à¦¸à¦¾à¦°', 'dulaserup.patuakhali.gov.bd'),
+(2163, 238, 'Latachapli', 'à¦²à¦¤à¦¾à¦šà¦¾à¦ªà¦²à§€', 'latachapliup.patuakhali.gov.bd'),
+(2164, 238, 'Mahipur', 'à¦®à¦¹à¦¿à¦ªà§à¦°', 'mahipurup.patuakhali.gov.bd'),
+(2165, 238, 'Dalbugonj', 'à¦¡à¦¾à¦²à¦¬à§à¦—à¦žà§à', 'dalbugonjup.patuakhali.gov.bd'),
+(2166, 238, 'Baliatali', 'à¦¬à¦¾à¦²à¦¿à¦¯à¦¼à¦¾à¦¤à', 'baliataliup.patuakhali.gov.bd'),
+(2167, 238, 'Champapur', 'à¦šà¦®à§à¦ªà¦¾à¦ªà§à¦°', 'champapurup.patuakhali.gov.bd'),
+(2168, 239, 'Madhabkhali', 'à¦®à¦¾à¦§à¦¬à¦–à¦¾à¦²à§€', 'madhabkhaliup.patuakhali.gov.bd'),
+(2169, 239, 'Mirzaganj', 'à¦®à¦¿à¦°à§à¦œà¦¾à¦—à¦žà', 'mirzaganjup.patuakhali.gov.bd'),
+(2170, 239, 'Amragachia', 'à¦†à¦®à¦¡à¦¼à¦¾à¦—à¦¾à¦›à', 'amragachiaup.patuakhali.gov.bd'),
+(2171, 239, 'Deuli Subidkhali', 'à¦¦à§‡à¦‰à¦²à§€ à¦¸à§à¦¬', 'deulisubidkhaliup.patuakhali.gov.bd'),
+(2172, 239, 'Kakrabunia', 'à¦•à¦¾à¦•à¦¡à¦¼à¦¾à¦¬à§à', 'kakrabuniaup.patuakhali.gov.bd'),
+(2173, 239, 'Majidbaria', 'à¦®à¦œà¦¿à¦¦à¦¬à¦¾à¦¡à¦¼à', 'majidbariaup.patuakhali.gov.bd'),
+(2174, 240, 'Amkhola', 'à¦†à¦®à¦–à§‹à¦²à¦¾', 'amkholaup.patuakhali.gov.bd'),
+(2175, 240, 'Golkhali', 'à¦—à§‹à¦²à¦–à¦¾à¦²à§€', 'golkhaliup.patuakhali.gov.bd'),
+(2176, 240, 'Galachipa', 'à¦—à¦²à¦¾à¦šà¦¿à¦ªà¦¾', 'galachipaup.patuakhali.gov.bd'),
+(2177, 240, 'Panpatty', 'à¦ªà¦¾à¦¨à¦ªà¦Ÿà§à¦Ÿà¦¿', 'panpattyup.patuakhali.gov.bd'),
+(2178, 240, 'Ratandi Taltali', 'à¦°à¦¤à¦¨à¦¦à§€ à¦¤à¦¾à¦²', 'ratanditaltaliup.patuakhali.gov.bd'),
+(2179, 240, 'Dakua', 'à¦¡à¦¾à¦•à§à¦¯à¦¼à¦¾', 'dakuaup.patuakhali.gov.bd'),
+(2180, 240, 'Chiknikandi', 'à¦šà¦¿à¦•à¦¨à¦¿à¦•à¦¾à¦¨à', 'chiknikandiup.patuakhali.gov.bd'),
+(2181, 240, 'Gazalia', 'à¦—à¦œà¦¾à¦²à¦¿à¦¯à¦¼à¦¾', 'gazaliaup.patuakhali.gov.bd'),
+(2182, 240, 'Charkajol', 'à¦šà¦°à¦•à¦¾à¦œà¦²', 'charkajolup.patuakhali.gov.bd'),
+(2183, 240, 'Charbiswas', 'à¦šà¦°à¦¬à¦¿à¦¶à§à¦¬à¦¾à', 'charbiswasup.patuakhali.gov.bd'),
+(2184, 240, 'Bakulbaria', 'à¦¬à¦•à§à¦²à¦¬à¦¾à¦¡à¦¼à', 'bakulbariaup.patuakhali.gov.bd'),
+(2185, 240, 'Kalagachhia', 'à¦•à¦²à¦¾à¦—à¦¾à¦›à¦¿à¦¯à', 'kalagachhiaup.patuakhali.gov.bd'),
+(2186, 241, 'Rangabali', 'à¦°à¦¾à¦™à§à¦—à¦¾à¦¬à¦¾à', 'rangabaliup.patuakhali.gov.bd'),
+(2187, 241, 'Barobaisdia', 'à¦¬à§œà¦¬à¦¾à¦‡à¦¶à¦¦à¦¿à', 'barobaisdiaup.patuakhali.gov.bd'),
+(2188, 241, 'Chattobaisdia', 'à¦›à§‹à¦Ÿà¦¬à¦¾à¦‡à¦¶à¦¦à', 'chattobaisdiaup.patuakhali.gov.bd'),
+(2189, 241, 'Charmontaz', 'à¦šà¦°à¦®à§‹à¦¨à§à¦¤à¦¾à', 'charmontaz.patuakhali.gov.bd'),
+(2190, 241, 'Chalitabunia', 'à¦šà¦¾à¦²à¦¿à¦¤à¦¾à¦¬à§à', 'chalitabuniaup.patuakhali.gov.bd'),
+(2191, 242, 'Shikder Mallik', 'à¦¶à¦¿à¦•à¦¦à¦¾à¦° à¦®à¦²', 'shikdermallikup.pirojpur.gov.bd'),
+(2192, 242, 'Kodomtala', 'à¦•à¦¦à¦®à¦¤à¦²à¦¾', 'kodomtalaup.pirojpur.gov.bd'),
+(2193, 242, 'Durgapur', 'à¦¦à§‚à¦°à§à¦—à¦¾à¦ªà§à', 'durgapurup.pirojpur.gov.bd'),
+(2194, 242, 'Kolakhali', 'à¦•à¦²à¦¾à¦–à¦¾à¦²à§€', 'kolakhaliup.pirojpur.gov.bd'),
+(2195, 242, 'Tona', 'à¦Ÿà§‹à¦¨à¦¾', 'tonaup.pirojpur.gov.bd'),
+(2196, 242, 'Shariktola', 'à¦¶à¦°à¦¿à¦•à¦¤à¦²à¦¾', 'shariktolaup.pirojpur.gov.bd'),
+(2197, 242, 'Shankorpasa', 'à¦¶à¦‚à¦•à¦°à¦ªà¦¾à¦¶à¦¾', 'shankorpasaup.pirojpur.gov.bd'),
+(2198, 243, 'Mativangga', 'à¦®à¦¾à¦Ÿà¦¿à¦­à¦¾à¦‚à¦—à', 'mativanggaup.pirojpur.gov.bd'),
+(2199, 243, 'Malikhali', 'à¦®à¦¾à¦²à¦¿à¦–à¦¾à¦²à§€', 'malikhaliup.pirojpur.gov.bd'),
+(2200, 243, 'Daulbari Dobra', 'à¦¦à§‡à¦‰à¦²à¦¬à¦¾à¦¡à¦¼à', 'daulbaridobraup.pirojpur.gov.bd'),
+(2201, 243, 'Dirgha', 'à¦¦à§€à¦°à§à¦˜à¦¾', 'dirghaup.pirojpur.gov.bd'),
+(2202, 243, 'Kolardoania', 'à¦•à¦²à¦¾à¦°à¦¦à§‹à¦¯à¦¼à', 'kolardoaniaup.pirojpur.gov.bd'),
+(2203, 243, 'Sriramkathi', 'à¦¶à§à¦°à§€à¦°à¦¾à¦®à¦•à', 'sriramkathiup.pirojpur.gov.bd'),
+(2204, 243, 'Shakhmatia', 'à¦¸à§‡à¦–à¦®à¦¾à¦Ÿà¦¿à¦¯à', 'shakhmatiaup.pirojpur.gov.bd'),
+(2205, 243, 'Nazirpur Sadar', 'à¦¨à¦¾à¦œà¦¿à¦°à¦ªà§à¦° ', 'nazirpursadarup.pirojpur.gov.bd'),
+(2206, 243, 'Shakharikathi', 'à¦¶à¦¾à¦–à¦¾à¦°à§€à¦•à¦¾à', 'shakharikathiup.pirojpur.gov.bd'),
+(2207, 244, 'Sayna Rogunathpur', 'à¦¸à¦¯à¦¼à¦¨à¦¾ à¦°à¦˜à§', 'saynarogunathpurup.pirojpur.gov.bd'),
+(2208, 244, 'Amrazuri', 'à¦†à¦®à¦¡à¦¼à¦¾à¦œà§à¦¡à', 'amrazuriup.pirojpur.gov.bd'),
+(2209, 244, 'Kawkhali Sadar', 'à¦•à¦¾à¦‰à¦–à¦¾à¦²à¦¿ à¦¸', 'kawkhalisadarup.pirojpur.gov.bd'),
+(2210, 244, 'Chirapara', 'à¦šà¦¿à¦°à¦¾à¦ªà¦¾à¦¡à¦¼à', 'chiraparaup.pirojpur.gov.bd'),
+(2211, 244, 'Shialkhathi', 'à¦¶à¦¿à¦¯à¦¼à¦¾à¦²à¦•à¦¾à', 'shialkhathiup.pirojpur.gov.bd'),
+(2212, 245, 'Balipara', 'à¦¬à¦¾à¦²à¦¿à¦ªà¦¾à¦¡à¦¼à', 'baliparaup.pirojpur.gov.bd'),
+(2213, 245, 'Pattashi', 'à¦ªà¦¤à§à¦¤à¦¾à¦¶à¦¿', 'pattashiup.pirojpur.gov.bd'),
+(2214, 245, 'Parerhat', 'à¦ªà¦¾à¦¡à¦¼à§‡à¦°à¦¹à¦¾à', 'parerhatup.pirojpur.gov.bd'),
+(2215, 246, 'Vitabaria', 'à¦­à¦¿à¦Ÿà¦¾à¦¬à¦¾à¦¡à¦¼à', 'vitabariaup.pirojpur.gov.bd'),
+(2216, 246, 'Nodmulla', 'à¦¨à¦¦à¦®à§‚à¦²à¦¾ à¦¶à¦¿', 'nodmullaup.pirojpur.gov.bd'),
+(2217, 246, 'Telikhali', 'à¦¤à§‡à¦²à¦¿à¦–à¦¾à¦²à§€', 'telikhaliup.pirojpur.gov.bd'),
+(2218, 246, 'Ekree', 'à¦‡à¦•à¦¡à¦¼à§€', 'ekreeup.pirojpur.gov.bd'),
+(2219, 246, 'Dhaoa', 'à¦§à¦¾à¦“à¦¯à¦¼à¦¾', 'dhaoaup.pirojpur.gov.bd'),
+(2220, 246, 'Vandaria Sadar', 'à¦­à¦¾à¦¨à§à¦¡à¦¾à¦°à¦¿à', 'vandariasadarup.pirojpur.gov.bd'),
+(2221, 246, 'Gouripur', 'à¦—à§Œà¦°à§€à¦ªà§à¦°', 'gouripurup.pirojpur.gov.bd'),
+(2222, 247, 'Tuskhali', 'à¦¤à§à¦·à¦–à¦¾à¦²à§€', 'tuskhaliup.pirojpur.gov.bd'),
+(2223, 247, 'Dhanisafa', 'à¦§à¦¾à¦¨à§€à¦¸à¦¾à¦«à¦¾', 'dhanisafaup.pirojpur.gov.bd'),
+(2224, 247, 'Mirukhali', 'à¦®à¦¿à¦°à§à¦–à¦¾à¦²à§€', 'mirukhaliup.pirojpur.gov.bd'),
+(2225, 247, 'Tikikata', 'à¦Ÿà¦¿à¦•à¦¿à¦•à¦¾à¦Ÿà¦¾', 'tikikataup.pirojpur.gov.bd'),
+(2226, 247, 'Betmor Rajpara', 'à¦¬à§‡à¦¤à¦®à§‹à¦° à¦°à¦¾', 'betmorrajparaup.pirojpur.gov.bd'),
+(2227, 247, 'Amragachia', 'à¦†à¦®à¦¡à¦¼à¦¾à¦—à¦¾à¦›à', 'amragachiaup.pirojpur.gov.bd'),
+(2228, 247, 'Shapleza', 'à¦¶à¦¾à¦ªà¦²à§‡à¦œà¦¾', 'shaplezaup.pirojpur.gov.bd'),
+(2229, 247, 'Daudkhali', 'à¦¦à¦¾à¦‰à¦¦à¦–à¦¾à¦²à§€', 'daudkhaliup.pirojpur.gov.bd'),
+(2230, 247, 'Mathbaria', 'à¦®à¦ à¦¬à¦¾à¦¡à¦¼à¦¿à¦¯à', 'mathbariaup.pirojpur.gov.bd'),
+(2231, 247, 'Baramasua', 'à¦¬à¦¡à¦¼à¦®à¦¾à¦›à§à¦¯à', 'baramasuaup.pirojpur.gov.bd'),
+(2232, 247, 'Haltagulishakhali', 'à¦¹à¦²à¦¤à¦¾à¦—à§à¦²à¦¿à', 'haltagulishakhaliup.pirojpur.gov.bd'),
+(2233, 248, 'Boldia', 'à¦¬à¦²à¦¦à¦¿à¦¯à¦¼à¦¾', 'boldiaup.pirojpur.gov.bd'),
+(2234, 248, 'Sohagdal', 'à¦¸à§‹à¦¹à¦¾à¦—à¦¦à¦²', 'sohagdalup.pirojpur.gov.bd'),
+(2235, 248, 'Atghorkuriana', 'à¦†à¦Ÿà¦˜à¦° à¦•à§à¦¡à¦¼', 'atghorkurianaup.pirojpur.gov.bd'),
+(2236, 248, 'Jolabari', 'à¦œà¦²à¦¾à¦¬à¦¾à¦¡à¦¼à§€', 'jolabariup.pirojpur.gov.bd'),
+(2237, 248, 'Doyhary', 'à¦¦à§ˆà¦¹à¦¾à¦°à§€', 'doyharyup.pirojpur.gov.bd'),
+(2238, 248, 'Guarekha', 'à¦—à§à¦¯à¦¼à¦¾à¦°à§‡à¦–à', 'guarekhaup.pirojpur.gov.bd'),
+(2239, 248, 'Somudoykathi', 'à¦¸à¦®à§à¦¦à¦¯à¦¼à¦•à¦¾à', 'somudoykathiup.pirojpur.gov.bd'),
+(2240, 248, 'Sutiakathi', 'à¦¸à§à¦Ÿà¦¿à¦¯à¦¼à¦¾à¦•à', 'sutiakathiup.pirojpur.gov.bd'),
+(2241, 248, 'Sarengkathi', 'à¦¸à¦¾à¦°à§‡à¦‚à¦•à¦¾à¦ à', 'sarengkathiup.pirojpur.gov.bd'),
+(2242, 248, 'Shorupkathi', 'à¦¸à§à¦¬à¦°à§à¦ªà¦•à¦¾à', 'shorupkathiup.pirojpur.gov.bd'),
+(2243, 249, 'Raipasha Karapur', 'à¦°à¦¾à§Ÿà¦ªà¦¾à¦¶à¦¾ à¦•', 'raipashakarapurup.barisal.gov.bd'),
+(2244, 249, 'Kashipur', 'à¦•à¦¾à¦¶à§€à¦ªà§à¦°', 'kashipurup.barisal.gov.bd'),
+(2245, 249, 'Charbaria', 'à¦šà¦°à¦¬à¦¾à§œà¦¿à§Ÿà¦¾', 'charbariaup.barisal.gov.bd'),
+(2246, 249, 'Shyastabad', 'à¦¸à¦¾à§Ÿà§‡à¦¸à§à¦¤à¦¾à', 'shyastabadup.barisal.gov.bd'),
+(2247, 249, 'Charmonai', 'à¦šà¦°à¦®à§‹à¦¨à¦¾à¦‡', 'charmonaiup.barisal.gov.bd'),
+(2248, 249, 'Zagua', 'à¦œà¦¾à¦—à§à§Ÿà¦¾', 'zaguaup.barisal.gov.bd'),
+(2249, 249, 'Charcowa', 'à¦šà¦°à¦•à¦¾à¦‰à§Ÿà¦¾', 'charcowaup.barisal.gov.bd'),
+(2250, 249, 'Chandpura', 'à¦šà¦¾à¦à¦¦à¦ªà§à¦°à¦¾', 'chandpuraup.barisal.gov.bd'),
+(2251, 249, 'Tungibaria', 'à¦Ÿà§à¦™à§à¦—à§€à¦¬à¦¾à', 'tungibariaup.barisal.gov.bd'),
+(2252, 249, 'Chandramohan', 'à¦šà¦¨à§à¦¦à§à¦°à¦®à§‹à', 'chandramohanup.barisal.gov.bd'),
+(2253, 250, 'Charamaddi', 'à¦šà¦°à¦¾à¦®à¦¦à§à¦¦à¦¿', 'charamaddiup.barisal.gov.bd'),
+(2254, 250, 'Charade', 'à¦šà¦°à¦¾à¦¦à¦¿', 'charadeup.barisal.gov.bd'),
+(2255, 250, 'Darial', 'à¦¦à¦¾à§œà¦¿à§Ÿà¦¾à¦²', 'darialup.barisal.gov.bd'),
+(2256, 250, 'Dudhal', 'à¦¦à§à¦§à¦²', 'dudhalup.barisal.gov.bd'),
+(2257, 250, 'Durgapasha', 'à¦¦à§à¦°à§à¦—à¦¾à¦ªà¦¾à', 'durgapashaup.barisal.gov.bd'),
+(2258, 250, 'Faridpur', 'à¦«à¦°à¦¿à¦¦à¦ªà§à¦°', 'faridpurup.barisal.gov.bd'),
+(2259, 250, 'Kabai', 'à¦•à¦¬à¦¾à¦‡', 'kabaiup.barisal.gov.bd'),
+(2260, 250, 'Nalua', 'à¦¨à¦²à§à§Ÿà¦¾', 'naluaup.barisal.gov.bd'),
+(2261, 250, 'Kalashkathi', 'à¦•à¦²à¦¸à¦•à¦¾à¦ à§€', 'kalashkathiup.barisal.gov.bd'),
+(2262, 250, 'Garuria', 'à¦—à¦¾à¦°à§à¦°à¦¿à§Ÿà¦¾', 'garuriaup.barisal.gov.bd'),
+(2263, 250, 'Bharpasha', 'à¦­à¦°à¦ªà¦¾à¦¶à¦¾', 'bharpashaup.barisal.gov.bd'),
+(2264, 250, 'Rangasree', 'à¦°à¦™à§à¦—à¦¶à§à¦°à§€', 'rangasreeup.barisal.gov.bd'),
+(2265, 250, 'Padreeshibpur', 'à¦ªà¦¾à¦¦à§à¦°à¦¿à¦¶à¦¿à', 'padreeshibpurup.barisal.gov.bd'),
+(2266, 250, 'Niamoti', 'à¦¨à¦¿à§Ÿà¦¾à¦®à¦¤à¦¿', 'niamotiup.barisal.gov.bd'),
+(2267, 251, 'Jahangir Nagar', 'à¦œà¦¾à¦¹à¦¾à¦™à§à¦—à§€à', 'jahangirnagorup.barisal.gov.bd'),
+(2268, 251, 'Kaderpur', 'à¦•à§‡à¦¦à¦¾à¦°à¦ªà§à¦°', 'kaderpurup.barisal.gov.bd'),
+(2269, 251, 'Deherhoti', 'à¦¦à§‡à¦¹à§‡à¦°à¦—à¦¤à¦¿', 'deherhotiup.barisal.gov.bd'),
+(2270, 251, 'Chandpasha', 'à¦šà¦¾à¦à¦¦à¦ªà¦¾à¦¶à¦¾', 'chandpashaup.barisal.gov.bd'),
+(2271, 251, 'Rahamtpur', 'à¦°à¦¹à¦®à¦¤à¦ªà§à¦°', 'rahamtpurup.barisal.gov.bd'),
+(2272, 251, 'Madhbpasha', 'à¦®à¦¾à¦§à¦¬à¦ªà¦¾à¦¶à¦¾', 'madhbpashaup.barisal.gov.bd'),
+(2273, 252, 'Shatla', 'à¦¸à¦¾à¦¤à¦²à¦¾', 'shatlaup.barisal.gov.bd'),
+(2274, 252, 'Harta', 'à¦¹à¦¾à¦°à¦¤à¦¾', 'hartaup.barisal.gov.bd'),
+(2275, 252, 'Jalla', 'à¦œà¦²à§à¦²à¦¾', 'jallaup.barisal.gov.bd'),
+(2276, 252, 'Otra', 'à¦“à¦Ÿà¦°à¦¾', 'otraup.barisal.gov.bd'),
+(2277, 252, 'Sholok', 'à¦¶à§‹à¦²à¦•', 'sholokup.barisal.gov.bd'),
+(2278, 252, 'Barakhota', 'à¦¬à¦°à¦¾à¦•à§‹à¦ à¦¾', 'barakhotaup.barisal.gov.bd'),
+(2279, 252, 'Bamrail', 'à¦¬à¦¾à¦®à¦°à¦¾à¦‡à¦²', 'bamrailup.barisal.gov.bd'),
+(2280, 252, 'Shikerpur Wazirpur', 'à¦¶à¦¿à¦•à¦¾à¦°à¦ªà§à¦° ', 'shikerpurwazirpurup.barisal.gov.bd'),
+(2281, 252, 'Gouthia', 'à¦—à§à¦ à¦¿à§Ÿà¦¾', 'gouthiaup.barisal.gov.bd'),
+(2282, 253, 'Bisharkandi', 'à¦¬à¦¿à¦¶à¦¾à¦°à¦•à¦¾à¦¨à', 'bisharkandiup.barisal.gov.bd'),
+(2283, 253, 'Illuhar', 'à¦‡à¦²à§à¦¹à¦¾à¦°', 'illuharup.barisal.gov.bd'),
+(2284, 253, 'Sayedkathi', 'à¦¸à§ˆà§Ÿà¦¦à¦•à¦¾à¦ à§€', 'sayedkathiup.barisal.gov.bd'),
+(2285, 253, 'Chakhar', 'à¦šà¦¾à¦–à¦¾à¦°', 'chakharup.barisal.gov.bd'),
+(2286, 253, 'Saliabakpur', 'à¦¸à¦²à¦¿à§Ÿà¦¾à¦¬à¦¾à¦•à', 'saliabakpurup.barisal.gov.bd'),
+(2287, 253, 'Baishari', 'à¦¬à¦¾à¦‡à¦¶à¦¾à¦°à§€', 'baishariup.barisal.gov.bd'),
+(2288, 253, 'Banaripara', 'à¦¬à¦¾à¦¨à¦¾à¦°à¦¿à¦ªà¦¾à', 'banariparaup.barisal.gov.bd'),
+(2289, 253, 'Udykhati', 'à¦‰à¦¦à§Ÿà¦•à¦¾à¦ à§€', 'udykhatiup.barisal.gov.bd'),
+(2290, 254, 'Khanjapur', 'à¦–à¦¾à¦žà§à¦œà¦¾à¦ªà§à', 'khanjapurup.barisal.gov.bd'),
+(2291, 254, 'Barthi', 'à¦¬à¦¾à¦°à§à¦¥à§€', 'barthiup.barisal.gov.bd'),
+(2292, 254, 'Chandshi', 'à¦šà¦¾à¦à¦¦à¦¶à§€', 'chandshiup.barisal.gov.bd'),
+(2293, 254, 'Mahilara', 'à¦®à¦¾à¦¹à¦¿à¦²à¦¾à¦°à¦¾', 'mahilaraup.barisal.gov.bd'),
+(2294, 254, 'Nalchira', 'à¦¨à¦²à¦šà¦¿à§œà¦¾', 'nalchiraup.barisal.gov.bd'),
+(2295, 254, 'Batajore', 'à¦¬à¦¾à¦Ÿà¦¾à¦œà§‹à¦°', 'batajoreup.barisal.gov.bd'),
+(2296, 254, 'Sarikal', 'à¦¸à¦°à¦¿à¦•à¦²', 'sarikalup.barisal.gov.bd'),
+(2297, 255, 'Rajihar', 'à¦°à¦¾à¦œà¦¿à¦¹à¦¾à¦°', 'rajiharup.barisal.gov.bd'),
+(2298, 255, 'Bakal', 'à¦¬à¦¾à¦•à¦¾à¦²', 'bakalup.barisal.gov.bd'),
+(2299, 255, 'Bagdha', 'à¦¬à¦¾à¦—à¦§à¦¾', 'bagdhaup.barisal.gov.bd'),
+(2300, 255, 'Goila', 'à¦—à§ˆà¦²à¦¾', 'goilaup.barisal.gov.bd'),
+(2301, 255, 'Ratnapur', 'à¦°à¦¤à§à¦¨à¦ªà§à¦°', 'ratnapurup.barisal.gov.bd'),
+(2302, 256, 'Andarmanik', 'à¦†à¦¨à§à¦¦à¦¾à¦°à¦®à¦¾à', 'andarmanikup.barisal.gov.bd'),
+(2303, 256, 'Lata', 'à¦²à¦¤à¦¾', 'lataup.barisal.gov.bd'),
+(2304, 256, 'Charakkorea', 'à¦šà¦°à¦à¦•à¦•à¦°à¦¿à§Ÿà', 'charakkoreaup.barisal.gov.bd'),
+(2305, 256, 'Ulania', 'à¦‰à¦²à¦¾à¦¨à¦¿à§Ÿà¦¾', 'ulaniaup.barisal.gov.bd'),
+(2306, 256, 'Mehendigong', 'à¦®à§‡à¦¹à§‡à¦¨à§à¦¦à¦¿à', 'mehendigongup.barisal.gov.bd'),
+(2307, 256, 'Biddanandapur', 'à¦¬à¦¿à¦¦à§à¦¯à¦¾à¦¨à¦¨à', 'biddanandapurup.barisal.gov.bd'),
+(2308, 256, 'Bhashanchar', 'à¦­à¦¾à¦·à¦¾à¦¨à¦šà¦°', 'bhashancharup.barisal.gov.bd'),
+(2309, 256, 'Jangalia', 'à¦œà¦¾à¦™à§à¦—à¦¾à¦²à¦¿à', 'jangaliaup.barisal.gov.bd'),
+(2310, 256, 'Alimabad', 'à¦†à¦²à¦¿à¦®à¦¾à¦¬à¦¾à¦¦', 'alimabadup.barisal.gov.bd'),
+(2311, 256, 'Chandpur', 'à¦šà¦¾à¦¨à¦ªà§à¦°', 'chandpurup.barisal.gov.bd'),
+(2312, 256, 'Darirchar Khajuria', 'à¦¦à§œà¦¿à¦°à¦šà¦° à¦–à¦¾', 'darircharkhajuriaup.barisal.gov.bd'),
+(2313, 256, 'Gobindapur', 'à¦—à§‹à¦¬à¦¿à¦¨à§à¦¦à¦ªà', 'gobindapurup.barisal.gov.bd'),
+(2314, 256, 'Chargopalpur', 'à¦šà¦°à¦—à§‹à¦ªà¦¾à¦²à¦ªà', 'chargopalpurup.barisal.gov.bd'),
+(2315, 257, 'Batamara', 'à¦¬à¦¾à¦Ÿà¦¾à¦®à¦¾à¦°à¦¾', 'batamaraup.barisal.gov.bd'),
+(2316, 257, 'Nazirpur', 'à¦¨à¦¾à¦œà¦¿à¦°à¦ªà§à¦°', 'nazirpurup.barisal.gov.bd'),
+(2317, 257, 'Safipur', 'à¦¸à¦«à¦¿à¦ªà§à¦°', 'safipurup.barisal.gov.bd'),
+(2318, 257, 'Gaschua', 'à¦—à¦¾à¦›à§à§Ÿà¦¾', 'gaschuaup.barisal.gov.bd'),
+(2319, 257, 'Charkalekha', 'à¦šà¦°à¦•à¦¾à¦²à§‡à¦–à¦¾', 'charkalekhaup.barisal.gov.bd'),
+(2320, 257, 'Muladi', 'à¦®à§à¦²à¦¾à¦¦à§€', 'muladiup.barisal.gov.bd'),
+(2321, 257, 'Kazirchar', 'à¦•à¦¾à¦œà¦¿à¦°à¦šà¦°', 'kazircharup.barisal.gov.bd'),
+(2322, 258, 'Harinathpur', 'à¦¹à¦°à¦¿à¦¨à¦¾à¦¥à¦ªà§à', 'harinathpurup.barisal.gov.bd'),
+(2323, 258, 'Memania', 'à¦®à§‡à¦®à¦¾à¦¨à¦¿à§Ÿà¦¾', 'memaniaup.barisal.gov.bd'),
+(2324, 258, 'Guabaria', 'à¦—à§à§Ÿà¦¾à¦¬à¦¾à§œà¦¿à', 'guabariaup.barisal.gov.bd'),
+(2325, 258, 'Barjalia', 'à¦¬à§œà¦œà¦¾à¦²à¦¿à§Ÿà¦¾', 'barjaliaup.barisal.gov.bd'),
+(2326, 258, 'Hizla Gourabdi', 'à¦¹à¦¿à¦œà¦²à¦¾ à¦—à§Œà¦°', 'hizlagourabdiup.barisal.gov.bd'),
+(2327, 258, 'Dhulkhola', 'à¦§à§à¦²à¦–à§‹à¦²à¦¾', 'dhulkholaup.barisal.gov.bd'),
+(2328, 259, 'Razapur', 'à¦°à¦¾à¦œà¦¾à¦ªà§à¦°', 'razapurup.bhola.gov.bd'),
+(2329, 259, 'Ilisha', 'à¦‡à¦²à¦¿à¦¶à¦¾', 'ilishaup.bhola.gov.bd'),
+(2330, 259, 'Westilisa', 'à¦ªà¦¶à§à¦šà¦¿à¦® à¦‡à¦²', 'westilisaup.bhola.gov.bd'),
+(2331, 259, 'Kachia', 'à¦•à¦¾à¦šà¦¿à¦¯à¦¼à¦¾', 'kachiaup.bhola.gov.bd'),
+(2332, 259, 'Bapta', 'à¦¬à¦¾à¦ªà§à¦¤à¦¾', 'baptaup.bhola.gov.bd'),
+(2333, 259, 'Dhania', 'à¦§à¦¨à¦¿à¦¯à¦¼à¦¾', 'dhaniaup.bhola.gov.bd'),
+(2334, 259, 'Shibpur', 'à¦¶à¦¿à¦¬à¦ªà§à¦°', 'shibpurup.bhola.gov.bd'),
+(2335, 259, 'Alinagor', 'à¦†à¦²à§€à¦¨à¦—à¦°', 'alinagorup.bhola.gov.bd'),
+(2336, 259, 'Charshamya', 'à¦šà¦°à¦¸à¦¾à¦®à¦¾à¦‡à¦¯à', 'charshamyaup.bhola.gov.bd'),
+(2337, 259, 'Vhelumia', ' à¦­à§‡à¦²à§à¦®à¦¿à¦¯à¦¼', 'vhelumiaup.bhola.gov.bd'),
+(2338, 259, 'Vheduria', 'à¦­à§‡à¦¦à§à¦°à¦¿à¦¯à¦¼à', 'vheduriaup.bhola.gov.bd'),
+(2339, 259, 'North Digholdi', 'à¦‰à¦¤à§à¦¤à¦° à¦¦à¦¿à¦˜', 'northdigholdiup.bhola.gov.bd'),
+(2340, 259, 'South Digholdi', 'à¦¦à¦•à§à¦·à¦¿à¦£ à¦¦à¦¿', 'southdigholdiup.bhola.gov.bd'),
+(2341, 260, 'Boromanika', 'à¦¬à¦¡à¦¼ à¦®à¦¾à¦¨à¦¿à¦•', 'boromanikaup.bhola.gov.bd'),
+(2342, 260, 'Deula', 'à¦¦à§‡à¦‰à¦²à¦¾', 'deulaup.bhola.gov.bd'),
+(2343, 260, 'Kutuba', 'à¦•à§à¦¤à§à¦¬à¦¾', 'kutubaup.bhola.gov.bd'),
+(2344, 260, 'Pakshia', 'à¦ªà¦•à§à¦·à¦¿à¦¯à¦¼à¦¾', 'pakshiaup.bhola.gov.bd'),
+(2345, 260, 'Kachia', 'à¦•à¦¾à¦šà¦¿à¦¯à¦¼à¦¾', 'kachiaup4.bhola.gov.bd'),
+(2346, 261, 'Osmangonj', 'à¦“à¦¸à¦®à¦¾à¦¨à¦—à¦žà§à', 'osmangonjup.bhola.gov.bd'),
+(2347, 261, 'Aslampur', 'à¦†à¦›à¦²à¦¾à¦®à¦ªà§à¦°', 'aslampurup.bhola.gov.bd'),
+(2348, 261, 'Zinnagor', 'à¦œà¦¿à¦¨à§à¦¨à¦¾à¦—à¦¡à', 'zinnagorup.bhola.gov.bd'),
+(2349, 261, 'Aminabad', 'à¦†à¦®à¦¿à¦¨à¦¾à¦¬à¦¾à¦¦', 'aminabadup.bhola.gov.bd'),
+(2350, 261, 'Nilkomol', 'à¦¨à§€à¦²à¦•à¦®à¦²', 'nilkomolup.bhola.gov.bd'),
+(2351, 261, 'Charmadraj', 'à¦šà¦°à¦®à¦¾à¦¦à§à¦°à¦¾à', 'charmadrajup.bhola.gov.bd'),
+(2352, 261, 'Awajpur', 'à¦†à¦“à¦¯à¦¼à¦¾à¦œà¦ªà§à', 'awajpurup.bhola.gov.bd'),
+(2353, 261, 'Awajpur', 'à¦†à¦“à¦¯à¦¼à¦¾à¦œà¦ªà§à', 'awajpurup.bhola.gov.bd'),
+(2354, 261, 'Charkolmi', 'à¦šà¦°à¦•à¦²à¦®à§€', 'charkolmiup.bhola.gov.bd'),
+(2355, 261, 'Charmanika', 'à¦šà¦°à¦®à¦¾à¦¨à¦¿à¦•à¦¾', 'charmanikaup.bhola.gov.bd'),
+(2356, 261, 'Hazarigonj', 'à¦¹à¦¾à¦œà¦¾à¦°à§€à¦—à¦žà', 'hazarigonjup.bhola.gov.bd'),
+(2357, 261, 'Jahanpur', 'à¦œà¦¾à¦¹à¦¾à¦¨à¦ªà§à¦°', 'jahanpurup.bhola.gov.bd'),
+(2358, 261, 'Nurabad', 'à¦¨à§à¦°à¦¾à¦¬à¦¾à¦¦', 'nurabadup.bhola.gov.bd'),
+(2359, 261, 'Rasulpur', 'à¦°à¦¸à§à¦²à¦ªà§à¦°', 'rasulpurup.bhola.gov.bd'),
+(2360, 261, 'Kukrimukri', 'à¦•à§à¦•à¦°à§€à¦®à§‚à¦•à', 'kukrimukriup.bhola.gov.bd'),
+(2361, 261, 'Abubakarpur', 'à¦†à¦¬à§à¦¬à¦•à¦°à¦ªà§à', 'abubakarpurup.bhola.gov.bd'),
+(2362, 261, 'Abdullahpur', 'à¦†à¦¬à¦¦à§à¦²à§à¦²à¦¾à', 'abdullahpurup.bhola.gov.bd'),
+(2363, 261, 'Nazrulnagar', 'à¦¨à¦œà¦°à§à¦² à¦¨à¦—à¦°', 'nazrulnagarup.bhola.gov.bd'),
+(2364, 261, 'Mujibnagar', 'à¦®à§à¦œà¦¿à¦¬ à¦¨à¦—à¦°', 'mujibnagarup.bhola.gov.bd'),
+(2365, 261, 'Dalchar', 'à¦¢à¦¾à¦²à¦šà¦°', 'dalcharup.bhola.gov.bd'),
+(2366, 262, 'Madanpur', 'à¦®à¦¦à¦¨à¦ªà§à¦°', 'madanpurup.bhola.gov.bd'),
+(2367, 262, 'Madua', 'à¦®à§‡à¦¦à§à¦¯à¦¼à¦¾', 'maduaup.bhola.gov.bd'),
+(2368, 262, 'Charpata', 'à¦šà¦°à¦ªà¦¾à¦¤à¦¾', 'charpataup.bhola.gov.bd'),
+(2369, 262, 'North Joy Nagar', 'à¦‰à¦¤à§à¦¤à¦° à¦œà¦¯à¦¼', 'northjoynagarup.bhola.gov.bd'),
+(2370, 262, 'South Joy Nagar', 'à¦¦à¦•à§à¦·à¦¿à¦¨ à¦œà¦¯', 'southjoynagarup.bhola.gov.bd'),
+(2371, 262, 'Char Khalipa', 'à¦šà¦° à¦–à¦²à¦¿à¦«à¦¾', 'charkhalipaup.bhola.gov.bd'),
+(2372, 262, 'Sayedpur', 'à¦¸à§ˆà¦¯à¦¼à¦¦à¦ªà§à¦°', 'sayedpurup.bhola.gov.bd'),
+(2373, 262, 'Hazipur', 'à¦¹à¦¾à¦œà§€à¦ªà§à¦°', 'hazipurup.bhola.gov.bd'),
+(2374, 262, 'Vhovanipur', 'à¦­à¦¬à¦¾à¦¨à§€à¦ªà§à¦°', 'vhovanipurup.bhola.gov.bd'),
+(2375, 263, 'Hazirhat', 'à¦¹à¦¾à¦œà§€à¦° à¦¹à¦¾à¦Ÿ', 'hazirhatup.bhola.gov.bd'),
+(2376, 263, 'Monpura', 'à¦®à¦¨à¦ªà§à¦°à¦¾', 'monpuraup.bhola.gov.bd'),
+(2377, 263, 'North Sakuchia', 'à¦‰à¦¤à§à¦¤à¦° à¦¸à¦¾à¦•', 'sakuchianorthup.bhola.gov.bd'),
+(2378, 263, 'South Sakuchia', 'à¦¦à¦•à§à¦·à¦¿à¦¨ à¦¸à¦¾', 'sakuchiasouthup.bhola.gov.bd'),
+(2379, 264, 'Chanchra', 'à¦šà¦¾à¦šà¦à¦¡à¦¼à¦¾', 'chanchraup.bhola.gov.bd'),
+(2380, 264, 'Shambupur', 'à¦¶à¦®à§à¦­à§à¦ªà§à¦°', 'shambupurup.bhola.gov.bd'),
+(2381, 264, 'Sonapur', 'à¦¸à§‹à¦¨à¦¾à¦ªà§à¦°', 'sonapurup.bhola.gov.bd'),
+(2382, 264, 'Chadpur', 'à¦šà¦¾à¦à¦¦à¦ªà§à¦°', 'chadpurup.bhola.gov.bd'),
+(2383, 264, 'Baro Molongchora', 'à¦¬à¦¡à¦¼ à¦®à¦²à¦‚à¦šà¦¡', 'baromolongchoraup.bhola.gov.bd'),
+(2384, 265, 'Badarpur', 'à¦¬à¦¦à¦°à¦ªà§à¦°', 'badarpurup.bhola.gov.bd'),
+(2385, 265, 'Charbhuta', 'à¦šà¦°à¦­à§‚à¦¤à¦¾', 'charbhutaup.bhola.gov.bd'),
+(2386, 265, 'Kalma', ' à¦•à¦¾à¦²à¦®à¦¾', 'kalmaup.bhola.gov.bd'),
+(2387, 265, 'Dholigour Nagar', 'à¦§à¦²à§€à¦—à§Œà¦° à¦¨à¦—', 'dholigournagarup.bhola.gov.bd'),
+(2388, 265, 'Lalmohan', 'à¦²à¦¾à¦²à¦®à§‹à¦¹à¦¨', 'lalmohanup.bhola.gov.bd'),
+(2389, 265, 'Lord Hardinge', 'à¦²à¦°à§à¦¡ à¦¹à¦¾à¦°à§', 'lordhardingeup.bhola.gov.bd'),
+(2390, 265, 'Ramagonj', 'à¦°à¦®à¦¾à¦—à¦žà§à¦œ', 'ramagonjup.bhola.gov.bd'),
+(2391, 265, 'Paschim Char Umed', 'à¦ªà¦¶à§à¦šà¦¿à¦® à¦šà¦°', 'paschimcharumedup.bhola.gov.bd'),
+(2392, 265, 'Farajgonj', 'à¦«à¦°à¦¾à¦œà¦—à¦žà§à¦œ', 'farajgonjup.bhola.gov.bd'),
+(2393, 266, 'Amtali', 'à¦†à¦®à¦¤à¦²à§€', 'amtaliup.barguna.gov.bd'),
+(2394, 266, 'Gulishakhali', 'à¦—à§à¦²à¦¿à¦¶à¦¾à¦–à¦¾à', 'gulishakhaliup.barguna.gov.bd'),
+(2395, 266, 'Athrogasia', 'à¦†à¦ à¦¾à¦°à¦—à¦¾à¦›à¦¿à', 'athrogasiaup.barguna.gov.bd'),
+(2396, 266, 'Kukua', 'à¦•à§à¦•à§à¦¯à¦¼à¦¾', 'kukuaup.barguna.gov.bd'),
+(2397, 266, 'Haldia', 'à¦¹à¦²à¦¦à¦¿à¦¯à¦¼à¦¾', 'haldiaup.barguna.gov.bd'),
+(2398, 266, 'Chotobogi', 'à¦›à§‹à¦Ÿà¦¬à¦—à§€', 'chotobogiup.barguna.gov.bd'),
+(2399, 266, 'Arpangasia', 'à¦†à¦¡à¦¼à¦ªà¦¾à¦™à§à¦—à', 'arpangasiaup.barguna.gov.bd'),
+(2400, 266, 'Chowra', 'à¦šà¦¾à¦“à¦¡à¦¼à¦¾', 'chowraup.barguna.gov.bd'),
+(2401, 267, 'M. Baliatali', 'à¦à¦®. à¦¬à¦¾à¦²à¦¿à¦¯à¦', 'm.baliataliup.barguna.gov.bd'),
+(2402, 267, 'Noltona', 'à¦¨à¦²à¦Ÿà§‹à¦¨à¦¾', 'noltonaup.barguna.gov.bd'),
+(2403, 267, 'Bodorkhali', 'à¦¬à¦¦à¦°à¦–à¦¾à¦²à§€', 'bodorkhaliup.barguna.gov.bd'),
+(2404, 267, 'Gowrichanna', 'à¦—à§Œà¦°à¦¿à¦šà¦¨à§à¦¨à', 'gowrichannaup.barguna.gov.bd'),
+(2405, 267, 'Fuljhuri', 'à¦«à§à¦²à¦à§à¦¡à¦¼à¦¿', 'fuljhuriup.barguna.gov.bd'),
+(2406, 267, 'Keorabunia', 'à¦•à§‡à¦“à¦¡à¦¼à¦¾à¦¬à§à', 'keorabuniaup.barguna.gov.bd'),
+(2407, 267, 'Ayla Patakata', 'à¦†à¦¯à¦¼à¦²à¦¾ à¦ªà¦¾à¦¤', 'aylaPatakataup.barguna.gov.bd'),
+(2408, 267, 'Burirchor', 'à¦¬à§à¦¡à¦¼à¦¿à¦°à¦šà¦°', 'burirchorup.barguna.gov.bd'),
+(2409, 267, 'Dhalua', 'à¦¢à¦²à§à¦¯à¦¼à¦¾', 'dhaluaup.barguna.gov.bd'),
+(2410, 267, 'Barguna', 'à¦¬à¦°à¦—à§à¦¨à¦¾', 'bargunaup.barguna.gov.bd'),
+(2411, 268, 'Bibichini', 'à¦¬à¦¿à¦¬à¦¿à¦šà¦¿à¦¨', 'bibichiniup.barguna.gov.bd'),
+(2412, 268, 'Betagi', 'à¦¬à§‡à¦¤à¦¾à¦—à§€', 'betagiup.barguna.gov.bd'),
+(2413, 268, 'Hosnabad', 'à¦¹à§‹à¦¸à¦¨à¦¾à¦¬à¦¾à¦¦', 'hosnabadup.barguna.gov.bd'),
+(2414, 268, 'Mokamia', 'à¦®à§‹à¦•à¦¾à¦®à¦¿à¦¯à¦¼à', 'mokamiaup.barguna.gov.bd'),
+(2415, 268, 'Buramajumder', 'à¦¬à§à¦¡à¦¼à¦¾à¦®à¦œà§à', 'buramajumderup.barguna.gov.bd'),
+(2416, 268, 'Kazirabad', 'à¦•à¦¾à¦œà§€à¦°à¦¾à¦¬à¦¾à', 'kazirabadup.barguna.gov.bd'),
+(2417, 268, 'Sarisamuri', 'à¦¸à¦°à¦¿à¦·à¦¾à¦®à§à¦¡à', 'sarisamuriup.barguna.gov.bd'),
+(2418, 269, 'Bukabunia', 'à¦¬à§à¦•à¦¾à¦¬à§à¦¨à¦¿à', 'bukabuniaup.barguna.gov.bd'),
+(2419, 269, 'Bamna', 'à¦¬à¦¾à¦®à¦¨à¦¾', 'bamnaup.barguna.gov.bd'),
+(2420, 269, 'Ramna', 'à¦°à¦¾à¦®à¦¨à¦¾', 'ramnaup.barguna.gov.bd'),
+(2421, 269, 'Doutola', 'à¦¡à§Œà¦¯à¦¼à¦¾à¦¤à¦²à¦¾', 'doutolaup.barguna.gov.bd'),
+(2422, 270, 'Raihanpur', 'à¦°à¦¾à¦¯à¦¼à¦¹à¦¾à¦¨à¦ªà', 'raihanpurup.barguna.gov.bd'),
+(2423, 270, 'Nachnapara', 'à¦¨à¦¾à¦šà¦¨à¦¾à¦ªà¦¾à¦¡à', 'nachnaparaup.barguna.gov.bd'),
+(2424, 270, 'Charduany', 'à¦šà¦°à¦¦à§à¦¯à¦¼à¦¾à¦¨à', 'charduanyup.barguna.gov.bd'),
+(2425, 270, 'Patharghata', 'à¦ªà¦¾à¦¥à¦°à¦˜à¦¾à¦Ÿà¦¾', 'patharghataup.barguna.gov.bd'),
+(2426, 270, 'Kalmegha', 'à¦•à¦¾à¦²à¦®à§‡à¦˜à¦¾', 'kalmeghaup.barguna.gov.bd'),
+(2427, 270, 'Kakchira', 'à¦•à¦¾à¦•à¦šà¦¿à¦¢à¦¼à¦¾', 'kakchiraup.barguna.gov.bd'),
+(2428, 270, 'Kathaltali', 'à¦•à¦¾à¦ à¦¾à¦²à¦¤à¦²à§€', 'kathaltaliup.barguna.gov.bd'),
+(2429, 271, 'Karibaria', 'à¦•à¦¡à¦¼à¦‡à¦¬à¦¾à¦¡à¦¼à', 'karibariaup.barguna.gov.bd'),
+(2430, 271, 'Panchakoralia', 'à¦ªà¦šà¦¾à¦•à§‹à¦¡à¦¼à¦¾à', 'panchakoraliaup.barguna.gov.bd'),
+(2431, 271, 'Barabagi', 'à¦¬à§œà¦¬à¦—à¦¿', 'barabagiup.barguna.gov.bd'),
+(2432, 271, 'Chhotabagi', 'à¦›à§‹à¦Ÿà¦¬à¦—à¦¿', 'chhotabagiup.barguna.gov.bd'),
+(2433, 271, 'Nishanbaria', 'à¦¨à¦¿à¦¶à¦¾à¦¨à¦¬à¦¾à§œà', 'nishanbariaup.barguna.gov.bd'),
+(2434, 271, 'Sarikkhali', 'à¦¶à¦¾à¦°à¦¿à¦•à¦–à¦¾à¦²à', 'sarikkhaliup.barguna.gov.bd'),
+(2435, 271, 'Sonakata', 'à¦¸à§‹à¦¨à¦¾à¦•à¦¾à¦Ÿà¦¾', 'sonakataup.barguna.gov.bd'),
+(2436, 284, 'Tazpur', 'à¦¤à¦¾à¦œà¦ªà§à¦°', 'tazpurup.sylhet.gov.bd'),
+(2437, 284, 'Umorpur', 'à¦‰à¦®à¦°à¦ªà§à¦°', 'umorpurup.sylhet.gov.bd'),
+(2438, 284, 'West Poilanpur', 'à¦ªà¦¶à§à¦šà¦¿à¦® à¦ªà§ˆ', 'westpoilanpurup.sylhet.gov.bd'),
+(2439, 272, 'East Poilanpur', 'à¦ªà§‚à¦°à§à¦¬ à¦ªà§ˆà¦²', 'eastpoilanpurup.sylhet.gov.bd'),
+(2440, 272, 'Boaljur', 'à¦¬à§‹à§Ÿà¦¾à¦²à¦œà§à¦°', 'boaljurup.sylhet.gov.bd'),
+(2441, 284, 'Burungabazar', 'à¦¬à§à¦°à§à¦™à§à¦—à¦¾à', 'burungabazarup.sylhet.gov.bd'),
+(2442, 284, 'Goalabazar', 'à¦—à§‹à§Ÿà¦¾à¦²à¦¾à¦¬à¦¾à', 'goalabazarup.sylhet.gov.bd'),
+(2443, 284, 'Doyamir', 'à¦¦à§Ÿà¦¾à¦®à§€à¦°', 'doyamirup.sylhet.gov.bd'),
+(2444, 284, 'Usmanpur', 'à¦‰à¦¸à¦®à¦¾à¦¨à¦ªà§à¦°', 'usmanpurup.sylhet.gov.bd'),
+(2445, 272, 'Dewanbazar', 'à¦¦à§‡à¦“à§Ÿà¦¾à¦¨ à¦¬à¦¾', 'dewanbazarup.sylhet.gov.bd'),
+(2446, 272, 'West Gouripur', 'à¦ªà¦¶à§à¦šà¦¿à¦® à¦—à§Œ', 'westgouripurup.sylhet.gov.bd'),
+(2447, 272, 'East Gouripur', 'à¦ªà§‚à¦°à§à¦¬ à¦—à§Œà¦°', 'eastgouripurup.sylhet.gov.bd'),
+(2448, 272, 'Balaganj', 'à¦¬à¦¾à¦²à¦¾à¦—à¦žà§à¦œ', 'balaganjup.sylhet.gov.bd'),
+(2449, 284, 'Sadipur', 'à¦¸à¦¾à¦¦à¦¿à¦°à¦ªà§à¦°', 'sadipurup.sylhet.gov.bd'),
+(2450, 273, 'Tilpara', 'à¦¤à¦¿à¦²à¦ªà¦¾à§œà¦¾', 'tilparaup.sylhet.gov.bd'),
+(2451, 273, 'Alinagar', 'à¦†à¦²à§€à¦¨à¦—à¦°', 'alinagarup.sylhet.gov.bd'),
+(2452, 273, 'Charkhai', 'à¦šà¦°à¦–à¦¾à¦‡', 'charkhaiup.sylhet.gov.bd'),
+(2453, 273, 'Dubag', 'à¦¦à§à¦¬à¦¾à¦—', 'dubagup.sylhet.gov.bd'),
+(2454, 273, 'Sheola', 'à¦¶à§‡à¦“à¦²à¦¾', 'sheolaup.sylhet.gov.bd'),
+(2455, 273, 'Kurarbazar', 'à¦•à§à§œà¦¾à¦°à¦¬à¦¾à¦œà', 'kurarbazarup.sylhet.gov.bd'),
+(2456, 273, 'Mathiura', 'à¦®à¦¾à¦¥à¦¿à¦‰à¦°à¦¾', 'mathiuraup.sylhet.gov.bd'),
+(2457, 273, 'Mullapur', 'à¦®à§‹à¦²à§à¦²à¦¾à¦ªà§à', 'mullapurup.sylhet.gov.bd'),
+(2458, 273, 'Muria', 'à¦®à§à§œà¦¿à§Ÿà¦¾', 'muriaup.sylhet.gov.bd'),
+(2459, 273, 'Lauta', 'à¦²à¦¾à¦‰à¦¤à¦¾', 'lautaup.sylhet.gov.bd'),
+(2460, 274, 'Rampasha', 'à¦°à¦¾à¦®à¦ªà¦¾à¦¶à¦¾', 'rampashaup.sylhet.gov.bd'),
+(2461, 274, 'Lamakazi', 'à¦²à¦¾à¦®à¦¾à¦•à¦¾à¦œà§€', 'lamakaziup.sylhet.gov.bd'),
+(2462, 274, 'Khajanchi', 'à¦–à¦¾à¦œà¦¾à¦žà§à¦šà§€', 'khajanchiup.sylhet.gov.bd'),
+(2463, 274, 'Alankari', 'à¦…à¦²à¦‚à¦•à¦¾à¦°à§€', 'alankariup.sylhet.gov.bd'),
+(2464, 274, 'Dewkalash', 'à¦¦à§‡à¦“à¦•à¦²à¦¸', 'dewkalashup.sylhet.gov.bd'),
+(2465, 274, 'Bishwanath', 'à¦¬à¦¿à¦¶à§à¦¬à¦¨à¦¾à¦¥', 'bishwanathup.sylhet.gov.bd'),
+(2466, 274, 'Doshghar', 'à¦¦à¦¶à¦˜à¦°', 'doshgharup.sylhet.gov.bd'),
+(2467, 274, 'Daulatpur', 'à¦¦à§Œà¦²à¦¤à¦ªà§à¦°', 'daulatpurup.sylhet.gov.bd'),
+(2468, 275, 'Telikhal', 'à¦¤à§‡à¦²à¦¿à¦–à¦¾à¦²', 'telikhalup.sylhet.gov.bd'),
+(2469, 275, 'Islampur Paschim', 'à¦‡à¦¸à¦²à¦¾à¦®à¦ªà§à¦° ', 'islampurpaschimup.sylhet.gov.bd'),
+(2470, 275, 'Islampur Purba', 'à¦‡à¦¸à¦²à¦¾à¦®à¦ªà§à¦° ', 'islampurpurbaup.sylhet.gov.bd'),
+(2471, 275, 'Isakalas', 'à¦‡à¦¸à¦¾à¦•à¦²à¦¸', 'isakalasup.sylhet.gov.bd'),
+(2472, 275, 'Uttor Ronikhai', 'à¦‰à¦¤à§à¦¤à¦° à¦°à¦¨à¦¿', 'uttorronikhaiup.sylhet.gov.bd'),
+(2473, 275, 'Dakkin Ronikhai', 'à¦¦à¦•à§à¦·à¦¿à¦¨ à¦°à¦¨', 'dakkinronikhaiup.sylhet.gov.bd'),
+(2474, 276, 'Ghilachora', 'à¦˜à¦¿à¦²à¦¾à¦›à§œà¦¾', 'ghilachoraup.sylhet.gov.bd'),
+(2475, 276, 'Fenchuganj', 'à¦«à§‡à¦žà§à¦šà§à¦—à¦žà', '1nofenchuganjup.sylhet.gov.bd'),
+(2476, 276, 'Uttar Kushiara', 'à¦‰à¦¤à§à¦¤à¦° à¦•à§à¦¶', 'uttarkushiaraup.sylhet.gov.bd'),
+(2477, 276, 'Uttar Fenchuganj', 'à¦‰à¦¤à§à¦¤à¦° à¦«à§‡à¦ž', 'uttarfenchuganjup.sylhet.gov.bd'),
+(2478, 276, 'Maijgaon', 'à¦®à¦¾à¦‡à¦œà¦—à¦¾à¦à¦“', 'maijgaonup.sylhet.gov.bd'),
+(2479, 277, 'Golapganj', 'à¦—à§‹à¦²à¦¾à¦ªà¦—à¦žà§à', 'golapganjup.sylhet.gov.bd'),
+(2480, 277, 'Fulbari', 'à¦«à§à¦²à¦¬à¦¾à§œà§€', 'fulbariup.sylhet.gov.bd'),
+(2481, 277, 'Lakshmipasha', 'à¦²à¦•à§à¦·à§à¦®à§€à¦ªà', 'lakshmipashaup.sylhet.gov.bd'),
+(2482, 277, 'Budhbaribazar', 'à¦¬à§à¦§à¦¬à¦¾à¦°à§€à¦¬à', 'budhbaribazarup.sylhet.gov.bd'),
+(2483, 277, 'Dhakadakshin', 'à¦¢à¦¾à¦•à¦¾à¦¦à¦•à§à¦·à', 'dhakadakshinup.sylhet.gov.bd'),
+(2484, 277, 'Sharifganj', 'à¦¶à¦°à¦¿à¦«à¦—à¦žà§à¦œ', 'sharifganjup.sylhet.gov.bd'),
+(2485, 277, 'Uttar Badepasha', 'à¦‰à¦¤à§à¦¤à¦° à¦¬à¦¾à¦¦', 'uttarbadepashaup.sylhet.gov.bd'),
+(2486, 277, 'Lakshanaband', 'à¦²à¦•à§à¦·à¦¨à¦¾à¦¬à¦¨à', 'lakshanabandup.sylhet.gov.bd'),
+(2487, 277, 'Bhadeshwar', 'à¦­à¦¾à¦¦à§‡à¦¶à§à¦¬à¦°', 'bhadeshwarup.sylhet.gov.bd'),
+(2488, 277, 'West Amura', 'à¦ªà¦¶à§à¦šà¦¿à¦® à¦†à¦®', 'westamuraup.sylhet.gov.bd'),
+(2489, 278, 'Fothepur', 'à¦«à¦¤à§‡à¦ªà§à¦°', 'fothepurup.sylhet.gov.bd'),
+(2490, 278, 'Rustampur', 'à¦°à§à¦¸à§à¦¤à¦®à¦ªà§à', 'rustampurup.sylhet.gov.bd'),
+(2491, 278, 'Paschim Jaflong', 'à¦ªà¦¶à§à¦šà¦¿à¦® à¦œà¦¾', 'paschimjaflongup.sylhet.gov.bd'),
+(2492, 278, 'Purba Jaflong', 'à¦ªà§‚à¦°à§à¦¬ à¦œà¦¾à¦«', 'purbajaflongup.sylhet.gov.bd'),
+(2493, 278, 'Lengura', 'à¦²à§‡à¦™à§à¦—à§à§œà¦¾', 'lenguraup.sylhet.gov.bd'),
+(2494, 278, 'Alirgaon', 'à¦†à¦²à§€à¦°à¦—à¦¾à¦à¦“', 'alirgaonup.sylhet.gov.bd'),
+(2495, 278, 'Nandirgaon', 'à¦¨à¦¨à§à¦¦à¦¿à¦°à¦—à¦¾à', 'nandirgaonup.sylhet.gov.bd'),
+(2496, 278, 'Towakul', 'à¦¤à§‹à§Ÿà¦¾à¦•à§à¦²', 'towakulup.sylhet.gov.bd'),
+(2497, 278, 'Daubari', 'à¦¡à§Œà¦¬à¦¾à§œà§€', 'daubariup.sylhet.gov.bd'),
+(2498, 279, 'Nijpat', 'à¦¨à¦¿à¦œà¦ªà¦¾à¦Ÿ', 'nijpatup.sylhet.gov.bd'),
+(2499, 279, 'Jaintapur', 'à¦œà§ˆà¦¨à§à¦¤à¦¾à¦ªà§à', 'jaintapurup.sylhet.gov.bd'),
+(2500, 279, 'Charikatha', 'à¦šà¦¾à¦°à¦¿à¦•à¦¾à¦Ÿà¦¾', 'charikathaup.sylhet.gov.bd'),
+(2501, 279, 'Darbast', 'à¦¦à¦°à¦¬à¦¸à§à¦¤', 'darbastup.sylhet.gov.bd'),
+(2502, 279, 'Fatehpur', 'à¦«à¦¤à§‡à¦ªà§à¦°', 'fatehpurup.sylhet.gov.bd'),
+(2503, 279, 'Chiknagul', 'à¦šà¦¿à¦•à¦¨à¦¾à¦—à§à¦²', 'chiknagulup.sylhet.gov.bd'),
+(2504, 280, 'Rajagonj', 'à¦°à¦¾à¦œà¦¾à¦—à¦žà§à¦œ', 'rajagonjup.sylhet.gov.bd');
+INSERT INTO `unions` (`id`, `upazilla_id`, `name`, `bn_name`, `url`) VALUES
+(2505, 280, 'Lakshiprashad Purbo', 'à¦²à¦•à§à¦·à§€à¦ªà§à¦°à', 'lakshiprashadpurboup.sylhet.gov.bd'),
+(2506, 280, 'Lakshiprashad Pashim', 'à¦²à¦•à§à¦·à§€à¦ªà§à¦°à', 'lakshiprashadpashimup.sylhet.gov.bd'),
+(2507, 280, 'Digirpar Purbo', 'à¦¦à¦¿à¦˜à¦¿à¦°à¦ªà¦¾à¦° ', 'digirparpurboup.sylhet.gov.bd'),
+(2508, 280, 'Satbakh', 'à¦¸à¦¾à¦¤à¦¬à¦¾à¦•', 'satbakhup.sylhet.gov.bd'),
+(2509, 280, 'Barachotul', 'à¦¬à§œà¦šà¦¤à§à¦²', 'barachotulup.sylhet.gov.bd'),
+(2510, 280, 'Kanaighat', 'à¦•à¦¾à¦¨à¦¾à¦‡à¦˜à¦¾à¦Ÿ', 'kanaighatup.sylhet.gov.bd'),
+(2511, 280, 'Dakhin Banigram', 'à¦¦à¦•à§à¦·à¦¿à¦¨ à¦¬à¦¾', 'dakhinbanigramup.sylhet.gov.bd'),
+(2512, 280, 'Jinghabari', 'à¦à¦¿à¦™à§à¦—à¦¾à¦¬à¦¾à', 'jinghabariup.sylhet.gov.bd'),
+(2513, 281, 'Jalalabad', 'à¦œà¦¾à¦²à¦¾à¦²à¦¾à¦¬à¦¾à', 'jalalabadup.sylhet.gov.bd'),
+(2514, 281, 'Hatkhula', 'à¦¹à¦¾à¦Ÿà¦–à§‹à¦²à¦¾', 'hatkhulaup.sylhet.gov.bd'),
+(2515, 281, 'Khadimnagar', 'à¦–à¦¾à¦¦à¦¿à¦®à¦¨à¦—à¦°', 'khadimnagarup.sylhet.gov.bd'),
+(2516, 281, 'Khadimpara', 'à¦–à¦¾à¦¦à¦¿à¦®à¦ªà¦¾à§œà', 'khadimparaup.sylhet.gov.bd'),
+(2517, 281, 'Tultikor', 'à¦Ÿà§à¦²à¦Ÿà¦¿à¦•à¦°', 'tultikorup.sylhet.gov.bd'),
+(2518, 281, 'Tukerbazar', 'à¦Ÿà§à¦•à§‡à¦°à¦¬à¦¾à¦œà', 'tukerbazarup.sylhet.gov.bd'),
+(2519, 281, 'Mugolgaon', 'à¦®à§‹à¦—à¦²à¦—à¦¾à¦“', 'mugolgaonup.sylhet.gov.bd'),
+(2520, 281, 'Kandigaon', 'à¦•à¦¾à¦¨à§à¦¦à¦¿à¦—à¦¾à', 'kandigaonup.sylhet.gov.bd'),
+(2521, 282, 'Manikpur', 'à¦®à¦¾à¦¨à¦¿à¦•à¦ªà§à¦°', 'manikpurup.sylhet.gov.bd'),
+(2522, 282, 'Sultanpur', 'à¦¸à§à¦²à¦¤à¦¾à¦¨à¦ªà§à', 'sultanpurup.sylhet.gov.bd'),
+(2523, 282, 'Barohal', 'à¦¬à¦¾à¦°à¦¹à¦¾à¦²', 'barohalup.sylhet.gov.bd'),
+(2524, 282, 'Birorsri', 'à¦¬à¦¿à¦°à¦¶à§à¦°à§€', 'birorsriup.sylhet.gov.bd'),
+(2525, 282, 'Kajalshah', 'à¦•à¦¾à¦œà¦²à¦¶à¦¾à¦°', 'kajalshahup.sylhet.gov.bd'),
+(2526, 282, 'Kolachora', 'à¦•à¦²à¦¾à¦›à§œà¦¾', 'kolachora.sylhet.gov.bd'),
+(2527, 282, 'Zakiganj', 'à¦œà¦•à¦¿à¦—à¦žà§à¦œ', 'zakiganjup.sylhet.gov.bd'),
+(2528, 282, 'Barothakuri', 'à¦¬à¦¾à¦°à¦ à¦¾à¦•à§à¦°à', 'barothakuriup.sylhet.gov.bd'),
+(2529, 282, 'Kaskanakpur', 'à¦•à¦¸à¦•à¦¨à¦•à¦ªà§à¦°', 'kaskanakpurup.sylhet.gov.bd'),
+(2530, 283, 'Lalabazar', 'à¦²à¦¾à¦²à¦¾à¦¬à¦¾à¦œà¦¾à', 'lalabazarup.sylhet.gov.bd'),
+(2531, 283, 'Moglabazar', 'à¦®à§‹à¦—à¦²à¦¾à¦¬à¦¾à¦œà', 'moglabazarup.sylhet.gov.bd'),
+(2532, 283, 'Boroikandi', 'à¦¬à§œà¦‡à¦•à¦¾à¦¨à§à¦¦à', 'boroikandiup.sylhet.gov.bd'),
+(2533, 283, 'Silam', 'à¦¸à¦¿à¦²à¦¾à¦®', 'silamup.sylhet.gov.bd'),
+(2534, 283, 'Daudpur', 'à¦¦à¦¾à¦‰à¦¦à¦ªà§à¦°', 'daudpurup.sylhet.gov.bd'),
+(2535, 283, 'Mollargaon', 'à¦®à§‹à¦²à§à¦²à¦¾à¦°à¦—à', 'mollargaonup.sylhet.gov.bd'),
+(2536, 283, 'Kuchai', 'à¦•à§à¦šà¦¾à¦‡', 'kuchaiup.sylhet.gov.bd'),
+(2537, 283, 'Kamalbazar', 'à¦•à¦¾à¦®à¦¾à¦²à¦¬à¦¾à¦œà', 'kamalbazarup.sylhet.gov.bd'),
+(2538, 283, 'Jalalpur', 'à¦œà¦¾à¦²à¦¾à¦²à¦ªà§à¦°', 'jalalpurup.sylhet.gov.bd'),
+(2539, 283, 'Tetli', 'à¦¤à§‡à¦¤à¦²à§€', 'tetliup.sylhet.gov.bd'),
+(2540, 285, 'Talimpur', 'à¦¤à¦¾à¦²à¦¿à¦®à¦ªà§à¦°', 'talimpurup.moulvibazar.gov.bd'),
+(2541, 285, 'Borni', 'à¦¬à¦°à§à¦£à¦¿', 'borniup.moulvibazar.gov.bd'),
+(2542, 285, 'Dasherbazar', 'à¦¦à¦¾à¦¸à§‡à¦°à¦¬à¦¾à¦œà', 'dasherbazarup.moulvibazar.gov.bd'),
+(2543, 285, 'Nizbahadurpur', 'à¦¨à¦¿à¦œà¦¬à¦¾à¦¹à¦¾à¦¦à', 'nizbahadurpurup.moulvibazar.gov.bd'),
+(2544, 285, 'Uttar Shahbajpur', 'à¦‰à¦¤à§à¦¤à¦° à¦¶à¦¾à¦¹', 'shahbajpuruttarup.moulvibazar.gov.bd'),
+(2545, 285, 'Dakkhin Shahbajpur', 'à¦¦à¦•à§à¦·à¦¿à¦£ à¦¶à¦¾', 'shahbajpurdakshinup.moulvibazar.gov.bd'),
+(2546, 285, 'Talimpur', 'à¦¤à¦¾à¦²à¦¿à¦®à¦ªà§à¦°', 'talimpurup.moulvibazar.gov.bd'),
+(2547, 285, 'Baralekha', 'à¦¬à§œà¦²à§‡à¦–à¦¾', 'baralekhaup.moulvibazar.gov.bd'),
+(2548, 285, 'Dakshinbhag Uttar', 'à¦¦à¦•à§à¦·à¦¿à¦£à¦­à¦¾à', 'dakshinbhaguttarup.moulvibazar.gov.bd'),
+(2549, 285, 'Dakshinbhag Dakkhin', 'à¦¦à¦•à§à¦·à¦¿à¦£à¦­à¦¾à', 'dakshinbhagdakshinup.moulvibazar.gov.bd'),
+(2550, 285, 'Sujanagar', 'à¦¸à§à¦œà¦¾à¦¨à¦—à¦°', 'sujanagarup.moulvibazar.gov.bd'),
+(2551, 286, 'Adampur', 'à¦†à¦¦à¦®à¦ªà§à¦°', 'adampurup.moulvibazar.gov.bd'),
+(2552, 286, 'Patanushar', 'à¦ªà¦¤à¦¨à¦Šà¦·à¦¾à¦°', 'patanusharup.moulvibazar.gov.bd'),
+(2553, 286, 'Madhabpur', 'à¦®à¦¾à¦§à¦¬à¦ªà§à¦°', 'madhabpurup.moulvibazar.gov.bd'),
+(2554, 286, 'Rahimpur', 'à¦°à¦¹à¦¿à¦®à¦ªà§à¦°', 'rahimpurup.moulvibazar.gov.bd'),
+(2555, 286, 'Shamshernagar', 'à¦¶à¦®à¦¶à§‡à¦°à¦¨à¦—à¦°', 'shamshernagarup.moulvibazar.gov.bd'),
+(2556, 286, 'Kamalgonj', 'à¦•à¦®à¦²à¦—à¦žà§à¦œ', 'kamalgonjup.moulvibazar.gov.bd'),
+(2557, 286, 'Islampur', 'à¦‡à¦¸à¦²à¦¾à¦®à¦ªà§à¦°', 'islampurup.moulvibazar.gov.bd'),
+(2558, 286, 'Munshibazar', 'à¦®à§à¦¨à§à¦¸à¦¿à¦¬à¦¾à', 'munshibazarup3.moulvibazar.gov.bd'),
+(2559, 286, 'Alinagar', 'à¦†à¦²à§€ à¦¨à¦—à¦°', 'alinagarup.moulvibazar.gov.bd'),
+(2560, 287, 'Baramchal', 'à¦¬à¦°à¦®à¦šà¦¾à¦²', 'baramchalup.moulvibazar.gov.bd'),
+(2561, 287, 'Bhukshimail', 'à¦­à§‚à¦•à¦¶à¦¿à¦®à¦‡à¦²', 'bhukshimailup.moulvibazar.gov.bd'),
+(2562, 287, 'Joychandi', 'à¦œà§Ÿà¦šà¦¨à§à¦¡à¦¿', 'joychandiup.moulvibazar.gov.bd'),
+(2563, 287, 'Brammanbazar', 'à¦¬à§à¦°à¦¾à¦¹à§à¦®à¦£à', 'brammanbazarup.moulvibazar.gov.bd'),
+(2564, 287, 'Kadipur', 'à¦•à¦¾à¦¦à¦¿à¦ªà§à¦°', 'kadipurup.moulvibazar.gov.bd'),
+(2565, 287, 'Kulaura', 'à¦•à§à¦²à¦¾à¦‰à§œà¦¾', 'kulauraup.moulvibazar.gov.bd'),
+(2566, 287, 'Rauthgaon', 'à¦°à¦¾à¦‰à§Žà¦—à¦¾à¦à¦“', 'rauthgaonup.moulvibazar.gov.bd'),
+(2567, 287, 'Tilagaon', 'à¦Ÿà¦¿à¦²à¦¾à¦—à¦¾à¦à¦“', 'tilagaonup.moulvibazar.gov.bd'),
+(2568, 287, 'Sharifpur', 'à¦¶à¦°à§€à¦«à¦ªà§à¦°', 'sharifpurup.moulvibazar.gov.bd'),
+(2569, 287, 'Prithimpassa', 'à¦ªà§ƒà¦¥à¦¿à¦®à¦ªà¦¾à¦¶à', 'prithimpassaup.moulvibazar.gov.bd'),
+(2570, 287, 'Kormodha', 'à¦•à¦°à§à¦®à¦§à¦¾', 'kormodhaup.moulvibazar.gov.bd'),
+(2571, 287, 'Bhatera', 'à¦­à¦¾à¦Ÿà§‡à¦°à¦¾', 'bhateraup.moulvibazar.gov.bd'),
+(2572, 287, 'Hazipur', 'à¦¹à¦¾à¦œà§€à¦ªà§à¦°', 'hazipurup.moulvibazar.gov.bd'),
+(2573, 288, 'Amtail', 'à¦†à¦®à¦¤à§ˆà¦²', 'amtailup.moulvibazar.gov.bd'),
+(2574, 288, 'Khalilpur', 'à¦–à¦²à¦¿à¦²à¦ªà§à¦°', 'khalilpurup.moulvibazar.gov.bd'),
+(2575, 288, 'Monumukh', 'à¦®à¦¨à§à¦®à§à¦–', 'monumukhup.moulvibazar.gov.bd'),
+(2576, 288, 'Kamalpur', 'à¦•à¦¾à¦®à¦¾à¦²à¦ªà§à¦°', 'kamalpurup.moulvibazar.gov.bd'),
+(2577, 288, 'Apar Kagabala', 'à¦†à¦ªà¦¾à¦° à¦•à¦¾à¦—à¦¾', 'uparkagabalaup.moulvibazar.gov.bd'),
+(2578, 288, 'Akhailkura', 'à¦†à¦–à¦¾à¦‡à¦²à¦•à§à§œà', 'akhailkuraup.moulvibazar.gov.bd'),
+(2579, 288, 'Ekatuna', 'à¦à¦•à¦¾à¦Ÿà§à¦¨à¦¾', 'ekatunaup.moulvibazar.gov.bd'),
+(2580, 288, 'Chadnighat', 'à¦šà¦¾à¦à¦¦à¦¨à§€à¦˜à¦¾à', 'chadnighatup.moulvibazar.gov.bd'),
+(2581, 288, 'Konokpur', 'à¦•à¦¨à¦•à¦ªà§à¦°', 'konokpurup.moulvibazar.gov.bd'),
+(2582, 288, 'Nazirabad', 'à¦¨à¦¾à¦œà¦¿à¦°à¦¾à¦¬à¦¾à', 'nazirabadup.moulvibazar.gov.bd'),
+(2583, 288, 'Mostafapur', 'à¦®à§‹à¦¸à§à¦¤à¦«à¦¾à¦ªà', 'mostafapurup.moulvibazar.gov.bd'),
+(2584, 288, 'Giasnagar', 'à¦—à¦¿à§Ÿà¦¾à¦¸à¦¨à¦—à¦°', 'giasnagarup.moulvibazar.gov.bd'),
+(2585, 289, 'Fotepur', 'à¦«à¦¤à§‡à¦ªà§à¦°', 'fotepurup.moulvibazar.gov.bd'),
+(2586, 289, 'Uttorbhag', 'à¦‰à¦¤à§à¦¤à¦°à¦­à¦¾à¦—', 'uttorbhagup.moulvibazar.gov.bd'),
+(2587, 289, 'Munsibazar', 'à¦®à§à¦¨à§à¦¸à¦¿à¦¬à¦¾à', 'munsibazarup.moulvibazar.gov.bd'),
+(2588, 289, 'Panchgaon', 'à¦ªà¦¾à¦à¦šà¦—à¦¾à¦à¦“', 'panchgaonup.moulvibazar.gov.bd'),
+(2589, 289, 'Rajnagar', 'à¦°à¦¾à¦œà¦¨à¦—à¦°', 'rajnagarup.moulvibazar.gov.bd'),
+(2590, 289, 'Tengra', 'à¦Ÿà§‡à¦‚à¦°à¦¾', 'tengraup.moulvibazar.gov.bd'),
+(2591, 289, 'Kamarchak', 'à¦•à¦¾à¦®à¦¾à¦°à¦šà¦¾à¦•', 'kamarchakup.moulvibazar.gov.bd'),
+(2592, 289, 'Munsurnagar', 'à¦®à¦¨à¦¸à§à¦°à¦¨à¦—à¦°', 'munsurnagarup.moulvibazar.gov.bd'),
+(2593, 290, 'Mirzapur', 'à¦®à¦¿à¦°à§à¦œà¦¾à¦ªà§à', 'mirzapurup.moulvibazar.gov.bd'),
+(2594, 290, 'Bhunabir', 'à¦­à§‚à¦¨à¦¬à§€à¦°', 'bhunabirup.moulvibazar.gov.bd'),
+(2595, 290, 'Sreemangal', 'à¦¶à§à¦°à§€à¦®à¦™à§à¦—à', 'sreemangalup.moulvibazar.gov.bd'),
+(2596, 290, 'Sindurkhan', 'à¦¸à¦¿à¦¨à§à¦¦à§à¦°à¦–à', 'sindurkhanup.moulvibazar.gov.bd'),
+(2597, 290, 'Kalapur', 'à¦•à¦¾à¦²à¦¾à¦ªà§à¦°', 'kalapurup.moulvibazar.gov.bd'),
+(2598, 290, 'Ashidron', 'à¦†à¦¶à¦¿à¦¦à§à¦°à§‹à¦¨', 'ashidronup.moulvibazar.gov.bd'),
+(2599, 290, 'Rajghat', 'à¦°à¦¾à¦œà¦˜à¦¾à¦Ÿ', 'rajghatup.moulvibazar.gov.bd'),
+(2600, 290, 'Kalighat', 'à¦•à¦¾à¦²à§€à¦˜à¦¾à¦Ÿ', 'kalighatup.moulvibazar.gov.bd'),
+(2601, 290, 'Satgaon', 'à¦¸à¦¾à¦¤à¦—à¦¾à¦à¦“', 'satgaonup.moulvibazar.gov.bd'),
+(2602, 291, 'Jafornagar', 'à¦œà¦¾à§Ÿà¦«à¦°à¦¨à¦—à¦°', 'jafornagarup.moulvibazar.gov.bd'),
+(2603, 291, 'West Juri', 'à¦ªà¦¶à§à¦šà¦¿à¦® à¦œà§', 'westjuriup.moulvibazar.gov.bd'),
+(2604, 291, 'Gualbari', 'à¦—à§‹à§Ÿà¦¾à¦²à¦¬à¦¾à§œà', 'gualbariup.moulvibazar.gov.bd'),
+(2605, 291, 'Sagornal', 'à¦¸à¦¾à¦—à¦°à¦¨à¦¾à¦²', 'sagornalup.moulvibazar.gov.bd'),
+(2606, 291, 'Fultola', 'à¦«à§à¦²à¦¤à¦²à¦¾', 'fultolaup.moulvibazar.gov.bd'),
+(2607, 291, 'Eastjuri', 'à¦ªà§à¦°à§à¦¬ à¦œà§à§œ', 'eastjuriup.moulvibazar.gov.bd'),
+(2608, 292, 'Barabhakoir Paschim', 'à¦¬à§œ à¦­à¦¾à¦•à§ˆà¦° (à', 'barabhakoirpaschimup.habiganj.gov.bd'),
+(2609, 292, 'Barabhakoir Purba', 'à¦¬à§œ à¦­à¦¾à¦•à§ˆà¦° (à', 'barabhakoirpurbaup.habiganj.gov.bd'),
+(2610, 292, 'Inatganj', 'à¦‡à¦¨à¦¾à¦¤à¦—à¦žà§à¦œ', 'inatganjup.habiganj.gov.bd'),
+(2611, 292, 'Digholbak', 'à¦¦à§€à¦˜à¦²à¦¬à¦¾à¦•', 'digholbakup.habiganj.gov.bd'),
+(2612, 292, 'Aushkandi', 'à¦†à¦‰à¦¶à¦•à¦¾à¦¨à§à¦¦à', 'aushkandiup.habiganj.gov.bd'),
+(2613, 292, 'Kurshi', 'à¦•à§à¦°à§à¦¶à¦¿', 'kurshiup.habiganj.gov.bd'),
+(2614, 292, 'Kargoan', 'à¦•à¦°à¦—à¦¾à¦à¦“', 'kargoanup.habiganj.gov.bd'),
+(2615, 292, 'Nabiganj Sadar', 'à¦¨à¦¬à§€à¦—à¦žà§à¦œ à¦¸', 'nabiganjsadarup.habiganj.gov.bd'),
+(2616, 292, 'Bausha', 'à¦¬à¦¾à¦‰à¦¸à¦¾', 'baushaup.habiganj.gov.bd'),
+(2617, 292, 'Debparra', 'à¦¦à§‡à¦¬à¦ªà¦¾à§œà¦¾', 'debparraup.habiganj.gov.bd'),
+(2618, 292, 'Gaznaipur', 'à¦—à¦œà¦¨à¦¾à¦‡à¦ªà§à¦°', 'gaznaipurup.habiganj.gov.bd'),
+(2619, 292, 'Kaliarbhanga', 'à¦•à¦¾à¦²à¦¿à§Ÿà¦¾à¦°à¦­à', 'kaliarbhangaup.habiganj.gov.bd'),
+(2620, 292, 'Paniumda', 'à¦ªà¦¾à¦¨à¦¿à¦‰à¦®à¦¦à¦¾', 'paniumdaup.habiganj.gov.bd'),
+(2621, 293, 'Snanghat', 'à¦¸à§à¦¨à¦¾à¦¨à¦˜à¦¾à¦Ÿ', 'snanghatup.habiganj.gov.bd'),
+(2622, 293, 'Putijuri', 'à¦ªà§à¦Ÿà¦¿à¦œà§à¦°à§€', 'putijuriup.habiganj.gov.bd'),
+(2623, 293, 'Satkapon', 'à¦¸à¦¾à¦¤à¦•à¦¾à¦ªà¦¨', 'satkaponup.habiganj.gov.bd'),
+(2624, 293, 'Bahubal Sadar', 'à¦¬à¦¾à¦¹à§à¦¬à¦² à¦¸à¦¦', 'bahubalsadarup.habiganj.gov.bd'),
+(2625, 293, 'Lamatashi', 'à¦²à¦¾à¦®à¦¾à¦¤à¦¾à¦¶à§€', 'lamatashiup.habiganj.gov.bd'),
+(2626, 293, 'Mirpur', 'à¦®à¦¿à¦°à¦ªà§à¦°', 'mirpurup.habiganj.gov.bd'),
+(2627, 293, 'Bhadeshwar', 'à¦­à¦¾à¦¦à§‡à¦¶à§à¦¬à¦°', 'bhadeshwarup.habiganj.gov.bd'),
+(2628, 294, 'Shibpasha', 'à¦¶à¦¿à¦¬à¦ªà¦¾à¦¶à¦¾', 'shibpashaup.habiganj.gov.bd'),
+(2629, 294, 'Kakailsao', 'à¦•à¦¾à¦•à¦¾à¦‡à¦²à¦›à§‡à', 'kakailsaoup.habiganj.gov.bd'),
+(2630, 294, 'Ajmiriganj Sadar', 'à¦†à¦œà¦®à¦¿à¦°à§€à¦—à¦žà', 'ajmiriganjsadarup.habiganj.gov.bd'),
+(2631, 294, 'Badolpur', 'à¦¬à¦¦à¦²à¦ªà§à¦°', 'badolpurup.habiganj.gov.bd'),
+(2632, 294, 'Jolsuka', 'à¦œà¦²à¦¸à§à¦–à¦¾', 'jolsukaup.habiganj.gov.bd'),
+(2633, 295, 'Baniachong North East', 'à¦¬à¦¾à¦¨à¦¿à§Ÿà¦¾à¦šà¦‚ ', 'baniachongnortheastup.habiganj.gov.bd'),
+(2634, 295, 'Baniachong North West', 'à¦¬à¦¾à¦¨à¦¿à§Ÿà¦¾à¦šà¦‚ ', 'baniachongnorthwestup.habiganj.gov.bd'),
+(2635, 295, 'Baniachong South East', 'à¦¬à¦¾à¦¨à¦¿à§Ÿà¦¾à¦šà¦‚ ', 'baniachongsoutheastup.habiganj.gov.bd'),
+(2636, 295, 'Baniachong South West', 'à¦¬à¦¾à¦¨à¦¿à§Ÿà¦¾à¦šà¦‚ ', 'baniachongsouthwestup.habiganj.gov.bd'),
+(2637, 295, 'Daulatpur', 'à¦¦à§Œà¦²à¦¤à¦ªà§à¦°', 'daulatpur.habiganj.gov.bd'),
+(2638, 295, 'Khagaura', 'à¦–à¦¾à¦—à¦¾à¦‰à§œà¦¾', 'khagauraup.habiganj.gov.bd'),
+(2639, 295, 'Baraiuri', 'à¦¬à§œà¦‡à¦‰à§œà¦¿', 'baraiuriup.habiganj.gov.bd'),
+(2640, 295, 'Kagapasha', 'à¦•à¦¾à¦—à¦¾à¦ªà¦¾à¦¶à¦¾', 'kagapashaup.habiganj.gov.bd'),
+(2641, 295, 'Pukra', 'à¦ªà§à¦•à§œà¦¾', 'pukraup.habiganj.gov.bd'),
+(2642, 295, 'Subidpur', 'à¦¸à§à¦¬à¦¿à¦¦à¦ªà§à¦°', 'subidpurup.habiganj.gov.bd'),
+(2643, 295, 'Makrampur', 'à¦®à¦•à§à¦°à¦®à¦ªà§à¦°', 'makrampurup.habiganj.gov.bd'),
+(2644, 295, 'Sujatpur', 'à¦¸à§à¦œà¦¾à¦¤à¦ªà§à¦°', 'sujatpurup.habiganj.gov.bd'),
+(2645, 295, 'Mandari', 'à¦®à¦¨à§à¦¦à¦°à§€', 'mandariup.habiganj.gov.bd'),
+(2646, 295, 'Muradpur', 'à¦®à§à¦°à¦¾à¦¦à¦ªà§à¦°', 'muradpurup.habiganj.gov.bd'),
+(2647, 295, 'Pailarkandi', 'à¦ªà§ˆà¦²à¦¾à¦°à¦•à¦¾à¦¨à', 'pailarkandiup.habiganj.gov.bd'),
+(2648, 296, 'Lakhai', 'à¦²à¦¾à¦–à¦¾à¦‡', 'lakhaiup.habiganj.gov.bd'),
+(2649, 296, 'Murakari', 'à¦®à§‹à§œà¦¾à¦•à¦°à¦¿', 'murakariup.habiganj.gov.bd'),
+(2650, 296, 'Muriauk', 'à¦®à§à§œà¦¿à§Ÿà¦¾à¦‰à¦•', 'muriaukup.habiganj.gov.bd'),
+(2651, 296, 'Bamoi', 'à¦¬à¦¾à¦®à§ˆ', 'bamoiup.habiganj.gov.bd'),
+(2652, 296, 'Karab', 'à¦•à¦°à¦¾à¦¬', 'karabup.habiganj.gov.bd'),
+(2653, 296, 'Bulla', 'à¦¬à§à¦²à§à¦²à¦¾', 'bullaup6.habiganj.gov.bd'),
+(2654, 297, 'Gazipur', 'à¦—à¦¾à¦œà§€à¦ªà§à¦°', 'gazipurup.habiganj.gov.bd'),
+(2655, 297, 'Ahammadabad', 'à¦†à¦¹à¦®à§à¦®à¦¦à¦¾à¦¬à', 'ahammadabadup.habiganj.gov.bd'),
+(2656, 297, 'Deorgach', 'à¦¦à§‡à¦“à¦°à¦—à¦¾à¦›', 'deorgachup.habiganj.gov.bd'),
+(2657, 297, 'Paikpara', 'à¦ªà¦¾à¦‡à¦•à¦ªà¦¾à§œà¦¾', 'paikparaup.habiganj.gov.bd'),
+(2658, 297, 'Shankhala', 'à¦¶à¦¾à¦¨à¦–à¦²à¦¾', 'shankhalaup.habiganj.gov.bd'),
+(2659, 297, 'Chunarughat', 'à¦šà§à¦¨à¦¾à¦°à§à¦˜à¦¾à', 'chunarughatup.habiganj.gov.bd'),
+(2660, 297, 'Ubahata', 'à¦‰à¦¬à¦¾à¦¹à¦¾à¦Ÿà¦¾', 'ubahataup.habiganj.gov.bd'),
+(2661, 297, 'Shatiajuri', 'à¦¸à¦¾à¦Ÿà¦¿à§Ÿà¦¾à¦œà§à', 'shatiajuriup.habiganj.gov.bd'),
+(2662, 297, 'Ranigaon', 'à¦°à¦¾à¦£à§€à¦—à¦¾à¦à¦“', 'ranigaonup.habiganj.gov.bd'),
+(2663, 297, 'Mirashi', 'à¦®à¦¿à¦°à¦¾à¦¶à§€', 'mirashiup.habiganj.gov.bd'),
+(2664, 298, 'Lukra', 'à¦²à§à¦•à§œà¦¾', 'lukraup.habiganj.gov.bd'),
+(2665, 298, 'Richi', 'à¦°à¦¿à¦šà¦¿', 'richiup.habiganj.gov.bd'),
+(2666, 298, 'Teghoria', 'à¦¤à§‡à¦˜à¦°à¦¿à§Ÿà¦¾', 'teghoriaup.habiganj.gov.bd'),
+(2667, 298, 'Poil', 'à¦ªà¦‡à¦²', 'poilup.habiganj.gov.bd'),
+(2668, 298, 'Gopaya', 'à¦—à§‹à¦ªà¦¾à§Ÿà¦¾', 'gopayaup.habiganj.gov.bd'),
+(2669, 298, 'Rajiura', 'à¦°à¦¾à¦œà¦¿à¦‰à§œà¦¾', 'rajiuraup.habiganj.gov.bd'),
+(2670, 298, 'Nurpur', 'à¦¨à§à¦°à¦ªà§à¦°', 'nurpurup.habiganj.gov.bd'),
+(2671, 298, 'Shayestaganj', 'à¦¶à¦¾à§Ÿà§‡à¦¸à§à¦¤à¦¾à', 'shayestaganjup.habiganj.gov.bd'),
+(2672, 298, 'Nijampur', 'à¦¨à¦¿à¦œà¦¾à¦®à¦ªà§à¦°', 'nijampurup.habiganj.gov.bd'),
+(2673, 298, 'Laskerpur', 'à¦²à¦¸à§à¦•à¦°à¦ªà§à¦°', 'laskerpurup.habiganj.gov.bd'),
+(2674, 299, 'Dharmaghar', 'à¦§à¦°à§à¦®à¦˜à¦°', 'dharmagharup.habiganj.gov.bd'),
+(2675, 299, 'Choumohani', 'à¦šà§Œà¦®à§à¦¹à¦¨à§€', 'choumohaniup.habiganj.gov.bd'),
+(2676, 299, 'Bahara', 'à¦¬à¦¹à¦°à¦¾', 'baharaup.habiganj.gov.bd'),
+(2677, 299, 'Adaoir', 'à¦†à¦¦à¦¾à¦à¦°', 'adaoirup.habiganj.gov.bd'),
+(2678, 299, 'Andiura', 'à¦†à¦¨à§à¦¦à¦¿à¦‰à§œà¦¾', 'andiuraup.habiganj.gov.bd'),
+(2679, 299, 'Shahjahanpur', 'à¦¶à¦¾à¦¹à¦œà¦¾à¦¹à¦¾à¦¨à', 'shahjahanpurup.habiganj.gov.bd'),
+(2680, 299, 'Jagadishpur', 'à¦œà¦—à¦¦à§€à¦¶à¦ªà§à¦°', 'jagadishpurup.habiganj.gov.bd'),
+(2681, 299, 'Bulla', 'à¦¬à§à¦²à§à¦²à¦¾', 'bullaup.habiganj.gov.bd'),
+(2682, 299, 'Noapara', 'à¦¨à§‹à§Ÿà¦¾à¦ªà¦¾à§œà¦¾', 'noaparaup.habiganj.gov.bd'),
+(2683, 299, 'Chhatiain', 'à¦›à¦¾à¦¤à¦¿à§Ÿà¦¾à¦‡à¦¨', 'chhatiainup.habiganj.gov.bd'),
+(2684, 299, 'Bagashura', 'à¦¬à¦¾à¦˜à¦¾à¦¸à§à¦°à¦¾', 'bagashuraup.habiganj.gov.bd'),
+(2685, 300, 'Jahangirnagar', 'à¦œà¦¾à¦¹à¦¾à¦™à§à¦—à§€à', 'jahangirnagarup.sunamganj.gov.bd'),
+(2686, 300, 'Rangarchar', 'à¦°à¦‚à¦—à¦¾à¦°à¦šà¦°', 'rangarcharup.sunamganj.gov.bd'),
+(2687, 300, 'Aptabnagar', 'à¦†à¦ªà§à¦¤à¦¾à¦¬à¦¨à¦—à', 'aptabnagarup.sunamganj.gov.bd'),
+(2688, 300, 'Gourarang', 'à¦—à§Œà¦°à¦¾à¦°à¦‚', 'gourarang.sunamganj.gov.bd'),
+(2689, 300, 'Mollapara', 'à¦®à§‹à¦²à§à¦²à¦¾à¦ªà¦¾à', 'mollaparaup.sunamganj.gov.bd'),
+(2690, 300, 'Laxmansree', 'à¦²à¦•à§à¦·à¦£à¦¶à§à¦°à', 'laxmansreeup.sunamganj.gov.bd'),
+(2691, 300, 'Kathair', 'à¦•à¦¾à¦ à¦‡à¦°', 'kathairup.sunamganj.gov.bd'),
+(2692, 300, 'Surma', 'à¦¸à§à¦°à¦®à¦¾', 'surmaup.sunamganj.gov.bd'),
+(2693, 300, 'Mohonpur', 'à¦®à§‹à¦¹à¦¨à¦ªà§à¦°', 'mohonpurup.sunamganj.gov.bd'),
+(2694, 301, 'Shimulbak', 'à¦¶à¦¿à¦®à§à¦²à¦¬à¦¾à¦•', 'shimulbak.sunamganj.gov.bd'),
+(2695, 301, 'Paschim Pagla', 'à¦ªà¦¶à§à¦šà¦¿à¦® à¦ªà¦¾', 'paschimpagla.sunamganj.gov.bd'),
+(2696, 301, 'Joykalash', 'à¦œà§Ÿà¦•à¦²à¦¸', 'joykalashup.sunamganj.gov.bd'),
+(2697, 301, 'Purba Pagla', 'à¦ªà§‚à¦°à§à¦¬ à¦ªà¦¾à¦—', 'purbapaglaup.sunamganj.gov.bd'),
+(2698, 301, 'Patharia', 'à¦ªà¦¾à¦¥à¦¾à¦°à¦¿à§Ÿà¦¾', 'pathariaup.sunamganj.gov.bd'),
+(2699, 301, 'Purba Birgaon', 'à¦ªà§‚à¦°à§à¦¬ à¦¬à§€à¦°', 'purbabirgaonup.sunamganj.gov.bd'),
+(2700, 301, 'Dargapasha', 'à¦¦à¦°à¦—à¦¾à¦ªà¦¾à¦¶à¦¾', 'dargapashaup.sunamganj.gov.bd'),
+(2701, 301, 'Paschim Birgaon', 'à¦ªà¦¶à§à¦šà¦¿à¦® à¦¬à§€', 'paschimbirgaonup.sunamganj.gov.bd'),
+(2702, 302, 'Palash', 'à¦ªà¦²à¦¾à¦¶', 'palashup.sunamganj.gov.bd'),
+(2703, 302, 'Solukabad', 'à¦¸à¦²à§à¦•à¦¾à¦¬à¦¾à¦¦', 'solukabadup.sunamganj.gov.bd'),
+(2704, 302, 'Dhanpur', 'à¦§à¦¨à¦ªà§à¦°', 'dhanpurup.sunamganj.gov.bd'),
+(2705, 302, 'Badaghat South', 'à¦¬à¦¾à¦¦à¦¾à¦˜à¦¾à¦Ÿ à¦¦', 'badaghatsouthup.sunamganj.gov.bd'),
+(2706, 302, 'Fatepur', 'à¦«à¦¤à§‡à¦ªà§à¦°', 'fatepurup.sunamganj.gov.bd'),
+(2707, 303, 'Islampur', 'à¦‡à¦¸à¦²à¦¾à¦®à¦ªà§à¦°', 'islampurup.sunamganj.gov.bd'),
+(2708, 303, 'Noarai', 'à¦¨à§‹à§Ÿà¦¾à¦°à¦¾à¦‡', 'noaraiup.sunamganj.gov.bd'),
+(2709, 303, 'Chhatak Sadar', 'à¦›à¦¾à¦¤à¦• à¦¸à¦¦à¦°', 'chhataksadarup.sunamganj.gov.bd'),
+(2710, 303, 'Kalaruka', 'à¦•à¦¾à¦²à¦¾à¦°à§à¦•à¦¾', 'kalarukaup.sunamganj.gov.bd'),
+(2711, 303, 'Gobindganj-Syedergaon', 'à¦—à§‹à¦¬à¦¿à¦¨à§à¦¦à¦—à', 'gobindganjsyedergaonup.sunamganj.gov.bd'),
+(2712, 303, 'Chhaila Afjalabad', 'à¦›à§ˆà¦²à¦¾ à¦†à¦«à¦œà¦²', 'chhailaafjalabadup.sunamganj.gov.bd'),
+(2713, 303, 'Khurma North', 'à¦–à§à¦°à¦®à¦¾ à¦‰à¦¤à§', 'khurmanorthup.sunamganj.gov.bd'),
+(2714, 303, 'Khurma South', 'à¦–à§à¦°à¦®à¦¾ à¦¦à¦•à§', 'khurmasouthup.sunamganj.gov.bd'),
+(2715, 303, 'Chormohalla', 'à¦šà¦°à¦®à¦¹à¦²à§à¦²à¦¾', 'chormohallaup.sunamganj.gov.bd'),
+(2716, 303, 'Jauwabazar', 'à¦œà¦¾à¦‰à§Ÿà¦¾ à¦¬à¦¾à¦œ', 'jauwabazarup.sunamganj.gov.bd'),
+(2717, 303, 'Singchapair', 'à¦¸à¦¿à¦‚à¦šà¦¾à¦ªà¦‡à§œ', 'singchapairup.sunamganj.gov.bd'),
+(2718, 303, 'Dolarbazar', 'à¦¦à§‹à¦²à¦¾à¦°à¦¬à¦¾à¦œà', 'dolarbazarup.sunamganj.gov.bd'),
+(2719, 303, 'Bhatgaon', 'à¦­à¦¾à¦¤à¦—à¦¾à¦à¦“', 'bhatgaonup.sunamganj.gov.bd'),
+(2720, 304, 'Kolkolia', 'à¦•à¦²à¦•à¦²à¦¿à§Ÿà¦¾', 'kolkoliaup.sunamganj.gov.bd'),
+(2721, 304, 'Patli', 'à¦ªà¦¾à¦Ÿà¦²à§€', 'patliup.sunamganj.gov.bd'),
+(2722, 304, 'Mirpur', 'à¦®à§€à¦°à¦ªà§à¦°', 'mirpurup.sunamganj.gov.bd'),
+(2723, 304, 'Chilaura Holdipur', 'à¦šà¦¿à¦²à¦¾à¦‰à§œà¦¾ à¦¹', 'chilauraholdipurup.sunamganj.gov.bd'),
+(2724, 304, 'Raniganj', 'à¦°à¦¾à¦¨à§€à¦—à¦žà§à¦œ', 'raniganjup.sunamganj.gov.bd'),
+(2725, 304, 'Syedpur Shaharpara', 'à¦¸à§ˆà§Ÿà¦¦à¦ªà§à¦° à¦¶', 'syedpurshaharparaup.sunamganj.gov.bd'),
+(2726, 304, 'Asharkandi', 'à¦†à¦¶à¦¾à¦°à¦•à¦¾à¦¨à§à', 'asharkandiup.sunamganj.gov.bd'),
+(2727, 304, 'Pailgaon', 'à¦ªà¦¾à¦‡à¦²à¦—à¦¾à¦à¦“', 'pailgaonup.sunamganj.gov.bd'),
+(2728, 305, 'Banglabazar', 'à¦¬à¦¾à¦‚à¦²à¦¾à¦¬à¦¾à¦œà', 'banglabazarup.sunamganj.gov.bd'),
+(2729, 305, 'Norsingpur', 'à¦¨à¦°à¦¸à¦¿à¦‚à¦¹à¦ªà§à', 'norsingpurup.sunamganj.gov.bd'),
+(2730, 305, 'Dowarabazar', 'à¦¦à§‹à§Ÿà¦¾à¦°à¦¾à¦¬à¦¾à', 'dowarabazarup.sunamganj.gov.bd'),
+(2731, 305, 'Mannargaon', 'à¦®à¦¾à¦¨à§à¦¨à¦¾à¦°à¦—à', 'mannargaonup.sunamganj.gov.bd'),
+(2732, 305, 'Pandargaon', 'à¦ªà¦¾à¦¨à§à¦¡à¦¾à¦°à¦—à', 'pandargaonup.sunamganj.gov.bd'),
+(2733, 305, 'Dohalia', 'à¦¦à§‹à¦¹à¦¾à¦²à¦¿à§Ÿà¦¾', 'dohaliaup.sunamganj.gov.bd'),
+(2734, 305, 'Laxmipur', 'à¦²à¦•à§à¦·à§€à¦ªà§à¦°', 'laxmipurup.sunamganj.gov.bd'),
+(2735, 305, 'Boglabazar', 'à¦¬à§‹à¦—à¦²à¦¾à¦¬à¦¾à¦œà', 'boglabazarup.sunamganj.gov.bd'),
+(2736, 305, 'Surma', 'à¦¸à§à¦°à¦®à¦¾', 'surma2up.sunamganj.gov.bd'),
+(2737, 306, 'Sreepur North', 'à¦¶à§à¦°à§€à¦ªà§à¦° à¦‰', 'sreepurnorthup.sunamganj.gov.bd'),
+(2738, 306, 'Sreepur South', 'à¦¶à§à¦°à§€à¦ªà§à¦° à¦¦', 'sreepursouthup.sunamganj.gov.bd'),
+(2739, 306, 'Bordal South', 'à¦¬à§œà¦¦à¦² à¦¦à¦•à§à¦·', 'bordalsouthup.sunamganj.gov.bd'),
+(2740, 306, 'Bordal North', 'à¦¬à§œà¦¦à¦² à¦‰à¦¤à§à¦¤', 'bordalnorthup.sunamganj.gov.bd'),
+(2741, 306, 'Badaghat', 'à¦¬à¦¾à¦¦à¦¾à¦˜à¦¾à¦Ÿ', 'badaghatup.sunamganj.gov.bd'),
+(2742, 306, 'Tahirpur Sadar', 'à¦¤à¦¾à¦¹à¦¿à¦°à¦ªà§à¦° ', 'tahirpursadarup.sunamganj.gov.bd'),
+(2743, 306, 'Balijuri', 'à¦¬à¦¾à¦²à¦¿à¦œà§à¦°à§€', 'balijuriup.sunamganj.gov.bd'),
+(2744, 307, 'Bongshikunda North', 'à¦¬à¦‚à¦¶à§€à¦•à§à¦¨à§à', 'bongshikundanorthup.sunamganj.gov.bd'),
+(2745, 307, 'Bongshikunda South', 'à¦¬à¦‚à¦¶à§€à¦•à§à¦¨à§à', 'bongshikundasouthup.sunamganj.gov.bd'),
+(2746, 307, 'Chamordani', 'à¦šà¦¾à¦®à¦°à¦¦à¦¾à¦¨à§€', 'chamordaniup.sunamganj.gov.bd'),
+(2747, 307, 'Madhyanagar', 'à¦®à¦§à§à¦¯à¦¨à¦—à¦°', 'madhyanagarup.sunamganj.gov.bd'),
+(2748, 307, 'Paikurati', 'à¦ªà¦¾à¦‡à¦•à§à¦°à¦¾à¦Ÿà', 'paikuratiup.sunamganj.gov.bd'),
+(2749, 307, 'Selbarash', 'à¦¸à§‡à¦²à¦¬à¦°à¦·', 'selbarashup.sunamganj.gov.bd'),
+(2750, 307, 'Dharmapasha Sadar', 'à¦§à¦°à§à¦®à¦ªà¦¾à¦¶à¦¾ ', 'dharmapashasadarup.sunamganj.gov.bd'),
+(2751, 307, 'Joyasree', 'à¦œà§Ÿà¦¶à§à¦°à§€', 'joyasreeup.sunamganj.gov.bd'),
+(2752, 307, 'Sukhair Rajapur North', 'à¦¸à§à¦–à¦¾à¦‡à§œ à¦°à¦¾', 'sukhairrajapurnorthup.sunamganj.gov.bd'),
+(2753, 307, 'Sukhair Rajapur South', 'à¦¸à§à¦–à¦¾à¦‡à§œ à¦°à¦¾', 'sukhairrajapursouthup.sunamganj.gov.bd'),
+(2754, 308, 'Beheli', 'à¦¬à§‡à¦¹à§‡à¦²à§€', 'beheliup.sunamganj.gov.bd'),
+(2755, 308, 'Sachnabazar', 'à¦¸à¦¾à¦šà¦¨à¦¾à¦¬à¦¾à¦œà', 'sachnabazarup.sunamganj.gov.bd'),
+(2756, 308, 'Bhimkhali', 'à¦­à§€à¦®à¦–à¦¾à¦²à§€', 'bhimkhaliup.sunamganj.gov.bd'),
+(2757, 308, 'Fenerbak', 'à¦«à§‡à¦¨à¦¾à¦°à¦¬à¦¾à¦•', 'fenerbakup.sunamganj.gov.bd'),
+(2758, 308, 'Jamalganj Sadar', 'à¦œà¦¾à¦®à¦¾à¦²à¦—à¦žà§à', 'jamalganjsadarup.sunamganj.gov.bd'),
+(2759, 309, 'Atgaon', 'à¦†à¦Ÿà¦—à¦¾à¦à¦“', 'atgaonup.sunamganj.gov.bd'),
+(2760, 309, 'Habibpur', 'à¦¹à¦¬à¦¿à¦¬à¦ªà§à¦°', 'habibpurup.sunamganj.gov.bd'),
+(2761, 309, 'Bahara', 'à¦¬à¦¾à¦¹à¦¾à¦°à¦¾', 'baharaup.sunamganj.gov.bd'),
+(2762, 309, 'Shalla Sadar', 'à¦¶à¦¾à¦²à§à¦²à¦¾ à¦¸à¦¦', 'shallasadarup.sunamganj.gov.bd'),
+(2763, 310, 'Rafinagar', 'à¦°à¦«à¦¿à¦¨à¦—à¦°', 'rafinagarup.sunamganj.gov.bd'),
+(2764, 310, 'Bhatipara', 'à¦­à¦¾à¦Ÿà¦¿à¦ªà¦¾à§œà¦¾', 'bhatiparaup.sunamganj.gov.bd'),
+(2765, 310, 'Rajanagar', 'à¦°à¦¾à¦œà¦¾à¦¨à¦—à¦°', 'rajanagarup.sunamganj.gov.bd'),
+(2766, 310, 'Charnarchar', 'à¦šà¦°à¦¨à¦¾à¦°à¦šà¦°', 'charnarcharup.sunamganj.gov.bd'),
+(2767, 310, 'Derai Sarmangal', 'à¦¦à¦¿à¦°à¦¾à¦‡ à¦¸à¦°à¦®', 'deraisarmangalup.sunamganj.gov.bd'),
+(2768, 310, 'Karimpur', 'à¦•à¦°à¦¿à¦®à¦ªà§à¦°', 'karimpurup.sunamganj.gov.bd'),
+(2769, 310, 'Jagddol', 'à¦œà¦—à¦¦à¦²', 'jagddolup.sunamganj.gov.bd'),
+(2770, 310, 'Taral', 'à¦¤à¦¾à§œà¦²', 'taralup.sunamganj.gov.bd'),
+(2771, 310, 'Kulanj', 'à¦•à§à¦²à¦žà§à¦œ', 'kulanjup.sunamganj.gov.bd'),
+(2772, 311, 'Amlaba', 'à¦†à¦®à¦²à¦¾à¦¬', 'amlabaup.narsingdi.gov.bd'),
+(2773, 311, 'Bajnaba', 'à¦¬à¦¾à¦œà¦¨à¦¾à¦¬', 'bajnabaup.narsingdi.gov.bd'),
+(2774, 311, 'Belabo', 'à¦¬à§‡à¦²à¦¾à¦¬', 'belaboup.narsingdi.gov.bd'),
+(2775, 311, 'Binnabayd', 'à¦¬à¦¿à¦¨à§à¦¨à¦¾à¦¬à¦¾à', 'binnabaydup.narsingdi.gov.bd'),
+(2776, 311, 'Charuzilab', 'à¦šà¦°à¦‰à¦œà¦¿à¦²à¦¾à¦¬', 'charuzilabup.narsingdi.gov.bd'),
+(2777, 311, 'Naraynpur', 'à¦¨à¦¾à¦°à¦¾à§Ÿà¦¨à¦ªà§à', 'naraynpurup.narsingdi.gov.bd'),
+(2778, 311, 'Sallabad', 'à¦¸à¦²à§à¦²à¦¾à¦¬à¦¾à¦¦', 'sallabadup.narsingdi.gov.bd'),
+(2779, 311, 'Patuli', 'à¦ªà¦¾à¦Ÿà§à¦²à§€', 'patuliup.narsingdi.gov.bd'),
+(2780, 311, 'Diara', 'à¦¦à§‡à§Ÿà¦¾à¦°à¦¾ à¦®à¦¡', 'diaraup.narsingdi.gov.bd'),
+(2781, 312, 'Barachapa', 'à¦¬à§œà¦šà¦¾à¦ªà¦¾', 'barachapaup.narsingdi.gov.bd'),
+(2782, 312, 'Chalakchar', 'à¦šà¦¾à¦²à¦¾à¦•à¦šà¦°', 'chalakcharup.narsingdi.gov.bd'),
+(2783, 312, 'Charmandalia', 'à¦šà¦°à¦®à¦¾à¦¨à§à¦¦à¦¾à', 'charmandaliaup.narsingdi.gov.bd'),
+(2784, 312, 'Ekduaria', 'à¦à¦•à¦¦à§à§Ÿà¦¾à¦°à¦¿à', 'ekduariaup.narsingdi.gov.bd'),
+(2785, 312, 'Gotashia', 'à¦—à§‹à¦¤à¦¾à¦¶à¦¿à§Ÿà¦¾', 'gotashiaup.narsingdi.gov.bd'),
+(2786, 312, 'Kanchikata', 'à¦•à¦¾à¦šà¦¿à¦•à¦¾à¦Ÿà¦¾', 'kanchikataup.narsingdi.gov.bd'),
+(2787, 312, 'Khidirpur', 'à¦–à¦¿à¦¦à¦¿à¦°à¦ªà§à¦°', 'khidirpurup.narsingdi.gov.bd'),
+(2788, 312, 'Shukundi', 'à¦¶à§à¦•à§à¦¨à§à¦¦à¦¿', 'shukundiup.narsingdi.gov.bd'),
+(2789, 312, 'Dawlatpur', 'à¦¦à§Œà¦²à¦¤à¦ªà§à¦°', 'dawlatpurup.narsingdi.gov.bd'),
+(2790, 312, 'Krisnopur', 'à¦•à§ƒà¦·à§à¦£à¦ªà§à¦°', 'krisnopurup.narsingdi.gov.bd'),
+(2791, 312, 'Labutala', 'à¦²à§‡à¦¬à§à¦¤à¦²à¦¾', 'labutalaup.narsingdi.gov.bd'),
+(2792, 312, 'Chandanbari', 'à¦šà¦¨à§à¦¦à¦¨à¦¬à¦¾à§œà', 'chandanbariup.narsingdi.gov.bd'),
+(2793, 313, 'Alokbali', 'à¦†à¦²à§‹à¦•à¦¬à¦¾à¦²à§€', 'alokbaliup.narsingdi.gov.bd'),
+(2794, 313, 'Chardighaldi', 'à¦šà¦°à¦¦à¦¿à¦˜à¦²à¦¦à§€', 'chardighaldiup.narsingdi.gov.bd'),
+(2795, 313, 'Chinishpur', 'à¦šà¦¿à¦¨à¦¿à¦¶à¦ªà§à¦°', 'chinishpurup.narsingdi.gov.bd'),
+(2796, 313, 'Hajipur', 'à¦¹à¦¾à¦œà§€à¦ªà§à¦°', 'hajipurup.narsingdi.gov.bd'),
+(2797, 313, 'Karimpur', 'à¦•à¦°à¦¿à¦®à¦ªà§à¦°', 'karimpurup.narsingdi.gov.bd'),
+(2798, 313, 'Khathalia', 'à¦•à¦¾à¦ à¦¾à¦²à¦¿à§Ÿà¦¾', 'khathaliaup.narsingdi.gov.bd'),
+(2799, 313, 'Nuralapur', 'à¦¨à§‚à¦°à¦¾à¦²à¦¾à¦ªà§à', 'nuralapurup.narsingdi.gov.bd'),
+(2800, 313, 'Mahishasura', 'à¦®à¦¹à¦¿à¦·à¦¾à¦¶à§à§œà', 'mahishasuraup.narsingdi.gov.bd'),
+(2801, 313, 'Meherpara', 'à¦®à§‡à¦¹à§‡à§œà¦ªà¦¾à§œà', 'meherparaup.narsingdi.gov.bd'),
+(2802, 313, 'Nazarpur', 'à¦¨à¦œà¦°à¦ªà§à¦°', 'nazarpurup.narsingdi.gov.bd'),
+(2803, 313, 'Paikarchar', 'à¦ªà¦¾à¦‡à¦•à¦¾à¦°à¦šà¦°', 'paikarcharup.narsingdi.gov.bd'),
+(2804, 313, 'Panchdona', 'à¦ªà¦¾à¦à¦šà¦¦à§‹à¦¨à¦¾', 'panchdonaup.narsingdi.gov.bd'),
+(2805, 313, 'Silmandi', 'à¦¶à¦¿à¦²à¦®à¦¾à¦¨à§à¦¦à', 'silmandiup.narsingdi.gov.bd'),
+(2806, 313, 'Amdia', 'à¦†à¦®à¦¦à¦¿à§Ÿà¦¾ à§¨', 'amdiaup.narsingdi.gov.bd'),
+(2807, 314, 'Danga', 'à¦¡à¦¾à¦‚à¦™à§à¦—à¦¾', 'dangaup.narsingdi.gov.bd'),
+(2808, 314, 'Charsindur', 'à¦šà¦°à¦¸à¦¿à¦¨à§à¦¦à§à', 'charsindurup.narsingdi.gov.bd'),
+(2809, 314, 'Jinardi', 'à¦œà¦¿à¦¨à¦¾à¦°à¦¦à§€', 'jinardiup.narsingdi.gov.bd'),
+(2810, 314, 'Gazaria', 'à¦—à¦œà¦¾à¦°à¦¿à§Ÿà¦¾', 'gazariaup.narsingdi.gov.bd'),
+(2811, 315, 'Chanpur', 'à¦šà¦¾à¦¨à¦ªà§à¦°', 'chanpurup.narsingdi.gov.bd'),
+(2812, 315, 'Alipura', 'à¦…à¦²à¦¿à¦ªà§à¦°à¦¾', 'alipuraup.narsingdi.gov.bd'),
+(2813, 315, 'Amirganj', 'à¦†à¦®à¦¿à¦°à¦—à¦žà§à¦œ', 'amirganjup.narsingdi.gov.bd'),
+(2814, 315, 'Adiabad', 'à¦†à¦¦à¦¿à§Ÿà¦¾à¦¬à¦¾à¦¦', 'adiabadup.narsingdi.gov.bd'),
+(2815, 315, 'Banshgari', 'à¦¬à¦¾à¦à¦¶à¦—à¦¾à§œà§€', 'banshgariup.narsingdi.gov.bd'),
+(2816, 315, 'Chanderkandi', 'à¦šà¦¾à¦¨à§à¦¦à§‡à¦°à¦•à', 'chanderkandiup.narsingdi.gov.bd'),
+(2817, 315, 'Chararalia', 'à¦šà¦°à¦†à§œà¦¾à¦²à¦¿à§Ÿà', 'chararaliaup.narsingdi.gov.bd'),
+(2818, 315, 'Charmadhua', 'à¦šà¦°à¦®à¦§à§à§Ÿà¦¾', 'charmadhuaup.narsingdi.gov.bd'),
+(2819, 315, 'Charsubuddi', 'à¦šà¦°à¦¸à§à¦¬à§à¦¦à§à', 'charsubuddiup.narsingdi.gov.bd'),
+(2820, 315, 'Daukarchar', 'à¦¡à§Œà¦•à¦¾à¦°à¦šà¦°', 'daukarcharup.narsingdi.gov.bd'),
+(2821, 315, 'Hairmara', 'à¦¹à¦¾à¦‡à¦°à¦®à¦¾à¦°à¦¾', 'hairmaraup.narsingdi.gov.bd'),
+(2822, 315, 'Maheshpur', 'à¦®à¦¹à§‡à¦·à¦ªà§à¦°', 'maheshpurup.narsingdi.gov.bd'),
+(2823, 315, 'Mirzanagar', 'à¦®à¦¿à¦°à§à¦œà¦¾à¦¨à¦—à', 'mirzanagarup.narsingdi.gov.bd'),
+(2824, 315, 'Mirzarchar', 'à¦®à¦¿à¦°à§à¦œà¦¾à¦°à¦šà', 'mirzarcharup.narsingdi.gov.bd'),
+(2825, 315, 'Nilakhya', 'à¦¨à¦¿à¦²à¦•à§à¦·à§à¦¯à', 'nilakhyaup.narsingdi.gov.bd'),
+(2826, 315, 'Palashtali', 'à¦ªà¦²à¦¾à¦¶à¦¤à¦²à§€', 'palashtaliup.narsingdi.gov.bd'),
+(2827, 315, 'Paratali', 'à¦ªà¦¾à§œà¦¾à¦¤à¦²à§€', 'parataliup.narsingdi.gov.bd'),
+(2828, 315, 'Sreenagar', 'à¦¶à§à¦°à§€à¦¨à¦—à¦°', 'sreenagarup.narsingdi.gov.bd'),
+(2829, 315, 'Roypura', 'à¦°à¦¾à§Ÿà¦ªà§à¦°à¦¾', 'roypuraup.narsingdi.gov.bd'),
+(2830, 315, 'Musapur', 'à¦®à§à¦›à¦¾à¦ªà§à¦°', 'musapurup.narsingdi.gov.bd'),
+(2831, 315, 'Uttar Bakharnagar', 'à¦‰à¦¤à§à¦¤à¦° à¦¬à¦¾à¦–', 'uttarbakharnagarup.narsingdi.gov.bd'),
+(2832, 315, 'Marjal', 'à¦®à¦°à¦œà¦¾à¦²', 'marjal2up.narsingdi.gov.bd'),
+(2833, 316, 'Dulalpur', 'à¦¦à§à¦²à¦¾à¦²à¦ªà§à¦°', 'dulalpurup.narsingdi.gov.bd'),
+(2834, 316, 'Joynagar', 'à¦œà§Ÿà¦¨à¦—à¦°', 'joynagarup.narsingdi.gov.bd'),
+(2835, 316, 'Sadharchar', 'à¦¸à¦¾à¦§à¦¾à¦°à¦šà¦°', 'sadharcharup.narsingdi.gov.bd'),
+(2836, 316, 'Masimpur', 'à¦®à¦¾à¦›à¦¿à¦®à¦ªà§à¦°', 'masimpurup.narsingdi.gov.bd'),
+(2837, 316, 'Chakradha', 'à¦šà¦•à§à¦°à¦§à¦¾', 'chakradhaup.narsingdi.gov.bd'),
+(2838, 316, 'Joshar', 'à¦¯à§‹à¦¶à¦°', 'josharup.narsingdi.gov.bd'),
+(2839, 316, 'Baghabo', 'à¦¬à¦¾à¦˜à¦¾à¦¬', 'baghaboup.narsingdi.gov.bd'),
+(2840, 316, 'Ayubpur', 'à¦†à§Ÿà§à¦¬à¦ªà§à¦°', 'ayubpurup.narsingdi.gov.bd'),
+(2841, 316, 'Putia', 'à¦ªà§à¦Ÿà¦¿à§Ÿà¦¾', 'putiaup.narsingdi.gov.bd'),
+(2842, 317, 'Bahadursadi', 'à¦¬à¦¾à¦¹à¦¾à¦¦à§à¦°à¦¶à', 'bahadursadi.gazipur.gov.bd'),
+(2843, 317, 'Baktarpur', 'à¦¬à¦•à§à¦¤à¦¾à¦°à¦ªà§à', 'baktarpur.gazipur.gov.bd'),
+(2844, 317, 'Jamalpurnew', 'à¦œà¦¾à¦®à¦¾à¦²à¦ªà§à¦°', 'jamalpurnew.gazipur.gov.bd'),
+(2845, 317, 'Jangalia', 'à¦œà¦¾à¦™à§à¦—à¦¾à¦²à¦¿à', 'jangalia.gazipur.gov.bd'),
+(2846, 317, 'Moktarpur', 'à¦®à§‹à¦•à§à¦¤à¦¾à¦°à¦ªà', 'moktarpur.gazipur.gov.bd'),
+(2847, 317, 'Nagari', 'à¦¨à¦¾à¦—à¦°à§€', 'nagari.gazipur.gov.bd'),
+(2848, 317, 'Tumulia', 'à¦¤à§à¦®à§à¦²à¦¿à§Ÿà¦¾', 'tumulia.gazipur.gov.bd'),
+(2849, 318, 'Atabaha', 'à¦†à¦Ÿà¦¾à¦¬à¦¹', 'atabahaup.gazipur.gov.bd'),
+(2850, 318, 'Boali', 'à¦¬à§‹à§Ÿà¦¾à¦²à§€', 'boaliup.gazipur.gov.bd'),
+(2851, 318, 'Chapair', 'à¦šà¦¾à¦ªà¦¾à¦‡à¦°', 'chapairup.gazipur.gov.bd'),
+(2852, 318, 'Dhaliora', 'à¦¢à¦¾à¦²à¦œà§‹à§œà¦¾', 'dhalioraup.gazipur.gov.bd'),
+(2853, 318, 'Fulbaria', 'à¦«à§à¦²à¦¬à¦¾à§œà§€à§Ÿà', 'fulbariaup.gazipur.gov.bd'),
+(2854, 318, 'Madhyapara', 'à¦®à¦§à§à¦¯à¦ªà¦¾à§œà¦¾', 'madhyapara.gazipur.gov.bd'),
+(2855, 318, 'Mouchak', 'à¦®à§Œà¦šà¦¾à¦•', 'mouchakup.gazipur.gov.bd'),
+(2856, 318, 'Sutrapur', 'à¦¸à§‚à¦¤à§à¦°à¦¾à¦ªà§à', 'sutrapurup.gazipur.gov.bd'),
+(2857, 318, 'Srifaltali', 'à¦¶à§à¦°à§€à¦«à¦²à¦¤à¦²à', 'srifaltaliup.gazipur.gov.bd'),
+(2858, 319, 'Barishaba', 'à¦¬à¦¾à¦°à¦¿à¦·à¦¾à¦¬', 'barishabaup.gazipur.gov.bd'),
+(2859, 319, 'Ghagotia', 'à¦˜à¦¾à¦—à¦Ÿà¦¿à§Ÿà¦¾', 'ghagotiaup.gazipur.gov.bd'),
+(2860, 319, 'Kapasia', 'à¦•à¦¾à¦ªà¦¾à¦¸à¦¿à§Ÿà¦¾', 'kapasiaup.gazipur.gov.bd'),
+(2861, 319, 'Chandpur', 'à¦šà¦¾à¦à¦¦à¦ªà§à¦°', 'chandpur.gazipur.gov.bd'),
+(2862, 319, 'Targoan', 'à¦¤à¦°à¦—à¦¾à¦à¦“', 'targoan.gazipur.gov.bd'),
+(2863, 319, 'Karihata', 'à¦•à§œà¦¿à¦¹à¦¾à¦¤à¦¾', 'karihata.gazipur.gov.bd'),
+(2864, 319, 'Tokh', 'à¦Ÿà§‹à¦•', 'tokh.gazipur.gov.bd'),
+(2865, 319, 'Sinhasree', 'à¦¸à¦¿à¦‚à¦¹à¦¶à§à¦°à§€', 'sinhasree.gazipur.gov.bd'),
+(2866, 319, 'Durgapur', 'à¦¦à§‚à¦°à§à¦—à¦¾à¦ªà§à', 'durgapurup.gazipur.gov.bd'),
+(2867, 319, 'Sonmania', 'à¦¸à¦¨à¦®à¦¾à¦¨à¦¿à§Ÿà¦¾', 'sonmaniaup.gazipur.gov.bd'),
+(2868, 319, 'Rayed', 'à¦°à¦¾à§Ÿà§‡à¦¦', 'rayedup.gazipur.gov.bd'),
+(2869, 320, 'Baria', 'à¦¬à¦¾à§œà§€à§Ÿà¦¾', 'bariaup.gazipur.gov.bd'),
+(2870, 320, 'Basan', 'à¦¬à¦¾à¦¸à¦¨', 'basanup.gazipur.gov.bd'),
+(2871, 320, 'Gachha', 'à¦—à¦¾à¦›à¦¾', 'gachhaup.gazipur.gov.bd'),
+(2872, 320, 'Kashimpur', 'à¦•à¦¾à¦¶à¦¿à¦®à¦ªà§à¦°', 'kashimpurup.gazipur.gov.bd'),
+(2873, 320, 'Kayaltia', 'à¦•à¦¾à¦‰à¦²à¦¤à¦¿à§Ÿà¦¾', 'kayaltiaup.gazipur.gov.bd'),
+(2874, 320, 'Konabari', 'à¦•à§‹à¦¨à¦¾à¦¬à¦¾à§œà§€', 'konabariup.gazipur.gov.bd'),
+(2875, 320, 'Mirzapur', 'à¦®à¦¿à¦°à§à¦œà¦¾à¦ªà§à', 'mirzapurup.gazipur.gov.bd'),
+(2876, 320, 'Pubail', 'à¦ªà§‚à¦¬à¦¾à¦‡à¦²', 'pubailup.gazipur.gov.bd'),
+(2877, 321, 'Barmi', 'à¦¬à¦°à¦®à§€', 'barmiup.gazipur.gov.bd'),
+(2878, 321, 'Gazipur', 'à¦—à¦¾à¦œà§€à¦ªà§à¦°', 'gazipurup.gazipur.gov.bd'),
+(2879, 321, 'Gosinga', 'à¦—à§‹à¦¸à¦¿à¦‚à¦—à¦¾', 'gosingaup.gazipur.gov.bd'),
+(2880, 321, 'Maona', 'à¦®à¦¾à¦“à¦¨à¦¾', 'maonaup.gazipur.gov.bd'),
+(2881, 321, 'Kaoraid', 'à¦•à¦¾à¦“à¦°à¦¾à¦‡à¦¦', 'kaoraidup.gazipur.gov.bd'),
+(2882, 321, 'Prahladpur', 'à¦ªà§à¦°à¦¹à¦²à¦¾à¦¦à¦ªà', 'prahladpurup.gazipur.gov.bd'),
+(2883, 321, 'Rajabari', 'à¦°à¦¾à¦œà¦¾à¦¬à¦¾à§œà§€', 'rajabariup.gazipur.gov.bd'),
+(2884, 321, 'Telihati', 'à¦¤à§‡à¦²à¦¿à¦¹à¦¾à¦Ÿà§€', 'telihatiup.gazipur.gov.bd'),
+(2885, 322, 'Binodpur', 'à¦¬à¦¿à¦¨à§‹à¦¦à¦ªà§à¦°', 'binodpurup.shariatpur.gov.bd'),
+(2886, 322, 'Tulasar', 'à¦¤à§à¦²à¦¾à¦¸à¦¾à¦°', 'tulasarup.shariatpur.gov.bd'),
+(2887, 322, 'Palong', 'à¦ªà¦¾à¦²à¦‚', 'palongup.shariatpur.gov.bd'),
+(2888, 322, 'Domshar', 'à¦¡à§‹à¦®à¦¸à¦¾à¦°', 'domsharup.shariatpur.gov.bd'),
+(2889, 322, 'Rudrakar', 'à¦°à§à¦¦à§à¦°à¦•à¦°', 'rudrakarup.shariatpur.gov.bd'),
+(2890, 322, 'Angaria', 'à¦†à¦‚à¦—à¦¾à¦°à¦¿à¦¯à¦¼à', 'angariaup.shariatpur.gov.bd'),
+(2891, 322, 'Chitolia', 'à¦šà¦¿à¦¤à¦²à¦¯à¦¼à¦¾', 'chitoliaup.shariatpur.gov.bd'),
+(2892, 322, 'Mahmudpur', 'à¦®à¦¾à¦¹à¦®à§à¦¦à¦ªà§à', 'mahmudpurup.shariatpur.gov.bd'),
+(2893, 322, 'Chikondi', 'à¦šà¦¿à¦•à¦¨à§à¦¦à¦¿', 'chikondiup.shariatpur.gov.bd'),
+(2894, 322, 'Chandrapur', 'à¦šà¦¨à§à¦¦à§à¦°à¦ªà§à', 'chandrapurup.shariatpur.gov.bd'),
+(2895, 322, 'Shulpara', 'à¦¶à§Œà¦²à¦ªà¦¾à¦¡à¦¼à¦¾', 'shulparaup.shariatpur.gov.bd'),
+(2896, 323, 'Kedarpur', 'à¦•à§‡à¦¦à¦¾à¦°à¦ªà§à¦°', 'kedarpurup.shariatpur.gov.bd'),
+(2897, 323, 'Dingamanik', 'à¦¡à¦¿à¦‚à¦—à¦¾à¦®à¦¾à¦¨à', 'dingamanikup.shariatpur.gov.bd'),
+(2898, 323, 'Garishar', 'à¦˜à¦¡à¦¼à¦¿à¦·à¦¾à¦°', 'garisharup.shariatpur.gov.bd'),
+(2899, 323, 'Nowpara', 'à¦¨à¦“à¦ªà¦¾à¦¡à¦¼à¦¾', 'nowparaup.shariatpur.gov.bd'),
+(2900, 323, 'Moktererchar', 'à¦®à§‹à¦¤à§à¦¤à¦¾à¦°à§‡à', 'mokterercharup.shariatpur.gov.bd'),
+(2901, 323, 'Charatra', 'à¦šà¦°à¦†à¦¤à§à¦°à¦¾', 'charatraup.shariatpur.gov.bd'),
+(2902, 323, 'Rajnagar', 'à¦°à¦¾à¦œà¦¨à¦—à¦°', 'rajnagarup.shariatpur.gov.bd'),
+(2903, 323, 'Japsa', 'à¦œà¦ªà¦¸à¦¾', 'japsaup.shariatpur.gov.bd'),
+(2904, 323, 'Vojeshwar', 'à¦­à§‹à¦œà§‡à¦¶à§à¦¬à¦°', 'vojeshwarup.shariatpur.gov.bd'),
+(2905, 323, 'Fategongpur', 'à¦«à¦¤à§‡à¦œà¦‚à¦ªà§à¦°', 'fategongpurup.shariatpur.gov.bd'),
+(2906, 323, 'Bijari', 'à¦¬à¦¿à¦à¦¾à¦°à¦¿', 'bijariup.shariatpur.gov.bd'),
+(2907, 323, 'Vumkhara', 'à¦­à§‚à¦®à¦–à¦¾à¦¡à¦¼à¦¾', 'vumkharaup.shariatpur.gov.bd'),
+(2908, 323, 'Nashason', 'à¦¨à¦¶à¦¾à¦¸à¦¨', 'nashasonup.shariatpur.gov.bd'),
+(2909, 324, 'Zajira Sadar', 'à¦œà¦¾à¦œà¦¿à¦°à¦¾ à¦¸à¦¦', 'zajirasadarup.shariatpur.gov.bd'),
+(2910, 324, 'Mulna', 'à¦®à§‚à¦²à¦¨à¦¾', 'mulnaup.shariatpur.gov.bd'),
+(2911, 324, 'Barokandi', 'à¦¬à§œà¦•à¦¾à¦¨à§à¦¦à¦¿', 'barokandiup.shariatpur.gov.bd'),
+(2912, 324, 'Bilaspur', 'à¦¬à¦¿à¦²à¦¾à¦¸à¦ªà§à¦°', 'bilaspurup.shariatpur.gov.bd'),
+(2913, 324, 'Kundarchar', 'à¦•à§à¦¨à§à¦¡à§‡à¦°à¦šà', 'kundarcharup.shariatpur.gov.bd'),
+(2914, 324, 'Palerchar', 'à¦ªà¦¾à¦²à§‡à¦°à¦šà¦°', 'palercharup.shariatpur.gov.bd'),
+(2915, 324, 'Purba Nawdoba', 'à¦ªà§à¦°à§à¦¬ à¦¨à¦¾à¦“', 'purbanawdobaup.shariatpur.gov.bd'),
+(2916, 324, 'Nawdoba', 'à¦¨à¦¾à¦“à¦¡à§‹à¦¬à¦¾', 'nawdobaup.shariatpur.gov.bd'),
+(2917, 324, 'Shenerchar', 'à¦¸à§‡à¦¨à§‡à¦°à¦šà¦°', 'shenercharup.shariatpur.gov.bd'),
+(2918, 324, 'Bknagar', 'à¦¬à¦¿. à¦•à§‡. à¦¨à¦—à¦°', 'bknagarup.shariatpur.gov.bd'),
+(2919, 324, 'Barogopalpur', 'à¦¬à¦¡à¦¼à¦—à§‹à¦ªà¦¾à¦²à', 'barogopalpurup.shariatpur.gov.bd'),
+(2920, 324, 'Jaynagor', 'à¦œà¦¯à¦¼à¦¨à¦—à¦°', 'jaynagorup.shariatpur.gov.bd'),
+(2921, 325, 'Nager Para', 'à¦¨à¦¾à¦—à§‡à¦° à¦ªà¦¾à¦¡', 'nagerparaup.shariatpur.gov.bd'),
+(2922, 325, 'Alaolpur', 'à¦†à¦²à¦¾à¦“à¦²à¦ªà§à¦°', 'alaolpurup.shariatpur.gov.bd'),
+(2923, 325, 'Kodalpur', 'à¦•à§‹à¦¦à¦¾à¦²à¦ªà§à¦°', 'kodalpurup.shariatpur.gov.bd'),
+(2924, 325, 'Goshairhat', 'à¦—à§‹à¦¸à¦¾à¦‡à¦°à¦¹à¦¾à', 'goshairhatup.shariatpur.gov.bd'),
+(2925, 325, 'Edilpur', 'à¦‡à¦¦à¦¿à¦²à¦ªà§à¦°', 'edilpurup.shariatpur.gov.bd'),
+(2926, 325, 'Nalmuri', 'à¦¨à¦²à¦®à§à¦¡à¦¼à¦¿', 'nalmuriup.shariatpur.gov.bd'),
+(2927, 325, 'Samontasar', 'à¦¸à¦¾à¦®à¦¨à§à¦¤à¦¸à¦¾à', 'samontasarup.shariatpur.gov.bd'),
+(2928, 325, 'Kuchipatti', 'à¦•à§à¦šà¦¾à¦‡à¦ªà¦Ÿà§à', 'kuchipattiup.shariatpur.gov.bd'),
+(2929, 326, 'Ramvadrapur', 'à¦°à¦¾à¦®à¦­à¦¦à§à¦°à¦ªà', 'ramvadrapurup.shariatpur.gov.bd'),
+(2930, 326, 'Mahisar', 'à¦®à¦¹à¦¿à¦·à¦¾à¦°', 'mahisarup.shariatpur.gov.bd'),
+(2931, 326, 'Saygaon', 'à¦›à¦¯à¦¼à¦—à¦¾à¦à¦“', 'saygaonup.shariatpur.gov.bd'),
+(2932, 326, 'Narayanpur', 'à¦¨à¦¾à¦°à¦¾à¦¯à¦¼à¦¨à¦ªà', 'narayanpurup.shariatpur.gov.bd'),
+(2933, 326, 'D.M Khali', 'à¦¡à¦¿.à¦à¦® à¦–à¦¾à¦²à¦', 'dmkhaliup.shariatpur.gov.bd'),
+(2934, 326, 'Charkumaria', 'à¦šà¦°à¦•à§à¦®à¦¾à¦°à¦¿à', 'charkumariaup.shariatpur.gov.bd'),
+(2935, 326, 'Sakhipur', 'à¦¸à¦–à¦¿à¦ªà§à¦°', 'sakhipurup.shariatpur.gov.bd'),
+(2936, 326, 'Kachikata', 'à¦•à¦¾à¦šà¦¿à¦•à¦¾à¦à¦Ÿà', 'kachikataup.shariatpur.gov.bd'),
+(2937, 326, 'North Tarabunia', 'à¦‰à¦¤à§à¦¤à¦° à¦¤à¦¾à¦°', 'northtarabuniaup.shariatpur.gov.bd'),
+(2938, 326, 'Charvaga', 'à¦šà¦°à¦­à¦¾à¦—à¦¾', 'charvagaup.shariatpur.gov.bd'),
+(2939, 326, 'Arsinagar', 'à¦†à¦°à¦¶à¦¿à¦¨à¦—à¦°', 'arsinagarup.shariatpur.gov.bd'),
+(2940, 326, 'South Tarabunia', 'à¦¦à¦•à§à¦·à¦¿à¦¨ à¦¤à¦¾', 'southtarabuniaup.shariatpur.gov.bd'),
+(2941, 326, 'Charsensas', 'à¦šà¦°à¦¸à§‡à¦¨à¦¸à¦¾à¦¸', 'charsensasup.shariatpur.gov.bd'),
+(2942, 327, 'Shidulkura', 'à¦¶à¦¿à¦§à¦²à¦•à§à¦¡à¦¼à', 'shidulkuraup.shariatpur.gov.bd'),
+(2943, 327, 'Kaneshar', 'à¦•à¦¨à§‡à¦¸à§à¦¬à¦°', 'kanesharup.shariatpur.gov.bd'),
+(2944, 327, 'Purba Damudya', 'à¦ªà§à¦°à§à¦¬ à¦¡à¦¾à¦®', 'purbadamudyaup.shariatpur.gov.bd'),
+(2945, 327, 'Islampur', 'à¦‡à¦¸à¦²à¦¾à¦®à¦ªà§à¦°', 'islampurup.shariatpur.gov.bd'),
+(2946, 327, 'Dankati', 'à¦§à¦¾à¦¨à¦•à¦¾à¦Ÿà¦¿', 'dankatiup.shariatpur.gov.bd'),
+(2947, 327, 'Sidya', 'à¦¸à¦¿à¦¡à§à¦¯à¦¾', 'sidyaup.shariatpur.gov.bd'),
+(2948, 327, 'Darulaman', 'à¦¦à¦¾à¦°à§à¦² à¦†à¦®à¦¾', 'darulamanup.shariatpur.gov.bd'),
+(2949, 328, 'Satgram', 'à¦¸à¦¾à¦¤à¦—à§à¦°à¦¾à¦®', 'satgramup.narayanganj.gov.bd'),
+(2950, 328, 'Duptara', 'à¦¦à§à¦ªà§à¦¤à¦¾à¦°à¦¾', 'duptaraup.narayanganj.gov.bd'),
+(2951, 328, 'Brahammandi', 'à¦¬à§à¦°à¦¾â€à¦¹à§à¦®à', 'brahammandiup.narayanganj.gov.bd'),
+(2952, 328, 'Fatepur', 'à¦«à¦¤à§‡à¦ªà§à¦°', 'fatepurup.narayanganj.gov.bd'),
+(2953, 328, 'Bishnandi', 'à¦¬à¦¿à¦¶à¦¨à¦¨à§à¦¦à§€', 'bishnandiup.narayanganj.gov.bd'),
+(2954, 328, 'Mahmudpur', 'à¦®à¦¾à¦¹à¦®à§à¦¦à¦ªà§à', 'mahmudpurup.narayanganj.gov.bd'),
+(2955, 328, 'Highjadi', 'à¦¹à¦¾à¦‡à¦œà¦¾à¦¦à§€', 'highjadiup.narayanganj.gov.bd'),
+(2956, 328, 'Uchitpura', 'à¦‰à¦šà¦¿à§Žà¦ªà§à¦°à¦¾', 'uchitpuraup.narayanganj.gov.bd'),
+(2957, 328, 'Kalapaharia', 'à¦•à¦¾à¦²à¦¾à¦ªà¦¾à¦¹à¦¾à', 'kalapahariaup.narayanganj.gov.bd'),
+(2958, 328, 'Kagkanda', 'à¦–à¦¾à¦—à¦•à¦¾à¦¨à§à¦¦à', 'kagkandaUP.narayanganj.gov.bd'),
+(2959, 329, 'Musapur', 'à¦®à§à¦›à¦¾à¦ªà§à¦°', 'musapurup.narayanganj.gov.bd'),
+(2960, 329, 'Modonpur', 'à¦®à¦¦à¦¨à¦ªà§à¦°', 'modonpurup.narayanganj.gov.bd'),
+(2961, 329, 'Bandar', 'à¦¬à¦¨à§à¦¦à¦°', 'bandarup.narayanganj.gov.bd'),
+(2962, 329, 'Dhamgar', 'à¦§à¦¾à¦®à¦—à¦°', 'dhamgar.narayanganj.gov.bd'),
+(2963, 329, 'Kolagathia', ' à¦•à¦²à¦¾à¦—à¦¾à¦›à¦¿à§Ÿ', 'kolagathiaup.narayanganj.gov.bd'),
+(2964, 330, 'Alirtek', 'à¦†à¦²à¦¿à¦°à¦Ÿà§‡à¦•', 'alirtekup.narayanganj.gov.bd'),
+(2965, 330, 'Kashipur', 'à¦•à¦¾à¦¶à§€à¦ªà§à¦°', 'kashipurup.narayanganj.gov.bd'),
+(2966, 330, 'Kutubpur', 'à¦•à§à¦¤à§à¦¬à¦ªà§à¦°', 'kutubpurup.narayanganj.gov.bd'),
+(2967, 330, 'Gognagar', 'à¦—à§‹à¦—à¦¨à¦—à¦°', 'gognagarup.narayanganj.gov.bd'),
+(2968, 330, 'Baktaboli', 'à¦¬à¦•à§à¦¤à¦¾à¦¬à¦²à§€', 'baktaboliup.narayanganj.gov.bd'),
+(2969, 330, 'Enayetnagor', 'à¦à¦¨à¦¾à§Ÿà§‡à¦¤ à¦¨à¦—', 'enayetnagorup.narayanganj.gov.bd'),
+(2970, 331, 'Murapara', 'à¦®à§à§œà¦¾à¦ªà¦¾à§œà¦¾', 'muraparaup.narayanganj.gov.bd'),
+(2971, 331, 'Bhulta', 'à¦­à§‚à¦²à¦¤à¦¾', 'bhultaup.narayanganj.gov.bd'),
+(2972, 331, 'Golakandail', 'à¦—à§‹à¦²à¦¾à¦•à¦¾à¦¨à§à', 'golakandailup.narayanganj.gov.bd'),
+(2973, 331, 'Daudpur', 'à¦¦à¦¾à¦‰à¦¦à¦ªà§à¦°', 'daudpurup.narayanganj.gov.bd'),
+(2974, 331, 'Rupganj', 'à¦°à§‚à¦ªà¦—à¦žà§à¦œ', 'rupganjup.narayanganj.gov.bd'),
+(2975, 331, 'Kayetpara', 'à¦•à¦¾à§Ÿà§‡à¦¤à¦ªà¦¾à§œà', 'kayetparaup.narayanganj.gov.bd'),
+(2976, 331, 'Bholobo', 'à¦­à§‹à¦²à¦¾à¦¬', 'bholoboup.narayanganj.gov.bd'),
+(2977, 332, 'Pirojpur', 'à¦ªà¦¿à¦°à§‹à¦œà¦ªà§à¦°', 'pirojpurup.narayanganj.gov.bd'),
+(2978, 332, 'Shambhupura', 'à¦¶à¦®à§à¦­à§à¦ªà§à¦°à', 'shambhupura.narayanganj.gov.bd'),
+(2979, 332, 'Mograpara', 'à¦®à§‹à¦—à¦°à¦¾à¦ªà¦¾à§œà', 'mograpara.narayanganj.gov.bd'),
+(2980, 332, 'Baidyerbazar', 'à¦¬à§ˆà¦¦à§à¦¯à§‡à¦°à¦¬à', 'baidyerbazar.narayanganj.gov.bd'),
+(2981, 332, 'Baradi', 'à¦¬à¦¾à¦°à¦¦à§€', 'baradiup.narayanganj.gov.bd'),
+(2982, 332, 'Noagaon', 'à¦¨à§‹à§Ÿà¦¾à¦—à¦¾à¦à¦“', 'noagaonup.narayanganj.gov.bd'),
+(2983, 332, 'Jampur', 'à¦œà¦¾à¦®à¦ªà§à¦°', 'jampurup.narayanganj.gov.bd'),
+(2984, 332, 'Sadipur', 'à¦¸à¦¾à¦¦à§€à¦ªà§à¦°', 'sadipurup.narayanganj.gov.bd'),
+(2985, 332, 'Sonmandi', 'à¦¸à¦¨à¦®à¦¾à¦¨à§à¦¦à¦¿', 'sonmandiup.narayanganj.gov.bd'),
+(2986, 332, 'Kanchpur', 'à¦•à¦¾à¦šà¦ªà§à¦°', 'kanchpurup.narayanganj.gov.bd'),
+(2987, 333, 'Basail', 'à¦¬à¦¾à¦¸à¦¾à¦‡à¦²', 'basailup.tangail.gov.bd'),
+(2988, 333, 'Kanchanpur', 'à¦•à¦¾à¦žà§à¦šà¦¨à¦ªà§à', 'kanchanpurup.tangail.gov.bd'),
+(2989, 333, 'Habla', 'à¦¹à¦¾à¦¬à¦²à¦¾', 'hablaup.tangail.gov.bd'),
+(2990, 333, 'Kashil', 'à¦•à¦¾à¦¶à¦¿à¦²', 'kashilup.tangail.gov.bd'),
+(2991, 333, 'Fulki', 'à¦«à§à¦²à¦•à¦¿', 'fulkiup.tangail.gov.bd'),
+(2992, 333, 'Kauljani', 'à¦•à¦¾à¦‰à¦²à¦œà¦¾à¦¨à§€', 'kauljaniup.tangail.gov.bd'),
+(2993, 334, 'Arjuna', 'à¦…à¦°à§à¦œà§à¦¨à¦¾', 'arjunaup.tangail.gov.bd'),
+(2994, 334, 'Gabshara', 'à¦—à¦¾à¦¬à¦¸à¦¾à¦°à¦¾', 'gabsharaup.tangail.gov.bd'),
+(2995, 334, 'Falda', 'à¦«à¦²à¦¦à¦¾', 'faldaup.tangail.gov.bd'),
+(2996, 334, 'Gobindashi', 'à¦—à§‹à¦¬à¦¿à¦¨à§à¦¦à¦¾à', 'gobindashiup.tangail.gov.bd'),
+(2997, 334, 'Aloa', 'à¦†à¦²à§‹à¦¯à¦¼à¦¾', 'aloaup.tangail.gov.bd'),
+(2998, 334, 'Nikrail', 'à¦¨à¦¿à¦•à¦°à¦¾à¦‡à¦²', 'nikrailup.tangail.gov.bd'),
+(2999, 335, 'Deuli', 'à¦¦à§‡à¦‰à¦²à§€', 'deuliup.tangail.gov.bd'),
+(3000, 335, 'Lauhati', 'à¦²à¦¾à¦‰à¦¹à¦¾à¦Ÿà¦¿', 'lauhatiup.tangail.gov.bd'),
+(3001, 335, 'Patharail', 'à¦ªà¦¾à¦¥à¦°à¦¾à¦‡à¦²', 'patharailup.tangail.gov.bd'),
+(3002, 335, 'Delduar', 'à¦¦à§‡à¦²à¦¦à§à¦¯à¦¼à¦¾à', 'delduarup.tangail.gov.bd'),
+(3003, 335, 'Fazilhati', 'à¦«à¦¾à¦œà¦¿à¦²à¦¹à¦¾à¦Ÿà', 'fazilhatiup.tangail.gov.bd'),
+(3004, 335, 'Elasin', 'à¦à¦²à¦¾à¦¸à¦¿à¦¨', 'elasinup.tangail.gov.bd'),
+(3005, 335, 'Atia', 'à¦†à¦Ÿà¦¿à¦¯à¦¼à¦¾', 'atiaup.tangail.gov.bd'),
+(3006, 335, 'Dubail', 'à¦¡à§à¦¬à¦¾à¦‡à¦²', 'dubailup.tangail.gov.bd'),
+(3007, 336, 'Deulabari', 'à¦¦à§‡à¦‰à¦²à¦¾à¦¬à¦¾à¦¡à', 'deulabariup.tangail.gov.bd'),
+(3008, 336, 'Ghatail', 'à¦˜à¦¾à¦Ÿà¦¾à¦‡à¦²', 'ghatailup.tangail.gov.bd'),
+(3009, 336, 'Jamuria', 'à¦œà¦¾à¦®à§à¦°à¦¿à¦¯à¦¼à', 'jamuriaup.tangail.gov.bd'),
+(3010, 336, 'Lokerpara', 'à¦²à§‹à¦•à§‡à¦°à¦ªà¦¾à¦¡à', 'lokerparaup.tangail.gov.bd'),
+(3011, 336, 'Anehola', 'à¦†à¦¨à§‡à¦¹à¦²à¦¾', 'aneholaup.tangail.gov.bd'),
+(3012, 336, 'Dighalkandia', 'à¦¦à¦¿à¦˜à¦²à¦•à¦¾à¦¨à§à', 'dighalkandiaup.tangail.gov.bd'),
+(3013, 336, 'Digar', 'à¦¦à¦¿à¦—à¦¡à¦¼', 'digarup.tangail.gov.bd'),
+(3014, 336, 'Deopara', 'à¦¦à§‡à¦“à¦ªà¦¾à¦¡à¦¼à¦¾', 'deoparaup.tangail.gov.bd'),
+(3015, 336, 'Sandhanpur', 'à¦¸à¦¨à§à¦§à¦¾à¦¨à¦ªà§à', 'sandhanpurup.tangail.gov.bd'),
+(3016, 336, 'Rasulpur', 'à¦°à¦¸à§à¦²à¦ªà§à¦°', 'rasulpurup.tangail.gov.bd'),
+(3017, 336, 'Dhalapara', 'à¦§à¦²à¦¾à¦ªà¦¾à¦¡à¦¼à¦¾', 'dhalaparaup.tangail.gov.bd'),
+(3018, 337, 'Hadera', 'à¦¹à¦¾à¦¦à¦¿à¦°à¦¾', 'haderaup.tangail.gov.bd'),
+(3019, 337, 'Jhawail', 'à¦à¦¾à¦“à¦¯à¦¼à¦¾à¦‡à¦²', 'jhawailup.tangail.gov.bd'),
+(3020, 337, 'Nagdashimla', 'à¦¨à¦—à¦¦à¦¾à¦¶à¦¿à¦®à¦²à', 'nagdashimlaup.tangail.gov.bd'),
+(3021, 337, 'Dhopakandi', 'à¦§à§‹à¦ªà¦¾à¦•à¦¾à¦¨à§à', 'dhopakandiup.tangail.gov.bd'),
+(3022, 337, 'Alamnagor', 'à¦†à¦²à¦®à¦¨à¦—à¦°', 'alamnagorup.tangail.gov.bd'),
+(3023, 337, 'Hemnagor', 'à¦¹à§‡à¦®à¦¨à¦—à¦°', 'hemnagorup.tangail.gov.bd'),
+(3024, 337, 'Mirzapur', 'à¦®à¦¿à¦°à§à¦œà¦¾à¦ªà§à', 'mirzapurup.tangail.gov.bd'),
+(3025, 338, 'Alokdia', 'à¦†à¦²à§‹à¦•à¦¦à¦¿à¦¯à¦¼à', 'alokdiaup.tangail.gov.bd'),
+(3026, 338, 'Aushnara', 'à¦†à¦‰à¦¶à¦¨à¦¾à¦°à¦¾', 'aushnaraup.tangail.gov.bd'),
+(3027, 338, 'Aronkhola', 'à¦…à¦°à¦£à¦–à§‹à¦²à¦¾', 'aronkholaup.tangail.gov.bd'),
+(3028, 338, 'Sholakuri', 'à¦¶à§‹à¦²à¦¾à¦•à§à¦¡à¦¼à', 'sholakuriup.tangail.gov.bd'),
+(3029, 338, 'Golabari', 'à¦—à§‹à¦²à¦¾à¦¬à¦¾à¦¡à¦¼à', 'golabariup.tangail.gov.bd'),
+(3030, 338, 'Mirjabari', 'à¦®à¦¿à¦°à§à¦œà¦¾à¦¬à¦¾à', 'mirjabariup.tangail.gov.bd'),
+(3031, 339, 'Mahera', 'à¦®à¦¹à§‡à¦¡à¦¼à¦¾', 'maheraup.tangail.gov.bd'),
+(3032, 339, 'Jamurki', 'à¦œà¦¾à¦®à§à¦°à§à¦•à§€', 'jamurkiup.tangail.gov.bd'),
+(3033, 339, 'Fatepur', 'à¦«à¦¤à§‡à¦ªà§à¦°', 'fatepurup.tangail.gov.bd'),
+(3034, 339, 'Banail', 'à¦¬à¦¾à¦¨à¦¾à¦‡à¦²', 'banailup.tangail.gov.bd'),
+(3035, 339, 'Anaitara', 'à¦†à¦¨à¦¾à¦‡à¦¤à¦¾à¦°à¦¾', 'anaitaraup.tangail.gov.bd'),
+(3036, 339, 'Warshi', 'à¦“à¦¯à¦¼à¦¾à¦°à§à¦¶à§€', 'warshiup.tangail.gov.bd'),
+(3037, 339, 'Bhatram', 'à¦­à¦¾à¦¤à¦—à§à¦°à¦¾à¦®', 'bhatramup.tangail.gov.bd'),
+(3038, 339, 'Bahuria', 'à¦¬à¦¹à§à¦°à¦¿à¦¯à¦¼à¦¾', 'bahuriaup.tangail.gov.bd'),
+(3039, 339, 'Gorai', 'à¦—à§‹à¦¡à¦¼à¦¾à¦‡', 'goraiup.tangail.gov.bd'),
+(3040, 339, 'Ajgana', 'à¦†à¦œà¦—à¦¾à¦¨à¦¾', 'ajganaup.tangail.gov.bd'),
+(3041, 339, 'Tarafpur', 'à¦¤à¦°à¦«à¦ªà§à¦°', 'tarafpurup.tangail.gov.bd'),
+(3042, 339, 'Bastail', 'à¦¬à¦¾à¦à¦¶à¦¤à§ˆà¦²', 'bastailup.tangail.gov.bd'),
+(3043, 339, 'Baora', 'à¦­à¦¾à¦“à¦¡à¦¼à¦¾', 'baoraup.tangail.gov.bd'),
+(3044, 339, 'Latifpur', 'à¦²à¦¤à¦¿à¦«à¦ªà§à¦°', 'latifpurup.tangail.gov.bd'),
+(3045, 340, 'Bharra', 'à¦­à¦¾à¦°à¦¡à¦¼à¦¾', 'bharraup.tangail.gov.bd'),
+(3046, 340, 'Sahabathpur', 'à¦¸à¦¹à¦¬à¦¤à¦ªà§à¦°', 'sahabathpurup.tangail.gov.bd'),
+(3047, 340, 'Goyhata', 'à¦—à¦¯à¦¼à¦¹à¦¾à¦Ÿà¦¾', 'goyhataup.tangail.gov.bd'),
+(3048, 340, 'Solimabad', 'à¦¸à¦²à¦¿à¦®à¦¾à¦¬à¦¾à¦¦', 'solimabadup.tangail.gov.bd'),
+(3049, 340, 'Nagorpur', 'à¦¨à¦¾à¦—à¦°à¦ªà§à¦°', 'nagorpurup.tangail.gov.bd'),
+(3050, 340, 'Mamudnagor', 'à¦®à¦¾à¦®à§à¦¦à¦¨à¦—à¦°', 'mamudnagorup.tangail.gov.bd'),
+(3051, 340, 'Mokna', 'à¦®à§‹à¦•à¦¨à¦¾', 'moknaup.tangail.gov.bd'),
+(3052, 340, 'Pakutia', 'à¦ªà¦¾à¦•à§à¦Ÿà¦¿à¦¯à¦¼à', 'pakutiaup.tangail.gov.bd'),
+(3053, 340, 'Bekrah Atgram', 'à¦¬à§‡à¦•à¦°à¦¾ à¦†à¦Ÿà¦—', 'bekrahatgramup.tangail.gov.bd'),
+(3054, 340, 'Dhuburia', 'à¦§à§à¦¬à¦¡à¦¼à¦¿à¦¯à¦¼à', 'dhuburiaup.tangail.gov.bd'),
+(3055, 340, 'Bhadra', 'à¦­à¦¾à¦¦à§à¦°à¦¾', 'bhadraup.tangail.gov.bd'),
+(3056, 340, 'Doptior', 'à¦¦à¦ªà§à¦¤à¦¿à¦¯à¦¼à¦°', 'doptiorup.tangail.gov.bd'),
+(3057, 341, 'Kakrajan', 'à¦•à¦¾à¦•à¦¡à¦¼à¦¾à¦œà¦¾à', 'kakrajanup.tangail.gov.bd'),
+(3058, 341, 'Gajaria', 'à¦—à¦œà¦¾à¦°à¦¿à¦¯à¦¼à¦¾', 'gajariaup.tangail.gov.bd'),
+(3059, 341, 'Jaduppur', 'à¦¯à¦¾à¦¦à¦¬à¦ªà§à¦°', 'jaduppurup.tangail.gov.bd'),
+(3060, 341, 'Hatibandha', 'à¦¹à¦¾à¦¤à§€à¦¬à¦¾à¦¨à§à', 'hatibandhaup.tangail.gov.bd'),
+(3061, 341, 'Kalia', 'à¦•à¦¾à¦²à¦¿à¦¯à¦¼à¦¾', 'kaliaup.tangail.gov.bd'),
+(3062, 341, 'Dariapur', 'à¦¦à¦°à¦¿à¦¯à¦¼à¦¾à¦ªà§à', 'dariapurup.tangail.gov.bd'),
+(3063, 341, 'Kalmegha', 'à¦•à¦¾à¦²à¦®à§‡à¦˜à¦¾', 'kalmeghaup.tangail.gov.bd'),
+(3064, 341, 'Baharatoil', 'à¦¬à¦¹à§‡à¦¡à¦¼à¦¾à¦¤à§ˆà', 'baharatoilup.tangail.gov.bd'),
+(3065, 342, 'Mogra', 'à¦®à¦—à¦¡à¦¼à¦¾', 'mograup.tangail.gov.bd'),
+(3066, 342, 'Gala', 'à¦—à¦¾à¦²à¦¾', 'galaup.tangail.gov.bd'),
+(3067, 342, 'Gharinda', 'à¦˜à¦¾à¦°à¦¿à¦¨à§à¦¦à¦¾', 'gharindaup.tangail.gov.bd'),
+(3068, 342, 'Karatia', 'à¦•à¦°à¦Ÿà¦¿à¦¯à¦¼à¦¾', 'karatiaup.tangail.gov.bd'),
+(3069, 342, 'Silimpur', 'à¦›à¦¿à¦²à¦¿à¦®à¦ªà§à¦°', 'silimpurup.tangail.gov.bd'),
+(3070, 342, 'Porabari', 'à¦ªà§‹à¦¡à¦¼à¦¾à¦¬à¦¾à¦¡à', 'porabariup.tangail.gov.bd'),
+(3071, 342, 'Dyenna', 'à¦¦à¦¾à¦‡à¦¨à§à¦¯à¦¾', 'dyennaup.tangail.gov.bd'),
+(3072, 342, 'Baghil', 'à¦¬à¦¾à¦˜à¦¿à¦²', 'baghilup.tangail.gov.bd'),
+(3073, 342, 'Kakua', 'à¦•à¦¾à¦•à§à¦¯à¦¼à¦¾', 'kakuaup.tangail.gov.bd'),
+(3074, 342, 'Hugra', 'à¦¹à§à¦—à¦¡à¦¼à¦¾', 'hugraup.tangail.gov.bd'),
+(3075, 342, 'Katuli', 'à¦•à¦¾à¦¤à§à¦²à§€', 'katuliup.tangail.gov.bd'),
+(3076, 342, 'Mahamudnagar', 'à¦®à¦¾à¦¹à¦®à§à¦¦à¦¨à¦—à', 'mahamudnagarup.tangail.gov.bd'),
+(3077, 343, 'Durgapur', 'à¦¦à§à¦°à§à¦—à¦¾à¦ªà§à', 'durgapurup.tangail.gov.bd'),
+(3078, 343, 'Birbashinda', 'à¦¬à§€à¦°à¦¬à¦¾à¦¸à¦¿à¦¨à', 'birbashindaup.tangail.gov.bd'),
+(3079, 343, 'Narandia', 'à¦¨à¦¾à¦°à¦¾à¦¨à§à¦¦à¦¿à', 'narandiaup.tangail.gov.bd'),
+(3080, 343, 'Shahadebpur', 'à¦¸à¦¹à¦¦à§‡à¦¬à¦ªà§à¦°', 'shahadebpurup.tangail.gov.bd'),
+(3081, 343, 'Kokdahara', 'à¦•à§‹à¦•à¦¡à¦¹à¦°à¦¾', 'kokdaharaup.tangail.gov.bd'),
+(3082, 343, 'Balla', 'à¦¬à¦²à§à¦²à¦¾', 'ballaup.tangail.gov.bd'),
+(3083, 343, 'Salla', 'à¦¸à¦²à§à¦²à¦¾', 'sallaup.tangail.gov.bd'),
+(3084, 343, 'Nagbari', 'à¦¨à¦¾à¦—à¦¬à¦¾à¦¡à¦¼à§€', 'nagbariup.tangail.gov.bd'),
+(3085, 343, 'Bangra', 'à¦¬à¦¾à¦‚à¦¡à¦¼à¦¾', 'bangraup.tangail.gov.bd'),
+(3086, 343, 'Paikora', 'à¦ªà¦¾à¦‡à¦•à¦¡à¦¼à¦¾', 'paikoraup.tangail.gov.bd'),
+(3087, 343, 'Dashokia', 'à¦¦à¦¶à¦•à¦¿à¦¯à¦¼à¦¾', 'dashokiaup.tangail.gov.bd'),
+(3088, 343, 'Parkhi', 'à¦ªà¦¾à¦°à¦–à§€', 'parkhiup.tangail.gov.bd'),
+(3089, 343, 'Gohaliabari', 'à¦—à§‹à¦¹à¦¾à¦²à¦¿à¦¯à¦¼à', 'gohaliabariup.tangail.gov.bd'),
+(3090, 344, 'Dhopakhali', 'à¦§à§‹à¦ªà¦¾à¦–à¦¾à¦²à§€', 'dhopakhaliup.tangail.gov.bd'),
+(3091, 344, 'Paiska', 'à¦ªà¦¾à¦‡à¦¸à§à¦•à¦¾', 'paiskaup.tangail.gov.bd'),
+(3092, 344, 'Mushuddi', 'à¦®à§à¦¶à§à¦¦à§à¦¦à¦¿', 'mushuddiup.tangail.gov.bd'),
+(3093, 344, 'Bolibodrow', 'à¦¬à¦²à¦¿à¦­à¦¦à§à¦°', 'bolibodrowup.tangail.gov.bd'),
+(3094, 344, 'Birtara', 'à¦¬à§€à¦°à¦¤à¦¾à¦°à¦¾', 'birtaraup.tangail.gov.bd'),
+(3095, 344, 'Baniajan', 'à¦¬à¦¾à¦¨à¦¿à¦¯à¦¼à¦¾à¦œà', 'baniajanup.tangail.gov.bd'),
+(3096, 344, 'Jadunathpur', 'à¦¯à¦¦à§à¦¨à¦¾à¦¥à¦ªà§à', 'jadunathpurup.tangail.gov.bd'),
+(3097, 345, 'Chawganga', 'à¦šà§Œà¦—à¦¾à¦‚à¦—à¦¾', 'chawgangaup.kishoreganj.gov.bd      '),
+(3098, 345, 'Joysiddi', 'à¦œà§Ÿà¦¸à¦¿à¦¦à§à¦§à¦¿', 'joysiddiup.kishoreganj.gov.bd'),
+(3099, 345, 'Alonjori', 'à¦à¦²à¦‚à¦œà§à¦°à§€', 'alonjoriup.kishoreganj.gov.bd'),
+(3100, 345, 'Badla', 'à¦¬à¦¾à¦¦à¦²à¦¾', 'badlaup.kishoreganj.gov.bd'),
+(3101, 345, 'Boribari', 'à¦¬à§œà¦¿à¦¬à¦¾à§œà¦¿', 'boribariup.kishoreganj.gov.bd'),
+(3102, 345, 'Itna', 'à¦‡à¦Ÿà¦¨à¦¾', 'itnaup.kishoreganj.gov.bd'),
+(3103, 345, 'Mriga', 'à¦®à§ƒà¦—à¦¾', 'mrigaup.kishoreganj.gov.bd'),
+(3104, 345, 'Dhonpur', 'à¦§à¦¨à¦ªà§à¦°', 'dhonpurup.kishoreganj.gov.bd'),
+(3105, 345, 'Raytoti', 'à¦°à¦¾à§Ÿà¦Ÿà§à¦Ÿà¦¿', 'raytotiup.kishoreganj.gov.bd'),
+(3106, 346, 'Banagram', 'à¦¬à¦¨à¦—à§à¦°à¦¾à¦®', 'banagramup.kishoreganj.gov.bd'),
+(3107, 346, 'Shahasram Dhuldia', 'à¦¸à¦¹à¦¶à§à¦°à¦¾à¦® à¦§', 'shahasramdhuldiaup.kishoreganj.gov.bd'),
+(3108, 346, 'Kargaon', 'à¦•à¦¾à¦°à¦—à¦¾à¦à¦“', 'kargaonup.kishoreganj.gov.bd'),
+(3109, 346, 'Chandpur', 'à¦šà¦¾à¦¨à§à¦¦à¦ªà§à¦°', 'chandpurup.kishoreganj.gov.bd'),
+(3110, 346, 'Mumurdia', 'à¦®à§à¦®à§à¦°à¦¦à¦¿à§Ÿà', 'mumurdiaup.kishoreganj.gov.bd'),
+(3111, 346, 'Acmita', 'à¦†à¦šà¦®à¦¿à¦¤à¦¾', 'acmitaup.kishoreganj.gov.bd'),
+(3112, 346, 'Mosua', 'à¦®à¦¸à§‚à§Ÿà¦¾', 'mosuaup.kishoreganj.gov.bd'),
+(3113, 346, 'Lohajuree', 'à¦²à§‹à¦¹à¦¾à¦œà§à¦°à§€', 'lohajureeup.kishoreganj.gov.bd'),
+(3114, 346, 'Jalalpur', 'à¦œà¦¾à¦²à¦¾à¦²à¦ªà§à¦°', 'jalalpurup.kishoreganj.gov.bd'),
+(3115, 347, 'Sadekpur', 'à¦¸à¦¾à¦¦à§‡à¦•à¦ªà§à¦°', 'sadekpurup.kishoreganj.gov.bd'),
+(3116, 347, 'Aganagar', 'à¦†à¦—à¦¾à¦¨à¦—à¦°', 'aganagarup.kishoreganj.gov.bd'),
+(3117, 347, 'Shimulkandi', 'à¦¶à¦¿à¦®à§à¦²à¦•à¦¾à¦¨à', 'shimulkandiup.kishoreganj.gov.bd'),
+(3118, 347, 'Gajaria', 'à¦—à¦œà¦¾à¦°à¦¿à§Ÿà¦¾', 'gajariaup.kishoreganj.gov.bd'),
+(3119, 347, 'Kalika Prashad', 'à¦•à¦¾à¦²à¦¿à¦•à¦¾ à¦ªà§', 'kalikaprashadup.kishoreganj.gov.bd'),
+(3120, 347, 'Sreenagar', 'à¦¶à§à¦°à§€à¦¨à¦—à¦°', 'sreenagarup.kishoreganj.gov.bd'),
+(3121, 347, 'Shibpur', 'à¦¶à¦¿à¦¬à¦ªà§à¦°', 'shibpurup.kishoreganj.gov.bd');
+INSERT INTO `unions` (`id`, `upazilla_id`, `name`, `bn_name`, `url`) VALUES
+(3122, 348, 'Taljanga', 'à¦¤à¦¾à¦²à¦œà¦¾à¦™à§à¦—à', 'taljangaup.kishoreganj.gov.bd'),
+(3123, 348, 'Rauti', 'à¦°à¦¾à¦‰à¦¤à¦¿', 'rautiup.kishoreganj.gov.bd'),
+(3124, 348, 'Dhola', 'à¦§à¦²à¦¾', 'dholaup.kishoreganj.gov.bd'),
+(3125, 348, 'Jawar', 'à¦œà¦¾à¦“à§Ÿà¦¾à¦°', 'jawarup.kishoreganj.gov.bd'),
+(3126, 348, 'Damiha', 'à¦¦à¦¾à¦®à¦¿à¦¹à¦¾', 'damihaup.kishoreganj.gov.bd'),
+(3127, 348, 'Digdair', 'à¦¦à¦¿à¦—à¦¦à¦¾à¦‡à¦°', 'digdairup.kishoreganj.gov.bd'),
+(3128, 348, 'Tarail-Sachail', 'à¦¤à¦¾à§œà¦¾à¦‡à¦²-à¦¸à¦¾', 'tarailsachailup.kishoreganj.gov.bd'),
+(3129, 349, 'Jinari', 'à¦œà¦¿à¦¨à¦¾à¦°à§€', 'jinariup.kishoreganj.gov.bd'),
+(3130, 349, 'Gobindapur', 'à¦—à§‹à¦¬à¦¿à¦¨à§à¦¦à¦ªà', 'gobindapurup.kishoreganj.gov.bd'),
+(3131, 349, 'Sidhla', 'à¦¸à¦¿à¦¦à¦²à¦¾', 'sidhlaup.kishoreganj.gov.bd'),
+(3132, 349, 'Araibaria', 'à¦†à§œà¦¾à¦‡à¦¬à¦¾à§œà¦¿à', 'araibariaup.kishoreganj.gov.bd'),
+(3133, 349, 'Sahedal', 'à¦¸à¦¾à¦¹à§‡à¦¦à¦²', 'sahedalup.kishoreganj.gov.bd'),
+(3134, 349, 'Pumdi', 'à¦ªà§à¦®à¦¦à¦¿', 'pumdiup.kishoreganj.gov.bd'),
+(3135, 350, 'Jangalia', 'à¦œà¦¾à¦™à§à¦—à¦¾à¦²à¦¿à', 'jangaliaup.kishoreganj.gov.bd'),
+(3136, 350, 'Hosendi', 'à¦¹à§‹à¦¸à§‡à¦¨à¦¦à¦¿', 'hosendiup.kishoreganj.gov.bd'),
+(3137, 350, 'Narandi', 'à¦¨à¦¾à¦°à¦¾à¦¨à§à¦¦à¦¿', 'narandiup.kishoreganj.gov.bd'),
+(3138, 350, 'Shukhia', 'à¦¸à§à¦–à¦¿à§Ÿà¦¾', 'shukhiaup.kishoreganj.gov.bd'),
+(3139, 350, 'Patuavabga', 'à¦ªà¦Ÿà§à§Ÿà¦¾à¦­à¦¾à¦™à', 'patuavabgaup.kishoreganj.gov.bd'),
+(3140, 350, 'Chandipasha', 'à¦šà¦¾à¦¨à§à¦¦à¦¿à¦ªà¦¾à', 'chandipashaup.kishoreganj.gov.bd'),
+(3141, 350, 'Charfaradi', 'à¦šà¦¾à¦°à¦«à¦¾à¦°à¦¾à¦¦à', 'charfaradiup.kishoreganj.gov.bd'),
+(3142, 350, 'Burudia', 'à¦¬à§à§œà§à¦¦à¦¿à§Ÿà¦¾', 'burudiaup.kishoreganj.gov.bd'),
+(3143, 350, 'Egarasindur', 'à¦‡à¦œà¦¾à¦°à¦¾à¦¸à¦¿à¦¨à', 'egarasindurup.kishoreganj.gov.bd'),
+(3144, 350, 'Pakundia', 'à¦ªà¦¾à¦•à¦¨à§à¦¦à¦¿à§Ÿà', 'pakundiaup.kishoreganj.gov.bd'),
+(3145, 351, 'Ramdi', 'à¦°à¦¾à¦®à¦¦à§€', 'ramdiup.kishoreganj.gov.bd'),
+(3146, 351, 'Osmanpur', 'à¦‰à¦›à¦®à¦¾à¦¨à¦ªà§à¦°', 'osmanpurup.kishoreganj.gov.bd'),
+(3147, 351, 'Chhaysuti', 'à¦›à§Ÿà¦¸à§‚à¦¤à§€', 'chhaysutiup.kishoreganj.gov.bd'),
+(3148, 351, 'Salua', 'à¦¸à¦¾à¦²à§à§Ÿà¦¾', 'saluaup.kishoreganj.gov.bd'),
+(3149, 351, 'Gobaria Abdullahpur', 'à¦—à§‹à¦¬à¦°à¦¿à§Ÿà¦¾ à¦†', 'gobariaabdullahpurup.kishoreganj.gov.bd'),
+(3150, 351, 'Faridpur', 'à¦«à¦°à¦¿à¦¦à¦ªà§à¦°', 'faridpurup.kishoreganj.gov.bd'),
+(3151, 352, 'Rashidabad', 'à¦°à¦¶à¦¿à¦¦à¦¾à¦¬à¦¾à¦¦', 'rashidabadup.kishoreganj.gov.bd'),
+(3152, 352, 'Latibabad', 'à¦²à¦¤à¦¿à¦¬à¦¾à¦¬à¦¾à¦¦', 'latibabadup.kishoreganj.gov.bd'),
+(3153, 352, 'Maizkhapan', 'à¦®à¦¾à¦‡à¦œà¦–à¦¾à¦ªà¦¨', 'maizkhapanup.kishoreganj.gov.bd'),
+(3154, 352, 'Mohinanda', 'à¦®à¦¹à¦¿à¦¨à¦¨à§à¦¦', 'mohinandaup.kishoreganj.gov.bd'),
+(3155, 352, 'Joshodal', 'à¦¯à¦¶à§‹à¦¦à¦²', 'joshodalup.kishoreganj.gov.bd'),
+(3156, 352, 'Bowlai', 'à¦¬à§Œà¦²à¦¾à¦‡', 'bowlaiup.kishoreganj.gov.bd'),
+(3157, 352, 'Binnati', 'à¦¬à¦¿à¦¨à§à¦¨à¦¾à¦Ÿà¦¿', 'binnatiup.kishoreganj.gov.bd'),
+(3158, 352, 'Maria', 'à¦®à¦¾à¦°à¦¿à§Ÿà¦¾', 'mariaup.kishoreganj.gov.bd'),
+(3159, 352, 'Chowddoshata', 'à¦šà§Œà¦¦à§à¦¦à¦¶à¦¤', 'chowddoshataup.kishoreganj.gov.bd'),
+(3160, 352, 'Karshakarial', 'à¦•à¦°à§à¦¶à¦¾à¦•à§œà¦¿à', 'karshakarialup.kishoreganj.gov.bd'),
+(3161, 352, 'Danapatuli', 'à¦¦à¦¾à¦¨à¦¾à¦ªà¦¾à¦Ÿà§à', 'danapatuliup.kishoreganj.gov.bd'),
+(3162, 353, 'Kadirjangal', 'à¦•à¦¾à¦¦à¦¿à¦°à¦œà¦™à§à', 'kadirjangalup.kishoreganj.gov.bd'),
+(3163, 353, 'Gujadia', 'à¦—à§à¦œà¦¾à¦¦à¦¿à§Ÿà¦¾', 'gujadiaup.kishoreganj.gov.bd'),
+(3164, 353, 'Kiraton', 'à¦•à¦¿à¦°à¦¾à¦Ÿà¦¨', 'kiratonup.kishoreganj.gov.bd'),
+(3165, 353, 'Barogharia', 'à¦¬à¦¾à¦°à¦˜à§œà¦¿à§Ÿà¦¾', 'baroghariaup.kishoreganj.gov.bd'),
+(3166, 353, 'Niamatpur', 'à¦¨à¦¿à§Ÿà¦¾à¦®à¦¤à¦ªà§à', 'niamatpurup.kishoreganj.gov.bd'),
+(3167, 353, 'Dehunda', 'à¦¦à§‡à¦¹à§à¦¨à§à¦¦à¦¾', 'dehundaup.kishoreganj.gov.bd'),
+(3168, 353, 'Sutarpara', 'à¦¸à§à¦¤à¦¾à¦°à¦ªà¦¾à§œà', 'sutarparaup.kishoreganj.gov.bd'),
+(3169, 353, 'Gunodhar', 'à¦—à§à¦¨à¦§à¦°', 'gunodharup.kishoreganj.gov.bd'),
+(3170, 353, 'Joyka', 'à¦œà§Ÿà¦•à¦¾', 'joykaup.kishoreganj.gov.bd'),
+(3171, 353, 'Zafrabad', 'à¦œà¦¾à¦«à¦°à¦¾à¦¬à¦¾à¦¦', 'zafrabadup.kishoreganj.gov.bd'),
+(3172, 353, 'Noabad', 'à¦¨à§‹à§Ÿà¦¾à¦¬à¦¾à¦¦', 'noabadup.kishoreganj.gov.bd'),
+(3173, 354, 'Kailag', 'à¦•à§ˆà¦²à¦¾à¦—', 'kailagup.kishoreganj.gov.bd'),
+(3174, 354, 'Pirijpur', 'à¦ªà¦¿à¦°à¦¿à¦œà¦ªà§à¦°', 'pirijpurup.kishoreganj.gov.bd'),
+(3175, 354, 'Gazirchar', 'à¦—à¦¾à¦œà§€à¦°à¦šà¦°', 'gazircharup.kishoreganj.gov.bd'),
+(3176, 354, 'Hilochia', 'à¦¹à¦¿à¦²à¦šà¦¿à§Ÿà¦¾', 'hilochiaup.kishoreganj.gov.bd'),
+(3177, 354, 'Maijchar9', 'à¦®à¦¾à¦‡à¦œà¦šà¦°', 'maijchar9up.kishoreganj.gov.bd'),
+(3178, 354, 'Homypur', 'à¦¹à§à¦®à¦¾à¦‡à¦ªà¦°', 'homypurup.kishoreganj.gov.bd'),
+(3179, 354, 'Halimpur', 'à¦¹à¦¾à¦²à¦¿à¦®à¦ªà§à¦°', 'halimpurup.kishoreganj.gov.bd'),
+(3180, 354, 'Sararchar', 'à¦¸à¦°à¦¾à¦°à¦šà¦°', 'sararcharup.kishoreganj.gov.bd'),
+(3181, 354, 'Dilalpur', 'à¦¦à¦¿à¦²à¦¾à¦²à¦ªà§à¦°', 'dilalpurup.kishoreganj.gov.bd'),
+(3182, 354, 'Dighirpar', 'à¦¦à¦¿à¦˜à§€à¦°à¦ªà¦¾à§œ', 'dighirparup.kishoreganj.gov.bd'),
+(3183, 354, 'Boliardi', 'à¦¬à¦²à¦¿à§Ÿà¦¾à¦°à§à¦¦à', 'boliardiup.kishoreganj.gov.bd'),
+(3184, 355, 'Dewghar', 'à¦¦à§‡à¦“à¦˜à¦°', 'dewgharup.kishoreganj.gov.bd'),
+(3185, 355, 'Kastul', 'à¦•à¦¾à¦¸à§à¦¤à§à¦²', 'kastulup.kishoreganj.gov.bd'),
+(3186, 355, 'Austagram Sadar', 'à¦…à¦·à§à¦Ÿà¦—à§à¦°à¦¾à', 'austagramsadarup.kishoreganj.gov.bd'),
+(3187, 355, 'Bangalpara', 'à¦¬à¦¾à¦™à§à¦—à¦¾à¦²à¦ªà', 'bangalparaup.kishoreganj.gov.bd'),
+(3188, 355, 'Kalma', 'à¦•à¦²à¦®à¦¾', 'kalmaup.kishoreganj.gov.bd'),
+(3189, 355, 'Adampur', 'à¦†à¦¦à¦®à¦ªà§à¦°', 'adampurup.kishoreganj.gov.bd'),
+(3190, 355, 'Khyerpur-Abdullahpur', 'à¦–à§Ÿà§‡à¦°à¦ªà§à¦°-à¦†', 'khyerpurabdullahpurup.kishoreganj.gov.bd'),
+(3191, 355, 'Purba Austagram', 'à¦ªà§‚à¦°à§à¦¬ à¦…à¦·à§', 'purbaaustagramup.kishoreganj.gov.bd'),
+(3192, 356, 'Gopdighi', 'à¦—à§‹à¦ªà¦¦à¦¿à¦˜à§€', 'gopdighiup.kishoreganj.gov.bd'),
+(3193, 356, 'Mithamoin', 'à¦®à¦¿à¦ à¦¾à¦®à¦‡à¦¨', 'mithamoinup.kishoreganj.gov.bd'),
+(3194, 356, 'Dhaki', 'à¦¢à¦¾à¦•à§€', 'dhakiup.kishoreganj.gov.bd'),
+(3195, 356, 'Ghagra', 'à¦˜à¦¾à¦—à§œà¦¾', 'ghagraup.kishoreganj.gov.bd'),
+(3196, 356, 'Keoarjore', 'à¦•à§‡à¦“à§Ÿà¦¾à¦°à¦œà§‹à', 'keoarjoreup.kishoreganj.gov.bd'),
+(3197, 356, 'Katkhal', 'à¦•à¦¾à¦Ÿà¦–à¦¾à¦²', 'katkhalup.kishoreganj.gov.bd'),
+(3198, 356, 'Bairati', 'à¦¬à§ˆà¦°à¦¾à¦Ÿà¦¿', 'bairatiup.kishoreganj.gov.bd'),
+(3199, 357, 'Chatirchar', 'à¦›à¦¾à¦¤à¦¿à¦°à¦šà¦°', 'chatircharup.kishoreganj.gov.bd'),
+(3200, 357, 'Guroi', 'à¦—à§à¦°à¦‡', 'guroiup.kishoreganj.gov.bd'),
+(3201, 357, 'Jaraitala', 'à¦œà¦¾à¦°à¦‡à¦¤à¦²à¦¾', 'jaraitalaup.kishoreganj.gov.bd'),
+(3202, 357, 'Nikli Sadar', 'à¦¨à¦¿à¦•à¦²à§€ à¦¸à¦¦à¦°', 'niklisadarup.kishoreganj.gov.bd'),
+(3203, 357, 'Karpasa', 'à¦•à¦¾à¦°à¦ªà¦¾à¦¶à¦¾', 'karpasaup.kishoreganj.gov.bd'),
+(3204, 357, 'Dampara', 'à¦¦à¦¾à¦®à¦ªà¦¾à§œà¦¾', 'damparaup.kishoreganj.gov.bd'),
+(3205, 357, 'Singpur', 'à¦¸à¦¿à¦‚à¦ªà§à¦°', 'singpurup.kishoreganj.gov.bd'),
+(3206, 358, 'Balla', 'à¦¬à¦¾à¦²à§à¦²à¦¾', 'ballaup.manikganj.gov.bd'),
+(3207, 358, 'Gala', 'à¦—à¦¾à¦²à¦¾', 'galaup.manikganj.gov.bd'),
+(3208, 358, 'Chala', 'à¦šà¦¾à¦²à¦¾', 'chalaup.manikganj.gov.bd'),
+(3209, 358, 'Blara', 'à¦¬à¦²à§œà¦¾', 'blaraup.manikganj.gov.bd'),
+(3210, 358, 'Harukandi', 'à¦¹à¦¾à¦°à§à¦•à¦¾à¦¨à§à', 'harukandiup.manikganj.gov.bd'),
+(3211, 358, 'Baira', 'à¦¬à§Ÿà¦°à¦¾', 'bairaup.manikganj.gov.bd'),
+(3212, 358, 'Ramkrishnapur', 'à¦°à¦¾à¦®à¦•à§ƒà¦žà§à¦šà', 'ramkrishnapurup.manikganj.gov.bd'),
+(3213, 358, 'Gopinathpur', 'à¦—à§‹à¦ªà§€à¦¨à¦¾à¦¥à¦ªà', 'gopinathpurup.manikganj.gov.bd'),
+(3214, 358, 'Kanchanpur', 'à¦•à¦¾à¦žà§à¦šà¦¨à¦ªà§à', 'kanchanpurup.manikganj.gov.bd'),
+(3215, 358, 'Lacharagonj', 'à¦²à§‡à¦›à§œà¦¾à¦—à¦žà§à', 'lacharagonjup.manikganj.gov.bd'),
+(3216, 358, 'Sutalorie', 'à¦¸à§à¦¤à¦¾à¦²à§œà§€', 'sutalorieup.manikganj.gov.bd'),
+(3217, 358, 'Dhulsura', 'à¦§à§‚à¦²à¦¶à§à§œà¦¾', 'dhulsuraup.manikganj.gov.bd'),
+(3218, 358, 'Azimnagar', 'à¦†à¦œà¦¿à¦®à¦¨à¦—à¦°', 'azimnagarup.manikganj.gov.bd'),
+(3219, 359, 'Baried', 'à¦¬à¦°à¦¾à¦‡à¦¦', 'bariedup.manikganj.gov.bd'),
+(3220, 359, 'Dighulia', 'à¦¦à¦¿à¦˜à§à¦²à¦¿à§Ÿà¦¾', 'dighuliaup.manikganj.gov.bd'),
+(3221, 359, 'Baliyati', 'à¦¬à¦¾à¦²à¦¿à§Ÿà¦¾à¦Ÿà¦¿', 'baliyatiup.manikganj.gov.bd'),
+(3222, 359, 'Dargram', 'à¦¦à§œà¦—à§à¦°à¦¾à¦®', 'dargramup.manikganj.gov.bd'),
+(3223, 359, 'Tilli', 'à¦¤à¦¿à¦²à§à¦²à§€', 'tilliup.manikganj.gov.bd'),
+(3224, 359, 'Hargaj', 'à¦¹à¦°à¦—à¦œ', 'hargajup.manikganj.gov.bd'),
+(3225, 359, 'Saturia', 'à¦¸à¦¾à¦Ÿà§à¦°à¦¿à§Ÿà¦¾', 'saturiaup.manikganj.gov.bd'),
+(3226, 359, 'Dhankora', 'à¦§à¦¾à¦¨à¦•à§‹à§œà¦¾', 'dhankoraup.manikganj.gov.bd'),
+(3227, 359, 'Fukurhati', 'à¦«à§à¦•à§à¦°à¦¹à¦¾à¦Ÿà', 'fukurhatiup.manikganj.gov.bd'),
+(3228, 360, 'Betila-Mitara', 'à¦¬à§‡à¦¤à¦¿à¦²à¦¾-à¦®à¦¿', 'betilamitaraup.manikganj.gov.bd'),
+(3229, 360, 'Jagir', 'à¦œà¦¾à¦—à§€à¦°', 'jagirup.manikganj.gov.bd'),
+(3230, 360, 'Atigram', 'à¦†à¦Ÿà¦¿à¦—à§à¦°à¦¾à¦®', 'atigramup.manikganj.gov.bd'),
+(3231, 360, 'Dighi', 'à¦¦à¦¿à¦˜à§€', 'dighiup.manikganj.gov.bd'),
+(3232, 360, 'Putile', 'à¦ªà§à¦Ÿà¦¾à¦‡à¦²', 'putileup.manikganj.gov.bd'),
+(3233, 360, 'Hatipara', 'à¦¹à¦¾à¦Ÿà¦¿à¦ªà¦¾à§œà¦¾', 'hatiparaup.manikganj.gov.bd'),
+(3234, 360, 'Vararia', 'à¦­à¦¾à§œà¦¾à¦°à¦¿à§Ÿà¦¾', 'varariaup.manikganj.gov.bd'),
+(3235, 360, 'Nbogram', 'à¦¨à¦¬à¦—à§à¦°à¦¾à¦®', 'nbogramup.manikganj.gov.bd'),
+(3236, 360, 'Garpara', 'à¦—à§œà¦ªà¦¾à§œà¦¾', 'garparaup.manikganj.gov.bd'),
+(3237, 360, 'Krishnapur', 'à¦•à§ƒà¦žà§à¦šà¦ªà§à¦°', 'krishnapurup.manikganj.gov.bd'),
+(3238, 361, 'Paila', 'à¦ªà§Ÿà¦²à¦¾', 'pailaup.manikganj.gov.bd'),
+(3239, 361, 'Shingzuri', 'à¦¸à¦¿à¦‚à¦œà§à§œà§€', 'shingzuriup.manikganj.gov.bd'),
+(3240, 361, 'Baliyakhora', 'à¦¬à¦¾à¦²à¦¿à§Ÿà¦¾à¦–à§‹à', 'baliyakhoraup.manikganj.gov.bd'),
+(3241, 361, 'Gior', 'à¦˜à¦¿à¦“à¦°', 'giorup.manikganj.gov.bd'),
+(3242, 361, 'Bartia', 'à¦¬à§œà¦Ÿà¦¿à§Ÿà¦¾', 'bartiaup.manikganj.gov.bd'),
+(3243, 361, 'Baniazuri', 'à¦¬à¦¾à¦¨à¦¿à§Ÿà¦¾à¦œà§à', 'baniazuriup.manikganj.gov.bd'),
+(3244, 361, 'Nalee', 'à¦¨à¦¾à¦²à§€', 'naleeup.manikganj.gov.bd'),
+(3245, 362, 'Teota', 'à¦¤à§‡à¦“à¦¤à¦¾', 'teotaup.manikganj.gov.bd'),
+(3246, 362, 'Utholi', 'à¦‰à¦¥à¦²à§€', 'utholiup.manikganj.gov.bd'),
+(3247, 362, 'Shibaloy', 'à¦¶à¦¿à¦¬à¦¾à¦²à§Ÿ', 'shibaloyup.manikganj.gov.bd'),
+(3248, 362, 'Ulayel', 'à¦‰à¦²à¦¾à¦‡à¦²', 'ulayelup.manikganj.gov.bd'),
+(3249, 362, 'Aruoa', 'à¦†à¦°à§à§Ÿà¦¾', 'aruoaup.manikganj.gov.bd'),
+(3250, 362, 'Mohadebpur', 'à¦®à¦¹à¦¾à¦¦à§‡à¦¬à¦ªà§à', 'mohadebpurup.manikganj.gov.bd'),
+(3251, 362, 'Shimulia', 'à¦¶à¦¿à¦®à§à¦²à¦¿à§Ÿà¦¾', 'shimuliaup.manikganj.gov.bd'),
+(3252, 363, 'Charkataree', 'à¦šà¦°à¦•à¦¾à¦Ÿà¦¾à¦°à§€', 'charkatareeup.manikganj.gov.bd'),
+(3253, 363, 'Bachamara', 'à¦¬à¦¾à¦šà¦¾à¦®à¦¾à¦°à¦¾', 'bachamaraup.manikganj.gov.bd'),
+(3254, 363, 'Baghutia', 'à¦¬à¦¾à¦˜à§à¦Ÿà¦¿à§Ÿà¦¾', 'baghutiaup.manikganj.gov.bd'),
+(3255, 363, 'Zionpur', 'à¦œà¦¿à§Ÿà¦¨à¦ªà§à¦°', 'zionpurup.manikganj.gov.bd'),
+(3256, 363, 'Khalshi', 'à¦–à¦²à¦¶à§€', 'khalshiup.manikganj.gov.bd'),
+(3257, 363, 'Chakmirpur', 'à¦šà¦•à¦®à¦¿à¦°à¦ªà§à¦°', 'chakmirpurup.manikganj.gov.bd'),
+(3258, 363, 'Klia', 'à¦•à¦²à¦¿à§Ÿà¦¾', 'kliaup.manikganj.gov.bd'),
+(3259, 363, 'Dhamswar', 'à¦§à¦¾à¦®à¦¶à§à¦¬à¦°', 'dhamswarup.manikganj.gov.bd'),
+(3260, 364, 'Buyra', 'à¦¬à¦¾à§Ÿà¦°à¦¾', 'buyraup.manikganj.gov.bd'),
+(3261, 364, 'Talebpur', 'à¦¤à¦¾à¦²à§‡à¦¬à¦ªà§à¦°', 'talebpurup.manikganj.gov.bd'),
+(3262, 364, 'Singiar', 'à¦¸à¦¿à¦‚à¦—à¦¾à¦‡à¦°', 'singiarup.manikganj.gov.bd'),
+(3263, 364, 'Baldhara', 'à¦¬à¦²à¦§à¦¾à¦°à¦¾', 'baldharaup.manikganj.gov.bd'),
+(3264, 364, 'Zamsha', 'à¦œà¦¾à¦®à¦¶à¦¾', 'zamshaup.manikganj.gov.bd'),
+(3265, 364, 'Charigram', 'à¦šà¦¾à¦°à¦¿à¦—à§à¦°à¦¾à', 'charigramup.manikganj.gov.bd'),
+(3266, 364, 'Shayesta', 'à¦¶à¦¾à§Ÿà§‡à¦¸à§à¦¤à¦¾', 'shayestaup.manikganj.gov.bd'),
+(3267, 364, 'Joymonto', 'à¦œà§Ÿà¦®à¦¨à§à¦Ÿà¦ª', 'joymontopup.manikganj.gov.bd'),
+(3268, 364, 'Dhalla', 'à¦§à¦²à§à¦²à¦¾', 'dhallaup.manikganj.gov.bd'),
+(3269, 364, 'Jamirta', 'à¦œà¦¾à¦°à§à¦®à¦¿à¦¤à¦¾', 'jamirtaup.manikganj.gov.bd'),
+(3270, 364, 'Chandhar', 'à¦šà¦¾à¦¨à§à¦¦à¦¹à¦°', 'chandharup.manikganj.gov.bd'),
+(3271, 365, 'Savar', 'à¦¸à¦¾à¦­à¦¾à¦°', 'savarup.dhaka.gov.bd'),
+(3272, 365, 'Birulia', 'à¦¬à¦¿à¦°à§à¦²à¦¿à§Ÿà¦¾', 'birulia.dhaka.gov.bd'),
+(3273, 365, 'Dhamsona', 'à¦§à¦¾à¦®à¦¸à§‹à¦¨à¦¾', 'dhamsonaup.dhaka.gov.bd'),
+(3274, 365, 'Shimulia', 'à¦¶à¦¿à¦®à§à¦²à¦¿à§Ÿà¦¾', 'shimuliaup.dhaka.gov.bd'),
+(3275, 365, 'Ashulia', 'à¦†à¦¶à§à¦²à¦¿à§Ÿà¦¾', 'ashuliaup.dhaka.gov.bd'),
+(3276, 365, 'Yearpur', 'à¦‡à§Ÿà¦¾à¦°à¦ªà§à¦°', 'yearpurup.dhaka.gov.bd'),
+(3277, 365, 'Vakurta', 'à¦­à¦¾à¦•à§à¦°à§à¦¤à¦¾', 'vakurtaup.dhaka.gov.bd'),
+(3278, 365, 'Pathalia', 'à¦ªà¦¾à¦¥à¦¾à¦²à¦¿à§Ÿà¦¾', 'pathaliaup.dhaka.gov.bd'),
+(3279, 365, 'Bongaon', 'à¦¬à¦¨à¦—à¦¾à¦à¦“', 'bongaonup.dhaka.gov.bd'),
+(3280, 365, 'Kaundia', 'à¦•à¦¾à¦‰à¦¨à§à¦¦à¦¿à§Ÿà', 'kaundiaup.dhaka.gov.bd'),
+(3281, 365, 'Tetuljhora', 'à¦¤à§‡à¦à¦¤à§à¦²à¦à§‹à', 'tetuljhora.dhaka.gov.bd'),
+(3282, 365, 'Aminbazar', 'à¦†à¦®à¦¿à¦¨à¦¬à¦¾à¦œà¦¾à', 'aminbazar.dhaka.gov.bd'),
+(3283, 366, 'Chauhat', 'à¦šà§Œà¦¹à¦¾à¦Ÿ', 'chauhatup.dhaka.gov.bd'),
+(3284, 366, 'Amta', 'à¦†à¦®à¦¤à¦¾', 'amtaup.dhaka.gov.bd'),
+(3285, 366, 'Balia', 'à¦¬à¦¾à¦²à¦¿à¦¯à¦¼à¦¾', 'baliaup.dhaka.gov.bd'),
+(3286, 366, 'Jadabpur', 'à¦¯à¦¾à¦¦à¦¬à¦ªà§à¦°', 'jadabpurup.dhaka.gov.bd'),
+(3287, 366, 'Baisakanda', 'à¦¬à¦¾à¦‡à¦¶à¦¾à¦•à¦¾à¦¨à', 'baisakandaup.dhaka.gov.bd'),
+(3288, 366, 'Kushura', 'à¦•à§à¦¶à§à¦°à¦¾', 'kushuraup.dhaka.gov.bd'),
+(3289, 366, 'Gangutia', 'à¦—à¦¾à¦‚à¦—à§à¦Ÿà¦¿à¦¯à', 'gangutiaup.dhaka.gov.bd'),
+(3290, 366, 'Sanora', 'à¦¸à¦¾à¦¨à§‹à¦¡à¦¼à¦¾', 'sanoraup.dhaka.gov.bd'),
+(3291, 366, 'Sutipara', 'à¦¸à§‚à¦¤à¦¿à¦ªà¦¾à¦¡à¦¼à', 'sutiparaup.dhaka.gov.bd'),
+(3292, 366, 'Sombhag', 'à¦¸à§‹à¦®à¦­à¦¾à¦—', 'sombhagup.dhaka.gov.bd'),
+(3293, 366, 'Vararia', 'à¦­à¦¾à¦¡à¦¼à¦¾à¦°à¦¿à¦¯à', 'varariaup.dhaka.gov.bd'),
+(3294, 366, 'Dhamrai', 'à¦§à¦¾à¦®à¦°à¦¾à¦‡', 'dhamraiup.dhaka.gov.bd'),
+(3295, 366, 'Kulla', 'à¦•à§à¦²à§à¦²à¦¾', 'kullaup.dhaka.gov.bd'),
+(3296, 366, 'Rowail', 'à¦°à§‹à¦¯à¦¼à¦¾à¦‡à¦²', 'rowailup.dhaka.gov.bd'),
+(3297, 366, 'Suapur', 'à¦¸à§à¦¯à¦¼à¦¾à¦ªà§à¦°', 'suapurup.dhaka.gov.bd'),
+(3298, 366, 'Nannar', 'à¦¨à¦¾à¦¨à§à¦¨à¦¾à¦°', 'nannarup.dhaka.gov.bd'),
+(3299, 367, 'Hazratpur', 'à¦¹à¦¯à¦°à¦¤à¦ªà§à¦°', 'hazratpurup.dhaka.gov.bd'),
+(3300, 367, 'Kalatia', 'à¦•à¦²à¦¾à¦¤à¦¿à¦¯à¦¼à¦¾', 'kalatiaup.dhaka.gov.bd'),
+(3301, 367, 'Taranagar', 'à¦¤à¦¾à¦°à¦¾à¦¨à¦—à¦°', 'taranagarup.dhaka.gov.bd'),
+(3302, 367, 'Sakta', 'à¦¶à¦¾à¦•à§à¦¤à¦¾', 'saktaup.dhaka.gov.bd'),
+(3303, 367, 'Ruhitpur', 'à¦°à§‹à¦¹à¦¿à¦¤à¦ªà§à¦°', 'ruhitpurup.dhaka.gov.bd'),
+(3304, 367, 'Basta', 'à¦¬à¦¾à¦¸à§à¦¤à¦¾', 'bastaup.dhaka.gov.bd'),
+(3305, 367, 'Kalindi', 'à¦•à¦¾à¦²à¦¿à¦¨à§à¦¦à¦¿', 'kalindiup.dhaka.gov.bd'),
+(3306, 367, 'Zinzira', 'à¦œà¦¿à¦¨à¦œà¦¿à¦°à¦¾', 'zinziraup.dhaka.gov.bd'),
+(3307, 367, 'Suvadda', 'à¦¶à§à¦­à¦¾à¦¢à§à¦¯à¦¾', 'suvaddaup.dhaka.gov.bd'),
+(3308, 367, 'Taghoria', 'à¦¤à§‡à¦˜à¦°à¦¿à¦¯à¦¼à¦¾', 'taghoriaup.dhaka.gov.bd'),
+(3309, 367, 'Konda', 'à¦•à§‹à¦¨à§à¦¡à¦¾', 'kondaup.dhaka.gov.bd'),
+(3310, 367, 'Aganagar', 'à¦†à¦—à¦¾à¦¨à¦—à¦°', 'aganagarup.dhaka.gov.bd'),
+(3311, 368, 'Shikaripara', 'à¦¶à¦¿à¦•à¦¾à¦°à§€à¦ªà¦¾à', 'shikariparaup.dhaka.gov.bd'),
+(3312, 368, 'Joykrishnapur', 'à¦œà¦¯à¦¼à¦•à§ƒà¦·à§à¦£à', 'joykrishnapurup.dhaka.gov.bd'),
+(3313, 368, 'Baruakhali', 'à¦¬à¦¾à¦°à§à¦¯à¦¼à¦¾à¦–à', 'baruakhaliup.dhaka.gov.bd'),
+(3314, 368, 'Nayansree', 'à¦¨à¦¯à¦¼à¦¨à¦¶à§à¦°à§€', 'nayansreeup.dhaka.gov.bd'),
+(3315, 368, 'Sholla', 'à¦¶à§‹à¦²à§à¦²à¦¾', 'shollaup.dhaka.gov.bd'),
+(3316, 368, 'Jantrail', 'à¦¯à¦¨à§à¦¤à§à¦°à¦¾à¦‡à', 'jantrailup.dhaka.gov.bd'),
+(3317, 368, 'Bandura', 'à¦¬à¦¾à¦¨à§à¦¦à§à¦°à¦¾', 'banduraup.dhaka.gov.bd'),
+(3318, 368, 'Kalakopa', 'à¦•à¦²à¦¾à¦•à§‹à¦ªà¦¾', 'kalakopaup.dhaka.gov.bd'),
+(3319, 368, 'Bakshanagar', 'à¦¬à¦•à§à¦¸à¦¨à¦—à¦°', 'bakshanagarup.dhaka.gov.bd'),
+(3320, 368, 'Barrah', 'à¦¬à¦¾à¦¹à§à¦°à¦¾', 'barrahup.dhaka.gov.bd'),
+(3321, 368, 'Kailail', 'à¦•à§ˆà¦²à¦¾à¦‡à¦²', 'kailailup.dhaka.gov.bd'),
+(3322, 368, 'Agla', 'à¦†à¦—à¦²à¦¾', 'aglaup.dhaka.gov.bd'),
+(3323, 368, 'Galimpur', 'à¦—à¦¾à¦²à¦¿à¦®à¦ªà§à¦°', 'galimpurup.dhaka.gov.bd'),
+(3324, 368, 'Churain', 'à¦šà§à¦¡à¦¼à¦¾à¦‡à¦¨', 'churainup.dhaka.gov.bd'),
+(3325, 369, 'Nayabari', 'à¦¨à¦¯à¦¼à¦¾à¦¬à¦¾à¦¡à¦¼à', 'nayabariup.dhaka.gov.bd'),
+(3326, 369, 'Kusumhathi', 'à¦•à§à¦¸à§à¦®à¦¹à¦¾à¦Ÿà', 'kusumhathiup.dhaka.gov.bd'),
+(3327, 369, 'Raipara', 'à¦°à¦¾à¦‡à¦ªà¦¾à¦¡à¦¼à¦¾', 'raiparaup.dhaka.gov.bd'),
+(3328, 369, 'Sutarpara', 'à¦¸à§à¦¤à¦¾à¦°à¦ªà¦¾à¦¡à', 'sutarparaup.dhaka.gov.bd'),
+(3329, 369, 'Narisha', 'à¦¨à¦¾à¦°à¦¿à¦¶à¦¾', 'narishaup.dhaka.gov.bd'),
+(3330, 369, 'Muksudpur', 'à¦®à§à¦•à¦¸à§à¦¦à¦ªà§à', 'muksudpurup.dhaka.gov.bd'),
+(3331, 369, 'Mahmudpur', 'à¦®à¦¾à¦¹à¦®à§à¦¦à¦ªà§à', 'mahmudpurup.dhaka.gov.bd'),
+(3332, 369, 'Bilaspur', 'à¦¬à¦¿à¦²à¦¾à¦¸à¦ªà§à¦°', 'bilaspurup.dhaka.gov.bd'),
+(3333, 370, 'Rampal', 'à¦°à¦¾à¦®à¦ªà¦¾à¦²', 'rampalup.munshiganj.gov.bd'),
+(3334, 370, 'Panchashar', 'à¦ªà¦žà§à¦šà¦¸à¦¾à¦°', 'panchasharup.munshiganj.gov.bd'),
+(3335, 370, 'Bajrajogini', 'à¦¬à¦œà§à¦°à¦¯à§‹à¦—à¦¿à', 'bajrajoginiup.munshiganj.gov.bd'),
+(3336, 370, 'Mohakali', 'à¦®à¦¹à¦¾à¦•à¦¾à¦²à§€', 'mohakaliup.munshiganj.gov.bd'),
+(3337, 370, 'Charkewar', 'à¦šà¦°à¦•à§‡à¦“à§Ÿà¦¾à¦°', 'charkewarup.munshiganj.gov.bd'),
+(3338, 370, 'Mollakandi', 'à¦®à§‹à¦²à§à¦²à¦¾à¦•à¦¾à', 'mollakandiup.munshiganj.gov.bd'),
+(3339, 370, 'Adhara', 'à¦†à¦§à¦¾à¦°à¦¾', 'adharaup.munshiganj.gov.bd'),
+(3340, 370, 'Shiloy', 'à¦¶à¦¿à¦²à¦‡', 'shiloyup.munshiganj.gov.bd'),
+(3341, 370, 'Banglabazar', 'à¦¬à¦¾à¦‚à¦²à¦¾à¦¬à¦¾à¦œà', 'banglabazarup.munshiganj.gov.bd'),
+(3342, 371, 'Baraikhali', 'à¦¬à¦¾à§œà§‡à¦–à¦¾à¦²', 'baraikhaliup.munshiganj.gov.bd'),
+(3343, 371, 'Hashara', 'à¦¹à¦¾à¦¸à¦¾à§œà¦¾', 'hasharaup.munshiganj.gov.bd'),
+(3344, 371, 'Birtara', 'à¦¬à¦¾à§œà¦¤à¦¾à¦°à¦¾', 'birtaraup.munshiganj.gov.bd'),
+(3345, 371, 'Shologhor', 'à¦·à§‹à¦²à¦˜à¦°', 'shologhorup.munshiganj.gov.bd'),
+(3346, 371, 'Sreenagar', 'à¦¶à§à¦°à§€à¦¨à¦—à¦°', 'sreenagarup.munshiganj.gov.bd'),
+(3347, 371, 'Patabhog', 'à¦ªà¦¾à¦¢à¦¾à¦­à§‹à¦—', 'patabhogup.munshiganj.gov.bd'),
+(3348, 371, 'Shamshiddi', 'à¦¶à§à¦¯à¦¾à¦®à¦¸à¦¿à¦¦à', 'shamshiddiup.munshiganj.gov.bd'),
+(3349, 371, 'Kolapara', 'à¦•à§à¦²à¦¾à¦ªà¦¾à§œà¦¾', 'kolaparaup.munshiganj.gov.bd'),
+(3350, 371, 'Vaggakol', 'à¦­à¦¾à¦—à§à¦¯à¦•à§à¦²', 'vaggakolup.munshiganj.gov.bd'),
+(3351, 371, 'Bagra', 'à¦¬à¦¾à¦˜à§œà¦¾', 'bagraup.munshiganj.gov.bd'),
+(3352, 371, 'Rarikhal', 'à¦°à¦¾à§à§€à¦–à¦¾à¦²', 'rarikhalup.munshiganj.gov.bd'),
+(3353, 371, 'Kukutia', 'à¦•à§à¦•à§à¦Ÿà¦¿à§Ÿà¦¾', 'kukutiaup.munshiganj.gov.bd'),
+(3354, 371, 'Atpara', 'à¦†à¦Ÿà¦ªà¦¾à§œà¦¾', 'atparaup.munshiganj.gov.bd'),
+(3355, 371, 'Tantor', 'à¦¤à¦¨à§à¦¤à¦°', 'tantorup.munshiganj.gov.bd'),
+(3356, 372, 'Chitracoat', 'à¦šà¦¿à¦¤à§à¦°à¦•à§‹à¦Ÿ', 'chitracoatup.munshiganj.gov.bd'),
+(3357, 372, 'Sekhornagar', 'à¦¶à§‡à¦–à¦°à¦¨à¦—à¦¾à¦°', 'sekhornagarup.munshiganj.gov.bd'),
+(3358, 372, 'Rajanagar', 'à¦°à¦¾à¦œà¦¾à¦¨à¦—à¦°', 'rajanagarup.munshiganj.gov.bd'),
+(3359, 372, 'Keyain', 'à¦•à§‡à§Ÿà¦¾à¦‡à¦¨', 'keyainup.munshiganj.gov.bd'),
+(3360, 372, 'Basail', 'à¦¬à¦¾à¦¸à¦¾à¦‡à¦²', 'basailup.munshiganj.gov.bd'),
+(3361, 372, 'Baluchar', 'à¦¬à¦¾à¦²à§à¦šà¦°', 'balucharup.munshiganj.gov.bd'),
+(3362, 372, 'Latabdi', 'à¦²à¦¤à¦¾à¦¬à§à¦¦à§€', 'latabdiup.munshiganj.gov.bd'),
+(3363, 372, 'Rasunia', 'à¦°à¦¶à§à¦¨à¦¿à§Ÿà¦¾', 'rasuniaup.munshiganj.gov.bd'),
+(3364, 372, 'Ichhapura', 'à¦‡à¦›à¦¾à¦ªà§à¦°à¦¾', 'ichhapuraup.munshiganj.gov.bd'),
+(3365, 372, 'Bairagadi', 'à¦¬à§Ÿà¦°à¦¾à¦—à¦¾à¦¦à¦¿', 'bairagadiup.munshiganj.gov.bd'),
+(3366, 372, 'Malkhanagar', 'à¦®à¦¾à¦²à¦–à¦¾à¦¨à¦—à¦°', 'malkhanagarup.munshiganj.gov.bd'),
+(3367, 372, 'Madhypara', 'à¦®à¦§à§à¦¯à¦ªà¦¾à§œà¦¾', 'madhyparaup.munshiganj.gov.bd'),
+(3368, 372, 'Kola', 'à¦•à§‹à¦²à¦¾', 'kolaup.munshiganj.gov.bd'),
+(3369, 372, 'Joyinshar', 'à¦œà§ˆà¦¨à¦¸à¦¾à¦°', 'joyinsharup.munshiganj.gov.bd'),
+(3370, 373, 'Medinimandal', 'à¦®à§‡à¦¦à¦¿à¦¨à§€à¦®à¦¨à', 'medinimandalup.munshiganj.gov.bd'),
+(3371, 373, 'Kumarbhog', 'à¦•à§à¦®à¦¾à¦°à¦­à§‹à¦—', 'kumarbhogup.munshiganj.gov.bd'),
+(3372, 373, 'Haldia', 'à¦¹à¦²à¦¦à¦¿à§Ÿà¦¾', 'haldiaup.munshiganj.gov.bd'),
+(3373, 373, 'Kanaksar', 'à¦•à¦¨à¦•à¦¸à¦¾à¦°', 'kanaksarup.munshiganj.gov.bd'),
+(3374, 373, 'Lohajang-Teotia', 'à¦²à§Œà¦¹à¦œà¦‚-à¦¤à§‡à¦“', 'lohajangteotiaup.munshiganj.gov.bd'),
+(3375, 373, 'Bejgaon', 'à¦¬à§‡à¦œà¦—à¦¾à¦à¦“', 'bejgaonup.munshiganj.gov.bd'),
+(3376, 373, 'Baultoli', 'à¦¬à§Œà¦²à¦¤à¦²à§€', 'baultoliup.munshiganj.gov.bd'),
+(3377, 373, 'Khidirpara', 'à¦–à¦¿à¦¦à¦¿à¦°à¦ªà¦¾à§œà', 'khidirparaup.munshiganj.gov.bd'),
+(3378, 373, 'Gaodia', 'à¦—à¦¾à¦“à¦¦à¦¿à§Ÿà¦¾', 'gaodiaup.munshiganj.gov.bd'),
+(3379, 373, 'Kalma', 'à¦•à¦²à¦®à¦¾', 'kalmaup.munshiganj.gov.bd'),
+(3380, 374, 'Gajaria', 'à¦—à¦œà¦¾à¦°à¦¿à§Ÿà¦¾', 'gajariaup.munshiganj.gov.bd'),
+(3381, 374, 'Baushia', 'à¦¬à¦¾à¦‰à¦¶à¦¿à§Ÿà¦¾', 'baushiaup.munshiganj.gov.bd'),
+(3382, 374, 'Vaberchar', 'à¦­à¦¬à§‡à¦°à¦šà¦°', 'vabercharup.munshiganj.gov.bd'),
+(3383, 374, 'Baluakandi', 'à¦¬à¦¾à¦²à§à§Ÿà¦¾à¦•à¦¾à', 'baluakandiup.munshiganj.gov.bd'),
+(3384, 374, 'Tengarchar', 'à¦Ÿà§‡à¦‚à¦—à¦¾à¦°à¦šà¦°', 'tengarcharup.munshiganj.gov.bd'),
+(3385, 374, 'Hosendee', 'à¦¹à§‹à¦¸à§‡à¦¨à§à¦¦à§€', 'hosendeeup.munshiganj.gov.bd'),
+(3386, 374, 'Guagachia', 'à¦—à§à§Ÿà¦¾à¦—à¦¾à¦›à¦¿à', 'guagachiaup.munshiganj.gov.bd'),
+(3387, 374, 'Imampur', 'à¦‡à¦®à¦¾à¦®à¦ªà§à¦°', 'imampurup.munshiganj.gov.bd'),
+(3388, 375, 'Betka', 'à¦¬à§‡à¦¤à¦•à¦¾', 'betkaup.munshiganj.gov.bd'),
+(3389, 375, 'Abdullapur', 'à¦†à¦¬à§à¦¦à§à¦²à§à¦²à', 'abdullapurup.munshiganj.gov.bd'),
+(3390, 375, 'Sonarong Tongibari', 'à¦¸à§‹à¦¨à¦¾à¦°à¦‚ à¦Ÿà¦‚', 'sonarongtongibariup.munshiganj.gov.bd'),
+(3391, 375, 'Autshahi', 'à¦†à¦‰à¦Ÿà¦¶à¦¾à¦¹à§€', 'autshahiup.munshiganj.gov.bd'),
+(3392, 375, 'Arial Baligaon', 'à¦†à§œà¦¿à§Ÿà¦² à¦¬à¦¾à¦²', 'arialbaligaonup.munshiganj.gov.bd'),
+(3393, 375, 'Dhipur', 'à¦§à§€à¦ªà§à¦°', 'dhipurup.munshiganj.gov.bd'),
+(3394, 375, 'Kathadia Shimolia', 'à¦•à¦¾à¦ à¦¾à¦¦à¦¿à§Ÿà¦¾ ', 'kathadiashimoliaup.munshiganj.gov.bd'),
+(3395, 375, 'Joslong', 'à¦¯à¦¶à¦²à¦‚', 'joslongup.munshiganj.gov.bd'),
+(3396, 375, 'Panchgaon', 'à¦ªà¦¾à¦à¦šà¦—à¦¾à¦“', 'panchgaonup.munshiganj.gov.bd'),
+(3397, 375, 'Kamarkhara', 'à¦•à¦¾à¦®à¦¾à¦°à¦–à¦¾à§œà', 'kamarkharaup.munshiganj.gov.bd'),
+(3398, 375, 'Hasailbanari', 'à¦¹à¦¾à¦¸à¦¾à¦‡à¦² à¦¬à¦¾', 'hasailbanariup.munshiganj.gov.bd'),
+(3399, 375, 'Dighirpar', 'à¦¦à¦¿à¦˜à§€à¦°à¦ªà¦¾à§œ', 'dighirparup.munshiganj.gov.bd'),
+(3400, 376, 'Mijanpur', 'à¦®à¦¿à¦œà¦¾à¦¨à¦ªà§à¦°', 'mijanpurup.rajbari.gov.bd'),
+(3401, 376, 'Borat', 'à¦¬à¦°à¦¾à¦Ÿ', 'boratup.rajbari.gov.bd'),
+(3402, 376, 'Chandoni', 'à¦šà¦¨à§à¦¦à¦¨à§€', 'chandoniup.rajbari.gov.bd'),
+(3403, 376, 'Khangonj', 'à¦–à¦¾à¦¨à¦—à¦žà§à¦œ', 'khangonjup.rajbari.gov.bd'),
+(3404, 376, 'Banibaha', 'à¦¬à¦¾à¦¨à§€à¦¬à¦¹', 'banibahaup.rajbari.gov.bd'),
+(3405, 376, 'Dadshee', 'à¦¦à¦¾à¦¦à¦¶à§€', 'dadsheeup.rajbari.gov.bd'),
+(3406, 376, 'Mulghar', 'à¦®à§à¦²à¦˜à¦°', 'mulgharup.rajbari.gov.bd'),
+(3407, 376, 'Basantapur', 'à¦¬à¦¸à¦¨à§à¦¤à¦ªà§à¦°', 'basantapurup.rajbari.gov.bd'),
+(3408, 376, 'Khankhanapur', 'à¦–à¦¾à¦¨à¦–à¦¾à¦¨à¦¾à¦ªà', 'khankhanapurup.rajbari.gov.bd'),
+(3409, 376, 'Alipur', 'à¦†à¦²à§€à¦ªà§à¦°', 'alipurup.rajbari.gov.bd'),
+(3410, 376, 'Ramkantapur', 'à¦°à¦¾à¦®à¦•à¦¾à¦¨à§à¦¤à', 'ramkantapurup.rajbari.gov.bd'),
+(3411, 376, 'Shahidwahabpur', 'à¦¶à¦¹à§€à¦¦à¦“à¦¹à¦¾à¦¬à', 'shahidwahabpurup.rajbari.gov.bd'),
+(3412, 376, 'Panchuria', 'à¦ªà¦¾à¦à¦šà§à¦°à¦¿à¦¯à', 'panchuriaup.rajbari.gov.bd'),
+(3413, 376, 'Sultanpur', 'à¦¸à§à¦²à¦¤à¦¾à¦¨à¦ªà§à', 'sultanpurup.rajbari.gov.bd'),
+(3414, 377, 'Doulatdia', 'à¦¦à§Œà¦²à¦¤à¦¦à¦¿à¦¯à¦¼à', 'doulatdiaup.rajbari.gov.bd'),
+(3415, 377, 'Debugram', 'à¦¦à§‡à¦¬à¦—à§à¦°à¦¾à¦®', 'debugramup.rajbari.gov.bd'),
+(3416, 377, 'Uzancar', 'à¦‰à¦œà¦¾à¦¨à¦šà¦°', 'uzancarup.rajbari.gov.bd'),
+(3417, 377, 'Chotovakla', 'à¦›à§‹à¦Ÿà¦­à¦¾à¦•à¦²à¦¾', 'chotovaklaup.rajbari.gov.bd'),
+(3418, 378, 'Bahadurpur', 'à¦¬à¦¾à¦¹à¦¾à¦¦à§à¦°à¦ªà', 'bahadurpurup.rajbari.gov.bd'),
+(3419, 378, 'Habashpur', 'à¦¹à¦¾à¦¬à¦¾à¦¸à¦ªà§à¦°', 'habashpurup.rajbari.gov.bd'),
+(3420, 378, 'Jashai', 'à¦¯à¦¶à¦¾à¦‡', 'jashaiup.rajbari.gov.bd'),
+(3421, 378, 'Babupara', 'à¦¬à¦¾à¦¬à§à¦ªà¦¾à¦¡à¦¼à', 'babuparaup.rajbari.gov.bd'),
+(3422, 378, 'Mourat', 'à¦®à§Œà¦°à¦¾à¦Ÿ', 'mouratup.rajbari.gov.bd'),
+(3423, 378, 'Patta', 'à¦ªà¦¾à¦Ÿà§à¦Ÿà¦¾', 'pattaup.rajbari.gov.bd'),
+(3424, 378, 'Sarisha', 'à¦¸à¦°à¦¿à¦·à¦¾', 'sarishaup.rajbari.gov.bd'),
+(3425, 378, 'Kalimahar', 'à¦•à¦²à¦¿à¦®à¦¹à¦°', 'kalimaharup.rajbari.gov.bd'),
+(3426, 378, 'Kasbamajhail', 'à¦•à¦¸à¦¬à¦¾à¦®à¦¾à¦œà¦¾à', 'kasbamajhailup.rajbari.gov.bd'),
+(3427, 378, 'Machhpara', 'à¦®à¦¾à¦›à¦ªà¦¾à§œà¦¾', 'machhparaup.rajbari.gov.bd'),
+(3428, 379, 'Islampur', 'à¦‡à¦¸à¦²à¦¾à¦®à¦ªà§à¦°', 'islampurup.rajbari.gov.bd'),
+(3429, 379, 'Baharpur', 'à¦¬à¦¹à¦°à¦ªà§à¦°', 'baharpurup.rajbari.gov.bd'),
+(3430, 379, 'Nawabpur', 'à¦¨à¦¬à¦¾à¦¬à¦ªà§à¦°', 'nawabpurup.rajbari.gov.bd'),
+(3431, 379, 'Narua', 'à¦¨à¦¾à¦°à§à¦¯à¦¼à¦¾', 'naruaup.rajbari.gov.bd'),
+(3432, 379, 'Baliakandi', 'à¦¬à¦¾à¦²à¦¿à¦¯à¦¼à¦¾à¦•à', 'baliakandiup.rajbari.gov.bd'),
+(3433, 379, 'Janjal', 'à¦œà¦™à§à¦—à¦²', 'janjalup.rajbari.gov.bd'),
+(3434, 379, 'Jamalpur', 'à¦œà¦¾à¦®à¦¾à¦²à¦ªà§à¦°', 'jamalpurup.rajbari.gov.bd'),
+(3435, 380, 'Kalukhali', 'à¦•à¦¾à¦²à§à¦–à¦¾à¦²à§€', 'kalukhaliup.rajbari.gov.bd'),
+(3436, 380, 'Ratandia', 'à¦°à¦¤à¦¨à¦¦à¦¿à¦¯à¦¼à¦¾', 'ratandiaup.rajbari.gov.bd'),
+(3437, 380, 'Kalikapur', 'à¦•à¦¾à¦²à¦¿à¦•à¦¾à¦ªà§à', 'kalikapurup.rajbari.gov.bd'),
+(3438, 380, 'Boalia', 'à¦¬à§‹à¦¯à¦¼à¦¾à¦²à¦¿à¦¯à', 'boaliaup.rajbari.gov.bd'),
+(3439, 380, 'Majbari', 'à¦®à¦¾à¦œà¦¬à¦¾à¦¡à¦¼à§€', 'majbariup.rajbari.gov.bd'),
+(3440, 380, 'Madapur', 'à¦®à¦¦à¦¾à¦ªà§à¦°', 'madapurup.rajbari.gov.bd'),
+(3441, 380, 'Shawrail', 'à¦¸à¦¾à¦“à¦°à¦¾à¦‡à¦²', 'shawrailup.rajbari.gov.bd'),
+(3442, 380, 'Mrigi', 'à¦®à§ƒà¦—à§€', 'mrigiup.rajbari.gov.bd'),
+(3443, 381, 'Sirkhara', 'à¦¶à¦¿à§œà¦–à¦¾à§œà¦¾', 'sirkharaup.madaripur.gov.bd'),
+(3444, 381, 'Bahadurpur', 'à¦¬à¦¾à¦¹à¦¾à¦¦à§à¦°à¦ªà', 'bahadurpurup.madaripur.gov.bd'),
+(3445, 381, 'Kunia', 'à¦•à§à¦¨à¦¿à§Ÿà¦¾', 'kuniaup.madaripur.gov.bd'),
+(3446, 381, 'Peyarpur', 'à¦ªà§‡à§Ÿà¦¾à¦°à¦ªà§à¦°', 'peyarpurup.madaripur.gov.bd'),
+(3447, 381, 'Kandua', 'à¦•à§‡à¦¨à§à¦¦à§à§Ÿà¦¾', 'kanduaup.madaripur.gov.bd'),
+(3448, 381, 'Mastofapur', 'à¦®à¦¸à§à¦¤à¦«à¦¾à¦ªà§à', 'mastofapurup.madaripur.gov.bd'),
+(3449, 381, 'Dudkhali', 'à¦¦à§à¦§à¦–à¦¾à¦²à§€', 'dudkhaliup.madaripur.gov.bd'),
+(3450, 381, 'Kalikapur', 'à¦•à¦¾à¦²à¦¿à¦•à¦¾à¦ªà§à', 'kalikapurup.madaripur.gov.bd'),
+(3451, 381, 'Chilarchar', 'à¦›à¦¿à¦²à¦¾à¦°à¦šà¦°', 'chilarcharup.madaripur.gov.bd'),
+(3452, 381, 'Panchkhola', 'à¦ªà¦¾à¦à¦šà¦–à§‹à¦²à¦¾', 'panchkholaup.madaripur.gov.bd'),
+(3453, 381, 'Ghatmajhi', 'à¦˜à¦Ÿà¦®à¦¾à¦à¦¿', 'ghatmajhiup.madaripur.gov.bd'),
+(3454, 381, 'Jhaoudi', 'à¦à¦¾à¦‰à¦¦à§€', 'jhaoudiup.madaripur.gov.bd'),
+(3455, 381, 'Khoajpur', 'à¦–à§‹à§Ÿà¦¾à¦œà¦ªà§à¦°', 'khoajpurup.madaripur.gov.bd'),
+(3456, 381, 'Rasti', 'à¦°à¦¾à¦¸à§à¦¤à¦¿', 'rastiup.madaripur.gov.bd'),
+(3457, 381, 'Dhurail', 'à¦§à§à¦°à¦¾à¦‡à¦²', 'dhurailup.madaripur.gov.bd'),
+(3458, 382, 'Shibchar', 'à¦¶à¦¿à¦¬à¦šà¦°', 'shibcharup.madaripur.gov.bd'),
+(3459, 382, 'Ditiyakhando', 'à¦¦à§à¦¬à¦¿à¦¤à§€à¦¯à¦¼à', 'ditiyakhandoup.madaripur.gov.bd'),
+(3460, 382, 'Nilokhe', 'à¦¨à¦¿à¦²à¦–à¦¿', 'nilokheup.madaripur.gov.bd'),
+(3461, 382, 'Bandarkhola', 'à¦¬à¦¨à§à¦¦à¦°à¦–à§‹à¦²à', 'bandarkholaup.madaripur.gov.bd'),
+(3462, 382, 'Charjanazat', 'à¦šà¦°à¦œà¦¾à¦¨à¦¾à¦œà¦¾à', 'charjanazatup.madaripur.gov.bd'),
+(3463, 382, 'Madbarerchar', 'à¦®à¦¾à¦¦à¦¬à¦°à§‡à¦°à¦šà', 'madbarercharup.madaripur.gov.bd'),
+(3464, 382, 'Panchar', 'à¦ªà¦¾à¦à¦šà¦šà¦°', 'pancharup.madaripur.gov.bd'),
+(3465, 382, 'Sannasirchar', 'à¦¸à¦¨à§à¦¯à¦¾à¦¸à¦¿à¦°à', 'sannasircharup.madaripur.gov.bd'),
+(3466, 382, 'Kathalbari', 'à¦•à¦¾à¦à¦ à¦¾à¦²à¦¬à¦¾à', 'kathalbariup.madaripur.gov.bd'),
+(3467, 382, 'Kutubpur', 'à¦•à§à¦¤à§à¦¬à¦ªà§à¦°', 'kutubpurup.madaripur.gov.bd'),
+(3468, 382, 'Kadirpur', 'à¦•à¦¾à¦¦à¦¿à¦°à¦ªà§à¦°', 'kadirpurup.madaripur.gov.bd'),
+(3469, 382, 'Vhandarikandi', 'à¦­à¦¾à¦¨à§à¦¡à¦¾à¦°à§€à', 'vhandarikandiup.madaripur.gov.bd'),
+(3470, 382, 'Bahertala South', 'à¦¬à¦¹à§‡à¦°à¦¾à¦¤à¦²à¦¾ ', 'bahertalasouthup.madaripur.gov.bd'),
+(3471, 382, 'Baheratala North', 'à¦¬à¦¹à§‡à¦°à¦¾à¦¤à¦²à¦¾ ', 'baheratalanorthup.madaripur.gov.bd'),
+(3472, 382, 'Baskandi', 'à¦¬à¦¾à¦à¦¶à¦•à¦¾à¦¨à§à', 'baskandiup.madaripur.gov.bd'),
+(3473, 382, 'Umedpur', 'à¦‰à¦®à§‡à¦¦à¦ªà§à¦°', 'umedpurup.madaripur.gov.bd'),
+(3474, 382, 'Vhadrasion', 'à¦­à¦¦à§à¦°à¦¾à¦¸à¦¨', 'vhadrasionup.madaripur.gov.bd'),
+(3475, 382, 'Shiruail', 'à¦¶à¦¿à¦°à§à¦¯à¦¼à¦¾à¦‡à', 'shiruailup.madaripur.gov.bd'),
+(3476, 382, 'Dattapara', 'à¦¦à¦¤à§à¦¤à¦ªà¦¾à¦¡à¦¼à', 'dattaparaup.madaripur.gov.bd'),
+(3477, 383, 'Alinagar', 'à¦†à¦²à§€à¦¨à¦—à¦°', 'alinagarup.madaripur.gov.bd'),
+(3478, 383, 'Baligram', 'à¦¬à¦¾à¦²à§€à¦—à§à¦°à¦¾à', 'baligramup.madaripur.gov.bd'),
+(3479, 383, 'Basgari', 'à¦¬à¦¾à¦à¦¶à¦—à¦¾à¦¡à¦¼à', 'basgariup.madaripur.gov.bd'),
+(3480, 383, 'Chardoulatkhan', 'à¦šà¦°à¦¦à§Œà¦²à¦¤à¦–à¦¾à', 'chardoulatkhanup.madaripur.gov.bd'),
+(3481, 383, 'Dashar', 'à¦¡à¦¾à¦¸à¦¾à¦°', 'dasharup.madaripur.gov.bd'),
+(3482, 383, 'Enayetnagor', 'à¦à¦¨à¦¾à¦¯à¦¼à§‡à¦¤à¦¨à', 'enayetnagorup.madaripur.gov.bd'),
+(3483, 383, 'Gopalpur', 'à¦—à§‹à¦ªà¦¾à¦²à¦ªà§à¦°', 'gopalpurup.madaripur.gov.bd'),
+(3484, 383, 'Koyaria', 'à¦•à¦¯à¦¼à¦¾à¦°à¦¿à¦¯à¦¼à', 'koyariaup.madaripur.gov.bd'),
+(3485, 383, 'Kazibakai', 'à¦•à¦¾à¦œà§€à¦¬à¦¾à¦•à¦¾à', 'kazibakaiup.madaripur.gov.bd'),
+(3486, 383, 'Laxmipur', 'à¦²à¦•à§à¦·à§€à¦ªà§à¦°', 'laxmipurup.madaripur.gov.bd'),
+(3487, 383, 'Nabogram', 'à¦¨à¦¬à¦—à§à¦°à¦¾à¦®', 'nabogramup.madaripur.gov.bd'),
+(3488, 383, 'Ramjanpur', 'à¦°à¦®à¦œà¦¾à¦¨à¦ªà§à¦°', 'ramjanpurup.madaripur.gov.bd'),
+(3489, 383, 'Shahebrampur', 'à¦¸à¦¾à¦¹à§‡à¦¬à¦°à¦¾à¦®à', 'shahebrampurup.madaripur.gov.bd'),
+(3490, 383, 'Shikarmongol', 'à¦¶à¦¿à¦•à¦¾à¦°à¦®à¦™à§à', 'shikarmongolup.madaripur.gov.bd'),
+(3491, 384, 'Haridasdi-Mahendrodi', 'à¦¹à¦°à¦¿à¦¦à¦¾à¦¸à¦¦à§€-', 'haridasdi-mahendrodiup.madaripur.gov.bd'),
+(3492, 384, 'Kadambari', 'à¦•à¦¦à¦®à¦¬à¦¾à§œà§€', 'kadambariup.madaripur.gov.bd'),
+(3493, 384, 'Bajitpur', 'à¦¬à¦¾à¦œà¦¿à¦¤à¦ªà§à¦°', 'bajitpurup.madaripur.gov.bd'),
+(3494, 384, 'Amgram', 'à¦†à¦®à¦—à§à¦°à¦¾à¦®', 'amgramup.madaripur.gov.bd'),
+(3495, 384, 'Rajoir', 'à¦°à¦¾à¦œà§ˆà¦°', 'rajoirup.madaripur.gov.bd'),
+(3496, 384, 'Khaliya', 'à¦–à¦¾à¦²à¦¿à§Ÿà¦¾', 'khaliyaup.madaripur.gov.bd'),
+(3497, 384, 'Ishibpur', 'à¦‡à¦¶à¦¿à¦¬à¦ªà§à¦°', 'ishibpurup.madaripur.gov.bd'),
+(3498, 384, 'Badarpasa', 'à¦¬à¦¦à¦°à¦ªà¦¾à¦¶à¦¾', 'badarpasaup.madaripur.gov.bd'),
+(3499, 384, 'Kabirajpur', 'à¦•à¦¬à¦¿à¦°à¦¾à¦œà¦ªà§à', 'kabirajpurup.madaripur.gov.bd'),
+(3500, 384, 'Hosenpur', 'à¦¹à§‹à¦¸à§‡à¦¨à¦ªà§à¦°', 'hosenpurup.madaripur.gov.bd'),
+(3501, 384, 'Paikpara', 'à¦ªà¦¾à¦‡à¦•à¦ªà¦¾à§œà¦¾', 'paikparaup.madaripur.gov.bd'),
+(3502, 385, 'Jalalabad', 'à¦œà¦¾à¦²à¦¾à¦²à¦¾à¦¬à¦¾à', 'jalalabadup.gopalganj.gov.bd'),
+(3503, 385, 'Shuktail', 'à¦¶à§à¦•à¦¤à¦¾à¦‡à¦²', 'shuktailup.gopalganj.gov.bd'),
+(3504, 385, 'Chandradighalia', 'à¦šà¦¨à§à¦¦à§à¦°à¦¦à¦¿à', 'chandradighaliaup.gopalganj.gov.bd'),
+(3505, 385, 'Gopinathpur', 'à¦—à§‹à¦ªà§€à¦¨à¦¾à¦¥à¦ªà', 'gopinathpurup.gopalganj.gov.bd'),
+(3506, 385, 'Paikkandi', 'à¦ªà¦¾à¦‡à¦•à¦•à¦¾à¦¨à§à', 'paikkandiup.gopalganj.gov.bd'),
+(3507, 385, 'Urfi', 'à¦‰à¦°à¦«à¦¿', 'urfiup.gopalganj.gov.bd'),
+(3508, 385, 'Lotifpur', 'à¦²à¦¤à¦¿à¦«à¦ªà§à¦°', 'lotifpurup.gopalganj.gov.bd'),
+(3509, 385, 'Satpar', 'à¦¸à¦¾à¦¤à¦ªà¦¾à¦¡à¦¼', 'satparup.gopalganj.gov.bd'),
+(3510, 385, 'Sahapur', 'à¦¸à¦¾à¦¹à¦¾à¦ªà§à¦°', 'sahapurup.gopalganj.gov.bd'),
+(3511, 385, 'Horidaspur', 'à¦¹à¦°à¦¿à¦¦à¦¾à¦¸à¦ªà§à', 'horidaspurup.gopalganj.gov.bd'),
+(3512, 385, 'Ulpur', 'à¦‰à¦²à¦ªà§à¦°', 'ulpurup.gopalganj.gov.bd'),
+(3513, 385, 'Nizra', 'à¦¨à¦¿à¦œà¦¡à¦¼à¦¾', 'nizraup.gopalganj.gov.bd'),
+(3514, 385, 'Karpara', 'à¦•à¦°à¦ªà¦¾à¦¡à¦¼à¦¾', 'karparaup.gopalganj.gov.bd'),
+(3515, 385, 'Durgapur', 'à¦¦à§à¦°à§à¦—à¦¾à¦ªà§à', 'durgapurup.gopalganj.gov.bd'),
+(3516, 385, 'Kajulia', 'à¦•à¦¾à¦œà§à¦²à¦¿à¦¯à¦¼à', 'kajuliaup.gopalganj.gov.bd'),
+(3517, 385, 'Majhigati', 'à¦®à¦¾à¦à¦¿à¦—à¦¾à¦¤à§€', 'majhigatiup.gopalganj.gov.bd'),
+(3518, 385, 'Roghunathpur', 'à¦°à¦˜à§à¦¨à¦¾à¦¥à¦ªà§à', 'roghunathpurup.gopalganj.gov.bd'),
+(3519, 385, 'Gobra', 'à¦—à§‹à¦¬à¦°à¦¾', 'gobraup.gopalganj.gov.bd'),
+(3520, 385, 'Borashi', 'à¦¬à§‹à¦¡à¦¼à¦¾à¦¶à§€', 'borashiup.gopalganj.gov.bd'),
+(3521, 385, 'Kati', 'à¦•à¦¾à¦ à¦¿', 'katiup.gopalganj.gov.bd'),
+(3522, 385, 'Boultali', 'à¦¬à§Œà¦²à¦¤à¦²à§€', 'boultaliup.gopalganj.gov.bd'),
+(3523, 386, 'Kashiani', 'à¦•à¦¾à¦¶à¦¿à§Ÿà¦¾à¦¨à§€', 'kashianiup.gopalganj.gov.bd'),
+(3524, 386, 'Hatiara', 'à¦¹à¦¾à¦¤à¦¿à§Ÿà¦¾à§œà¦¾', 'hatiaraup.gopalganj.gov.bd'),
+(3525, 386, 'Fukura', 'à¦«à§à¦•à¦°à¦¾', 'fukuraup.gopalganj.gov.bd'),
+(3526, 386, 'Rajpat', 'à¦°à¦¾à¦œà¦ªà¦¾à¦Ÿ', 'rajpatup.gopalganj.gov.bd'),
+(3527, 386, 'Bethuri', 'à¦¬à§‡à¦¥à§à§œà§€', 'bethuriup.gopalganj.gov.bd'),
+(3528, 386, 'Nijamkandi', 'à¦¨à¦¿à¦œà¦¾à¦®à¦•à¦¾à¦¨à', 'nijamkandiup.gopalganj.gov.bd'),
+(3529, 386, 'Sajail', 'à¦¸à¦¾à¦œà¦¾à¦‡à¦²', 'sajailup.gopalganj.gov.bd'),
+(3530, 386, 'Mamudpur', 'à¦®à¦¾à¦¹à¦®à§à¦¦à¦ªà§à', 'mamudpurup.gopalganj.gov.bd'),
+(3531, 386, 'Maheshpur', 'à¦®à¦¹à§‡à¦¶à¦ªà§à¦°', 'maheshpurup.gopalganj.gov.bd'),
+(3532, 386, 'Orakandia', 'à¦“à§œà¦¾à¦•à¦¾à¦¨à§à¦¦à', 'orakandiaup.gopalganj.gov.bd'),
+(3533, 386, 'Parulia', 'à¦ªà¦¾à¦°à§à¦²à¦¿à§Ÿà¦¾', 'paruliaup.gopalganj.gov.bd'),
+(3534, 386, 'Ratail', 'à¦°à¦¾à¦¤à¦‡à¦²', 'ratailup.gopalganj.gov.bd'),
+(3535, 386, 'Puisur', 'à¦ªà§à¦‡à¦¶à§à¦°', 'puisurup.gopalganj.gov.bd'),
+(3536, 386, 'Singa', 'à¦¸à¦¿à¦‚à¦—à¦¾', 'singaup.gopalganj.gov.bd'),
+(3537, 387, 'Kushli', 'à¦•à§à¦¶à¦²à§€', 'kushliup.gopalganj.gov.bd'),
+(3538, 387, 'Gopalpur', 'à¦—à§‹à¦ªà¦¾à¦²à¦ªà§à¦°', 'gopalpurup.gopalganj.gov.bd'),
+(3539, 387, 'Patgati', 'à¦ªà¦¾à¦Ÿà¦—à¦¾à¦¤à§€', 'patgatiup.gopalganj.gov.bd'),
+(3540, 387, 'Borni', 'à¦¬à¦°à§à¦£à¦¿', 'borniup.gopalganj.gov.bd'),
+(3541, 387, 'Dumaria', 'à¦¡à§à¦®à¦°à¦¿à§Ÿà¦¾', 'dumariaup.gopalganj.gov.bd'),
+(3542, 388, 'Sadullapur', 'à¦¸à¦¾à¦¦à§à¦²à§à¦²à¦¾à', 'sadullapurup.gopalganj.gov.bd'),
+(3543, 388, 'Ramshil', 'à¦°à¦¾à¦®à¦¶à§€à¦²', 'ramshilup.gopalganj.gov.bd'),
+(3544, 388, 'Bandhabari', 'à¦¬à¦¾à¦¨à§à¦§à¦¾à¦¬à¦¾à', 'bandhabariup.gopalganj.gov.bd'),
+(3545, 388, 'Kolabari', 'à¦•à¦²à¦¾à¦¬à¦¾à¦¡à¦¼à§€', 'kolabariup.gopalganj.gov.bd'),
+(3546, 388, 'Kushla', 'à¦•à§à¦¶à¦²à¦¾', 'kushlaup.gopalganj.gov.bd'),
+(3547, 388, 'Amtoli', 'à¦†à¦®à¦¤à¦²à§€', 'amtoliup.gopalganj.gov.bd'),
+(3548, 388, 'Pinjuri', 'à¦ªà¦¿à¦žà§à¦œà§à¦°à§€', 'pinjuriup.gopalganj.gov.bd'),
+(3549, 388, 'Ghaghor', 'à¦˜à¦¾à¦˜à¦°', 'ghaghorup.gopalganj.gov.bd'),
+(3550, 388, 'Radhaganj', 'à¦°à¦¾à¦§à¦¾à¦—à¦žà§à¦œ', 'radhaganjup.gopalganj.gov.bd'),
+(3551, 388, 'Hiron', 'à¦¹à¦¿à¦°à¦£', 'hironup.gopalganj.gov.bd'),
+(3552, 388, 'Kandi', 'à¦•à¦¾à¦¨à§à¦¦à¦¿', 'kandiup.gopalganj.gov.bd'),
+(3553, 389, 'Ujani', 'à¦‰à¦œà¦¾à¦¨à§€', 'ujaniup.gopalganj.gov.bd'),
+(3554, 389, 'Nanikhir', 'à¦¨à¦¨à§€à¦•à§à¦·à§€à¦°', 'nanikhirup.gopalganj.gov.bd'),
+(3555, 389, 'Dignagar', 'à¦¦à¦¿à¦—à¦¨à¦—à¦°', 'dignagarup.gopalganj.gov.bd'),
+(3556, 389, 'Poshargati', 'à¦ªà¦¶à¦¾à¦°à¦—à¦¾à¦¤à¦¿', 'poshargatiup.gopalganj.gov.bd'),
+(3557, 389, 'Gobindopur', 'à¦—à§‹à¦¬à¦¿à¦¨à§à¦¦à¦ªà', 'gobindopurup.gopalganj.gov.bd'),
+(3558, 389, 'Khandarpara', 'à¦–à¦¾à¦¨à§à¦¦à¦¾à¦°à¦ªà', 'khandarparaup.gopalganj.gov.bd'),
+(3559, 389, 'Bohugram', 'à¦¬à¦¹à§à¦—à§à¦°à¦¾à¦®', 'bohugramup.gopalganj.gov.bd'),
+(3560, 389, 'Banshbaria', 'à¦¬à¦¾à¦¶à¦à¦¬à¦¾à§œà¦¿à', 'banshbariaup.gopalganj.gov.bd'),
+(3561, 389, 'Vabrashur', 'à¦­à¦¾à¦¬à§œà¦¾à¦¶à§à¦°', 'vabrashurup.gopalganj.gov.bd'),
+(3562, 389, 'Moharajpur', 'à¦®à¦¹à¦¾à¦°à¦¾à¦œà¦ªà§à', 'moharajpurup.gopalganj.gov.bd'),
+(3563, 389, 'Batikamari', 'à¦¬à¦¾à¦Ÿà¦¿à¦•à¦¾à¦®à¦¾à', 'batikamariup.gopalganj.gov.bd'),
+(3564, 389, 'Jalirpar', 'à¦œà¦²à¦¿à¦°à¦ªà¦¾à§œ', 'jalirparup.gopalganj.gov.bd'),
+(3565, 389, 'Raghdi', 'à¦°à¦¾à¦˜à¦¦à§€', 'raghdiup.gopalganj.gov.bd'),
+(3566, 389, 'Gohala', 'à¦—à§‹à¦¹à¦¾à¦²à¦¾', 'gohalaup.gopalganj.gov.bd'),
+(3567, 389, 'Mochna', 'à¦®à§‹à¦šà¦¨à¦¾', 'mochnaup.gopalganj.gov.bd'),
+(3568, 389, 'Kashalia', 'à¦•à¦¾à¦¶à¦¾à¦²à¦¿à§Ÿà¦¾', 'kashaliaup.gopalganj.gov.bd'),
+(3569, 390, 'Ishangopalpur', 'à¦ˆà¦¶à¦¾à¦¨à¦—à§‹à¦ªà¦¾à', 'ishangopalpurup.faridpur.gov.bd'),
+(3570, 390, 'Charmadbdia', 'à¦šà¦°à¦®à¦¾à¦§à¦¬à¦¦à¦¿à', 'charmadbdiaup.faridpur.gov.bd'),
+(3571, 390, 'Aliabad', 'à¦†à¦²à¦¿à§Ÿà¦¾à¦¬à¦¾à¦¦', 'aliabadup.faridpur.gov.bd'),
+(3572, 390, 'Uttarchannel', 'à¦¨à¦°à§à¦¥à¦šà§à¦¯à¦¾à', 'uttarchannelup.faridpur.gov.bd'),
+(3573, 390, 'Decreerchar', 'à¦¡à¦¿à¦•à§à¦°à¦¿à¦°à¦šà', 'decreercharup.faridpur.gov.bd'),
+(3574, 390, 'Majchar', 'à¦®à¦¾à¦šà§à¦šà¦°', 'majcharup.faridpur.gov.bd'),
+(3575, 390, 'Krishnanagar', 'à¦•à§ƒà¦·à§à¦£à¦¨à¦—à¦°', 'krishnanagarup.faridpur.gov.bd'),
+(3576, 390, 'Ambikapur', 'à¦…à¦®à§à¦¬à¦¿à¦•à¦¾à¦ªà', 'ambikapurup.faridpur.gov.bd'),
+(3577, 390, 'Kanaipur', 'à¦•à¦¾à¦¨à¦¾à¦‡à¦ªà§à¦°', 'kanaipurup.faridpur.gov.bd'),
+(3578, 390, 'Kaijuri', 'à¦•à§ˆà¦œà§à¦°à§€', 'kaijuriup.faridpur.gov.bd'),
+(3579, 390, 'Greda', 'à¦—à§‡à¦°à¦¦à¦¾', 'gredaup.faridpur.gov.bd'),
+(3580, 391, 'Buraich', 'à¦¬à§à§œà¦¾à¦‡à¦š', 'buraichup.faridpur.gov.bd'),
+(3581, 391, 'Alfadanga', 'à¦†à¦²à¦«à¦¾à¦¡à¦¾à¦™à§à', 'alfadangaup.faridpur.gov.bd'),
+(3582, 391, 'Tagarbanda', 'à¦Ÿà¦—à¦°à¦¬à¦¨à§à¦¦', 'tagarbandaup.faridpur.gov.bd'),
+(3583, 391, 'Bana', 'à¦¬à¦¾à¦¨à¦¾', 'banaup.faridpur.gov.bd'),
+(3584, 391, 'Panchuria', 'à¦ªà¦¾à¦à¦šà§à§œà¦¿à§Ÿà', 'panchuriaup.faridpur.gov.bd'),
+(3585, 391, 'Gopalpur', 'à¦—à§‹à¦ªà¦¾à¦²à¦ªà§à¦°', 'gopalpurup.faridpur.gov.bd'),
+(3586, 392, 'Boalmari', 'à¦¬à§‹à§Ÿà¦¾à¦²à¦®à¦¾à¦°à', 'boalmariup.faridpur.gov.bd'),
+(3587, 392, 'Dadpur', 'à¦¦à¦¾à¦¦à¦ªà§à¦°', 'dadpurup.faridpur.gov.bd'),
+(3588, 392, 'Chatul', 'à¦šà¦¤à§à¦²', 'chatulup.faridpur.gov.bd'),
+(3589, 392, 'Ghoshpur', 'à¦˜à§‡à¦¾à¦·à¦ªà§à¦°', 'ghoshpurup.faridpur.gov.bd'),
+(3590, 392, 'Gunbaha', 'à¦—à§à¦¨à¦¬à¦¹à¦¾', 'gunbahaup.faridpur.gov.bd'),
+(3591, 392, 'Chandpur', 'à¦šà¦¾à¦à¦¦à¦ªà§à¦°', 'chandpurup.faridpur.gov.bd'),
+(3592, 392, 'Parameshwardi', 'à¦ªà¦°à¦®à§‡à¦¶à§à¦¬à¦°à', 'parameshwardiup.faridpur.gov.bd'),
+(3593, 392, 'Satair', 'à¦¸à¦¾à¦¤à§ˆà¦°', 'satairup.faridpur.gov.bd'),
+(3594, 392, 'Rupapat', 'à¦°à§‚à¦ªà¦¾à¦ªà¦¾à¦¤', 'rupapatup.faridpur.gov.bd'),
+(3595, 392, 'Shekhar', 'à¦¶à§‡à¦–à¦°', 'shekharup.faridpur.gov.bd'),
+(3596, 392, 'Moyna', 'à¦®à§Ÿà¦¨à¦¾', 'moynaup.faridpur.gov.bd'),
+(3597, 393, 'Char Bisnopur', 'à¦šà¦° à¦¬à¦¿à¦·à§à¦£à§', 'charbisnopurup.faridpur.gov.bd'),
+(3598, 393, 'Akoter Char', 'à¦†à¦•à§‹à¦Ÿà§‡à¦° à¦šà¦°', 'akotercharup.faridpur.gov.bd'),
+(3599, 393, 'Char Nasirpur', 'à¦šà¦° à¦¨à¦¾à¦¸à¦¿à¦°à¦ª', 'charnasirpurup.faridpur.gov.bd'),
+(3600, 393, 'Narikel Bariya', 'à¦¨à¦¾à¦°à¦¿à¦•à§‡à¦² à¦¬', 'narikelbariyaup.faridpur.gov.bd'),
+(3601, 393, 'Bhashanchar', 'à¦­à¦¾à¦·à¦¾à¦¨à¦šà¦°', 'bhashancharup.faridpur.gov.bd'),
+(3602, 393, 'Krishnapur', 'à¦•à§ƒà¦·à§à¦£à¦ªà§à¦°', 'krishnapurup.faridpur.gov.bd'),
+(3603, 393, 'Sadarpur', 'à¦¸à¦¦à¦°à¦ªà§à¦°', 'sadarpurup.faridpur.gov.bd'),
+(3604, 393, 'Char Manair', 'à¦šà¦° à¦®à¦¾à¦¨à¦¾à¦‡à¦°', 'charmanairup.faridpur.gov.bd'),
+(3605, 393, 'Dhaukhali', 'à¦¢à§‡à¦‰à¦–à¦¾à¦²à§€', 'dhaukhaliup.faridpur.gov.bd'),
+(3606, 394, 'Charjashordi', 'à¦šà¦°à¦¯à¦¶à§‹à¦°à¦¦à§€', 'charjashordiup.faridpur.gov.bd'),
+(3607, 394, 'Purapara', 'à¦ªà§à¦°à¦¾à¦ªà¦¾à§œà¦¾', 'puraparaup.faridpur.gov.bd'),
+(3608, 394, 'Laskardia', 'à¦²à¦¸à§à¦•à¦°à¦¦à¦¿à§Ÿà', 'laskardiaup.faridpur.gov.bd'),
+(3609, 394, 'Ramnagar', 'à¦°à¦¾à¦®à¦¨à¦—à¦°', 'ramnagarup.faridpur.gov.bd'),
+(3610, 394, 'Kaichail', 'à¦•à¦¾à¦‡à¦šà¦¾à¦‡à¦²', 'kaichailup.faridpur.gov.bd'),
+(3611, 394, 'Talma', 'à¦¤à¦¾à¦²à¦®à¦¾', 'talmaup.faridpur.gov.bd'),
+(3612, 394, 'Fulsuti', 'à¦«à§à¦²à¦¸à§à¦¤à¦¿', 'fulsutiup.faridpur.gov.bd'),
+(3613, 394, 'Dangi', 'à¦¡à¦¾à¦™à§à¦—à§€', 'dangiup.faridpur.gov.bd'),
+(3614, 394, 'Kodalia Shohidnagar', 'à¦•à§‹à¦¦à¦¾à¦²à¦¿à§Ÿà¦¾ ', 'kodaliashohidnagarup.faridpur.gov.bd'),
+(3615, 395, 'Gharua', 'à¦˜à¦¾à¦°à§à§Ÿà¦¾', 'gharuaup.faridpur.gov.bd'),
+(3616, 395, 'Nurullagonj', 'à¦¨à§à¦°à§à¦²à§à¦¯à¦¾à', 'nurullagonjup.faridpur.gov.bd'),
+(3617, 395, 'Manikdha', 'à¦®à¦¾à¦¨à¦¿à¦•à¦¦à¦¹', 'manikdhaup.faridpur.gov.bd'),
+(3618, 395, 'Kawlibera', 'à¦•à¦¾à¦‰à¦²à¦¿à¦¬à§‡à§œà', 'kawliberaup.faridpur.gov.bd'),
+(3619, 395, 'Nasirabad', 'à¦¨à¦¾à¦›à¦¿à¦°à¦¾à¦¬à¦¾à', 'nasirabadup.faridpur.gov.bd'),
+(3620, 395, 'Tujerpur', 'à¦¤à§à¦œà¦¾à¦°à¦ªà§à¦°', 'tujerpurup.faridpur.gov.bd'),
+(3621, 395, 'Algi', 'à¦†à¦²à¦—à§€', 'algiup.faridpur.gov.bd'),
+(3622, 395, 'Chumurdi', 'à¦šà§à¦®à§à¦°à¦¦à§€', 'chumurdiup.faridpur.gov.bd'),
+(3623, 395, 'Kalamridha', 'à¦•à¦¾à¦²à¦¾à¦®à§ƒà¦§à¦¾', 'kalamridhaup.faridpur.gov.bd'),
+(3624, 395, 'Azimnagor', 'à¦†à¦œà¦¿à¦®à¦¨à¦—à¦°', 'azimnagorup.faridpur.gov.bd'),
+(3625, 395, 'Chandra', 'à¦šà¦¾à¦¨à§à¦¦à§à¦°à¦¾', 'chandraup.faridpur.gov.bd'),
+(3626, 395, 'Hamirdi', 'à¦¹à¦¾à¦®à¦¿à¦°à¦¦à§€', 'hamirdiup.faridpur.gov.bd'),
+(3627, 396, 'Gazirtek', 'à¦—à¦¾à¦œà§€à¦°à¦Ÿà§‡à¦•', 'gazirtekup.faridpur.gov.bd'),
+(3628, 396, 'Char Bhadrasan', 'à¦šà¦° à¦­à¦¦à§à¦°à¦¾à¦¸', 'charbhadrasanup.faridpur.gov.bd'),
+(3629, 396, 'Char Harirampur', 'à¦šà¦° à¦¹à¦°à¦¿à¦°à¦¾à¦®', 'charharirampurup.faridpur.gov.bd'),
+(3630, 396, 'Char Jahukanda', 'à¦šà¦° à¦à¦¾à¦‰à¦•à¦¾à¦¨', 'charjahukandaup.faridpur.gov.bd'),
+(3631, 397, 'Madhukhali', 'à¦®à¦§à§à¦–à¦¾à¦²à§€', 'madhukhaliup.faridpur.gov.bd'),
+(3632, 397, 'Jahapur', 'à¦œà¦¾à¦¹à¦¾à¦ªà§à¦°', 'jahapurup.faridpur.gov.bd'),
+(3633, 397, 'Gazna', 'à¦—à¦¾à¦œà¦¨à¦¾', 'gaznaup.faridpur.gov.bd'),
+(3634, 397, 'Megchami', 'à¦®à§‡à¦—à¦šà¦¾à¦®à§€', 'megchamiup.faridpur.gov.bd'),
+(3635, 397, 'Raipur', 'à¦°à¦¾à§Ÿà¦ªà§à¦°', 'raipurup.faridpur.gov.bd'),
+(3636, 397, 'Bagat', 'à¦¬à¦¾à¦—à¦¾à¦Ÿ', 'bagatup.faridpur.gov.bd'),
+(3637, 397, 'Dumain', 'à¦¡à§à¦®à¦¾à¦‡à¦¨', 'dumainup.faridpur.gov.bd'),
+(3638, 397, 'Nowpara', 'à¦¨à¦“à¦ªà¦¾à§œà¦¾', 'nowparaup.faridpur.gov.bd'),
+(3639, 397, 'Kamarkhali', 'à¦•à¦¾à¦®à¦¾à¦°à¦–à¦¾à¦²à', 'kamarkhaliup.faridpur.gov.bd'),
+(3640, 398, 'Bhawal', 'à¦­à¦¾à¦“à§Ÿà¦¾à¦²', 'bhawalup.faridpur.gov.bd'),
+(3641, 398, 'Atghar', 'à¦†à¦Ÿà¦˜à¦°', 'atgharup.faridpur.gov.bd'),
+(3642, 398, 'Mazadia', 'à¦®à¦¾à¦à¦¾à¦°à¦¦à¦¿à§Ÿà', 'mazadiaup.faridpur.gov.bd'),
+(3643, 398, 'Ballabhdi', 'à¦¬à¦²à§à¦²à¦­à¦¦à§€', 'ballabhdiup.faridpur.gov.bd'),
+(3644, 398, 'Gatti', 'à¦—à¦Ÿà§à¦Ÿà¦¿', 'gattiup.faridpur.gov.bd'),
+(3645, 398, 'Jadunandi', 'à¦¯à¦¦à§à¦¨à¦¨à§à¦¦à§€', 'jadunandiup.faridpur.gov.bd'),
+(3646, 398, 'Ramkantapur', 'à¦°à¦¾à¦®à¦•à¦¾à¦¨à§à¦¤à', 'ramkantapurup.faridpur.gov.bd'),
+(3647, 398, 'Sonapur', 'à¦¸à§‹à¦¨à¦¾à¦ªà§à¦°', 'sonapurup.faridpur.gov.bd'),
+(3648, 399, 'Panchagarh Sadar', 'à¦ªà¦žà§à¦šà¦—à¦¡à¦¼ à¦¸', 'panchagarhsadarup.panchagarh.gov.bd'),
+(3649, 399, 'Satmara', 'à¦¸à¦¾à¦¤à¦®à§‡à¦°à¦¾', 'satmaraup.panchagarh.gov.bd'),
+(3650, 399, 'Amarkhana', 'à¦…à¦®à¦°à¦–à¦¾à¦¨à¦¾', 'amarkhanaup.panchagarh.gov.bd'),
+(3651, 399, 'Haribhasa', 'à¦¹à¦¾à¦¡à¦¼à¦¿à¦­à¦¾à¦¸à', 'haribhasaup.panchagarh.gov.bd'),
+(3652, 399, 'Chaklahat', 'à¦šà¦¾à¦•à¦²à¦¾à¦¹à¦¾à¦Ÿ', 'chaklahatup.panchagarh.gov.bd'),
+(3653, 399, 'Hafizabad', 'à¦¹à¦¾à¦«à¦¿à¦œà¦¾à¦¬à¦¾à', 'hafizabadup.panchagarh.gov.bd'),
+(3654, 399, 'Kamat Kajol Dighi', 'à¦•à¦¾à¦®à¦¾à¦¤ à¦•à¦¾à¦œ', 'kamatkajoldighiup.panchagarh.gov.bd'),
+(3655, 399, 'Dhakkamara', 'à¦§à¦¾à¦•à§à¦•à¦¾à¦®à¦¾à', 'dhakkamaraup.panchagarh.gov.bd'),
+(3656, 399, 'Magura', 'à¦®à¦¾à¦—à§à¦°à¦¾', 'maguraup.panchagarh.gov.bd'),
+(3657, 399, 'Garinabari', 'à¦—à¦°à¦¿à¦¨à¦¾à¦¬à¦¾à¦¡à', 'garinabariup.panchagarh.gov.bd'),
+(3658, 400, 'Chilahati', 'à¦šà¦¿à¦²à¦¾à¦¹à¦¾à¦Ÿà¦¿', 'chilahatiup.panchagarh.gov.bd'),
+(3659, 400, 'Shaldanga', 'à¦¶à¦¾à¦²à¦¡à¦¾à¦™à§à¦—à', 'shaldangaup.panchagarh.gov.bd'),
+(3660, 400, 'Debiganj Sadar', 'à¦¦à§‡à¦¬à§€à¦—à¦žà§à¦œ ', 'debiganjsadarup.panchagarh.gov.bd'),
+(3661, 400, 'Pamuli', 'à¦ªà¦¾à¦®à§à¦²à§€', 'pamuliup.panchagarh.gov.bd'),
+(3662, 400, 'Sundardighi', 'à¦¸à§à¦¨à§à¦¦à¦°à¦¦à¦¿à', 'sundardighiup.panchagarh.gov.bd'),
+(3663, 400, 'Sonahar Mollikadaha', 'à¦¸à§‹à¦¨à¦¾à¦¹à¦¾à¦° à¦®', 'sonaharmollikadahaup.panchagarh.gov.bd'),
+(3664, 400, 'Tepriganj', 'à¦Ÿà§‡à¦ªà§à¦°à§€à¦—à¦žà', 'tepriganjup.panchagarh.gov.bd'),
+(3665, 400, 'Dandopal', 'à¦¦à¦¨à§à¦¡à¦ªà¦¾à¦²', 'dandopalup.panchagarh.gov.bd'),
+(3666, 400, 'Debiduba', 'à¦¦à§‡à¦¬à§€à¦¡à§à¦¬à¦¾', 'debidubaup.panchagarh.gov.bd'),
+(3667, 400, 'Chengthi Hazra Danga', 'à¦šà§‡à¦‚à¦ à§€ à¦¹à¦¾à¦œ', 'chengthihazradangaup.panchagarh.gov.bd'),
+(3668, 401, 'Jholaishal Shiri', 'à¦à¦²à¦‡à¦¶à¦¾à¦² à¦¶à¦¿', 'jholaishalshiriup.panchagarh.gov.bd'),
+(3669, 401, 'Moidandighi', 'à¦®à¦¯à¦¼à¦¦à¦¾à¦¨ à¦¦à§€', 'moidandighiup.panchagarh.gov.bd'),
+(3670, 401, 'Banghari', 'à¦¬à§‡à¦‚à¦¹à¦¾à¦°à§€', 'banghariup.panchagarh.gov.bd'),
+(3671, 401, 'Kajoldighi Kaligonj', 'à¦•à¦¾à¦œà¦²à¦¦à§€à¦˜à¦¿ ', 'kajoldighikaligonjup.panchagarh.gov.bd'),
+(3672, 401, 'Boroshoshi', 'à¦¬à¦¡à¦¼à¦¶à¦¶à§€', 'boroshoshiup.panchagarh.gov.bd'),
+(3673, 401, 'Chandanbari', 'à¦šà¦¨à§à¦¦à¦¨à¦¬à¦¾à¦¡à', 'chandanbariup.panchagarh.gov.bd'),
+(3674, 401, 'Marea Bamonhat', 'à¦®à¦¾à¦¡à¦¼à§‡à¦¯à¦¼à¦¾ ', 'mareabamonhatup.panchagarh.gov.bd'),
+(3675, 401, 'Boda', 'à¦¬à§‹à¦¦à¦¾', 'bodaup.panchagarh.gov.bd'),
+(3676, 401, 'Sakoa', 'à¦¸à¦¾à¦•à§‹à¦¯à¦¼à¦¾', 'sakoaup.panchagarh.gov.bd'),
+(3677, 401, 'Pachpir', 'à¦ªà¦¾à¦šà¦ªà§€à¦°', 'pachpirup.panchagarh.gov.bd'),
+(3678, 402, 'Mirgapur', 'à¦®à¦¿à¦°à§à¦œà¦¾à¦ªà§à', 'mirgapurup.panchagarh.gov.bd'),
+(3679, 402, 'Radhanagar', 'à¦°à¦¾à¦§à¦¾à¦¨à¦—à¦°', 'radhanagarup.panchagarh.gov.bd'),
+(3680, 402, 'Toria', 'à¦¤à§‹à¦¡à¦¼à¦¿à¦¯à¦¼à¦¾', 'toriaup.panchagarh.gov.bd'),
+(3681, 402, 'Balarampur', 'à¦¬à¦²à¦°à¦¾à¦®à¦ªà§à¦°', 'balarampurup.panchagarh.gov.bd'),
+(3682, 402, 'Alowakhowa', 'à¦†à¦²à§‹à¦¯à¦¼à¦¾à¦–à§‹à', 'alowakhowaup.panchagarh.gov.bd'),
+(3683, 402, 'Dhamor', 'à¦§à¦¾à¦®à§‹à¦°', 'dhamorup.panchagarh.gov.bd'),
+(3684, 403, 'Banglabandha', 'à¦¬à¦¾à¦‚à¦²à¦¾à¦¬à¦¾à¦¨à', 'banglabandhaup.panchagarh.gov.bd'),
+(3685, 403, 'Bhojoanpur', 'à¦­à¦œà¦¨à¦ªà§à¦°', 'bhojoanpurup.panchagarh.gov.bd'),
+(3686, 403, 'Bhojoanpur', 'à¦­à¦œà¦¨à¦ªà§à¦°', 'bhojoanpur.gazipur.gov.bd'),
+(3687, 403, 'Buraburi', 'à¦¬à§à¦¡à¦¼à¦¾à¦¬à§à¦¡à', 'buraburi.panchagarh.gov.bd'),
+(3688, 403, 'Debnagar', 'à¦¦à§‡à¦¬à¦¨à¦—à¦°', 'debnagarup.panchagarh.gov.bd'),
+(3689, 403, 'Salbahan', 'à¦¶à¦¾à¦²à¦¬à¦¾à¦¹à¦¾à¦¨', 'salbahanup.panchagarh.gov.bd'),
+(3690, 403, 'Tentulia', 'à¦¤à§‡à¦¤à§à¦²à¦¿à¦¯à¦¼à', 'tentuliaup.panchagarh.gov.bd'),
+(3691, 403, 'Timaihat', 'à¦¤à¦¿à¦®à¦¾à¦‡à¦¹à¦¾à¦Ÿ', 'timaihat.panchagarh.gov.bd'),
+(3692, 404, 'Joypur', 'à¦œà§Ÿà¦ªà§à¦°', 'joypurup.dinajpur.gov.bd'),
+(3693, 404, 'Binodnagar', 'à¦¬à¦¿à¦¨à§‹à¦¦à¦¨à¦—à¦°', 'binodnagarup.dinajpur.gov.bd'),
+(3694, 404, 'Golapgonj', 'à¦—à§‹à¦²à¦¾à¦ªà¦—à¦žà§à', 'golapgonjup.dinajpur.gov.bd'),
+(3695, 404, 'Shalkhuria', 'à¦¶à¦¾à¦²à¦–à§à¦°à¦¿à§Ÿà', 'shalkhuriaup.dinajpur.gov.bd'),
+(3696, 404, 'Putimara', 'à¦ªà§à¦Ÿà¦¿à¦®à¦¾à¦°à¦¾', 'putimaraup.dinajpur.gov.bd'),
+(3697, 404, 'Bhaduria', 'à¦­à¦¾à¦¦à§à¦°à¦¿à§Ÿà¦¾', 'bhaduriaup.dinajpur.gov.bd'),
+(3698, 404, 'Daudpur', 'à¦¦à¦¾à¦‰à¦¦à¦ªà§à¦°', 'daudpurup.dinajpur.gov.bd'),
+(3699, 404, 'Mahmudpur', 'à¦®à¦¾à¦¹à¦¾à¦®à§à¦¦à¦ªà', 'mahmudpurup.dinajpur.gov.bd'),
+(3700, 404, 'Kushdaha', 'à¦•à§à¦¶à¦¦à¦¹', 'kushdahaup.dinajpur.gov.bd'),
+(3701, 405, 'Shibrampur', 'à¦¶à¦¿à¦¬à¦°à¦¾à¦®à¦ªà§à', 'shibrampurup.dinajpur.gov.bd'),
+(3702, 405, 'Polashbari', 'à¦ªà¦²à¦¾à¦¶à¦¬à¦¾à§œà§€', 'polashbariup2.dinajpur.gov.bd'),
+(3703, 405, 'Shatagram', 'à¦¶à¦¤à¦—à§à¦°à¦¾à¦®', 'shatagramup.dinajpur.gov.bd'),
+(3704, 405, 'Paltapur', 'à¦ªà¦¾à¦²à§à¦Ÿà¦¾à¦ªà§à', 'paltapurup.dinajpur.gov.bd'),
+(3705, 405, 'Sujalpur', 'à¦¸à§à¦œà¦¾à¦²à¦ªà§à¦°', 'sujalpurup.dinajpur.gov.bd'),
+(3706, 405, 'Nijpara', 'à¦¨à¦¿à¦œà¦ªà¦¾à§œà¦¾', 'nijparaup.dinajpur.gov.bd'),
+(3707, 405, 'Mohammadpur', 'à¦®à§‹à¦¹à¦¾à¦®à§à¦®à¦¦à', 'mohammadpurup.dinajpur.gov.bd'),
+(3708, 405, 'Bhognagar', 'à¦­à§‹à¦—à¦¨à¦—à¦°', 'bhognagarup.dinajpur.gov.bd'),
+(3709, 405, 'Sator', 'à¦¸à¦¾à¦¤à§‹à¦°', 'satorup.dinajpur.gov.bd'),
+(3710, 405, 'Mohonpur', 'à¦®à§‹à¦¹à¦¨à¦ªà§à¦°', 'mohonpurup.dinajpur.gov.bd'),
+(3711, 405, 'Moricha', 'à¦®à¦°à¦¿à¦šà¦¾', 'morichaup.dinajpur.gov.bd'),
+(3712, 406, 'Bulakipur', 'à¦¬à§à¦²à¦¾à¦•à§€à¦ªà§à', 'bulakipurup.dinajpur.gov.bd'),
+(3713, 406, 'Palsha', 'à¦ªà¦¾à¦²à¦¶à¦¾', 'palshaup.dinajpur.gov.bd'),
+(3714, 406, 'Singra', 'à¦¸à¦¿à¦‚à§œà¦¾', 'singraup.dinajpur.gov.bd'),
+(3715, 406, 'Ghoraghat', 'à¦˜à§‹à§œà¦¾à¦˜à¦¾à¦Ÿ', 'ghoraghatup.dinajpur.gov.bd'),
+(3716, 407, 'Mukundopur', 'à¦®à§à¦•à§à¦¨à§à¦¦à¦ªà', 'mukundopurup.dinajpur.gov.bd'),
+(3717, 407, 'Katla', 'à¦•à¦¾à¦Ÿà¦²à¦¾', 'katlaup.dinajpur.gov.bd'),
+(3718, 407, 'Khanpur', 'à¦–à¦¾à¦¨à¦ªà§à¦°', 'khanpurup.dinajpur.gov.bd'),
+(3719, 407, 'Dior', 'à¦¦à¦¿à¦“à§œ', 'diorup.dinajpur.gov.bd'),
+(3720, 407, 'Binail', 'à¦¬à¦¿à¦¨à¦¾à¦‡à¦²', 'binailup.dinajpur.gov.bd'),
+(3721, 407, 'Jatbani', 'à¦œà§‹à¦¤à¦¬à¦¾à¦¨à§€', 'jatbaniup.dinajpur.gov.bd'),
+(3722, 407, 'Poliproyagpur', 'à¦ªà¦²à¦¿à¦ªà§à¦°à§Ÿà¦¾à', 'poliproyagpurup.dinajpur.gov.bd'),
+(3723, 408, 'Belaichandi', 'à¦¬à§‡à¦²à¦¾à¦‡à¦šà¦¨à§à', 'belaichandiup.dinajpur.gov.bd'),
+(3724, 408, 'Monmothopur', 'à¦®à¦¨à§à¦®à¦¥à¦ªà§à¦°', 'monmothopurup.dinajpur.gov.bd'),
+(3725, 408, 'Rampur', 'à¦°à¦¾à¦®à¦ªà§à¦°', 'rampurup.dinajpur.gov.bd'),
+(3726, 408, 'Polashbari', 'à¦ªà¦²à¦¾à¦¶à¦¬à¦¾à§œà§€', 'polashbariup4.dinajpur.gov.bd'),
+(3727, 408, 'Chandipur', 'à¦šà¦¨à§à¦¡à§€à¦ªà§à¦°', 'chandipurup.dinajpur.gov.bd'),
+(3728, 408, 'Mominpur', 'à¦®à§‹à¦®à¦¿à¦¨à¦ªà§à¦°', 'mominpurup.dinajpur.gov.bd'),
+(3729, 408, 'Mostofapur', 'à¦®à§‹à¦¸à§à¦¤à¦«à¦¾à¦ªà', 'mostofapurup.dinajpur.gov.bd'),
+(3730, 408, 'Habra', 'à¦¹à¦¾à¦¬à§œà¦¾', 'habraup.dinajpur.gov.bd'),
+(3731, 408, 'Hamidpur', 'à¦¹à¦¾à¦®à¦¿à¦¦à¦ªà§à¦°', 'hamidpurup.dinajpur.gov.bd'),
+(3732, 408, 'Harirampur', 'à¦¹à¦°à¦¿à¦°à¦¾à¦®à¦ªà§à', 'harirampurup.dinajpur.gov.bd'),
+(3733, 409, 'Nafanagar', 'à¦¨à¦¾à¦«à¦¾à¦¨à¦—à¦°', 'nafanagarup.dinajpur.gov.bd'),
+(3734, 409, 'Eshania', 'à¦ˆà¦¶à¦¾à¦¨à¦¿à§Ÿà¦¾', 'eshaniaup.dinajpur.gov.bd'),
+(3735, 409, 'Atgaon', 'à¦†à¦Ÿà¦—à¦¾à¦à¦“', 'atgaonup.dinajpur.gov.bd'),
+(3736, 409, 'Shatail', 'à¦›à¦¾à¦¤à¦‡à¦²', 'shatailup.dinajpur.gov.bd'),
+(3737, 409, 'Rongaon', 'à¦°à¦¨à¦—à¦¾à¦à¦“', 'rongaonup.dinajpur.gov.bd'),
+(3738, 409, 'Murshidhat', 'à¦®à§à¦°à§à¦¶à¦¿à¦¦à¦¹à', 'murshidhatup.dinajpur.gov.bd'),
+(3739, 410, 'Dabor', 'à¦¡à¦¾à¦¬à§‹à¦°', 'daborup.dinajpur.gov.bd'),
+(3740, 410, 'Rasulpur', 'à¦°à¦¸à§à¦²à¦ªà§à¦°', 'rasulpurup.dinajpur.gov.bd'),
+(3741, 410, 'Mukundapur', 'à¦®à§à¦•à§à¦¨à§à¦¦à¦ªà', 'mukundapurup.dinajpur.gov.bd'),
+(3742, 410, 'Targao', 'à¦¤à¦¾à¦°à¦—à¦¾à¦à¦“', 'targaoup.dinajpur.gov.bd'),
+(3743, 410, 'Ramchandrapur', 'à¦°à¦¾à¦®à¦šà¦¨à§à¦¦à§à', 'ramchandrapurup.dinajpur.gov.bd'),
+(3744, 410, 'Sundarpur', 'à¦¸à§à¦¨à§à¦¦à¦°à¦ªà§à', 'sundarpurup.dinajpur.gov.bd'),
+(3745, 411, 'Aloary', 'à¦à¦²à§à§Ÿà¦¾à§œà§€', 'aloaryup.dinajpur.gov.bd'),
+(3746, 411, 'Aladipur', 'à¦†à¦²à¦¾à¦¦à¦¿à¦ªà§à¦°', 'aladipurup.dinajpur.gov.bd'),
+(3747, 411, 'Kagihal', 'à¦•à¦¾à¦œà§€à¦¹à¦¾à¦²', 'kagihalup.dinajpur.gov.bd'),
+(3748, 411, 'Bethdighi', 'à¦¬à§‡à¦¤à¦¦à¦¿à¦˜à§€', 'bethdighiup.dinajpur.gov.bd'),
+(3749, 411, 'Khairbari', 'à¦–à§Ÿà§‡à¦°à¦¬à¦¾à§œà§€', 'khairbariup.dinajpur.gov.bd');
+INSERT INTO `unions` (`id`, `upazilla_id`, `name`, `bn_name`, `url`) VALUES
+(3750, 411, 'Daulatpur', 'à¦¦à§Œà¦²à¦¤à¦ªà§à¦°', 'daulatpurup.dinajpur.gov.bd'),
+(3751, 411, 'Shibnagor', 'à¦¶à¦¿à¦¬à¦¨à¦—à¦°', 'shibnagorup.dinajpur.gov.bd'),
+(3752, 412, 'Chealgazi', 'à¦šà§‡à¦¹à§‡à¦²à¦—à¦¾à¦œà', 'chealgaziup.dinajpur.gov.bd'),
+(3753, 412, 'Sundorbon', 'à¦¸à§à¦¨à§à¦¦à¦°à¦¬à¦¨', 'sundorbonup.dinajpur.gov.bd'),
+(3754, 412, 'Fazilpur', 'à¦«à¦¾à¦œà¦¿à¦²à¦ªà§à¦°', 'fazilpurup.dinajpur.gov.bd'),
+(3755, 412, 'Shekpura', 'à¦¶à§‡à¦–à¦ªà§à¦°à¦¾', 'shekpuraup.dinajpur.gov.bd'),
+(3756, 412, 'Shashora', 'à¦¶à¦¶à¦°à¦¾', 'shashoraup.dinajpur.gov.bd'),
+(3757, 412, 'Auliapur', 'à¦†à¦‰à¦²à¦¿à§Ÿà¦¾à¦ªà§à', 'auliapurup.dinajpur.gov.bd'),
+(3758, 412, 'Uthrail', 'à¦‰à¦¥à¦°à¦¾à¦‡à¦²', 'uthrailup.dinajpur.gov.bd'),
+(3759, 412, 'Sankarpur', 'à¦¶à¦‚à¦•à¦°à¦ªà§à¦°', 'sankarpurup.dinajpur.gov.bd'),
+(3760, 412, 'Askorpur', 'à¦†à¦¸à§à¦•à¦°à¦ªà§à¦°', 'askorpurup.dinajpur.gov.bd'),
+(3761, 412, 'Kamalpur', 'à¦•à¦®à¦²à¦ªà§à¦°', 'kamalpurup.dinajpur.gov.bd'),
+(3762, 413, 'Alihat', 'à¦†à¦²à§€à¦¹à¦¾à¦Ÿ', 'alihatup.dinajpur.gov.bd'),
+(3763, 413, 'Khattamadobpara', 'à¦–à¦Ÿà§à¦Ÿà¦¾à¦®à¦¾à¦§à', 'khattamadobparaup.dinajpur.gov.bd'),
+(3764, 413, 'Boalder', 'à¦¬à§‹à§Ÿà¦¾à¦²à¦¦à¦¾à¦°', 'boalderup.dinajpur.gov.bd'),
+(3765, 414, 'Alokjhari', 'à¦†à¦²à§‹à¦•à¦à¦¾à§œà§€', 'alokjhariup.dinajpur.gov.bd'),
+(3766, 414, 'Bherbheri', 'à¦­à§‡à§œà¦­à§‡à§œà§€', 'bherbheriup.dinajpur.gov.bd'),
+(3767, 414, 'Angarpara', 'à¦†à¦™à§à¦—à¦¾à¦°à¦ªà¦¾à', 'angarparaup.dinajpur.gov.bd'),
+(3768, 414, 'Goaldihi', 'à¦—à§‹à§Ÿà¦¾à¦²à¦¡à¦¿à¦¹à', 'goaldihiup.dinajpur.gov.bd'),
+(3769, 414, 'Bhabki', 'à¦­à¦¾à¦¬à¦•à§€', 'bhabkiup.dinajpur.gov.bd'),
+(3770, 414, 'Khamarpara', 'à¦–à¦¾à¦®à¦¾à¦°à¦ªà¦¾à§œà', 'khamarparaup.dinajpur.gov.bd'),
+(3771, 415, 'Azimpur', 'à¦†à¦œà¦¿à¦®à¦ªà§à¦°', 'azimpurup.dinajpur.gov.bd'),
+(3772, 415, 'Farakkabad', 'à¦«à¦°à¦¾à¦•à§à¦•à¦¾à¦¬à', 'farakkabadup.dinajpur.gov.bd'),
+(3773, 415, 'Dhamoir', 'à¦§à¦¾à¦®à¦‡à¦°', 'dhamoirup.dinajpur.gov.bd'),
+(3774, 415, 'Shohorgram', 'à¦¶à¦¹à¦°à¦—à§à¦°à¦¾à¦®', 'shohorgramup.dinajpur.gov.bd'),
+(3775, 415, 'Birol', 'à¦¬à¦¿à¦°à¦²', 'birolup.dinajpur.gov.bd'),
+(3776, 415, 'Bhandra', 'à¦­à¦¾à¦¨à§à¦¡à¦¾à¦°à¦¾', 'bhandraup.dinajpur.gov.bd'),
+(3777, 415, 'Bijora', 'à¦¬à¦¿à¦œà§‹à§œà¦¾', 'bijoraup.dinajpur.gov.bd'),
+(3778, 415, 'Dharmapur', 'à¦§à¦°à§à¦®à¦ªà§à¦°', 'dharmapurup.dinajpur.gov.bd'),
+(3779, 415, 'Mongalpur', 'à¦®à¦™à§à¦—à¦²à¦ªà§à¦°', 'mongalpurup.dinajpur.gov.bd'),
+(3780, 415, 'Ranipukur', 'à¦°à¦¾à¦£à§€à¦ªà§à¦•à§à', 'ranipukurup.dinajpur.gov.bd'),
+(3781, 415, 'Rajarampur', 'à¦°à¦¾à¦œà¦¾à¦°à¦¾à¦®à¦ªà', 'rajarampurup.dinajpur.gov.bd'),
+(3782, 416, 'Nashratpur', 'à¦¨à¦¶à¦°à¦¤à¦ªà§à¦°', 'nashratpurup.dinajpur.gov.bd'),
+(3783, 416, 'Satnala', 'à¦¸à¦¾à¦¤à¦¨à¦¾à¦²à¦¾', 'satnalaup.dinajpur.gov.bd'),
+(3784, 416, 'Fatejangpur', 'à¦«à¦¤à§‡à¦œà¦‚à¦ªà§à¦°', 'fatejangpurup.dinajpur.gov.bd'),
+(3785, 416, 'Isobpur', 'à¦‡à¦¸à¦¬à¦ªà§à¦°', 'isobpurup.dinajpur.gov.bd'),
+(3786, 416, 'Abdulpur', 'à¦†à¦¬à§à¦¦à§à¦²à¦ªà§à', 'abdulpurup.dinajpur.gov.bd'),
+(3787, 416, 'Amarpur', 'à¦…à¦®à¦°à¦ªà§à¦°', 'amarpurup.dinajpur.gov.bd'),
+(3788, 416, 'Auliapukur', 'à¦†à¦‰à¦²à¦¿à§Ÿà¦¾à¦ªà§à', 'auliapukurup.dinajpur.gov.bd'),
+(3789, 416, 'Saitara', 'à¦¸à¦¾à¦‡à¦¤à¦¾à¦°à¦¾', 'saitaraup.dinajpur.gov.bd'),
+(3790, 416, 'Viail', 'à¦­à¦¿à§Ÿà¦¾à¦‡à¦²', 'viailup.dinajpur.gov.bd'),
+(3791, 416, 'Punotti', 'à¦ªà§à¦¨à¦Ÿà§à¦Ÿà¦¿', 'punottiup.dinajpur.gov.bd'),
+(3792, 416, 'Tetulia', 'à¦¤à§‡à¦¤à§à¦²à¦¿à§Ÿà¦¾', 'tetuliaup.dinajpur.gov.bd'),
+(3793, 416, 'Alokdihi', 'à¦†à¦²à§‹à¦•à¦¡à¦¿à¦¹à¦¿', 'alokdihiup.dinajpur.gov.bd'),
+(3794, 417, 'Rajpur', 'à¦°à¦¾à¦œà¦ªà§à¦°', 'rajpurup.lalmonirhat.gov.bd'),
+(3795, 417, 'Harati', 'à¦¹à¦¾à¦°à¦¾à¦Ÿà¦¿', 'haratiup.lalmonirhat.gov.bd'),
+(3796, 417, 'Mogolhat', 'à¦®à§‹à¦—à¦²à¦¹à¦¾à¦Ÿ', 'mogolhatup.lalmonirhat.gov.bd'),
+(3797, 417, 'Gokunda', 'à¦—à§‹à¦•à§à¦¨à§à¦¡à¦¾', 'gokundaup.lalmonirhat.gov.bd'),
+(3798, 417, 'Barobari', 'à¦¬à§œà¦¬à¦¾à§œà§€', 'barobariup.lalmonirhat.gov.bd'),
+(3799, 417, 'Kulaghat', 'à¦•à§à¦²à¦¾à¦˜à¦¾à¦Ÿ', 'kulaghatup.lalmonirhat.gov.bd'),
+(3800, 417, 'Mohendranagar', 'à¦®à¦¹à§‡à¦¨à§à¦¦à§à¦°à', 'mohendranagarup.lalmonirhat.gov.bd'),
+(3801, 417, 'Khuniagachh', 'à¦–à§à¦¨à¦¿à§Ÿà¦¾à¦—à¦¾à', 'khuniagachhup.lalmonirhat.gov.bd'),
+(3802, 417, 'Panchagram', 'à¦ªà¦žà§à¦šà¦—à§à¦°à¦¾à', 'panchagramup.lalmonirhat.gov.bd'),
+(3803, 418, 'Bhotmari', 'à¦­à§‹à¦Ÿà¦®à¦¾à¦°à§€', 'bhotmariup.lalmonirhat.gov.bd'),
+(3804, 418, 'Modati', 'à¦®à¦¦à¦¾à¦¤à§€', 'modatiup.lalmonirhat.gov.bd'),
+(3805, 418, 'Dologram', 'à¦¦à¦²à¦—à§à¦°à¦¾à¦®', 'dologramup.lalmonirhat.gov.bd'),
+(3806, 418, 'Tushbhandar', 'à¦¤à§à¦·à¦­à¦¾à¦¨à§à¦¡à', 'tushbhandarup.lalmonirhat.gov.bd'),
+(3807, 418, 'Goral', 'à¦—à§‹à§œà¦²', 'goralup.lalmonirhat.gov.bd'),
+(3808, 418, 'Chondropur', 'à¦šà¦¨à§à¦¦à§à¦°à¦ªà§à', 'chondropurup.lalmonirhat.gov.bd'),
+(3809, 418, 'Cholbola', 'à¦šà¦²à¦¬à¦²à¦¾', 'cholbolaup.lalmonirhat.gov.bd'),
+(3810, 418, 'Kakina', 'à¦•à¦¾à¦•à¦¿à¦¨à¦¾', 'kakinaup.lalmonirhat.gov.bd'),
+(3811, 419, 'Barokhata', 'à¦¬à§œà¦–à¦¾à¦¤à¦¾', 'barokhataup.lalmonirhat.gov.bd'),
+(3812, 419, 'Goddimari', 'à¦—à¦¡à§à¦¡à¦¿à¦®à¦¾à¦°à', 'goddimariup.lalmonirhat.gov.bd'),
+(3813, 419, 'Singimari', 'à¦¸à¦¿à¦‚à¦—à§€à¦®à¦¾à¦°à', 'singimariup.lalmonirhat.gov.bd'),
+(3814, 419, 'Tongvhanga', 'à¦Ÿà¦‚à¦­à¦¾à¦™à§à¦—à¦¾', 'tongvhangaup.lalmonirhat.gov.bd'),
+(3815, 419, 'Sindurna', 'à¦¸à¦¿à¦¨à§à¦¦à§à¦°à§à', 'sindurnaup.lalmonirhat.gov.bd'),
+(3816, 419, 'Paticapara', 'à¦ªà¦¾à¦Ÿà¦¿à¦•à¦¾à¦ªà¦¾à', 'paticaparaup.lalmonirhat.gov.bd'),
+(3817, 419, 'Nowdabas', 'à¦¨à¦“à¦¦à¦¾à¦¬à¦¾à¦¸', 'nowdabasup.lalmonirhat.gov.bd'),
+(3818, 419, 'Gotamari', 'à¦—à§‹à¦¤à¦¾à¦®à¦¾à¦°à§€', 'gotamariup.lalmonirhat.gov.bd'),
+(3819, 419, 'Vhelaguri', 'à¦­à§‡à¦²à¦¾à¦—à§à§œà¦¿', 'vhelaguriup.lalmonirhat.gov.bd'),
+(3820, 419, 'Shaniajan', 'à¦¸à¦¾à¦¨à¦¿à§Ÿà¦¾à¦œà¦¾à', 'shaniajanup.lalmonirhat.gov.bd'),
+(3821, 419, 'Fakirpara', 'à¦«à¦•à¦¿à¦°à¦ªà¦¾à§œà¦¾', 'fakirparaup.lalmonirhat.gov.bd'),
+(3822, 419, 'Dawabari', 'à¦¡à¦¾à¦‰à§Ÿà¦¾à¦¬à¦¾à§œà', 'dawabariup.lalmonirhat.gov.bd'),
+(3823, 420, 'Sreerampur', 'à¦¶à§à¦°à§€à¦°à¦¾à¦®à¦ªà', 'sreerampurup.lalmonirhat.gov.bd'),
+(3824, 420, 'Patgram', 'à¦ªà¦¾à¦Ÿà¦—à§à¦°à¦¾à¦®', 'patgramup.lalmonirhat.gov.bd'),
+(3825, 420, 'Jagatber', 'à¦œà¦—à¦¤à¦¬à§‡à§œ', 'jagatberup.lalmonirhat.gov.bd'),
+(3826, 420, 'Kuchlibari', 'à¦•à§à¦šà¦²à¦¿à¦¬à¦¾à§œà', 'kuchlibariup.lalmonirhat.gov.bd'),
+(3827, 420, 'Jongra', 'à¦œà§‹à¦‚à§œà¦¾', 'jongraup.lalmonirhat.gov.bd'),
+(3828, 420, 'Baura', 'à¦¬à¦¾à¦‰à§œà¦¾', 'bauraup.lalmonirhat.gov.bd'),
+(3829, 420, 'Dahagram', 'à¦¦à¦¹à¦—à§à¦°à¦¾à¦®', 'dahagramup.lalmonirhat.gov.bd'),
+(3830, 420, 'Burimari', 'à¦¬à§à§œà¦¿à¦®à¦¾à¦°à§€', 'burimariup.lalmonirhat.gov.bd'),
+(3831, 421, 'Bhelabari', 'à¦­à§‡à¦²à¦¾à¦¬à¦¾à§œà§€', 'bhelabariup.lalmonirhat.gov.bd'),
+(3832, 421, 'Bhadai', 'à¦­à¦¾à¦¦à¦¾à¦‡', 'bhadaiup.lalmonirhat.gov.bd'),
+(3833, 421, 'Kamlabari', 'à¦•à¦®à¦²à¦¾à¦¬à¦¾à§œà§€', 'kamlabariup.lalmonirhat.gov.bd'),
+(3834, 421, 'Durgapur', 'à¦¦à§‚à¦°à§à¦—à¦¾à¦ªà§à', 'durgapurup.lalmonirhat.gov.bd'),
+(3835, 421, 'Sarpukur', 'à¦¸à¦¾à¦°à¦ªà§à¦•à§à¦°', 'sarpukurup.lalmonirhat.gov.bd'),
+(3836, 421, 'Saptibari', 'à¦¸à¦¾à¦ªà§à¦Ÿà¦¿à¦¬à¦¾à', 'saptibariup.lalmonirhat.gov.bd'),
+(3837, 421, 'Palashi', 'à¦ªà¦²à¦¾à¦¶à§€', 'palashiup.lalmonirhat.gov.bd'),
+(3838, 421, 'Mohishkhocha', 'à¦®à¦¹à¦¿à¦·à¦–à§‹à¦šà¦¾', 'mohishkhochaup.lalmonirhat.gov.bd'),
+(3839, 422, 'Kamarpukur', 'à¦•à¦¾à¦®à¦¾à¦°à¦ªà§à¦•à', 'kamarpukurup.nilphamari.gov.bd'),
+(3840, 422, 'Kasiram Belpukur', 'à¦•à¦¾à¦¶à¦¿à¦°à¦¾à¦® à¦¬', 'kasirambelpukurup.nilphamari.gov.bd'),
+(3841, 422, 'Bangalipur', 'à¦¬à¦¾à¦™à§à¦—à¦¾à¦²à§€à', 'bangalipur.nilphamari.gov.bd'),
+(3842, 422, 'Botlagari', 'à¦¬à§‹à¦¤à¦²à¦¾à¦—à¦¾à§œà', 'botlagariup.nilphamari.gov.bd'),
+(3843, 422, 'Khata Madhupur', 'à¦–à¦¾à¦¤à¦¾ à¦®à¦§à§à¦ª', 'khatamadhupurup.nilphamari.gov.bd'),
+(3844, 423, 'Gomnati', 'à¦—à§‹à¦®à¦¨à¦¾à¦¤à¦¿', 'gomnati.nilphamari.gov.bd'),
+(3845, 423, 'Bhogdaburi', 'à¦­à§‹à¦—à¦¡à¦¾à¦¬à§à¦¡à', 'bhogdaburiup.nilphamari.gov.bd'),
+(3846, 423, 'Ketkibari', 'à¦•à§‡à¦¤à¦•à§€à¦¬à¦¾à¦¡à', 'ketkibariup.nilphamari.gov.bd'),
+(3847, 423, 'Jorabari', 'à¦œà§‹à¦¡à¦¼à¦¾à¦¬à¦¾à¦¡à', 'jorabariup.nilphamari.gov.bd'),
+(3848, 423, 'Bamunia', 'à¦¬à¦¾à¦®à§à¦¨à§€à¦¯à¦¼à', 'bamuniaup.nilphamari.gov.bd'),
+(3849, 423, 'Panga Motukpur', 'à¦ªà¦¾à¦‚à¦—à¦¾ à¦®à¦Ÿà¦•', 'pangamotukpurup.nilphamari.gov.bd'),
+(3850, 423, 'Boragari', 'à¦¬à§‹à¦¡à¦¼à¦¾à¦—à¦¾à¦¡à', 'boragariup.nilphamari.gov.bd'),
+(3851, 423, 'Domar', 'à¦¡à§‹à¦®à¦¾à¦°', 'domarup.nilphamari.gov.bd'),
+(3852, 423, 'Sonaray', 'à¦¸à§‹à¦¨à¦¾à¦°à¦¾à¦¯à¦¼', 'sonarayup2.nilphamari.gov.bd'),
+(3853, 423, 'Harinchara', 'à¦¹à¦°à¦¿à¦£à¦šà¦°à¦¾', 'harincharaup.nilphamari.gov.bd'),
+(3854, 424, 'Paschim Chhatnay', 'à¦ªà¦¶à§à¦šà¦¿à¦® à¦›à¦¾', 'paschimchhatnayup.nilphamari.gov.bd'),
+(3855, 424, 'Balapara', 'à¦¬à¦¾à¦²à¦¾à¦ªà¦¾à¦¡à¦¼à', 'balaparaup.nilphamari.gov.bd'),
+(3856, 424, 'Dimla Sadar', 'à¦¡à¦¿à¦®à¦²à¦¾ à¦¸à¦¦à¦°', 'dimlasadarup.nilphamari.gov.bd'),
+(3857, 424, 'Khogakharibari', 'à¦–à¦—à¦¾ à¦–à¦¡à¦¼à¦¿à¦¬', 'khogakharibariup.nilphamari.gov.bd'),
+(3858, 424, 'Gayabari', 'à¦—à¦¯à¦¼à¦¾à¦¬à¦¾à¦¡à¦¼à', 'gayabariup.nilphamari.gov.bd'),
+(3859, 424, 'Noutara', 'à¦¨à¦¾à¦‰à¦¤à¦¾à¦°à¦¾', 'noutaraup.nilphamari.gov.bd'),
+(3860, 424, 'Khalisha Chapani', 'à¦–à¦¾à¦²à¦¿à¦¶à¦¾ à¦šà¦¾', 'khalishachapaniup.nilphamari.gov.bd'),
+(3861, 424, 'Jhunagach Chapani', 'à¦à§à¦¨à¦¾à¦—à¦¾à¦› à¦š', 'jhunagachhchapaniup.nilphamari.gov.bd'),
+(3862, 424, 'Tepa Khribari', 'à¦Ÿà§‡à¦ªà¦¾ à¦–à¦°à§€à¦¬', 'tepakhribariup.nilphamari.gov.bd'),
+(3863, 424, 'Purba Chhatnay', 'à¦ªà§à¦°à§à¦¬ à¦›à¦¾à¦¤', 'purbachhatnayup.nilphamari.gov.bd'),
+(3864, 425, 'Douabari', 'à¦¡à¦¾à¦‰à¦¯à¦¼à¦¾à¦¬à¦¾à', 'douabariup.nilphamari.gov.bd'),
+(3865, 425, 'Golmunda', 'à¦—à§‹à¦²à¦®à§à¦¨à§à¦¡à', 'golmunda.nilphamari.gov.bd'),
+(3866, 425, 'Balagram', 'à¦¬à¦¾à¦²à¦¾à¦—à§à¦°à¦¾à', 'balagram.nilphamari.gov.bd'),
+(3867, 425, 'Golna', 'à¦—à§‹à¦²à¦¨à¦¾', 'golna.nilphamari.gov.bd'),
+(3868, 425, 'Dharmapal', 'à¦§à¦°à§à¦®à¦ªà¦¾à¦²', 'dharmapal.nilphamari.gov.bd'),
+(3869, 425, 'Simulbari', 'à¦¶à¦¿à¦®à§à¦²à¦¬à¦¾à¦¡à', 'simulbari.nilphamari.gov.bd'),
+(3870, 425, 'Mirganj', 'à¦®à§€à¦°à¦—à¦žà§à¦œ', 'mirganj.nilphamari.gov.bd'),
+(3871, 425, 'Kathali', 'à¦•à¦¾à¦ à¦¾à¦²à§€', 'kathaliup.nilphamari.gov.bd'),
+(3872, 425, 'Khutamara', 'à¦–à§à¦Ÿà¦¾à¦®à¦¾à¦°à¦¾', 'khutamaraup.nilphamari.gov.bd'),
+(3873, 425, 'Shaulmari', 'à¦¶à§Œà¦²à¦®à¦¾à¦°à§€', 'shaulmariup.nilphamari.gov.bd'),
+(3874, 425, 'Kaimari', 'à¦•à§ˆà¦®à¦¾à¦°à§€', 'kaimariup.nilphamari.gov.bd'),
+(3875, 426, 'Barabhita', 'à¦¬à¦¡à¦¼à¦­à¦¿à¦Ÿà¦¾', 'barabhitaup.nilphamari.gov.bd'),
+(3876, 426, 'Putimari', 'à¦ªà§à¦Ÿà¦¿à¦®à¦¾à¦°à§€', 'putimariup.nilphamari.gov.bd'),
+(3877, 426, 'Nitai', 'à¦¨à¦¿à¦¤à¦¾à¦‡', 'nitaiup.nilphamari.gov.bd'),
+(3878, 426, 'Bahagili', 'à¦¬à¦¾à¦¹à¦¾à¦—à¦¿à¦²à¦¿', 'bahagiliup.nilphamari.gov.bd'),
+(3879, 426, 'Chandkhana', 'à¦šà¦¾à¦à¦¦à¦–à¦¾à¦¨à¦¾', 'chandkhanaup.nilphamari.gov.bd'),
+(3880, 426, 'Kishoreganj', 'à¦•à¦¿à¦¶à§‹à¦°à¦—à¦žà§à', 'kishoreganjup.nilphamari.gov.bd'),
+(3881, 426, 'Ranachandi', 'à¦°à¦¨à¦šà¦¨à§à¦¡à¦¿', 'ranachandiup.nilphamari.gov.bd'),
+(3882, 426, 'Garagram', 'à¦—à¦¾à¦¡à¦¼à¦¾à¦—à§à¦°à', 'garagramup.nilphamari.gov.bd'),
+(3883, 426, 'Magura', 'à¦®à¦¾à¦—à§à¦°à¦¾', 'maguraup.nilphamari.gov.bd'),
+(3884, 427, 'Chaora Bargacha', 'à¦šà¦“à¦¡à¦¼à¦¾ à¦¬à¦¡à¦¼', 'chaorabargachaup.nilphamari.gov.bd'),
+(3885, 427, 'Gorgram', 'à¦—à§‹à¦¡à¦¼à¦—à§à¦°à¦¾à', 'gorgramup.nilphamari.gov.bd'),
+(3886, 427, 'Khoksabari', 'à¦–à§‹à¦•à¦¸à¦¾à¦¬à¦¾à¦¡à', 'khoksabariup.nilphamari.gov.bd'),
+(3887, 427, 'Palasbari', 'à¦ªà¦²à¦¾à¦¶à¦¬à¦¾à¦¡à¦¼à', 'palasbariup.nilphamari.gov.bd'),
+(3888, 427, 'Ramnagar', 'à¦°à¦¾à¦®à¦¨à¦—à¦°', 'ramnagarup.nilphamari.gov.bd'),
+(3889, 427, 'Kachukata', 'à¦•à¦šà§à¦•à¦¾à¦Ÿà¦¾', 'kachukataup.nilphamari.gov.bd'),
+(3890, 427, 'Panchapukur', 'à¦ªà¦žà§à¦šà¦ªà§à¦•à§à', 'panchapukurup.nilphamari.gov.bd'),
+(3891, 427, 'Itakhola', 'à¦‡à¦Ÿà¦¾à¦–à§‹à¦²à¦¾', 'itakholaup.nilphamari.gov.bd'),
+(3892, 427, 'Kundapukur', 'à¦•à§à¦¨à§à¦¦à¦ªà§à¦•à', 'kundapukur.nilphamari.gov.bd'),
+(3893, 427, 'Sonaray', 'à¦¸à§‹à¦¨à¦¾à¦°à¦¾à§Ÿ', 'sonaray.nilphamari.gov.bd'),
+(3894, 427, 'Songalsi', 'à¦¸à¦‚à¦—à¦²à¦¶à§€', 'songalsiup.nilphamari.gov.bd'),
+(3895, 427, 'Charaikhola', 'à¦šà§œà¦¾à¦‡à¦–à§‹à¦²à¦¾', 'charaikhola.nilphamari.gov.bd'),
+(3896, 427, 'Chapra Sarnjami', 'à¦šà¦¾à¦ªà§œà¦¾ à¦¸à¦°à¦ž', 'chaprasarnjami.nilphamari.gov.bd'),
+(3897, 427, 'Lakshmicha', 'à¦²à¦•à§à¦·à§à¦®à§€à¦šà', 'lakshmichapup.nilphamari.gov.bd'),
+(3898, 427, 'Tupamari', 'à¦Ÿà§à¦ªà¦¾à¦®à¦¾à¦°à§€', 'tupamariup.nilphamari.gov.bd'),
+(3899, 428, 'Rasulpur', 'à¦°à¦¸à§à¦²à¦ªà§à¦°', 'rasulpurup.gaibandha.gov.bd'),
+(3900, 428, 'Noldanga', 'à¦¨à¦²à¦¡à¦¾à¦™à§à¦—à¦¾', 'noldangaup.gaibandha.gov.bd'),
+(3901, 428, 'Damodorpur', 'à¦¦à¦¾à¦®à§‹à¦¦à¦°à¦ªà§à', 'damodorpurup.gaibandha.gov.bd'),
+(3902, 428, 'Jamalpur', 'à¦œà¦¾à¦®à¦¾à¦²à¦ªà§à¦°', 'jamalpurup.gaibandha.gov.bd'),
+(3903, 428, 'Faridpur', 'à¦«à¦°à¦¿à¦¦à¦ªà§à¦°', 'faridpurup.gaibandha.gov.bd'),
+(3904, 428, 'Dhaperhat', 'à¦§à¦¾à¦ªà§‡à¦°à¦¹à¦¾à¦Ÿ', 'dhaperhatup.gaibandha.gov.bd'),
+(3905, 428, 'Idilpur', 'à¦‡à¦¦à¦¿à¦²à¦ªà§à¦°', 'idilpurup.gaibandha.gov.bd'),
+(3906, 428, 'Vatgram', 'à¦­à¦¾à¦¤à¦—à§à¦°à¦¾à¦®', 'vatgramup.gaibandha.gov.bd'),
+(3907, 428, 'Bongram', 'à¦¬à¦¨à¦—à§à¦°à¦¾à¦®', 'bongramup.gaibandha.gov.bd'),
+(3908, 428, 'Kamarpara', 'à¦•à¦¾à¦®à¦¾à¦°à¦ªà¦¾à§œà', 'kamarparaup.gaibandha.gov.bd'),
+(3909, 428, 'Khodkomor', 'à¦–à§‹à¦¦à¦•à§‹à¦®à¦°à¦ªà', 'khodkomorup.gaibandha.gov.bd'),
+(3910, 429, 'Laxmipur', 'à¦²à¦•à§à¦·à§à¦®à§€à¦ªà', 'laxmipurup.gaibandha.gov.bd'),
+(3911, 429, 'Malibari', 'à¦®à¦¾à¦²à§€à¦¬à¦¾à§œà§€', 'malibariup.gaibandha.gov.bd'),
+(3912, 429, 'Kuptola', 'à¦•à§à¦ªà¦¤à¦²à¦¾', 'kuptolaup.gaibandha.gov.bd'),
+(3913, 429, 'Shahapara', 'à¦¸à¦¾à¦¹à¦¾à¦ªà¦¾à§œà¦¾', 'shahaparaup.gaibandha.gov.bd'),
+(3914, 429, 'Ballamjhar', 'à¦¬à¦²à§à¦²à¦®à¦à¦¾à§œ', 'ballamjharup.gaibandha.gov.bd'),
+(3915, 429, 'Ramchandrapur', 'à¦°à¦¾à¦®à¦šà¦¨à§à¦¦à§à', 'ramchandrapurup.gaibandha.gov.bd'),
+(3916, 429, 'Badiakhali', 'à¦¬à¦¾à¦¦à¦¿à§Ÿà¦¾à¦–à¦¾à', 'badiakhaliup.gaibandha.gov.bd'),
+(3917, 429, 'Boali', 'à¦¬à§‹à§Ÿà¦¾à¦²à§€', 'boaliup.gaibandha.gov.bd'),
+(3918, 429, 'Ghagoa', 'à¦˜à¦¾à¦—à§‹à§Ÿà¦¾', 'ghagoaup.gaibandha.gov.bd'),
+(3919, 429, 'Gidari', 'à¦—à¦¿à¦¦à¦¾à¦°à§€', 'gidariup.gaibandha.gov.bd'),
+(3920, 429, 'Kholahati', 'à¦–à§‹à¦²à¦¾à¦¹à¦¾à¦Ÿà§€', 'kholahatiup.gaibandha.gov.bd'),
+(3921, 429, 'Mollarchar', 'à¦®à§‹à¦²à§à¦²à¦¾à¦°à¦šà', 'mollarcharup.gaibandha.gov.bd'),
+(3922, 429, 'Kamarjani', 'à¦•à¦¾à¦®à¦¾à¦°à¦œà¦¾à¦¨à', 'kamarjaniup.gaibandha.gov.bd'),
+(3923, 430, 'Kishoregari', 'à¦•à¦¿à¦¶à§‹à¦°à¦—à¦¾à§œà', 'kishoregariup.gaibandha.gov.bd'),
+(3924, 430, 'Hosenpur', 'à¦¹à§‹à¦¸à§‡à¦¨à¦ªà§à¦°', 'hosenpurup.gaibandha.gov.bd'),
+(3925, 430, 'Palashbari', 'à¦ªà¦²à¦¾à¦¶à¦¬à¦¾à§œà§€', 'palashbariup.gaibandha.gov.bd'),
+(3926, 430, 'Barisal', 'à¦¬à¦°à¦¿à¦¶à¦¾à¦²', 'barisalup.gaibandha.gov.bd'),
+(3927, 430, 'Mohdipur', 'à¦®à¦¹à¦¦à§€à¦ªà§à¦°', 'mohdipurup.gaibandha.gov.bd'),
+(3928, 430, 'Betkapa', 'à¦¬à§‡à¦¤à¦•à¦¾à¦ªà¦¾', 'betkapaup.gaibandha.gov.bd'),
+(3929, 430, 'Pobnapur', 'à¦ªà¦¬à¦¨à¦¾à¦ªà§à¦°', 'pobnapurup.gaibandha.gov.bd'),
+(3930, 430, 'Monohorpur', 'à¦®à¦¨à§‹à¦¹à¦°à¦ªà§à¦°', 'monohorpurup.gaibandha.gov.bd'),
+(3931, 430, 'Harinathpur', 'à¦¹à¦°à¦¿à¦£à¦¾à¦¥à¦ªà§à', 'harinathpurup.gaibandha.gov.bd'),
+(3932, 431, 'Padumsahar', 'à¦ªà¦¦à§à¦®à¦¶à¦¹à¦°', 'padumsaharup.gaibandha.gov.bd'),
+(3933, 431, 'Varotkhali', 'à¦­à¦°à¦¤à¦–à¦¾à¦²à§€', 'varotkhaliup.gaibandha.gov.bd'),
+(3934, 431, 'Saghata', 'à¦¸à¦¾à¦˜à¦¾à¦Ÿà¦¾', 'saghataup.gaibandha.gov.bd'),
+(3935, 431, 'Muktinagar', 'à¦®à§à¦•à§à¦¤à¦¿à¦¨à¦—à', 'muktinagarup.gaibandha.gov.bd'),
+(3936, 431, 'Kachua', 'à¦•à¦šà§à§Ÿà¦¾', 'kachuaup.gaibandha.gov.bd'),
+(3937, 431, 'Ghuridah', 'à¦˜à§à¦°à¦¿à¦¦à¦¹', 'ghuridahup.gaibandha.gov.bd'),
+(3938, 431, 'Holdia', 'à¦¹à¦²à¦¦à¦¿à§Ÿà¦¾', 'holdiaup.gaibandha.gov.bd'),
+(3939, 431, 'Jumarbari', 'à¦œà§à¦®à¦¾à¦°à¦¬à¦¾à§œà', 'jumarbariup.gaibandha.gov.bd'),
+(3940, 431, 'Kamalerpara', 'à¦•à¦¾à¦®à¦¾à¦²à§‡à¦°à¦ªà', 'kamalerparaup.gaibandha.gov.bd'),
+(3941, 431, 'Bonarpara', 'à¦¬à§‹à¦¨à¦¾à¦°à¦ªà¦¾à§œà', 'bonarparaup.gaibandha.gov.bd'),
+(3942, 432, 'Kamdia', 'à¦•à¦¾à¦®à¦¦à¦¿à§Ÿà¦¾', 'kamdiaup.gaibandha.gov.bd'),
+(3943, 432, 'Katabari', 'à¦•à¦¾à¦Ÿà¦¾à¦¬à¦¾à§œà§€', 'katabariup.gaibandha.gov.bd'),
+(3944, 432, 'Shakhahar', 'à¦¶à¦¾à¦–à¦¾à¦¹à¦¾à¦°', 'shakhaharup.gaibandha.gov.bd'),
+(3945, 432, 'Rajahar', 'à¦°à¦¾à¦œà¦¾à¦¹à¦¾à¦°', 'rajaharup.gaibandha.gov.bd'),
+(3946, 432, 'Sapmara', 'à¦¸à¦¾à¦ªà¦®à¦¾à¦°à¦¾', 'sapmaraup.gaibandha.gov.bd'),
+(3947, 432, 'Dorbosto', 'à¦¦à¦°à¦¬à¦¸à§à¦¤ à¦‡à§Ÿ', 'dorbostoup.gaibandha.gov.bd'),
+(3948, 432, 'Talukkanupur', 'à¦¤à¦¾à¦²à§à¦•à¦•à¦¾à¦¨à', 'talukkanupurup.gaibandha.gov.bd'),
+(3949, 432, 'Nakai', 'à¦¨à¦¾à¦•à¦¾à¦‡', 'nakaiup.gaibandha.gov.bd'),
+(3950, 432, 'Harirampur', 'à¦¹à¦°à¦¿à¦°à¦¾à¦®à¦ªà§à', 'harirampurup.gaibandha.gov.bd'),
+(3951, 432, 'Rakhalburuj', 'à¦°à¦¾à¦–à¦¾à¦²à¦¬à§à¦°à', 'rakhalburujup.gaibandha.gov.bd'),
+(3952, 432, 'Phulbari', 'à¦«à§à¦²à¦¬à¦¾à§œà§€', 'phulbariup.gaibandha.gov.bd'),
+(3953, 432, 'Gumaniganj', 'à¦—à§à¦®à¦¾à¦¨à§€à¦—à¦žà', 'gumaniganjup.gaibandha.gov.bd'),
+(3954, 432, 'Kamardoho', 'à¦•à¦¾à¦®à¦¾à¦°à¦¦à¦¹', 'kamardohoup.gaibandha.gov.bd'),
+(3955, 432, 'Kochasahar', 'à¦•à§‹à¦šà¦¾à¦¶à¦¹à¦°', 'kochasaharup.gaibandha.gov.bd'),
+(3956, 432, 'Shibpur', 'à¦¶à¦¿à¦¬à¦ªà§à¦°', 'shibpurup.gaibandha.gov.bd'),
+(3957, 432, 'Mahimaganj', 'à¦®à¦¹à¦¿à¦®à¦¾à¦—à¦žà§à', 'mahimaganjup.gaibandha.gov.bd'),
+(3958, 432, 'Shalmara', 'à¦¶à¦¾à¦²à¦®à¦¾à¦°à¦¾', 'shalmaraup.gaibandha.gov.bd'),
+(3959, 433, 'Bamondanga', 'à¦¬à¦¾à¦®à¦¨à¦¡à¦¾à¦™à§à', 'bamondangaup.gaibandha.gov.bd'),
+(3960, 433, 'Sonaroy', 'à¦¸à§‹à¦¨à¦¾à¦°à¦¾à§Ÿ', 'sonaroyup.gaibandha.gov.bd'),
+(3961, 433, 'Tarapur', 'à¦¤à¦¾à¦°à¦¾à¦ªà§à¦°', 'tarapurup.gaibandha.gov.bd'),
+(3962, 433, 'Belka', 'à¦¬à§‡à¦²à¦•à¦¾', 'belkaup.gaibandha.gov.bd'),
+(3963, 433, 'Dohbond', 'à¦¦à¦¹à¦¬à¦¨à§à¦¦', 'dohbondup.gaibandha.gov.bd'),
+(3964, 433, 'Sorbanondo', 'à¦¸à¦°à§à¦¬à¦¾à¦¨à¦¨à§à', 'sorbanondoup.gaibandha.gov.bd'),
+(3965, 433, 'Ramjibon', 'à¦°à¦¾à¦®à¦œà§€à¦¬à¦¨', 'ramjibonup.gaibandha.gov.bd'),
+(3966, 433, 'Dhopadanga', 'à¦§à§‹à¦ªà¦¾à¦¡à¦¾à¦™à§à', 'dhopadangaup.gaibandha.gov.bd'),
+(3967, 433, 'Chaporhati', 'à¦›à¦¾à¦ªà¦°à¦¹à¦¾à¦Ÿà§€', 'chaporhatiup.gaibandha.gov.bd'),
+(3968, 433, 'Shantiram', 'à¦¶à¦¾à¦¨à§à¦¤à¦¿à¦°à¦¾à', 'shantiramup.gaibandha.gov.bd'),
+(3969, 433, 'Konchibari', 'à¦•à¦žà§à¦šà¦¿à¦¬à¦¾à§œà', 'konchibariup.gaibandha.gov.bd'),
+(3970, 433, 'Sreepur', 'à¦¶à§à¦°à§€à¦ªà§à¦°', 'sreepurup.gaibandha.gov.bd'),
+(3971, 433, 'Chandipur', 'à¦šà¦¨à§à¦¡à¦¿à¦ªà§à¦°', 'chandipurup.gaibandha.gov.bd'),
+(3972, 433, 'Kapasia', 'à¦•à¦¾à¦ªà¦¾à¦¸à¦¿à§Ÿà¦¾', 'kapasiaup.gaibandha.gov.bd'),
+(3973, 433, 'Haripur', 'à¦¹à¦°à¦¿à¦ªà§à¦°', 'haripurup.gaibandha.gov.bd'),
+(3974, 434, 'Kanchipara', 'à¦•à¦žà§à¦šà¦¿à¦ªà¦¾à§œà', 'kanchiparaup.gaibandha.gov.bd'),
+(3975, 434, 'Uria', 'à¦‰à§œà¦¿à§Ÿà¦¾', 'uriaup.gaibandha.gov.bd'),
+(3976, 434, 'Udakhali', 'à¦‰à¦¦à¦¾à¦–à¦¾à¦²à§€', 'udakhaliup.gaibandha.gov.bd'),
+(3977, 434, 'Gazaria', 'à¦—à¦œà¦¾à¦°à¦¿à§Ÿà¦¾', 'gazariaup.gaibandha.gov.bd'),
+(3978, 434, 'Phulchari', 'à¦«à§à¦²à¦›à§œà¦¿', 'phulchariup.gaibandha.gov.bd'),
+(3979, 434, 'Erendabari', 'à¦à¦°à§‡à¦¨à§à¦¡à¦¾à¦¬à', 'erendabariup.gaibandha.gov.bd'),
+(3980, 434, 'Fazlupur', 'à¦«à¦œà¦²à§à¦ªà§à¦°', 'fazlupurup.gaibandha.gov.bd'),
+(3981, 435, 'Ruhea', 'à¦°à§à¦¹à¦¿à§Ÿà¦¾', 'ruheaup.thakurgaon.gov.bd'),
+(3982, 435, 'Akhanagar', 'à¦†à¦–à¦¾à¦¨à¦—à¦°', 'akhanagarup.thakurgaon.gov.bd'),
+(3983, 435, 'Ahcha', 'à¦†à¦•à¦šà¦¾', 'ahchaup.thakurgaon.gov.bd'),
+(3984, 435, 'Baragaon', 'à¦¬à§œà¦—à¦¾à¦à¦“', 'baragaonup.thakurgaon.gov.bd'),
+(3985, 435, 'Balia', 'à¦¬à¦¾à¦²à¦¿à§Ÿà¦¾', 'baliaup.thakurgaon.gov.bd'),
+(3986, 435, 'Auliapur', 'à¦†à¦‰à¦²à¦¿à§Ÿà¦¾à¦ªà§à', 'auliapurup.thakurgaon.gov.bd'),
+(3987, 435, 'Chilarang', 'à¦šà¦¿à¦²à¦¾à¦°à¦‚', 'chilarangup.thakurgaon.gov.bd'),
+(3988, 435, 'Rahimanpur', 'à¦°à¦¹à¦¿à¦®à¦¾à¦¨à¦ªà§à', 'rahimanpurup.thakurgaon.gov.bd'),
+(3989, 435, 'Roypur', 'à¦°à¦¾à§Ÿà¦ªà§à¦°', 'roypurup.thakurgaon.gov.bd'),
+(3990, 435, 'Jamalpur', 'à¦œà¦¾à¦®à¦¾à¦²à¦ªà§à¦°', 'jamalpurup.thakurgaon.gov.bd'),
+(3991, 435, 'Mohammadpur', 'à¦®à§‹à¦¹à¦¾à¦®à§à¦®à¦¦à', 'mohammadpurup.thakurgaon.gov.bd'),
+(3992, 435, 'Salandar', 'à¦¸à¦¾à¦²à¦¨à§à¦¦à¦°', 'salandarup.thakurgaon.gov.bd'),
+(3993, 435, 'Gareya', 'à¦—à§œà§‡à§Ÿà¦¾', 'gareyaup.thakurgaon.gov.bd'),
+(3994, 435, 'Rajagaon', 'à¦°à¦¾à¦œà¦¾à¦—à¦¾à¦à¦“', 'rajagaonup.thakurgaon.gov.bd'),
+(3995, 435, 'Debipur', 'à¦¦à§‡à¦¬à§€à¦ªà§à¦°', 'debipurup.thakurgaon.gov.bd'),
+(3996, 435, 'Nargun', 'à¦¨à¦¾à¦°à¦—à§à¦¨', 'nargunup.thakurgaon.gov.bd'),
+(3997, 435, 'Jagannathpur', 'à¦œà¦—à¦¨à§à¦¨à¦¾à¦¥à¦ªà', 'jagannathpurup.thakurgaon.gov.bd'),
+(3998, 435, 'Sukhanpukhari', 'à¦¶à§à¦–à¦¾à¦¨à¦ªà§à¦•à', 'sukhanpukhariup.thakurgaon.gov.bd'),
+(3999, 435, 'Begunbari', 'à¦¬à§‡à¦—à§à¦¨à¦¬à¦¾à§œà', 'begunbariup.thakurgaon.gov.bd'),
+(4000, 435, 'Ruhia Pashchim', 'à¦°à§à¦¹à¦¿à§Ÿà¦¾ à¦ªà¦¶', 'ruhiapashchimup.thakurgaon.gov.bd'),
+(4001, 435, 'Dholarhat', 'à¦¢à§‹à¦²à¦¾à¦°à¦¹à¦¾à¦Ÿ', 'dholarhatup.thakurgaon.gov.bd'),
+(4002, 436, 'Bhomradaha', 'à¦­à§‹à¦®à¦°à¦¾à¦¦à¦¹', 'bhomradahaup.thakurgaon.gov.bd'),
+(4003, 436, 'Kosharaniganj', 'à¦•à§‹à¦·à¦¾à¦°à¦¾à¦£à§€à', 'kosharaniganjup.thakurgaon.gov.bd'),
+(4004, 436, 'Khangaon', 'à¦–à¦¨à¦—à¦¾à¦à¦“', 'khangaonup.thakurgaon.gov.bd'),
+(4005, 436, 'Saidpur', 'à¦¸à§ˆà§Ÿà¦¦à¦ªà§à¦°', 'saidpurup.thakurgaon.gov.bd'),
+(4006, 436, 'Pirganj', 'à¦ªà§€à¦°à¦—à¦žà§à¦œ', 'pirganjup.thakurgaon.gov.bd'),
+(4007, 436, 'Hajipur', 'à¦¹à¦¾à¦œà§€à¦ªà§à¦°', 'hajipurup.thakurgaon.gov.bd'),
+(4008, 436, 'Daulatpur', 'à¦¦à§Œà¦²à¦¤à¦ªà§à¦°', 'daulatpurup.thakurgaon.gov.bd'),
+(4009, 436, 'Sengaon', 'à¦¸à§‡à¦¨à¦—à¦¾à¦à¦“', 'sengaonup.thakurgaon.gov.bd'),
+(4010, 436, 'Jabarhat', 'à¦œà¦¾à¦¬à¦°à¦¹à¦¾à¦Ÿ', 'jabarhatup.thakurgaon.gov.bd'),
+(4011, 436, 'Bairchuna', 'à¦¬à§ˆà¦°à¦šà§à¦¨à¦¾', 'bairchunaup.thakurgaon.gov.bd'),
+(4012, 437, 'Dhormogarh', 'à¦§à¦°à§à¦®à¦—à§œ', 'dhormogarhup.thakurgaon.gov.bd'),
+(4013, 437, 'Nekmorod', 'à¦¨à§‡à¦•à¦®à¦°à¦¦', 'nekmorodup.thakurgaon.gov.bd'),
+(4014, 437, 'Hosengaon', 'à¦¹à§‹à¦¸à§‡à¦¨à¦—à¦¾à¦à', 'hosengaonup.thakurgaon.gov.bd'),
+(4015, 437, 'Lehemba', 'à¦²à§‡à¦¹à§‡à¦®à§à¦¬à¦¾', 'lehembaup.thakurgaon.gov.bd'),
+(4016, 437, 'Bachor', 'à¦¬à¦¾à¦šà§‹à¦°', 'bachorup.thakurgaon.gov.bd'),
+(4017, 437, 'Kashipur', 'à¦•à¦¾à¦¶à¦¿à¦ªà§à¦°', 'kashipurup.thakurgaon.gov.bd'),
+(4018, 437, 'Ratore', 'à¦°à¦¾à¦¤à§‹à¦°', 'ratoreup.thakurgaon.gov.bd'),
+(4019, 437, 'Nonduar', 'à¦¨à¦¨à§à¦¦à§à§Ÿà¦¾à¦°', 'nonduarup.thakurgaon.gov.bd'),
+(4020, 438, 'Gedura', 'à¦—à§‡à¦¦à§à§œà¦¾', 'geduraup.thakurgaon.gov.bd'),
+(4021, 438, 'Amgaon', 'à¦†à¦®à¦—à¦¾à¦à¦“', 'amgaonup.thakurgaon.gov.bd'),
+(4022, 438, 'Bakua', 'à¦¬à¦•à§à§Ÿà¦¾', 'bakuaup.thakurgaon.gov.bd'),
+(4023, 438, 'Dangipara', 'à¦¡à¦¾à¦™à§à¦—à§€à¦ªà¦¾à', 'dangiparaup.thakurgaon.gov.bd'),
+(4024, 438, 'Haripur', 'à¦¹à¦°à¦¿à¦ªà§à¦°', 'haripurup.thakurgaon.gov.bd'),
+(4025, 438, 'Bhaturia', 'à¦­à¦¾à¦¤à§à¦°à¦¿à§Ÿà¦¾', 'bhaturiaup.thakurgaon.gov.bd'),
+(4026, 439, 'Paria', 'à¦ªà¦¾à§œà¦¿à§Ÿà¦¾', 'pariaup.thakurgaon.gov.bd'),
+(4027, 439, 'Charol', 'à¦šà¦¾à¦°à§‹à¦²', 'charolup.thakurgaon.gov.bd'),
+(4028, 439, 'Dhontola', 'à¦§à¦¨à¦¤à¦²à¦¾', 'dhontolaup.thakurgaon.gov.bd'),
+(4029, 439, 'Boropalashbari', 'à¦¬à§œà¦ªà¦²à¦¾à¦¶à¦¬à¦¾à', 'boropalashbariup.thakurgaon.gov.bd'),
+(4030, 439, 'Duosuo', 'à¦¦à§à¦“à¦¸à§à¦“', 'duosuoup.thakurgaon.gov.bd'),
+(4031, 439, 'Vanor', 'à¦­à¦¾à¦¨à§‹à¦°', 'vanorup.thakurgaon.gov.bd'),
+(4032, 439, 'Amjankhore', 'à¦†à¦®à¦œà¦¾à¦¨à¦–à§‹à¦°', 'amjankhoreup.thakurgaon.gov.bd'),
+(4033, 439, 'Borobari', 'à¦¬à§œà¦¬à¦¾à§œà§€', 'borobariup.thakurgaon.gov.bd'),
+(4034, 440, 'Mominpur', 'à¦®à¦®à¦¿à¦¨à¦ªà§à¦°', 'mominpurup.rangpur.gov.bd'),
+(4035, 440, 'Horidebpur', 'à¦¹à¦°à¦¿à¦¦à§‡à¦¬à¦ªà§à', 'horidebpurup.rangpur.gov.bd'),
+(4036, 440, 'Uttam', 'à¦‰à¦¤à§à¦¤à¦®', 'uttamup.rangpur.gov.bd'),
+(4037, 440, 'Porshuram', 'à¦ªà¦°à¦¶à§à¦°à¦¾à¦®', 'porshuramup.rangpur.gov.bd'),
+(4038, 440, 'Topodhan', 'à¦¤à¦ªà§‹à¦§à¦¨', 'topodhanup.rangpur.gov.bd'),
+(4039, 440, 'Satgara', 'à¦¸à¦¾à¦¤à¦—à¦¾à¦°à¦¾', 'satgaraup.rangpur.gov.bd'),
+(4040, 440, 'Rajendrapur', 'à¦°à¦¾à¦œà§‡à¦¨à§à¦¦à§à', 'rajendrapurup.rangpur.gov.bd'),
+(4041, 440, 'Sadwapuskoroni', 'à¦¸à¦¦à§à¦¯à¦ªà§à¦¸à§à', 'sadwapuskoroniup.rangpur.gov.bd'),
+(4042, 440, 'Chandanpat', 'à¦šà¦¨à§à¦¦à¦¨à¦ªà¦¾à¦Ÿ', 'chandanpatup.rangpur.gov.bd'),
+(4043, 440, 'Dorshona', 'à¦¦à¦°à§à¦¶à¦¾à¦¨à¦¾', 'dorshonaup.rangpur.gov.bd'),
+(4044, 440, 'Tampat', 'à¦¤à¦¾à¦®à¦ªà¦¾à¦Ÿ', 'tampatup.rangpur.gov.bd'),
+(4045, 441, 'Betgari', 'à¦¬à§‡à¦¤à¦—à¦¾à§œà§€', 'betgariup.rangpur.gov.bd'),
+(4046, 441, 'Kholeya', 'à¦–à¦²à§‡à§Ÿà¦¾', 'kholeyaup.rangpur.gov.bd'),
+(4047, 441, 'Borobil', 'à¦¬à§œà¦¬à¦¿à¦²', 'borobilup.rangpur.gov.bd'),
+(4048, 441, 'Kolcondo', 'à¦•à§‹à¦²à¦•à§‹à¦¨à§à¦¦', 'kolcondoup.rangpur.gov.bd'),
+(4049, 441, 'Gongachora', 'à¦—à¦‚à¦—à¦¾à¦šà§œà¦¾', 'gongachoraup.rangpur.gov.bd'),
+(4050, 441, 'Gojoghonta', 'à¦—à¦œà¦˜à¦¨à§à¦Ÿà¦¾', 'gojoghontaup.rangpur.gov.bd'),
+(4051, 441, 'Morneya', 'à¦®à¦°à§à¦£à§‡à§Ÿà¦¾', 'morneyaup.rangpur.gov.bd'),
+(4052, 441, 'Alambiditor', 'à¦†à¦²à¦®à¦¬à¦¿à¦¦à¦¿à¦¤à', 'alambiditorup.rangpur.gov.bd'),
+(4053, 441, 'Lakkhitari', 'à¦²à¦•à§à¦·à§€à¦Ÿà¦¾à¦°à', 'lakkhitariup.rangpur.gov.bd'),
+(4054, 441, 'Nohali', 'à¦¨à§‹à¦¹à¦¾à¦²à§€', 'nohaliup.rangpur.gov.bd'),
+(4055, 442, 'Kurshatara', 'à¦•à§à¦°à§à¦¶à¦¾', 'kurshataraup.rangpur.gov.bd'),
+(4056, 442, 'Alampur', 'à¦†à¦²à¦®à¦ªà§à¦°', 'alampurup.rangpur.gov.bd'),
+(4057, 442, 'Soyar', 'à¦¸à§Ÿà¦¾à¦°', 'soyarup.rangpur.gov.bd'),
+(4058, 442, 'Ikorchali', 'à¦‡à¦•à¦°à¦šà¦¾à¦²à§€', 'ikorchaliup.rangpur.gov.bd'),
+(4059, 442, 'Hariarkuthi', 'à¦¹à¦¾à§œà¦¿à§Ÿà¦¾à¦°à¦•à', 'hariarkuthiup.rangpur.gov.bd'),
+(4060, 443, 'Radhanagar', 'à¦°à¦¾à¦§à¦¾à¦¨à¦—à¦°', 'radhanagarup.rangpur.gov.bd'),
+(4061, 443, 'Gopinathpur', 'à¦—à§‹à¦ªà§€à¦¨à¦¾à¦¥à¦ªà', 'gopinathpurup.rangpur.gov.bd'),
+(4062, 443, 'Modhupur', 'à¦®à¦§à§à¦ªà§à¦°', 'modhupurup.rangpur.gov.bd'),
+(4063, 443, 'Kutubpur', 'à¦•à§à¦¤à§à¦¬à¦ªà§à¦°', 'kutubpurup.ranpur.gov.bd'),
+(4064, 443, 'Bishnapur', 'à¦¬à¦¿à¦·à§à¦£à¦ªà§à¦°', 'bishnapurup.rangpur.gov.bd'),
+(4065, 443, 'Kalupara', 'à¦•à¦¾à¦²à§à¦ªà¦¾à§œà¦¾', 'kaluparaup.rangpur.gov.bd'),
+(4066, 443, 'Lohanipara', 'à¦²à§‹à¦¹à¦¾à¦¨à§€à¦ªà¦¾à', 'lohaniparaup.rangpur.gov.bd'),
+(4067, 443, 'Gopalpur', 'à¦—à§‹à¦ªà¦¾à¦²à¦ªà§à¦°', 'gopalpurup.rangpur.gov.bd'),
+(4068, 443, 'Damodorpur', 'à¦¦à¦¾à¦®à§‹à¦¦à¦°à¦ªà§à', 'damodorpurup.rangpur.gov.bd'),
+(4069, 443, 'Ramnathpurupb', 'à¦°à¦¾à¦®à¦¨à¦¾à¦¥à¦ªà§à', 'ramnathpurupb.rangpur.gov.bd'),
+(4070, 444, 'Khoragach', 'à¦–à§‹à¦°à¦¾à¦—à¦¾à¦›', 'khoragachup.rangpur.gov.bd'),
+(4071, 444, 'Ranipukur', 'à¦°à¦¾à¦£à§€à¦ªà§à¦•à§à', 'ranipukurup.rangpur.gov.bd'),
+(4072, 444, 'Payrabond', 'à¦ªà¦¾à§Ÿà¦°à¦¾à¦¬à¦¨à§à', 'payrabondup.rangpur.gov.bd'),
+(4073, 444, 'Vangni', 'à¦­à¦¾à¦‚à¦¨à§€', 'vangniup.rangpur.gov.bd'),
+(4074, 444, 'Balarhat', 'à¦¬à¦¾à¦²à¦¾à¦°à¦¹à¦¾à¦Ÿ', 'balarhatup.rangpur.gov.bd'),
+(4075, 444, 'Kafrikhal', 'à¦•à¦¾à¦«à§à¦°à¦¿à¦–à¦¾à', 'kafrikhalup.rangpur.gov.bd'),
+(4076, 444, 'Latibpur', 'à¦²à¦¤à¦¿à¦¬à¦ªà§à¦°', 'latibpurup.rangpur.gov.bd'),
+(4077, 444, 'Chengmari', 'à¦šà§‡à¦‚à¦®à¦¾à¦°à§€', 'chengmariup.rangpur.gov.bd'),
+(4078, 444, 'Moyenpur', 'à¦®à§Ÿà§‡à¦¨à¦ªà§à¦°', 'moyenpurup.rangpur.gov.bd'),
+(4079, 444, 'Baluya Masimpur', 'à¦¬à¦¾à¦²à§à§Ÿà¦¾ à¦®à¦¾', 'baluyamasimpurup.rangpur.gov.bd'),
+(4080, 444, 'Borobala', 'à¦¬à§œà¦¬à¦¾à¦²à¦¾', 'borobalaup.rangpur.gov.bd'),
+(4081, 444, 'Mirzapur', 'à¦®à¦¿à¦°à§à¦œà¦¾à¦ªà§à', 'mirzapurup.rangpur.gov.bd'),
+(4082, 444, 'Imadpur', 'à¦‡à¦®à¦¾à¦¦à¦ªà§à¦°', 'imadpurup.rangpur.gov.bd'),
+(4083, 444, 'Milonpur', 'à¦®à¦¿à¦²à¦¨à¦ªà§à¦°', 'milonpurup.rangpur.gov.bd'),
+(4084, 444, 'Mgopalpur', 'à¦—à§‹à¦ªà¦¾à¦²à¦ªà§à¦°', 'mgopalpurup.rangpur.gov.bd'),
+(4085, 444, 'Durgapur', 'à¦¦à§‚à¦°à§à¦—à¦¾à¦ªà§à', 'durgapurup.rangpur.gov.bd'),
+(4086, 444, 'Boro Hazratpur', 'à¦¬à§œ à¦¹à¦¯à¦°à¦¤à¦ªà§', 'borohazratpurup.rangpur.gov.bd'),
+(4087, 445, 'Chattracol', 'à¦šà§ˆà¦¤à§à¦°à¦•à§‹à¦²', 'chattracolup.rangpur.gov.bd'),
+(4088, 445, 'Vendabari', 'à¦­à§‡à¦¨à§à¦¡à¦¾à¦¬à¦¾à', 'vendabariup.rangpur.gov.bd'),
+(4089, 445, 'Borodargah', 'à¦¬à§œà¦¦à¦°à¦—à¦¾à¦¹', 'borodargahup.rangpur.gov.bd'),
+(4090, 445, 'Kumedpur', 'à¦•à§à¦®à§‡à¦¦à¦ªà§à¦°', 'kumedpurup.rangpur.gov.bd'),
+(4091, 445, 'Modankhali', 'à¦®à¦¦à¦¨à¦–à¦¾à¦²à§€', 'modankhaliup.rangpur.gov.bd'),
+(4092, 445, 'Tukuria', 'à¦Ÿà§à¦•à§à¦°à¦¿à§Ÿà¦¾', 'tukuriaup.rangpur.gov.bd'),
+(4093, 445, 'Boro Alampur', 'à¦¬à§œ à¦†à¦²à¦®à¦ªà§à¦°', 'boroalampurup.rangpur.gov.bd'),
+(4094, 445, 'Raypur', 'à¦°à¦¾à§Ÿà¦ªà§à¦°', 'raypurup.rangpur.gov.bd'),
+(4095, 445, 'Pirgonj', 'à¦ªà§€à¦°à¦—à¦žà§à¦œ', 'pirgonjup.rangpur.gov.bd'),
+(4096, 445, 'Shanerhat', 'à¦¶à¦¾à¦¨à§‡à¦°à¦¹à¦¾à¦Ÿ', 'shanerhatup.rangpur.gov.bd'),
+(4097, 445, 'Mithipur', 'à¦®à¦¿à¦ à¦¿à¦ªà§à¦°', 'mithipurup.rangpur.gov.bd'),
+(4098, 445, 'Ramnathpur', 'à¦°à¦¾à¦®à¦¨à¦¾à¦¥à¦ªà§à', 'ramnathpurup1.rangpur.gov.bd'),
+(4099, 445, 'Chattra', 'à¦šà¦¤à¦°à¦¾', 'chattraup.rangpur.gov.bd'),
+(4100, 445, 'Kabilpur', 'à¦•à¦¾à¦¬à¦¿à¦²à¦ªà§à¦°', 'kabilpurup.rangpur.gov.bd'),
+(4101, 445, 'Pachgachi', 'à¦ªà¦¾à¦à¦šà¦—à¦¾à¦›à§€', 'pachgachiup.rangpur.gov.bd'),
+(4102, 446, 'Sarai', 'à¦¸à¦¾à¦°à¦¾à¦‡', 'saraiup.rangpur.gov.bd'),
+(4103, 446, 'Balapara', 'à¦¬à¦¾à¦²à¦¾à¦ªà¦¾à§œà¦¾', 'balaparaup.rangpur.gov.bd'),
+(4104, 446, 'Shahidbag', 'à¦¶à¦¹à§€à¦¦à¦¬à¦¾à¦—', 'shahidbagup.rangpur.gov.bd'),
+(4105, 446, 'Haragach', 'à¦¹à¦¾à¦°à¦¾à¦—à¦¾à¦›', 'haragachup.rangpur.gov.bd'),
+(4106, 446, 'Tepamodhupur', 'à¦Ÿà§‡à¦ªà¦¾à¦®à¦§à§à¦ªà', 'tepamodhupurup.rangpur.gov.bd'),
+(4107, 446, 'Kurshaupk', 'à¦•à§à¦°à§à¦¶à¦¾', 'kurshaupk.rangpur.gov.bd'),
+(4108, 447, 'Kollyani', 'à¦•à¦²à§à¦¯à¦¾à¦£à§€', 'kollyaniup.rangpur.gov.bd'),
+(4109, 447, 'Parul', 'à¦ªà¦¾à¦°à§à¦²', 'parulup.rangpur.gov.bd'),
+(4110, 447, 'Itakumari', 'à¦‡à¦Ÿà¦¾à¦•à§à¦®à¦¾à¦°à', 'itakumariup.rangpur.gov.bd'),
+(4111, 447, 'Saula', 'à¦›à¦¾à¦“à¦²à¦¾', 'saulaup.rangpur.gov.bd'),
+(4112, 447, 'Kandi', 'à¦•à¦¾à¦¨à§à¦¦à¦¿', 'kandiup.rangpur.gov.bd'),
+(4113, 447, 'Pirgacha', 'à¦ªà§€à¦°à¦—à¦¾à¦›à¦¾', 'pirgachaup.rangpur.gov.bd'),
+(4114, 447, 'Annodanagar', 'à¦…à¦¨à§à¦¨à¦¦à¦¾à¦¨à¦—à', 'annodanagarup.rangpur.gov.bd'),
+(4115, 447, 'Tambulpur', 'à¦¤à¦¾à¦®à§à¦¬à§à¦²à¦ªà', 'tambulpurup.rangpur.gov.bd'),
+(4116, 447, 'Koikuri', 'à¦•à§ˆà¦•à§à§œà§€', 'koikuriup.rangpur.gov.bd'),
+(4117, 448, 'Holokhana', 'à¦¹à¦²à§‹à¦–à¦¾à¦¨à¦¾', 'holokhanaup.kurigram.gov.bd'),
+(4118, 448, 'Ghogadhoh', 'à¦˜à§‹à¦—à¦¾à¦¦à¦¹', 'ghogadhohup.kurigram.gov.bd'),
+(4119, 448, 'Belgacha', 'à¦¬à§‡à¦²à¦—à¦¾à¦›à¦¾', 'belgachaup.kurigram.gov.bd'),
+(4120, 448, 'Mogolbasa', 'à¦®à§‹à¦—à¦²à¦¬à¦¾à¦¸à¦¾', 'mogolbasaup.kurigram.gov.bd'),
+(4121, 448, 'Panchgachi', 'à¦ªà¦¾à¦à¦šà¦—à¦¾à¦›à¦¿', 'panchgachiup.kurigram.gov.bd'),
+(4122, 448, 'Jatrapur', 'à¦¯à¦¾à¦¤à§à¦°à¦¾à¦ªà§à', 'jatrapurup.kurigram.gov.bd'),
+(4123, 448, 'Kanthalbari', 'à¦•à¦¾à¦à¦ à¦¾à¦²à¦¬à¦¾à', 'kanthalbariup.kurigram.gov.bd'),
+(4124, 448, 'Bhogdanga', 'à¦­à§‹à¦—à¦¡à¦¾à¦™à§à¦—à', 'bhogdangaup.kurigram.gov.bd'),
+(4125, 449, 'Ramkhana', 'à¦°à¦¾à¦®à¦–à¦¾à¦¨à¦¾', 'ramkhanaup.kurigram.gov.bd'),
+(4126, 449, 'Raigonj', 'à¦°à¦¾à§Ÿà¦—à¦žà§à¦œ', 'raigonjup.kurigram.gov.bd'),
+(4127, 449, 'Bamondanga', 'à¦¬à¦¾à¦®à¦¨à¦¡à¦¾à¦™à§à', 'bamondangaup.kurigram.gov.bd'),
+(4128, 449, 'Berubari', 'à¦¬à§‡à¦°à§à¦¬à¦¾à§œà§€', 'berubariup.kurigram.gov.bd'),
+(4129, 449, 'Sontaspur', 'à¦¸à¦¨à§à¦¤à§‹à¦·à¦ªà§à', 'sontaspurup.kurigram.gov.bd'),
+(4130, 449, 'Hasnabad', 'à¦¹à¦¾à¦¸à¦¨à¦¾à¦¬à¦¾à¦¦', 'hasnabadup.kurigram.gov.bd'),
+(4131, 449, 'Newyashi', 'à¦¨à§‡à¦“à§Ÿà¦¾à¦¶à§€', 'newyashiup.kurigram.gov.bd'),
+(4132, 449, 'Bhitorbond', 'à¦­à¦¿à¦¤à¦°à¦¬à¦¨à§à¦¦', 'bhitorbondup.kurigram.gov.bd'),
+(4133, 449, 'Kaligonj', 'à¦•à¦¾à¦²à§€à¦—à¦žà§à¦œ', 'kaligonjup.kurigram.gov.bd'),
+(4134, 449, 'Noonkhawa', 'à¦¨à§à¦¨à¦–à¦¾à¦“à§Ÿà¦¾', 'noonkhawaup.kurigram.gov.bd'),
+(4135, 449, 'Narayanpur', 'à¦¨à¦¾à¦°à¦¾à§Ÿà¦¨à¦ªà§à', 'narayanpurup.kurigram.gov.bd'),
+(4136, 449, 'Kedar', 'à¦•à§‡à¦¦à¦¾à¦°', 'kedarup.kurigram.gov.bd'),
+(4137, 449, 'Kachakata', 'à¦•à¦à¦šà¦¾à¦•à¦¾à¦à¦Ÿà', 'kachakataup.kurigram.gov.bd'),
+(4138, 449, 'Bollobherkhas', 'à¦¬à¦²à§à¦²à¦­à§‡à¦°à¦–à', 'bollobherkhasup.kurigram.gov.bd'),
+(4139, 450, 'Pathordubi', 'à¦ªà¦¾à¦¥à¦°à¦¡à§à¦¬à¦¿', 'pathordubiup.kurigram.gov.bd'),
+(4140, 450, 'Shilkhuri', 'à¦¶à¦¿à¦²à¦–à§à§œà¦¿', 'shilkhuriup.kurigram.gov.bd'),
+(4141, 450, 'Tilai', 'à¦¤à¦¿à¦²à¦¾à¦‡', 'tilaiup.kurigram.gov.bd'),
+(4142, 450, 'Paikarchara', 'à¦ªà¦¾à¦‡à¦•à§‡à¦°à¦›à§œà', 'paikarcharaup.kurigram.gov.bd'),
+(4143, 450, 'Bhurungamari', 'à¦­à§‚à¦°à§à¦™à§à¦—à¦¾à', 'bhurungamariup.kurigram.gov.bd'),
+(4144, 450, 'Joymonirhat', 'à¦œà§Ÿà¦®à¦¨à¦¿à¦°à¦¹à¦¾à', 'joymonirhatup.kurigram.gov.bd'),
+(4145, 450, 'Andharirjhar', 'à¦†à¦¨à§à¦§à¦¾à¦°à§€à¦°à', 'andharirjharup.kurigram.gov.bd'),
+(4146, 450, 'Char-Bhurungamari', 'à¦šà¦°-à¦­à§‚à¦°à§à¦™à§', 'charbhurungamariup.kurigram.gov.bd'),
+(4147, 450, 'Bangasonahat', 'à¦¬à¦™à§à¦—à¦¸à§‹à¦¨à¦¾à', 'bangasonahatup.kurigram.gov.bd'),
+(4148, 450, 'Boldia', 'à¦¬à¦²à¦¦à¦¿à§Ÿà¦¾', 'boldiaup.kurigram.gov.bd'),
+(4149, 451, 'Nawdanga', 'à¦¨à¦¾à¦“à¦¡à¦¾à¦™à§à¦—à', 'nawdangaup.kurigram.gov.bd'),
+(4150, 451, 'Shimulbari', 'à¦¶à¦¿à¦®à§à¦²à¦¬à¦¾à§œà', 'shimulbariup.kurigram.gov.bd'),
+(4151, 451, 'Phulbari', 'à¦«à§à¦²à¦¬à¦¾à§œà§€', 'phulbariup.kurigram.gov.bd'),
+(4152, 451, 'Baravita', 'à¦¬à§œà¦­à¦¿à¦Ÿà¦¾', 'baravitaup.kurigram.gov.bd'),
+(4153, 451, 'Bhangamor', 'à¦­à¦¾à¦™à§à¦—à¦¾à¦®à§‹à', 'bhangamorup.kurigram.gov.bd'),
+(4154, 451, 'Kashipur', 'à¦•à¦¾à¦¶à¦¿à¦ªà§à¦°', 'kashipurup.kurigram.gov.bd'),
+(4155, 452, 'Chinai', 'à¦›à¦¿à¦¨à¦¾à¦‡', 'chinaiup.kurigram.gov.bd'),
+(4156, 452, 'Rajarhat', 'à¦°à¦¾à¦œà¦¾à¦°à¦¹à¦¾à¦Ÿ', 'rajarhatup.kurigram.gov.bd'),
+(4157, 452, 'Nazimkhan', 'à¦¨à¦¾à¦œà¦¿à¦®à¦–à¦¾à¦à', 'nazimkhanup.kurigram.gov.bd'),
+(4158, 452, 'Gharialdanga', 'à¦˜à§œà¦¿à§Ÿà¦¾à¦²à¦¡à¦¾à', 'gharialdangaup.kurigram.gov.bd'),
+(4159, 452, 'Chakirpashar', 'à¦šà¦¾à¦•à¦¿à¦°à¦ªà¦¶à¦¾à', 'chakirpasharup.kurigram.gov.bd'),
+(4160, 452, 'Biddanondo', 'à¦¬à¦¿à¦¦à§à¦¯à¦¾à¦¨à¦¨à', 'biddanondoup.kurigram.gov.bd'),
+(4161, 452, 'Umarmajid', 'à¦‰à¦®à¦° à¦®à¦œà¦¿à¦¦', 'umarmajidup.kurigram.gov.bd'),
+(4162, 453, 'Daldalia', 'à¦¦à¦²à¦¦à¦²à¦¿à§Ÿà¦¾', 'daldaliaup.kurigram.gov.bd'),
+(4163, 453, 'Durgapur', 'à¦¦à§à¦°à§à¦—à¦¾à¦ªà§à', 'durgapurup.kurigram.gov.bd'),
+(4164, 453, 'Pandul', 'à¦ªà¦¾à¦¨à§à¦¡à§à¦²', 'pandulup.kurigram.gov.bd'),
+(4165, 453, 'Buraburi', 'à¦¬à§à§œà¦¾à¦¬à§à§œà§€', 'buraburiup.kurigram.gov.bd'),
+(4166, 453, 'Dharanibari', 'à¦§à¦°à¦£à§€à¦¬à¦¾à§œà§€', 'dharanibariup.kurigram.gov.bd'),
+(4167, 453, 'Dhamsreni', 'à¦§à¦¾à¦®à¦¶à§à¦°à§‡à¦£à', 'dhamsreniup.kurigram.gov.bd'),
+(4168, 453, 'Gunaigas', 'à¦—à§à¦¨à¦¾à¦‡à¦—à¦¾à¦›', 'gunaigasup.kurigram.gov.bd'),
+(4169, 453, 'Bazra', 'à¦¬à¦œà¦°à¦¾', 'bazraup.kurigram.gov.bd'),
+(4170, 453, 'Tobockpur', 'à¦¤à¦¬à¦•à¦ªà§à¦°', 'tobockpurup.kurigram.gov.bd'),
+(4171, 453, 'Hatia', 'à¦¹à¦¾à¦¤à¦¿à§Ÿà¦¾', 'hatiaup.kurigram.gov.bd'),
+(4172, 453, 'Begumgonj', 'à¦¬à§‡à¦—à¦®à¦—à¦žà§à¦œ', 'begumgonjup.kurigram.gov.bd'),
+(4173, 453, 'Shahabiar Alga', 'à¦¸à¦¾à¦¹à§‡à¦¬à§‡à¦° à¦†', 'shahabiaralgaup.kurigram.gov.bd'),
+(4174, 453, 'Thetrai', 'à¦¥à§‡à¦¤à¦°à¦¾à¦‡', 'thetraiup.kurigram.gov.bd'),
+(4175, 454, 'Ranigonj', 'à¦°à¦¾à¦£à§€à¦—à¦žà§à¦œ', 'ranigonjup.kurigram.gov.bd'),
+(4176, 454, 'Nayarhat', 'à¦¨à§Ÿà¦¾à¦°à¦¹à¦¾à¦Ÿ', 'nayarhatup.kurigram.gov.bd'),
+(4177, 454, 'Thanahat', 'à¦¥à¦¾à¦¨à¦¾à¦¹à¦¾à¦Ÿ', 'thanahatup.kurigram.gov.bd'),
+(4178, 454, 'Ramna', 'à¦°à¦®à¦¨à¦¾', 'ramnaup.kurigram.gov.bd'),
+(4179, 454, 'Chilmari', 'à¦šà¦¿à¦²à¦®à¦¾à¦°à§€', 'chilmariup.kurigram.gov.bd'),
+(4180, 454, 'Austomirchar', 'à¦…à¦·à§à¦Ÿà¦®à§€à¦° à¦š', 'austomircharup.kurigram.gov.bd'),
+(4181, 455, 'Dadevanga', 'à¦¦à¦¾à¦à¦¤à¦­à¦¾à¦™à§à', 'dadevangaup.kurigram.gov.bd'),
+(4182, 455, 'Shoulemari', 'à¦¶à§Œà¦²à¦®à¦¾à¦°à§€', 'shoulemariup.kurigram.gov.bd'),
+(4183, 455, 'Bondober', 'à¦¬à¦¨à§à¦¦à¦¬à§‡à§œ', 'bondoberup.kurigram.gov.bd'),
+(4184, 455, 'Rowmari', 'à¦°à§Œà¦®à¦¾à¦°à§€', 'rowmariup.kurigram.gov.bd'),
+(4185, 455, 'Jadurchar', 'à¦¯à¦¾à¦¦à§à¦°à¦šà¦°', 'jadurcharup.kurigram.gov.bd'),
+(4186, 456, 'Rajibpur', 'à¦°à¦¾à¦œà¦¿à¦¬à¦ªà§à¦°', 'rajibpurup.kurigram.gov.bd'),
+(4187, 456, 'Kodalkati', 'à¦•à§‹à¦¦à¦¾à¦²à¦•à¦¾à¦Ÿà', 'kodalkatiup.kurigram.gov.bd'),
+(4188, 456, 'Mohongonj', 'à¦®à§‹à¦¹à¦¨à¦—à¦žà§à¦œ', 'mohongonjup.kurigram.gov.bd'),
+(4189, 457, 'Kamararchor', 'à¦•à¦¾à¦®à¦¾à¦°à§‡à¦° à¦š', 'kamararchorup.sherpur.gov.bd'),
+(4190, 457, 'Chorsherpur', 'à¦šà¦°à¦¶à§‡à¦°à¦ªà§à¦°', 'chorsherpurup.sherpur.gov.bd'),
+(4191, 457, 'Bajitkhila', 'à¦¬à¦¾à¦œà¦¿à¦¤à¦–à¦¿à¦²à', 'bajitkhilaup.sherpur.gov.bd'),
+(4192, 457, 'Gajir Khamar', 'à¦—à¦¾à¦œà¦¿à¦° à¦–à¦¾à¦®', 'gajirkhamarup.sherpur.gov.bd'),
+(4193, 457, 'Dhola', 'à¦§à¦²à¦¾', 'dholaup.sherpur.gov.bd'),
+(4194, 457, 'Pakuriya', 'à¦ªà¦¾à¦•à§à¦°à¦¿à§Ÿà¦¾', 'pakuriyaup.sherpur.gov.bd'),
+(4195, 457, 'Vatshala', 'à¦­à¦¾à¦¤à¦¶à¦¾à¦²à¦¾', 'vatshalaup.sherpur.gov.bd'),
+(4196, 457, 'Losmonpur', 'à¦²à¦›à¦®à¦¨à¦ªà§à¦°', 'losmonpurup.sherpur.gov.bd'),
+(4197, 457, 'Rouha', 'à¦°à§Œà¦¹à¦¾', 'rouhaup.sherpur.gov.bd'),
+(4198, 457, 'Kamariya', 'à¦•à¦¾à¦®à¦¾à¦°à¦¿à§Ÿà¦¾', 'kamariyaup.sherpur.gov.bd'),
+(4199, 457, 'Chor Mochoriya', 'à¦šà¦° à¦®à§‹à¦šà¦¾à¦°à¦¿', 'chormochoriyaup.sherpur.gov.bd'),
+(4200, 457, 'Chorpokhimari', 'à¦šà¦° à¦ªà¦•à§à¦·à§€à¦®', 'chorpokhimariup.sherpur.gov.bd'),
+(4201, 457, 'Betmari Ghughurakandi', 'à¦¬à§‡à¦¤à¦®à¦¾à¦°à¦¿ à¦˜', 'betmarighughurakandiup.sherpur.gov.bd'),
+(4202, 457, 'Balairchar', 'à¦¬à¦²à¦¾à¦‡à¦°à¦šà¦°', 'balaircharup.sherpur.gov.bd'),
+(4203, 458, 'Puraga', 'à¦ªà§‡à¦¾à§œà¦¾à¦—à¦¾à¦“', 'puragauup.sherpur.gov.bd'),
+(4204, 458, 'Nonni', 'à¦¨à¦¨à§à¦¨à§€', 'nonniup.sherpur.gov.bd'),
+(4205, 458, 'Morichpuran', 'à¦®à¦°à¦¿à¦šà¦ªà§à¦°à¦¾à', 'morichpuranup.sherpur.gov.bd'),
+(4206, 458, 'Rajnogor', 'à¦°à¦¾à¦œà¦¨à¦—à¦°', 'rajnogorup.sherpur.gov.bd'),
+(4207, 458, 'Nayabil', 'à¦¨à§Ÿà¦¾à¦¬à§€à¦²', 'nayabilup.sherpur.gov.bd'),
+(4208, 458, 'Ramchondrokura', 'à¦°à¦¾à¦®à¦šà¦¨à§à¦¦à§à', 'ramchondrokuraup.sherpur.gov.bd'),
+(4209, 458, 'Kakorkandhi', 'à¦•à¦¾à¦•à¦°à¦•à¦¾à¦¨à§à', 'kakorkandhiup.sherpur.gov.bd'),
+(4210, 458, 'Nalitabari', 'à¦¨à¦¾à¦²à¦¿à¦¤à¦¾à¦¬à¦¾à', 'nalitabariup.sherpur.gov.bd'),
+(4211, 458, 'Juganiya', 'à¦¯à§‹à¦—à¦¨à§€à§Ÿà¦¾', 'juganiyaup.sherpur.gov.bd'),
+(4212, 458, 'Bagber', 'à¦¬à¦¾à¦˜à¦¬à§‡à§œ', 'bagberup.sherpur.gov.bd'),
+(4213, 458, 'Koloshpar', 'à¦•à¦²à¦¸à¦ªà¦¾à§œ', 'koloshparup.sherpur.gov.bd'),
+(4214, 458, 'Rupnarayankura', 'à¦°à§‚à¦ªà¦¨à¦¾à¦°à¦¾à§Ÿà', 'rupnarayankuraup.sherpur.gov.bd'),
+(4215, 459, 'Ranishimul', 'à¦°à¦¾à¦¨à§€à¦¶à¦¿à¦®à§à', 'ranishimulup.sherpur.gov.bd'),
+(4216, 459, 'Singabaruna', 'à¦¸à¦¿à¦‚à¦—à¦¾à¦¬à¦°à§à', 'singabarunaup.sherpur.gov.bd'),
+(4217, 459, 'Kakilakura', 'à¦•à¦¾à¦•à¦¿à¦²à¦¾à¦•à§à', 'kakilakuraup.sherpur.gov.bd'),
+(4218, 459, 'Tatihati', 'à¦¤à¦¾à¦¤à§€à¦¹à¦¾à¦Ÿà¦¿', 'tatihatiup.sherpur.gov.bd'),
+(4219, 459, 'Gosaipur', 'à¦—à§‡à¦¾à¦¶à¦¾à¦‡à¦ªà§à', 'gosaipurup.sherpur.gov.bd'),
+(4220, 459, 'Sreebordi', 'à¦¶à§à¦°à§€à¦¬à¦°à¦¦à§€', 'sreebordiup.sherpur.gov.bd'),
+(4221, 459, 'Bhelua', 'à¦­à§‡à¦²à§à§Ÿà¦¾', 'bheluaup.sherpur.gov.bd'),
+(4222, 459, 'Kharia Kazirchar', 'à¦–à§œà¦¿à§Ÿà¦¾ à¦•à¦¾à¦œ', 'khariakazircharup.sherpur.gov.bd'),
+(4223, 459, 'Kurikahonia', 'à¦•à§à§œà¦¿à¦•à¦¾à¦¹à¦¨à', 'kurikahoniaup.sherpur.gov.bd'),
+(4224, 459, 'Garjaripa', 'à¦—à§œà¦œà¦°à¦¿à¦ªà¦¾', 'garjaripaup.sherpur.gov.bd'),
+(4225, 460, 'Gonopoddi', 'à¦—à¦£à¦ªà¦¦à§à¦¦à§€', 'gonopoddiup.sherpur.gov.bd'),
+(4226, 460, 'Nokla', 'à¦¨à¦•à¦²à¦¾', 'noklaup.sherpur.gov.bd'),
+(4227, 460, 'Urpha', 'à¦‰à¦°à¦«à¦¾', 'urphaup.sherpur.gov.bd'),
+(4228, 460, 'Gourdwar', 'à¦—à§Œà§œà¦¦à§à¦¬à¦¾à¦°', 'gourdwarup.sherpur.gov.bd'),
+(4229, 460, 'Baneshwardi', 'à¦¬à¦¾à¦¨à§‡à¦¶à§à¦¬à¦°à', 'baneshwardiup.sherpur.gov.bd'),
+(4230, 460, 'Pathakata', 'à¦ªà¦¾à¦ à¦¾à¦•à¦¾à¦Ÿà¦¾', 'pathakataup.sherpur.gov.bd'),
+(4231, 460, 'Talki', 'à¦Ÿà¦¾à¦²à¦•à§€', 'talkiup.sherpur.gov.bd'),
+(4232, 460, 'Choraustadhar', 'à¦šà¦°à¦…à¦·à§à¦Ÿà¦§à¦°', 'choraustadharup.sherpur.gov.bd'),
+(4233, 460, 'Chandrakona', 'à¦šà¦¨à§à¦¦à§à¦°à¦•à§‹à', 'chandrakonaup.sherpur.gov.bd'),
+(4234, 461, 'Kansa', 'à¦•à¦¾à¦‚à¦¶à¦¾', 'kansaup.sherpur.gov.bd'),
+(4235, 461, 'Dansail', 'à¦§à¦¾à¦¨à¦¶à¦¾à¦‡à¦²', 'dansailup.sherpur.gov.bd'),
+(4236, 461, 'Nolkura', 'à¦¨à¦²à¦•à§à§œà¦¾', 'nolkuraup.sherpur.gov.bd'),
+(4237, 461, 'Gouripur', 'à¦—à§Œà¦°à¦¿à¦ªà§à¦°', 'gouripurup.sherpur.gov.bd'),
+(4238, 461, 'Jhenaigati', 'à¦à¦¿à¦¨à¦¾à¦‡à¦—à¦¾à¦¤à', 'jhenaigatiup.sherpur.gov.bd'),
+(4239, 461, 'Hatibandha', 'à¦¹à¦¾à¦¤à¦¿à¦¬à¦¾à¦¨à§à', 'hatibandhaup.sherpur.gov.bd'),
+(4240, 461, 'Malijhikanda', 'à¦®à¦¾à¦²à¦¿à¦à¦¿à¦•à¦¾à', 'malijhikandaup.sherpur.gov.bd'),
+(4241, 462, 'Deukhola', 'à¦¦à§‡à¦“à¦–à§‹à¦²à¦¾', 'deukholaup.mymensingh.gov.bd'),
+(4242, 462, 'Naogaon', 'à¦¨à¦¾à¦“à¦—à¦¾à¦à¦“', 'naogaonup.mymensingh.gov.bd'),
+(4243, 462, 'Putijana', 'à¦ªà§à¦Ÿà¦¿à¦œà¦¾à¦¨à¦¾', 'putijanaup.mymensingh.gov.bd'),
+(4244, 462, 'Kushmail', 'à¦•à§à¦¶à¦®à¦¾à¦‡à¦²', 'kushmailup.mymensingh.gov.bd'),
+(4245, 462, 'Fulbaria', 'à¦«à§à¦²à¦¬à¦¾à§œà§€à§Ÿà', 'fulbariaup.mymensingh.gov.bd'),
+(4246, 462, 'Bakta', 'à¦¬à¦¾à¦•à§à¦¤à¦¾', 'baktaup.mymensingh.gov.bd'),
+(4247, 462, 'Rangamatia', 'à¦°à¦¾à¦™à§à¦—à¦¾à¦®à¦¾à', 'rangamatiaup.mymensingh.gov.bd'),
+(4248, 462, 'Enayetpur', 'à¦à¦¨à¦¾à§Ÿà§‡à¦¤à¦ªà§à', 'enayetpurup.mymensingh.gov.bd'),
+(4249, 462, 'Kaladaha', 'à¦•à¦¾à¦²à¦¾à¦¦à¦¹', 'kaladahaup.mymensingh.gov.bd'),
+(4250, 462, 'Radhakanai', 'à¦°à¦¾à¦§à¦¾à¦•à¦¾à¦¨à¦¾à', 'radhakanaiup.mymensingh.gov.bd'),
+(4251, 462, 'Asimpatuli', 'à¦†à¦›à¦¿à¦®à¦ªà¦¾à¦Ÿà§à', 'asimpatuliup.mymensingh.gov.bd'),
+(4252, 462, 'Vobanipur', 'à¦­à¦¬à¦¾à¦¨à§€à¦ªà§à¦°', 'vobanipurup.mymensingh.gov.bd'),
+(4253, 462, 'Balian', 'à¦¬à¦¾à¦²à¦¿à§Ÿà¦¾à¦¨', 'balianup.mymensingh.gov.bd'),
+(4254, 463, 'Dhanikhola', 'à¦§à¦¾à¦¨à§€à¦–à§‡à¦¾à¦²à', 'dhanikholaup.mymensingh.gov.bd'),
+(4255, 463, 'Bailor', 'à¦¬à§ˆà¦²à¦°', 'bailorup.mymensingh.gov.bd'),
+(4256, 463, 'Kanthal', 'à¦•à¦¾à¦à¦ à¦¾à¦²', 'kanthalup.mymensingh.gov.bd'),
+(4257, 463, 'Kanihari', 'à¦•à¦¾à¦¨à¦¿à¦¹à¦¾à¦°à§€', 'kanihariup.mymensingh.gov.bd'),
+(4258, 463, 'Trishal', 'à¦¤à§à¦°à¦¿à¦¶à¦¾à¦²', 'trishalup.mymensingh.gov.bd'),
+(4259, 463, 'Harirampur', 'à¦¹à¦°à¦¿à¦°à¦¾à¦®à¦ªà§à', 'harirampurup.mymensingh.gov.bd'),
+(4260, 463, 'Sakhua', 'à¦¸à¦¾à¦–à§à§Ÿà¦¾', 'www.sakhuaup.mymensingh.gov.bd'),
+(4261, 463, 'Balipara', 'à¦¬à¦¾à¦²à¦¿à¦ªà¦¾à§œà¦¾', 'baliparaup.mymensingh.gov.bd'),
+(4262, 463, 'Mokshapur', 'à¦®à§‹à¦•à§à¦·à¦ªà§à¦°', 'mokshapurup.mymensingh.gov.bd'),
+(4263, 463, 'Mathbari', 'à¦®à¦ à¦¬à¦¾à§œà§€', 'mathbariup.mymensingh.gov.bd'),
+(4264, 463, 'Amirabari', 'à¦†à¦®à¦¿à¦°à¦¾à¦¬à¦¾à§œà', 'amirabariup.mymensingh.gov.bd'),
+(4265, 463, 'Rampur', 'à¦°à¦¾à¦®à¦ªà§à¦°', 'rampurup.mymensingh.gov.bd'),
+(4266, 464, 'Uthura', 'à¦‰à¦¥à§à¦°à¦¾', 'uthuraup.mymensingh.gov.bd'),
+(4267, 464, 'Meduari', 'à¦®à§‡à¦¦à§à§Ÿà¦¾à¦°à§€', 'meduariup.mymensingh.gov.bd'),
+(4268, 464, 'Varadoba', 'à¦­à¦°à¦¾à¦¡à§‡à¦¾à¦¬à¦¾', 'varadobaup.mymensingh.gov.bd'),
+(4269, 464, 'Dhitpur', 'à¦§à§€à¦¤à¦ªà§à¦°', 'dhitpurup.mymensingh.gov.bd'),
+(4270, 464, 'Dakatia', 'à¦¡à¦¾à¦•à¦¾à¦¤à¦¿à§Ÿà¦¾', 'dakatiaup.mymensingh.gov.bd'),
+(4271, 464, 'Birunia', 'à¦¬à¦¿à¦°à§à¦¨à¦¿à§Ÿà¦¾', 'biruniaup.mymensingh.gov.bd'),
+(4272, 464, 'Bhaluka', 'à¦­à¦¾à¦²à§à¦•à¦¾', 'bhalukaup.mymensingh.gov.bd'),
+(4273, 464, 'Mallikbari', 'à¦®à¦²à§à¦²à¦¿à¦•à¦¬à¦¾à', 'mallikbariup.mymensingh.gov.bd'),
+(4274, 464, 'Kachina', 'à¦•à¦¾à¦šà¦¿à¦¨à¦¾', 'kachinaup.mymensingh.gov.bd'),
+(4275, 464, 'Habirbari', 'à¦¹à¦¬à¦¿à¦°à¦¬à¦¾à§œà§€', 'habirbariup.mymensingh.gov.bd'),
+(4276, 464, 'Rajoi', 'à¦°à¦¾à¦œà§ˆ', 'rajoiup.mymensingh.gov.bd'),
+(4277, 465, 'Dulla', 'à¦¦à§à¦²à§à¦²à¦¾', 'dullaup.mymensingh.gov.bd'),
+(4278, 465, 'Borogram', 'à¦¬à§œà¦—à§à¦°à¦¾à¦®', 'borogramup.mymensingh.gov.bd'),
+(4279, 465, 'Tarati', 'à¦¤à¦¾à¦°à¦¾à¦Ÿà¦¿', 'taratiup.mymensingh.gov.bd'),
+(4280, 465, 'Kumargata', 'à¦•à§à¦®à¦¾à¦°à¦—à¦¾à¦¤à', 'kumargataup.mymensingh.gov.bd'),
+(4281, 465, 'Basati', 'à¦¬à¦¾à¦¶à¦¾à¦Ÿà¦¿', 'basatiup.mymensingh.gov.bd'),
+(4282, 465, 'Mankon', 'à¦®à¦¾à¦¨à¦•à§‡à¦¾à¦¨', 'mankonup.mymensingh.gov.bd'),
+(4283, 465, 'Ghoga', 'à¦˜à§‡à¦¾à¦—à¦¾', 'ghogaup.mymensingh.gov.bd'),
+(4284, 465, 'Daogaon', 'à¦¦à¦¾à¦“à¦—à¦¾à¦à¦“', 'daogaonup.mymensingh.gov.bd'),
+(4285, 465, 'Kashimpur', 'à¦•à¦¾à¦¶à¦¿à¦®à¦ªà§à¦°', 'kashimpurup.mymensingh.gov.bd'),
+(4286, 465, 'Kheruajani', 'à¦–à§‡à¦°à§à§Ÿà¦¾à¦œà¦¾à', 'kheruajaniup.mymensingh.gov.bd'),
+(4287, 466, 'Austadhar', 'à¦…à¦·à§à¦Ÿà¦§à¦¾à¦°', 'austadharup.mymensingh.gov.bd'),
+(4288, 466, 'Bororchar', 'à¦¬à§‡à¦¾à¦°à¦°à¦šà¦°', 'bororcharup.mymensingh.gov.bd'),
+(4289, 466, 'Dapunia', 'à¦¦à¦¾à¦ªà§à¦¨à¦¿à§Ÿà¦¾', 'dapuniaup.mymensingh.gov.bd'),
+(4290, 466, 'Aqua', 'à¦†à¦•à§à§Ÿà¦¾', 'aquaup.mymensingh.gov.bd'),
+(4291, 466, 'Khagdohor', 'à¦–à¦¾à¦—à¦¡à¦¹à¦°', 'khagdohorup.mymensingh.gov.bd'),
+(4292, 466, 'Charnilaxmia', 'à¦šà¦°à¦¨à¦¿à¦²à¦•à§à¦·à', 'charnilaxmiaup.mymensingh.gov.bd'),
+(4293, 466, 'Kushtia', 'à¦•à§à¦·à§à¦Ÿà¦¿à§Ÿà¦¾', 'kushtiaup.mymensingh.gov.bd'),
+(4294, 466, 'Paranganj', 'à¦ªà¦°à¦¾à¦¨à¦—à¦žà§à¦œ', 'paranganjup.mymensingh.gov.bd'),
+(4295, 466, 'Sirta', 'à¦¸à¦¿à¦°à¦¤à¦¾', 'sirtaup.mymensingh.gov.bd'),
+(4296, 466, 'Char Ishwardia', 'à¦šà¦° à¦ˆà¦¶à§à¦¬à¦°à¦¦', 'charishwardiaup.mymensingh.gov.bd'),
+(4297, 466, 'Ghagra', 'à¦˜à¦¾à¦—à§œà¦¾', 'ghagraup.mymensingh.gov.bd'),
+(4298, 466, 'Vabokhali', 'à¦­à¦¾à¦¬à¦–à¦¾à¦²à§€', 'vabokhaliup.mymensingh.gov.bd'),
+(4299, 466, 'Boyra', 'à¦¬à§Ÿà§œà¦¾', 'boyraup.mymensingh.gov.bd'),
+(4300, 467, 'Dakshin Maijpara', 'à¦¦à¦•à§à¦·à¦¿à¦£ à¦®à¦¾', 'dakshinmaijparaup.mymensingh.gov.bd'),
+(4301, 467, 'Gamaritola', 'à¦—à¦¾à¦®à¦¾à¦°à§€à¦¤à¦²à', 'gamaritolaup.mymensingh.gov.bd'),
+(4302, 467, 'Dhobaura', 'à¦§à§‡à¦¾à¦¬à¦¾à¦‰à§œà¦¾', 'dhobauraup.mymensingh.gov.bd'),
+(4303, 467, 'Porakandulia', 'à¦ªà§‡à¦¾à§œà¦¾à¦•à¦¾à¦¨à', 'porakanduliaup.mymensingh.gov.bd'),
+(4304, 467, 'Goatala', 'à¦—à§‡à¦¾à§Ÿà¦¾à¦¤à¦²à¦¾', 'goatalaup.mymensingh.gov.bd'),
+(4305, 467, 'Ghoshgaon', 'à¦˜à§‡à¦¾à¦·à¦—à¦¾à¦à¦“', 'ghoshgaonup.mymensingh.gov.bd'),
+(4306, 467, 'Baghber', 'à¦¬à¦¾à¦˜à¦¬à§‡à§œ', 'baghberup.mymensingh.gov.bd'),
+(4307, 468, 'Rambhadrapur', 'à¦°à¦¾à¦®à¦­à¦¦à§à¦°à¦ªà', 'rambhadrapurup.mymensingh.gov.bd'),
+(4308, 468, 'Sondhara', 'à¦›à¦¨à¦§à¦°à¦¾', 'sondharaup.mymensingh.gov.bd'),
+(4309, 468, 'Vaitkandi', 'à¦­à¦¾à¦‡à¦Ÿà¦•à¦¾à¦¨à§à', 'vaitkandiup.mymensingh.gov.bd'),
+(4310, 468, 'Singheshwar', 'à¦¸à¦¿à¦‚à¦¹à§‡à¦¶à§à¦¬à', 'singheshwarup.mymensingh.gov.bd'),
+(4311, 468, 'Phulpur', 'à¦«à§à¦²à¦ªà§à¦°', 'phulpurup.mymensingh.gov.bd'),
+(4312, 474, 'Banihala', 'à¦¬à¦¾à¦¨à¦¿à¦¹à¦¾à¦²à¦¾', 'banihalaup.mymensingh.gov.bd'),
+(4313, 474, 'Biska', 'à¦¬à¦¿à¦¸à§à¦•à¦¾', 'biskaup.mymensingh.gov.bd'),
+(4314, 468, 'Baola', 'à¦¬à¦“à¦²à¦¾', 'baolaup.mymensingh.gov.bd'),
+(4315, 468, 'Payari', 'à¦ªà§Ÿà¦¾à¦°à§€', 'payariup.mymensingh.gov.bd'),
+(4316, 468, 'Balia', 'à¦¬à¦¾à¦²à¦¿à§Ÿà¦¾', 'baliaup.mymensingh.gov.bd'),
+(4317, 468, 'Rahimganj', 'à¦°à¦¹à¦¿à¦®à¦—à¦žà§à¦œ', 'rahimganjup.mymensingh.gov.bd'),
+(4318, 474, 'Balikha', 'à¦¬à¦¾à¦²à¦¿à¦–à¦¾', 'balikhaup.mymensingh.gov.bd'),
+(4319, 474, 'Kakni', 'à¦•à¦¾à¦•à¦¨à§€', 'kakniup.mymensingh.gov.bd'),
+(4320, 474, 'Dhakua', 'à¦¢à¦¾à¦•à§à§Ÿà¦¾', 'dhakuaup.mymensingh.gov.bd'),
+(4321, 468, 'Rupasi', 'à¦°à§‚à¦ªà¦¸à§€', 'rupasiup.mymensingh.gov.bd'),
+(4322, 474, 'Tarakanda', 'à¦¤à¦¾à¦°à¦¾à¦•à¦¾à¦¨à§à', 'tarakandaup.mymensingh.gov.bd'),
+(4323, 474, 'Galagaon', 'à¦—à¦¾à¦²à¦¾à¦—à¦¾à¦à¦“', 'galagaonup.mymensingh.gov.bd'),
+(4324, 474, 'Kamargaon', 'à¦•à¦¾à¦®à¦¾à¦°à¦—à¦¾à¦à', 'kamargaonup.mymensingh.gov.bd'),
+(4325, 474, 'Kamaria', 'à¦•à¦¾à¦®à¦¾à¦°à¦¿à§Ÿà¦¾', 'kamariaup.mymensingh.gov.bd'),
+(4326, 474, 'Rampur', 'à¦°à¦¾à¦®à¦ªà§à¦°', 'rampurup2.mymensingh.gov.bd'),
+(4327, 469, 'Bhubankura', 'à¦­à§‚à¦¬à¦¨à¦•à§à§œà¦¾', 'bhubankuraup.mymensingh.gov.bd'),
+(4328, 469, 'Jugli', 'à¦œà§à¦—à¦²à§€', 'jugliup.mymensingh.gov.bd'),
+(4329, 469, 'Kaichapur', 'à¦•à§ˆà¦šà¦¾à¦ªà§à¦°', 'kaichapurup.mymensingh.gov.bd'),
+(4330, 469, 'Haluaghat', 'à¦¹à¦¾à¦²à§à§Ÿà¦¾à¦˜à¦¾à', 'haluaghatup.mymensingh.gov.bd'),
+(4331, 469, 'Gazirbhita', 'à¦—à¦¾à¦œà¦¿à¦°à¦­à¦¿à¦Ÿà', 'gazirbhitaup.mymensingh.gov.bd'),
+(4332, 469, 'Bildora', 'à¦¬à¦¿à¦²à¦¡à§‡à¦¾à¦°à¦¾', 'bildoraup.mymensingh.gov.bd'),
+(4333, 469, 'Sakuai', 'à¦¶à¦¾à¦•à§à§Ÿà¦¾à¦‡', 'sakuaiup.mymensingh.gov.bd'),
+(4334, 469, 'Narail', 'à¦¨à§œà¦¾à¦‡à¦²', 'narailup.mymensingh.gov.bd'),
+(4335, 469, 'Dhara', 'à¦§à¦¾à¦°à¦¾', 'dharaup.mymensingh.gov.bd'),
+(4336, 469, 'Dhurail', 'à¦§à§à¦°à¦¾à¦‡à¦²', 'dhurailup.mymensingh.gov.bd'),
+(4337, 469, 'Amtoil', 'à¦†à¦®à¦¤à§ˆà¦²', 'amtoilup.mymensingh.gov.bd'),
+(4338, 469, 'Swadeshi', 'à¦¸à§à¦¬à¦¦à§‡à¦¶à§€', 'swadeshiup.mymensingh.gov.bd'),
+(4339, 470, 'Sahanati', 'à¦¸à¦¹à¦¨à¦¾à¦Ÿà¦¿', 'sahanatiup.mymensingh.gov.bd'),
+(4340, 470, 'Achintapur', 'à¦…à¦šà¦¿à¦¨à§à¦¤à¦ªà§à', 'achintapurup.mymensingh.gov.bd'),
+(4341, 470, 'Mailakanda', 'à¦®à¦‡à¦²à¦¾à¦•à¦¾à¦¨à§à', 'mailakandaup.mymensingh.gov.bd'),
+(4342, 470, 'Bokainagar', 'à¦¬à§‹à¦•à¦¾à¦‡à¦¨à¦—à¦°', 'bokainagarup.mymensingh.gov.bd'),
+(4343, 470, 'Gouripur', 'à¦—à§‡à§—à¦°à§€à¦ªà§à¦°', 'gouripurup.mymensingh.gov.bd'),
+(4344, 470, 'Maoha', 'à¦®à¦¾à¦“à¦¹à¦¾', 'maohaup.mymensingh.gov.bd'),
+(4345, 470, 'Ramgopalpur', 'à¦°à¦¾à¦®à¦—à§‡à¦¾à¦ªà¦¾à', 'ramgopalpurup.mymensingh.gov.bd'),
+(4346, 470, 'Douhakhola', 'à¦¡à§‡à§—à¦¹à¦¾à¦–à¦²à¦¾', 'douhakholaup.mymensingh.gov.bd'),
+(4347, 470, 'Bhangnamari', 'à¦­à¦¾à¦‚à¦¨à¦¾à¦®à¦¾à¦°à', 'bhangnamariup.mymensingh.gov.bd'),
+(4348, 470, 'Sidhla', 'à¦¸à¦¿à¦§à¦²à¦¾', 'sidhlaup.mymensingh.gov.bd'),
+(4349, 471, 'Rasulpur', 'à¦°à¦¸à§à¦²à¦ªà§à¦°', 'rasulpurup.mymensingh.gov.bd'),
+(4350, 471, 'Barobaria', 'à¦¬à¦¾à¦°à¦¬à¦¾à¦°à¦¿à§Ÿà', 'barobariaup.mymensingh.gov.bd'),
+(4351, 471, 'Charalgi', 'à¦šà¦°à¦†à¦²à¦—à§€', 'charalgiup.mymensingh.gov.bd'),
+(4352, 471, 'Saltia', 'à¦¸à¦¾à¦²à¦Ÿà¦¿à§Ÿà¦¾', 'saltiaup.mymensingh.gov.bd'),
+(4353, 471, 'Raona', 'à¦°à¦¾à¦“à¦¨à¦¾', 'raonaup.mymensingh.gov.bd'),
+(4354, 471, 'Longair', 'à¦²à¦‚à¦—à¦¾à¦‡à¦°', 'longairup.mymensingh.gov.bd'),
+(4355, 471, 'Paithol', 'à¦ªà¦¾à¦‡à¦¥à¦²', 'paitholup.mymensingh.gov.bd'),
+(4356, 471, 'Gafargaon', 'à¦—à¦«à¦°à¦—à¦¾à¦à¦“', 'gafargaonup.mymensingh.gov.bd'),
+(4357, 471, 'Josora', 'à¦¯à¦¶à¦°à¦¾', 'josoraup.mymensingh.gov.bd'),
+(4358, 471, 'Moshakhali', 'à¦®à¦¶à¦¾à¦–à¦¾à¦²à§€', 'moshakhaliup.mymensingh.gov.bd'),
+(4359, 471, 'Panchbagh', 'à¦ªà¦¾à¦à¦šà¦¬à¦¾à¦—', 'panchbaghup.mymensingh.gov.bd'),
+(4360, 471, 'Usthi', 'à¦‰à¦¸à§à¦¥à¦¿', 'usthiup.mymensingh.gov.bd'),
+(4361, 471, 'Dotterbazar', 'à¦¦à¦¤à§à¦¤à§‡à¦°à¦¬à¦¾à', 'dotterbazarup.mymensingh.gov.bd'),
+(4362, 471, 'Niguari', 'à¦¨à¦¿à¦—à§à§Ÿà¦¾à¦°à§€', 'niguariup.mymensingh.gov.bd'),
+(4363, 471, 'Tangabo', 'à¦Ÿà¦¾à¦‚à¦—à¦¾à¦¬', 'tangaboup.mymensingh.gov.bd'),
+(4364, 472, 'Iswarganj', 'à¦ˆà¦¶à§à¦¬à¦°à¦—à¦žà§à', 'iswarganjup.mymensingh.gov.bd'),
+(4365, 472, 'Sarisha', 'à¦¸à¦°à¦¿à¦·à¦¾', 'sarishaup.mymensingh.gov.bd'),
+(4366, 472, 'Sohagi', 'à¦¸à§‡à¦¾à¦¹à¦¾à¦—à§€', 'sohagiup.mymensingh.gov.bd'),
+(4367, 472, 'Atharabari', 'à¦†à¦ à¦¾à¦°à¦¬à¦¾à§œà§€', 'atharabariup.mymensingh.gov.bd'),
+(4368, 472, 'Rajibpur', 'à¦°à¦¾à¦œà¦¿à¦¬à¦ªà§à¦°', 'rajibpurup.mymensingh.gov.bd'),
+(4369, 472, 'Maijbagh', 'à¦®à¦¾à¦‡à¦œà¦¬à¦¾à¦—', 'maijbaghup.mymensingh.gov.bd');
+INSERT INTO `unions` (`id`, `upazilla_id`, `name`, `bn_name`, `url`) VALUES
+(4370, 472, 'Magtula', 'à¦®à¦—à¦Ÿà§à¦²à¦¾', 'magtulaup.mymensingh.gov.bd'),
+(4371, 472, 'Jatia', 'à¦œà¦¾à¦Ÿà¦¿à§Ÿà¦¾', 'jatiaup.mymensingh.gov.bd'),
+(4372, 472, 'Uchakhila', 'à¦‰à¦šà¦¾à¦–à¦¿à¦²à¦¾', 'uchakhilaup.mymensingh.gov.bd'),
+(4373, 472, 'Tarundia', 'à¦¤à¦¾à¦°à§à¦¨à§à¦¦à¦¿à', 'tarundiaup.mymensingh.gov.bd'),
+(4374, 472, 'Barahit', 'à¦¬à§œà¦¹à¦¿à¦¤', 'barahitup.mymensingh.gov.bd'),
+(4375, 473, 'Batagoir', 'à¦¬à§‡à¦¤à¦¾à¦—à§ˆà¦°', 'batagoirup.mymensingh.gov.bd'),
+(4376, 473, 'Nandail', 'à¦¨à¦¾à¦¨à§à¦¦à¦¾à¦‡à¦²', 'nandailup.mymensingh.gov.bd'),
+(4377, 473, 'Chandipasha', 'à¦šà¦¨à§à¦¡à§€à¦ªà¦¾à¦¶à', 'chandipashaup.mymensingh.gov.bd'),
+(4378, 473, 'Gangail', 'à¦—à¦¾à¦‚à¦—à¦¾à¦‡à¦²', 'gangailup.mymensingh.gov.bd'),
+(4379, 473, 'Rajgati', 'à¦°à¦¾à¦œà¦—à¦¾à¦¤à§€', 'rajgatiup.mymensingh.gov.bd'),
+(4380, 473, 'Muajjempur', 'à¦®à§‡à¦¾à§Ÿà¦¾à¦œà§à¦œà', 'muajjempurup.mymensingh.gov.bd'),
+(4381, 473, 'Sherpur', 'à¦¶à§‡à¦°à¦ªà§à¦°', 'sherpurup.mymensingh.gov.bd'),
+(4382, 473, 'Singroil', 'à¦¸à¦¿à¦‚à¦°à¦‡à¦²', 'singroilup.mymensingh.gov.bd'),
+(4383, 473, 'Achargaon', 'à¦†à¦šà¦¾à¦°à¦—à¦¾à¦à¦“', 'achargaonup.mymensingh.gov.bd'),
+(4384, 473, 'Mushulli', 'à¦®à§à¦¶à§à¦²à§à¦²à§€', 'mushulliup.mymensingh.gov.bd'),
+(4385, 473, 'Kharua', 'à¦–à¦¾à¦°à§à§Ÿà¦¾', 'kharuaup.mymensingh.gov.bd'),
+(4386, 473, 'Jahangirpur', 'à¦œà¦¾à¦¹à¦¾à¦™à§à¦—à§€à', 'jahangirpurup.mymensingh.gov.bd'),
+(4387, 475, 'Kendua', 'à¦•à§‡à¦¨à§à¦¦à§à¦¯à¦¼à', 'kenduaup.jamalpur.gov.bd'),
+(4388, 475, 'Sharifpur', 'à¦¶à¦°à¦¿à¦«à¦ªà§à¦°', 'sharifpurup.jamalpur.gov.bd'),
+(4389, 475, 'Laxirchar', 'à¦²à¦•à§à¦·à§€à¦°à¦šà¦°', 'laxircharup.jamalpur.gov.bd'),
+(4390, 475, 'Tolshirchar', 'à¦¤à§à¦²à¦¶à§€à¦°à¦šà¦°', 'tolshircharup.jamalpur.gov.bd'),
+(4391, 475, 'Itail', 'à¦‡à¦Ÿà¦¾à¦‡à¦²', 'itailup.jamalpur.gov.bd'),
+(4392, 475, 'Narundi', 'à¦¨à¦°à§à¦¨à§à¦¦à§€', 'narundiup.jamalpur.gov.bd'),
+(4393, 475, 'Ghorada', 'à¦˜à§‹à¦¡à¦¼à¦¾à¦§à¦¾à¦ª', 'ghoradapup.jamalpur.gov.bd'),
+(4394, 475, 'Bashchara', 'à¦¬à¦¾à¦¶à¦à¦šà¦¡à¦¼à¦¾', 'bashcharaup.jamalpur.gov.bd'),
+(4395, 475, 'Ranagacha', 'à¦°à¦¾à¦¨à¦¾à¦—à¦¾à¦›à¦¾', 'ranagachaup.jamalpur.gov.bd'),
+(4396, 475, 'Sheepur', 'à¦¶à§à¦°à§€à¦ªà§à¦°', 'sheepurup.jamalpur.gov.bd'),
+(4397, 475, 'Shahbajpur', 'à¦¶à¦¾à¦¹à¦¬à¦¾à¦œà¦ªà§à', 'shahbajpurup.jamalpur.gov.bd'),
+(4398, 475, 'Titpalla', 'à¦¤à¦¿à¦¤à¦ªà¦²à§à¦²à¦¾', 'titpallaup.jamalpur.gov.bd'),
+(4399, 475, 'Mesta', 'à¦®à§‡à¦·à§à¦Ÿà¦¾', 'mestaup.jamalpur.gov.bd'),
+(4400, 475, 'Digpait', 'à¦¦à¦¿à¦—à¦ªà¦¾à¦‡à¦¤', 'digpaitup.jamalpur.gov.bd'),
+(4401, 475, 'Rashidpur', 'à¦°à¦¶à¦¿à¦¦à¦ªà§à¦°', 'rashidpurup.jamalpur.gov.bd'),
+(4402, 476, 'Durmot', 'à¦¦à§à¦°à¦®à§à¦Ÿ', 'durmotup.jamalpur.gov.bd'),
+(4403, 476, 'Kulia', 'à¦•à§à¦²à¦¿à¦¯à¦¼à¦¾', 'kuliaup.jamalpur.gov.bd'),
+(4404, 476, 'Mahmudpur', 'à¦®à¦¾à¦¹à¦®à§à¦¦à¦ªà§à', 'mahmudpurup.jamalpur.gov.bd'),
+(4405, 476, 'Nangla', 'à¦¨à¦¾à¦‚à¦²à¦¾', 'nanglaup.jamalpur.gov.bd'),
+(4406, 476, 'Nayanagar', 'à¦¨à¦¯à¦¼à¦¾à¦¨à¦—à¦°', 'nayanagarup.jamalpur.gov.bd'),
+(4407, 476, 'Adra', 'à¦†à¦¦à§à¦°à¦¾', 'adraup.jamalpur.gov.bd'),
+(4408, 476, 'Charbani Pakuria', 'à¦šà¦°à¦¬à¦¾à¦¨à§€ à¦ªà¦¾', 'charbanipakuriaup.jamalpur.gov.bd'),
+(4409, 476, 'Fulkucha', 'à¦«à§à¦²à¦•à§‹à¦šà¦¾', 'fulkuchaup.jamalpur.gov.bd'),
+(4410, 476, 'Ghuserpara', 'à¦˜à§‹à¦·à§‡à¦°à¦ªà¦¾à¦¡à', 'ghuserparaup.jamalpur.gov.bd'),
+(4411, 476, 'Jhaugara', 'à¦à¦¾à¦‰à¦—à¦¡à¦¼à¦¾', 'jhaugaraup.jamalpur.gov.bd'),
+(4412, 476, 'Shuampur', 'à¦¶à§à¦¯à¦¾à¦®à¦ªà§à¦°', 'shuampurup.jamalpur.gov.bd'),
+(4413, 477, 'Kulkandi', 'à¦•à§à¦²à¦•à¦¾à¦¨à§à¦¦à', 'kulkandiup.jamalpur.gov.bd'),
+(4414, 477, 'Belghacha', 'à¦¬à§‡à¦²à¦—à¦¾à¦›à¦¾', 'belghachaup.jamalpur.gov.bd'),
+(4415, 477, 'Chinaduli', 'à¦šà¦¿à¦¨à¦¾à¦¡à§à¦²à§€', 'chinaduliup.jamalpur.gov.bd'),
+(4416, 477, 'Shapdari', 'à¦¸à¦¾à¦ªà¦§à¦°à§€', 'shapdariup.jamalpur.gov.bd'),
+(4417, 477, 'Noarpara', 'à¦¨à§‹à¦¯à¦¼à¦¾à¦°à¦ªà¦¾à', 'noarparaup.jamalpur.gov.bd'),
+(4418, 477, 'Islampur', 'à¦‡à¦¸à¦²à¦¾à¦®à¦ªà§à¦°', 'islampurup.jamalpur.gov.bd'),
+(4419, 477, 'Partharshi', 'à¦ªà¦¾à¦¥à¦¶à§€', 'partharshiup.jamalpur.gov.bd'),
+(4420, 477, 'Palabandha', 'à¦ªà¦²à¦¬à¦¾à¦¨à§à¦§à¦¾', 'palabandhaup.jamalpur.gov.bd'),
+(4421, 477, 'Gualerchar', 'à¦—à§‹à¦¯à¦¼à¦¾à¦²à§‡à¦°à', 'gualercharup.jamalpur.gov.bd'),
+(4422, 477, 'Gaibandha', 'à¦—à¦¾à¦‡à¦¬à¦¾à¦¨à§à¦§à', 'gaibandhaup.jamalpur.gov.bd'),
+(4423, 477, 'Charputimari', 'à¦šà¦°à¦ªà§à¦Ÿà¦¿à¦®à¦¾à', 'charputimariup.jamalpur.gov.bd'),
+(4424, 477, 'Chargualini', 'à¦šà¦°à¦—à§‹à¦¯à¦¼à¦¾à¦²à', 'chargualiniup.jamalpur.gov.bd'),
+(4425, 478, 'Dungdhara', 'à¦¡à¦¾à¦‚à¦§à¦°à¦¾', 'dungdharaup.jamalpur.gov.bd'),
+(4426, 478, 'Char Amkhawa', 'à¦šà¦° à¦†à¦®à¦–à¦¾à¦“à¦¯', 'charamkhawaup.jamalpur.gov.bd'),
+(4427, 478, 'Parram Rampur', 'à¦ªà¦¾à¦°à¦°à¦¾à¦® à¦°à¦¾', 'parramrampurup.jamalpur.gov.bd'),
+(4428, 478, 'Hatibanga', 'à¦¹à¦¾à¦¤à§€à¦­à¦¾à¦™à§à', 'hatibangaup.jamalpur.gov.bd'),
+(4429, 478, 'Bahadurabad', 'à¦¬à¦¾à¦¹à¦¾à¦¦à§à¦°à¦¾à', 'bahadurabadup.jamalpur.gov.bd'),
+(4430, 478, 'Chikajani', 'à¦šà¦¿à¦•à¦¾à¦œà¦¾à¦¨à§€', 'chikajaniup.jamalpur.gov.bd'),
+(4431, 478, 'Chukaibari', 'à¦šà§à¦•à¦¾à¦‡à¦¬à¦¾à¦¡à', 'chukaibariup.jamalpur.gov.bd'),
+(4432, 478, 'Dewangonj', 'à¦¦à§‡à¦“à¦¯à¦¼à¦¾à¦¨à¦—à', 'dewangonjup.jamalpur.gov.bd'),
+(4433, 479, 'Satpoa', 'à¦¸à¦¾à¦¤à¦ªà§‹à¦¯à¦¼à¦¾', 'satpoaup.jamalpur.gov.bd'),
+(4434, 479, 'Pogaldigha', 'à¦ªà§‹à¦—à¦²à¦¦à¦¿à¦˜à¦¾', 'pogaldighaup.jamalpur.gov.bd'),
+(4435, 479, 'Doail', 'à¦¡à§‹à¦¯à¦¼à¦¾à¦‡à¦²', 'doailup.jamalpur.gov.bd'),
+(4436, 479, 'Aona', 'à¦†à¦“à¦¨à¦¾', 'aonaup.jamalpur.gov.bd'),
+(4437, 479, 'Pingna', 'à¦ªà¦¿à¦‚à¦¨à¦¾', 'pingnaup.jamalpur.gov.bd'),
+(4438, 479, 'Bhatara', 'à¦­à¦¾à¦Ÿà¦¾à¦°à¦¾', 'bhataraup.jamalpur.gov.bd'),
+(4439, 479, 'Kamrabad', 'à¦•à¦¾à¦®à¦°à¦¾à¦¬à¦¾à¦¦', 'kamrabadup.jamalpur.gov.bd'),
+(4440, 479, 'Mahadan', 'à¦®à¦¹à¦¾à¦¦à¦¾à¦¨', 'mahadanup.jamalpur.gov.bd'),
+(4441, 480, 'Char Pakerdah', 'à¦šà¦° à¦ªà¦¾à¦•à§‡à¦°à¦¦', 'charpakerdahup.jamalpur.gov.bd'),
+(4442, 480, 'Karaichara', 'à¦•à¦¡à¦¼à¦‡à¦šà¦¡à¦¼à¦¾', 'karaicharaup.jamalpur.gov.bd'),
+(4443, 480, 'Gunaritala', 'à¦—à§à¦¨à¦¾à¦°à§€à¦¤à¦²à', 'gunaritalaup.jamalpur.gov.bd'),
+(4444, 480, 'Balijuri', 'à¦¬à¦¾à¦²à¦¿à¦œà§à¦¡à¦¼à', 'balijuriup.jamalpur.gov.bd'),
+(4445, 480, 'Jorekhali', 'à¦œà§‹à¦¡à¦¼à¦–à¦¾à¦²à§€', 'jorekhaliup.jamalpur.gov.bd'),
+(4446, 480, 'Adarvita', 'à¦†à¦¦à¦¾à¦°à¦­à¦¿à¦Ÿà¦¾', 'adarvitaup.jamalpur.gov.bd'),
+(4447, 480, 'Sidhuli', 'à¦¸à¦¿à¦§à§à¦²à§€', 'sidhuliup.jamalpur.gov.bd'),
+(4448, 481, 'Danua', 'à¦§à¦¾à¦¨à§à¦¯à¦¼à¦¾', 'danuaup.jamalpur.gov.bd'),
+(4449, 481, 'Bagarchar', 'à¦¬à¦—à¦¾à¦°à¦šà¦°', 'bagarcharup.jamalpur.gov.bd'),
+(4450, 481, 'Battajore', 'à¦¬à¦¾à¦Ÿà§à¦°à¦¾à¦œà§‹à', 'battajoreup.jamalpur.gov.bd'),
+(4451, 481, 'Shadurpara', 'à¦¸à¦¾à¦§à§à¦°à¦ªà¦¾à¦¡à', 'shadurparaup.jamalpur.gov.bd'),
+(4452, 481, 'Bakshigonj', 'à¦¬à¦•à¦¸à§€à¦—à¦žà§à¦œ', 'bakshigonjup.jamalpur.gov.bd'),
+(4453, 481, 'Nilakhia', 'à¦¨à¦¿à¦²à¦•à§à¦·à¦¿à¦¯à', 'nilakhiaup.jamalpur.gov.bd'),
+(4454, 481, 'Merurchar', 'à¦®à§‡à¦°à§à¦°à¦šà¦°', 'merurcharup.jamalpur.gov.bd'),
+(4455, 482, 'Asma', 'à¦†à¦¸à¦®à¦¾', 'asma.netrokona.gov.bd'),
+(4456, 482, 'Chhiram', 'à¦šà¦¿à¦°à¦¾à¦®', 'chhiram.netrokona.gov.bd'),
+(4457, 482, 'Baushi', 'à¦¬à¦¾à¦‰à¦¶à§€', 'baushiup.netrokona.gov.bd'),
+(4458, 482, 'Barhatta', 'à¦¬à¦¾à¦°à¦¹à¦¾à¦Ÿà§à¦Ÿà', 'barhattaup.netrokona.gov.bd'),
+(4459, 482, 'Raypur', 'à¦°à¦¾à§Ÿà¦ªà§à¦°', 'raypurup.netrokona.gov.bd'),
+(4460, 482, 'Sahata', 'à¦¸à¦¾à¦¹à¦¤à¦¾', 'sahataup.netrokona.gov.bd'),
+(4461, 482, 'Singdha', 'à¦¸à¦¿à¦‚à¦§à¦¾', 'singdhaup.netrokona.gov.bd'),
+(4462, 483, 'Durgapur', 'à¦¦à§‚à¦°à§à¦—à¦¾à¦ªà§à', 'durgapurup.netrokona.gov.bd'),
+(4463, 483, 'Kakoirgora', 'à¦•à¦¾à¦•à§ˆà¦°à¦—à§œà¦¾', 'kakoirgoraup.netrokona.gov.bd'),
+(4464, 483, 'Kullagora', 'à¦•à§à¦²à§à¦²à¦¾à¦—à§œà', 'kullagoraup.netrokona.gov.bd'),
+(4465, 483, 'Chandigarh', 'à¦šà¦£à§à¦¡à¦¿à¦—à§œ', 'chandigarhup.netrokona.gov.bd'),
+(4466, 483, 'Birisiri', 'à¦¬à¦¿à¦°à¦¿à¦¶à¦¿à¦°à¦¿', 'birisiriup.netrokona.gov.bd'),
+(4467, 483, 'Bakaljora', 'à¦¬à¦¾à¦•à¦²à¦œà§‹à§œà¦¾', 'bakaljoraup.netrokona.gov.bd'),
+(4468, 483, 'Gawkandia', 'à¦—à¦¾à¦à¦“à¦•à¦¾à¦¨à§à', 'gawkandiaup.netrokona.gov.bd'),
+(4469, 484, 'Asujia', 'à¦†à¦¶à§à¦œà¦¿à§Ÿà¦¾', 'asujiaup.netrokona.gov.bd'),
+(4470, 484, 'Dalpa', 'à¦¦à¦²à¦ªà¦¾', 'dalpaup.netrokona.gov.bd'),
+(4471, 484, 'Goraduba', 'à¦—à§œà¦¾à¦¡à§‹à¦¬à¦¾', 'goradubaup.netrokona.gov.bd'),
+(4472, 484, 'Gonda', 'à¦—à¦£à§à¦¡à¦¾', 'gondaup.netrokona.gov.bd'),
+(4473, 484, 'Sandikona', 'à¦¸à¦¾à¦¨à§à¦¦à¦¿à¦•à§‹à', 'sandikonaup.netrokona.gov.bd'),
+(4474, 484, 'Maska', 'à¦®à¦¾à¦¸à¦•à¦¾', 'maskaup.netrokona.gov.bd'),
+(4475, 484, 'Bolaishimul', 'à¦¬à¦²à¦¾à¦‡à¦¶à¦¿à¦®à§à', 'bolaishimulup.netrokona.gov.bd'),
+(4476, 484, 'Noapara', 'à¦¨à¦“à¦ªà¦¾à§œà¦¾', 'noaparaup.netrokona.gov.bd'),
+(4477, 484, 'Kandiura', 'à¦•à¦¾à¦¨à§à¦¦à¦¿à¦‰à§œà', 'kandiuraup.netrokona.gov.bd'),
+(4478, 484, 'Chirang', 'à¦šà¦¿à¦°à¦¾à¦‚', 'chirangup.netrokona.gov.bd'),
+(4479, 484, 'Roailbari Amtala', 'à¦°à§‹à§Ÿà¦¾à¦‡à¦²à¦¬à¦¾à', 'roailbariamtalaup.netrokona.gov.bd'),
+(4480, 484, 'Paikura', 'à¦ªà¦¾à¦‡à¦•à§à§œà¦¾', 'paikuraup.netrokona.gov.bd'),
+(4481, 484, 'Muzafarpur', 'à¦®à§‹à¦œà¦¾à¦«à¦°à¦ªà§à', 'muzafarpurup.netrokona.gov.bd'),
+(4482, 485, 'Shormushia', 'à¦¸à§à¦¬à¦°à¦®à§à¦¶à¦¿à', 'shormushiaup.netrokona.gov.bd'),
+(4483, 485, 'Shunoi', 'à¦¶à§à¦¨à¦‡', 'shunoiup.netrokona.gov.bd'),
+(4484, 485, 'Lunesshor', 'à¦²à§à¦¨à§‡à¦¶à§à¦¬à¦°', 'lunesshorup.netrokona.gov.bd'),
+(4485, 485, 'Baniyajan', 'à¦¬à¦¾à¦¨à¦¿à¦¯à¦¼à¦¾à¦œà', 'baniyajanup.netrokona.gov.bd'),
+(4486, 485, 'Teligati', 'à¦¤à§‡à¦²à¦¿à¦—à¦¾à¦¤à§€', 'teligatiup.netrokona.gov.bd'),
+(4487, 485, 'Duoj', 'à¦¦à§à¦“à¦œ', 'duojup.netrokona.gov.bd'),
+(4488, 485, 'Sukhari', 'à¦¸à§à¦–à¦¾à¦°à§€', 'sukhariup.netrokona.gov.bd'),
+(4489, 486, 'Fathepur', 'à¦«à¦¤à§‡à¦ªà§à¦°', 'fathepurup.netrokona.gov.bd'),
+(4490, 486, 'Nayekpur', 'à¦¨à¦¾à§Ÿà§‡à¦•à¦ªà§à¦°', 'nayekpurup.netrokona.gov.bd'),
+(4491, 486, 'Teosree', 'à¦¤à¦¿à§Ÿà¦¶à§à¦°à§€', 'teosreeup.netrokona.gov.bd'),
+(4492, 486, 'Magan', 'à¦®à¦¾à¦˜à¦¾à¦¨', 'maganup.netrokona.gov.bd'),
+(4493, 486, 'Gobindasree', 'à¦—à§‡à¦¬à¦¿à¦¨à§à¦¦à¦¶à', 'gobindasreeup.netrokona.gov.bd'),
+(4494, 486, 'Madan', 'à¦®à¦¦à¦¨', 'madanup.netrokona.gov.bd'),
+(4495, 486, 'Chandgaw', 'à¦šà¦¾à¦¨à¦—à¦¾à¦à¦“', 'chandgawup.netrokona.gov.bd'),
+(4496, 486, 'Kytail', 'à¦•à¦¾à¦‡à¦Ÿà¦¾à¦²', 'kytailup.netrokona.gov.bd'),
+(4497, 487, 'Krishnapur', 'à¦•à§ƒà¦·à§à¦£à¦ªà§à¦°', 'krishnapurup.netrokona.gov.bd'),
+(4498, 487, 'Nogor', 'à¦¨à¦—à¦°', 'nogorup.netrokona.gov.bd'),
+(4499, 487, 'Chakua', 'à¦šà¦¾à¦•à§à§Ÿà¦¾', 'chakuaup.netrokona.gov.bd'),
+(4500, 487, 'Khaliajuri', 'à¦–à¦¾à¦²à¦¿à§Ÿà¦¾à¦œà§à', 'khaliajuriup.netrokona.gov.bd'),
+(4501, 487, 'Mendipur', 'à¦®à§‡à¦¨à§à¦¦à¦¿à¦ªà§à', 'mendipurup.netrokona.gov.bd'),
+(4502, 487, 'Gazipur', 'à¦—à¦¾à¦œà§€à¦ªà§à¦°', 'gazipurup.netrokona.gov.bd'),
+(4503, 488, 'Koilati', 'à¦•à§ˆà¦²à¦¾à¦Ÿà§€', 'koilatiup.netrokona.gov.bd'),
+(4504, 488, 'Najirpur', 'à¦¨à¦¾à¦œà¦¿à¦°à¦ªà§à¦°', 'najirpurup.netrokona.gov.bd'),
+(4505, 488, 'Pogla', 'à¦ªà§‹à¦—à¦²à¦¾', 'poglaup.netrokona.gov.bd'),
+(4506, 488, 'Kolmakanda', 'à¦•à¦²à¦®à¦¾à¦•à¦¾à¦¨à§à', 'kolmakandaup.netrokona.gov.bd'),
+(4507, 488, 'Rongchati', 'à¦°à¦‚à¦›à¦¾à¦¤à¦¿', 'rongchatiup.netrokona.gov.bd'),
+(4508, 488, 'Lengura', 'à¦²à§‡à¦‚à¦—à§à¦°à¦¾', 'lenguraup.netrokona.gov.bd'),
+(4509, 488, 'Borokhapon', 'à¦¬à¦¡à¦¼à¦–à¦¾à¦ªà¦¨', 'borokhaponup.netrokona.gov.bd'),
+(4510, 488, 'Kharnoi', 'à¦–à¦¾à¦°à¦¨à§ˆ', 'kharnoiup.netrokona.gov.bd'),
+(4511, 489, 'Borokashia Birampur', 'à¦¬à¦¡à¦¼à¦•à¦¾à¦¶à¦¿à¦¯à', 'borokashiabirampurup.netrokona.gov.bd'),
+(4512, 489, 'Borotoli Banihari', 'à¦¬à¦¡à¦¼à¦¤à¦²à§€ à¦¬à¦¾', 'borotolibanihariup.netrokona.gov.bd'),
+(4513, 489, 'Tetulia', 'à¦¤à§‡à¦¤à§à¦²à¦¿à¦¯à¦¼à', 'tetuliaup.netrokona.gov.bd'),
+(4514, 489, 'Maghan Siadar', 'à¦®à¦¾à¦˜à¦¾à¦¨ à¦¸à¦¿à¦¯', 'maghansiadarup.netrokona.gov.bd'),
+(4515, 489, 'Somaj Sohildeo', 'à¦¸à¦®à¦¾à¦œ à¦¸à¦¹à¦¿à¦²', 'somajsohildeoup.netrokona.gov.bd'),
+(4516, 489, 'Suair', 'à¦¸à§à¦¯à¦¼à¦¾à¦‡à¦°', 'suairup.netrokona.gov.bd'),
+(4517, 489, 'Gaglajur', 'à¦—à¦¾à¦—à¦²à¦¾à¦œà§à¦°', 'gaglajurup.netrokona.gov.bd'),
+(4518, 490, 'Khalishaur', 'à¦–à¦²à¦¿à¦¶à¦¾à¦‰à§œ', 'khalishaurup.netrokona.gov.bd'),
+(4519, 490, 'Ghagra', 'à¦˜à¦¾à¦—à§œà¦¾', 'ghagraup.netrokona.gov.bd'),
+(4520, 490, 'Jaria', 'à¦œà¦¾à¦°à¦¿à§Ÿà¦¾', 'jariaup.netrokona.gov.bd'),
+(4521, 490, 'Narandia', 'à¦¨à¦¾à¦°à¦¾à¦¨à§à¦¦à¦¿à', 'narandiaup.netrokona.gov.bd'),
+(4522, 490, 'Bishkakuni', 'à¦¬à¦¿à¦¶à¦•à¦¾à¦•à§à¦¨à', 'bishkakuniup.netrokona.gov.bd'),
+(4523, 490, 'Bairaty', 'à¦¬à§ˆà¦°à¦¾à¦Ÿà§€', 'bairaty.netrokona.gov.bd'),
+(4524, 490, 'Hogla', 'à¦¹à§‹à¦—à¦²à¦¾', 'hoglaup.netrokona.gov.bd'),
+(4525, 490, 'Gohalakanda', 'à¦—à§‹à¦¹à¦¾à¦²à¦¾à¦•à¦¾à', 'gohalakandaup.netrokona.gov.bd'),
+(4526, 490, 'Dhalamulgaon', 'à¦§à¦²à¦¾à¦®à§à¦²à¦—à¦¾à', 'dhalamulgaonup.netrokona.gov.bd'),
+(4527, 490, 'Agia', 'à¦†à¦—à¦¿à§Ÿà¦¾', 'agia.netrokona.gov.bd'),
+(4528, 490, 'Purbadhala', 'à¦ªà§‚à¦°à§à¦¬à¦§à¦²à¦¾', 'purbadhalaup.netrokona.gov.bd'),
+(4529, 491, 'Chollisha', 'à¦šà¦²à§à¦²à¦¿à¦¶à¦¾', 'chollishaup.netrokona.gov.bd'),
+(4530, 491, 'Kailati', 'à¦•à¦¾à¦‡à¦²à¦¾à¦Ÿà¦¿', 'kailatiup.netrokona.gov.bd'),
+(4531, 491, 'Dokkhin Bishiura', 'à¦¦à¦•à§à¦·à¦¿à¦£ à¦¬à¦¿', 'dokkhinbishiuraup.netrokona.gov.bd'),
+(4532, 491, 'Modonpur', 'à¦®à¦¦à¦¨à¦ªà§à¦°', 'modonpurup.netrokona.gov.bd'),
+(4533, 491, 'Amtola', 'à¦†à¦®à¦¤à¦²à¦¾', 'amtolaup.netrokona.gov.bd'),
+(4534, 491, 'Lokkhiganj', 'à¦²à¦•à§à¦·à§€à¦—à¦žà§à', 'lokkhiganj.netrokona.gov.bd'),
+(4535, 491, 'Singher Bangla', 'à¦¸à¦¿à¦‚à¦¹à§‡à¦° à¦¬à¦¾', 'singherbanglaup.netrokona.gov.bd'),
+(4536, 491, 'Thakurakona', 'à¦ à¦¾à¦•à§à¦°à¦¾à¦•à§‹à', 'thakurakonaup.netrokona.gov.bd'),
+(4537, 491, 'Mougati', 'à¦®à§Œà¦—à¦¾à¦¤à¦¿', 'mougatiup.netrokona.gov.bd'),
+(4538, 491, 'Rouha', 'à¦°à§Œà¦¹à¦¾', 'rouhaup.netrokona.gov.bd'),
+(4539, 491, 'Medni', 'à¦®à§‡à¦¦à¦¨à§€', 'medniup.netrokona.gov.bd'),
+(4540, 491, 'Kaliara Babragati', 'à¦•à¦¾à¦²à¦¿à¦¯à¦¼à¦¾à¦°à', 'kaliaragabragatiup.netrokona.gov.bd');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `upazilas`
+--
+
+CREATE TABLE `upazilas` (
+  `id` int(3) NOT NULL,
+  `district_id` int(2) NOT NULL,
+  `name` varchar(25) NOT NULL,
+  `bn_name` varchar(25) NOT NULL,
+  `url` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `upazilas`
+--
+
+INSERT INTO `upazilas` (`id`, `district_id`, `name`, `bn_name`, `url`) VALUES
+(1, 1, 'Debidwar', 'à¦¦à§‡à¦¬à¦¿à¦¦à§à¦¬à¦¾à', 'debidwar.comilla.gov.bd'),
+(2, 1, 'Barura', 'à¦¬à¦°à§à¦¡à¦¼à¦¾', 'barura.comilla.gov.bd'),
+(3, 1, 'Brahmanpara', 'à¦¬à§à¦°à¦¾à¦¹à§à¦®à¦£à', 'brahmanpara.comilla.gov.bd'),
+(4, 1, 'Chandina', 'à¦šà¦¾à¦¨à§à¦¦à¦¿à¦¨à¦¾', 'chandina.comilla.gov.bd'),
+(5, 1, 'Chauddagram', 'à¦šà§Œà¦¦à§à¦¦à¦—à§à¦°à', 'chauddagram.comilla.gov.bd'),
+(6, 1, 'Daudkandi', 'à¦¦à¦¾à¦‰à¦¦à¦•à¦¾à¦¨à§à', 'daudkandi.comilla.gov.bd'),
+(7, 1, 'Homna', 'à¦¹à§‹à¦®à¦¨à¦¾', 'homna.comilla.gov.bd'),
+(8, 1, 'Laksam', 'à¦²à¦¾à¦•à¦¸à¦¾à¦®', 'laksam.comilla.gov.bd'),
+(9, 1, 'Muradnagar', 'à¦®à§à¦°à¦¾à¦¦à¦¨à¦—à¦°', 'muradnagar.comilla.gov.bd'),
+(10, 1, 'Nangalkot', 'à¦¨à¦¾à¦™à§à¦—à¦²à¦•à§‹à', 'nangalkot.comilla.gov.bd'),
+(11, 1, 'Comilla Sadar', 'à¦•à§à¦®à¦¿à¦²à§à¦²à¦¾ ', 'comillasadar.comilla.gov.bd'),
+(12, 1, 'Meghna', 'à¦®à§‡à¦˜à¦¨à¦¾', 'meghna.comilla.gov.bd'),
+(13, 1, 'Monohargonj', 'à¦®à¦¨à§‹à¦¹à¦°à¦—à¦žà§à', 'monohargonj.comilla.gov.bd'),
+(14, 1, 'Sadarsouth', 'à¦¸à¦¦à¦° à¦¦à¦•à§à¦·à¦¿', 'sadarsouth.comilla.gov.bd'),
+(15, 1, 'Titas', 'à¦¤à¦¿à¦¤à¦¾à¦¸', 'titas.comilla.gov.bd'),
+(16, 1, 'Burichang', 'à¦¬à§à¦¡à¦¼à¦¿à¦šà¦‚', 'burichang.comilla.gov.bd'),
+(17, 1, 'Lalmai', 'à¦²à¦¾à¦²à¦®à¦¾à¦‡', 'lalmai.comilla.gov.bd'),
+(18, 2, 'Chhagalnaiya', 'à¦›à¦¾à¦—à¦²à¦¨à¦¾à¦‡à§Ÿà', 'chhagalnaiya.feni.gov.bd'),
+(19, 2, 'Feni Sadar', 'à¦«à§‡à¦¨à§€ à¦¸à¦¦à¦°', 'sadar.feni.gov.bd'),
+(20, 2, 'Sonagazi', 'à¦¸à§‹à¦¨à¦¾à¦—à¦¾à¦œà§€', 'sonagazi.feni.gov.bd'),
+(21, 2, 'Fulgazi', 'à¦«à§à¦²à¦—à¦¾à¦œà§€', 'fulgazi.feni.gov.bd'),
+(22, 2, 'Parshuram', 'à¦ªà¦°à¦¶à§à¦°à¦¾à¦®', 'parshuram.feni.gov.bd'),
+(23, 2, 'Daganbhuiyan', 'à¦¦à¦¾à¦—à¦¨à¦­à§‚à¦žà¦¾', 'daganbhuiyan.feni.gov.bd'),
+(24, 3, 'Brahmanbaria Sadar', 'à¦¬à§à¦°à¦¾à¦¹à§à¦®à¦£à', 'sadar.brahmanbaria.gov.bd'),
+(25, 3, 'Kasba', 'à¦•à¦¸à¦¬à¦¾', 'kasba.brahmanbaria.gov.bd'),
+(26, 3, 'Nasirnagar', 'à¦¨à¦¾à¦¸à¦¿à¦°à¦¨à¦—à¦°', 'nasirnagar.brahmanbaria.gov.bd'),
+(27, 3, 'Sarail', 'à¦¸à¦°à¦¾à¦‡à¦²', 'sarail.brahmanbaria.gov.bd'),
+(28, 3, 'Ashuganj', 'à¦†à¦¶à§à¦—à¦žà§à¦œ', 'ashuganj.brahmanbaria.gov.bd'),
+(29, 3, 'Akhaura', 'à¦†à¦–à¦¾à¦‰à§œà¦¾', 'akhaura.brahmanbaria.gov.bd'),
+(30, 3, 'Nabinagar', 'à¦¨à¦¬à§€à¦¨à¦—à¦°', 'nabinagar.brahmanbaria.gov.bd'),
+(31, 3, 'Bancharampur', 'à¦¬à¦¾à¦žà§à¦›à¦¾à¦°à¦¾à', 'bancharampur.brahmanbaria.gov.bd'),
+(32, 3, 'Bijoynagar', 'à¦¬à¦¿à¦œà§Ÿà¦¨à¦—à¦°', 'bijoynagar.brahmanbaria.gov.bd    '),
+(33, 4, 'Rangamati Sadar', 'à¦°à¦¾à¦™à§à¦—à¦¾à¦®à¦¾à', 'sadar.rangamati.gov.bd'),
+(34, 4, 'Kaptai', 'à¦•à¦¾à¦ªà§à¦¤à¦¾à¦‡', 'kaptai.rangamati.gov.bd'),
+(35, 4, 'Kawkhali', 'à¦•à¦¾à¦‰à¦–à¦¾à¦²à§€', 'kawkhali.rangamati.gov.bd'),
+(36, 4, 'Baghaichari', 'à¦¬à¦¾à¦˜à¦¾à¦‡à¦›à§œà¦¿', 'baghaichari.rangamati.gov.bd'),
+(37, 4, 'Barkal', 'à¦¬à¦°à¦•à¦²', 'barkal.rangamati.gov.bd'),
+(38, 4, 'Langadu', 'à¦²à¦‚à¦—à¦¦à§', 'langadu.rangamati.gov.bd'),
+(39, 4, 'Rajasthali', 'à¦°à¦¾à¦œà¦¸à§à¦¥à¦²à§€', 'rajasthali.rangamati.gov.bd'),
+(40, 4, 'Belaichari', 'à¦¬à¦¿à¦²à¦¾à¦‡à¦›à§œà¦¿', 'belaichari.rangamati.gov.bd'),
+(41, 4, 'Juraichari', 'à¦œà§à¦°à¦¾à¦›à§œà¦¿', 'juraichari.rangamati.gov.bd'),
+(42, 4, 'Naniarchar', 'à¦¨à¦¾à¦¨à¦¿à§Ÿà¦¾à¦°à¦šà', 'naniarchar.rangamati.gov.bd'),
+(43, 5, 'Noakhali Sadar', 'à¦¨à§‹à¦¯à¦¼à¦¾à¦–à¦¾à¦²à', 'sadar.noakhali.gov.bd'),
+(44, 5, 'Companiganj', 'à¦•à§‹à¦®à§à¦ªà¦¾à¦¨à§€à', 'companiganj.noakhali.gov.bd'),
+(45, 5, 'Begumganj', 'à¦¬à§‡à¦—à¦®à¦—à¦žà§à¦œ', 'begumganj.noakhali.gov.bd'),
+(46, 5, 'Hatia', 'à¦¹à¦¾à¦¤à¦¿à¦¯à¦¼à¦¾', 'hatia.noakhali.gov.bd'),
+(47, 5, 'Subarnachar', 'à¦¸à§à¦¬à¦°à§à¦£à¦šà¦°', 'subarnachar.noakhali.gov.bd'),
+(48, 5, 'Kabirhat', 'à¦•à¦¬à¦¿à¦°à¦¹à¦¾à¦Ÿ', 'kabirhat.noakhali.gov.bd'),
+(49, 5, 'Senbug', 'à¦¸à§‡à¦¨à¦¬à¦¾à¦—', 'senbug.noakhali.gov.bd'),
+(50, 5, 'Chatkhil', 'à¦šà¦¾à¦Ÿà¦–à¦¿à¦²', 'chatkhil.noakhali.gov.bd'),
+(51, 5, 'Sonaimori', 'à¦¸à§‹à¦¨à¦¾à¦‡à¦®à§à¦¡à', 'sonaimori.noakhali.gov.bd'),
+(52, 6, 'Haimchar', 'à¦¹à¦¾à¦‡à¦®à¦šà¦°', 'haimchar.chandpur.gov.bd'),
+(53, 6, 'Kachua', 'à¦•à¦šà§à¦¯à¦¼à¦¾', 'kachua.chandpur.gov.bd'),
+(54, 6, 'Shahrasti', 'à¦¶à¦¾à¦¹à¦°à¦¾à¦¸à§à¦¤à', 'shahrasti.chandpur.gov.bd'),
+(55, 6, 'Chandpur Sadar', 'à¦šà¦¾à¦à¦¦à¦ªà§à¦° à¦¸', 'sadar.chandpur.gov.bd'),
+(56, 6, 'Matlab South', 'à¦®à¦¤à¦²à¦¬ à¦¦à¦•à§à¦·', 'matlabsouth.chandpur.gov.bd'),
+(57, 6, 'Hajiganj', 'à¦¹à¦¾à¦œà§€à¦—à¦žà§à¦œ', 'hajiganj.chandpur.gov.bd'),
+(58, 6, 'Matlab North', 'à¦®à¦¤à¦²à¦¬ à¦‰à¦¤à§à¦¤', 'matlabnorth.chandpur.gov.bd'),
+(59, 6, 'Faridgonj', 'à¦«à¦°à¦¿à¦¦à¦—à¦žà§à¦œ', 'faridgonj.chandpur.gov.bd'),
+(60, 7, 'Lakshmipur Sadar', 'à¦²à¦•à§à¦·à§à¦®à§€à¦ªà', 'sadar.lakshmipur.gov.bd'),
+(61, 7, 'Kamalnagar', 'à¦•à¦®à¦²à¦¨à¦—à¦°', 'kamalnagar.lakshmipur.gov.bd'),
+(62, 7, 'Raipur', 'à¦°à¦¾à§Ÿà¦ªà§à¦°', 'raipur.lakshmipur.gov.bd'),
+(63, 7, 'Ramgati', 'à¦°à¦¾à¦®à¦—à¦¤à¦¿', 'ramgati.lakshmipur.gov.bd'),
+(64, 7, 'Ramganj', 'à¦°à¦¾à¦®à¦—à¦žà§à¦œ', 'ramganj.lakshmipur.gov.bd'),
+(65, 8, 'Rangunia', 'à¦°à¦¾à¦™à§à¦—à§à¦¨à¦¿à', 'rangunia.chittagong.gov.bd'),
+(66, 8, 'Sitakunda', 'à¦¸à§€à¦¤à¦¾à¦•à§à¦¨à§à', 'sitakunda.chittagong.gov.bd'),
+(67, 8, 'Mirsharai', 'à¦®à§€à¦°à¦¸à¦°à¦¾à¦‡', 'mirsharai.chittagong.gov.bd'),
+(68, 8, 'Patiya', 'à¦ªà¦Ÿà¦¿à§Ÿà¦¾', 'patiya.chittagong.gov.bd'),
+(69, 8, 'Sandwip', 'à¦¸à¦¨à§à¦¦à§à¦¬à§€à¦ª', 'sandwip.chittagong.gov.bd'),
+(70, 8, 'Banshkhali', 'à¦¬à¦¾à¦à¦¶à¦–à¦¾à¦²à§€', 'banshkhali.chittagong.gov.bd'),
+(71, 8, 'Boalkhali', 'à¦¬à§‹à§Ÿà¦¾à¦²à¦–à¦¾à¦²à', 'boalkhali.chittagong.gov.bd'),
+(72, 8, 'Anwara', 'à¦†à¦¨à§‹à¦¯à¦¼à¦¾à¦°à¦¾', 'anwara.chittagong.gov.bd'),
+(73, 8, 'Chandanaish', 'à¦šà¦¨à§à¦¦à¦¨à¦¾à¦‡à¦¶', 'chandanaish.chittagong.gov.bd'),
+(74, 8, 'Satkania', 'à¦¸à¦¾à¦¤à¦•à¦¾à¦¨à¦¿à§Ÿà', 'satkania.chittagong.gov.bd'),
+(75, 8, 'Lohagara', 'à¦²à§‹à¦¹à¦¾à¦—à¦¾à§œà¦¾', 'lohagara.chittagong.gov.bd'),
+(76, 8, 'Hathazari', 'à¦¹à¦¾à¦Ÿà¦¹à¦¾à¦œà¦¾à¦°à', 'hathazari.chittagong.gov.bd'),
+(77, 8, 'Fatikchhari', 'à¦«à¦Ÿà¦¿à¦•à¦›à§œà¦¿', 'fatikchhari.chittagong.gov.bd'),
+(78, 8, 'Raozan', 'à¦°à¦¾à¦‰à¦œà¦¾à¦¨', 'raozan.chittagong.gov.bd'),
+(79, 8, 'Karnafuli', 'à¦•à¦°à§à¦£à¦«à§à¦²à§€', 'karnafuli.chittagong.gov.bd'),
+(80, 9, 'Coxsbazar Sadar', 'à¦•à¦•à§à¦¸à¦¬à¦¾à¦œà¦¾à', 'sadar.coxsbazar.gov.bd'),
+(81, 9, 'Chakaria', 'à¦šà¦•à¦°à¦¿à§Ÿà¦¾', 'chakaria.coxsbazar.gov.bd'),
+(82, 9, 'Kutubdia', 'à¦•à§à¦¤à§à¦¬à¦¦à¦¿à§Ÿà', 'kutubdia.coxsbazar.gov.bd'),
+(83, 9, 'Ukhiya', 'à¦‰à¦–à¦¿à§Ÿà¦¾', 'ukhiya.coxsbazar.gov.bd'),
+(84, 9, 'Moheshkhali', 'à¦®à¦¹à§‡à¦¶à¦–à¦¾à¦²à§€', 'moheshkhali.coxsbazar.gov.bd'),
+(85, 9, 'Pekua', 'à¦ªà§‡à¦•à§à§Ÿà¦¾', 'pekua.coxsbazar.gov.bd'),
+(86, 9, 'Ramu', 'à¦°à¦¾à¦®à§', 'ramu.coxsbazar.gov.bd'),
+(87, 9, 'Teknaf', 'à¦Ÿà§‡à¦•à¦¨à¦¾à¦«', 'teknaf.coxsbazar.gov.bd'),
+(88, 10, 'Khagrachhari Sadar', 'à¦–à¦¾à¦—à¦¡à¦¼à¦¾à¦›à¦¡à', 'sadar.khagrachhari.gov.bd'),
+(89, 10, 'Dighinala', 'à¦¦à¦¿à¦˜à§€à¦¨à¦¾à¦²à¦¾', 'dighinala.khagrachhari.gov.bd'),
+(90, 10, 'Panchari', 'à¦ªà¦¾à¦¨à¦›à¦¡à¦¼à¦¿', 'panchari.khagrachhari.gov.bd'),
+(91, 10, 'Laxmichhari', 'à¦²à¦•à§à¦·à§€à¦›à¦¡à¦¼à', 'laxmichhari.khagrachhari.gov.bd'),
+(92, 10, 'Mohalchari', 'à¦®à¦¹à¦¾à¦²à¦›à¦¡à¦¼à¦¿', 'mohalchari.khagrachhari.gov.bd'),
+(93, 10, 'Manikchari', 'à¦®à¦¾à¦¨à¦¿à¦•à¦›à¦¡à¦¼à', 'manikchari.khagrachhari.gov.bd'),
+(94, 10, 'Ramgarh', 'à¦°à¦¾à¦®à¦—à¦¡à¦¼', 'ramgarh.khagrachhari.gov.bd'),
+(95, 10, 'Matiranga', 'à¦®à¦¾à¦Ÿà¦¿à¦°à¦¾à¦™à§à', 'matiranga.khagrachhari.gov.bd'),
+(96, 10, 'Guimara', 'à¦—à§à¦‡à¦®à¦¾à¦°à¦¾', 'guimara.khagrachhari.gov.bd'),
+(97, 11, 'Bandarban Sadar', 'à¦¬à¦¾à¦¨à§à¦¦à¦°à¦¬à¦¾à', 'sadar.bandarban.gov.bd'),
+(98, 11, 'Alikadam', 'à¦†à¦²à§€à¦•à¦¦à¦®', 'alikadam.bandarban.gov.bd'),
+(99, 11, 'Naikhongchhari', 'à¦¨à¦¾à¦‡à¦•à§à¦·à§à¦¯à', 'naikhongchhari.bandarban.gov.bd'),
+(100, 11, 'Rowangchhari', 'à¦°à§‹à§Ÿà¦¾à¦‚à¦›à§œà¦¿', 'rowangchhari.bandarban.gov.bd'),
+(101, 11, 'Lama', 'à¦²à¦¾à¦®à¦¾', 'lama.bandarban.gov.bd'),
+(102, 11, 'Ruma', 'à¦°à§à¦®à¦¾', 'ruma.bandarban.gov.bd'),
+(103, 11, 'Thanchi', 'à¦¥à¦¾à¦¨à¦šà¦¿', 'thanchi.bandarban.gov.bd'),
+(104, 12, 'Belkuchi', 'à¦¬à§‡à¦²à¦•à§à¦šà¦¿', 'belkuchi.sirajganj.gov.bd'),
+(105, 12, 'Chauhali', 'à¦šà§Œà¦¹à¦¾à¦²à¦¿', 'chauhali.sirajganj.gov.bd'),
+(106, 12, 'Kamarkhand', 'à¦•à¦¾à¦®à¦¾à¦°à¦–à¦¨à§à', 'kamarkhand.sirajganj.gov.bd'),
+(107, 12, 'Kazipur', 'à¦•à¦¾à¦œà§€à¦ªà§à¦°', 'kazipur.sirajganj.gov.bd'),
+(108, 12, 'Raigonj', 'à¦°à¦¾à§Ÿà¦—à¦žà§à¦œ', 'raigonj.sirajganj.gov.bd'),
+(109, 12, 'Shahjadpur', 'à¦¶à¦¾à¦¹à¦œà¦¾à¦¦à¦ªà§à', 'shahjadpur.sirajganj.gov.bd'),
+(110, 12, 'Sirajganj Sadar', 'à¦¸à¦¿à¦°à¦¾à¦œà¦—à¦žà§à', 'sirajganjsadar.sirajganj.gov.bd'),
+(111, 12, 'Tarash', 'à¦¤à¦¾à§œà¦¾à¦¶', 'tarash.sirajganj.gov.bd'),
+(112, 12, 'Ullapara', 'à¦‰à¦²à§à¦²à¦¾à¦ªà¦¾à§œà', 'ullapara.sirajganj.gov.bd'),
+(113, 13, 'Sujanagar', 'à¦¸à§à¦œà¦¾à¦¨à¦—à¦°', 'sujanagar.pabna.gov.bd'),
+(114, 13, 'Ishurdi', 'à¦ˆà¦¶à§à¦¬à¦°à¦¦à§€', 'ishurdi.pabna.gov.bd'),
+(115, 13, 'Bhangura', 'à¦­à¦¾à¦™à§à¦—à§à§œà¦¾', 'bhangura.pabna.gov.bd'),
+(116, 13, 'Pabna Sadar', 'à¦ªà¦¾à¦¬à¦¨à¦¾ à¦¸à¦¦à¦°', 'pabnasadar.pabna.gov.bd'),
+(117, 13, 'Bera', 'à¦¬à§‡à§œà¦¾', 'bera.pabna.gov.bd'),
+(118, 13, 'Atghoria', 'à¦†à¦Ÿà¦˜à¦°à¦¿à§Ÿà¦¾', 'atghoria.pabna.gov.bd'),
+(119, 13, 'Chatmohar', 'à¦šà¦¾à¦Ÿà¦®à§‹à¦¹à¦°', 'chatmohar.pabna.gov.bd'),
+(120, 13, 'Santhia', 'à¦¸à¦¾à¦à¦¥à¦¿à§Ÿà¦¾', 'santhia.pabna.gov.bd'),
+(121, 13, 'Faridpur', 'à¦«à¦°à¦¿à¦¦à¦ªà§à¦°', 'faridpur.pabna.gov.bd'),
+(122, 14, 'Kahaloo', 'à¦•à¦¾à¦¹à¦¾à¦²à§', 'kahaloo.bogra.gov.bd'),
+(123, 14, 'Bogra Sadar', 'à¦¬à¦—à§à§œà¦¾ à¦¸à¦¦à¦°', 'sadar.bogra.gov.bd'),
+(124, 14, 'Shariakandi', 'à¦¸à¦¾à¦°à¦¿à§Ÿà¦¾à¦•à¦¾à', 'shariakandi.bogra.gov.bd'),
+(125, 14, 'Shajahanpur', 'à¦¶à¦¾à¦œà¦¾à¦¹à¦¾à¦¨à¦ªà', 'shajahanpur.bogra.gov.bd'),
+(126, 14, 'Dupchanchia', 'à¦¦à§à¦ªà¦šà¦¾à¦šà¦¿à¦à', 'dupchanchia.bogra.gov.bd'),
+(127, 14, 'Adamdighi', 'à¦†à¦¦à¦®à¦¦à¦¿à¦˜à¦¿', 'adamdighi.bogra.gov.bd'),
+(128, 14, 'Nondigram', 'à¦¨à¦¨à§à¦¦à¦¿à¦—à§à¦°à', 'nondigram.bogra.gov.bd'),
+(129, 14, 'Sonatala', 'à¦¸à§‹à¦¨à¦¾à¦¤à¦²à¦¾', 'sonatala.bogra.gov.bd'),
+(130, 14, 'Dhunot', 'à¦§à§à¦¨à¦Ÿ', 'dhunot.bogra.gov.bd'),
+(131, 14, 'Gabtali', 'à¦—à¦¾à¦¬à¦¤à¦²à§€', 'gabtali.bogra.gov.bd'),
+(132, 14, 'Sherpur', 'à¦¶à§‡à¦°à¦ªà§à¦°', 'sherpur.bogra.gov.bd'),
+(133, 14, 'Shibganj', 'à¦¶à¦¿à¦¬à¦—à¦žà§à¦œ', 'shibganj.bogra.gov.bd'),
+(134, 15, 'Paba', 'à¦ªà¦¬à¦¾', 'paba.rajshahi.gov.bd'),
+(135, 15, 'Durgapur', 'à¦¦à§à¦°à§à¦—à¦¾à¦ªà§à', 'durgapur.rajshahi.gov.bd'),
+(136, 15, 'Mohonpur', 'à¦®à§‹à¦¹à¦¨à¦ªà§à¦°', 'mohonpur.rajshahi.gov.bd'),
+(137, 15, 'Charghat', 'à¦šà¦¾à¦°à¦˜à¦¾à¦Ÿ', 'charghat.rajshahi.gov.bd'),
+(138, 15, 'Puthia', 'à¦ªà§à¦ à¦¿à¦¯à¦¼à¦¾', 'puthia.rajshahi.gov.bd'),
+(139, 15, 'Bagha', 'à¦¬à¦¾à¦˜à¦¾', 'bagha.rajshahi.gov.bd'),
+(140, 15, 'Godagari', 'à¦—à§‹à¦¦à¦¾à¦—à¦¾à¦¡à¦¼à', 'godagari.rajshahi.gov.bd'),
+(141, 15, 'Tanore', 'à¦¤à¦¾à¦¨à§‹à¦°', 'tanore.rajshahi.gov.bd'),
+(142, 15, 'Bagmara', 'à¦¬à¦¾à¦—à¦®à¦¾à¦°à¦¾', 'bagmara.rajshahi.gov.bd'),
+(143, 16, 'Natore Sadar', 'à¦¨à¦¾à¦Ÿà§‹à¦° à¦¸à¦¦à¦°', 'natoresadar.natore.gov.bd'),
+(144, 16, 'Singra', 'à¦¸à¦¿à¦‚à¦¡à¦¼à¦¾', 'singra.natore.gov.bd'),
+(145, 16, 'Baraigram', 'à¦¬à¦¡à¦¼à¦¾à¦‡à¦—à§à¦°à', 'baraigram.natore.gov.bd'),
+(146, 16, 'Bagatipara', 'à¦¬à¦¾à¦—à¦¾à¦¤à¦¿à¦ªà¦¾à', 'bagatipara.natore.gov.bd'),
+(147, 16, 'Lalpur', 'à¦²à¦¾à¦²à¦ªà§à¦°', 'lalpur.natore.gov.bd'),
+(148, 16, 'Gurudaspur', 'à¦—à§à¦°à§à¦¦à¦¾à¦¸à¦ªà', 'gurudaspur.natore.gov.bd'),
+(149, 16, 'Naldanga', 'à¦¨à¦²à¦¡à¦¾à¦™à§à¦—à¦¾', 'naldanga.natore.gov.bd'),
+(150, 17, 'Akkelpur', 'à¦†à¦•à§à¦•à§‡à¦²à¦ªà§à', 'akkelpur.joypurhat.gov.bd'),
+(151, 17, 'Kalai', 'à¦•à¦¾à¦²à¦¾à¦‡', 'kalai.joypurhat.gov.bd'),
+(152, 17, 'Khetlal', 'à¦•à§à¦·à§‡à¦¤à¦²à¦¾à¦²', 'khetlal.joypurhat.gov.bd'),
+(153, 17, 'Panchbibi', 'à¦ªà¦¾à¦à¦šà¦¬à¦¿à¦¬à¦¿', 'panchbibi.joypurhat.gov.bd'),
+(154, 17, 'Joypurhat Sadar', 'à¦œà§Ÿà¦ªà§à¦°à¦¹à¦¾à¦Ÿ ', 'joypurhatsadar.joypurhat.gov.bd'),
+(155, 18, 'Chapainawabganj Sadar', 'à¦šà¦¾à¦à¦ªà¦¾à¦‡à¦¨à¦¬à', 'chapainawabganjsadar.chapainawabganj.gov.bd'),
+(156, 18, 'Gomostapur', 'à¦—à§‹à¦®à¦¸à§à¦¤à¦¾à¦ªà', 'gomostapur.chapainawabganj.gov.bd'),
+(157, 18, 'Nachol', 'à¦¨à¦¾à¦šà§‹à¦²', 'nachol.chapainawabganj.gov.bd'),
+(158, 18, 'Bholahat', 'à¦­à§‹à¦²à¦¾à¦¹à¦¾à¦Ÿ', 'bholahat.chapainawabganj.gov.bd'),
+(159, 18, 'Shibganj', 'à¦¶à¦¿à¦¬à¦—à¦žà§à¦œ', 'shibganj.chapainawabganj.gov.bd'),
+(160, 19, 'Mohadevpur', 'à¦®à¦¹à¦¾à¦¦à§‡à¦¬à¦ªà§à', 'mohadevpur.naogaon.gov.bd'),
+(161, 19, 'Badalgachi', 'à¦¬à¦¦à¦²à¦—à¦¾à¦›à§€', 'badalgachi.naogaon.gov.bd'),
+(162, 19, 'Patnitala', 'à¦ªà¦¤à§à¦¨à¦¿à¦¤à¦²à¦¾', 'patnitala.naogaon.gov.bd'),
+(163, 19, 'Dhamoirhat', 'à¦§à¦¾à¦®à¦‡à¦°à¦¹à¦¾à¦Ÿ', 'dhamoirhat.naogaon.gov.bd'),
+(164, 19, 'Niamatpur', 'à¦¨à¦¿à§Ÿà¦¾à¦®à¦¤à¦ªà§à', 'niamatpur.naogaon.gov.bd'),
+(165, 19, 'Manda', 'à¦®à¦¾à¦¨à§à¦¦à¦¾', 'manda.naogaon.gov.bd'),
+(166, 19, 'Atrai', 'à¦†à¦¤à§à¦°à¦¾à¦‡', 'atrai.naogaon.gov.bd'),
+(167, 19, 'Raninagar', 'à¦°à¦¾à¦£à§€à¦¨à¦—à¦°', 'raninagar.naogaon.gov.bd'),
+(168, 19, 'Naogaon Sadar', 'à¦¨à¦“à¦—à¦¾à¦ à¦¸à¦¦à¦°', 'naogaonsadar.naogaon.gov.bd'),
+(169, 19, 'Porsha', 'à¦ªà§‹à¦°à¦¶à¦¾', 'porsha.naogaon.gov.bd'),
+(170, 19, 'Sapahar', 'à¦¸à¦¾à¦ªà¦¾à¦¹à¦¾à¦°', 'sapahar.naogaon.gov.bd'),
+(171, 20, 'Manirampur', 'à¦®à¦£à¦¿à¦°à¦¾à¦®à¦ªà§à', 'manirampur.jessore.gov.bd'),
+(172, 20, 'Abhaynagar', 'à¦…à¦­à§Ÿà¦¨à¦—à¦°', 'abhaynagar.jessore.gov.bd'),
+(173, 20, 'Bagherpara', 'à¦¬à¦¾à¦˜à¦¾à¦°à¦ªà¦¾à§œà', 'bagherpara.jessore.gov.bd'),
+(174, 20, 'Chougachha', 'à¦šà§Œà¦—à¦¾à¦›à¦¾', 'chougachha.jessore.gov.bd'),
+(175, 20, 'Jhikargacha', 'à¦à¦¿à¦•à¦°à¦—à¦¾à¦›à¦¾', 'jhikargacha.jessore.gov.bd'),
+(176, 20, 'Keshabpur', 'à¦•à§‡à¦¶à¦¬à¦ªà§à¦°', 'keshabpur.jessore.gov.bd'),
+(177, 20, 'Jessore Sadar', 'à¦¯à¦¶à§‹à¦° à¦¸à¦¦à¦°', 'sadar.jessore.gov.bd'),
+(178, 20, 'Sharsha', 'à¦¶à¦¾à¦°à§à¦¶à¦¾', 'sharsha.jessore.gov.bd'),
+(179, 21, 'Assasuni', 'à¦†à¦¶à¦¾à¦¶à§à¦¨à¦¿', 'assasuni.satkhira.gov.bd'),
+(180, 21, 'Debhata', 'à¦¦à§‡à¦¬à¦¹à¦¾à¦Ÿà¦¾', 'debhata.satkhira.gov.bd'),
+(181, 21, 'Kalaroa', 'à¦•à¦²à¦¾à¦°à§‹à§Ÿà¦¾', 'kalaroa.satkhira.gov.bd'),
+(182, 21, 'Satkhira Sadar', 'à¦¸à¦¾à¦¤à¦•à§à¦·à§€à¦°à', 'satkhirasadar.satkhira.gov.bd'),
+(183, 21, 'Shyamnagar', 'à¦¶à§à¦¯à¦¾à¦®à¦¨à¦—à¦°', 'shyamnagar.satkhira.gov.bd'),
+(184, 21, 'Tala', 'à¦¤à¦¾à¦²à¦¾', 'tala.satkhira.gov.bd'),
+(185, 21, 'Kaliganj', 'à¦•à¦¾à¦²à¦¿à¦—à¦žà§à¦œ', 'kaliganj.satkhira.gov.bd'),
+(186, 22, 'Mujibnagar', 'à¦®à§à¦œà¦¿à¦¬à¦¨à¦—à¦°', 'mujibnagar.meherpur.gov.bd'),
+(187, 22, 'Meherpur Sadar', 'à¦®à§‡à¦¹à§‡à¦°à¦ªà§à¦° ', 'meherpursadar.meherpur.gov.bd'),
+(188, 22, 'Gangni', 'à¦—à¦¾à¦‚à¦¨à§€', 'gangni.meherpur.gov.bd'),
+(189, 23, 'Narail Sadar', 'à¦¨à§œà¦¾à¦‡à¦² à¦¸à¦¦à¦°', 'narailsadar.narail.gov.bd'),
+(190, 23, 'Lohagara', 'à¦²à§‹à¦¹à¦¾à¦—à§œà¦¾', 'lohagara.narail.gov.bd'),
+(191, 23, 'Kalia', 'à¦•à¦¾à¦²à¦¿à§Ÿà¦¾', 'kalia.narail.gov.bd'),
+(192, 24, 'Chuadanga Sadar', 'à¦šà§à¦¯à¦¼à¦¾à¦¡à¦¾à¦™à', 'chuadangasadar.chuadanga.gov.bd'),
+(193, 24, 'Alamdanga', 'à¦†à¦²à¦®à¦¡à¦¾à¦™à§à¦—à', 'alamdanga.chuadanga.gov.bd'),
+(194, 24, 'Damurhuda', 'à¦¦à¦¾à¦®à§à¦¡à¦¼à¦¹à§à', 'damurhuda.chuadanga.gov.bd'),
+(195, 24, 'Jibannagar', 'à¦œà§€à¦¬à¦¨à¦¨à¦—à¦°', 'jibannagar.chuadanga.gov.bd'),
+(196, 25, 'Kushtia Sadar', 'à¦•à§à¦·à§à¦Ÿà¦¿à§Ÿà¦¾ ', 'kushtiasadar.kushtia.gov.bd'),
+(197, 25, 'Kumarkhali', 'à¦•à§à¦®à¦¾à¦°à¦–à¦¾à¦²à', 'kumarkhali.kushtia.gov.bd'),
+(198, 25, 'Khoksa', 'à¦–à§‹à¦•à¦¸à¦¾', 'khoksa.kushtia.gov.bd'),
+(199, 25, 'Mirpur', 'à¦®à¦¿à¦°à¦ªà§à¦°', 'mirpurkushtia.kushtia.gov.bd'),
+(200, 25, 'Daulatpur', 'à¦¦à§Œà¦²à¦¤à¦ªà§à¦°', 'daulatpur.kushtia.gov.bd'),
+(201, 25, 'Bheramara', 'à¦­à§‡à¦¡à¦¼à¦¾à¦®à¦¾à¦°à', 'bheramara.kushtia.gov.bd'),
+(202, 26, 'Shalikha', 'à¦¶à¦¾à¦²à¦¿à¦–à¦¾', 'shalikha.magura.gov.bd'),
+(203, 26, 'Sreepur', 'à¦¶à§à¦°à§€à¦ªà§à¦°', 'sreepur.magura.gov.bd'),
+(204, 26, 'Magura Sadar', 'à¦®à¦¾à¦—à§à¦°à¦¾ à¦¸à¦¦', 'magurasadar.magura.gov.bd'),
+(205, 26, 'Mohammadpur', 'à¦®à¦¹à¦®à§à¦®à¦¦à¦ªà§à', 'mohammadpur.magura.gov.bd'),
+(206, 27, 'Paikgasa', 'à¦ªà¦¾à¦‡à¦•à¦—à¦¾à¦›à¦¾', 'paikgasa.khulna.gov.bd'),
+(207, 27, 'Fultola', 'à¦«à§à¦²à¦¤à¦²à¦¾', 'fultola.khulna.gov.bd'),
+(208, 27, 'Digholia', 'à¦¦à¦¿à¦˜à¦²à¦¿à§Ÿà¦¾', 'digholia.khulna.gov.bd'),
+(209, 27, 'Rupsha', 'à¦°à§‚à¦ªà¦¸à¦¾', 'rupsha.khulna.gov.bd'),
+(210, 27, 'Terokhada', 'à¦¤à§‡à¦°à¦–à¦¾à¦¦à¦¾', 'terokhada.khulna.gov.bd'),
+(211, 27, 'Dumuria', 'à¦¡à§à¦®à§à¦°à¦¿à§Ÿà¦¾', 'dumuria.khulna.gov.bd'),
+(212, 27, 'Botiaghata', 'à¦¬à¦Ÿà¦¿à¦¯à¦¼à¦¾à¦˜à¦¾à', 'botiaghata.khulna.gov.bd'),
+(213, 27, 'Dakop', 'à¦¦à¦¾à¦•à§‹à¦ª', 'dakop.khulna.gov.bd'),
+(214, 27, 'Koyra', 'à¦•à§Ÿà¦°à¦¾', 'koyra.khulna.gov.bd'),
+(215, 28, 'Fakirhat', 'à¦«à¦•à¦¿à¦°à¦¹à¦¾à¦Ÿ', 'fakirhat.bagerhat.gov.bd'),
+(216, 28, 'Bagerhat Sadar', 'à¦¬à¦¾à¦—à§‡à¦°à¦¹à¦¾à¦Ÿ ', 'sadar.bagerhat.gov.bd'),
+(217, 28, 'Mollahat', 'à¦®à§‹à¦²à§à¦²à¦¾à¦¹à¦¾à', 'mollahat.bagerhat.gov.bd'),
+(218, 28, 'Sarankhola', 'à¦¶à¦°à¦£à¦–à§‹à¦²à¦¾', 'sarankhola.bagerhat.gov.bd'),
+(219, 28, 'Rampal', 'à¦°à¦¾à¦®à¦ªà¦¾à¦²', 'rampal.bagerhat.gov.bd'),
+(220, 28, 'Morrelganj', 'à¦®à§‹à§œà§‡à¦²à¦—à¦žà§à', 'morrelganj.bagerhat.gov.bd'),
+(221, 28, 'Kachua', 'à¦•à¦šà§à§Ÿà¦¾', 'kachua.bagerhat.gov.bd'),
+(222, 28, 'Mongla', 'à¦®à§‹à¦‚à¦²à¦¾', 'mongla.bagerhat.gov.bd'),
+(223, 28, 'Chitalmari', 'à¦šà¦¿à¦¤à¦²à¦®à¦¾à¦°à§€', 'chitalmari.bagerhat.gov.bd'),
+(224, 29, 'Jhenaidah Sadar', 'à¦à¦¿à¦¨à¦¾à¦‡à¦¦à¦¹ à¦¸', 'sadar.jhenaidah.gov.bd'),
+(225, 29, 'Shailkupa', 'à¦¶à§ˆà¦²à¦•à§à¦ªà¦¾', 'shailkupa.jhenaidah.gov.bd'),
+(226, 29, 'Harinakundu', 'à¦¹à¦°à¦¿à¦£à¦¾à¦•à§à¦¨à', 'harinakundu.jhenaidah.gov.bd'),
+(227, 29, 'Kaliganj', 'à¦•à¦¾à¦²à§€à¦—à¦žà§à¦œ', 'kaliganj.jhenaidah.gov.bd'),
+(228, 29, 'Kotchandpur', 'à¦•à§‹à¦Ÿà¦šà¦¾à¦à¦¦à¦ªà', 'kotchandpur.jhenaidah.gov.bd'),
+(229, 29, 'Moheshpur', 'à¦®à¦¹à§‡à¦¶à¦ªà§à¦°', 'moheshpur.jhenaidah.gov.bd'),
+(230, 30, 'Jhalakathi Sadar', 'à¦à¦¾à¦²à¦•à¦¾à¦ à¦¿ à¦¸', 'sadar.jhalakathi.gov.bd'),
+(231, 30, 'Kathalia', 'à¦•à¦¾à¦ à¦¾à¦²à¦¿à§Ÿà¦¾', 'kathalia.jhalakathi.gov.bd'),
+(232, 30, 'Nalchity', 'à¦¨à¦²à¦›à¦¿à¦Ÿà¦¿', 'nalchity.jhalakathi.gov.bd'),
+(233, 30, 'Rajapur', 'à¦°à¦¾à¦œà¦¾à¦ªà§à¦°', 'rajapur.jhalakathi.gov.bd'),
+(234, 31, 'Bauphal', 'à¦¬à¦¾à¦‰à¦«à¦²', 'bauphal.patuakhali.gov.bd'),
+(235, 31, 'Patuakhali Sadar', 'à¦ªà¦Ÿà§à§Ÿà¦¾à¦–à¦¾à¦²à', 'sadar.patuakhali.gov.bd'),
+(236, 31, 'Dumki', 'à¦¦à§à¦®à¦•à¦¿', 'dumki.patuakhali.gov.bd'),
+(237, 31, 'Dashmina', 'à¦¦à¦¶à¦®à¦¿à¦¨à¦¾', 'dashmina.patuakhali.gov.bd'),
+(238, 31, 'Kalapara', 'à¦•à¦²à¦¾à¦ªà¦¾à¦¡à¦¼à¦¾', 'kalapara.patuakhali.gov.bd'),
+(239, 31, 'Mirzaganj', 'à¦®à¦¿à¦°à§à¦œà¦¾à¦—à¦žà', 'mirzaganj.patuakhali.gov.bd'),
+(240, 31, 'Galachipa', 'à¦—à¦²à¦¾à¦šà¦¿à¦ªà¦¾', 'galachipa.patuakhali.gov.bd'),
+(241, 31, 'Rangabali', 'à¦°à¦¾à¦™à§à¦—à¦¾à¦¬à¦¾à', 'rangabali.patuakhali.gov.bd'),
+(242, 32, 'Pirojpur Sadar', 'à¦ªà¦¿à¦°à§‹à¦œà¦ªà§à¦° ', 'sadar.pirojpur.gov.bd'),
+(243, 32, 'Nazirpur', 'à¦¨à¦¾à¦œà¦¿à¦°à¦ªà§à¦°', 'nazirpur.pirojpur.gov.bd'),
+(244, 32, 'Kawkhali', 'à¦•à¦¾à¦‰à¦–à¦¾à¦²à§€', 'kawkhali.pirojpur.gov.bd'),
+(245, 32, 'Zianagar', 'à¦œà¦¿à§Ÿà¦¾à¦¨à¦—à¦°', 'zianagar.pirojpur.gov.bd'),
+(246, 32, 'Bhandaria', 'à¦­à¦¾à¦¨à§à¦¡à¦¾à¦°à¦¿à', 'bhandaria.pirojpur.gov.bd'),
+(247, 32, 'Mathbaria', 'à¦®à¦ à¦¬à¦¾à§œà§€à§Ÿà¦¾', 'mathbaria.pirojpur.gov.bd'),
+(248, 32, 'Nesarabad', 'à¦¨à§‡à¦›à¦¾à¦°à¦¾à¦¬à¦¾à', 'nesarabad.pirojpur.gov.bd'),
+(249, 33, 'Barisal Sadar', 'à¦¬à¦°à¦¿à¦¶à¦¾à¦² à¦¸à¦¦', 'barisalsadar.barisal.gov.bd'),
+(250, 33, 'Bakerganj', 'à¦¬à¦¾à¦•à§‡à¦°à¦—à¦žà§à', 'bakerganj.barisal.gov.bd'),
+(251, 33, 'Babuganj', 'à¦¬à¦¾à¦¬à§à¦—à¦žà§à¦œ', 'babuganj.barisal.gov.bd'),
+(252, 33, 'Wazirpur', 'à¦‰à¦œà¦¿à¦°à¦ªà§à¦°', 'wazirpur.barisal.gov.bd'),
+(253, 33, 'Banaripara', 'à¦¬à¦¾à¦¨à¦¾à¦°à§€à¦ªà¦¾à', 'banaripara.barisal.gov.bd'),
+(254, 33, 'Gournadi', 'à¦—à§Œà¦°à¦¨à¦¦à§€', 'gournadi.barisal.gov.bd'),
+(255, 33, 'Agailjhara', 'à¦†à¦—à§ˆà¦²à¦à¦¾à§œà¦¾', 'agailjhara.barisal.gov.bd'),
+(256, 33, 'Mehendiganj', 'à¦®à§‡à¦¹à§‡à¦¨à§à¦¦à¦¿à', 'mehendiganj.barisal.gov.bd'),
+(257, 33, 'Muladi', 'à¦®à§à¦²à¦¾à¦¦à§€', 'muladi.barisal.gov.bd'),
+(258, 33, 'Hizla', 'à¦¹à¦¿à¦œà¦²à¦¾', 'hizla.barisal.gov.bd'),
+(259, 34, 'Bhola Sadar', 'à¦­à§‹à¦²à¦¾ à¦¸à¦¦à¦°', 'sadar.bhola.gov.bd'),
+(260, 34, 'Borhan Sddin', 'à¦¬à§‹à¦°à¦¹à¦¾à¦¨ à¦‰à¦¦', 'borhanuddin.bhola.gov.bd'),
+(261, 34, 'Charfesson', 'à¦šà¦°à¦«à§à¦¯à¦¾à¦¶à¦¨', 'charfesson.bhola.gov.bd'),
+(262, 34, 'Doulatkhan', 'à¦¦à§Œà¦²à¦¤à¦–à¦¾à¦¨', 'doulatkhan.bhola.gov.bd'),
+(263, 34, 'Monpura', 'à¦®à¦¨à¦ªà§à¦°à¦¾', 'monpura.bhola.gov.bd'),
+(264, 34, 'Tazumuddin', 'à¦¤à¦œà§à¦®à¦¦à§à¦¦à¦¿à', 'tazumuddin.bhola.gov.bd'),
+(265, 34, 'Lalmohan', 'à¦²à¦¾à¦²à¦®à§‹à¦¹à¦¨', 'lalmohan.bhola.gov.bd'),
+(266, 35, 'Amtali', 'à¦†à¦®à¦¤à¦²à§€', 'amtali.barguna.gov.bd'),
+(267, 35, 'Barguna Sadar', 'à¦¬à¦°à¦—à§à¦¨à¦¾ à¦¸à¦¦', 'sadar.barguna.gov.bd'),
+(268, 35, 'Betagi', 'à¦¬à§‡à¦¤à¦¾à¦—à§€', 'betagi.barguna.gov.bd'),
+(269, 35, 'Bamna', 'à¦¬à¦¾à¦®à¦¨à¦¾', 'bamna.barguna.gov.bd'),
+(270, 35, 'Pathorghata', 'à¦ªà¦¾à¦¥à¦°à¦˜à¦¾à¦Ÿà¦¾', 'pathorghata.barguna.gov.bd'),
+(271, 35, 'Taltali', 'à¦¤à¦¾à¦²à¦¤à¦²à¦¿', 'taltali.barguna.gov.bd'),
+(272, 36, 'Balaganj', 'à¦¬à¦¾à¦²à¦¾à¦—à¦žà§à¦œ', 'balaganj.sylhet.gov.bd'),
+(273, 36, 'Beanibazar', 'à¦¬à¦¿à§Ÿà¦¾à¦¨à§€à¦¬à¦¾à', 'beanibazar.sylhet.gov.bd'),
+(274, 36, 'Bishwanath', 'à¦¬à¦¿à¦¶à§à¦¬à¦¨à¦¾à¦¥', 'bishwanath.sylhet.gov.bd'),
+(275, 36, 'Companiganj', 'à¦•à§‹à¦®à§à¦ªà¦¾à¦¨à§€à', 'companiganj.sylhet.gov.bd'),
+(276, 36, 'Fenchuganj', 'à¦«à§‡à¦žà§à¦šà§à¦—à¦žà', 'fenchuganj.sylhet.gov.bd'),
+(277, 36, 'Golapganj', 'à¦—à§‹à¦²à¦¾à¦ªà¦—à¦žà§à', 'golapganj.sylhet.gov.bd'),
+(278, 36, 'Gowainghat', 'à¦—à§‹à§Ÿà¦¾à¦‡à¦¨à¦˜à¦¾à', 'gowainghat.sylhet.gov.bd'),
+(279, 36, 'Jaintiapur', 'à¦œà§ˆà¦¨à§à¦¤à¦¾à¦ªà§à', 'jaintiapur.sylhet.gov.bd'),
+(280, 36, 'Kanaighat', 'à¦•à¦¾à¦¨à¦¾à¦‡à¦˜à¦¾à¦Ÿ', 'kanaighat.sylhet.gov.bd'),
+(281, 36, 'Sylhet Sadar', 'à¦¸à¦¿à¦²à§‡à¦Ÿ à¦¸à¦¦à¦°', 'sylhetsadar.sylhet.gov.bd'),
+(282, 36, 'Zakiganj', 'à¦œà¦•à¦¿à¦—à¦žà§à¦œ', 'zakiganj.sylhet.gov.bd'),
+(283, 36, 'Dakshinsurma', 'à¦¦à¦•à§à¦·à¦¿à¦£ à¦¸à§', 'dakshinsurma.sylhet.gov.bd'),
+(284, 36, 'Osmaninagar', 'à¦“à¦¸à¦®à¦¾à¦¨à§€ à¦¨à¦—', 'osmaninagar.sylhet.gov.bd'),
+(285, 37, 'Barlekha', 'à¦¬à§œà¦²à§‡à¦–à¦¾', 'barlekha.moulvibazar.gov.bd'),
+(286, 37, 'Kamolganj', 'à¦•à¦®à¦²à¦—à¦žà§à¦œ', 'kamolganj.moulvibazar.gov.bd'),
+(287, 37, 'Kulaura', 'à¦•à§à¦²à¦¾à¦‰à§œà¦¾', 'kulaura.moulvibazar.gov.bd'),
+(288, 37, 'Moulvibazar Sadar', 'à¦®à§Œà¦²à¦­à§€à¦¬à¦¾à¦œà', 'moulvibazarsadar.moulvibazar.gov.bd'),
+(289, 37, 'Rajnagar', 'à¦°à¦¾à¦œà¦¨à¦—à¦°', 'rajnagar.moulvibazar.gov.bd'),
+(290, 37, 'Sreemangal', 'à¦¶à§à¦°à§€à¦®à¦™à§à¦—à', 'sreemangal.moulvibazar.gov.bd'),
+(291, 37, 'Juri', 'à¦œà§à§œà§€', 'juri.moulvibazar.gov.bd'),
+(292, 38, 'Nabiganj', 'à¦¨à¦¬à§€à¦—à¦žà§à¦œ', 'nabiganj.habiganj.gov.bd'),
+(293, 38, 'Bahubal', 'à¦¬à¦¾à¦¹à§à¦¬à¦²', 'bahubal.habiganj.gov.bd'),
+(294, 38, 'Ajmiriganj', 'à¦†à¦œà¦®à¦¿à¦°à§€à¦—à¦žà', 'ajmiriganj.habiganj.gov.bd'),
+(295, 38, 'Baniachong', 'à¦¬à¦¾à¦¨à¦¿à§Ÿà¦¾à¦šà¦‚', 'baniachong.habiganj.gov.bd'),
+(296, 38, 'Lakhai', 'à¦²à¦¾à¦–à¦¾à¦‡', 'lakhai.habiganj.gov.bd'),
+(297, 38, 'Chunarughat', 'à¦šà§à¦¨à¦¾à¦°à§à¦˜à¦¾à', 'chunarughat.habiganj.gov.bd'),
+(298, 38, 'Habiganj Sadar', 'à¦¹à¦¬à¦¿à¦—à¦žà§à¦œ à¦¸', 'habiganjsadar.habiganj.gov.bd'),
+(299, 38, 'Madhabpur', 'à¦®à¦¾à¦§à¦¬à¦ªà§à¦°', 'madhabpur.habiganj.gov.bd'),
+(300, 39, 'Sunamganj Sadar', 'à¦¸à§à¦¨à¦¾à¦®à¦—à¦žà§à', 'sadar.sunamganj.gov.bd'),
+(301, 39, 'South Sunamganj', 'à¦¦à¦•à§à¦·à¦¿à¦£ à¦¸à§', 'southsunamganj.sunamganj.gov.bd'),
+(302, 39, 'Bishwambarpur', 'à¦¬à¦¿à¦¶à§à¦¬à¦®à§à¦­à', 'bishwambarpur.sunamganj.gov.bd'),
+(303, 39, 'Chhatak', 'à¦›à¦¾à¦¤à¦•', 'chhatak.sunamganj.gov.bd'),
+(304, 39, 'Jagannathpur', 'à¦œà¦—à¦¨à§à¦¨à¦¾à¦¥à¦ªà', 'jagannathpur.sunamganj.gov.bd'),
+(305, 39, 'Dowarabazar', 'à¦¦à§‹à¦¯à¦¼à¦¾à¦°à¦¾à¦¬à', 'dowarabazar.sunamganj.gov.bd'),
+(306, 39, 'Tahirpur', 'à¦¤à¦¾à¦¹à¦¿à¦°à¦ªà§à¦°', 'tahirpur.sunamganj.gov.bd'),
+(307, 39, 'Dharmapasha', 'à¦§à¦°à§à¦®à¦ªà¦¾à¦¶à¦¾', 'dharmapasha.sunamganj.gov.bd'),
+(308, 39, 'Jamalganj', 'à¦œà¦¾à¦®à¦¾à¦²à¦—à¦žà§à', 'jamalganj.sunamganj.gov.bd'),
+(309, 39, 'Shalla', 'à¦¶à¦¾à¦²à§à¦²à¦¾', 'shalla.sunamganj.gov.bd'),
+(310, 39, 'Derai', 'à¦¦à¦¿à¦°à¦¾à¦‡', 'derai.sunamganj.gov.bd'),
+(311, 40, 'Belabo', 'à¦¬à§‡à¦²à¦¾à¦¬à§‹', 'belabo.narsingdi.gov.bd'),
+(312, 40, 'Monohardi', 'à¦®à¦¨à§‹à¦¹à¦°à¦¦à§€', 'monohardi.narsingdi.gov.bd'),
+(313, 40, 'Narsingdi Sadar', 'à¦¨à¦°à¦¸à¦¿à¦‚à¦¦à§€ à¦¸', 'narsingdisadar.narsingdi.gov.bd'),
+(314, 40, 'Palash', 'à¦ªà¦²à¦¾à¦¶', 'palash.narsingdi.gov.bd'),
+(315, 40, 'Raipura', 'à¦°à¦¾à¦¯à¦¼à¦ªà§à¦°à¦¾', 'raipura.narsingdi.gov.bd'),
+(316, 40, 'Shibpur', 'à¦¶à¦¿à¦¬à¦ªà§à¦°', 'shibpur.narsingdi.gov.bd'),
+(317, 41, 'Kaliganj', 'à¦•à¦¾à¦²à§€à¦—à¦žà§à¦œ', 'kaliganj.gazipur.gov.bd'),
+(318, 41, 'Kaliakair', 'à¦•à¦¾à¦²à¦¿à§Ÿà¦¾à¦•à§ˆà', 'kaliakair.gazipur.gov.bd'),
+(319, 41, 'Kapasia', 'à¦•à¦¾à¦ªà¦¾à¦¸à¦¿à§Ÿà¦¾', 'kapasia.gazipur.gov.bd'),
+(320, 41, 'Gazipur Sadar', 'à¦—à¦¾à¦œà§€à¦ªà§à¦° à¦¸', 'sadar.gazipur.gov.bd'),
+(321, 41, 'Sreepur', 'à¦¶à§à¦°à§€à¦ªà§à¦°', 'sreepur.gazipur.gov.bd'),
+(322, 42, 'Shariatpur Sadar', 'à¦¶à¦°à¦¿à§Ÿà¦¤à¦ªà§à¦° ', 'sadar.shariatpur.gov.bd'),
+(323, 42, 'Naria', 'à¦¨à§œà¦¿à§Ÿà¦¾', 'naria.shariatpur.gov.bd'),
+(324, 42, 'Zajira', 'à¦œà¦¾à¦œà¦¿à¦°à¦¾', 'zajira.shariatpur.gov.bd'),
+(325, 42, 'Gosairhat', 'à¦—à§‹à¦¸à¦¾à¦‡à¦°à¦¹à¦¾à', 'gosairhat.shariatpur.gov.bd'),
+(326, 42, 'Bhedarganj', 'à¦­à§‡à¦¦à¦°à¦—à¦žà§à¦œ', 'bhedarganj.shariatpur.gov.bd'),
+(327, 42, 'Damudya', 'à¦¡à¦¾à¦®à§à¦¡à§à¦¯à¦¾', 'damudya.shariatpur.gov.bd'),
+(328, 43, 'Araihazar', 'à¦†à¦¡à¦¼à¦¾à¦‡à¦¹à¦¾à¦œà', 'araihazar.narayanganj.gov.bd'),
+(329, 43, 'Bandar', 'à¦¬à¦¨à§à¦¦à¦°', 'bandar.narayanganj.gov.bd'),
+(330, 43, 'Narayanganj Sadar', 'à¦¨à¦¾à¦°à¦¾à§Ÿà¦¨à¦—à¦žà', 'narayanganjsadar.narayanganj.gov.bd'),
+(331, 43, 'Rupganj', 'à¦°à§‚à¦ªà¦—à¦žà§à¦œ', 'rupganj.narayanganj.gov.bd'),
+(332, 43, 'Sonargaon', 'à¦¸à§‹à¦¨à¦¾à¦°à¦—à¦¾à¦', 'sonargaon.narayanganj.gov.bd'),
+(333, 44, 'Basail', 'à¦¬à¦¾à¦¸à¦¾à¦‡à¦²', 'basail.tangail.gov.bd'),
+(334, 44, 'Bhuapur', 'à¦­à§à¦¯à¦¼à¦¾à¦ªà§à¦°', 'bhuapur.tangail.gov.bd'),
+(335, 44, 'Delduar', 'à¦¦à§‡à¦²à¦¦à§à¦¯à¦¼à¦¾à', 'delduar.tangail.gov.bd'),
+(336, 44, 'Ghatail', 'à¦˜à¦¾à¦Ÿà¦¾à¦‡à¦²', 'ghatail.tangail.gov.bd'),
+(337, 44, 'Gopalpur', 'à¦—à§‹à¦ªà¦¾à¦²à¦ªà§à¦°', 'gopalpur.tangail.gov.bd'),
+(338, 44, 'Madhupur', 'à¦®à¦§à§à¦ªà§à¦°', 'madhupur.tangail.gov.bd'),
+(339, 44, 'Mirzapur', 'à¦®à¦¿à¦°à§à¦œà¦¾à¦ªà§à', 'mirzapur.tangail.gov.bd'),
+(340, 44, 'Nagarpur', 'à¦¨à¦¾à¦—à¦°à¦ªà§à¦°', 'nagarpur.tangail.gov.bd'),
+(341, 44, 'Sakhipur', 'à¦¸à¦–à¦¿à¦ªà§à¦°', 'sakhipur.tangail.gov.bd'),
+(342, 44, 'Tangail Sadar', 'à¦Ÿà¦¾à¦™à§à¦—à¦¾à¦‡à¦² ', 'tangailsadar.tangail.gov.bd'),
+(343, 44, 'Kalihati', 'à¦•à¦¾à¦²à¦¿à¦¹à¦¾à¦¤à§€', 'kalihati.tangail.gov.bd'),
+(344, 44, 'Dhanbari', 'à¦§à¦¨à¦¬à¦¾à§œà§€', 'dhanbari.tangail.gov.bd'),
+(345, 45, 'Itna', 'à¦‡à¦Ÿà¦¨à¦¾', 'itna.kishoreganj.gov.bd'),
+(346, 45, 'Katiadi', 'à¦•à¦Ÿà¦¿à§Ÿà¦¾à¦¦à§€', 'katiadi.kishoreganj.gov.bd'),
+(347, 45, 'Bhairab', 'à¦­à§ˆà¦°à¦¬', 'bhairab.kishoreganj.gov.bd'),
+(348, 45, 'Tarail', 'à¦¤à¦¾à§œà¦¾à¦‡à¦²', 'tarail.kishoreganj.gov.bd'),
+(349, 45, 'Hossainpur', 'à¦¹à§‹à¦¸à§‡à¦¨à¦ªà§à¦°', 'hossainpur.kishoreganj.gov.bd'),
+(350, 45, 'Pakundia', 'à¦ªà¦¾à¦•à§à¦¨à§à¦¦à¦¿à', 'pakundia.kishoreganj.gov.bd'),
+(351, 45, 'Kuliarchar', 'à¦•à§à¦²à¦¿à§Ÿà¦¾à¦°à¦šà', 'kuliarchar.kishoreganj.gov.bd'),
+(352, 45, 'Kishoreganj Sadar', 'à¦•à¦¿à¦¶à§‹à¦°à¦—à¦žà§à', 'kishoreganjsadar.kishoreganj.gov.bd'),
+(353, 45, 'Karimgonj', 'à¦•à¦°à¦¿à¦®à¦—à¦žà§à¦œ', 'karimgonj.kishoreganj.gov.bd'),
+(354, 45, 'Bajitpur', 'à¦¬à¦¾à¦œà¦¿à¦¤à¦ªà§à¦°', 'bajitpur.kishoreganj.gov.bd'),
+(355, 45, 'Austagram', 'à¦…à¦·à§à¦Ÿà¦—à§à¦°à¦¾à', 'austagram.kishoreganj.gov.bd'),
+(356, 45, 'Mithamoin', 'à¦®à¦¿à¦ à¦¾à¦®à¦‡à¦¨', 'mithamoin.kishoreganj.gov.bd'),
+(357, 45, 'Nikli', 'à¦¨à¦¿à¦•à¦²à§€', 'nikli.kishoreganj.gov.bd'),
+(358, 46, 'Harirampur', 'à¦¹à¦°à¦¿à¦°à¦¾à¦®à¦ªà§à', 'harirampur.manikganj.gov.bd'),
+(359, 46, 'Saturia', 'à¦¸à¦¾à¦Ÿà§à¦°à¦¿à§Ÿà¦¾', 'saturia.manikganj.gov.bd'),
+(360, 46, 'Manikganj Sadar', 'à¦®à¦¾à¦¨à¦¿à¦•à¦—à¦žà§à', 'sadar.manikganj.gov.bd'),
+(361, 46, 'Gior', 'à¦˜à¦¿à¦“à¦°', 'gior.manikganj.gov.bd'),
+(362, 46, 'Shibaloy', 'à¦¶à¦¿à¦¬à¦¾à¦²à§Ÿ', 'shibaloy.manikganj.gov.bd'),
+(363, 46, 'Doulatpur', 'à¦¦à§Œà¦²à¦¤à¦ªà§à¦°', 'doulatpur.manikganj.gov.bd'),
+(364, 46, 'Singiar', 'à¦¸à¦¿à¦‚à¦—à¦¾à¦‡à¦°', 'singiar.manikganj.gov.bd'),
+(365, 47, 'Savar', 'à¦¸à¦¾à¦­à¦¾à¦°', 'savar.dhaka.gov.bd'),
+(366, 47, 'Dhamrai', 'à¦§à¦¾à¦®à¦°à¦¾à¦‡', 'dhamrai.dhaka.gov.bd'),
+(367, 47, 'Keraniganj', 'à¦•à§‡à¦°à¦¾à¦£à§€à¦—à¦žà', 'keraniganj.dhaka.gov.bd'),
+(368, 47, 'Nawabganj', 'à¦¨à¦¬à¦¾à¦¬à¦—à¦žà§à¦œ', 'nawabganj.dhaka.gov.bd'),
+(369, 47, 'Dohar', 'à¦¦à§‹à¦¹à¦¾à¦°', 'dohar.dhaka.gov.bd'),
+(370, 48, 'Munshiganj Sadar', 'à¦®à§à¦¨à§à¦¸à¦¿à¦—à¦žà', 'sadar.munshiganj.gov.bd'),
+(371, 48, 'Sreenagar', 'à¦¶à§à¦°à§€à¦¨à¦—à¦°', 'sreenagar.munshiganj.gov.bd'),
+(372, 48, 'Sirajdikhan', 'à¦¸à¦¿à¦°à¦¾à¦œà¦¦à¦¿à¦–à', 'sirajdikhan.munshiganj.gov.bd'),
+(373, 48, 'Louhajanj', 'à¦²à§Œà¦¹à¦œà¦‚', 'louhajanj.munshiganj.gov.bd'),
+(374, 48, 'Gajaria', 'à¦—à¦œà¦¾à¦°à¦¿à§Ÿà¦¾', 'gajaria.munshiganj.gov.bd'),
+(375, 48, 'Tongibari', 'à¦Ÿà¦‚à¦—à§€à¦¬à¦¾à§œà¦¿', 'tongibari.munshiganj.gov.bd'),
+(376, 49, 'Rajbari Sadar', 'à¦°à¦¾à¦œà¦¬à¦¾à¦¡à¦¼à§€ ', 'sadar.rajbari.gov.bd'),
+(377, 49, 'Goalanda', 'à¦—à§‹à¦¯à¦¼à¦¾à¦²à¦¨à§à', 'goalanda.rajbari.gov.bd'),
+(378, 49, 'Pangsa', 'à¦ªà¦¾à¦‚à¦¶à¦¾', 'pangsa.rajbari.gov.bd'),
+(379, 49, 'Baliakandi', 'à¦¬à¦¾à¦²à¦¿à¦¯à¦¼à¦¾à¦•à', 'baliakandi.rajbari.gov.bd'),
+(380, 49, 'Kalukhali', 'à¦•à¦¾à¦²à§à¦–à¦¾à¦²à§€', 'kalukhali.rajbari.gov.bd'),
+(381, 50, 'Madaripur Sadar', 'à¦®à¦¾à¦¦à¦¾à¦°à§€à¦ªà§à', 'sadar.madaripur.gov.bd'),
+(382, 50, 'Shibchar', 'à¦¶à¦¿à¦¬à¦šà¦°', 'shibchar.madaripur.gov.bd'),
+(383, 50, 'Kalkini', 'à¦•à¦¾à¦²à¦•à¦¿à¦¨à¦¿', 'kalkini.madaripur.gov.bd'),
+(384, 50, 'Rajoir', 'à¦°à¦¾à¦œà§ˆà¦°', 'rajoir.madaripur.gov.bd'),
+(385, 51, 'Gopalganj Sadar', 'à¦—à§‹à¦ªà¦¾à¦²à¦—à¦žà§à', 'sadar.gopalganj.gov.bd'),
+(386, 51, 'Kashiani', 'à¦•à¦¾à¦¶à¦¿à¦¯à¦¼à¦¾à¦¨à', 'kashiani.gopalganj.gov.bd'),
+(387, 51, 'Tungipara', 'à¦Ÿà§à¦‚à¦—à§€à¦ªà¦¾à¦¡à', 'tungipara.gopalganj.gov.bd'),
+(388, 51, 'Kotalipara', 'à¦•à§‹à¦Ÿà¦¾à¦²à§€à¦ªà¦¾à', 'kotalipara.gopalganj.gov.bd'),
+(389, 51, 'Muksudpur', 'à¦®à§à¦•à¦¸à§à¦¦à¦ªà§à', 'muksudpur.gopalganj.gov.bd'),
+(390, 52, 'Faridpur Sadar', 'à¦«à¦°à¦¿à¦¦à¦ªà§à¦° à¦¸', 'sadar.faridpur.gov.bd'),
+(391, 52, 'Alfadanga', 'à¦†à¦²à¦«à¦¾à¦¡à¦¾à¦™à§à', 'alfadanga.faridpur.gov.bd'),
+(392, 52, 'Boalmari', 'à¦¬à§‹à§Ÿà¦¾à¦²à¦®à¦¾à¦°à', 'boalmari.faridpur.gov.bd'),
+(393, 52, 'Sadarpur', 'à¦¸à¦¦à¦°à¦ªà§à¦°', 'sadarpur.faridpur.gov.bd'),
+(394, 52, 'Nagarkanda', 'à¦¨à¦—à¦°à¦•à¦¾à¦¨à§à¦¦à', 'nagarkanda.faridpur.gov.bd'),
+(395, 52, 'Bhanga', 'à¦­à¦¾à¦™à§à¦—à¦¾', 'bhanga.faridpur.gov.bd'),
+(396, 52, 'Charbhadrasan', 'à¦šà¦°à¦­à¦¦à§à¦°à¦¾à¦¸à', 'charbhadrasan.faridpur.gov.bd'),
+(397, 52, 'Madhukhali', 'à¦®à¦§à§à¦–à¦¾à¦²à§€', 'madhukhali.faridpur.gov.bd'),
+(398, 52, 'Saltha', 'à¦¸à¦¾à¦²à¦¥à¦¾', 'saltha.faridpur.gov.bd'),
+(399, 53, 'Panchagarh Sadar', 'à¦ªà¦žà§à¦šà¦—à¦¡à¦¼ à¦¸', 'panchagarhsadar.panchagarh.gov.bd'),
+(400, 53, 'Debiganj', 'à¦¦à§‡à¦¬à§€à¦—à¦žà§à¦œ', 'debiganj.panchagarh.gov.bd'),
+(401, 53, 'Boda', 'à¦¬à§‹à¦¦à¦¾', 'boda.panchagarh.gov.bd'),
+(402, 53, 'Atwari', 'à¦†à¦Ÿà§‹à¦¯à¦¼à¦¾à¦°à§€', 'atwari.panchagarh.gov.bd'),
+(403, 53, 'Tetulia', 'à¦¤à§‡à¦¤à§à¦²à¦¿à¦¯à¦¼à', 'tetulia.panchagarh.gov.bd'),
+(404, 54, 'Nawabganj', 'à¦¨à¦¬à¦¾à¦¬à¦—à¦žà§à¦œ', 'nawabganj.dinajpur.gov.bd'),
+(405, 54, 'Birganj', 'à¦¬à§€à¦°à¦—à¦žà§à¦œ', 'birganj.dinajpur.gov.bd'),
+(406, 54, 'Ghoraghat', 'à¦˜à§‹à§œà¦¾à¦˜à¦¾à¦Ÿ', 'ghoraghat.dinajpur.gov.bd'),
+(407, 54, 'Birampur', 'à¦¬à¦¿à¦°à¦¾à¦®à¦ªà§à¦°', 'birampur.dinajpur.gov.bd'),
+(408, 54, 'Parbatipur', 'à¦ªà¦¾à¦°à§à¦¬à¦¤à§€à¦ªà', 'parbatipur.dinajpur.gov.bd'),
+(409, 54, 'Bochaganj', 'à¦¬à§‹à¦šà¦¾à¦—à¦žà§à¦œ', 'bochaganj.dinajpur.gov.bd'),
+(410, 54, 'Kaharol', 'à¦•à¦¾à¦¹à¦¾à¦°à§‹à¦²', 'kaharol.dinajpur.gov.bd'),
+(411, 54, 'Fulbari', 'à¦«à§à¦²à¦¬à¦¾à§œà§€', 'fulbari.dinajpur.gov.bd'),
+(412, 54, 'Dinajpur Sadar', 'à¦¦à¦¿à¦¨à¦¾à¦œà¦ªà§à¦° ', 'dinajpursadar.dinajpur.gov.bd'),
+(413, 54, 'Hakimpur', 'à¦¹à¦¾à¦•à¦¿à¦®à¦ªà§à¦°', 'hakimpur.dinajpur.gov.bd'),
+(414, 54, 'Khansama', 'à¦–à¦¾à¦¨à¦¸à¦¾à¦®à¦¾', 'khansama.dinajpur.gov.bd'),
+(415, 54, 'Birol', 'à¦¬à¦¿à¦°à¦²', 'birol.dinajpur.gov.bd'),
+(416, 54, 'Chirirbandar', 'à¦šà¦¿à¦°à¦¿à¦°à¦¬à¦¨à§à', 'chirirbandar.dinajpur.gov.bd'),
+(417, 55, 'Lalmonirhat Sadar', 'à¦²à¦¾à¦²à¦®à¦¨à¦¿à¦°à¦¹à', 'sadar.lalmonirhat.gov.bd'),
+(418, 55, 'Kaliganj', 'à¦•à¦¾à¦²à§€à¦—à¦žà§à¦œ', 'kaliganj.lalmonirhat.gov.bd'),
+(419, 55, 'Hatibandha', 'à¦¹à¦¾à¦¤à§€à¦¬à¦¾à¦¨à§à', 'hatibandha.lalmonirhat.gov.bd'),
+(420, 55, 'Patgram', 'à¦ªà¦¾à¦Ÿà¦—à§à¦°à¦¾à¦®', 'patgram.lalmonirhat.gov.bd'),
+(421, 55, 'Aditmari', 'à¦†à¦¦à¦¿à¦¤à¦®à¦¾à¦°à§€', 'aditmari.lalmonirhat.gov.bd'),
+(422, 56, 'Syedpur', 'à¦¸à§ˆà¦¯à¦¼à¦¦à¦ªà§à¦°', 'syedpur.nilphamari.gov.bd'),
+(423, 56, 'Domar', 'à¦¡à§‹à¦®à¦¾à¦°', 'domar.nilphamari.gov.bd'),
+(424, 56, 'Dimla', 'à¦¡à¦¿à¦®à¦²à¦¾', 'dimla.nilphamari.gov.bd'),
+(425, 56, 'Jaldhaka', 'à¦œà¦²à¦¢à¦¾à¦•à¦¾', 'jaldhaka.nilphamari.gov.bd'),
+(426, 56, 'Kishorganj', 'à¦•à¦¿à¦¶à§‹à¦°à¦—à¦žà§à', 'kishorganj.nilphamari.gov.bd'),
+(427, 56, 'Nilphamari Sadar', 'à¦¨à§€à¦²à¦«à¦¾à¦®à¦¾à¦°à', 'nilphamarisadar.nilphamari.gov.bd'),
+(428, 57, 'Sadullapur', 'à¦¸à¦¾à¦¦à§à¦²à§à¦²à¦¾à', 'sadullapur.gaibandha.gov.bd'),
+(429, 57, 'Gaibandha Sadar', 'à¦—à¦¾à¦‡à¦¬à¦¾à¦¨à§à¦§à', 'gaibandhasadar.gaibandha.gov.bd'),
+(430, 57, 'Palashbari', 'à¦ªà¦²à¦¾à¦¶à¦¬à¦¾à§œà§€', 'palashbari.gaibandha.gov.bd'),
+(431, 57, 'Saghata', 'à¦¸à¦¾à¦˜à¦¾à¦Ÿà¦¾', 'saghata.gaibandha.gov.bd'),
+(432, 57, 'Gobindaganj', 'à¦—à§‹à¦¬à¦¿à¦¨à§à¦¦à¦—à', 'gobindaganj.gaibandha.gov.bd'),
+(433, 57, 'Sundarganj', 'à¦¸à§à¦¨à§à¦¦à¦°à¦—à¦žà', 'sundarganj.gaibandha.gov.bd'),
+(434, 57, 'Phulchari', 'à¦«à§à¦²à¦›à§œà¦¿', 'phulchari.gaibandha.gov.bd'),
+(435, 58, 'Thakurgaon Sadar', 'à¦ à¦¾à¦•à§à¦°à¦—à¦¾à¦à', 'thakurgaonsadar.thakurgaon.gov.bd'),
+(436, 58, 'Pirganj', 'à¦ªà§€à¦°à¦—à¦žà§à¦œ', 'pirganj.thakurgaon.gov.bd'),
+(437, 58, 'Ranisankail', 'à¦°à¦¾à¦£à§€à¦¶à¦‚à¦•à§ˆà', 'ranisankail.thakurgaon.gov.bd'),
+(438, 58, 'Haripur', 'à¦¹à¦°à¦¿à¦ªà§à¦°', 'haripur.thakurgaon.gov.bd'),
+(439, 58, 'Baliadangi', 'à¦¬à¦¾à¦²à¦¿à¦¯à¦¼à¦¾à¦¡à', 'baliadangi.thakurgaon.gov.bd'),
+(440, 59, 'Rangpur Sadar', 'à¦°à¦‚à¦ªà§à¦° à¦¸à¦¦à¦°', 'rangpursadar.rangpur.gov.bd'),
+(441, 59, 'Gangachara', 'à¦—à¦‚à¦—à¦¾à¦šà¦¡à¦¼à¦¾', 'gangachara.rangpur.gov.bd'),
+(442, 59, 'Taragonj', 'à¦¤à¦¾à¦°à¦¾à¦—à¦žà§à¦œ', 'taragonj.rangpur.gov.bd'),
+(443, 59, 'Badargonj', 'à¦¬à¦¦à¦°à¦—à¦žà§à¦œ', 'badargonj.rangpur.gov.bd'),
+(444, 59, 'Mithapukur', 'à¦®à¦¿à¦ à¦¾à¦ªà§à¦•à§à', 'mithapukur.rangpur.gov.bd'),
+(445, 59, 'Pirgonj', 'à¦ªà§€à¦°à¦—à¦žà§à¦œ', 'pirgonj.rangpur.gov.bd'),
+(446, 59, 'Kaunia', 'à¦•à¦¾à¦‰à¦¨à¦¿à¦¯à¦¼à¦¾', 'kaunia.rangpur.gov.bd'),
+(447, 59, 'Pirgacha', 'à¦ªà§€à¦°à¦—à¦¾à¦›à¦¾', 'pirgacha.rangpur.gov.bd'),
+(448, 60, 'Kurigram Sadar', 'à¦•à§à¦¡à¦¼à¦¿à¦—à§à¦°à', 'kurigramsadar.kurigram.gov.bd'),
+(449, 60, 'Nageshwari', 'à¦¨à¦¾à¦—à§‡à¦¶à§à¦¬à¦°à', 'nageshwari.kurigram.gov.bd'),
+(450, 60, 'Bhurungamari', 'à¦­à§à¦°à§à¦™à§à¦—à¦¾à', 'bhurungamari.kurigram.gov.bd'),
+(451, 60, 'Phulbari', 'à¦«à§à¦²à¦¬à¦¾à§œà§€', 'phulbari.kurigram.gov.bd'),
+(452, 60, 'Rajarhat', 'à¦°à¦¾à¦œà¦¾à¦°à¦¹à¦¾à¦Ÿ', 'rajarhat.kurigram.gov.bd'),
+(453, 60, 'Ulipur', 'à¦‰à¦²à¦¿à¦ªà§à¦°', 'ulipur.kurigram.gov.bd'),
+(454, 60, 'Chilmari', 'à¦šà¦¿à¦²à¦®à¦¾à¦°à§€', 'chilmari.kurigram.gov.bd'),
+(455, 60, 'Rowmari', 'à¦°à§Œà¦®à¦¾à¦°à§€', 'rowmari.kurigram.gov.bd'),
+(456, 60, 'Charrajibpur', 'à¦šà¦° à¦°à¦¾à¦œà¦¿à¦¬à¦ª', 'charrajibpur.kurigram.gov.bd'),
+(457, 61, 'Sherpur Sadar', 'à¦¶à§‡à¦°à¦ªà§à¦° à¦¸à¦¦', 'sherpursadar.sherpur.gov.bd'),
+(458, 61, 'Nalitabari', 'à¦¨à¦¾à¦²à¦¿à¦¤à¦¾à¦¬à¦¾à', 'nalitabari.sherpur.gov.bd'),
+(459, 61, 'Sreebordi', 'à¦¶à§à¦°à§€à¦¬à¦°à¦¦à§€', 'sreebordi.sherpur.gov.bd'),
+(460, 61, 'Nokla', 'à¦¨à¦•à¦²à¦¾', 'nokla.sherpur.gov.bd'),
+(461, 61, 'Jhenaigati', 'à¦à¦¿à¦¨à¦¾à¦‡à¦—à¦¾à¦¤à', 'jhenaigati.sherpur.gov.bd'),
+(462, 62, 'Fulbaria', 'à¦«à§à¦²à¦¬à¦¾à§œà§€à§Ÿà', 'fulbaria.mymensingh.gov.bd'),
+(463, 62, 'Trishal', 'à¦¤à§à¦°à¦¿à¦¶à¦¾à¦²', 'trishal.mymensingh.gov.bd'),
+(464, 62, 'Bhaluka', 'à¦­à¦¾à¦²à§à¦•à¦¾', 'bhaluka.mymensingh.gov.bd'),
+(465, 62, 'Muktagacha', 'à¦®à§à¦•à§à¦¤à¦¾à¦—à¦¾à', 'muktagacha.mymensingh.gov.bd'),
+(466, 62, 'Mymensingh Sadar', 'à¦®à§Ÿà¦®à¦¨à¦¸à¦¿à¦‚à¦¹ ', 'mymensinghsadar.mymensingh.gov.bd'),
+(467, 62, 'Dhobaura', 'à¦§à§‡à¦¾à¦¬à¦¾à¦‰à§œà¦¾', 'dhobaura.mymensingh.gov.bd'),
+(468, 62, 'Phulpur', 'à¦«à§à¦²à¦ªà§à¦°', 'phulpur.mymensingh.gov.bd'),
+(469, 62, 'Haluaghat', 'à¦¹à¦¾à¦²à§à§Ÿà¦¾à¦˜à¦¾à', 'haluaghat.mymensingh.gov.bd'),
+(470, 62, 'Gouripur', 'à¦—à§Œà¦°à§€à¦ªà§à¦°', 'gouripur.mymensingh.gov.bd'),
+(471, 62, 'Gafargaon', 'à¦—à¦«à¦°à¦—à¦¾à¦à¦“', 'gafargaon.mymensingh.gov.bd'),
+(472, 62, 'Iswarganj', 'à¦ˆà¦¶à§à¦¬à¦°à¦—à¦žà§à', 'iswarganj.mymensingh.gov.bd'),
+(473, 62, 'Nandail', 'à¦¨à¦¾à¦¨à§à¦¦à¦¾à¦‡à¦²', 'nandail.mymensingh.gov.bd'),
+(474, 62, 'Tarakanda', 'à¦¤à¦¾à¦°à¦¾à¦•à¦¾à¦¨à§à', 'tarakanda.mymensingh.gov.bd'),
+(475, 63, 'Jamalpur Sadar', 'à¦œà¦¾à¦®à¦¾à¦²à¦ªà§à¦° ', 'jamalpursadar.jamalpur.gov.bd'),
+(476, 63, 'Melandah', 'à¦®à§‡à¦²à¦¾à¦¨à§à¦¦à¦¹', 'melandah.jamalpur.gov.bd'),
+(477, 63, 'Islampur', 'à¦‡à¦¸à¦²à¦¾à¦®à¦ªà§à¦°', 'islampur.jamalpur.gov.bd'),
+(478, 63, 'Dewangonj', 'à¦¦à§‡à¦“à¦¯à¦¼à¦¾à¦¨à¦—à', 'dewangonj.jamalpur.gov.bd'),
+(479, 63, 'Sarishabari', 'à¦¸à¦°à¦¿à¦·à¦¾à¦¬à¦¾à¦¡à', 'sarishabari.jamalpur.gov.bd'),
+(480, 63, 'Madarganj', 'à¦®à¦¾à¦¦à¦¾à¦°à¦—à¦žà§à', 'madarganj.jamalpur.gov.bd'),
+(481, 63, 'Bokshiganj', 'à¦¬à¦•à¦¶à§€à¦—à¦žà§à¦œ', 'bokshiganj.jamalpur.gov.bd'),
+(482, 64, 'Barhatta', 'à¦¬à¦¾à¦°à¦¹à¦¾à¦Ÿà§à¦Ÿà', 'barhatta.netrokona.gov.bd'),
+(483, 64, 'Durgapur', 'à¦¦à§à¦°à§à¦—à¦¾à¦ªà§à', 'durgapur.netrokona.gov.bd'),
+(484, 64, 'Kendua', 'à¦•à§‡à¦¨à§à¦¦à§à§Ÿà¦¾', 'kendua.netrokona.gov.bd'),
+(485, 64, 'Atpara', 'à¦†à¦Ÿà¦ªà¦¾à§œà¦¾', 'atpara.netrokona.gov.bd'),
+(486, 64, 'Madan', 'à¦®à¦¦à¦¨', 'madan.netrokona.gov.bd'),
+(487, 64, 'Khaliajuri', 'à¦–à¦¾à¦²à¦¿à§Ÿà¦¾à¦œà§à', 'khaliajuri.netrokona.gov.bd'),
+(488, 64, 'Kalmakanda', 'à¦•à¦²à¦®à¦¾à¦•à¦¾à¦¨à§à', 'kalmakanda.netrokona.gov.bd'),
+(489, 64, 'Mohongonj', 'à¦®à§‹à¦¹à¦¨à¦—à¦žà§à¦œ', 'mohongonj.netrokona.gov.bd'),
+(490, 64, 'Purbadhala', 'à¦ªà§‚à¦°à§à¦¬à¦§à¦²à¦¾', 'purbadhala.netrokona.gov.bd'),
+(491, 64, 'Netrokona Sadar', 'à¦¨à§‡à¦¤à§à¦°à¦•à§‹à¦£à', 'netrokonasadar.netrokona.gov.bd');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `username` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'backend/image/default.png',
+  `role` enum('company','candidate') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'candidate',
+  `recent_activities_alert` tinyint(1) NOT NULL DEFAULT 1,
+  `job_expired_alert` tinyint(1) NOT NULL DEFAULT 1,
+  `new_job_alert` tinyint(1) NOT NULL DEFAULT 1,
+  `shortlisted_alert` tinyint(1) NOT NULL DEFAULT 1,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `is_demo_field` tinyint(1) NOT NULL DEFAULT 0,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `auth_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'email',
+  `google_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `facebook_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `provider` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `provider_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `phone`, `username`, `email`, `password`, `email_verified_at`, `image`, `role`, `recent_activities_alert`, `job_expired_alert`, `new_job_alert`, `shortlisted_alert`, `status`, `is_demo_field`, `remember_token`, `created_at`, `updated_at`, `auth_type`, `google_id`, `facebook_id`, `provider`, `provider_id`) VALUES
+(1, 'Khairat Hossin', '01751767350', 'khairat-hossin', 'khairat564@gmail.com', '$2y$10$jyKyULwnhpT1OoZiJYSVu.7bw1wftbceMPhiu02UR77gaim/kqbWe', NULL, 'backend/image/default.png', 'candidate', 0, 0, 0, 0, 1, 0, NULL, '2023-02-14 03:14:56', '2023-02-26 14:13:09', 'email', NULL, NULL, NULL, NULL),
+(2, 'Ariful Islam', '', 'ariful-islam', 'ariful.fb@gmail.com', '$2y$10$JNaHKgzZcs/eoXbksqZhs.YvX2B0gKNRBhnznPxm1ha4xrQrR56bK', NULL, 'backend/image/default.png', 'candidate', 1, 1, 1, 1, 1, 0, NULL, '2023-02-15 22:42:40', '2023-02-15 22:42:40', 'email', NULL, NULL, NULL, NULL),
+(3, 'ss', '', 'ss', 'ss@gmail.com', '$2y$10$5OZCVlFS3Qcke8Nzhxor3.gIvPrP5vOgZbRFUzsWR2q0KAOZQ.y16', NULL, 'backend/image/default.png', 'candidate', 1, 1, 1, 1, 1, 0, NULL, '2023-02-15 22:52:49', '2023-02-15 22:52:49', 'email', NULL, NULL, NULL, NULL),
+(4, 'Business one', '', 'business-one', 'ariful.f2b@gmail.com', '$2y$10$wvsxlllRFTb436Vl0P6P.OhUDzAlP3iJ/NFaM.mslenKGgjzOwxS6', NULL, 'backend/image/default.png', 'candidate', 1, 1, 1, 1, 1, 0, NULL, '2023-02-15 22:54:18', '2023-02-15 22:54:18', 'email', NULL, NULL, NULL, NULL),
+(5, 'ariful', '', 'ariful', 'sfejcd@alilot.com', '$2y$10$Er.LrPFO3YP7KtMQaQSsPOcO6iqALcq/drCJzJxscDkVIj1XMLS3q', NULL, 'backend/image/default.png', 'candidate', 1, 1, 1, 1, 1, 0, NULL, '2023-02-15 22:55:05', '2023-02-15 22:55:05', 'email', NULL, NULL, NULL, NULL),
+(6, 'ABC Company', '', 'ee', 'ee@gmail.com', '$2y$10$jyKyULwnhpT1OoZiJYSVu.7bw1wftbceMPhiu02UR77gaim/kqbWe', '2023-02-18 16:11:28', 'backend/image/default.png', 'company', 1, 1, 1, 1, 1, 0, NULL, '2023-02-15 23:24:48', '2023-02-18 16:11:28', 'email', NULL, NULL, NULL, NULL),
+(7, 'Khairat Hossin', '', 'khairat-hossin_DZz2S', 'khairat5645@gmail.com', '$2y$10$S/Eu2I0vaxtjDFe2eap/r.vFfWN.GKCV.VSTD11.D82yC.sUY4Q.a', NULL, 'backend/image/default.png', 'candidate', 1, 1, 1, 1, 1, 0, 'SLIRVaEgbJCvRmdiAD8mePc2ARi7pA3EmeQcyd7VrOIgH1E9nT4qPpJC1QDI', '2023-02-18 15:49:40', '2023-02-18 15:49:40', 'email', NULL, NULL, NULL, NULL),
+(8, 'Ariful', '', 'ariful_7oXMA', 'ariful.fb1@gmail.com', '$2y$10$Xya5u.hmCpXGDih0CiriYeGlY00zecmFIirgJC9Cx/qnzXXJZt3xG', NULL, 'backend/image/default.png', 'candidate', 1, 1, 1, 1, 1, 0, NULL, '2023-02-18 15:53:46', '2023-02-18 15:53:46', 'email', NULL, NULL, NULL, NULL),
+(9, 'XYZ', '', 'test001@gmail.com', 'test001@gmail.com', '$2y$10$jyKyULwnhpT1OoZiJYSVu.7bw1wftbceMPhiu02UR77gaim/kqbWe', NULL, 'backend/image/default.png', 'company', 1, 1, 1, 1, 1, 0, NULL, '2023-02-18 16:16:05', '2023-02-18 16:16:05', 'email', NULL, NULL, NULL, NULL),
+(10, 'test1', '', 'test1', 'test1@gmail.com', '$2y$10$6pYn6b7rmg4jlDeimomjS.DHtNaajWWwmAfkQuD/62GFW1iXklKSe', NULL, 'backend/image/default.png', 'candidate', 1, 1, 1, 1, 1, 0, 'V4LojvbdctrvKg89goH5m4VSKGFwIvDvZfE5M2ChssvA5rP6i3vUnzgsnaxy', '2023-02-19 15:57:16', '2023-02-19 15:57:16', 'email', NULL, NULL, NULL, NULL),
+(11, 'Arif', '', 'arif', 'arif@gmail.com', '$2y$10$uryg0w44uUlyPEc/qlWQbu8mNwwrFowLBYMEQujr69RiSd5jeAh6a', NULL, 'backend/image/default.png', 'candidate', 1, 1, 1, 1, 1, 0, NULL, '2023-02-19 16:18:04', '2023-02-19 16:18:04', 'email', NULL, NULL, NULL, NULL),
+(12, 'Mati', '', 'mati', 'mati@gmail.com', '$2y$10$ZM9Z7PoBqjS5j5XDu1M5/OQoobZ3JmGTG6DoTZMFmGtIyvD07qzzG', NULL, 'backend/image/default.png', 'candidate', 1, 1, 1, 1, 1, 0, NULL, '2023-02-19 17:25:23', '2023-02-19 17:25:23', 'email', NULL, NULL, NULL, NULL),
+(13, 'test2', '', 'test2', 'test2@gmail.com', '$2y$10$RpTKWXZ3w2urzlCgmpNI3uTVvI8Oty1sPa5jSRcLTtc3ulGYCl2Ni', NULL, 'backend/image/default.png', 'candidate', 1, 1, 1, 1, 1, 0, NULL, '2023-02-19 19:32:05', '2023-02-19 19:32:05', 'email', NULL, NULL, NULL, NULL),
+(14, 'fdsff', '', 'fdsff', 'ariful.fb5@gmail.com', '$2y$10$xh9ArdJu.GqA.c0L4F14fuiu4k4bU6Mv3Gd4QqO14e1R/d5WjQvEm', NULL, 'backend/image/default.png', 'candidate', 1, 1, 1, 1, 1, 0, NULL, '2023-02-20 04:02:53', '2023-02-20 04:02:53', 'email', NULL, NULL, NULL, NULL),
+(15, 'zz', '', 'zz', 'zz@mail.com', '$2y$10$W.EpTmEnoegb6n23RIGlyegnANPKgUQ32LazTIGxZWitoXGErrJ3W', NULL, 'backend/image/default.png', 'candidate', 1, 1, 1, 1, 1, 0, NULL, '2023-02-21 01:49:15', '2023-02-21 01:49:15', 'email', NULL, NULL, NULL, NULL),
+(16, 'Md Ridwanul Haque', '', 'md-ridwanul-haque', 'rhrana76@gmail.com', '$2y$10$wKwnY5i4hp1tYpf4HxAud.uP8UakTgXXafJpmVoSGq1z6MWiQWlHy', NULL, 'backend/image/default.png', 'candidate', 1, 1, 1, 1, 1, 0, NULL, '2023-02-23 18:50:42', '2023-02-24 04:32:16', 'email', NULL, NULL, NULL, NULL),
+(17, 'test3', '', 'test3', 'test@gmail.com', '$2y$10$DsiQdGXRdk4w7X3DkC7ekOof6IvGcRzpd3NiyK5PfKeuihvnRPBd2', NULL, 'backend/image/default.png', 'candidate', 0, 0, 0, 0, 1, 0, NULL, '2023-02-24 03:25:59', '2023-02-24 16:40:04', 'email', NULL, NULL, NULL, NULL),
+(18, 'cc', '', 'cc', 'cc@mail.com', '$2y$10$u4UPFuS7hftNE0B8XffdC.eTyd8UPY9MVg7/0whlndSCNOkJ9QBHi', NULL, 'backend/image/default.png', 'candidate', 1, 1, 1, 1, 1, 0, 'jSbF44ZY2LvmlALmcS9RSFPwLZ1k1gaVzxRDA2rmCKvChoHpRx3pjf9cF5T6', '2023-02-24 04:35:44', '2023-02-24 04:35:44', 'email', NULL, NULL, NULL, NULL),
+(19, 'dd', '', 'dd', 'dd@mail.com', '$2y$10$B7TLgtc8BC6GpLKNCL8qaebAE.eS3Vh39TBaJXdz5x.Zt3Yl2KjLK', NULL, 'backend/image/default.png', 'candidate', 1, 1, 1, 1, 1, 0, NULL, '2023-02-24 04:57:17', '2023-02-24 04:57:17', 'email', NULL, NULL, NULL, NULL),
+(20, 'test', '', 'test', 'test01@gmail.com', '$2y$10$pSlrayJqbe.l7NoLGi3K/.RMyz3n4t9ISY47t3EKCZHT24dvuumPm', NULL, 'backend/image/default.png', 'candidate', 1, 1, 1, 1, 1, 0, NULL, '2023-02-24 15:09:46', '2023-02-24 15:09:46', 'email', NULL, NULL, NULL, NULL),
+(21, 'employee', '', 'employee', 'employee@gmail.com', '$2y$10$jyKyULwnhpT1OoZiJYSVu.7bw1wftbceMPhiu02UR77gaim/kqbWe', NULL, 'backend/image/default.png', 'company', 1, 1, 1, 1, 1, 0, NULL, '2023-02-25 05:13:02', '2023-02-25 05:13:02', 'email', NULL, NULL, NULL, NULL),
+(22, 'candidate01', '', 'candidate01', 'candidate01@mail.com', '$2y$10$pWht6GL2lE80w15wI6VxQ.0z3TcFNtesQSig04iiLDAr8cYuk8cK2', NULL, 'backend/image/default.png', 'candidate', 1, 1, 1, 1, 1, 0, NULL, '2023-02-25 06:03:34', '2023-02-25 06:03:34', 'email', NULL, NULL, NULL, NULL),
+(23, 'Forhad Hosen', '01925764431', 'forhad-hosen', NULL, '$2y$10$KmwyTh5J0AL070kG9Mh71.a69uzld/XIquHM82ZBxkZAKwOxIz2fy', NULL, 'backend/image/default.png', 'candidate', 1, 1, 1, 1, 1, 0, '5o9x39DF8usQyH6wQJ4s4ZXXVeLHRQpy2llUJ5r9aeaTm1nypdRVxspdGbyM', '2023-03-03 10:51:58', '2023-03-03 10:51:58', 'email', NULL, NULL, NULL, NULL),
+(28, 'John Doe', '01925764432', 'john-doe', 'john@doe.com', '$2y$10$mJhN/0DeTSLBdx1mAe/WWOOKTSPg3MOFXMiuLnjcmMjX66fZlc/KK', NULL, 'backend/image/default.png', 'candidate', 1, 1, 1, 1, 1, 0, NULL, '2023-03-10 11:02:13', '2023-03-10 11:02:13', 'email', NULL, NULL, NULL, NULL),
+(29, 'Test Comp', '01751767359', 'tstcmp', 'test@comp', '$2y$10$lZTxL/U1lHprrAHGPKiGpuSZRlf/an8.1XQeP0bxPyi.cH.tZCUrS', NULL, 'backend/image/default.png', 'company', 1, 1, 1, 1, 1, 0, NULL, '2023-03-15 10:59:28', '2023-03-15 10:59:28', 'email', NULL, NULL, NULL, NULL),
+(30, 'Hello Candidate', '01925764431', 'khello-candidate122', 'hello@candidate.com', '$2y$10$hcjfsxaqvoy1ojvfZm.Wz.y56/.O6GBDCdIxc5af6bkHvkAUEyG3e', '2023-03-15 11:22:08', 'backend/image/default.png', 'candidate', 1, 1, 1, 1, 1, 0, 'rR8roBMNN0', '2023-03-15 11:22:08', '2023-03-15 11:22:08', 'email', NULL, NULL, NULL, NULL),
+(31, 'Hello Candidate22', '01925764434', 'khello-candidate22122', 'hello1@candidate.com', '$2y$10$I2p0uBZjSycc9rWiWzwJWec9DNkhj5TPuC7xOCZWaoo3rA8dWe4NC', '2023-03-15 11:22:50', 'backend/image/default.png', 'candidate', 1, 1, 1, 1, 1, 0, 'lv9Y3tVL9u', '2023-03-15 11:22:50', '2023-03-15 11:22:50', 'email', NULL, NULL, NULL, NULL),
+(32, 'asdfsadf', 'sdfsdfds', 'asdfsadf', NULL, '$2y$10$Q0q9MfB4pb1ZVNZHvVn7NO.O/krbDOF39c.vwtc14s3mMKJkIPpsO', NULL, 'backend/image/default.png', 'company', 1, 1, 1, 1, 1, 0, NULL, '2023-03-20 11:44:50', '2023-03-20 11:44:50', 'email', NULL, NULL, NULL, NULL),
+(34, 'Ivy', '01794851087', 'ivy', NULL, '$2y$10$bKV.o4dwtL2LF18sDN7tzub9IA0Ke0Ebnesqp6FVWRHKX4tVoKocG', NULL, 'backend/image/default.png', 'candidate', 1, 1, 1, 1, 1, 0, NULL, '2023-03-20 12:30:40', '2023-03-20 12:30:40', 'email', NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_plans`
+--
+
+CREATE TABLE `user_plans` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `company_id` bigint(20) UNSIGNED NOT NULL,
+  `plan_id` bigint(20) UNSIGNED NOT NULL,
+  `job_limit` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
+  `featured_job_limit` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
+  `highlight_job_limit` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
+  `candidate_cv_view_limit` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `candidate_cv_view_limitation` enum('unlimited','limited') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'limited'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `user_plans`
+--
+
+INSERT INTO `user_plans` (`id`, `company_id`, `plan_id`, `job_limit`, `featured_job_limit`, `highlight_job_limit`, `candidate_cv_view_limit`, `created_at`, `updated_at`, `candidate_cv_view_limitation`) VALUES
+(1, 2, 2, 1000, 100, 5, 1000, '2023-02-26 20:00:05', '2023-02-26 20:00:07', 'unlimited'),
+(2, 3, 2, 200, 20, 10, 20000, '2023-03-06 10:40:58', '2023-03-06 11:31:01', 'limited');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `website_settings`
+--
+
+CREATE TABLE `website_settings` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `map_address` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `facebook` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `instagram` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `twitter` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `youtube` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sub_title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `live_job` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `companies` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `candidates` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `website_settings`
+--
+
+INSERT INTO `website_settings` (`id`, `phone`, `address`, `map_address`, `facebook`, `instagram`, `twitter`, `youtube`, `title`, `sub_title`, `description`, `live_job`, `companies`, `candidates`, `created_at`, `updated_at`) VALUES
+(1, '(319) 555-0115', '6391 Elgin St. Celina, Delaware 10299, New York, United States of America', 'Zakir Soft Map', 'https://www.facebook.com/zakirsoft', 'https://www.instagram.com/zakirsoft', 'https://www.twitter.com/zakirsoft', 'https://www.youtube.com/zakirsoft', 'Who we are', 'WeÃ¢â‚¬â„¢re highly skilled and professionals team.', 'Praesent non sem facilisis, hendrerit nisi vitae, volutpat quam. Aliquam metus mauris, semper eu eros vitae, blandit tristique metus. Vestibulum maximus nec justo sed maximus.', '175,324', '97,354', '3,847,154', '2022-12-26 12:59:28', '2022-12-26 12:59:28');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `abouts`
+--
+ALTER TABLE `abouts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `admins`
+--
+ALTER TABLE `admins`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `admins_email_unique` (`email`);
+
+--
+-- Indexes for table `admin_searches`
+--
+ALTER TABLE `admin_searches`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `application_groups`
+--
+ALTER TABLE `application_groups`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `application_groups_company_id_foreign` (`company_id`);
+
+--
+-- Indexes for table `applied_jobs`
+--
+ALTER TABLE `applied_jobs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `applied_jobs_candidate_id_foreign` (`candidate_id`),
+  ADD KEY `applied_jobs_job_id_foreign` (`job_id`),
+  ADD KEY `applied_jobs_candidate_resume_id_foreign` (`candidate_resume_id`),
+  ADD KEY `applied_jobs_application_group_id_foreign` (`application_group_id`);
+
+--
+-- Indexes for table `bd_education_boards`
+--
+ALTER TABLE `bd_education_boards`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `bd_universities`
+--
+ALTER TABLE `bd_universities`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `benefits`
+--
+ALTER TABLE `benefits`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `benefits_name_unique` (`name`);
+
+--
+-- Indexes for table `bookmark_candidate_company`
+--
+ALTER TABLE `bookmark_candidate_company`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `bookmark_candidate_company_candidate_id_foreign` (`candidate_id`),
+  ADD KEY `bookmark_candidate_company_company_id_foreign` (`company_id`);
+
+--
+-- Indexes for table `bookmark_candidate_job`
+--
+ALTER TABLE `bookmark_candidate_job`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `bookmark_candidate_job_candidate_id_foreign` (`candidate_id`),
+  ADD KEY `bookmark_candidate_job_job_id_foreign` (`job_id`);
+
+--
+-- Indexes for table `bookmark_company`
+--
+ALTER TABLE `bookmark_company`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `bookmark_company_company_id_foreign` (`company_id`),
+  ADD KEY `bookmark_company_candidate_id_foreign` (`candidate_id`),
+  ADD KEY `bookmark_company_category_id_foreign` (`category_id`);
+
+--
+-- Indexes for table `bookmark_company_category`
+--
+ALTER TABLE `bookmark_company_category`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `bookmark_company_category_bookmark_id_foreign` (`bookmark_id`),
+  ADD KEY `bookmark_company_category_category_id_foreign` (`category_id`);
+
+--
+-- Indexes for table `candidates`
+--
+ALTER TABLE `candidates`
+  ADD PRIMARY KEY (`id`) USING BTREE,
+  ADD KEY `candidates_user_id_foreign` (`user_id`) USING BTREE,
+  ADD KEY `candidates_role_id_foreign` (`role_id`) USING BTREE,
+  ADD KEY `candidates_profession_id_foreign` (`profession_id`) USING BTREE,
+  ADD KEY `candidates_experience_id_foreign` (`experience_id`) USING BTREE,
+  ADD KEY `candidates_education_id_foreign` (`education_id`) USING BTREE,
+  ADD KEY `candidates_nationality_id_foreign` (`nationality_id`) USING BTREE;
+
+--
+-- Indexes for table `candidate_cv_views`
+--
+ALTER TABLE `candidate_cv_views`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `candidate_cv_views_company_id_foreign` (`company_id`),
+  ADD KEY `candidate_cv_views_candidate_id_foreign` (`candidate_id`);
+
+--
+-- Indexes for table `candidate_education`
+--
+ALTER TABLE `candidate_education`
+  ADD PRIMARY KEY (`id`) USING BTREE,
+  ADD KEY `candidate_education_candidate_id_foreign` (`candidate_id`) USING BTREE;
+
+--
+-- Indexes for table `candidate_experiences`
+--
+ALTER TABLE `candidate_experiences`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `candidate_experiences_candidate_id_foreign` (`candidate_id`);
+
+--
+-- Indexes for table `candidate_language`
+--
+ALTER TABLE `candidate_language`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `candidate_language_candidate_id_foreign` (`candidate_id`),
+  ADD KEY `candidate_language_candidate_language_id_foreign` (`candidate_language_id`);
+
+--
+-- Indexes for table `candidate_languages`
+--
+ALTER TABLE `candidate_languages`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `candidate_resumes`
+--
+ALTER TABLE `candidate_resumes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `candidate_resumes_candidate_id_foreign` (`candidate_id`);
+
+--
+-- Indexes for table `candidate_skill`
+--
+ALTER TABLE `candidate_skill`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `candidate_skill_candidate_id_foreign` (`candidate_id`),
+  ADD KEY `candidate_skill_skill_id_foreign` (`skill_id`);
+
+--
+-- Indexes for table `cities`
+--
+ALTER TABLE `cities`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `cities_state_id_foreign` (`state_id`);
+
+--
+-- Indexes for table `cms`
+--
+ALTER TABLE `cms`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `cms_contents`
+--
+ALTER TABLE `cms_contents`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `companies`
+--
+ALTER TABLE `companies`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `companies_user_id_foreign` (`user_id`),
+  ADD KEY `companies_industry_type_id_foreign` (`industry_type_id`),
+  ADD KEY `companies_organization_type_id_foreign` (`organization_type_id`),
+  ADD KEY `companies_team_size_id_foreign` (`team_size_id`),
+  ADD KEY `companies_nationality_id_foreign` (`nationality_id`);
+
+--
+-- Indexes for table `company_applied_job_rejected`
+--
+ALTER TABLE `company_applied_job_rejected`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `company_applied_job_rejected_company_id_foreign` (`company_id`),
+  ADD KEY `company_applied_job_rejected_applied_job_id_foreign` (`applied_job_id`);
+
+--
+-- Indexes for table `company_applied_job_shortlist`
+--
+ALTER TABLE `company_applied_job_shortlist`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `company_applied_job_shortlist_company_id_foreign` (`company_id`),
+  ADD KEY `company_applied_job_shortlist_applied_job_id_foreign` (`applied_job_id`);
+
+--
+-- Indexes for table `company_bookmark_categories`
+--
+ALTER TABLE `company_bookmark_categories`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `company_bookmark_categories_company_id_foreign` (`company_id`);
+
+--
+-- Indexes for table `contacts`
+--
+ALTER TABLE `contacts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `contact_infos`
+--
+ALTER TABLE `contact_infos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `contact_infos_user_id_foreign` (`user_id`);
+
+--
+-- Indexes for table `cookies`
+--
+ALTER TABLE `cookies`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `countries`
+--
+ALTER TABLE `countries`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `currencies`
+--
+ALTER TABLE `currencies`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `districts`
+--
+ALTER TABLE `districts`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `division_id` (`division_id`);
+
+--
+-- Indexes for table `divisions`
+--
+ALTER TABLE `divisions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `earnings`
+--
+ALTER TABLE `earnings`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `earnings_company_id_foreign` (`company_id`),
+  ADD KEY `earnings_manual_payment_id_foreign` (`manual_payment_id`),
+  ADD KEY `earnings_plan_id_foreign` (`plan_id`);
+
+--
+-- Indexes for table `education`
+--
+ALTER TABLE `education`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `emails`
+--
+ALTER TABLE `emails`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `emails_email_unique` (`email`);
+
+--
+-- Indexes for table `experiences`
+--
+ALTER TABLE `experiences`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+
+--
+-- Indexes for table `faqs`
+--
+ALTER TABLE `faqs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `faqs_faq_category_id_foreign` (`faq_category_id`);
+
+--
+-- Indexes for table `faq_categories`
+--
+ALTER TABLE `faq_categories`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `faq_categories_name_unique` (`name`),
+  ADD UNIQUE KEY `faq_categories_slug_unique` (`slug`);
+
+--
+-- Indexes for table `industry_types`
+--
+ALTER TABLE `industry_types`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `jobs`
+--
+ALTER TABLE `jobs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `jobs_company_id_foreign` (`company_id`),
+  ADD KEY `jobs_category_id_foreign` (`category_id`),
+  ADD KEY `jobs_role_id_foreign` (`role_id`),
+  ADD KEY `jobs_experience_id_foreign` (`experience_id`),
+  ADD KEY `jobs_education_id_foreign` (`education_id`),
+  ADD KEY `jobs_job_type_id_foreign` (`job_type_id`),
+  ADD KEY `jobs_salary_type_id_foreign` (`salary_type_id`);
+
+--
+-- Indexes for table `job_benefit`
+--
+ALTER TABLE `job_benefit`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `job_benefit_job_id_foreign` (`job_id`),
+  ADD KEY `job_benefit_benefit_id_foreign` (`benefit_id`);
+
+--
+-- Indexes for table `job_categories`
+--
+ALTER TABLE `job_categories`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `job_categories_name_unique` (`name`),
+  ADD UNIQUE KEY `job_categories_slug_unique` (`slug`);
+
+--
+-- Indexes for table `job_roles`
+--
+ALTER TABLE `job_roles`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `job_roles_slug_unique` (`slug`);
+
+--
+-- Indexes for table `job_tag`
+--
+ALTER TABLE `job_tag`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `job_tag_job_id_foreign` (`job_id`),
+  ADD KEY `job_tag_tag_id_foreign` (`tag_id`);
+
+--
+-- Indexes for table `job_types`
+--
+ALTER TABLE `job_types`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `languages`
+--
+ALTER TABLE `languages`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `languages_name_unique` (`name`),
+  ADD UNIQUE KEY `languages_code_unique` (`code`),
+  ADD UNIQUE KEY `languages_icon_unique` (`icon`);
+
+--
+-- Indexes for table `manual_payments`
+--
+ALTER TABLE `manual_payments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `migrations`
+--
+ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `model_has_permissions`
+--
+ALTER TABLE `model_has_permissions`
+  ADD PRIMARY KEY (`permission_id`,`model_id`,`model_type`),
+  ADD KEY `model_has_permissions_model_id_model_type_index` (`model_id`,`model_type`);
+
+--
+-- Indexes for table `model_has_roles`
+--
+ALTER TABLE `model_has_roles`
+  ADD PRIMARY KEY (`role_id`,`model_id`,`model_type`),
+  ADD KEY `model_has_roles_model_id_model_type_index` (`model_id`,`model_type`);
+
+--
+-- Indexes for table `nationalities`
+--
+ALTER TABLE `nationalities`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `notifications`
+--
+ALTER TABLE `notifications`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `notifications_notifiable_type_notifiable_id_index` (`notifiable_type`,`notifiable_id`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `organization_types`
+--
+ALTER TABLE `organization_types`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `our_missions`
+--
+ALTER TABLE `our_missions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `password_resets`
+--
+ALTER TABLE `password_resets`
+  ADD KEY `password_resets_email_index` (`email`);
+
+--
+-- Indexes for table `payments`
+--
+ALTER TABLE `payments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `payment_settings`
+--
+ALTER TABLE `payment_settings`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `permissions`
+--
+ALTER TABLE `permissions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `plans`
+--
+ALTER TABLE `plans`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `plans_label_unique` (`label`);
+
+--
+-- Indexes for table `posts`
+--
+ALTER TABLE `posts`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `posts_category_id_foreign` (`category_id`),
+  ADD KEY `posts_author_id_foreign` (`author_id`);
+
+--
+-- Indexes for table `post_categories`
+--
+ALTER TABLE `post_categories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `post_comments`
+--
+ALTER TABLE `post_comments`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `post_comments_author_id_foreign` (`author_id`),
+  ADD KEY `post_comments_post_id_foreign` (`post_id`);
+
+--
+-- Indexes for table `professions`
+--
+ALTER TABLE `professions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `queue_jobs`
+--
+ALTER TABLE `queue_jobs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `queue_jobs_queue_index` (`queue`);
+
+--
+-- Indexes for table `roles`
+--
+ALTER TABLE `roles`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `role_has_permissions`
+--
+ALTER TABLE `role_has_permissions`
+  ADD PRIMARY KEY (`permission_id`,`role_id`),
+  ADD KEY `role_has_permissions_role_id_foreign` (`role_id`);
+
+--
+-- Indexes for table `salary_types`
+--
+ALTER TABLE `salary_types`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `seos`
+--
+ALTER TABLE `seos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `seo_page_contents`
+--
+ALTER TABLE `seo_page_contents`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `seo_page_contents_page_id_foreign` (`page_id`);
+
+--
+-- Indexes for table `settings`
+--
+ALTER TABLE `settings`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `settings_app_country_foreign` (`app_country`);
+
+--
+-- Indexes for table `setup_guides`
+--
+ALTER TABLE `setup_guides`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `skills`
+--
+ALTER TABLE `skills`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `sms_content`
+--
+ALTER TABLE `sms_content`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `sms_histories`
+--
+ALTER TABLE `sms_histories`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sms_histories_user_id_foerign` (`user_id`) USING BTREE;
+
+--
+-- Indexes for table `sms_statuses`
+--
+ALTER TABLE `sms_statuses`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `social_links`
+--
+ALTER TABLE `social_links`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `social_links_user_id_foreign` (`user_id`);
+
+--
+-- Indexes for table `states`
+--
+ALTER TABLE `states`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `states_country_id_foreign` (`country_id`);
+
+--
+-- Indexes for table `tags`
+--
+ALTER TABLE `tags`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `tags_name_unique` (`name`);
+
+--
+-- Indexes for table `team_sizes`
+--
+ALTER TABLE `team_sizes`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `terms_categories`
+--
+ALTER TABLE `terms_categories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `testimonials`
+--
+ALTER TABLE `testimonials`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `theme_settings`
+--
+ALTER TABLE `theme_settings`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `timezones`
+--
+ALTER TABLE `timezones`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `unions`
+--
+ALTER TABLE `unions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `upazilla_id` (`upazilla_id`);
+
+--
+-- Indexes for table `upazilas`
+--
+ALTER TABLE `upazilas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `district_id` (`district_id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `users_email_unique` (`email`);
+
+--
+-- Indexes for table `user_plans`
+--
+ALTER TABLE `user_plans`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_plans_company_id_foreign` (`company_id`),
+  ADD KEY `user_plans_plan_id_foreign` (`plan_id`);
+
+--
+-- Indexes for table `website_settings`
+--
+ALTER TABLE `website_settings`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `abouts`
+--
+ALTER TABLE `abouts`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `admins`
+--
+ALTER TABLE `admins`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `admin_searches`
+--
+ALTER TABLE `admin_searches`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `application_groups`
+--
+ALTER TABLE `application_groups`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
+-- AUTO_INCREMENT for table `applied_jobs`
+--
+ALTER TABLE `applied_jobs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `bd_education_boards`
+--
+ALTER TABLE `bd_education_boards`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
+
+--
+-- AUTO_INCREMENT for table `bd_universities`
+--
+ALTER TABLE `bd_universities`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000;
+
+--
+-- AUTO_INCREMENT for table `benefits`
+--
+ALTER TABLE `benefits`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT for table `bookmark_candidate_company`
+--
+ALTER TABLE `bookmark_candidate_company`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `bookmark_candidate_job`
+--
+ALTER TABLE `bookmark_candidate_job`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `bookmark_company`
+--
+ALTER TABLE `bookmark_company`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `bookmark_company_category`
+--
+ALTER TABLE `bookmark_company_category`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `candidates`
+--
+ALTER TABLE `candidates`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT for table `candidate_cv_views`
+--
+ALTER TABLE `candidate_cv_views`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `candidate_education`
+--
+ALTER TABLE `candidate_education`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT for table `candidate_experiences`
+--
+ALTER TABLE `candidate_experiences`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `candidate_language`
+--
+ALTER TABLE `candidate_language`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `candidate_languages`
+--
+ALTER TABLE `candidate_languages`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=183;
+
+--
+-- AUTO_INCREMENT for table `candidate_resumes`
+--
+ALTER TABLE `candidate_resumes`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `candidate_skill`
+--
+ALTER TABLE `candidate_skill`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+
+--
+-- AUTO_INCREMENT for table `cities`
+--
+ALTER TABLE `cities`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `cms`
+--
+ALTER TABLE `cms`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `cms_contents`
+--
+ALTER TABLE `cms_contents`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `companies`
+--
+ALTER TABLE `companies`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `company_applied_job_rejected`
+--
+ALTER TABLE `company_applied_job_rejected`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `company_applied_job_shortlist`
+--
+ALTER TABLE `company_applied_job_shortlist`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `company_bookmark_categories`
+--
+ALTER TABLE `company_bookmark_categories`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `contacts`
+--
+ALTER TABLE `contacts`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `contact_infos`
+--
+ALTER TABLE `contact_infos`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+
+--
+-- AUTO_INCREMENT for table `cookies`
+--
+ALTER TABLE `cookies`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `countries`
+--
+ALTER TABLE `countries`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=248;
+
+--
+-- AUTO_INCREMENT for table `currencies`
+--
+ALTER TABLE `currencies`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `districts`
+--
+ALTER TABLE `districts`
+  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+
+--
+-- AUTO_INCREMENT for table `divisions`
+--
+ALTER TABLE `divisions`
+  MODIFY `id` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `earnings`
+--
+ALTER TABLE `earnings`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `education`
+--
+ALTER TABLE `education`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `emails`
+--
+ALTER TABLE `emails`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `experiences`
+--
+ALTER TABLE `experiences`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `faqs`
+--
+ALTER TABLE `faqs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `faq_categories`
+--
+ALTER TABLE `faq_categories`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `industry_types`
+--
+ALTER TABLE `industry_types`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
+-- AUTO_INCREMENT for table `jobs`
+--
+ALTER TABLE `jobs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `job_benefit`
+--
+ALTER TABLE `job_benefit`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `job_categories`
+--
+ALTER TABLE `job_categories`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `job_roles`
+--
+ALTER TABLE `job_roles`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `job_tag`
+--
+ALTER TABLE `job_tag`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `job_types`
+--
+ALTER TABLE `job_types`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `languages`
+--
+ALTER TABLE `languages`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `manual_payments`
+--
+ALTER TABLE `manual_payments`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `migrations`
+--
+ALTER TABLE `migrations`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
+
+--
+-- AUTO_INCREMENT for table `nationalities`
+--
+ALTER TABLE `nationalities`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=194;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `organization_types`
+--
+ALTER TABLE `organization_types`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `our_missions`
+--
+ALTER TABLE `our_missions`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `payments`
+--
+ALTER TABLE `payments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+
+--
+-- AUTO_INCREMENT for table `payment_settings`
+--
+ALTER TABLE `payment_settings`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `permissions`
+--
+ALTER TABLE `permissions`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
+
+--
+-- AUTO_INCREMENT for table `plans`
+--
+ALTER TABLE `plans`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `posts`
+--
+ALTER TABLE `posts`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `post_categories`
+--
+ALTER TABLE `post_categories`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `post_comments`
+--
+ALTER TABLE `post_comments`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `professions`
+--
+ALTER TABLE `professions`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+
+--
+-- AUTO_INCREMENT for table `queue_jobs`
+--
+ALTER TABLE `queue_jobs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `roles`
+--
+ALTER TABLE `roles`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `salary_types`
+--
+ALTER TABLE `salary_types`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `seos`
+--
+ALTER TABLE `seos`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT for table `seo_page_contents`
+--
+ALTER TABLE `seo_page_contents`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT for table `settings`
+--
+ALTER TABLE `settings`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `setup_guides`
+--
+ALTER TABLE `setup_guides`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `skills`
+--
+ALTER TABLE `skills`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `sms_content`
+--
+ALTER TABLE `sms_content`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `sms_histories`
+--
+ALTER TABLE `sms_histories`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `sms_statuses`
+--
+ALTER TABLE `sms_statuses`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `social_links`
+--
+ALTER TABLE `social_links`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `states`
+--
+ALTER TABLE `states`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tags`
+--
+ALTER TABLE `tags`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT for table `team_sizes`
+--
+ALTER TABLE `team_sizes`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `terms_categories`
+--
+ALTER TABLE `terms_categories`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `testimonials`
+--
+ALTER TABLE `testimonials`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `theme_settings`
+--
+ALTER TABLE `theme_settings`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `timezones`
+--
+ALTER TABLE `timezones`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=426;
+
+--
+-- AUTO_INCREMENT for table `unions`
+--
+ALTER TABLE `unions`
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4541;
+
+--
+-- AUTO_INCREMENT for table `upazilas`
+--
+ALTER TABLE `upazilas`
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=492;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+
+--
+-- AUTO_INCREMENT for table `user_plans`
+--
+ALTER TABLE `user_plans`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `website_settings`
+--
+ALTER TABLE `website_settings`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `application_groups`
+--
+ALTER TABLE `application_groups`
+  ADD CONSTRAINT `application_groups_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `applied_jobs`
+--
+ALTER TABLE `applied_jobs`
+  ADD CONSTRAINT `applied_jobs_application_group_id_foreign` FOREIGN KEY (`application_group_id`) REFERENCES `application_groups` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `applied_jobs_candidate_id_foreign` FOREIGN KEY (`candidate_id`) REFERENCES `candidates` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `applied_jobs_candidate_resume_id_foreign` FOREIGN KEY (`candidate_resume_id`) REFERENCES `candidate_resumes` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `applied_jobs_job_id_foreign` FOREIGN KEY (`job_id`) REFERENCES `jobs` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `bookmark_candidate_company`
+--
+ALTER TABLE `bookmark_candidate_company`
+  ADD CONSTRAINT `bookmark_candidate_company_candidate_id_foreign` FOREIGN KEY (`candidate_id`) REFERENCES `candidates` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `bookmark_candidate_company_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `bookmark_candidate_job`
+--
+ALTER TABLE `bookmark_candidate_job`
+  ADD CONSTRAINT `bookmark_candidate_job_candidate_id_foreign` FOREIGN KEY (`candidate_id`) REFERENCES `candidates` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `bookmark_candidate_job_job_id_foreign` FOREIGN KEY (`job_id`) REFERENCES `jobs` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `bookmark_company`
+--
+ALTER TABLE `bookmark_company`
+  ADD CONSTRAINT `bookmark_company_candidate_id_foreign` FOREIGN KEY (`candidate_id`) REFERENCES `candidates` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `bookmark_company_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `company_bookmark_categories` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `bookmark_company_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `bookmark_company_category`
+--
+ALTER TABLE `bookmark_company_category`
+  ADD CONSTRAINT `bookmark_company_category_bookmark_id_foreign` FOREIGN KEY (`bookmark_id`) REFERENCES `bookmark_company` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `bookmark_company_category_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `company_bookmark_categories` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `candidates`
+--
+ALTER TABLE `candidates`
+  ADD CONSTRAINT `candidates_education_id_foreign` FOREIGN KEY (`education_id`) REFERENCES `education` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `candidates_experience_id_foreign` FOREIGN KEY (`experience_id`) REFERENCES `experiences` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `candidates_nationality_id_foreign` FOREIGN KEY (`nationality_id`) REFERENCES `nationalities` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `candidates_profession_id_foreign` FOREIGN KEY (`profession_id`) REFERENCES `professions` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `candidates_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `job_roles` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `candidates_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `candidate_cv_views`
+--
+ALTER TABLE `candidate_cv_views`
+  ADD CONSTRAINT `candidate_cv_views_candidate_id_foreign` FOREIGN KEY (`candidate_id`) REFERENCES `candidates` (`id`),
+  ADD CONSTRAINT `candidate_cv_views_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`);
+
+--
+-- Constraints for table `candidate_education`
+--
+ALTER TABLE `candidate_education`
+  ADD CONSTRAINT `candidate_education_candidate_id_foreign` FOREIGN KEY (`candidate_id`) REFERENCES `candidates` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `candidate_experiences`
+--
+ALTER TABLE `candidate_experiences`
+  ADD CONSTRAINT `candidate_experiences_candidate_id_foreign` FOREIGN KEY (`candidate_id`) REFERENCES `candidates` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `candidate_language`
+--
+ALTER TABLE `candidate_language`
+  ADD CONSTRAINT `candidate_language_candidate_id_foreign` FOREIGN KEY (`candidate_id`) REFERENCES `candidates` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `candidate_language_candidate_language_id_foreign` FOREIGN KEY (`candidate_language_id`) REFERENCES `candidate_languages` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `candidate_resumes`
+--
+ALTER TABLE `candidate_resumes`
+  ADD CONSTRAINT `candidate_resumes_candidate_id_foreign` FOREIGN KEY (`candidate_id`) REFERENCES `candidates` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `candidate_skill`
+--
+ALTER TABLE `candidate_skill`
+  ADD CONSTRAINT `candidate_skill_candidate_id_foreign` FOREIGN KEY (`candidate_id`) REFERENCES `candidates` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `candidate_skill_skill_id_foreign` FOREIGN KEY (`skill_id`) REFERENCES `skills` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `cities`
+--
+ALTER TABLE `cities`
+  ADD CONSTRAINT `cities_state_id_foreign` FOREIGN KEY (`state_id`) REFERENCES `states` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `companies`
+--
+ALTER TABLE `companies`
+  ADD CONSTRAINT `companies_industry_type_id_foreign` FOREIGN KEY (`industry_type_id`) REFERENCES `industry_types` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `companies_nationality_id_foreign` FOREIGN KEY (`nationality_id`) REFERENCES `nationalities` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `companies_organization_type_id_foreign` FOREIGN KEY (`organization_type_id`) REFERENCES `organization_types` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `companies_team_size_id_foreign` FOREIGN KEY (`team_size_id`) REFERENCES `team_sizes` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `companies_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `company_applied_job_rejected`
+--
+ALTER TABLE `company_applied_job_rejected`
+  ADD CONSTRAINT `company_applied_job_rejected_applied_job_id_foreign` FOREIGN KEY (`applied_job_id`) REFERENCES `applied_jobs` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `company_applied_job_rejected_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `company_applied_job_shortlist`
+--
+ALTER TABLE `company_applied_job_shortlist`
+  ADD CONSTRAINT `company_applied_job_shortlist_applied_job_id_foreign` FOREIGN KEY (`applied_job_id`) REFERENCES `applied_jobs` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `company_applied_job_shortlist_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `company_bookmark_categories`
+--
+ALTER TABLE `company_bookmark_categories`
+  ADD CONSTRAINT `company_bookmark_categories_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `contact_infos`
+--
+ALTER TABLE `contact_infos`
+  ADD CONSTRAINT `contact_infos_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `earnings`
+--
+ALTER TABLE `earnings`
+  ADD CONSTRAINT `earnings_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `earnings_manual_payment_id_foreign` FOREIGN KEY (`manual_payment_id`) REFERENCES `manual_payments` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `earnings_plan_id_foreign` FOREIGN KEY (`plan_id`) REFERENCES `plans` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `faqs`
+--
+ALTER TABLE `faqs`
+  ADD CONSTRAINT `faqs_faq_category_id_foreign` FOREIGN KEY (`faq_category_id`) REFERENCES `faq_categories` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `jobs`
+--
+ALTER TABLE `jobs`
+  ADD CONSTRAINT `jobs_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `job_categories` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `jobs_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `jobs_education_id_foreign` FOREIGN KEY (`education_id`) REFERENCES `education` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `jobs_experience_id_foreign` FOREIGN KEY (`experience_id`) REFERENCES `experiences` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `jobs_job_type_id_foreign` FOREIGN KEY (`job_type_id`) REFERENCES `job_types` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `jobs_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `job_roles` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `jobs_salary_type_id_foreign` FOREIGN KEY (`salary_type_id`) REFERENCES `salary_types` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `job_benefit`
+--
+ALTER TABLE `job_benefit`
+  ADD CONSTRAINT `job_benefit_benefit_id_foreign` FOREIGN KEY (`benefit_id`) REFERENCES `benefits` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `job_benefit_job_id_foreign` FOREIGN KEY (`job_id`) REFERENCES `jobs` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `job_tag`
+--
+ALTER TABLE `job_tag`
+  ADD CONSTRAINT `job_tag_job_id_foreign` FOREIGN KEY (`job_id`) REFERENCES `jobs` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `job_tag_tag_id_foreign` FOREIGN KEY (`tag_id`) REFERENCES `tags` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `model_has_permissions`
+--
+ALTER TABLE `model_has_permissions`
+  ADD CONSTRAINT `model_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `model_has_roles`
+--
+ALTER TABLE `model_has_roles`
+  ADD CONSTRAINT `model_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `posts`
+--
+ALTER TABLE `posts`
+  ADD CONSTRAINT `posts_author_id_foreign` FOREIGN KEY (`author_id`) REFERENCES `admins` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `posts_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `post_categories` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `post_comments`
+--
+ALTER TABLE `post_comments`
+  ADD CONSTRAINT `post_comments_author_id_foreign` FOREIGN KEY (`author_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `post_comments_post_id_foreign` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `role_has_permissions`
+--
+ALTER TABLE `role_has_permissions`
+  ADD CONSTRAINT `role_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `role_has_permissions_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `seo_page_contents`
+--
+ALTER TABLE `seo_page_contents`
+  ADD CONSTRAINT `seo_page_contents_page_id_foreign` FOREIGN KEY (`page_id`) REFERENCES `seos` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `settings`
+--
+ALTER TABLE `settings`
+  ADD CONSTRAINT `settings_app_country_foreign` FOREIGN KEY (`app_country`) REFERENCES `countries` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `social_links`
+--
+ALTER TABLE `social_links`
+  ADD CONSTRAINT `social_links_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `states`
+--
+ALTER TABLE `states`
+  ADD CONSTRAINT `states_country_id_foreign` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `user_plans`
+--
+ALTER TABLE `user_plans`
+  ADD CONSTRAINT `user_plans_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `user_plans_plan_id_foreign` FOREIGN KEY (`plan_id`) REFERENCES `plans` (`id`) ON DELETE CASCADE;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
