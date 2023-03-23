@@ -370,7 +370,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <hr>
                             {{-- Address information --}}
                             <div class="row">
@@ -381,7 +380,8 @@
                                     <div class="card-body pt-1">
                                         <div class="form-group form-group-sm row py-0">
                                             <label for="care_of"
-                                                class="col-sm-4 col-form-label">{{ __('care_of') }}</label>
+                                                class="col-sm-4 col-form-label">{{ __('care_of') }}<span
+                                                class="required">*</span></label>
                                             <div class="col-sm-8">
                                                 <input class="form-control @error('care_of') is-invalid @enderror"
                                                     name="care_of" type="text"
@@ -575,7 +575,8 @@
                                     <div class="card-body pt-1">
                                         <div class="form-group form-group-sm row py-0">
                                             <label for="care_of_parmanent"
-                                                class="col-sm-4 col-form-label">{{ __('care_of') }}</label>
+                                                class="col-sm-4 col-form-label">{{ __('care_of') }}<span
+                                                class="required">*</span></label>
 
                                             <div class="col-sm-8">
                                                 <input
@@ -761,13 +762,13 @@
                                 </div>
                             </div>
 
-                            <hr>
+                            
                             {{-- Education Information --}}
                             {{-- @php
                                 $jsc= $candidate->educations->where('level', "masters")->first();
                             @endphp --}}
                             {{-- PSC JSC --}}
-                            <div class="row">
+                            <div class="row mt-2">
                                 <div class="card col-lg-12 p-0">
                                     <div class="card-header d-inline-block">
                                         {{ __('psc') }}
@@ -830,7 +831,7 @@
                                     </div>
                                 </div>
 
-                                <div class="card col-lg-12 pt-2">
+                                <div class="card col-lg-12 p-0 mt-2">
                                     <div class="card-header d-inline-block">
                                         {{ __('jsc') }}
                                         <input type="checkbox" name="jsc"
@@ -1125,7 +1126,7 @@
                                 </div>
 
                                 {{-- hsc --}}
-                                <div class="card col-lg-12 p-0">
+                                <div class="card col-lg-12 mt-2 p-0">
                                     <div class="card-header d-inline-block">
                                         {{ __('hsc') }}
                                         <input type="checkbox" name="hsc"
