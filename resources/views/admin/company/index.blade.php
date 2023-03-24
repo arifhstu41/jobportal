@@ -31,11 +31,11 @@
                     {{-- Filter  --}}
                     <form id="formSubmit"  action="{{ route('company.index') }}" method="GET" onchange="this.submit();">
                         <div class="card-body border-bottom row">
-                            <div class="col-3">
+                            <div class="col-sm-6 col-md-3">
                                 <label>{{ __('search') }}</label>
                                 <input name="keyword" type="text" placeholder="{{ __('search') }}" class="form-control" value="{{ request('keyword') }}">
                             </div>
-                            <div class="col-2">
+                            <div class="col-sm-6 col-md-2">
                                 <label>{{ __('organization_type') }}</label>
                                 <select name="organization_type" class="form-control w-100-p">
                                     <option value="">
@@ -48,7 +48,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-2">
+                            <div class="col-sm-6 col-md-2">
                                 <label>{{ __('industry_type') }}</label>
                                 <select name="industry_type" class="form-control w-100-p">
                                     <option value="">
@@ -61,7 +61,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-2">
+                            <div class="col-sm-6 col-md-2">
                                 <label>{{ __('email_verification') }}</label>
                                 <select name="ev_status" class="form-control w-100-p">
                                     <option value="">
@@ -75,7 +75,7 @@
                                     </option>
                                 </select>
                             </div>
-                            <div class="col-3">
+                            <div class="col-sm-6 col-md-3">
                                 <label>{{ __('sort_by') }}</label>
                                 <select name="sort_by" class="form-control w-100-p">
                                     <option {{ !request('sort_by') || request('sort_by') == 'latest' ? 'selected' : '' }}
