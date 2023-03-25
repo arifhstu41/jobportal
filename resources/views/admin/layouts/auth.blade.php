@@ -40,6 +40,7 @@
 
     @yield('backend_auth_link')
     @include('website.partials.links')
+    <link rel="stylesheet" href="https://unpkg.com/phosphor-icons@1.4.2/src/css/icons.css">
 </head>
 
 <body>
@@ -66,8 +67,22 @@
             </div>
         </div>
     </div>
-
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+    <script>
+        function passToText(id, icon) {
+           var input = $('#' + id);
+           var eyeIcon = $('#' + icon);
+           if (input.is('input[type="password"]')) {
+               eyeIcon.html('<i class="ph-eye-slash "></i>');
+               input.attr('type', 'text');
+           } else {
+               eyeIcon.html('<i class="ph-eye "></i>');
+               input.attr('type', 'password');
+           }
+       }
+   </script>
     @yield('backend_auth_script')
+
 </body>
 
 </html>

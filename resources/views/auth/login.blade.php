@@ -182,4 +182,7 @@
 
 @section('backend_auth_script')
     <script src='https://www.google.com/recaptcha/api.js'></script>
+    {{-- <script src=""></script> --}}
+    {{-- <script src="https://unpkg.com/bootstrap-show-password@1.2.1/dist/bootstrap-show-password.min.js"></script> --}}
+   
 @endsection
