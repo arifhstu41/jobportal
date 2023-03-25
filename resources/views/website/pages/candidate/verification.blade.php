@@ -5,6 +5,7 @@
 @endsection
 
 @section('main')
+    <link rel="stylesheet" href="{{ asset('frontend') }}/assets/css/bootstrap-datepicker.min.css">
     <style>
         .form-cotrol-sm {
             min-height: calc(1.5em + (0.5rem + 2px));
@@ -33,6 +34,10 @@
             padding: 12px;
             background-color: #e9ecef;
             border-radius: 0 5px 5px 0;
+        }
+
+        input::placeholder {
+            text-transform: none !important;
         }
     </style>
     <div class="dashboard-wrapper">
@@ -88,9 +93,11 @@
                                             <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                                         @enderror
                                     </div>
-                                    <div class="col-sm-4 col-md-3 py-2">
-                                        <input class="form-control @error('dob') is-invalid @enderror datepicker" name="dob"
-                                            type="text" value="" id="date" placeholder="mm-dd-yyyy" required>
+
+                                    <div class="col-sm-4 col-md-3 py-2 date">
+                                        <input class="form-control ps-1 datepicker @error('dob') is-invalid @enderror "
+                                            name="dob" type="text" value="" id="date"
+                                            placeholder="dd-mm-yyyy" required>
                                         @error('dob')
                                             <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                                         @enderror
@@ -112,8 +119,9 @@
 @endsection
 
 @section('script')
-<script>
-    $("#date").attr("autocomplete", "off");
+    <script src="{{ asset('frontend/assets/js/bootstrap-datepicker.min.js') }}"></script>
+    <script>
+        $("#date").attr("autocomplete", "off");
         //init datepicker
         $('.datepicker').off('focus').datepicker({
             format: 'dd-mm-yyyy'
@@ -123,17 +131,16 @@
             }
         );
 
-        $("#id_type").on("change", function(){
-            let id_type= $(this).val();
+        $("#id_type").on("change", function() {
+            let id_type = $(this).val();
 
-            if(id_type == "NID"){
-                $("#id_no").attr('placeholder','ID NO');
+            if (id_type == "NID") {
+                $("#id_no").attr('placeholder', 'ID NO');
             }
 
-            if(id_type == "Birth Certificate"){
-                $("#id_no").attr('placeholder','Birth Certificate No');
+            if (id_type == "Birth Certificate") {
+                $("#id_no").attr('placeholder', 'Birth Certificate No');
             }
         })
-    
-</script>
+    </script>
 @endsection
