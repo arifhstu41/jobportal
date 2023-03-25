@@ -123,6 +123,7 @@
                                                                 </span>
                                                             </button>
                                                         @else
+
                                                             <button type="button" class="btn btn-success btn-lg d-block">
                                                                 <span class="button-content-wrapper ">
                                                                     <span class="button-text">
@@ -130,6 +131,9 @@
                                                                     </span>
                                                                 </span>
                                                             </button>
+                                                            
+                                                        <a class="btn btn-info m-2 btn-xs" href="{{ route('website.download.application.form', $job->id) }}">
+                                                            Download Applicant Copy</a>
                                                         @endif
                                                     @else
                                                         <button type="button"
@@ -478,7 +482,7 @@
                     <div class="modal-footer border-transparent">
                         <button type="button" class="bg-priamry-50 btn btn-outline-primary" data-bs-dismiss="modal"
                             aria-label="Close">{{ __('cancel') }}</button>
-                        <button type="submit" class="btn btn-primary btn-lg">
+                        <button type="submit" id="apply_now" class="btn btn-primary btn-lg">
                             <span class="button-content-wrapper ">
                                 <span class="button-icon align-icon-right"><i class="ph-arrow-right"></i></span>
                                 <span class="button-text">
@@ -573,6 +577,12 @@
             $('#apply_job_id').val(id);
             $('#apply_job_title').text(name);
         }
+
+        // function applyJobb(id, name) {
+        //     $('#cvModal').modal('show');
+        //     $('#apply_job_id').val(id);
+        //     $('#apply_job_title').text(name);
+        // }
 
         mapboxgl.accessToken = "{{ $setting->map_box_key }}";
         const coordinates = document.getElementById('coordinates');

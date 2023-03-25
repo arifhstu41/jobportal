@@ -46,6 +46,7 @@ Route::controller(WebsiteController::class)->name('website.')->group(function ()
     Route::get('/jobs/{job:slug}', 'jobDetails')->name('job.details');
     Route::get('/jobs/{job:slug}/bookmark', 'toggleBookmarkJob')->name('job.bookmark')->middleware('user_active');
     Route::post('/jobs/apply', 'toggleApplyJob')->name('job.apply')->middleware('user_active');
+    Route::get('job/download-application-form/{job_id}', 'downloadApplicationForm')->name('download.application.form');
     Route::get('/candidates', 'candidates')->name('candidate');
     Route::get('/candidates/{candidate:username}', 'candidateDetails')->name('candidate.details');
     Route::get('/candidate/profile/details', 'candidateProfileDetails')->name('candidate.profile.details');
