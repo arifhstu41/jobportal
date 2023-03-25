@@ -398,6 +398,7 @@ class WebsiteController extends Controller
 
     public function employees(Request $request)
     {
+        // dd($request->all());
         // return $request;
         abort_if(auth('user')->check() && auth('user')->user()->role == 'company', 404);
 
@@ -405,24 +406,24 @@ class WebsiteController extends Controller
             'jobs as activejobs' => function ($q) {
                 $q->where('status', 'active');
 
-                $selected_country = session()->get('selected_country');
-                // $selected_country = session()->get('country_code');
-                if ($selected_country && $selected_country != null && $selected_country != 'all') {
-                    $country = selected_country()->name;
-                    $q->where('country', 'LIKE', "%$country%");
-                } else {
+                // $selected_country = session()->get('selected_country');
+                // // $selected_country = session()->get('country_code');
+                // if ($selected_country && $selected_country != null && $selected_country != 'all') {
+                //     $country = selected_country()->name;
+                //     $q->where('country', 'LIKE', "%$country%");
+                // } else {
 
-                    $setting = Setting::first();
-                    if ($setting->app_country_type == 'single_base') {
-                        if ($setting->app_country) {
+                //     $setting = Setting::first();
+                //     if ($setting->app_country_type == 'single_base') {
+                //         if ($setting->app_country) {
 
-                            $country = Country::where('id', $setting->app_country)->first();
-                            if ($country) {
-                                $q->where('country', 'LIKE', "%$country->name%");
-                            }
-                        }
-                    }
-                }
+                //             $country = Country::where('id', $setting->app_country)->first();
+                //             if ($country) {
+                //                 $q->where('country', 'LIKE', "%$country->name%");
+                //             }
+                //         }
+                //     }
+                // }
             }
         ])->withCount([
             'bookmarkCandidateCompany as candidatemarked' => function ($q) {

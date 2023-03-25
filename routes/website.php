@@ -117,6 +117,8 @@ Route::middleware('auth:user', 'verified')->group(function () {
     Route::controller(CompanyController::class)->prefix('company')->middleware(['company', 'has_plan'])->name('company.')->group(function () {
         Route::middleware('company.profile')->group(function () {
             Route::get('dashboard', 'dashboard')->name('dashboard');
+            Route::get('short-list-cadidate/{company_id}/{applied_job_id}', 'shortListCandidate')->name('shortlist.candidte');
+            Route::get('send-interview-sms/{job_application_id}', 'sendInterviewSMS')->name('send.interview.sms');
             Route::get('plans', 'plan')->name('plan')->middleware('user_active');
             Route::post('download/transaction/invoice/{transaction}', 'downloadTransactionInvoice')->name('transaction.invoice.download');
             Route::get('my-jobs', 'myjobs')->name('myjob')->withoutMiddleware('has_plan');
@@ -151,6 +153,8 @@ Route::middleware('auth:user', 'verified')->group(function () {
             Route::delete('applications/group/destroy/{group}', 'applicationsGroupDestroy')->name('applications.group.destroy');
 
             Route::get('applications/send-sms', 'sendSMS')->name('applications.sms');
+
+            
             // ====== appication group End=======
         });
 

@@ -107,6 +107,8 @@
     "account" : "Account",
     "close_account" : "Close Account",
     "short_listed" : "Short Listed",
+    "short_list" : "Shortlist",
+    "interview_call" : "Call for Interview",
     "all_notification" : "All Notification",
     "forget_password" : "Forget Password",
     "keep_me_logged" : "Keep me logged in",

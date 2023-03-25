@@ -48,7 +48,7 @@
                                         <span id="autocomplete_job_results"></span>
                                     </div>
                                 </div>
-
+                                
                                 @php
                                     $oldLocation = request('location');
                                     $map = setting('default_map');
@@ -57,6 +57,7 @@
                                     <div class="tw-flex tw-gap-3">
                                         <div class="tw-w-full fromGroup position-relative">
                                             @if ($map == 'map-box')
+                                            
                                                 <input type="hidden" name="lat" id="lat" value="">
                                                 <input type="hidden" name="long" id="long" value="">
                                                 <input type="hidden" name="location" id="insertlocation" value="{{ request('location') }}">
@@ -125,12 +126,12 @@
                                                             <i class="ph-map-pin"></i>
                                                             {{ $company->full_address }}
                                                         </span>
-                                                        {{-- @if ($company->activejobs !== 0)
+                                                        @if ($company->activejobs !== 0)
                                                             <span class="loacton text-gray-400 ">
                                                                 <i class="ph-suitcase-simple"></i>
                                                                 {{ $company->activejobs }} - {{ __('open_job') }}
                                                             </span>
-                                                        @endif --}}
+                                                        @endif
                                                         </p>
                                                     </div>
                                                 </div>

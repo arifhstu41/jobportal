@@ -1056,7 +1056,7 @@ if (!function_exists('isFuture')) {
  *
  */
 if (!function_exists('sendSMS')) {
-    function sendSMS($user_id, $content_type, $job_id = null): bool
+    function sendSMS($user_id, $content_type, $job_id = null, $sms_content = null): bool
     {
         $user = User::find($user_id);
         $url = env("SMS_API_URL");
@@ -1064,12 +1064,15 @@ if (!function_exists('sendSMS')) {
         $type = "unicode";
         $phone = "88" . $user->phone;
         $sender_id = env('SMS_SENDER_ID');
-        $content = "জব পোর্টালে আপনাকে স্বাগতম";
-        if($content_type == "apply"){
-            $content = "চাকরিতে আবেদনের জন্য ধন্যবাদ";
-        }
         $template = DB::table('sms_content')->where("content_type", $content_type)->first();
-        // $content = $template->content_template;
+        if ($sms_content != null) {
+            $content = $sms_content;
+        } else {
+            $content = "জব পোর্টালে আপনাকে স্বাগতম";
+            if ($content_type == "apply") {
+                $content = "চাকরিতে আবেদনের জন্য ধন্যবাদ";
+            }
+        }
 
         $data = [
             "api_key" => $api_key,
@@ -1118,7 +1121,7 @@ if (!function_exists('sendSMS')) {
             'phone' => $phone,
             'response_code' => $response_code,
             'response_meaning' => $response_meaning,
-            'sms_content_id' => $template->id,
+            'sms_content_id' => $template->id ?? "0",
         ]);
 
         return true;
