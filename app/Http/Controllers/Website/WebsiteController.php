@@ -48,6 +48,7 @@ use Modules\Currency\Entities\Currency as CurrencyModel;
 use App\Notifications\Website\Candidate\ApplyJobNotification;
 use App\Notifications\Website\Candidate\BookmarkJobNotification;
 use App\Traits\ResetCvViewsHistoryTrait;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class WebsiteController extends Controller
 {
@@ -240,6 +241,7 @@ class WebsiteController extends Controller
 
     public function jobDetails(Job $job)
     {
+        // return view('website.pages.application-details');
         if ($job->status == 'pending') {
             if (!auth('admin')->check()) {
                 abort_if(!auth('user')->check(), 404);
@@ -398,6 +400,7 @@ class WebsiteController extends Controller
 
     public function employees(Request $request)
     {
+        // dd($request->all());
         // return $request;
         abort_if(auth('user')->check() && auth('user')->user()->role == 'company', 404);
 
@@ -405,24 +408,24 @@ class WebsiteController extends Controller
             'jobs as activejobs' => function ($q) {
                 $q->where('status', 'active');
 
-                $selected_country = session()->get('selected_country');
-                // $selected_country = session()->get('country_code');
-                if ($selected_country && $selected_country != null && $selected_country != 'all') {
-                    $country = selected_country()->name;
-                    $q->where('country', 'LIKE', "%$country%");
-                } else {
+                // $selected_country = session()->get('selected_country');
+                // // $selected_country = session()->get('country_code');
+                // if ($selected_country && $selected_country != null && $selected_country != 'all') {
+                //     $country = selected_country()->name;
+                //     $q->where('country', 'LIKE', "%$country%");
+                // } else {
 
-                    $setting = Setting::first();
-                    if ($setting->app_country_type == 'single_base') {
-                        if ($setting->app_country) {
+                //     $setting = Setting::first();
+                //     if ($setting->app_country_type == 'single_base') {
+                //         if ($setting->app_country) {
 
-                            $country = Country::where('id', $setting->app_country)->first();
-                            if ($country) {
-                                $q->where('country', 'LIKE', "%$country->name%");
-                            }
-                        }
-                    }
-                }
+                //             $country = Country::where('id', $setting->app_country)->first();
+                //             if ($country) {
+                //                 $q->where('country', 'LIKE', "%$country->name%");
+                //             }
+                //         }
+                //     }
+                // }
             }
         ])->withCount([
             'bookmarkCandidateCompany as candidatemarked' => function ($q) {
@@ -730,9 +733,17 @@ class WebsiteController extends Controller
 
         // send job application sms
         $sms = sendSMS(auth('user')->user()->id, "apply");
-
+        $this->downloadApplicationForm($job->id);
         flashSuccess('Job Applied Successfully');
         return back();
+    }
+
+    // candidate download application form
+    public function downloadApplicationForm($job_id){
+        
+        $data['message']= "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora ad accusantium nam, doloremque voluptatibus odit debitis. Alias, laudantium soluta! Ipsum nisi praesentium beatae delectus a unde. Ratione assumenda iste sunt at cumque illo possimus deleniti, enim, pariatur quasi totam itaque? Possimus recusandae illum fuga facere, hic adipisci, accusantium molestias neque reprehenderit unde dolores velit, atque dicta veniam modi provident qui repudiandae excepturi. Nihil error dignissimos dicta aliquid, obcaecati nostrum distinctio totam saepe voluptatem ducimus quod minus, odio mollitia! Maxime velit illum qui modi architecto perferendis reprehenderit sequi est. Reiciendis porro itaque delectus consequatur at aspernatur nihil deserunt commodi quia pariatur."; 
+        $application_form= Pdf::loadView('website.pages.application-details', $data);
+        return $application_form->download("applicant-copy.pdf");
     }
 
     public function register($role)

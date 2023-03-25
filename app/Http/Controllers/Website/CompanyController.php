@@ -52,6 +52,7 @@ use App\Http\Requests\Company\JobCreateRequest;
 use App\Http\Traits\CompanyJobTrait;
 use App\Notifications\Admin\NewEditedJobAvailableNotification;
 use App\Http\Traits\Jobable;
+use App\Models\ShortList;
 use App\Services\Midtrans\CreateSnapTokenService;
 use App\Notifications\Admin\NewJobAvailableNotification;
 use App\Notifications\Website\Company\JobEditedNotification;
@@ -67,7 +68,6 @@ class CompanyController extends Controller
 
     public function dashboard()
     {
-        // dd("helafdas");
         $data['userplan'] = UserPlan::with('plan')->companyData()->firstOrFail();
         $data['openJobCount'] = auth()->user()->company->jobs()->active()->count();
         $data['pendingJobCount'] = auth()->user()->company->jobs()->pending()->count();
@@ -118,6 +118,24 @@ class CompanyController extends Controller
         }
 
         return view('website.pages.company.myjobs', compact('myJobs'));
+    }
+
+    public function shortListCandidate($company_id, $applied_job_id){
+        $shortlist= ShortList::firstOrCreate([
+            'company_id' => $company_id,
+            'applied_job_id' =>$applied_job_id,
+        ]);
+        $applied= AppliedJob::find($applied_job_id);
+        $applied->short_listed=1;
+        $applied->save();
+        $candidate_id= $applied->candidate_id;
+
+        $candidate= Candidate::find($candidate_id);
+        $candidate->user->shortlisted_alert=1;
+        $candidate->user->save();
+
+        return back()->with('success', 'Candidate added to short List');
+        // dd("hello");
     }
 
     /**
@@ -593,6 +611,26 @@ class CompanyController extends Controller
 
     public function jobApplications(Request $request)
     {
+        $job = Job::findOrFail($request->job, ['id', 'title', 'company_id']);
+        $appliedJobs= AppliedJob::where('job_id', $request->job)->with(['candidate', 'job'])->get();
+
+        abort_if(auth('user')->user()->company->id != $job->company_id, 404);
+
+        return view('website.pages.company.job-application', compact('appliedJobs', 'job'));
+    }
+
+    // send interview sms
+    public function sendInterviewSMS($job_application_id){
+
+        $applied= AppliedJob::find($job_application_id);
+        $user= $applied->candidate->user->id;
+        $sms= sendSMS($user, "interview", $applied->job_id, "আপনাকে ইন্টারভিউ এর জন্য ডাকা হবে");
+       return  ($sms) ? true: false ;
+
+    }
+
+    public function jobApplicationsOld(Request $request)
+    {
         $application_groups = auth()->user()
             ->company
             ->applicationGroups()
@@ -603,7 +641,6 @@ class CompanyController extends Controller
                 }]);
             }])
             ->get();
-
 
         $job = Job::findOrFail($request->job, ['id', 'title', 'company_id']);
         abort_if(auth('user')->user()->company->id != $job->company_id, 404);

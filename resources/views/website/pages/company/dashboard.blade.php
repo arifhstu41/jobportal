@@ -23,7 +23,8 @@
                             <div class="col-xl-4 col-lg-6 col-md-6">
                                 <div class="single-feature-box">
                                     <div class="single-feature-data">
-                                        <h6 class="tw-text-[#18191C] tw-text-2xl tw-font-semibold" class="tw-text-[#18191C] tw-text-2xl tw-font-semibold">{{ $openJobCount }}</h6>
+                                        <h6 class="tw-text-[#18191C] tw-text-2xl tw-font-semibold"
+                                            class="tw-text-[#18191C] tw-text-2xl tw-font-semibold">{{ $openJobCount }}</h6>
                                         <p>{{ __('open_job') }}</p>
                                     </div>
                                     <div class="single-feature-icon">
@@ -34,7 +35,9 @@
                             <div class="col-xl-4 col-lg-6 col-md-6">
                                 <div class="single-feature-box">
                                     <div class="single-feature-data">
-                                        <h6 class="tw-text-[#18191C] tw-text-2xl tw-font-semibold" class="tw-text-[#18191C] tw-text-2xl tw-font-semibold">{{ $savedCandidates }}</h6>
+                                        <h6 class="tw-text-[#18191C] tw-text-2xl tw-font-semibold"
+                                            class="tw-text-[#18191C] tw-text-2xl tw-font-semibold">{{ $savedCandidates }}
+                                        </h6>
                                         <p>{{ __('saved_candidate') }}</p>
                                     </div>
                                     <div class="single-feature-icon">
@@ -45,7 +48,9 @@
                             <div class="col-xl-4 col-lg-6 col-md-6">
                                 <div class="single-feature-box bg-danger-50">
                                     <div class="single-feature-data">
-                                        <h6 class="tw-text-[#18191C] tw-text-2xl tw-font-semibold" class="tw-text-[#18191C] tw-text-2xl tw-font-semibold">{{ $pendingJobCount }}</h6>
+                                        <h6 class="tw-text-[#18191C] tw-text-2xl tw-font-semibold"
+                                            class="tw-text-[#18191C] tw-text-2xl tw-font-semibold">{{ $pendingJobCount }}
+                                        </h6>
                                         <p>{{ __('pending_jobs') }}</p>
                                     </div>
                                     <div class="single-feature-icon">
@@ -59,7 +64,8 @@
                             <div class="col-xl-3 col-lg-6 col-md-6">
                                 <div class="single-feature-box bg-success-50">
                                     <div class="single-feature-data">
-                                        <h6 class="tw-text-[#18191C] tw-text-2xl tw-font-semibold">{{ $userplan->job_limit }}</h6>
+                                        <h6 class="tw-text-[#18191C] tw-text-2xl tw-font-semibold">
+                                            {{ $userplan->job_limit }}</h6>
                                         <p>{{ __('active_jobs') }}</p>
                                     </div>
                                     <div class="single-feature-icon">
@@ -70,7 +76,8 @@
                             <div class="col-xl-3 col-lg-6 col-md-6">
                                 <div class="single-feature-box bg-warning-50">
                                     <div class="single-feature-data">
-                                        <h6 class="tw-text-[#18191C] tw-text-2xl tw-font-semibold">{{ $userplan->highlight_job_limit }}</h6>
+                                        <h6 class="tw-text-[#18191C] tw-text-2xl tw-font-semibold">
+                                            {{ $userplan->highlight_job_limit }}</h6>
                                         <p>{{ __('highlight_jobs') }}</p>
                                     </div>
                                     <div class="single-feature-icon">
@@ -81,7 +88,8 @@
                             <div class="col-xl-3 col-lg-6 col-md-6">
                                 <div class="single-feature-box">
                                     <div class="single-feature-data">
-                                        <h6 class="tw-text-[#18191C] tw-text-2xl tw-font-semibold">{{ $userplan->featured_job_limit }}</h6>
+                                        <h6 class="tw-text-[#18191C] tw-text-2xl tw-font-semibold">
+                                            {{ $userplan->featured_job_limit }}</h6>
                                         <p>{{ __('featured_jobs') }}</p>
                                     </div>
                                     <div class="single-feature-icon">
@@ -92,7 +100,8 @@
                             <div class="col-xl-3 col-lg-6 col-md-6">
                                 <div class="single-feature-box bg-danger-50">
                                     <div class="single-feature-data">
-                                        <h6>{{ $userplan->candidate_cv_view_limitation == 'limited' ? $userplan->candidate_cv_view_limit:'∞' }}</h6>
+                                        <h6>{{ $userplan->candidate_cv_view_limitation == 'limited' ? $userplan->candidate_cv_view_limit : '∞' }}
+                                        </h6>
                                         <p>{{ __('profile_view') }}</p>
                                     </div>
                                     <div class="single-feature-icon">
@@ -196,8 +205,9 @@
                                                             <li>
                                                                 <a href="{{ route('company.promote', $job->slug) }}"
                                                                     class="dropdown-item">
-                                                                    <svg width="20" height="20" viewBox="0 0 20 20"
-                                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <svg width="20" height="20"
+                                                                        viewBox="0 0 20 20" fill="none"
+                                                                        xmlns="http://www.w3.org/2000/svg">
                                                                         <path
                                                                             d="M10 17.5C14.1421 17.5 17.5 14.1421 17.5 10C17.5 5.85786 14.1421 2.5 10 2.5C5.85786 2.5 2.5 5.85786 2.5 10C2.5 14.1421 5.85786 17.5 10 17.5Z"
                                                                             stroke="#0A65CC" stroke-width="1.5"
@@ -280,6 +290,7 @@
                                 <i class="ph-arrow-right f-size-20 rt-ml-8"></i>
                             </a> --}}
                         </div>
+
                         <div class="db-job-card-table">
                             <table>
                                 <thead>
@@ -289,9 +300,12 @@
                                         <th>{{ __('action') }}</th>
                                     </tr>
                                 </thead>
+
                                 <tbody>
                                     @if ($appliedJobs->count() > 0)
                                         @foreach ($appliedJobs as $applied)
+                                            {{-- @dd($applied->shortlists) --}}
+                                            {{-- @dd($applied->job->company->id) --}}
                                             <tr>
                                                 <td>
                                                     {{ $applied->job->title }}
@@ -301,13 +315,46 @@
                                                 </td>
                                                 <td>
                                                     <div class="db-job-btn-wrap d-flex justify-content-end">
-                                                        {{-- <a href="{{ route('company.job.application', ['job' => $job->id]) }}"
+                                                        <a href="{{ route('company.applications.sms') }}"
                                                             class="btn bg-gray-50 text-primary-500 rt-mr-8">
                                                             <span class="button-text">
-                                                                {{ __('view_applications') }}
+                                                                View {{ __('profile') }}
                                                             </span>
-                                                        </a> --}}
-                                                        <button type="button" class="btn btn-icon" id="dropdownMenuButton5"
+                                                        </a>
+                                                        @if (!$applied->short_listed)
+                                                            <a href="{{ route('company.shortlist.candidte', ['company_id' => $applied->job->company->id, 'applied_job_id' => $applied->id]) }}"
+                                                                class="btn bg-gray-50 text-primary-500 rt-mr-8">
+                                                                <span class="button-text">
+                                                                    {{ __('short_list') }}
+                                                                </span>
+                                                            </a>
+                                                            {{-- <a href="{{ route('company.applications.sms') }}"
+                                                                class="btn bg-gray-50 text-warning-500 rt-mr-8">
+                                                                <span class="button-text">
+                                                                    {{ __('interview_call') }}
+                                                                </span>
+                                                            </a> --}}
+                                                        @else
+                                                            <a href="{{ route('company.applications.sms') }}" class="ms-2 d-flex align-items-center">
+                                                                <svg width="20" height="20" viewBox="0 0 20 20"
+                                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path
+                                                                        d="M10 17.5C14.1421 17.5 17.5 14.1421 17.5 10C17.5 5.85786 14.1421 2.5 10 2.5C5.85786 2.5 2.5 5.85786 2.5 10C2.5 14.1421 5.85786 17.5 10 17.5Z"
+                                                                        stroke="#0A65CC" stroke-width="1.5"
+                                                                        stroke-miterlimit="10" />
+                                                                    <path d="M6.875 10H13.125" stroke="#0A65CC"
+                                                                        stroke-width="1.5" stroke-linecap="round"
+                                                                        stroke-linejoin="round" />
+                                                                    <path d="M10 6.875V13.125" stroke="#0A65CC"
+                                                                        stroke-width="1.5" stroke-linecap="round"
+                                                                        stroke-linejoin="round" />
+                                                                </svg>
+                                                                {{ __('Send SMS') }}
+                                                            </a>
+                                                        @endif
+
+
+                                                        {{-- <button type="button" class="btn btn-icon" id="dropdownMenuButton5"
                                                             data-bs-toggle="dropdown" aria-expanded="false">
                                                             <svg width="24" height="24" viewBox="0 0 24 24"
                                                                 fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -344,50 +391,7 @@
                                                                     {{ __('Send SMS') }}
                                                                 </a>
                                                             </li>
-                                                            {{-- <li>
-                                                                <a class="dropdown-item"
-                                                                    href="{{ route('website.job.details', $applied->id) }}">
-                                                                    <svg width="20" height="20"
-                                                                        viewBox="0 0 20 20" fill="none"
-                                                                        xmlns="http://www.w3.org/2000/svg">
-                                                                        <path
-                                                                            d="M10 3.54102C3.75 3.54102 1.25 9.99996 1.25 9.99996C1.25 9.99996 3.75 16.4577 10 16.4577C16.25 16.4577 18.75 9.99996 18.75 9.99996C18.75 9.99996 16.25 3.54102 10 3.54102Z"
-                                                                            stroke="var(--primary-500)" stroke-width="1.5"
-                                                                            stroke-linecap="round"
-                                                                            stroke-linejoin="round" />
-                                                                        <path
-                                                                            d="M10 13.125C11.7259 13.125 13.125 11.7259 13.125 10C13.125 8.27411 11.7259 6.875 10 6.875C8.27411 6.875 6.875 8.27411 6.875 10C6.875 11.7259 8.27411 13.125 10 13.125Z"
-                                                                            stroke="var(--primary-500)" stroke-width="1.5"
-                                                                            stroke-linecap="round"
-                                                                            stroke-linejoin="round" />
-                                                                    </svg>
-                                                                    {{ __('view_details') }}
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <form method="POST"
-                                                                    action="{{ route('company.job.make.expire', $applied->id) }}">
-                                                                    @csrf
-                                                                    <button type="submit" class="dropdown-item">
-                                                                        <svg width="20" height="20"
-                                                                            viewBox="0 0 20 20" fill="none"
-                                                                            xmlns="http://www.w3.org/2000/svg">
-                                                                            <path
-                                                                                d="M10 17.5C14.1421 17.5 17.5 14.1421 17.5 10C17.5 5.85786 14.1421 2.5 10 2.5C5.85786 2.5 2.5 5.85786 2.5 10C2.5 14.1421 5.85786 17.5 10 17.5Z"
-                                                                                stroke="#5E6670" stroke-width="1.5"
-                                                                                stroke-miterlimit="10"></path>
-                                                                            <path d="M12.5 7.5L7.5 12.5" stroke="#5E6670"
-                                                                                stroke-width="1.5" stroke-linecap="round"
-                                                                                stroke-linejoin="round"></path>
-                                                                            <path d="M12.5 12.5L7.5 7.5" stroke="#5E6670"
-                                                                                stroke-width="1.5" stroke-linecap="round"
-                                                                                stroke-linejoin="round"></path>
-                                                                        </svg>
-                                                                        {{ __('make_it_expire') }}
-                                                                    </button>
-                                                                </form>
-                                                            </li> --}}
-                                                        </ul>
+                                                        </ul> --}}
                                                     </div>
                                                 </td>
                                             </tr>
