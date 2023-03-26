@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Website;
 use Barryvdh\DomPDF\PDF;
-// use PDF;
+
 use Carbon\Carbon;
 use Faker\Factory;
 use App\Models\cms;
@@ -60,8 +60,6 @@ use App\Notifications\Website\Company\JobCreatedNotification;
 use App\Notifications\Website\Company\JobDeletedNotification;
 use App\Notifications\Website\Company\CandidateBookmarkNotification;
 use App\Notifications\Website\Company\EditApproveNotification;
-use PhpParser\Node\Stmt\Return_;
-
 class CompanyController extends Controller
 {
     use CompanyJobTrait, Jobable;

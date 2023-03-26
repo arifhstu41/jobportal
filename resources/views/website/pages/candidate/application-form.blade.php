@@ -42,7 +42,7 @@
                 <div>{{$error}}</div>
             @endforeach
             @endif --}}
-            <form action="{{ route('website.candidate.application.form.submit') }}" method="POST">
+            <form action="{{ route('website.candidate.application.form.submit') }}" method="POST"  enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-sm-10 col-md-8 mx-auto">
