@@ -72,7 +72,8 @@ class CompanyController extends Controller
 
         // Recent 4 Jobs
         $data['recentJobs'] = auth()->user()->company->jobs()->latest()->take(4)->with('company.user', 'job_type')->withCount('appliedJobs')->get();
-        $data['appliedJobs']= AppliedJob::with(['candidate', 'job'])->get();
+        $jobs= Job::where('company_id', auth()->user()->company->id)->pluck('id');
+        $data['appliedJobs']= AppliedJob::with(['candidate', 'job'])->whereIn('job_id', $jobs)->get();
         $data['savedCandidates']  = auth()->user()->company->bookmarkCandidates()->count();
 
         return view('website.pages.company.dashboard', $data);

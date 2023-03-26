@@ -282,13 +282,8 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="recently-applied-wrap d-flex justify-content-between align-items-center rt-mb-15">
+                        {{-- <div class="recently-applied-wrap d-flex justify-content-between align-items-center rt-mb-15">
                             <h3 class="f-size-16">{{ __('applications') }}</h3>
-                            {{-- <a class="view-all text-gray-500 f-size-16 d-flex align-items-center"
-                                href="{{ route('company.myjob') }}">
-                                {{ __('view_all') }}
-                                <i class="ph-arrow-right f-size-20 rt-ml-8"></i>
-                            </a> --}}
                         </div>
 
                         <div class="db-job-card-table">
@@ -304,8 +299,6 @@
                                 <tbody>
                                     @if ($appliedJobs->count() > 0)
                                         @foreach ($appliedJobs as $applied)
-                                            {{-- @dd($applied->shortlists) --}}
-                                            {{-- @dd($applied->job->company->id) --}}
                                             <tr>
                                                 <td>
                                                     {{ $applied->job->title }}
@@ -328,12 +321,6 @@
                                                                     {{ __('short_list') }}
                                                                 </span>
                                                             </a>
-                                                            {{-- <a href="{{ route('company.applications.sms') }}"
-                                                                class="btn bg-gray-50 text-warning-500 rt-mr-8">
-                                                                <span class="button-text">
-                                                                    {{ __('interview_call') }}
-                                                                </span>
-                                                            </a> --}}
                                                         @else
                                                             <a href="{{ route('company.applications.sms') }}" class="ms-2 d-flex align-items-center">
                                                                 <svg width="20" height="20" viewBox="0 0 20 20"
@@ -352,46 +339,6 @@
                                                                 {{ __('Send SMS') }}
                                                             </a>
                                                         @endif
-
-
-                                                        {{-- <button type="button" class="btn btn-icon" id="dropdownMenuButton5"
-                                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                                            <svg width="24" height="24" viewBox="0 0 24 24"
-                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <path
-                                                                    d="M12 13.125C12.6213 13.125 13.125 12.6213 13.125 12C13.125 11.3787 12.6213 10.875 12 10.875C11.3787 10.875 10.875 11.3787 10.875 12C10.875 12.6213 11.3787 13.125 12 13.125Z"
-                                                                    fill="#767F8C" stroke="#767F8C" />
-                                                                <path
-                                                                    d="M12 6.65039C12.6213 6.65039 13.125 6.14671 13.125 5.52539C13.125 4.90407 12.6213 4.40039 12 4.40039C11.3787 4.40039 10.875 4.90407 10.875 5.52539C10.875 6.14671 11.3787 6.65039 12 6.65039Z"
-                                                                    fill="#767F8C" stroke="#767F8C" />
-                                                                <path
-                                                                    d="M12 19.6094C12.6213 19.6094 13.125 19.1057 13.125 18.4844C13.125 17.8631 12.6213 17.3594 12 17.3594C11.3787 17.3594 10.875 17.8631 10.875 18.4844C10.875 19.1057 11.3787 19.6094 12 19.6094Z"
-                                                                    fill="#767F8C" stroke="#767F8C" />
-                                                            </svg>
-                                                        </button>
-                                                        <ul class="dropdown-menu dropdown-menu-end company-dashboard-dropdown"
-                                                            aria-labelledby="dropdownMenuButton5">
-                                                            <li>
-                                                                <a href="{{ route('company.applications.sms') }}"
-                                                                    class="dropdown-item">
-                                                                    <svg width="20" height="20" viewBox="0 0 20 20"
-                                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                        <path
-                                                                            d="M10 17.5C14.1421 17.5 17.5 14.1421 17.5 10C17.5 5.85786 14.1421 2.5 10 2.5C5.85786 2.5 2.5 5.85786 2.5 10C2.5 14.1421 5.85786 17.5 10 17.5Z"
-                                                                            stroke="#0A65CC" stroke-width="1.5"
-                                                                            stroke-miterlimit="10" />
-                                                                        <path d="M6.875 10H13.125" stroke="#0A65CC"
-                                                                            stroke-width="1.5" stroke-linecap="round"
-                                                                            stroke-linejoin="round" />
-                                                                        <path d="M10 6.875V13.125" stroke="#0A65CC"
-                                                                            stroke-width="1.5" stroke-linecap="round"
-                                                                            stroke-linejoin="round" />
-                                                                    </svg>
-
-                                                                    {{ __('Send SMS') }}
-                                                                </a>
-                                                            </li>
-                                                        </ul> --}}
                                                     </div>
                                                 </td>
                                             </tr>
@@ -406,7 +353,7 @@
                                     @endif
                                 </tbody>
                             </table>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
