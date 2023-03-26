@@ -11,6 +11,8 @@ use App\Http\Controllers\GlobalController;
 use App\Http\Controllers\Website\CandidateController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
+Route::get('verify/application/{job_id}/{candidate_id}', [WebsiteController::class, 'verifyApplication'])->name('verify.application');
+
 // Authentication
 if (!app()->runningInConsole()) {
     Auth::routes(['verify' => setting('email_verification')]);
@@ -46,6 +48,7 @@ Route::controller(WebsiteController::class)->name('website.')->group(function ()
     Route::get('/jobs/{job:slug}', 'jobDetails')->name('job.details');
     Route::get('/jobs/{job:slug}/bookmark', 'toggleBookmarkJob')->name('job.bookmark')->middleware('user_active');
     Route::post('/jobs/apply', 'toggleApplyJob')->name('job.apply')->middleware('user_active');
+    Route::get('/jobs/application-success/{job_id}', 'applySuccess')->name('application.success');
     Route::get('job/download-application-form/{job_id}', 'downloadApplicationForm')->name('download.application.form');
     Route::get('/candidates', 'candidates')->name('candidate');
     Route::get('/candidates/{candidate:username}', 'candidateDetails')->name('candidate.details');

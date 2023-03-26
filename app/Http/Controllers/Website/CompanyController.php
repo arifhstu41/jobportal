@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Website;
 use Barryvdh\DomPDF\PDF;
-// use PDF;
+
 use Carbon\Carbon;
 use Faker\Factory;
 use App\Models\cms;
@@ -60,8 +60,6 @@ use App\Notifications\Website\Company\JobCreatedNotification;
 use App\Notifications\Website\Company\JobDeletedNotification;
 use App\Notifications\Website\Company\CandidateBookmarkNotification;
 use App\Notifications\Website\Company\EditApproveNotification;
-use PhpParser\Node\Stmt\Return_;
-
 class CompanyController extends Controller
 {
     use CompanyJobTrait, Jobable;
@@ -74,7 +72,8 @@ class CompanyController extends Controller
 
         // Recent 4 Jobs
         $data['recentJobs'] = auth()->user()->company->jobs()->latest()->take(4)->with('company.user', 'job_type')->withCount('appliedJobs')->get();
-        $data['appliedJobs']= AppliedJob::with(['candidate', 'job'])->get();
+        $jobs= Job::where('company_id', auth()->user()->company->id)->pluck('id');
+        $data['appliedJobs']= AppliedJob::with(['candidate', 'job'])->whereIn('job_id', $jobs)->get();
         $data['savedCandidates']  = auth()->user()->company->bookmarkCandidates()->count();
 
         return view('website.pages.company.dashboard', $data);

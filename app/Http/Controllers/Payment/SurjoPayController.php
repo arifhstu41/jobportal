@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Payment;
 
 use App\Http\Controllers\Controller;
 use App\Http\Traits\PaymentTrait;
+use App\Models\UserPlan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 // use ShurjopayPlugin\Shurjopay;
@@ -85,13 +86,26 @@ class SurjoPayController extends Controller
             return view('website.pages.candidate.verification');
         }
 
+        
+
         if(auth()->user()->role == "company"){
+            if(session('plan')){
+                $plan = session('plan');
+                $company= auth()->user()->company;
+                $company->userPlan()->create([
+                    'plan_id'  =>  $plan->id,
+                    'job_limit'  =>  $plan->job_limit,
+                    'featured_job_limit'  =>  $plan->featured_job_limit,
+                    'highlight_job_limit'  =>  $plan->highlight_job_limit,
+                    'candidate_cv_view_limit'  =>  $plan->candidate_cv_view_limit,
+                    'candidate_cv_view_limitation'  =>  $plan->candidate_cv_view_limitation,
+                ]);
+            }
+            
             return redirect()->route('company.dashboard');
         }
 
         return redirect()->route('website');
-
-        // $this->orderPlacing();
 
     }
 

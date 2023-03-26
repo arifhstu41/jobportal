@@ -83,7 +83,7 @@
                                                                 <p>{!! $job->description !!}</p>
                                                                 <span class="info-tools">
                                                                     <x-svg.location-icon/>
-                                                                    {{ $job->locations }}
+                                                                    {{ $job->locations ?? "Dhaka, Bangladesh" }}
                                                                 </span>
                                                                 <span class="info-tools">
                                                                     <x-svg.calender-icon/>

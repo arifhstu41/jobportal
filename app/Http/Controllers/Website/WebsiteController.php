@@ -714,7 +714,7 @@ class WebsiteController extends Controller
         $candidate = auth('user')->user()->candidate;
         $job = Job::find($request->id);
 
-        DB::table('applied_jobs')->insert([
+        $applied= DB::table('applied_jobs')->insert([
             'candidate_id' => $candidate->id,
             'job_id' => $job->id,
             'cover_letter' => $request->cover_letter,
@@ -733,17 +733,38 @@ class WebsiteController extends Controller
 
         // send job application sms
         $sms = sendSMS(auth('user')->user()->id, "apply");
-        $this->downloadApplicationForm($job->id);
         flashSuccess('Job Applied Successfully');
-        return back();
+        return redirect()->route('website.application.success', $job->id);
+    }
+
+    // application success
+    public function applySuccess($job_id){
+        $job= Job::find($job_id);
+        return view('website.pages.company.application-success', compact('job'));
     }
 
     // candidate download application form
     public function downloadApplicationForm($job_id){
-        
-        $data['message']= "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora ad accusantium nam, doloremque voluptatibus odit debitis. Alias, laudantium soluta! Ipsum nisi praesentium beatae delectus a unde. Ratione assumenda iste sunt at cumque illo possimus deleniti, enim, pariatur quasi totam itaque? Possimus recusandae illum fuga facere, hic adipisci, accusantium molestias neque reprehenderit unde dolores velit, atque dicta veniam modi provident qui repudiandae excepturi. Nihil error dignissimos dicta aliquid, obcaecati nostrum distinctio totam saepe voluptatem ducimus quod minus, odio mollitia! Maxime velit illum qui modi architecto perferendis reprehenderit sequi est. Reiciendis porro itaque delectus consequatur at aspernatur nihil deserunt commodi quia pariatur."; 
-        $application_form= Pdf::loadView('website.pages.application-details', $data);
+
+        $job= Job::find($job_id);
+        $candidate= auth('user')->user()->candidate;
+        $data['candidate'] = $candidate;
+        $data['job'] = $job;
+        $data['message']= "dsfdsfd"; 
+        $application_form= Pdf::loadView('website.pages.application-details', $data)->setPaper('a4', 'portrait');
+        // return $application_form->stream();
         return $application_form->download("applicant-copy.pdf");
+    }
+
+    // verify application from public url
+    public function verifyApplication($job_id, $candidate_id){
+        $job= Job::find($job_id);
+        $candidate= Candidate::find($candidate_id);
+        $data['candidate'] = $candidate;
+        $data['job'] = $job;
+        $data['message']= "dsfdsfd"; 
+        $application_form= Pdf::loadView('website.pages.application-details', $data)->setPaper('a4', 'portrait');
+        return $application_form->stream();
     }
 
     public function register($role)
@@ -1365,6 +1386,16 @@ class WebsiteController extends Controller
                 $education->save();
             }
 
+            if ($request->picture) {
+                $picture_url = uploadFileToPublic($request->picture, 'candidate');
+                $candidate->photo = $picture_url;
+            }
+
+            if ($request->signature) {
+                $signature_url = uploadFileToPublic($request->signature, 'candidate');
+                $candidate->signature = $signature_url;
+            }
+           
             $candidate->profile_complete = 0;
             $candidate->save();
             DB::commit();
