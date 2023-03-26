@@ -1068,9 +1068,12 @@ class WebsiteController extends Controller
         $headers[] = 'X-Api-Key: ' . env('PORICHOY_API_KEY');
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         $result = curl_exec($ch);
-        curl_close($ch);
 
+        curl_close($ch);
+      
         $result = json_decode($result);
+
+        
         if (curl_errno($ch) || (!(isset($result->status) && $result->status =="YES"))) {
             $error_message = "";
             if (isset($result->errors)) {
@@ -1087,7 +1090,7 @@ class WebsiteController extends Controller
             // update user
             $user = User::find(Auth::user()->id);
             $user->name = $nid->fullNameEN;
-
+            $user->save();
             // update candidate
             $candidate = Candidate::where('user_id', Auth::user()->id)->first();
             $candidate->name_bn = $nid->fullNameBN;
@@ -1100,10 +1103,9 @@ class WebsiteController extends Controller
             $candidate->place = $nid->presentAddressBN;
             $candidate->place_parmanent = $nid->permanentAddressBN;
             $candidate->nid_no = $nid->nationalIdNumber;
-            if ($nid->spouseNameEN) {
+            if (isset($nid->spouseNameEN)) {
                 $candidate->marital_status = "married";
-            }
-            if ($nid->spouseNameEN) {
+            }else{
                 $candidate->marital_status = "single";
             }
 
