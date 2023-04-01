@@ -453,7 +453,7 @@
                         <input type="hidden" id="apply_job_id" name="id">
                         <div class="from-group">
                             <div class="tw-flex tw-justify-between tw-items-center">
-                                <x-forms.label name="choose_resume" :required="true" />
+                                <x-forms.label name="choose_resume" :required="false" />
                                 <div class="tw-m-2">
                                     <button onclick="resumeAddModal()" type="button"
                                         class=" tw-bg-white tw-tracking-wide tw-text-gray-800 tw-font-bold tw-rounded tw-border-b-2 tw-border-blue-500 hover:tw-border-blue-600 hover:tw-bg-blue-500 hover:tw-text-white tw-shadow-md tw-py-1.5 tw-px-6 tw-inline-flex tw-items-center">
@@ -470,7 +470,7 @@
                             </select>
                         </div>
                         <div class="form-group mt-3">
-                            <x-forms.label name="cover_letter" :required="true" />
+                            <x-forms.label name="cover_letter" :required="false" />
                             <textarea id="default" class="form-control @error('cover_letter') is-invalid @enderror" name="cover_letter"
                                 rows="7"></textarea>
                             @error('cover_letter')

@@ -41,7 +41,7 @@
                                 </div>
                                 <input type="hidden" name="token" value="{{ $token }}">
                                 <div class="d-none fromGroup rt-mb-15">
-                                    <input id="email" type="email"
+                                    <input id="email" type="number" pattern="\d*"
                                         class="form-control @error('email') is-invalid @enderror" name="email"
                                         value="{{ $email ?? old('email') }}"
                                         placeholder="{{ __('email_address') }}">

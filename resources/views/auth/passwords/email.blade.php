@@ -13,22 +13,13 @@
         </div>
         <div class="card-body">
             <div class="auth-box2">
-                <form method="POST" action="{{ route('password.email') }}" class="rt-form">
+                <form method="POST" action="{{ route('get.password.reset.otp') }}" class="rt-form">
                     @csrf
-                    <div class="text-center" style="color: #2e3397">
-                        <h4 class="rt-mb-20">{{ __('reset_password') }}</h4>
-                        <span class="d-block body-font-3 text-gray-600 rt-mb-32 mb-2">
-                            {{ __('go_back_to') }}
-                            <span><a href="{{ route('login') }}">{{ __('log_in') }}</a></span>
-                        </span>
-                        <span class="d-block body-font-3 text-gray-600 rt-mb-32">
-                            {{ __('dont_have_account') }}
-                            <span><a href="{{ route('register') }}">
-                                    {{ __('create_account') }}</a></span>
-                        </span>
+                    
+                    <div class="" style="color: #2e3397">
+                        <h5 class="">Forgot Password?</h5>
                     </div>
-
-                    <div class="fromGroup rt-mb-15">
+                    {{-- <div class="fromGroup rt-mb-15">
                         <input id="email" class="form-control @error('email') is-invalid @enderror" name="email"
                             value="{{ old('email') }}" type="email" placeholder="{{ __('email_address') }}">
                         @error('email')
@@ -36,8 +27,19 @@
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
+                    </div> --}}
+
+                    <div class="fromGroup rt-mb-15">
+                        <p for="phone" class="text-muted font-size-13 pb-0 mb-0">Enter your {{ __('phone') }}</p>
+                        <input id="phone" class="form-control rounded-3 @error('phone') is-invalid @enderror" name="phone"
+                            value="{{ old('phone') }}" type="number" pattern="\d*" placeholder="01751767350">
+                        @error('phone')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
-                    <button id="submitButton" type="submit" class="btn btn-primary d-block rt-mb-15">
+                    <button id="submitButton" type="submit" class="btn bg-primary rounded-pill d-block rt-mb-15">
                         <span class="button-content-wrapper ">
                             <span class="button-icon align-icon-right">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -49,11 +51,23 @@
                                 </svg>
                             </span>
                             <span class="button-text">
-                                {{ __('send_password_reset_link') }}
+                                Continue
                             </span>
                         </span>
                     </button>
                 </form>
+            </div>
+            
+            <div class="text-center" style="color: #2e3397">
+                <span class="d-block body-font-3 text-gray-600 rt-mb-32 mb-2">
+                    {{ __('go_back_to') }}
+                    <span><a href="{{ route('login') }}"><strong style="color: #2e3397">{{ __('log_in') }}</strong></a></span>
+                </span>
+                <span class="d-block body-font-3 text-gray-600 rt-mb-32">
+                    {{ __('dont_have_account') }}
+                    <span><a href="{{ route('register') }}"> <strong style="color: #2e3397">{{ __('create_account') }}</strong>
+                            </a></span>
+                </span>
             </div>
         </div>
         <div class="card-footer text-center mx-auto px-0 pt-0">

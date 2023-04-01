@@ -88,7 +88,7 @@
                                     </div>
                                     <div class="col-sm-4 col-md-3 py-2">
                                         <input class="form-control @error('id_no') is-invalid @enderror" name="id_no"
-                                            type="text" value="" id="id_no" placeholder="ID No" required>
+                                        type="number" pattern="\d*" value="" id="id_no" placeholder="ID No" required>
                                         @error('id_no')
                                             <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                                         @enderror

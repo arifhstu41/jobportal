@@ -22,9 +22,9 @@
                 </span>
                 </div>
                 <div class="fromGroup rt-mb-15">
-                    <input type="text" name="email" id="email"
+                    <input type="number" pattern="\d*" name="email" id="email"
                         class="form-control @error('email') is-invalid @enderror"
-                        value="{{ old('email') }}" placeholder="{{ __('Mobile Number') }}">
+                        value="{{ old('email') }}" placeholder="{{ __('phone') }}">
                     @error('email')
                         <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                     @enderror
@@ -66,8 +66,8 @@
                     </div>
                     <div class="flex-grow-0">
                         <span class="body-font-4">
-                            <a href="{{ route('password.request') }}" class="text-primary-500">
-                                {{ __('forget_password') }}
+                            <a href="{{ route('password.request') }}" class=""> <strong style="color: #2e3397">{{ __('forget_password') }}?</strong>
+                                
                             </a>
                         </span>
                     </div>

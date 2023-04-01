@@ -55,22 +55,23 @@ class SurjoPayController extends Controller
         $request = new PaymentRequest();
 
         $request->currency = 'BDT';
-        $request->amount = $info['amount'] ?? 10;
+        $request->amount =  10;
+        // $request->amount = $info['amount'] ?? 10;
         $request->discountAmount = $info['discountAmount'] ?? 0;
         $request->discPercent = $info['discPercent'] ?? 0;
-        $request->customerName = auth()->user()->name;
-        $request->customerPhone = auth()->user()->phone;
-        $request->customerEmail = auth()->user()->email ?? "user@email.com";
-        $request->customerAddress = 'Dhaka';
-        $request->customerCity = 'Dhaka';
-        $request->customerState = 'Dhaka';
+        $request->customerName = "Welfare Family Bangladesh";
+        $request->customerPhone = "01712644059";
+        $request->customerEmail = "welfare.rmt@gmail.com";
+        $request->customerAddress = 'Rangamati';
+        $request->customerCity = 'Rangamati';
+        $request->customerState = 'Chattogram';
         $request->customerPostcode = '1207';
         $request->customerCountry = 'Bangladesh';
-        $request->shippingAddress = 'Dhaka';
-        $request->shippingCity = 'Dhaka';
+        $request->shippingAddress = 'Rangamati';
+        $request->shippingCity = 'Rangamati';
         $request->shippingCountry = 'Bangladesh';
-        $request->receivedPersonName = auth()->user()->name;
-        $request->shippingPhoneNumber = auth()->user()->phone;
+        $request->receivedPersonName = "Welfare Family Bangladesh";
+        $request->shippingPhoneNumber = "01712644059";
         $request->value1 = 'value1';
         $request->value2 = 'value2';
         $request->value3 = 'value3';
@@ -90,32 +91,35 @@ class SurjoPayController extends Controller
         $data = (array)$data[0];
         $data['surjopay_id'] = $data['id'];
         unset($data['id']);
-
         DB::table('payments')->insert($data);
-        flashSuccess('Payment Successfull!');
 
-        if (auth()->user()->role == "candidate") {
-            return view('website.pages.candidate.verification');
-        }
-
-        if (auth()->user()->role == "company") {
-            if (session('plan')) {
-                $plan = session('plan');
-                $company = auth()->user()->company;
-                $company->userPlan()->create([
-                    'plan_id'  =>  $plan->id,
-                    'job_limit'  =>  $plan->job_limit,
-                    'featured_job_limit'  =>  $plan->featured_job_limit,
-                    'highlight_job_limit'  =>  $plan->highlight_job_limit,
-                    'candidate_cv_view_limit'  =>  $plan->candidate_cv_view_limit,
-                    'candidate_cv_view_limitation'  =>  $plan->candidate_cv_view_limitation,
-                ]);
+        if($data['sp_massage'] == "Success"){
+            
+            flashSuccess('Payment Successfull!');
+            if (auth()->user()->role == "candidate") {
+                return view('website.pages.candidate.verification');
             }
-
-            return redirect()->route('company.dashboard');
+    
+            if (auth()->user()->role == "company") {
+                if (session('plan')) {
+                    $plan = session('plan');
+                    $company = auth()->user()->company;
+                    $company->userPlan()->create([
+                        'plan_id'  =>  $plan->id,
+                        'job_limit'  =>  $plan->job_limit,
+                        'featured_job_limit'  =>  $plan->featured_job_limit,
+                        'highlight_job_limit'  =>  $plan->highlight_job_limit,
+                        'candidate_cv_view_limit'  =>  $plan->candidate_cv_view_limit,
+                        'candidate_cv_view_limitation'  =>  $plan->candidate_cv_view_limitation,
+                    ]);
+                }
+    
+                return redirect()->route('company.dashboard');
+            }
         }
-
-        return redirect()->route('website');
+        flashError("Payment Failed!");
+        // return redirect()->back();
+        return redirect()->route('website.home');
     }
 
     public function cancelPayment(Request $request)

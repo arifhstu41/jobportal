@@ -110,8 +110,14 @@
                             <img class="img-fluid img-thumbnail" src="{{ asset('images/welfare-banner.png') }}" alt="welfarelogo">
                         </div>
                         <div class="card-body text-center">
-                            <p><input type="checkbox" value="1" id="checkbox"> By Continuing, I Confirm that I Read & Agree To the Terms & Conditions and Privacy Policy.</p>
-                            <button id="surjo_pay_btn" type="button" class="btn btn-primary2-50 text-uppercase">
+                            <p><input type="checkbox" value="1" id="checkbox"> By Continuing, I Confirm that I Read & Agree To the <a href="{{ url('terms-condition') }}" target="_blank"
+                                class="body-font-4 text-primary-500 text-theme">
+                                <strong style="color: #2e3397">{{ __('terms_of_service') }}</strong>
+                            </a> and <a href="{{ url('privacy-policy') }}" target="_blank"
+                            class="body-font-4 text-primary-500 text-theme">
+                            <strong style="color: #2e3397">{{ __('privacy_policy') }}</strong>
+                        </a>.</p>
+                            <button id="surjo_pay_btn" type="button" class="btn bg-primary rounded-pill text-uppercase text-bold text-white">
                                 {{ __('pay_now') }} to verify your Account
                             </button>
                         </div>

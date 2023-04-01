@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Application Print Page</title>
+    <title>Applicant Copy</title>
     <style>
         #application-print {
             max-width: 800px;
@@ -81,16 +81,35 @@
             justify-content: flex-end !important;
         }
 
-    
+        /* body{
+            font-family: bangla
+        } */
+/* 
+        footer {
+            position: fixed;
+            left: 0px;
+            right: 0px;
+            height: 50px;
+            margin-bottom: -50px;
+        } */
 
-        footer{
-        position: fixed;
-        left: 0px;
-        right: 0px;
-        height: 50px;
-        margin-bottom: -50px;
-      }
+        /* @font-face {
+            font-family: 'bangla';
+            font-style: normal;
+            font-weight: 400;
+            src: url('fonts/PROTHOMA.TTF');
+        }
+        .bangla-font{
+            font: bangla;
+        } */
+        @font-face {
+              font-family: 'preeti';
+              font-style: normal;
+              font-weight: 400;
+              src:url('".$public_path."/fonts/PREETI.TTF') format('ttf');
+            }
     </style>
+
 </head>
 
 <body>
@@ -99,11 +118,12 @@
             <tbody>
                 <tr>
                     @if ($job->company->logo)
-                    <td style="text-align: left;border-right: 0; width: 60px; padding:0px">
-                        <img style="margin: 0px; padding:0px; padding-left:10px; border-radius: 3px;" src="{{ $job->company->logo }}" alt="" width="40px" height="40px">
-                    </td>
+                        <td style="text-align: left;border-right: 0; width: 60px; padding:0px">
+                            <img style="margin: 0px; padding:0px; padding-left:10px; border-radius: 3px;"
+                                src="{{ $job->company->logo }}" alt="" width="40px" height="40px">
+                        </td>
                     @endif
-                    
+
                     <td style="text-align: left; border-right: 0; border-left: 0px; padding:0px;">
                         <p style="margin-bottom: 0px; padding-bottom: 0px;">{{ $job->company->user->name }}</p>
                         <p style="font-size: 8px; margin-top:0px; padding-top:0px">Dhaka, Bangladesh</p>
@@ -115,32 +135,40 @@
         <table style="padding-top: 4px;">
             <tbody>
                 <tr style="text-align: end;">
-                    <th style="text-align: end">User ID: <span>ASFDFD232</span></th>
-                    <th style="text-align: end">Post Name: <span>{{ $job->title ?? "Executive" }}</span></th>
+                    <th style="text-align: end">User ID: <span>{{ $candidate->user->username?? "" }}</span></th>
+                    <th style="text-align: end">Post Name: <span>{{ $job->title ?? 'Executive' }}</span></th>
                 </tr>
             </tbody>
         </table>
         <table style="padding-top: 4px;">
             <tbody>
                 <tr style="padding: 0px; margin: 0px">
-                    <td rowspan="4" style="margin: 0px; padding:0px;"  width="150px">
-                        <img src="{{ $job->company->logo }}" width="150px" height="140px"
-                            alt="Profile Picture" style="margin: 0px; padding:5px; border-radius: 5%;">
+                    <td rowspan="4" style="margin: 0px; padding:0px;" width="150px">
+                        <img src="{{ $candidate->photo }}" width="150px" height="140px" alt="Profile Picture"
+                            style="margin: 0px; padding:5px; border-radius: 5%;">
                     </td>
-                    <td style="font-size: 10px; padding-left:5px; width: 30%; background-color: #DCDCDC">Applicant's Name</td>
-                    <td style="font-size: 10px; padding-left:5px; background-color: #DCDCDC;">{{ $candidate->user->name ?? "" }}</td>
+                    <td style="font-size: 10px; padding-left:5px; width: 30%; background-color: #DCDCDC">Applicant's
+                        Name</td>
+                    <td style="font-size: 10px; padding-left:5px; background-color: #DCDCDC;">
+                        {{ $candidate->user->name ?? '' }}</td>
                 </tr>
                 <tr style="padding: 0px; margin: 0px">
-                    <td style="font-size: 10px; padding-left:5px; background-color: #DCDCDC;  width: 30%">Father's Name</td>
-                    <td style="font-size: 10px; padding-left:5px; background-color: #DCDCDC;">{{ $candidate->father_name ?? "" }}</td>
+                    <td style="font-size: 10px; padding-left:5px; background-color: #DCDCDC;  width: 30%">Father's Name
+                    </td>
+                    <td style="font-size: 10px; padding-left:5px; background-color: #DCDCDC;">
+                        {{ $candidate->father_name ?? '' }}</td>
                 </tr>
                 <tr style="padding: 0px; margin: 0px">
-                    <td style="font-size: 10px; padding-left:5px; background-color: #DCDCDC;  width: 30%">Mother's Name</td>
-                    <td style="font-size: 10px; padding-left:5px; background-color: #DCDCDC;">{{ $candidate->mother_name ?? "" }}</td>
+                    <td style="font-size: 10px; padding-left:5px; background-color: #DCDCDC;  width: 30%">Mother's Name
+                    </td>
+                    <td style="font-size: 10px; padding-left:5px; background-color: #DCDCDC;">
+                        {{ $candidate->mother_name ?? '' }}</td>
                 </tr>
                 <tr style="padding: 0px; margin: 0px">
-                    <td style="font-size: 10px; padding-left:5px; background-color: #DCDCDC;  width: 30%">Date of Birth</td>
-                    <td style="font-size: 10px; padding-left:5px; background-color: #DCDCDC;">{{ ($candidate->birth_date) ? date("d M Y", strtotime($candidate->birth_date)) : "" }}</td>
+                    <td style="font-size: 10px; padding-left:5px; background-color: #DCDCDC;  width: 30%">Date of Birth
+                    </td>
+                    <td style="font-size: 10px; padding-left:5px; background-color: #DCDCDC;">
+                        {{ $candidate->birth_date ? date('d M Y', strtotime($candidate->birth_date)) : '' }}</td>
                 </tr>
             </tbody>
         </table>
@@ -150,21 +178,27 @@
             <tbody>
                 <tr>
                     <td style="margin: 4px; padding:4px; font-size: 10px; background-color: #DCDCDC">NID No</td>
-                    <td style="margin: 4px; padding:4px; font-size: 10px; background-color: #DCDCDC">{{ $candidate->nid_no }}</td>
+                    <td style="margin: 4px; padding:4px; font-size: 10px; background-color: #DCDCDC">
+                        {{ $candidate->nid_no }}</td>
                     <td style="margin: 4px; padding:4px; font-size: 10px; background-color: #DCDCDC">Contact No</td>
-                    <td style="margin: 4px; padding:4px; font-size: 10px; background-color: #DCDCDC">{{ $candidate->user->phone }}</td>
+                    <td style="margin: 4px; padding:4px; font-size: 10px; background-color: #DCDCDC">
+                        {{ $candidate->user->phone }}</td>
                 </tr>
                 <tr>
                     <td style="margin: 4px; padding:4px; font-size: 10px; background-color: #DCDCDC">Gender</td>
-                    <td style="margin: 4px; padding:4px; font-size: 10px; background-color: #DCDCDC">{{ $candidate->gender }}</td>
+                    <td style="margin: 4px; padding:4px; font-size: 10px; background-color: #DCDCDC">
+                        {{ $candidate->gender }}</td>
                     <td style="margin: 4px; padding:4px; font-size: 10px; background-color: #DCDCDC">Marital Status</td>
-                    <td style="margin: 4px; padding:4px; font-size: 10px; background-color: #DCDCDC">{{ $candidate->marital_status }}</td>
+                    <td style="margin: 4px; padding:4px; font-size: 10px; background-color: #DCDCDC">
+                        {{ $candidate->marital_status }}</td>
                 </tr>
                 <tr>
                     <td style="margin: 4px; padding:4px; font-size: 10px; background-color: #DCDCDC">Religion</td>
-                    <td style="margin: 4px; padding:4px; font-size: 10px; background-color: #DCDCDC">{{ $candidate->religion }}</td>
+                    <td style="margin: 4px; padding:4px; font-size: 10px; background-color: #DCDCDC">
+                        {{ $candidate->religion }}</td>
                     <td style="margin: 4px; padding:4px; font-size: 10px; background-color: #DCDCDC">Quota</td>
-                    <td style="margin: 4px; padding:4px; font-size: 10px; background-color: #DCDCDC">{{ $candidate->quota }}</td>
+                    <td style="margin: 4px; padding:4px; font-size: 10px; background-color: #DCDCDC">
+                        {{ $candidate->quota }}</td>
                 </tr>
             </tbody>
         </table>
@@ -173,8 +207,10 @@
         <table style="padding-top: 4px;">
             <thead>
                 <tr>
-                    <th style="text-align: left; font-size: 10px; margin:2px; padding:2px; background-color: #696969">Present Address</th>
-                    <th style="text-align: left; font-size: 10px; margin:2px; padding:2px; background-color: #696969">Permanent Address</th>
+                    <th style="text-align: left; font-size: 10px; margin:2px; padding:2px; background-color: #696969">
+                        Present Address</th>
+                    <th style="text-align: left; font-size: 10px; margin:2px; padding:2px; background-color: #696969">
+                        Permanent Address</th>
                 </tr>
             </thead>
             <tbody>
@@ -203,51 +239,160 @@
         <table style="padding-top: 4px;">
             <thead>
                 <tr>
-                    <th style="text-align: left; font-size: 10px; margin:2px; padding:2px; background-color: #696969" colspan="7">Education Qualifications:</th>
+                    <th style="text-align: left; font-size: 10px; margin:2px; padding:2px; background-color: #696969"
+                        colspan="7">Education Qualifications:</th>
                 </tr>
                 <tr>
-                    <th style="text-align: left; font-size: 10px; margin:2px; padding:2px; text-align: center; background-color: #696969">Examination</th>
-                    <th style="text-align: left; font-size: 10px; margin:2px; padding:2px; text-align: center; background-color: #696969">Board/Institude</th>
-                    <th style="text-align: left; font-size: 10px; margin:2px; padding:2px; text-align: center; background-color: #696969">Group/Subject/Degree</th>
-                    <th style="text-align: left; font-size: 10px; margin:2px; padding:2px; text-align: center; background-color: #696969">Result</th>
-                    <th style="text-align: left; font-size: 10px; margin:2px; padding:2px; text-align: center; background-color: #696969">Year</th>
-                    <th style="text-align: left; font-size: 10px; margin:2px; padding:2px; text-align: center; background-color: #696969">Role</th>
-                    <th style="text-align: left; font-size: 10px; margin:2px; padding:2px; text-align: center; background-color: #696969">Duration</th>
+                    <th
+                        style="text-align: left; font-size: 10px; margin:2px; padding:2px; text-align: center; background-color: #696969">
+                        Examination</th>
+                    <th
+                        style="text-align: left; font-size: 10px; margin:2px; padding:2px; text-align: center; background-color: #696969">
+                        Board/Institude</th>
+                    <th
+                        style="text-align: left; font-size: 10px; margin:2px; padding:2px; text-align: center; background-color: #696969">
+                        Group/Subject/Degree</th>
+                    <th
+                        style="text-align: left; font-size: 10px; margin:2px; padding:2px; text-align: center; background-color: #696969">
+                        Result</th>
+                    <th
+                        style="text-align: left; font-size: 10px; margin:2px; padding:2px; text-align: center; background-color: #696969">
+                        Year</th>
+                    <th
+                        style="text-align: left; font-size: 10px; margin:2px; padding:2px; text-align: center; background-color: #696969">
+                        Role</th>
+                    <th
+                        style="text-align: left; font-size: 10px; margin:2px; padding:2px; text-align: center; background-color: #696969">
+                        Duration</th>
                 </tr>
             </thead>
             <tbody>
-                @if(count($candidate->educations)>0)
-                @foreach ($candidate->educations as $education)
-                <tr>
-                    <td style="margin: 2px; padding:2px; font-size: 10px; text-align: center; background-color: #DCDCDC">{{ $education->level ?? ""}}</td>
-                    <td style="margin: 2px; padding:2px; font-size: 10px; text-align: center; background-color: #DCDCDC">{{ $education->institute ?? ""}}</td>
-                    <td style="margin: 2px; padding:2px; font-size: 10px; text-align: center; background-color: #DCDCDC">{{ $education->group ?? ""}}</td>
-                    <td style="margin: 2px; padding:2px; font-size: 10px; text-align: center; background-color: #DCDCDC">{{ $education->result_gpa ?? ""}}</td>
-                    <td style="margin: 2px; padding:2px; font-size: 10px; text-align: center; background-color: #DCDCDC">{{ $education->year ?? ""}}</td>
-                    <td style="margin: 2px; padding:2px; font-size: 10px; text-align: center; background-color: #DCDCDC">{{ $education->roll ?? ""}}</td>
-                    <td style="margin: 2px; padding:2px; font-size: 10px; text-align: center; background-color: #DCDCDC">{{ $education->course_duration ?? ""}}</td>
-                </tr>
-                @endforeach
-                
+                @if (count($candidate->educations) > 0)
+                    @foreach ($candidate->educations as $education)
+                        <tr>
+                            <td
+                                style="margin: 2px; padding:2px; font-size: 10px; text-align: center; background-color: #DCDCDC">
+                                {{ $education->level ?? '' }}</td>
+                            <td
+                                style="margin: 2px; padding:2px; font-size: 10px; text-align: center; background-color: #DCDCDC">
+                                {{ $education->institute ?? '' }}</td>
+                            <td
+                                style="margin: 2px; padding:2px; font-size: 10px; text-align: center; background-color: #DCDCDC">
+                                {{ $education->group ?? '' }}</td>
+                            <td
+                                style="margin: 2px; padding:2px; font-size: 10px; text-align: center; background-color: #DCDCDC">
+                                {{ $education->result_gpa ?? '' }}</td>
+                            <td
+                                style="margin: 2px; padding:2px; font-size: 10px; text-align: center; background-color: #DCDCDC">
+                                {{ $education->year ?? '' }}</td>
+                            <td
+                                style="margin: 2px; padding:2px; font-size: 10px; text-align: center; background-color: #DCDCDC">
+                                {{ $education->roll ?? '' }}</td>
+                            <td
+                                style="margin: 2px; padding:2px; font-size: 10px; text-align: center; background-color: #DCDCDC">
+                                {{ $education->course_duration ?? '' }}</td>
+                        </tr>
+                    @endforeach
+
                 @endif
             </tbody>
         </table>
 
-        <div style="margin-top: 50px">
-            <p style="font-size: 10px;">I declare that the information provided in this form are correct, true and complete to the best of my knowledge and belief. If any information is found
-                false, incorrect, incomplete or if any ineligibility is detected before or after the examination, any action can be taken against me by the Commission
+
+
+        @if (count($candidate->experiences) > 0)
+            <table style="padding-top: 4px;">
+                <thead>
+                    <tr>
+                        <th style="text-align: left; font-size: 10px; margin:2px; padding:2px; background-color: #696969"
+                            colspan="6">Professional Experience:</th>
+                    </tr>
+                    <tr>
+                        <th
+                            style="text-align: left; font-size: 10px; margin:2px; padding:2px; text-align: center; background-color: #696969">
+                            Organization Name</th>
+                        <th
+                            style="text-align: left; font-size: 10px; margin:2px; padding:2px; text-align: center; background-color: #696969">
+                            Post Name</th>
+                        <th
+                            style="text-align: left; font-size: 10px; margin:2px; padding:2px; text-align: center; background-color: #696969">
+                            Responsibilities</th>
+                        <th
+                            style="text-align: left; font-size: 10px; margin:2px; padding:2px; text-align: center; background-color: #696969">
+                            Start Date</th>
+                        <th
+                            style="text-align: left; font-size: 10px; margin:2px; padding:2px; text-align: center; background-color: #696969">
+                            End Date</th>
+                        <th
+                            style="text-align: left; font-size: 10px; margin:2px; padding:2px; text-align: center; background-color: #696969">
+                            Total Experience</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($candidate->experiences as $experience)
+                        <tr>
+                            <td
+                                style="margin: 2px; padding:2px; font-size: 10px; text-align: center; background-color: #DCDCDC">
+                                {{ $experience->company ?? '' }}</td>
+                            <td
+                                style="margin: 2px; padding:2px; font-size: 10px; text-align: center; background-color: #DCDCDC">
+                                {{ $experience->designation ?? '' }}</td>
+                            <td
+                                style="margin: 2px; padding:2px; font-size: 10px; text-align: center; background-color: #DCDCDC">
+                                {{ $experience->responsibilities ?? '' }}</td>
+                            <td
+                                style="margin: 2px; padding:2px; font-size: 10px; text-align: center; background-color: #DCDCDC">
+                                {{ $experience->start ?? '' }}</td>
+                            <td
+                                style="margin: 2px; padding:2px; font-size: 10px; text-align: center; background-color: #DCDCDC">
+                                {{ $experience->end ?? '' }}</td>
+                            <td
+                                style="margin: 2px; padding:2px; font-size: 10px; text-align: center; background-color: #DCDCDC">
+                                #</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
+
+        <div style="margin-top: 20px">
+            <p style="font-size: 10px;">I declare that the information provided in this form are correct, true and
+                complete to the best of my knowledge and belief. If any information is found
+                false, incorrect, incomplete or if any ineligibility is detected before or after the examination, any
+                action can be taken against me by the Commission
                 including cancellation of my candidature.</p>
         </div>
 
         <div style=" text-align: right">
-            <img src="{{ $job->company->logo }}" width="200" height="80"
-                            alt="Profile Picture" style="margin: 0px; padding:0px;">
+            <img src="{{ $candidate->signature }}" width="200" height="80" alt="Profile Picture"
+                style="margin: 0px; padding:0px;">
             <p style="font-size: 10px;">-------------- Applicant's Signature --------------</p>
-            
+
         </div>
+
+        
+        <div class="col-12">
+            <table style="padding-top: 4px;">
+                <thead>
+                    <tr>
+                        <th style="text-align: left; font-size: 10px; margin:4px; padding:4px; background-color: #696969;"><Strong>Congratulations! Application Submitted Successfully!</Strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <p style="margin: 2px; padding:2px; font-size: 10px; text-align: left; background-color: #DCDCDC; font-family: bangla">ওয়েলফেয়ার ফ্যামিলি বাংলাদেশ এবং বেসরকারি উন্নয়ন সংস্থা (NGO) এর যৌথ উদ্যোগে (বাংলাদেশ গেজেটে প্রকাশিত বিজ্ঞপ্তির আলোকে ও চাকরির আবেদনকারীরা এককালীন অফেরতযোগ্য রেজিস্ট্রেশন ফি প্রদান করে) 'সাসটেইনেবল ডেভেলপমেন্ট পলিসি' (SDP) ও সোস্যাল অ্যান্ড ইকোনমিক ডেভেলপমেন্ট পলিসি' (SEDP) এবং পভার্টি এলিভিয়েশন পলিসি (Muldhan) প্রজেক্ট-প্রোগ্রাম বাস্তবায়নের জন্য "সামাজিক ও অর্থনৈতিকক্ষেত্রে টেকসই উন্নয়নের প্রয়াস" শীর্ষক কার্যক্রমে অংশগ্রহণ ও সেবা গ্রহণের এবং সেবা প্রদানের জন্য Google Play store হতে My Welfare App ডাউনলোড করুন অথবা www.welfarebd.org ওয়েবসাইট থেকে রেজিষ্ট্রেশন করুন।
+                            </p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
     </div>
     <footer>
-            <a href="" style="font-size: 8px; text-decoration: none">Verify This Registration: {{ route('verify.application', ['job_id' => $job->id , 'candidate_id' => $candidate->id]) }}</a>
+        <a href="" style="font-size: 8px; text-decoration: none">Verify This Registration:
+            {{ route('verify.application', ['job_id' => $job->id, 'candidate_id' => $candidate->id]) }}</a>
     </footer>
 </body>
 
