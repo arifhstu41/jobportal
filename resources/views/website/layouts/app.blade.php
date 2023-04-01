@@ -11,6 +11,11 @@
     {{-- Style --}}
     @include('website.partials.links')
     @yield('css')
+    <style>
+        .text-theme{
+            color: #2e3397"
+        }
+    </style>
 
     @php
     $css_data = !empty($setting->header_css);

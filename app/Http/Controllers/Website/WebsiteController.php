@@ -49,6 +49,8 @@ use App\Notifications\Website\Candidate\ApplyJobNotification;
 use App\Notifications\Website\Candidate\BookmarkJobNotification;
 use App\Traits\ResetCvViewsHistoryTrait;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Mpdf\Config\ConfigVariables;
+use Mpdf\Config\FontVariables;
 
 class WebsiteController extends Controller
 {
@@ -693,18 +695,18 @@ class WebsiteController extends Controller
 
     public function toggleApplyJob(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'resume_id' => 'required',
-            'cover_letter' => 'required',
-        ], [
-            'resume_id.required' => 'Please select resume',
-            'cover_letter.required' => 'Please enter cover letter',
-        ]);
+        // $validator = Validator::make($request->all(), [
+        //     'resume_id' => 'required',
+        //     'cover_letter' => 'required',
+        // ], [
+        //     'resume_id.required' => 'Please select resume',
+        //     'cover_letter.required' => 'Please enter cover letter',
+        // ]);
 
-        if ($validator->fails()) {
-            flashError($validator->errors()->first());
-            return back();
-        }
+        // if ($validator->fails()) {
+        //     flashError($validator->errors()->first());
+        //     return back();
+        // }
 
         if (auth('user')->user()->candidate->profile_complete != 0) {
             flashError('Complete your profile before applying to jobs, Add your information, resume, and profile picture for a better chance of getting hired.');
@@ -714,11 +716,11 @@ class WebsiteController extends Controller
         $candidate = auth('user')->user()->candidate;
         $job = Job::find($request->id);
 
-        $applied= DB::table('applied_jobs')->insert([
+        $applied = DB::table('applied_jobs')->insert([
             'candidate_id' => $candidate->id,
             'job_id' => $job->id,
-            'cover_letter' => $request->cover_letter,
-            'candidate_resume_id' => $request->resume_id,
+            'cover_letter' => $request->cover_letter ?? "",
+            'candidate_resume_id' => $request->resume_id ?? 1,
             'application_group_id' => $job->company->applicationGroups->where('is_deleteable', false)->first()->id ?? 1,
             'created_at' => now(),
             'updated_at' => now(),
@@ -738,32 +740,63 @@ class WebsiteController extends Controller
     }
 
     // application success
-    public function applySuccess($job_id){
-        $job= Job::find($job_id);
+    public function applySuccess($job_id)
+    {
+        $job = Job::find($job_id);
         return view('website.pages.company.application-success', compact('job'));
     }
 
     // candidate download application form
-    public function downloadApplicationForm($job_id){
+    public function downloadApplicationForm($job_id)
+    {
 
-        $job= Job::find($job_id);
-        $candidate= auth('user')->user()->candidate;
+        $job = Job::find($job_id);
+        $candidate = auth('user')->user()->candidate;
         $data['candidate'] = $candidate;
         $data['job'] = $job;
-        $data['message']= "dsfdsfd"; 
-        $application_form= Pdf::loadView('website.pages.application-details', $data)->setPaper('a4', 'portrait');
-        // return $application_form->stream();
-        return $application_form->download("applicant-copy.pdf");
+        $data['message'] = "dsfdsfd";
+        // dd($candidate->photo);  
+        // require_once base_path() . '/vendor/autoload.php';
+        $defaultConfig = (new ConfigVariables())->getDefaults();
+        $fontDirs = $defaultConfig['fontDir'];
+
+        $defaultFontConfig = (new FontVariables())->getDefaults();
+        $fontData = $defaultFontConfig['fontdata'];
+
+        $mpdf       = new \Mpdf\Mpdf([
+            'format' => 'A4',
+            'fontDir' => array_merge($fontDirs, [public_path() . '/fonts',]),
+            'fontdata' => $fontData + [ // lowercase letters only in font key
+                'bangla' => [
+                    'R'  => 'Siyamrupali.ttf', // regular font
+                    'B'  => 'Siyamrupali.ttf', // optional: bold font
+                    'I'  => 'Siyamrupali.ttf', // optional: italic font
+                    'BI' => 'Siyamrupali.ttf', // optional: bold-italic font
+                    'useOTL' => 0xFF,   
+                    'useKashida' => 75, 
+                ]
+            ],
+            'default_font' => 'bangla' ,
+        ]); //pagev format
+        $stylesheet = file_get_contents('css/custom.css'); // external css
+        $code       = view('website.pages.application-details', compact('job', 'candidate')); //table part
+        $mpdf->WriteHTML($stylesheet, 1);
+
+        $title = $candidate->user->username.".pdf";
+        $mpdf->SetTitle($title);
+        $mpdf->WriteHTML($code);
+        $mpdf->Output($title, 'D');
     }
 
     // verify application from public url
-    public function verifyApplication($job_id, $candidate_id){
-        $job= Job::find($job_id);
-        $candidate= Candidate::find($candidate_id);
+    public function verifyApplication($job_id, $candidate_id)
+    {
+        $job = Job::find($job_id);
+        $candidate = Candidate::find($candidate_id);
         $data['candidate'] = $candidate;
         $data['job'] = $job;
-        $data['message']= "dsfdsfd"; 
-        $application_form= Pdf::loadView('website.pages.application-details', $data)->setPaper('a4', 'portrait');
+        $data['message'] = "dsfdsfd";
+        $application_form = Pdf::loadView('website.pages.application-details', $data)->setPaper('a4', 'portrait');
         return $application_form->stream();
     }
 
@@ -1070,11 +1103,11 @@ class WebsiteController extends Controller
         $result = curl_exec($ch);
 
         curl_close($ch);
-      
+
         $result = json_decode($result);
 
-        
-        if (curl_errno($ch) || (!(isset($result->status) && $result->status =="YES"))) {
+
+        if (curl_errno($ch) || (!(isset($result->status) && $result->status == "YES"))) {
             $error_message = "";
             if (isset($result->errors)) {
                 foreach ($result->errors as $error) {
@@ -1105,7 +1138,7 @@ class WebsiteController extends Controller
             $candidate->nid_no = $nid->nationalIdNumber;
             if (isset($nid->spouseNameEN)) {
                 $candidate->marital_status = "married";
-            }else{
+            } else {
                 $candidate->marital_status = "single";
             }
 
@@ -1397,7 +1430,7 @@ class WebsiteController extends Controller
                 $signature_url = uploadFileToPublic($request->signature, 'candidate');
                 $candidate->signature = $signature_url;
             }
-           
+
             $candidate->profile_complete = 0;
             $candidate->save();
             DB::commit();

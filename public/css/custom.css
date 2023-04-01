@@ -1,0 +1,42 @@
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    
+    /* Firefox */
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+
+    .form-control {
+      border-color: #2e3397; /* Change the border color */
+      border-width: 2px; /* Change the border thickness */
+    }
+
+   
+    .form-check-input[type="checkbox"] {
+      border-color: #2e3397; /* Change the border color */
+      border-width: 2px;
+    }
+    i{
+      border-color: #2e3397; /* Change the border color */
+      border-width: 2px;
+    }
+
+    /* Firefox */
+    select{
+      border-color: #2e3397; /* Change the border color */
+      border-width: 2px;
+    }
+
+    .select2-selection{
+      border-color: #2e3397 !important; /* Change the border color */
+      border-width: 2px  !important;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__arrow::after {
+      font-size: 25px;
+      color: #2e3397 !important;
+    }

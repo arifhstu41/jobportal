@@ -28,7 +28,7 @@ class Candidate extends Model
         if ($photo == null) {
             return asset('backend/image/default.png');
         } else {
-            return asset($photo);
+            return $photo;
         }
     }
 

@@ -1064,9 +1064,14 @@ if (!function_exists('sendSMS')) {
         $type = "unicode";
         $phone = "88" . $user->phone;
         $sender_id = env('SMS_SENDER_ID');
-        $template = DB::table('sms_content')->where("content_type", $content_type)->first();
+        if($content_type){
+            $template = DB::table('sms_content')->where("content_type", $content_type)->first();
+        }
         if ($sms_content != null) {
             $content = $sms_content;
+            if($content_type == "otp"){
+                $content= $sms_content." is Your OTP for password reset. Do not share your OTP/PIN with others.";
+            }
         } else {
             $content = "জব পোর্টালে আপনাকে স্বাগতম";
             if ($content_type == "apply") {

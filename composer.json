@@ -26,6 +26,7 @@
         "laravel/ui": "^3.1",
         "midtrans/midtrans-php": "^2.5",
         "mollie/laravel-mollie": "^2.19",
+        "mpdf/mpdf": "^8.1",
         "msztorc/laravel-env": "^1.2",
         "nwidart/laravel-modules": "8.2.*",
         "razorpay/razorpay": "^2.8",

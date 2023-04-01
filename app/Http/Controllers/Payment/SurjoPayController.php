@@ -10,113 +10,124 @@ use Illuminate\Support\Facades\DB;
 // use ShurjopayPlugin\Shurjopay;
 // use ShurjopayPlugin\ShurjopayConfig;
 // use ShurjopayPlugin\ShurjopayEnvReader;
+use ShurjopayPlugin\ShurjopayEnvReader;
+use ShurjopayPlugin\Shurjopay;
+use ShurjopayPlugin\PaymentRequest;
+
 use shurjopayv2\ShurjopayLaravelPackage8\Http\Controllers\ShurjopayController;
 
 class SurjoPayController extends Controller
 {
     use PaymentTrait;
-    //
 
-    public function payment( Request $request )
+    // make payment
+    public function payment(Request $request)
     {
-        $user = auth( 'user' )->user();
-        if ( $user->role == "compnay" ) {
-            $job_payment_type = session( 'job_payment_type' ) ?? 'package_job';
-            if ( $job_payment_type == 'per_job' ) {
-                $price = session( 'job_total_amount' ) ?? '100';
+        $user = auth('user')->user();
+        if ($user->role == "compnay") {
+            $job_payment_type = session('job_payment_type') ?? 'package_job';
+            if ($job_payment_type == 'per_job') {
+                $price = session('job_total_amount') ?? '100';
             } else {
-                $plan  = session( 'plan' );
+                $plan  = session('plan');
                 $price = $plan->price;
             }
-
-
-        } else{
-            $price = 100;
-            
-            $customer_address= "dhaka";
-            $customer_city= "dhaka";
-            $customer_email= $user->email;
+        } else {
+            $price = 175;
         }
-
-        
-
-        $converted_amount = currencyConversion( $price );
-        $amount           = currencyConversion( $price, null, 'BDT', 1 );
-        session( ['order_payment' => [
-            'payment_provider' => 'surjopay',
-            'amount'           => $amount,
-            'currency_symbol'  => '৳',
-            'usd_amount'       => $converted_amount,
-        ]] );
 
         $info = array(
-            'currency'          => "BDT",
-            'amount'            => $price,
-            'order_id'          => uniqid(),
-            'discount_amount'   => 0,
-            'disc_percent'      => 0,
-            'client_ip'         => "127.0.0.1",
-            'customer_name'     => $user->name,
-            'customer_phone'    => $user->phone,
-            'customer_email'    => $user->email,
-            'customer_address'  => "Daben babu road",
-            'customer_city'     => "Khulna",
-            'customer_state'    => "Khulna",
-            'customer_postcode' => "1212",
-            'customer_country'  => "BD",
+            'amount' => $price ?? 10,
+            'discountAmount' => 0,
+            'discPercent' => 0
         );
 
-        $shurjopay_service = new ShurjopayController();
-        return $shurjopay_service->checkout($info);
+        $env = new ShurjopayEnvReader(base_path() . '/.env');
+        $conf = $env->getConfig();
 
+        $sp_obj = new Shurjopay($conf);
+        $pay_res = $sp_obj->makePayment($this->paymentRequest($info));
     }
 
-    public function verifyPayment( Request $request )
+    // make payment request parameters
+    function paymentRequest($info)
     {
-        $order_id            = $request->order_id;
-        $shurjopay_service   = new ShurjopayController();
-        $data                = $shurjopay_service->verify( $order_id );
-        $data                = json_decode( $data );
-        $data                = json_decode( json_encode( $data[0] ), true );
-        $data['surjopay_id'] = $data['id'];
-        unset( $data['id'] );
-        DB::table( 'payments' )->insert( $data );
+        $request = new PaymentRequest();
 
-        if(auth()->user()->role == "candidate"){
-            return view('website.pages.candidate.verification');
-        }
-
-        
-
-        if(auth()->user()->role == "company"){
-            if(session('plan')){
-                $plan = session('plan');
-                $company= auth()->user()->company;
-                $company->userPlan()->create([
-                    'plan_id'  =>  $plan->id,
-                    'job_limit'  =>  $plan->job_limit,
-                    'featured_job_limit'  =>  $plan->featured_job_limit,
-                    'highlight_job_limit'  =>  $plan->highlight_job_limit,
-                    'candidate_cv_view_limit'  =>  $plan->candidate_cv_view_limit,
-                    'candidate_cv_view_limitation'  =>  $plan->candidate_cv_view_limitation,
-                ]);
-            }
-            
-            return redirect()->route('company.dashboard');
-        }
-
-        return redirect()->route('website');
-
+        $request->currency = 'BDT';
+        $request->amount =  10;
+        // $request->amount = $info['amount'] ?? 10;
+        $request->discountAmount = $info['discountAmount'] ?? 0;
+        $request->discPercent = $info['discPercent'] ?? 0;
+        $request->customerName = "Welfare Family Bangladesh";
+        $request->customerPhone = "01712644059";
+        $request->customerEmail = "welfare.rmt@gmail.com";
+        $request->customerAddress = 'Rangamati';
+        $request->customerCity = 'Rangamati';
+        $request->customerState = 'Chattogram';
+        $request->customerPostcode = '1207';
+        $request->customerCountry = 'Bangladesh';
+        $request->shippingAddress = 'Rangamati';
+        $request->shippingCity = 'Rangamati';
+        $request->shippingCountry = 'Bangladesh';
+        $request->receivedPersonName = "Welfare Family Bangladesh";
+        $request->shippingPhoneNumber = "01712644059";
+        $request->value1 = 'value1';
+        $request->value2 = 'value2';
+        $request->value3 = 'value3';
+        $request->value4 = 'value4';
+        return $request;
     }
 
-    public function cancelPayment( Request $request )
+    // verify payments
+    public function verifyPayment(Request $request)
+    {
+        $env = new ShurjopayEnvReader(base_path() . '/.env');
+        $conf = $env->getConfig();
+        $sp_obj = new Shurjopay($conf);
+
+        $order_id            = $request->order_id;
+        $data                = $sp_obj->verifyPayment($order_id);
+        $data = (array)$data[0];
+        $data['surjopay_id'] = $data['id'];
+        unset($data['id']);
+        DB::table('payments')->insert($data);
+
+        if($data['sp_massage'] == "Success"){
+            
+            flashSuccess('Payment Successfull!');
+            if (auth()->user()->role == "candidate") {
+                return view('website.pages.candidate.verification');
+            }
+    
+            if (auth()->user()->role == "company") {
+                if (session('plan')) {
+                    $plan = session('plan');
+                    $company = auth()->user()->company;
+                    $company->userPlan()->create([
+                        'plan_id'  =>  $plan->id,
+                        'job_limit'  =>  $plan->job_limit,
+                        'featured_job_limit'  =>  $plan->featured_job_limit,
+                        'highlight_job_limit'  =>  $plan->highlight_job_limit,
+                        'candidate_cv_view_limit'  =>  $plan->candidate_cv_view_limit,
+                        'candidate_cv_view_limitation'  =>  $plan->candidate_cv_view_limitation,
+                    ]);
+                }
+    
+                return redirect()->route('company.dashboard');
+            }
+        }
+        flashError("Payment Failed!");
+        // return redirect()->back();
+        return redirect()->route('website.home');
+    }
+
+    public function cancelPayment(Request $request)
     {
         $order_id          = $request->order_id;
         $shurjopay_service = new ShurjopayController();
-        $data              = $shurjopay_service->verify( $order_id );
-
-        dd( $data );
-        return view( 'success-page' );
-
+        $data              = $shurjopay_service->verify($order_id);
+        flashError("Payment failed!");
+        return redirect()->route('website.candidate.payment');
     }
 }

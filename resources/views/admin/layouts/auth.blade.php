@@ -40,6 +40,7 @@
 
     @yield('backend_auth_link')
     @include('website.partials.links')
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
     <link rel="stylesheet" href="https://unpkg.com/phosphor-icons@1.4.2/src/css/icons.css">
 </head>
 

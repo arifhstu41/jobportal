@@ -66,6 +66,7 @@ class RegisterController extends Controller
         ], [
             'g-recaptcha-response.required' => 'Please verify that you are not a robot.',
             'g-recaptcha-response.captcha' => 'Captcha error! try again later or contact site admin.',
+            'phone' => 'Please enter a valid 11 digit mobile number'
         ]);
     }
 
@@ -77,13 +78,13 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $newUsername = Str::slug($data['name']);
+        $newUsername = $this->generateUserName();
         $oldUserName = User::where('username', $newUsername)->first();
 
         if ($oldUserName) {
             $username = Str::slug($newUsername) . '_' . Str::random(5);
         } else {
-            $username = Str::slug($newUsername);
+            $username = $this->generateUserName();
         }
 
         $user= new User();
@@ -111,5 +112,16 @@ class RegisterController extends Controller
         }
 
         return $user;
+    }
+
+    function generateUserName($length = 12)
+    {
+        $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[random_int(0, $charactersLength - 1)];
+        }
+        return $randomString;
     }
 }

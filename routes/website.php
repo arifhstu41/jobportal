@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Http\Controllers\Auth\ResetPasswordController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Website\CompanyController;
@@ -12,6 +13,17 @@ use App\Http\Controllers\Website\CandidateController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 Route::get('verify/application/{job_id}/{candidate_id}', [WebsiteController::class, 'verifyApplication'])->name('verify.application');
+
+// Route::post('reset_password_without_token', [ResetPasswordController::class, 'validatePasswordRequest'])->name('reset_password_without_token');
+// Route::post('reset_password_with_token', [ResetPasswordController::class, 'resetPassword'])->name('reset_password_with_token');
+
+Route::post('get-password-reset-otp', [ResetPasswordController::class, 'getPasswordResetOTP'])->name('get.password.reset.otp');
+Route::get('set-password-reset-otp', [ResetPasswordController::class, 'setPasswordResetOTP'])->name('set.password.reset.otp');
+Route::post('submit-otp', [ResetPasswordController::class, 'submitOTP'])->name('submit.otp');
+Route::get('set-new-password', [ResetPasswordController::class, 'setNewPassword'])->name('set.new.password');
+Route::post('update-password', [ResetPasswordController::class, 'updatePassword'])->name('update.password');
+Route::get('send-otp-again', [ResetPasswordController::class, 'sendOTPAgain'])->name('send.otp.again');
+
 
 // Authentication
 if (!app()->runningInConsole()) {
