@@ -315,6 +315,12 @@
                                                     <option @if ($candidate->marital_status == 'married' || old('marital_status') == 'married') selected @endif
                                                         value="married">
                                                         {{ __('married') }}</option>
+                                                    <option @if ($candidate->marital_status == 'divorced' || old('marital_status') == 'divorced') selected @endif
+                                                        value="divorced">
+                                                        {{ __('divorced') }}</option>
+                                                    <option @if ($candidate->marital_status == 'others' || old('marital_status') == 'others') selected @endif
+                                                        value="others">
+                                                        {{ __('others') }}</option>
                                                 </select>
                                                 @error('marital_status')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
@@ -2561,7 +2567,7 @@
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-primary mt-4 mb-3">
+                            <button type="submit" class="btn d-block btn-primary mt-4 mb-3">
                                 {{ __('save_changes') }}
                             </button>
                         </div>

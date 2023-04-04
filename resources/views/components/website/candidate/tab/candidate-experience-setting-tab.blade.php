@@ -1,6 +1,6 @@
 @props(['experiences'])
 <div class="dashboard-right-header rt-mb-32 lg:tw-mt-0 justify-content-between">
-    <h3 class="f-size-18 lh-1 m-0">{{ __('experience') }}</h3>
+    <h3 class="f-size-18 lh-1 m-3">{{ __('experience') }}</h3>
     <button id="addExperience" type="button" class="btn btn-primary">
         {{ __('add_experience') }}
     </button>
@@ -82,11 +82,11 @@
         <div class="modal-content">
             <form action="{{ route('candidate.experiences.store') }}" method="POST">
                 @csrf
-                <div class="modal-body">
+                <div class="modal-body p-3">
                     <h5 class="modal-title rt-mb-18 f-size-18" id="cvModalLabel">{{ __('add_experience') }}</h5>
                     <div class="from-group rt-mb-18">
                         <x-forms.label name="company" class="rt-mb-8" />
-                        <input type="text" name="company" required class="@error('company') is-invalid @enderror" placeholder="{{ __('enter') }} {{ __('company') }}">
+                        <input type="text" name="company" required class="form-control @error('company') is-invalid @enderror" placeholder="{{ __('enter') }} {{ __('company') }}">
 
                         @error('company')
                             <span class="error invalid-feedback">{{ $message }}</span>
@@ -95,11 +95,11 @@
                     <div class="row rt-mb-18">
                         <div class="col-lg-6">
                             <x-forms.label name="department" class="rt-mb-8" />
-                            <input type="text" name="department" required placeholder="{{ __('enter') }} {{ __('department') }}">
+                            <input type="text" class="form-control" name="department" required placeholder="{{ __('enter') }} {{ __('department') }}">
                         </div>
                         <div class="col-lg-6">
                             <x-forms.label name="designation" class="rt-mb-8" />
-                            <input type="text" name="designation" required placeholder="{{ __('enter') }} {{ __('designation') }}">
+                            <input type="text" class="form-control" name="designation" required placeholder="{{ __('enter') }} {{ __('designation') }}">
                         </div>
                     </div>
                     <div class="row rt-mb-18">
