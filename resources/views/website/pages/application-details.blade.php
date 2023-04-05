@@ -129,11 +129,6 @@
                         <p style="margin-bottom: 0px; padding-bottom: 0px;">{{ $job->company->user->name }}</p>
                         <p style="font-size: 8px; margin-top:0px; padding-top:0px">Dhaka, Bangladesh</p>
                     </td>
-                    @php
-                        $qrcode=QrCode::size(50)->generate(route('verify.application', ['job_id' => $job->id, 'candidate_id' => $candidate->id]));
-                        $code = (string)$qrcode;
-                        $code= substr($code,38);
-                    @endphp
                     <td style="text-align: right; border-left: 0px; padding:0px; padding-right: 10px">{!! $code !!}</td>
                 </tr>
             </tbody>

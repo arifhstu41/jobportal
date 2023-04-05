@@ -51,6 +51,7 @@ use App\Traits\ResetCvViewsHistoryTrait;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Mpdf\Config\ConfigVariables;
 use Mpdf\Config\FontVariables;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class WebsiteController extends Controller
 {
@@ -772,21 +773,24 @@ class WebsiteController extends Controller
                     'B'  => 'Siyamrupali.ttf', // optional: bold font
                     'I'  => 'Siyamrupali.ttf', // optional: italic font
                     'BI' => 'Siyamrupali.ttf', // optional: bold-italic font
-                    'useOTL' => 0xFF,   
-                    'useKashida' => 75, 
+                    'useOTL' => 0xFF,
+                    'useKashida' => 75,
                 ]
             ],
-            'default_font' => 'bangla' ,
+            'default_font' => 'bangla',
         ]); //pagev format
+        $qrcode = QrCode::size(50)->generate(route('verify.application', ['job_id' => $job->id, 'candidate_id' => $candidate->id]));
+        $code = (string)$qrcode;
+        $code = substr($code, 38);
         $stylesheet = file_get_contents('css/custom.css'); // external css
-        $code       = view('website.pages.application-details', compact('job', 'candidate')); //table part
+        $code       = view('website.pages.application-details', compact('job', 'candidate', 'code')); //table part
         $mpdf->WriteHTML($stylesheet, 1);
 
-        $title = $candidate->user->username.".pdf";
+        $title = $candidate->user->username . ".pdf";
         $mpdf->SetTitle($title);
         $mpdf->WriteHTML($code);
-        $mpdf->Output($title, 'D');
-        // $mpdf->Output($title, 'I');
+        // $mpdf->Output($title, 'D');
+        $mpdf->Output($title, 'I');
     }
 
     // verify application from public url
@@ -1052,7 +1056,8 @@ class WebsiteController extends Controller
         return view('website.pages.jobs.indeed-jobs', compact('indeed_jobs'));
     }
 
-    public function verifyCandidate(){
+    public function verifyCandidate()
+    {
         return view('website.pages.candidate.verification');
     }
 
