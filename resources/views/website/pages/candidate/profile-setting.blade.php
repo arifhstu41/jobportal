@@ -82,7 +82,7 @@
                                                 <div class="col-lg-4">
                                                     <x-website.candidate.photo-section :candidate="$candidate" />
                                                 </div>
-                                                <div class="row col-lg-8">
+                                                <div class="row col-lg-8 mx-auto">
                                                     <div class="col-lg-6 mb-3">
                                                         <x-forms.label :required="true" name="full_name"
                                                             class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
@@ -135,7 +135,7 @@
                                                             <span class="text-danger">{{ $message }}</span>
                                                         @enderror
                                                     </div>
-                                                    <div class="col-6 mb-3">
+                                                    <div class="col-lg-6 mb-3">
                                                         <x-forms.label :required="false" name="personal_website"
                                                             class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                         <div class="fromGroup has-icon2">
@@ -166,7 +166,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-12 mt-4">
-                                                        <button type="submit" class="btn btn-primary">
+                                                        <button type="submit" class="btn d-block btn-primary">
                                                             {{ __('save_changes') }}
                                                         </button>
                                                     </div>
@@ -255,6 +255,7 @@
                                         @csrf
                                         @method('put')
                                         <div class="dashboard-account-setting-item pb-0">
+                                            <h6> {{ __('profile') }}</h6>
                                             <input type="hidden" name="type" value="profile">
                                             <div class="row">
                                                 <div class="col-lg-6 mb-3">
@@ -358,6 +359,10 @@
                                                             value="single">{{ __('single') }}</option>
                                                         <option @if ($candidate->marital_status == 'married') selected @endif
                                                             value="married">{{ __('married') }}</option>
+                                                        <option @if ($candidate->marital_status == 'divorced') selected @endif
+                                                            value="divorced">{{ __('divorced') }}</option>
+                                                        <option @if ($candidate->marital_status == 'others') selected @endif
+                                                            value="others">{{ __('others') }}</option>
                                                     </select>
                                                     @error('marital_status')
                                                         <span class="invalid-feedback"
@@ -542,7 +547,13 @@
                                             {{-- Address settings --}}
 
 
-                                            <legend class="p-3">Address</legend>
+                                            <div class="row mx-1">
+                                                <div class="card m-0 p-0">
+                                                    <div class="card-header ">
+                                                        <legend class="">Address</legend>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="row">
 
                                                 {{-- present address --}}
@@ -804,7 +815,7 @@
                                                             <select required name="district_parmanent"
                                                                 id="district_parmanent" class="rt-selectactive w-100-p">
                                                                 <option value="">Please Select</option>
-                                                                @foreach ($districts as $district)
+                                                                @foreach ($districts_parmanent as $district)
                                                                     <option value="{{ $district->id }}"
                                                                         {{ $district->id == $candidate->district_parmanent ? 'selected' : '' }}>
                                                                         {{ $district->name }}</option>
@@ -829,7 +840,7 @@
                                                             <select required name="thana_parmanent" id="thana_parmanent"
                                                                 class="rt-selectactive w-100-p">
                                                                 <option value="">Please Select</option>
-                                                                @foreach ($upazilas as $upazila)
+                                                                @foreach ($upazilas_parmanent as $upazila)
                                                                     <option value="{{ $upazila->id }}"
                                                                         {{ $upazila->id == $candidate->thana_parmanent ? 'selected' : '' }}>
                                                                         {{ $upazila->name }}</option>
@@ -852,7 +863,7 @@
                                                                 id="pourosova_union_porishod_parmanent"
                                                                 class="rt-selectactive w-100-p">
                                                                 <option value="">Please Select</option>
-                                                                @foreach ($unions as $union)
+                                                                @foreach ($unions_parmanent as $union)
                                                                     <option value="{{ $union->id }}"
                                                                         {{ $candidate->pourosova_union_porishod_parmanent == $union->id ? 'selected' : '' }}>
                                                                         {{ $union->name }}</option>
@@ -961,7 +972,7 @@
 
                                             <div class="row">
                                                 <div class="col-lg-12 mt-4">
-                                                    <button type="submit" class="btn btn-primary">
+                                                    <button type="submit" class="btn d-block btn-primary">
                                                         {{ __('save_changes') }}
                                                     </button>
                                                 </div>
@@ -1147,7 +1158,7 @@
                                                     </button>
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn btn-primary mt-4">
+                                            <button type="submit" class="btn d-block btn-primary mt-4">
                                                 {{ __('save_changes') }}
                                             </button>
                                     </div>
@@ -1960,10 +1971,10 @@
         //     var district_id = $("#district").val();
         //     get_thana(district_id);
 
-        //     var division = $("#region").val();
+        //     var division = $("#region_parmanent").val();
         //     get_district_parmanent(division);
 
-        //     var district_id = $("#district").val();
+        //     var district_id = $("#district_parmanent").val();
         //     get_thana_parmanent(district_id);
 
         // });

@@ -97,7 +97,7 @@ class SurjoPayController extends Controller
             
             flashSuccess('Payment Successfull!');
             if (auth()->user()->role == "candidate") {
-                return view('website.pages.candidate.verification');
+                return redirect()->route('website.candidate.verification');
             }
     
             if (auth()->user()->role == "company") {

@@ -1,6 +1,6 @@
 @props(['educations'])
 <div class="dashboard-right-header rt-mb-32 lg:tw-mt-0 justify-content-between">
-    <h3 class="f-size-18 lh-1 m-0">{{ __('educations') }}</h3>
+    <h3 class="f-size-18 lh-1 m-3">{{ __('educations') }}</h3>
     <button id="addEducation" type="button" class="btn btn-primary ">
         {{ __('add_education') }}
     </button>
@@ -78,11 +78,11 @@
         <div class="modal-content">
             <form action="{{ route('candidate.educations.store') }}" method="POST">
                 @csrf
-                <div class="modal-body">
+                <div class="modal-body p-3">
                     <h5 class="modal-title rt-mb-18 f-size-18" id="cvModalLabel">{{ __('add_education') }}</h5>
                     <div class="from-group rt-mb-18">
                         <x-forms.label name="education_level" class="rt-mb-8" />
-                        <input type="text" name="level" required class="@error('level') is-invalid @enderror" placeholder="{{ __('enter') }} {{ __('education_level') }}">
+                        <input type="text" name="level" required class="form-control @error('level') is-invalid @enderror" placeholder="{{ __('enter') }} {{ __('education_level') }}">
                         @error('level')
                             <span class="error invalid-feedback">{{ $message }}</span>
                         @enderror
@@ -90,7 +90,7 @@
                     <div class="row rt-mb-18">
                         <div class="col-lg-6">
                             <x-forms.label name="degree" class="rt-mb-8" />
-                            <input type="text" name="degree" required class="@error('degree') is-invalid @enderror" placeholder="{{ __('enter') }} {{ __('degree') }}">
+                            <input type="text" name="degree" required class="form-control @error('degree') is-invalid @enderror" placeholder="{{ __('enter') }} {{ __('degree') }}">
                             @error('degree')
                                 <span class="error invalid-feedback">{{ $message }}</span>
                             @enderror

@@ -786,6 +786,7 @@ class WebsiteController extends Controller
         $mpdf->SetTitle($title);
         $mpdf->WriteHTML($code);
         $mpdf->Output($title, 'D');
+        // $mpdf->Output($title, 'I');
     }
 
     // verify application from public url
@@ -1049,6 +1050,10 @@ class WebsiteController extends Controller
         $indeed_jobs = $this->getIndeedJobs($request, 25);
 
         return view('website.pages.jobs.indeed-jobs', compact('indeed_jobs'));
+    }
+
+    public function verifyCandidate(){
+        return view('website.pages.candidate.verification');
     }
 
     // application form open
