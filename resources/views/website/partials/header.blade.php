@@ -577,9 +577,9 @@
                                         <a href="javascript:void(0)" class="candidate-profile position-relative"
                                             id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                             @company
-                                                <img src="{{ auth()->user()->company->logo_url }}" alt="">
+                                                <img src="{{ asset(auth()->user()->company->logo_url) }}" alt="">
                                             @else
-                                                <img src="{{ auth()->user()->candidate->photo }}" alt="">
+                                                <img src="{{ asset(auth()->user()->candidate->photo) }}" alt="">
                                                 @if (auth()->user()->candidate->status == 'available')
                                                     <span class="available-alert-header">
                                                         <svg class="circle" width="14" height="14"

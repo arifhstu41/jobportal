@@ -17,23 +17,23 @@ class CandidateMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        
+
         if (auth('user')->user()->role == 'candidate') {
-            $candidate= Candidate::where('user_id', auth('user')->user()->id)->first();
-            if($candidate->balance == 0){
+            $candidate = Candidate::where('user_id', auth('user')->user()->id)->first();
+            if ($candidate->balance == 0) {
                 return redirect()->route('website.candidate.payment');
             }
-            if($candidate->is_varified == "false"){
+            if ($candidate->is_varified == "false") {
                 return redirect()->route('website.candidate.verification');
             }
-            if($candidate->profile_complete != 0){
+            if ($candidate->profile_complete != 0) {
                 return redirect()->route('website.candidate.application.form');
             }
             return $next($request);
         }
 
         if (auth('user')->user()->role == 'company') {
-         
+
             return redirect()->route('company.dashboard');
         }
 

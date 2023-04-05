@@ -146,11 +146,13 @@ class CandidateController extends Controller
         $professions = Profession::all();
         $skills = Skill::all(['id', 'name']);
         $languages = CandidateLanguage::all(['id', 'name']);
-
-        $districts = DB::table('districts')->get();
         $divisions = DB::table('divisions')->get();
-        $unions = DB::table('unions')->get();
-        $upazilas = DB::table('upazilas')->get();
+        $districts = DB::table('districts')->where('division_id', $candidate->region)->get();
+        $upazilas = DB::table('upazilas')->where('district_id', $candidate->district)->get();
+        $unions = DB::table('unions')->where('upazilla_id', $candidate->thana)->get();
+        $districts_parmanent = DB::table('districts')->where('division_id', $candidate->region_parmanent)->get();
+        $upazilas_parmanent = DB::table('upazilas')->where('district_id', $candidate->district_parmanent)->get();
+        $unions_parmanent = DB::table('unions')->where('upazilla_id', $candidate->thana_parmanent)->get();
         $wards= [];
         for ($i=1; $i <=10 ; $i++) { 
             $wards[]= $i;
@@ -174,6 +176,9 @@ class CandidateController extends Controller
             'unions' => $unions,
             'upazilas' => $upazilas,
             'wards' => $wards,
+            'districts_parmanent' => $districts_parmanent,
+            'upazilas_parmanent' => $upazilas_parmanent,
+            'unions_parmanent' => $unions_parmanent,
         ]);
     }
     public function accountSetting()

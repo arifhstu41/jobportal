@@ -815,7 +815,7 @@
                                                             <select required name="district_parmanent"
                                                                 id="district_parmanent" class="rt-selectactive w-100-p">
                                                                 <option value="">Please Select</option>
-                                                                @foreach ($districts as $district)
+                                                                @foreach ($districts_parmanent as $district)
                                                                     <option value="{{ $district->id }}"
                                                                         {{ $district->id == $candidate->district_parmanent ? 'selected' : '' }}>
                                                                         {{ $district->name }}</option>
@@ -840,7 +840,7 @@
                                                             <select required name="thana_parmanent" id="thana_parmanent"
                                                                 class="rt-selectactive w-100-p">
                                                                 <option value="">Please Select</option>
-                                                                @foreach ($upazilas as $upazila)
+                                                                @foreach ($upazilas_parmanent as $upazila)
                                                                     <option value="{{ $upazila->id }}"
                                                                         {{ $upazila->id == $candidate->thana_parmanent ? 'selected' : '' }}>
                                                                         {{ $upazila->name }}</option>
@@ -863,7 +863,7 @@
                                                                 id="pourosova_union_porishod_parmanent"
                                                                 class="rt-selectactive w-100-p">
                                                                 <option value="">Please Select</option>
-                                                                @foreach ($unions as $union)
+                                                                @foreach ($unions_parmanent as $union)
                                                                     <option value="{{ $union->id }}"
                                                                         {{ $candidate->pourosova_union_porishod_parmanent == $union->id ? 'selected' : '' }}>
                                                                         {{ $union->name }}</option>
@@ -1971,10 +1971,10 @@
         //     var district_id = $("#district").val();
         //     get_thana(district_id);
 
-        //     var division = $("#region").val();
+        //     var division = $("#region_parmanent").val();
         //     get_district_parmanent(division);
 
-        //     var district_id = $("#district").val();
+        //     var district_id = $("#district_parmanent").val();
         //     get_thana_parmanent(district_id);
 
         // });

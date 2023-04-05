@@ -22,13 +22,14 @@
 
         table td,
         table th {
-            padding: 10px;
+            /* padding: 10px; */
             border: 1px solid #ddd;
-        }
-
-        table th {
             background-color: #f2f2f2;
         }
+
+        /* table th {
+            background-color: #f2f2f2;
+        } */
 
         .personal-info
 
@@ -128,7 +129,12 @@
                         <p style="margin-bottom: 0px; padding-bottom: 0px;">{{ $job->company->user->name }}</p>
                         <p style="font-size: 8px; margin-top:0px; padding-top:0px">Dhaka, Bangladesh</p>
                     </td>
-                    <td style="text-align: right; border-left: 0px; padding:0px; padding-right: 10px">Barcode</td>
+                    @php
+                        $qrcode=QrCode::size(50)->generate(route('verify.application', ['job_id' => $job->id, 'candidate_id' => $candidate->id]));
+                        $code = (string)$qrcode;
+                        $code= substr($code,38);
+                    @endphp
+                    <td style="text-align: right; border-left: 0px; padding:0px; padding-right: 10px">{!! $code !!}</td>
                 </tr>
             </tbody>
         </table>
@@ -143,7 +149,7 @@
         <table style="padding-top: 4px;">
             <tbody>
                 <tr style="padding: 0px; margin: 0px">
-                    <td rowspan="4" style="margin: 0px; padding:0px;" width="150px">
+                    <td rowspan="7" style="margin: 0px; padding:0px;" width="150px">
                         <img src="{{ $candidate->photo }}" width="150px" height="140px" alt="Profile Picture"
                             style="margin: 0px; padding:5px; border-radius: 5%;">
                     </td>
@@ -153,16 +159,35 @@
                         {{ $candidate->user->name ?? '' }}</td>
                 </tr>
                 <tr style="padding: 0px; margin: 0px">
+                    <td style="font-size: 10px; padding-left:5px; background-color: #DCDCDC;  width: 30%">Applicant's
+                        Name (বাংলা)
+                    </td>
+                    <td style="font-size: 10px; padding-left:5px; background-color: #DCDCDC;">
+                        {{ $candidate->name_bn ?? '' }}</td>
+                </tr>
+                <tr style="padding: 0px; margin: 0px">
                     <td style="font-size: 10px; padding-left:5px; background-color: #DCDCDC;  width: 30%">Father's Name
                     </td>
                     <td style="font-size: 10px; padding-left:5px; background-color: #DCDCDC;">
                         {{ $candidate->father_name ?? '' }}</td>
                 </tr>
                 <tr style="padding: 0px; margin: 0px">
+                    <td style="font-size: 10px; padding-left:5px; background-color: #DCDCDC;  width: 30%">Father's Name (বাংলা)
+                    </td>
+                    <td style="font-size: 10px; padding-left:5px; background-color: #DCDCDC;">
+                        {{ $candidate->father_name_bn ?? '' }}</td>
+                </tr>
+                <tr style="padding: 0px; margin: 0px">
                     <td style="font-size: 10px; padding-left:5px; background-color: #DCDCDC;  width: 30%">Mother's Name
                     </td>
                     <td style="font-size: 10px; padding-left:5px; background-color: #DCDCDC;">
                         {{ $candidate->mother_name ?? '' }}</td>
+                </tr>
+                <tr style="padding: 0px; margin: 0px">
+                    <td style="font-size: 10px; padding-left:5px; background-color: #DCDCDC;  width: 30%">Mother's Name (বাংলা)
+                    </td>
+                    <td style="font-size: 10px; padding-left:5px; background-color: #DCDCDC;">
+                        {{ $candidate->mother_name_bn ?? '' }}</td>
                 </tr>
                 <tr style="padding: 0px; margin: 0px">
                     <td style="font-size: 10px; padding-left:5px; background-color: #DCDCDC;  width: 30%">Date of Birth
