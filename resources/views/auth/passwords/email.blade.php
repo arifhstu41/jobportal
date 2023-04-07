@@ -16,8 +16,8 @@
                 <form method="POST" action="{{ route('get.password.reset.otp') }}" class="rt-form">
                     @csrf
                     
-                    <div class="" style="color: #2e3397">
-                        <h5 class="">Forgot Password?</h5>
+                    <div class="text-center" style="color: #2e3397">
+                        <strong class="mb-2">Forgot Password?</strong>
                     </div>
                     {{-- <div class="fromGroup rt-mb-15">
                         <input id="email" class="form-control @error('email') is-invalid @enderror" name="email"

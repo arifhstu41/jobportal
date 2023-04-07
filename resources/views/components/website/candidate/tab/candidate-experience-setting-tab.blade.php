@@ -115,7 +115,7 @@
                     <div class="row rt-mb-18">
                         <div class="col-lg-12">
                             <x-forms.label name="responsibilities" class="rt-mb-8" :required="false"/>
-                            <textarea class="form-control @error('responsibilities') is-invalid @enderror" placeholder="{{ __('enter') }} {{ __('responsibilities') }}" name="responsibilities" rows="5"></textarea>
+                            <textarea class="form-control @error('responsibilities') is-invalid @enderror" placeholder="{{ __('enter') }} {{ __('responsibilities') }}" name="responsibilities" rows="2"></textarea>
                         </div>
                     </div>
                     <div class="d-flex justify-content-between">

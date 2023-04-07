@@ -59,13 +59,13 @@
                                                 <li class="relative">
                                                     <a href="{{ route('user.dashboard') }} " class="candidate-profile p-0">
 
-                                                        <img src="{{ auth()->user()->company->logo_url }}" alt="">
+                                                        <img src="{{ asset(auth()->user()->company->logo_url) }}" alt="">
                                                     </a>
                                                 </li>
                                             @else
                                                 <li class="relative">
                                                     <a href="{{ route('user.dashboard') }} " class="candidate-profile p-0">
-                                                        <img src="{{ auth()->user()->candidate->photo }}" alt="">
+                                                        <img src="{{ asset(auth()->user()->candidate->photo) }}" alt="">
 
                                                     </a>
                                                 </li>
