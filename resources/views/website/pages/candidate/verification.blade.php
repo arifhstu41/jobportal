@@ -60,8 +60,10 @@
                 </div>
             </form>
         </div>
+        <div class="container">
+
+        </div>
     </div>
-    <section class="section benefits bgcolor--gray-10">
         <div class="container">
             {{-- <div class="row mt-5 pt-5">
                 <h4 class="text-info">{{ __('total_amount_to_pay') }}: 100</h4>
@@ -72,9 +74,9 @@
                 <form action="{{ route('website.candidate.verification.process') }}" method="POST">
                     @csrf
 
-                    <div class="col-10 mx-auto my-2 ">
+                    <div class="col-sm-12 col-md-10 mx-auto my-2 ">
                         <div class="card jobcardStyle1">
-                            <div class="card-body">
+                            <div class="card-body px-1">
                                 <div class="post-info d-flex row">
                                     <div class="col-sm-4 col-md-3 py-2">
                                         <select class="rt-selectactive w-100-p @error('id_type') is-invalid @enderror"
@@ -103,7 +105,7 @@
                                         @enderror
                                     </div>
                                     <div class="col-sm-4 col-md-3 py-2">
-                                        <button id="surjo_pay_btn" type="submit" class="btn btn-primary2-50 d-block">
+                                        <button id="surjo_pay_btn" type="submit" class="btn btn-primary d-block">
                                             Submit
                                         </button>
                                     </div>
@@ -114,8 +116,6 @@
                 </form>
             </div>
         </div>
-
-    </section>
 @endsection
 
 @section('script')

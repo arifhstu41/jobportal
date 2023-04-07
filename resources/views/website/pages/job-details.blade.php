@@ -132,7 +132,7 @@
                                                                 </span>
                                                             </button>
                                                             
-                                                        <a class="btn btn-info m-2 btn-xs" href="{{ route('website.download.application.form', $job->id) }}">
+                                                        <a class="btn btn-info mt-2 btn-lg d-block" href="{{ route('website.download.application.form', $job->id) }}">
                                                             Download Applicant Copy</a>
                                                         @endif
                                                     @else

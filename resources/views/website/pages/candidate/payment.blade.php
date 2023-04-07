@@ -64,7 +64,11 @@
                     <div class="card bg-primary-900 text-white text-bold text-center">
                         <div class="card-body">
                             <p>
-                                ওয়েলফেয়ার ফ্যামিলি বাংলাদেশ এবং বেসরকারি উন্নয়ন সংস্থা (NGO) এর যৌথ উদ্যোগে (বাংলাদেশ গেজেটে প্রকাশিত বিজ্ঞপ্তির আলোকে ও চাকরির আবেদনকারীরা এককালীন অফেরতযোগ্য রেজিস্ট্রেশন ফি প্রদান করে) 'সাসটেইনেবল ডেভেলপমেন্ট পলিসি' (SDP) ও সোস্যাল অ্যান্ড ইকোনমিক ডেভেলপমেন্ট পলিসি' (SEDP) এবং পভার্টি এলিভিয়েশন পলিসি (Muldhan) প্রজেক্ট-প্রোগ্রাম বাস্তবায়নের জন্য "সামাজিক ও অর্থনৈতিকক্ষেত্রে টেকসই উন্নয়নের প্রয়াস"
+                                ওয়েলফেয়ার ফ্যামিলি বাংলাদেশ এবং বেসরকারি উন্নয়ন সংস্থা (NGO) এর যৌথ উদ্যোগে (বাংলাদেশ
+                                গেজেটে প্রকাশিত বিজ্ঞপ্তির আলোকে ও চাকরির আবেদনকারীরা এককালীন অফেরতযোগ্য রেজিস্ট্রেশন ফি
+                                প্রদান করে) 'সাসটেইনেবল ডেভেলপমেন্ট পলিসি' (SDP) ও সোস্যাল অ্যান্ড ইকোনমিক ডেভেলপমেন্ট
+                                পলিসি' (SEDP) এবং পভার্টি এলিভিয়েশন পলিসি (Muldhan) প্রজেক্ট-প্রোগ্রাম বাস্তবায়নের জন্য
+                                "সামাজিক ও অর্থনৈতিকক্ষেত্রে টেকসই উন্নয়নের প্রয়াস"
                             </p>
                         </div>
                     </div>
@@ -73,7 +77,8 @@
                 <div class="col-sm-10 col-md-8 mx-auto my-2">
                     <div class="card px-0">
                         <div class="card-body text-center">
-                            <button class="btn bg-primary text-white text-bold d-block rounded-pill">Job Application Fees</button>
+                            <button class="btn bg-primary text-white text-bold d-block rounded-pill">Job Application
+                                Fees</button>
                         </div>
                     </div>
                 </div>
@@ -107,17 +112,20 @@
                 <div class="col-sm-10 col-md-8 mx-auto my-2">
                     <div class="card">
                         <div class="card-footer text-center mx-auto px-0 pt-0">
-                            <img class="img-fluid img-thumbnail" src="{{ asset('images/welfare-banner.png') }}" alt="welfarelogo">
+                            <img class="img-fluid img-thumbnail" src="{{ asset('images/welfare-banner.png') }}"
+                                alt="welfarelogo">
                         </div>
                         <div class="card-body text-center">
-                            <p><input type="checkbox" value="1" id="checkbox"> By Continuing, I Confirm that I Read & Agree To the <a href="{{ url('terms-condition') }}" target="_blank"
-                                class="body-font-4 text-primary-500 text-theme">
-                                <strong style="color: #2e3397">{{ __('terms_of_service') }}</strong>
-                            </a> and <a href="{{ url('privacy-policy') }}" target="_blank"
-                            class="body-font-4 text-primary-500 text-theme">
-                            <strong style="color: #2e3397">{{ __('privacy_policy') }}</strong>
-                        </a>.</p>
-                            <button id="surjo_pay_btn" type="button" class="btn bg-primary rounded-pill text-uppercase text-bold text-white">
+                            <p><input type="checkbox" value="1" id="checkbox"> By Continuing, I Confirm that I Read &
+                                Agree To the <a href="{{ url('terms-condition') }}" target="_blank"
+                                    class="body-font-4 text-primary-500 text-theme">
+                                    <strong style="color: #2e3397">{{ __('terms_of_service') }}</strong>
+                                </a> and <a href="{{ url('privacy-policy') }}" target="_blank"
+                                    class="body-font-4 text-primary-500 text-theme">
+                                    <strong style="color: #2e3397">{{ __('privacy_policy') }}</strong>
+                                </a>.</p>
+                            <button id="surjo_pay_btn" type="button"
+                                class="btn bg-primary rounded-pill text-uppercase text-bold text-white text-wrap">
                                 {{ __('pay_now') }} to verify your Account
                             </button>
                         </div>
@@ -134,21 +142,20 @@
     </section>
 @endsection
 @section('script')
-<script>
-    $('#surjo_pay_btn').on('click', function(e) {
-        if($("#checkbox").is(':checked')){
-            e.preventDefault();
-            $('#surjopay-form').submit();
-        }
-        else{
-            Swal.fire({
-                icon: 'warning',
-                text: 'Please agree terms and conditions'
-            })
-            e.preventDefault();
-        }
-            
+    <script>
+        $('#surjo_pay_btn').on('click', function(e) {
+            if ($("#checkbox").is(':checked')) {
+                e.preventDefault();
+                $('#surjopay-form').submit();
+            } else {
+                Swal.fire({
+                    icon: 'warning',
+                    text: 'Please agree terms and conditions'
+                })
+                e.preventDefault();
+            }
+
         });
-    $("#checkbox").on("click")
-</script>
+        $("#checkbox").on("click")
+    </script>
 @endsection
