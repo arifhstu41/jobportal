@@ -750,7 +750,6 @@ class WebsiteController extends Controller
     // candidate download application form
     public function downloadApplicationForm($job_id)
     {
-
         $job = Job::find($job_id);
         $candidate = auth('user')->user()->candidate;
         $data['candidate'] = $candidate;
@@ -783,9 +782,8 @@ class WebsiteController extends Controller
         $code = (string)$qrcode;
         $code = substr($code, 38);
         $stylesheet = file_get_contents('css/custom.css'); // external css
-        $code       = view('website.pages.application-details', compact('job', 'candidate', 'code')); //table part
+        $code       = view('website.pages.application-details', compact('job', 'candidate')); //table part
         $mpdf->WriteHTML($stylesheet, 1);
-
         $title = $candidate->user->username . ".pdf";
         $mpdf->SetTitle($title);
         $mpdf->WriteHTML($code);

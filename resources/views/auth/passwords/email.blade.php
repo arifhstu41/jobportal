@@ -11,7 +11,7 @@
                 style="border-color: #1c458e" width="100" height="100" src="{{ asset('images/welfare-logo.png') }}"
                 alt="welfarelogo">
         </div>
-        <div class="card-body">
+        <div class="card-body pt-4">
             <div class="auth-box2">
                 <form method="POST" action="{{ route('get.password.reset.otp') }}" class="rt-form">
                     @csrf
@@ -32,7 +32,7 @@
                     <div class="fromGroup rt-mb-15">
                         <p for="phone" class="text-muted font-size-13 pb-0 mb-0">Enter your {{ __('phone') }}</p>
                         <input id="phone" class="form-control rounded-3 @error('phone') is-invalid @enderror" name="phone"
-                            value="{{ old('phone') }}" type="number" pattern="\d*" placeholder="01751767350">
+                            value="{{ old('phone') }}" type="number" pattern="\d*" placeholder="01812957272">
                         @error('phone')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
