@@ -1,4 +1,5 @@
-<?php //echo "<pre>";print_r($filter);die;?>
+<?php //echo "<pre>";print_r($filter);die;
+?>
 @extends('admin.layouts.app')
 @section('title')
     {{ __('candidate_list') }}
@@ -12,56 +13,57 @@
                         <h3 class="card-title line-height-36">{{ __('candidate_list') }}</h3>
                         <div>
                             @if (userCan('candidate.create'))
-                                <a href="{{ route('candidate.create') }}"
-                                    class="btn bg-primary"><i
+                                <a href="{{ route('candidate.create') }}" class="btn bg-primary"><i
                                         class="fas fa-plus mr-1"></i> {{ __('create') }}
                                 </a>
                             @endif
-                            @if (request('keyword') || request('ev_status') || request('sort_by') )
-                                <a href="{{ route('company.index') }}"
-                                    class="btn bg-danger"><i
+                            @if (request('keyword') || request('ev_status') || request('sort_by'))
+                                <a href="{{ route('company.index') }}" class="btn bg-danger"><i
                                         class="fas fa-times"></i>&nbsp; {{ __('clear') }}
                                 </a>
                             @endif
+                            <button type="button" class="btn btn-danger" id="pdfButton">PDF</button>
                         </div>
                     </div>
                 </div>
 
                 {{-- Filter  --}}
-                <form id="formSubmit" action="{{ route('candidate.index') }}" method="GET" onchange="this.submit();">
+                <form id="formSubmit" name="formSubmit" action="{{ route('candidate.index') }}" method="GET" onchange="this.submit();">
+                    @csrf
                     <div class="card-body border-bottom ">
                         <div class="row">
                             <div class="col-4">
                                 <label>{{ __('name') }}</label>
-                                <input name="name" type="text" placeholder="{{ __('name') }}" class="form-control" value="{{ request('name') }}">
+                                <input name="name" type="text" placeholder="{{ __('name') }}" class="form-control"
+                                    value="{{ request('name') }}">
                             </div>
                             <div class="col-4">
                                 <label>{{ __('phone') }}</label>
-                                <input name="phone" type="text" placeholder="{{ __('phone') }}" class="form-control" value="{{ request('phone') }}">
+                                <input name="phone" type="text" placeholder="{{ __('phone') }}" class="form-control"
+                                    value="{{ request('phone') }}">
                             </div>
                             <div class="col-4">
                                 <label>{{ __('email') }}</label>
-                                <input name="email" type="text" placeholder="{{ __('email') }}" class="form-control" value="{{ request('email') }}">
+                                <input name="email" type="text" placeholder="{{ __('email') }}" class="form-control"
+                                    value="{{ request('email') }}">
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-4">
                                 <label>{{ __('region') }}</label>
-                                <select  name="region" id="region"
-                                class="form-control w-100-p">
-                                <option value="">Please Select</option>
-                                @foreach ($divisions as $division)
-                                    <option value="{{ $division->id }}"
-                                        {{ $filter->division == $division->id ? 'selected' : '' }}>
-                                        {{ $division->name }}</option>
-                                @endforeach
-                            </select>
+                                <select name="region" id="region" class="form-control w-100-p">
+                                    <option value="">Please Select</option>
+                                    @foreach ($divisions as $division)
+                                        <option value="{{ $division->id }}"
+                                            {{ $filter->division == $division->id ? 'selected' : '' }}>
+                                            {{ $division->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="col-4">
                                 <label>{{ __('district') }}</label>
-                                <select  name="district" id="district"
-                                    class="form-control w-100-p">
+                                <select name="district" id="district" class="form-control w-100-p">
                                     <option value="">Please Select</option>
                                     @foreach ($districts as $district)
                                         <option value="{{ $district->id }}"
@@ -73,8 +75,7 @@
                             </div>
                             <div class="col-4">
                                 <label>{{ __('thana') }}</label>
-                                <select  name="thana" id="thana"
-                                    class="form-control w-100-p">
+                                <select name="thana" id="thana" class="form-control w-100-p">
                                     <option value="">Please Select</option>
                                     @foreach ($upazilas as $thana)
                                         <option value="{{ $thana->id }}"
@@ -89,39 +90,42 @@
                         <div class="row">
                             <div class="col-4">
                                 <label>{{ __('pourosova_union_porishod') }}</label>
-                                <select  name="pourosova_union_porishod"
-                                id="pourosova_union_porishod" class="form-control w-100-p">
-                                <option value="">Please Select</option>
-                                @foreach ($unions as $union)
-                                    <option value="{{ $union->id }}"
-                                        {{ $filter->pourosova_union_porishod == $union->id ? 'selected' : '' }}>
-                                        {{ $union->name }}</option>
-                                @endforeach
+                                <select name="pourosova_union_porishod" id="pourosova_union_porishod"
+                                    class="form-control w-100-p">
+                                    <option value="">Please Select</option>
+                                    @foreach ($unions as $union)
+                                        <option value="{{ $union->id }}"
+                                            {{ $filter->pourosova_union_porishod == $union->id ? 'selected' : '' }}>
+                                            {{ $union->name }}</option>
+                                    @endforeach
 
-                            </select>
+                                </select>
                             </div>
                             <div class="col-4">
                                 <label>{{ __('ward_no') }}</label>
-                                <select  name="ward_no" id="ward_no"
-                                class="form-control w-100-p">
-                                <option value="">Please Select</option>
-                                @foreach ($wards as $key => $ward)
-                                    <option value="{{ $ward }}"
-                                        {{ $filter->ward_no == $ward ? 'selected' : '' }}>
-                                        Ward-{{ $ward }}</option>
-                                @endforeach
-                            </select>
+                                <select name="ward_no" id="ward_no" class="form-control w-100-p">
+                                    <option value="">Please Select</option>
+                                    @foreach ($wards as $key => $ward)
+                                        <option value="{{ $ward }}"
+                                            {{ $filter->ward_no == $ward ? 'selected' : '' }}>
+                                            Ward-{{ $ward }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="col-4">
                                 <label>{{ __('house_and_road_no') }}</label>
-                                <input
-                                class="form-control @error('house_and_road_no') is-invalid @enderror"
-                                name="house_and_road_no" type="text"
-                                value="{{ old('house_and_road_no') ? old('house_and_road_no') : $filter->house_and_road_no }}"
-                                id="house_and_road_no" placeholder="{{ __('house_and_road_no') }}"
-                                >
+                                <input class="form-control @error('house_and_road_no') is-invalid @enderror"
+                                    name="house_and_road_no" type="text"
+                                    value="{{ old('house_and_road_no') ? old('house_and_road_no') : $filter->house_and_road_no }}"
+                                    id="house_and_road_no" placeholder="{{ __('house_and_road_no') }}">
                             </div>
                         </div>
+{{-- 
+                        <div class="row d-flex justify-content-end">
+                            <div class="col-sm-4 col-md-2">
+                                <button type="submit" formaction="#" class="btn btn-sm btn-primary">PDF</button>
+                            </div>
+                        </div> --}}
 
 
                     </div>
@@ -152,12 +156,11 @@
                                 @foreach ($candidates as $candidate)
                                     <tr>
                                         <td class="text-center" tabindex="0">
-                                            <img src="{{ asset($candidate->photo) }}" class="rounded"
-                                                height="50px" width="50px" alt="image">
+                                            <img src="{{ asset($candidate->photo) }}" class="rounded" height="50px"
+                                                width="50px" alt="image">
                                         </td>
                                         <td class="text-center" tabindex="0">
-                                            <a href="{{ route('candidate.show', $candidate->id) }}"
-                                                class="">
+                                            <a href="{{ route('candidate.show', $candidate->id) }}" class="">
                                                 {{ $candidate->user->name }}
                                             </a>
                                         </td>
@@ -171,8 +174,8 @@
                                             <td class="text-center" tabindex="0">
                                                 <a href="javascript:void(0)">
                                                     <label class="switch ">
-                                                        <input data-id="{{ $candidate->user_id }}"
-                                                            type="checkbox" class="success status-switch"
+                                                        <input data-id="{{ $candidate->user_id }}" type="checkbox"
+                                                            class="success status-switch"
                                                             {{ $candidate->user->status == 1 ? 'checked' : '' }}>
                                                         <span class="slider round"></span>
                                                     </label>
@@ -183,8 +186,7 @@
                                             <td class="text-center" tabindex="0">
                                                 <a href="javascript:void(0)">
                                                     <label class="switch ">
-                                                        <input data-userid="{{ $candidate->user_id }}"
-                                                            type="checkbox"
+                                                        <input data-userid="{{ $candidate->user_id }}" type="checkbox"
                                                             class="success email-verification-switch"
                                                             {{ $candidate->user->email_verified_at ? 'checked' : '' }}>
                                                         <span class="slider round"></span>
@@ -205,15 +207,13 @@
                                                     </a>
                                                 @endif
                                                 @if (userCan('candidate.delete'))
-                                                    <form
-                                                        action="{{ route('candidate.destroy', $candidate->id) }}"
+                                                    <form action="{{ route('candidate.destroy', $candidate->id) }}"
                                                         method="POST" class="d-inline">
                                                         @method('DELETE')
                                                         @csrf
                                                         <button
                                                             onclick="return confirm('{{ __('are_you_sure_you_want_to_delete_this_item') }}');"
-                                                            class="btn bg-danger"><i
-                                                                class="fas fa-trash"></i></button>
+                                                            class="btn bg-danger"><i class="fas fa-trash"></i></button>
                                                     </form>
                                                 @endif
                                             </td>
@@ -234,16 +234,15 @@
                             {{ $candidates->onEachSide(1)->links() }}
                         </div>
                     @endif
-                    </div>
                 </div>
             </div>
         </div>
     </div>
+    </div>
 @endsection
 
 @section('style')
-    <link rel="stylesheet"
-        href="{{ asset('backend') }}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="{{ asset('backend') }}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <style>
         .switch {
             position: relative;
@@ -341,6 +340,16 @@
         });
     </script>
     <script>
+        // submit for pdf export
+        $(document).ready(function() {
+            $("#pdfButton").click(function() {
+                $('form[name=formSubmit]').attr('method',"POST");
+                $('form[name=formSubmit]').attr('action',"{{ route('candidate.export.pdf') }}");
+                $("#formSubmit").submit();
+            });
+        });
+
+
         $(document).ready(function() {
             // validate();
             $('#title').keyup(validate);
@@ -354,8 +363,8 @@
             get_thana(district_id, thana);
             get_union(thana, pourosova_union_porishod);
 
-            console.log("division"+division)
-            console.log("district_id"+district_id)
+            console.log("division" + division)
+            console.log("district_id" + district_id)
         });
 
 
@@ -454,6 +463,5 @@
             });
 
         }
-
     </script>
 @endsection

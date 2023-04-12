@@ -25,8 +25,9 @@ class CompanyUpdateFormRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'username' => "required|unique:users,username,{$this->company->user->id}",
-            'email' => "required|email|unique:users,email,{$this->company->user->id}",
+            'username' => "nullable|unique:users,username,{$this->company->user->id}",
+            'email' => "nullable|email|unique:users,email,{$this->company->user->id}",
+            'phone' => ["required","unique:users,phone,{$this->company->user->id}", 'regex:/^(?:\+88|88)?(01[3-9]\d{8})$/'],
             'organization_type_id' => 'required',
             'industry_type_id' => 'required',
             'team_size_id' => 'nullable',

@@ -17,9 +17,9 @@
                                 <p class="m-0 r-c">{{ __('here_is_your_daily_activities_career_opportunities') }}
                                 </p>
                             </div>
-                            <span class="sidebar-open-nav">
+                            {{-- <span class="sidebar-open-nav">
                                 <i class="ph-list"></i>
-                            </span>
+                            </span> --}}
                         </div>
                         <div class="row">
                             <div class="col-xl-4 col-lg-6 col-md-6">

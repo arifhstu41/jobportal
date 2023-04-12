@@ -24,11 +24,10 @@ class CompanyCreateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'username' => 'sometimes|unique:users,username',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'nullable|email|unique:users,email',
+            'phone' => 'required|unique:users,"regex:/^(?:\+88|88)?(01[3-9]\d{8})$/",',
+            'address' => 'required',
             'password' => 'required',
-            'contact_phone' => 'required',
-            'contact_email' => 'required',
             'organization_type_id' => 'required',
             'industry_type_id' => 'required',
             'team_size_id' => 'nullable',

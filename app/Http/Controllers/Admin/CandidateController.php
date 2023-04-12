@@ -25,6 +25,7 @@ use App\Http\Requests\CandidateRequest;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\CandidateCreateNotification;
 use App\Notifications\UpdateCompanyPassNotification;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class CandidateController extends Controller
 {
@@ -143,6 +144,128 @@ class CandidateController extends Controller
         $divisions = DB::table('divisions')->get();
         $upazilas = DB::table('upazilas')->get();
         $unions = DB::table('unions')->get();
+
+        return view('admin.candidate.index', compact('candidates','divisions', 'districts','unions', 'upazilas', 'filter', 'wards'));
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function exportPDF(Request $request)
+    {
+        abort_if(!userCan('candidate.view'), 403);
+        // dd($request->all());
+        $query = Candidate::with('user');
+
+        // verified status
+        if ($request->has('ev_status') && $request->ev_status != null) {
+            $ev_status = null;
+            if ($request->ev_status == 'true') {
+                $query->whereHas('user', function ($q) use ($ev_status) {
+                    $q->whereNotNull('email_verified_at');
+                });
+            } else {
+                $query->whereHas('user', function ($q) use ($ev_status) {
+                    $q->whereNull('email_verified_at');
+                });
+            }
+        }
+
+        if ($request->name && $request->name != null) {
+            $query->whereHas('user', function ($q) use ($request) {
+                $q->where('name', 'LIKE', "%$request->name%");
+            });
+        }
+
+        if ($request->phone && $request->phone != null) {
+            $query->whereHas('user', function ($q) use ($request) {
+                $q->where('phone', 'LIKE', "%$request->phone%");
+            });
+        }
+
+        if ($request->email && $request->email != null) {
+            $query->whereHas('user', function ($q) use ($request) {
+                $q->where('email', 'LIKE', "%$request->email%");
+            });
+        }
+
+        if ($request->region && $request->region != null) {
+
+            $query->where(function ($q) use ($request) {
+                $q->where('region', '=', $request->region);
+            });
+        }
+        
+        if ($request->district && $request->district != null) {
+
+            $query->where(function ($q) use ($request) {
+                $q->where('district', '=', $request->district);
+            });
+        }
+        
+        if ($request->thana && $request->thana != null) {
+
+            $query->where(function ($q) use ($request) {
+                $q->where('thana', '=', $request->thana);
+            });
+        }
+
+        if ($request->pourosova_union_porishod && $request->pourosova_union_porishod != null) {
+
+            $query->where(function ($q) use ($request) {
+                $q->where('pourosova_union_porishod', '=', $request->pourosova_union_porishod);
+            });
+        }
+
+        if ($request->ward_no && $request->ward_no != null) {
+
+            $query->where(function ($q) use ($request) {
+                $q->where('ward_no', '=', $request->ward_no);
+            });
+        }
+
+        if ($request->house_and_road_no && $request->house_and_road_no != null) {
+
+            $query->where(function ($q) use ($request) {
+                $q->where('house_and_road_no', '=', $request->house_and_road_no);
+            });
+        }
+
+        // sortby
+        if ($request->sort_by == 'latest' || $request->sort_by == null) {
+            $query->latest();
+        } else {
+            $query->oldest();
+        }
+
+        $candidates = $query->get();
+
+        $filter = [
+            "district" => @$request->district,
+            "division" => @$request->region,
+            "upazila" => @$request->thana,
+            "union" => @$request->union,
+            "house_and_road_no" => @$request->house_and_road_no,
+            "pourosova_union_porishod" => @$request->pourosova_union_porishod,
+            "ward_no" => @$request->ward_no
+        ];
+
+        $filter = (object)$filter;
+
+        $wards= [];
+        for ($i=1; $i <=10 ; $i++) {
+            $wards[]= $i;
+        }
+
+        $districts = DB::table('districts')->get();
+        $divisions = DB::table('divisions')->get();
+        $upazilas = DB::table('upazilas')->get();
+        $unions = DB::table('unions')->get();
+        $data['candidates']= $candidates;
+        $pdf = PDF::loadView('admin.candidate.pdf', $data)->setOptions(['defaultFont' => 'sans-serif']);
+
+        return $pdf->stream("invoice.pdf");
 
         return view('admin.candidate.index', compact('candidates','divisions', 'districts','unions', 'upazilas', 'filter', 'wards'));
     }

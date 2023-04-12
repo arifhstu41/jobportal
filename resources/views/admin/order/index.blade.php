@@ -39,7 +39,10 @@
                             <div class="col-3">
                                 <label>{{ __('payment_provider') }}</label>
                                 <select name="provider" id="filter" class="form-control w-100-p">
-                                    <option {{ request('provider') ? '' : 'selected' }} value="" selected>
+                                    <option {{ request('provider') == 'surjopay' ? 'selected' : '' }} value="surjopay">
+                                        {{ __('surjopay') }}
+                                    </option>
+                                    {{-- <option {{ request('provider') ? '' : 'selected' }} value="" selected>
                                         {{ __('all') }}
                                     </option>
                                     <option {{ request('provider') == 'paypal' ? 'selected' : '' }} value="paypal">
@@ -72,7 +75,7 @@
                                     </option>
                                     <option {{ request('provider') == 'offline' ? 'selected' : '' }} value="offline">
                                         {{ __('offline') }}
-                                    </option>
+                                    </option> --}}
                                 </select>
                             </div>
                             <div class="col-3">

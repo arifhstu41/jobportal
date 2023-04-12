@@ -78,13 +78,13 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $newUsername = $this->generateUserName();
+        $newUsername =generateUserName();
         $oldUserName = User::where('username', $newUsername)->first();
 
         if ($oldUserName) {
             $username = Str::slug($newUsername) . '_' . Str::random(5);
         } else {
-            $username = $this->generateUserName();
+            $username =generateUserName();
         }
 
         $user= new User();

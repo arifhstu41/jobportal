@@ -4,6 +4,9 @@
 @endsection
 
 @section('content')
+@if($errors->any())
+    {{ implode('', $errors->all('<div>:message</div>')) }}
+@endif
     <div class="container-fluid">
         <form class="form-horizontal" action="{{ route('company.update', $company->id) }}" method="POST"
             enctype="multipart/form-data">
@@ -33,12 +36,12 @@
                             </div>
                             <div class="row">
                                 <div class="form-group col-6">
-                                    <x-forms.label name="username" :required="false"/>
-                                    <x-forms.input type="text" name="username" placeholder="username"
-                                        value="{{ old('username', $user->username) }}" />
+                                    <x-forms.label name="phone" :required="false"/>
+                                    <x-forms.input type="text" name="phone" placeholder="phone"
+                                        value="{{ old('phone', $user->phone) }}" />
                                 </div>
                                 <div class="form-group col-6">
-                                    <x-forms.label name="email" />
+                                    <x-forms.label name="email" :required="false"/>
                                     <x-forms.input type="email" name="email" placeholder="email"
                                         value="{{ old('email', $user->email) }}" />
                                 </div>
@@ -90,7 +93,7 @@
                                         value="{{ old('contact_phone', $user->contactInfo->phone) }}" />
                                 </div>
                                 <div class="form-group col-6">
-                                    <x-forms.label name="email" />
+                                    <x-forms.label name="email" :required="false"/>
                                     <x-forms.input type="email" name="contact_email" placeholder="email"
                                         value="{{ old('contact_email', $user->contactInfo->email) }}" />
                                 </div>
@@ -282,18 +285,24 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group datepicker col-4">
+                                <div class="form-group datepicker col-6">
                                     <x-forms.label name="website" :required="false"/>
                                     <x-forms.input type="text" name="website" placeholder="website"
                                         value="{{ old('website', $company->website) }}" />
                                     <x-forms.error name="establishment_date" />
                                 </div>
-                                <div class="form-group datepicker col-4">
+                                <div class="form-group datepicker col-6">
                                     <x-forms.label name="establishment_date" :required="false" />
                                     <x-forms.input type="text" name="establishment_date" placeholder="select_one"
                                         id="establishment_date"
                                         value="{{ old('establishment_date', formatTime($company->establishment_date, 'd-m-Y')) }}" />
                                     <x-forms.error name="establishment_date" />
+                                </div>
+
+                                <div class="form-group datepicker col-6">
+                                    <x-forms.label name="address" :required="true" />
+                                    <x-forms.input type="text" name="address" placeholder="Enter Address" value="{{ old('address', $company->address) }}"/>
+                                    <x-forms.error name="address" />
                                 </div>
                             </div>
                             <div class="row">

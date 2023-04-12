@@ -68,6 +68,8 @@ Route::prefix('admin')->group(function () {
 
         // ============ Candidate ===========
         Route::resource('candidate', CandidateController::class);
+        Route::post('/candidate/export/pdf', [CandidateController::class, 'exportPDF'])->name('candidate.export.pdf');
+        
         Route::post('/candidate/get/city', [CandidateController::class, 'city'])->name('candidate.city');
         Route::post('/candidate/get/state', [CandidateController::class, 'state'])->name('candidate.state');
         Route::get('/candidate/change/status', [CandidateController::class, 'statusChange'])->name('candidate.status.change');
