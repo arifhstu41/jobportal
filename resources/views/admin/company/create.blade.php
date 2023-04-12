@@ -30,11 +30,12 @@
                             </div>
                             <div class="row">
                                 <div class="form-group col-6">
-                                    <x-forms.label name="username" :required="false"/>
-                                    <x-forms.input type="text" name="username" placeholder="username" />
+                                    <x-forms.label name="phone"/>
+                                    <x-forms.input type="text" name="phone" placeholder="phone" />
+                                    <x-forms.error name="phone" />
                                 </div>
                                 <div class="form-group col-6">
-                                    <x-forms.label name="email" />
+                                    <x-forms.label name="email" :required="false"/>
                                     <x-forms.input type="email" name="email" placeholder="email" />
                                 </div>
 
@@ -45,35 +46,7 @@
                             </div>
                         </div>
                     </div>
-                    {{-- <div class="card">
-                        <div class="card-header">
-                            {{ __('location') }}
-                            <span class="text-red font-weight-bold">*</span>
-                            <small class="h6">
-                                ({{ __('click_to_add_a_pointer') }})
-                            </small>
-                        </div>
-                        <div class="card-body">
-                            <x-website.map.map-warning/>
-                            @php
-                                $map = setting('default_map');
-                            @endphp
-                            <div class="map mymap {{ $map == 'map-box' ? '' : 'd-none' }}" id='map-box'>
-                            </div>
-                            <div id="google-map-div" class="{{ $map == 'google-map' ? '' : 'd-none' }}">
-                                <input id="searchInput" class="mapClass" type="text" placeholder="Enter a location">
-                                <div class="map mymap" id="google-map"></div>
-                            </div>
-                            <div class="{{ $map == 'leaflet' ? '' : 'd-none' }}">
-                                <input type="text" autocomplete="off" id="leaflet_search" placeholder="{{ __('enter_city_name') }}" class="form-control"/> <br>
-                                <div id="leaflet-map"></div>
-                            </div>
-                            @error('location')
-                                <span class="ml-3 text-md text-danger">{{ $message }}</span>
-                            @enderror
-
-                        </div>
-                    </div> --}}
+                    
                     <div class="card">
                         <div class="card-header">
                             {{ __('contact') }}
@@ -85,7 +58,7 @@
                                     <x-forms.input type="text" name="contact_phone" placeholder="phone" />
                                 </div>
                                 <div class="form-group col-6">
-                                    <x-forms.label name="email" />
+                                    <x-forms.label name="email" :required="false"/>
                                     <x-forms.input type="email" name="contact_email" placeholder="email" />
                                 </div>
                             </div>
@@ -237,17 +210,24 @@
 
                             </div>
                             <div class="row">
-                                <div class="form-group datepicker col-4">
+                                <div class="form-group datepicker col-6">
                                     <x-forms.label name="website" :required="false"/>
                                     <x-forms.input type="text" name="website" placeholder="website" />
                                 </div>
-                                <div class="form-group datepicker col-4">
+                                <div class="form-group datepicker col-6">
                                     <x-forms.label name="establishment_date" :required="false" />
                                     <x-forms.input type="text" name="establishment_date" placeholder="select_one"
                                         id="establishment_date" />
                                     <x-forms.error name="establishment_date" />
                                 </div>
+
+                                <div class="form-group datepicker col-6">
+                                    <x-forms.label name="address" :required="true" />
+                                    <x-forms.input type="text" name="address" placeholder="Enter Address" value="{{ old('address') }}"/>
+                                    <x-forms.error name="address" />
+                                </div>
                             </div>
+
                             <div class="row">
                                 <div class="form-group col-6">
                                     <x-forms.label name="bio" :required="false" />

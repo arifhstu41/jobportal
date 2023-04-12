@@ -1064,20 +1064,45 @@ if (!function_exists('sendSMS')) {
         $type = "unicode";
         $phone = "88" . $user->phone;
         $sender_id = env('SMS_SENDER_ID');
-        if($content_type){
-            $template = DB::table('sms_content')->where("content_type", $content_type)->first();
+        switch ($content_type) {
+            case 'register':
+                $content= "ওয়েলফেয়ার জব পোর্টালে রেজিষ্ট্রেশন করার জন্য আপনাকে অভিনন্দন";
+                break;
+                
+                case 'apply':
+                    $content= "আপনার চাকরির আবেদন সফলভাবে গ্রহণ করা হয়েছে এবং পরবর্তী প্রক্রিয়ার জন্য My Welfare App অথবা www.welfarebd.org থেকে রেজিষ্ট্রেশন করুন";
+                    break;
+                
+                case 'interview':
+                    $content= "অভিনন্দন,আপনি ইন্টারভিউয়ের জন্য নির্বাচিত হয়েছেন, আপনার জন্য শুভ কামনা";
+                    break;
+                
+                case 'otp':
+                    $content= "আপনার ভেরিফিকেশন কোর্ড-".$sms_content;
+                    break;
+                
+                case 'password_reset':
+                    $content= "আপনার পাসওয়ার্ড সফলভাবে পরিবর্তন হয়েছে";
+                    break;
+                
+            default:
+                $content= "ওয়েলফেয়ার জব পোর্টালে আপনাকে স্বাগতম";
+                break;
         }
-        if ($sms_content != null) {
-            $content = $sms_content;
-            if($content_type == "otp"){
-                $content= $sms_content." is Your OTP for password reset. Do not share your OTP/PIN with others.";
-            }
-        } else {
-            $content = "জব পোর্টালে আপনাকে স্বাগতম";
-            if ($content_type == "apply") {
-                $content = "চাকরিতে আবেদনের জন্য ধন্যবাদ";
-            }
-        }
+        // if($content_type){
+        //     $template = DB::table('sms_content')->where("content_type", $content_type)->first();
+        // }
+        // if ($sms_content != null) {
+        //     $content = $sms_content;
+        //     if($content_type == "otp"){
+        //         $content= $sms_content." is Your OTP for password reset. Do not share your OTP/PIN with others.";
+        //     }
+        // } else {
+        //     $content = "জব পোর্টালে আপনাকে স্বাগতম";
+        //     if ($content_type == "apply") {
+        //         $content = "চাকরিতে আবেদনের জন্য ধন্যবাদ";
+        //     }
+        // }
 
         $data = [
             "api_key" => $api_key,
@@ -1131,4 +1156,32 @@ if (!function_exists('sendSMS')) {
 
         return true;
     }
+}
+
+
+/**
+ * generate 12 digit Username starting with WFB
+ * @param int length
+ * @return boolean
+ *
+ */
+if (!function_exists('generateUserName')) {
+    function generateUserName($length = 12)
+    {
+        $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[random_int(0, $charactersLength - 1)];
+        }
+        $username= "WFB".$randomString;
+
+        $oldUserName = User::where('username', $newUsername)->first();
+        if($oldUserName){
+            generateUserName(12);
+        }
+        return $username;
+    }
+
+
 }

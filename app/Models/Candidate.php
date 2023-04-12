@@ -26,6 +26,7 @@ class Candidate extends Model
     public function getPhotoAttribute($photo)
     {
         if ($photo == null) {
+            return "backend/image/default.png";
             return asset('backend/image/default.png');
         } else {
             return $photo;

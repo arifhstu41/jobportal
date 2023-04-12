@@ -6,7 +6,7 @@
 @section('content')
 
     @php
-    $userr = auth()->user();
+        $userr = auth()->user();
     @endphp
 
     <div class="container-fluid">
@@ -20,8 +20,8 @@
                     <div class="card-body table-responsive p-0">
                         <div class="row m-2">
                             <div class="col-md-4 col-sm-3">
-                                <img src="{{ asset($company->logo_url) }}" alt="image" class="image-fluid mr-2 object-fit-cover"
-                                    height="340px" width="340px">
+                                <img src="{{ asset($company->logo_url) }}" alt="image"
+                                    class="image-fluid mr-2 object-fit-cover" height="340px" width="340px">
                             </div>
                             <div class="col-md-8">
                                 <table id="datatable-responsive"
@@ -53,7 +53,7 @@
                                         <tr class="mb-5">
                                             <th width="20%">{{ __('establishment_date') }}</th>
                                             <td width="80%">
-                                                {{ $company->establishment_date ? date('j F, Y', strtotime($company->establishment_date)):'' }}
+                                                {{ $company->establishment_date ? date('j F, Y', strtotime($company->establishment_date)) : '' }}
                                             </td>
                                         </tr>
                                         <tr class="mb-5">
@@ -68,8 +68,7 @@
                                         </tr>
                                         <tr class="mb-5">
                                             <th width="20%">{{ __('address') }}</th>
-                                            <td width="80%"><a
-                                                    href="{{ $company->user->contactInfo->map_address }}">{{ $company->user->contactInfo->address }}</a>
+                                            <td width="80%">{{ $company->address }}
                                             </td>
                                         </tr>
                                         <tr class="mb-5">
@@ -83,30 +82,36 @@
                                         <tr class="mb-5">
                                             <th width="20%">{{ __('social_profile') }}</th>
                                             <td width="80%">
-                                                @if (!empty($company->user->socialInfo->facebook) && $company->user->socialInfo->facebook !== null)
-                                                    <a class="d-inline-block m-2"
-                                                        href="{{ url($company->user->socialInfo->facebook) }}">
-                                                        <i class="fab fa-facebook"></i>
-                                                    </a>
+                                                @if ($company->user->socialInfo)
+                                                    @foreach ($company->user->socialInfo as $item)
+                                                        <a class="d-inline-block m-2" href="{{ $item->url }}">
+                                                            @switch($item->social_media)
+                                                                @case('facebook')
+                                                                    <i class="fab fa-facebook"></i>
+                                                                @break
+
+                                                                @case('twitter')
+                                                                    <i class="fab fa-twitter"></i>
+                                                                @break
+
+
+                                                                @case('instagram')
+                                                                    <i class="fab fa-instagram"></i>
+                                                                @break
+
+
+                                                                @case('youtube')
+                                                                    <i class="fab fa-youtube"></i>
+                                                                @break
+
+                                                                @default
+                                                                    <span>Something went wrong, please try again</span>
+                                                            @endswitch
+                                                        </a>
+
+                                                    @endforeach
                                                 @endif
-                                                @if (!empty($company->user->socialInfo->twitter) && $company->user->socialInfo->twitter !== null)
-                                                    <a class="d-inline-block m-2"
-                                                        href="{{ url($company->user->socialInfo->twitter) }}">
-                                                        <i class="fab fa-twitter"></i>
-                                                    </a>
-                                                @endif
-                                                @if (!empty($company->user->socialInfo->instagram) && $company->user->socialInfo->instagram !== null)
-                                                    <a class="d-inline-block m-2"
-                                                        href="{{ url($company->user->socialInfo->instagram) }}">
-                                                        <i class="fab fa-instagram"></i>
-                                                    </a>
-                                                @endif
-                                                @if (!empty($company->user->socialInfo->youtube) && $company->user->socialInfo->youtube !== null)
-                                                    <a class="d-inline-block m-2"
-                                                        href="{{ url($company->user->socialInfo->youtube) }}">
-                                                        <i class="fab fa-youtube"></i>
-                                                    </a>
-                                                @endif
+
                                             </td>
                                         </tr>
                                     </tbody>
@@ -137,30 +142,7 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title line-height-36">{{ __('location') }}</h3>
-                    </div>
-                    <div class="card-body">
-                            <x-website.map.map-warning/>
-                            @php
-                                $map = setting('default_map');
-                            @endphp
-                            @if ($map == 'map-box')
-                                <div class="map mymap" id='map-box'></div>
-                            @elseif ($map == 'google-map')
-                                <div class="map mymap" id="google-map"></div>
-                            @else
-                                <div id="leaflet-map"></div>
-                            @endif
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -284,7 +266,7 @@
 
 @section('style')
     <!-- >=>Leaflet Map<=< -->
-    <x-map.leaflet.map_links/>
+    <x-map.leaflet.map_links />
 
     @include('map::links')
 @endsection
@@ -311,7 +293,7 @@
         }
     </script>
     {{-- Leaflet  --}}
-    <x-map.leaflet.map_scripts/>
+    <x-map.leaflet.map_scripts />
     <script>
         var oldlat = {!! $company->lat ? $company->lat : setting('default_lat') !!};
         var oldlng = {!! $company->long ? $company->long : setting('default_long') !!};
@@ -339,13 +321,12 @@
 
         // Place a marker on the same location.
         L.marker(target).addTo(leaflet_map);
-
     </script>
     <!-- >=>Mapbox<=< -->
     @include('map::scripts')
     <!-- >=>Mapbox<=< -->
     <!-- ================ mapbox map ============== -->
-    <x-website.map.map-box-check/>
+    <x-website.map.map-box-check />
 
     <script>
         mapboxgl.accessToken = "{{ $setting->map_box_key }}";
@@ -361,11 +342,12 @@
             zoom: 6
         });
         // zoom in and out 
-        <x-mapbox-zoom-control />
-        var marker = new mapboxgl.Marker({
-                draggable: false
-            }).setLngLat([oldlng, oldlat])
-            .addTo(map);
+        <
+        x - mapbox - zoom - control / >
+            var marker = new mapboxgl.Marker({
+                    draggable: false
+                }).setLngLat([oldlng, oldlat])
+                .addTo(map);
 
         function onDragEnd() {
             const lngLat = marker.getLngLat();
@@ -382,7 +364,8 @@
 
         }
         // zoom in and out 
-        <x-mapbox-zoom-control />
+        <
+        x - mapbox - zoom - control / >
     </script>
     <script>
         $('.mapboxgl-ctrl-logo').addClass('d-none');
@@ -390,7 +373,7 @@
     </script>
     <!-- ================ mapbox map ============== -->
     <!-- ================ google map ============== -->
-    <x-website.map.google-map-check/>
+    <x-website.map.google-map-check />
 
     <script>
         function initMap() {

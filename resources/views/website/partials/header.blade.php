@@ -603,10 +603,38 @@
                                                 </a>
                                             </li>
                                             <li>
+                                                <a class="dropdown-item {{ request()->routeIs('candidate.appliedjob') ? 'active' : '' }}"
+                                                    href="{{ route('candidate.appliedjob') }}">
+                                                    <i class="ph-suitcase-simple"></i>
+                                                    {{ __('applied_jobs') }}
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item {{ request()->routeIs('candidate.bookmark') ? 'active' : '' }}"
+                                                    href="{{ route('candidate.bookmark') }}">
+                                                    <i class="ph-bookmark-simple"></i>
+                                                    {{ __('favorite_jobs') }}
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item {{ request()->routeIs('candidate.job.alerts') ? 'active' : '' }}"
+                                                    href="{{ route('candidate.job.alerts') }}">
+                                                    <i class="ph-bell-ringing"></i>
+                                                    {{ __('job_alert') }}
+                                                </a>
+                                            </li>
+                                            <li>
                                                 <a class="dropdown-item {{ request()->routeIs('candidate.setting') ? 'active' : '' }}"
                                                     href="{{ route('candidate.setting') }}">
+                                                    <i class="ph-user-circle-gear"></i>
+                                                    {{ __('profile_update') }}
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item {{ request()->routeIs('candidate.account-setting') ? 'active' : '' }}"
+                                                    href="{{ route('candidate.account-setting') }}">
                                                     <i class="ph-gear"></i>
-                                                    {{ __('settings') }}
+                                                    {{ __('account_setting') }}
                                                 </a>
                                             </li>
                                             <li>

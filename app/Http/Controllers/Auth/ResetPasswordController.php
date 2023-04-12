@@ -235,6 +235,7 @@ class ResetPasswordController extends Controller
                 $user->otp = null;
                 $user->otp_generated_time = null;
                 $user->save();
+                sendSMS($user->id, "password_reset");
                 Session::forget('user');
                 return redirect()->route('login')->with('success', "Password updated successfully!");
             } else {

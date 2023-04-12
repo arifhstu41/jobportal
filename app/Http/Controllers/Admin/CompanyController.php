@@ -119,11 +119,11 @@ class CompanyController extends Controller
             }
 
             $name = $request->name ?? $faker->name();
-            $username = $request->username ?? Str::slug($name).'_'.time();
+            $username = generateUserName();
 
             $company = User::create([
                 'name' =>  $name,
-                'phone' =>  $request->contact_phone,
+                'phone' =>  $request->phone,
                 'username' => $username,
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
@@ -135,6 +135,7 @@ class CompanyController extends Controller
 
             $company->company()->update([
                 'industry_type_id' => $request->industry_type_id,
+                'address' => $request->address,
                 'organization_type_id' => $request->organization_type_id,
                 'team_size_id' => $request->team_size_id,
                 'nationality_id' => $request->nationality_id,
@@ -231,7 +232,7 @@ class CompanyController extends Controller
         try {
             $data['name'] = $request->name ?? $faker->name();
             $data['email'] = $request->email;
-            $data['username'] = $request->username ?? Str::slug($data['name']).'_'.time();
+            $data['phone'] =  $request->phone;
 
             if ($request->password) {
                 $data['password'] = bcrypt($request->password);
@@ -241,6 +242,7 @@ class CompanyController extends Controller
 
             $company->company()->update([
                 'industry_type_id' => $request->industry_type_id,
+                'address' => $request->address,
                 'organization_type_id' => $request->organization_type_id,
                 'team_size_id' => $request->team_size_id,
                 'nationality_id' => $request->nationality_id,
