@@ -32,7 +32,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <x-forms.label name="email" />
+                                        <x-forms.label name="email" :required="false" />
                                         <x-forms.input value="{{ old('email') }}" type="email" name="email"
                                             placeholder="email" />
                                     </div>

@@ -1176,7 +1176,7 @@ if (!function_exists('generateUserName')) {
         }
         $username= "WFB".$randomString;
 
-        $oldUserName = User::where('username', $newUsername)->first();
+        $oldUserName = User::where('username', $username)->first();
         if($oldUserName){
             generateUserName(12);
         }

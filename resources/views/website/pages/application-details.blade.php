@@ -366,7 +366,7 @@
     </div>
 
     <div style=" text-align: right">
-        <img src="{{ $candidate->signature }}" width="200" height="80" alt="Profile Picture"
+        <img src="{{ public_path($candidate->signature) }}" width="200" height="80" alt="Profile Picture"
             style="margin: 0px; padding:0px;">
         <p style="font-size: 10px;">-------------- Applicant's Signature --------------</p>
 

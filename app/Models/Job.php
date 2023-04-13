@@ -139,7 +139,8 @@ class Job extends Model
 
     public function scopeOpenPosition($query)
     {
-        return $query->where('status', 'active')->where('deadline', '>=', Carbon::now()->toDateString());
+        // return $query->where('status', 'active')->where('deadline', '>=', Carbon::now()->toDateString());
+        return $query->where('status', 'active');
     }
 
     public function scopeCompanyJobs($query, $company_id)
