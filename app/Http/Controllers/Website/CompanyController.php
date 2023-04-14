@@ -404,15 +404,15 @@ class CompanyController extends Controller
 
             storePlanInformation();
 
-            Notification::send(auth('user')->user(), new JobCreatedNotification($jobCreated));
+            // Notification::send(auth('user')->user(), new JobCreatedNotification($jobCreated));
 
-            if (checkMailConfig()) {
-                // make notification to admins for approved
-                $admins = Admin::all();
-                foreach ($admins as $admin) {
-                    Notification::send($admin, new NewJobAvailableNotification($admin, $jobCreated));
-                }
-            }
+            // if (checkMailConfig()) {
+            //     // make notification to admins for approved
+            //     $admins = Admin::all();
+            //     foreach ($admins as $admin) {
+            //         Notification::send($admin, new NewJobAvailableNotification($admin, $jobCreated));
+            //     }
+            // }
         }
 
         flashSuccess('Job Created Successfully');
