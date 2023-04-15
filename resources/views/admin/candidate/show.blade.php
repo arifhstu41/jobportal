@@ -106,16 +106,16 @@
                                         <p>Village/Tow: <span>{{ $user->candidate->place }}</span></p>
                                         <p>Post Office: <span>{{ $user->candidate->post_office }}</span></p>
                                         <p>Post Code: <span>{{ $user->candidate->postcode }}</span></p>
-                                        <p>Upazila/Thana: <span>{{ $user->candidate->thana }}</span></p>
-                                        <p>District: <span>{{ $user->candidate->district }}</span></p>
+                                        <p>Upazila/Thana: <span>{{ $user->candidate->thanas->name }}</span></p>
+                                        <p>District: <span>{{ $user->candidate->districts->name }}</span></p>
                                     </td>
                                     <td>
                                         <p>Care of: <span>{{ $user->candidate->care_of_parmanent }}</span></p>
                                         <p>Village/Tow: <span>{{ $user->candidate->place_parmanent }}</span></p>
                                         <p>Post Office: <span>{{ $user->candidate->post_office_parmanent }}</span></p>
                                         <p>Post Code: <span>{{ $user->candidate->postcode_parmanent }}</span></p>
-                                        <p>Upazila/Thana: <span>{{ $user->candidate->thana_parmanent }}</span></p>
-                                        <p>District: <span>{{ $user->candidate->district_parmanent }}</span></p>
+                                        <p>Upazila/Thana: <span>{{ $user->candidate->thana_parmanents->name }}</span></p>
+                                        <p>District: <span>{{ $user->candidate->district_parmanents->name }}</span></p>
                                     </td>
                                 </tr>
                             </tbody>
@@ -168,7 +168,7 @@
                     <div class="col-md-12">
 
                         <table class="ml-1 table table-striped     table-bordered dt-responsive nowrap" cellspacing="0"
-                        width="100%">
+                            width="100%">
                             <thead>
                                 <tr>
                                     <th colspan="6">Professional Experience:</th>
@@ -223,8 +223,102 @@
                     @endif
                 </div>
             </div> --}}
-            <x-admin.candidate.card-component title="{{ __('applied_jobs') }}" :jobs="$appliedJobs"
+            {{-- <x-admin.candidate.card-component title="{{ __('applied_jobs') }}" :jobs="$appliedJobs"
                 link="website.job.apply" />
+                 --}}
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title line-height-36">
+                        {{ __('applied_jobs') }}
+                    </h3>
+                </div>
+                <table class="table table-hover text-nowrap table-bordered">
+                    <thead>
+                        <tr class="text-center">
+                            <th width="2%">#</th>
+                            <th width="15%">{{ __('title') }}</th>
+                            <th width="10%">{{ __('experience') }}</th>
+                            <th width="10%">{{ __('job_type') }}</th>
+                            <th width="10%">{{ __('deadline') }}</th>
+                            {{-- <th width="10%">{{ __('status') }}</th> --}}
+                            <th width="10%">{{ __('action') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if ($appliedJobs->count() > 0)
+                            @foreach ($appliedJobs as $job)
+                                <tr>
+                                    <td class="text-center" tabindex="0">
+                                        {{ $loop->index + 1 }}
+                                    </td>
+                                    <td class="text-center" tabindex="0">
+                                        {{ $job->title }}
+                                    </td>
+                                    <td class="text-center" tabindex="0">
+                                        {{ $job->experience ? $job->experience->name : '' }}
+                                    </td>
+                                    <td class="text-center" tabindex="0">
+                                        {{ $job->job_type ? $job->job_type->name : '' }}
+                                    </td>
+                                    <td class="text-center" tabindex="0">
+                                        {{ date('j F, Y', strtotime($job->deadline)) }}
+                                    </td>
+                                    {{-- <td class="text-center" tabindex="0">
+                                        <div class="d-flex justify-content-center input-group-prepend">
+                                            <button type="button"
+                                                class="btn-sm btn-{{ $job->status == 'active' ? 'success' : ($job->status == 'pending' ? 'info' : 'danger') }} dropdown-toggle"
+                                                data-toggle="dropdown">
+                                                {{ __($job->status) }}
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <form action="{{ route('admin.job.status.change', $job->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <input type="hidden" name="status" value="active">
+                                                    <button type="submit" class="btn bg-white text-left w-100-p"><span
+                                                            class="text-primary">{{ __('active') }}</span>
+                                                    </button>
+                                                </form>
+                                                <form action="{{ route('admin.job.status.change', $job->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <input type="hidden" name="status" value="pending">
+                                                    <button type="submit" class="btn bg-white text-left w-100-p"><span
+                                                            class="text-primary">{{ __('pending') }}</span>
+                                                    </button>
+                                                </form>
+                                                <form action="{{ route('admin.job.status.change', $job->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <input type="hidden" name="status" value="expired">
+                                                    <button type="submit" class="btn bg-white text-left w-100-p"><span
+                                                            class="text-primary">{{ __('expired') }}</span>
+                                                    </button>
+                                                </form>
+                                            </ul>
+                                        </div>
+                                    </td> --}}
+                                    <td class="text-center">
+                                        <a href="{{ route('job.show', $job->id) }}" class="btn bg-info ml-1"><i
+                                                class="fas fa-eye"></i></a>
+                                        {{-- <a href="{{ route($link, $job->slug) }}"
+                                            onclick="return confirm('{{ __('are_you_sure_you_want_to_delete_this_item') }}');"
+                                            class="d-inline btn btn-danger"><i class="fas fa-trash"></i>
+                                        </a> --}}
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @else
+                            <tr>
+                                <td colspan="7" class="text-center">{{ __('no_data_found') }}</td>
+                            </tr>
+                        @endif
+                    </tbody>
+                </table>
+            </div>
             <x-admin.candidate.card-component title="{{ __('bookmark_jobs') }}" :jobs="$bookmarkJobs"
                 link="website.job.bookmark" />
         </div>

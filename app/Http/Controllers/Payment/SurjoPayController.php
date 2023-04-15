@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Traits\PaymentTrait;
 use App\Models\UserPlan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 // use ShurjopayPlugin\Shurjopay;
 // use ShurjopayPlugin\ShurjopayConfig;
@@ -97,6 +98,9 @@ class SurjoPayController extends Controller
             
             flashSuccess('Payment Successfull!');
             if (auth()->user()->role == "candidate") {
+                $user= auth('user')->user();
+                $user->candidate->balance= $data['amount'];
+                $user->candidate->save();
                 return redirect()->route('website.candidate.verification');
             }
     

@@ -24,7 +24,7 @@
                     <div class="row w-100">
                         <div class="col-md-6">
                             <a href="{{ route('website.home') }}" class="brand-logo"><img
-                                    src="{{ asset('frontend') }}/assets/images/logo/logo.png" alt="jobpilot_logo"></a>
+                                    src="{{ asset('images/wfb-logo.png') }}" alt="Welfare Logo"></a>
                         </div>
                         <div class="col-md-6 d-md-flex align-items-center justify-content-end">
                             <div class="progress-wrap">

@@ -102,9 +102,9 @@
                                     @if (userCan('company.update'))
                                         <th>{{ __('account_activation') }}</th>
                                     @endif
-                                    @if (userCan('company.update'))
+                                    {{-- @if (userCan('company.update'))
                                         <th>{{ __('email_verification') }}</th>
-                                    @endif
+                                    @endif --}}
                                     @if (userCan('company.update') || userCan('compnay.delete'))
                                         <th width="12%">
                                             {{ __('action') }}
@@ -140,7 +140,7 @@
                                                 </a>
                                             </td>
                                         @endif
-                                        @if (userCan('company.update'))
+                                        {{-- @if (userCan('company.update'))
                                             <td class="text-center" tabindex="0">
                                                 <a href="#">
                                                     <label class="switch ">
@@ -151,7 +151,7 @@
                                                     </label>
                                                 </a>
                                             </td>
-                                        @endif
+                                        @endif --}}
                                         @if (userCan('company.update') || userCan('compnay.delete'))
                                             <td class="text-center">
                                                 @if (userCan('company.view'))

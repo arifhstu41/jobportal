@@ -50,9 +50,9 @@
         </nav>
 
         <!-- Support Menu -->
-        @if(!config('app.hide_helper'))
+        {{-- @if(!config('app.hide_helper'))
         <x-help-widget></x-help-widget>
-        @endif
+        @endif --}}
 
         <!-- Main Sidebar Container -->
         @if (request()->is('admin/settings/*'))

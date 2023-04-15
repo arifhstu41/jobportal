@@ -143,9 +143,9 @@
                                 @if (userCan('candidate.update'))
                                     <th width="10%">{{ __('status') }}</th>
                                 @endif
-                                @if (userCan('candidate.update'))
+                                {{-- @if (userCan('candidate.update'))
                                     <th>{{ __('email_verification') }}</th>
-                                @endif
+                                @endif --}}
                                 @if (userCan('candidate.update') || userCan('candidate.delete'))
                                     <th width="12%">{{ __('action') }}</th>
                                 @endif
@@ -182,7 +182,7 @@
                                                 </a>
                                             </td>
                                         @endif
-                                        @if (userCan('candidate.update'))
+                                        {{-- @if (userCan('candidate.update'))
                                             <td class="text-center" tabindex="0">
                                                 <a href="javascript:void(0)">
                                                     <label class="switch ">
@@ -193,7 +193,7 @@
                                                     </label>
                                                 </a>
                                             </td>
-                                        @endif
+                                        @endif --}}
                                         @if (userCan('candidate.update') || userCan('candidate.delete'))
                                             <td class="text-center">
                                                 @if (userCan('candidate.view'))

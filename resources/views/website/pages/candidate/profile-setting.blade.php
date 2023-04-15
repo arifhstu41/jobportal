@@ -88,9 +88,9 @@
                                                             class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                         <div class="fromGroup">
                                                             <div class="form-control-icon">
-                                                                <x-forms.input type="text" name="name"
+                                                                <input type="text" name="name"
                                                                     value="{{ $candidate->user->name }}"
-                                                                    placeholder="{{ __('name') }}" class="" />
+                                                                    placeholder="{{ __('name') }}" {{ $candidate->user->name ? "readonly" : '' }}/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -99,9 +99,9 @@
                                                             class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                         <div class="fromGroup">
                                                             <div class="form-control-icon">
-                                                                <x-forms.input type="text" name="title"
+                                                                <input type="text" name="title"
                                                                     value="{{ $candidate->title ?? '' }}"
-                                                                    placeholder="{{ __('title') }}" class="" />
+                                                                    placeholder="{{ __('title') }}" class=""  {{ $candidate->title ? "readonly" : '' }}/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -263,9 +263,9 @@
                                                         class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                     <div class="fromGroup">
                                                         <div class="form-control-icon">
-                                                            <x-forms.input type="text" name="name"
+                                                            <input type="text" name="name"
                                                                 value="{{ $candidate->user->name }}"
-                                                                placeholder="{{ __('name') }}" class="" />
+                                                                placeholder="{{ __('name') }}" class="" readonly/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -274,7 +274,7 @@
                                                         class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                     <div class="fromGroup">
                                                         <div class="form-control-icon">
-                                                            <x-forms.input type="text" name="name_bn"
+                                                            <input readonly type="text" name="name_bn"
                                                                 value="{{ $candidate->name_bn }}"
                                                                 placeholder="{{ __('name_bn') }}" class="" />
                                                         </div>
@@ -285,7 +285,7 @@
                                                         class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                     <div class="fromGroup">
                                                         <div class="form-control-icon">
-                                                            <x-forms.input type="text" name="father_name"
+                                                            <input readonly type="text" name="father_name"
                                                                 value="{{ $candidate->father_name }}"
                                                                 placeholder="{{ __('father_name') }}" class="" />
                                                         </div>
@@ -296,7 +296,7 @@
                                                         class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                     <div class="fromGroup">
                                                         <div class="form-control-icon">
-                                                            <x-forms.input type="text" name="father_name_bn"
+                                                            <input readonly type="text" name="father_name_bn"
                                                                 value="{{ $candidate->father_name_bn }}"
                                                                 placeholder="{{ __('father_name_bn') }}"
                                                                 class="" />
@@ -308,7 +308,7 @@
                                                         class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                     <div class="fromGroup">
                                                         <div class="form-control-icon">
-                                                            <x-forms.input type="text" name="mother_name"
+                                                            <input readonly type="text" name="mother_name"
                                                                 value="{{ $candidate->mother_name }}"
                                                                 placeholder="{{ __('mother_name') }}" class="" />
                                                         </div>
@@ -319,7 +319,7 @@
                                                         class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                     <div class="fromGroup">
                                                         <div class="form-control-icon">
-                                                            <x-forms.input type="text" name="mother_name_bn"
+                                                            <input readonly type="text" name="mother_name_bn"
                                                                 value="{{ $candidate->mother_name_bn }}"
                                                                 placeholder="{{ __('mother_name_bn') }}"
                                                                 class="" />
@@ -332,7 +332,7 @@
                                                         class="body-font-4 d-block text-gray-900 rt-mb-8" />
                                                     <select
                                                         class="rt-selectactive w-100-p @error('gender') is-invalid @enderror"
-                                                        name="gender">
+                                                        name="gender" disabled>
                                                         <option @if ($candidate->gender == 'male') selected @endif
                                                             value="male">
                                                             {{ __('male') }}
@@ -354,7 +354,7 @@
                                                 <div class="col-lg-6 mb-3">
                                                     <x-forms.label :required="true" name="marital_status"
                                                         class="body-font-4 d-block text-gray-900 rt-mb-8" />
-                                                    <select name="marital_status" class="rt-selectactive w-100-p">
+                                                    <select name="marital_status" class="rt-selectactive w-100-p" disabled>
                                                         <option @if ($candidate->marital_status == 'single') selected @endif
                                                             value="single">{{ __('single') }}</option>
                                                         <option @if ($candidate->marital_status == 'married') selected @endif
@@ -375,7 +375,7 @@
                                                         class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                     <div class="fromGroup">
                                                         <div class="form-control-icon">
-                                                            <x-forms.input type="text" name="birth_certificate_no"
+                                                            <input {{ $candidate->birth_certificate_no ? 'readonly' : '' }} type="text" name="birth_certificate_no"
                                                                 value="{{ $candidate->birth_certificate_no }}"
                                                                 placeholder="{{ __('birth_certificate_no') }}"
                                                                 class="" />
@@ -388,7 +388,7 @@
                                                         class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                     <div class="fromGroup">
                                                         <div class="form-control-icon">
-                                                            <x-forms.input type="text" name="nid_no"
+                                                            <input {{ $candidate->nid_no ? 'readonly' : '' }} type="text" name="nid_no"
                                                                 value="{{ $candidate->nid_no }}"
                                                                 placeholder="{{ __('nid_no') }}" class="" />
                                                         </div>
@@ -400,7 +400,7 @@
                                                         class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                     <div class="fromGroup">
                                                         <div class="form-control-icon">
-                                                            <x-forms.input type="text" name="passport_no"
+                                                            <input {{ $candidate->passport_no ? 'readonly' : '' }} type="text" name="passport_no"
                                                                 value="{{ $candidate->passport_no }}"
                                                                 placeholder="{{ __('passport_no') }}" class="" />
                                                         </div>
@@ -2125,7 +2125,8 @@
                     $("#pourosova_union_porishod_parmanent").html(response.html);
                     if ($('#same_address:checked').val()) {
                         console.log("sfdsf")
-                        $("#pourosova_union_porishod_parmanent_parmanent").val($("#pourosova_union_porishod").val()).trigger("change");
+                        $("#pourosova_union_porishod_parmanent_parmanent").val($("#pourosova_union_porishod")
+                            .val()).trigger("change");
                     }
                 }
             });

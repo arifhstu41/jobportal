@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use PDF;
 use Carbon\Carbon;
 use App\Models\Job;
 use App\Models\User;
@@ -14,6 +13,9 @@ use App\Models\WebsiteSetting;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Modules\Location\Entities\Country;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Mpdf\Config\ConfigVariables;
+use Mpdf\Config\FontVariables;
 
 class AdminController extends Controller
 {
@@ -75,7 +77,7 @@ class AdminController extends Controller
             ->limit(10)
             ->get();
 
-            $popular_countries;
+        $popular_countries;
 
         $latest_earnings = Earning::with('plan', 'manualPayment:id,name')->latest()->take(10)->get();
 
@@ -117,10 +119,38 @@ class AdminController extends Controller
 
     public function downloadTransactionInvoice(Earning $transaction)
     {
-        $data['transaction'] = $transaction->load('plan', 'company.user.contactInfo');
+        // $data['transaction'] = $transaction->load('plan', 'company.user.contactInfo');
 
-        $pdf = PDF::loadView('website.pages.company.invoice', $data)->setOptions(['defaultFont' => 'sans-serif']);
+        // $pdf = PDF::loadView('website.pages.company.invoice', $data)->setOptions(['defaultFont' => 'sans-serif', 'isRemoteEnabled' => true]);
 
-        return $pdf->download("invoice_" . $transaction->order_id . ".pdf");
+        // return $pdf->stream("invoice_" . $transaction->order_id . ".pdf");
+        $transaction = $transaction->load('plan', 'company.user.contactInfo');
+        $defaultConfig = (new ConfigVariables())->getDefaults();
+        $fontDirs = $defaultConfig['fontDir'];
+        $defaultFontConfig = (new FontVariables())->getDefaults();
+        $fontData = $defaultFontConfig['fontdata'];
+        $mpdf       = new \Mpdf\Mpdf([
+            'format' => 'A4',
+            'fontDir' => array_merge($fontDirs, [public_path() . '/fonts',]),
+            'fontdata' => $fontData + [ // lowercase letters only in font key
+                'bangla' => [
+                    'R'  => 'Siyamrupali.ttf', // regular font
+                    'B'  => 'Siyamrupali.ttf', // optional: bold font
+                    'I'  => 'Siyamrupali.ttf', // optional: italic font
+                    'BI' => 'Siyamrupali.ttf', // optional: bold-italic font
+                    'useOTL' => 0xFF,
+                    'useKashida' => 75,
+                ]
+            ],
+            'default_font' => 'bangla',
+        ]);
+        $stylesheet = public_path('css/invoice.css'); // external css
+        $mpdf->WriteHTML($stylesheet, 1);
+        $code = view('website.pages.company.invoice', compact('transaction')); //table part
+        $title = "invoice.pdf";
+        $mpdf->SetTitle($title);
+        $mpdf->WriteHTML($code);
+        $mpdf->Output($title, 'I');
+
     }
 }

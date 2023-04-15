@@ -93,22 +93,22 @@ class WebsiteController extends Controller
 
                     $selected_country = session()->get('selected_country');
                     // $selected_country = session()->get('country_code');
-                    if ($selected_country && $selected_country != null && $selected_country != 'all') {
-                        $country = selected_country()->name;
-                        $q->where('country', 'LIKE', "%$country%");
-                    } else {
+                    // if ($selected_country && $selected_country != null && $selected_country != 'all') {
+                    //     $country = selected_country()->name;
+                    //     $q->where('country', 'LIKE', "%$country%");
+                    // } else {
 
-                        $setting = Setting::first();
-                        if ($setting->app_country_type == 'single_base') {
-                            if ($setting->app_country) {
+                    //     $setting = Setting::first();
+                    //     if ($setting->app_country_type == 'single_base') {
+                    //         if ($setting->app_country) {
 
-                                $country = Country::where('id', $setting->app_country)->first();
-                                if ($country) {
-                                    $q->where('country', 'LIKE', "%$country->name%");
-                                }
-                            }
-                        }
-                    }
+                    //             $country = Country::where('id', $setting->app_country)->first();
+                    //             if ($country) {
+                    //                 $q->where('country', 'LIKE', "%$country->name%");
+                    //             }
+                    //         }
+                    //     }
+                    // }
                 }
             ])
             ->latest('jobs_count')
@@ -506,6 +506,7 @@ class WebsiteController extends Controller
 
     public function employersDetails(User $user)
     {
+     
         $companyDetails =  Company::with(
             'organization:id,name',
             'industry:id,name',
@@ -516,22 +517,22 @@ class WebsiteController extends Controller
                 $q->where('deadline', '>=', Carbon::now()->toDateString());
                 $selected_country = session()->get('selected_country');
                 // $selected_country = session()->get('country_code');
-                if ($selected_country && $selected_country != null && $selected_country != 'all') {
-                    $country = selected_country()->name;
-                    $q->where('country', 'LIKE', "%$country%");
-                } else {
+                // if ($selected_country && $selected_country != null && $selected_country != 'all') {
+                //     $country = selected_country()->name;
+                //     $q->where('country', 'LIKE', "%$country%");
+                // } else {
 
-                    $setting = Setting::first();
-                    if ($setting->app_country_type == 'single_base') {
-                        if ($setting->app_country) {
+                //     $setting = Setting::first();
+                //     if ($setting->app_country_type == 'single_base') {
+                //         if ($setting->app_country) {
 
-                            $country = Country::where('id', $setting->app_country)->first();
-                            if ($country) {
-                                $q->where('country', 'LIKE', "%$country->name%");
-                            }
-                        }
-                    }
-                }
+                //             $country = Country::where('id', $setting->app_country)->first();
+                //             if ($country) {
+                //                 $q->where('country', 'LIKE', "%$country->name%");
+                //             }
+                //         }
+                //     }
+                // }
             }
         ])
             ->withCount([
@@ -545,23 +546,23 @@ class WebsiteController extends Controller
         // open_jobs Jobs With Single && Multiple Country Base
         $open_jobs_query = Job::withoutEdited()->with('company');
 
-        $setting = Setting::first();
-        if ($setting->app_country_type == 'single_base') {
-            if ($setting->app_country) {
+        // $setting = Setting::first();
+        // if ($setting->app_country_type == 'single_base') {
+        //     if ($setting->app_country) {
 
-                $country = Country::where('id', $setting->app_country)->first();
-                if ($country) {
-                    $open_jobs_query->where('country', 'LIKE', "%$country->name%");
-                }
-            }
-        } else {
-            $selected_country = session()->get('selected_country');
+        //         $country = Country::where('id', $setting->app_country)->first();
+        //         if ($country) {
+        //             $open_jobs_query->where('country', 'LIKE', "%$country->name%");
+        //         }
+        //     }
+        // } else {
+        //     $selected_country = session()->get('selected_country');
 
-            if ($selected_country && $selected_country != null) {
-                $country = selected_country()->name;
-                $open_jobs_query->where('country', 'LIKE', "%$country%");
-            }
-        }
+        //     if ($selected_country && $selected_country != null) {
+        //         $country = selected_country()->name;
+        //         $open_jobs_query->where('country', 'LIKE', "%$country%");
+        //     }
+        // }
         $open_jobs = $open_jobs_query->companyJobs($companyDetails->id)->openPosition()->latest()->get();
         // Related Jobs With Single && Multiple Country Base END
 
@@ -747,7 +748,7 @@ class WebsiteController extends Controller
         return view('website.pages.company.application-success', compact('job'));
     }
 
-    // candidate download application form
+    // candidate download application form(Applicant copy)
     public function downloadApplicationForm($job_id)
     {
         $job = Job::find($job_id);
@@ -755,8 +756,6 @@ class WebsiteController extends Controller
         $data['candidate'] = $candidate;
         $data['job'] = $job;
         $data['message'] = "dsfdsfd";
-        // dd($candidate->photo);  
-        // require_once base_path() . '/vendor/autoload.php';
         $defaultConfig = (new ConfigVariables())->getDefaults();
         $fontDirs = $defaultConfig['fontDir'];
 
@@ -781,13 +780,13 @@ class WebsiteController extends Controller
         $qrcode = QrCode::size(50)->generate(route('verify.application', ['job_id' => $job->id, 'candidate_id' => $candidate->id]));
         $code = (string)$qrcode;
         $code = substr($code, 38);
-        $stylesheet = file_get_contents('css/custom.css'); // external css
+        $stylesheet = public_path('css/custom.css'); // external css
         $code       = view('website.pages.application-details', compact('job', 'candidate')); //table part
         $mpdf->WriteHTML($stylesheet, 1);
         $title = $candidate->user->username . ".pdf";
         $mpdf->SetTitle($title);
+      
         $mpdf->WriteHTML($code);
-        // $mpdf->Output($title, 'D');
         $mpdf->Output($title, 'I');
     }
 
