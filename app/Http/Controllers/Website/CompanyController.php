@@ -60,6 +60,9 @@ use App\Notifications\Website\Company\JobCreatedNotification;
 use App\Notifications\Website\Company\JobDeletedNotification;
 use App\Notifications\Website\Company\CandidateBookmarkNotification;
 use App\Notifications\Website\Company\EditApproveNotification;
+use Mpdf\Config\ConfigVariables;
+use Mpdf\Config\FontVariables;
+
 class CompanyController extends Controller
 {
     use CompanyJobTrait, Jobable;
@@ -502,6 +505,7 @@ class CompanyController extends Controller
 
     public function showPromoteJob(Job $job)
     {
+        dd("adfdaf");
         return view('website.pages.company.job-created-success', [
             'jobCreated' => $job
         ]);
@@ -509,6 +513,7 @@ class CompanyController extends Controller
 
     public function jobPromote(Job $job)
     {
+        dd("adasd");
         if (!auth('user')->check() || auth('user')->user()->role != 'company') {
             return abort(403);
         }
@@ -529,7 +534,7 @@ class CompanyController extends Controller
         $setting = Setting::first();
 
         if ($request->badge == 'featured') {
-            return 1;
+            // return 1;
             if ($userplan->featured_job_limit) {
                 $userplan->featured_job_limit = $userplan->featured_job_limit - 1;
                 $userplan->save();
@@ -1007,11 +1012,39 @@ class CompanyController extends Controller
 
     public function downloadTransactionInvoice(Earning $transaction)
     {
-        $data['transaction'] = $transaction->load('plan', 'company.user.contactInfo');
+        // $data['transaction'] = $transaction->load('plan', 'company.user.contactInfo');
 
-        $pdf = PDF::loadView('website.pages.company.invoice', $data)->setOptions(['defaultFont' => 'sans-serif']);
+        // $pdf = PDF::loadView('website.pages.company.invoice', $data)->setOptions(['defaultFont' => 'sans-serif']);
 
-        return $pdf->download("invoice_" . $transaction->order_id . ".pdf");
+        // return $pdf->download("invoice_" . $transaction->order_id . ".pdf");
+
+        $transaction = $transaction->load('plan', 'company.user.contactInfo');
+        $defaultConfig = (new ConfigVariables())->getDefaults();
+        $fontDirs = $defaultConfig['fontDir'];
+        $defaultFontConfig = (new FontVariables())->getDefaults();
+        $fontData = $defaultFontConfig['fontdata'];
+        $mpdf       = new \Mpdf\Mpdf([
+            'format' => 'A4',
+            'fontDir' => array_merge($fontDirs, [public_path() . '/fonts',]),
+            'fontdata' => $fontData + [ // lowercase letters only in font key
+                'bangla' => [
+                    'R'  => 'Siyamrupali.ttf', // regular font
+                    'B'  => 'Siyamrupali.ttf', // optional: bold font
+                    'I'  => 'Siyamrupali.ttf', // optional: italic font
+                    'BI' => 'Siyamrupali.ttf', // optional: bold-italic font
+                    'useOTL' => 0xFF,
+                    'useKashida' => 75,
+                ]
+            ],
+            'default_font' => 'bangla',
+        ]);
+        $stylesheet = public_path('css/invoice.css'); // external css
+        $mpdf->WriteHTML($stylesheet, 1);
+        $code = view('website.pages.company.invoice', compact('transaction')); //table part
+        $title = "invoice.pdf";
+        $mpdf->SetTitle($title);
+        $mpdf->WriteHTML($code);
+        $mpdf->Output($title, 'I');
     }
 
     public function accountProgress()

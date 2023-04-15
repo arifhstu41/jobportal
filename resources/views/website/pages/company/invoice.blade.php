@@ -177,7 +177,7 @@
 
 <body class="main-body">
     <div class="invoice page-break" size="A4">
-        <section class="top-content bb">
+        {{-- <section class="top-content bb">
             <div class="top-left">
                 <div>
                     <h4>Company Information:</h4>
@@ -190,11 +190,37 @@
             </div>
             <div class="top-right">
                 <div class="logo">
-                    <img src="{{ setting()->dark_logo_url }}" alt="" class="img-fluid">
+                    <img src="{{ public_path($transaction->company->logo) }}" alt="" class="img-fluid">
                 </div>
             </div>
-        </section>
-
+        </section> --}}
+        <table style="width:100%">
+            <tbody>
+                <tr>
+                    <td style="text-align: left; ">
+                        <h4>Company Information:</h4>
+                        <p>{{ $transaction->company->user->name }}</p>
+                        <p>{{ $transaction->company->user->email }}</p>
+                        <p>{{ $transaction->company->user->contactInfo->address }}</p>
+                    </td>
+                    <td style="text-align: right">
+                        <img style="height: 100px; width:100px"
+                            src="{{ public_path('images/Welfare-Family-TM.png') }}" alt="" class="img-fluid"></td>
+                </tr>
+            </tbody>
+        </table>
+        <table style="width:100%">
+            <tbody>
+                <tr>
+                    <td style="text-align: left; ">
+                        <span><h4>INVOICE</h4> #{{ $transaction->order_id }} </span> 
+                    </td>
+                    <td style="text-align: right">
+                       <span><h4>INVOICE DATE</h4> {{ formatTime($transaction->created_at, 'M d, Y') }}</span> 
+                </tr>
+            </tbody>
+        </table>
+{{-- 
         <section class="bill-to-content mt-5">
             <div class="bill-to-content-right">
                 <table cellspacing="0">
@@ -216,10 +242,10 @@
                     </tr>
                 </table>
             </div>
-        </section>
+        </section> --}}
 
         <section class="product-area mt-4">
-            <table class="table" cellspacing="0">
+            <table class="table" style="width: 100%" cellspacing="0">
                 <thead>
                     <tr>
                         <td class="item-col">Plan</td>
@@ -244,7 +270,8 @@
                             <span>Job Limit : {{ $transaction->plan->job_limit }}</span> <br>
                             <span>Featured Job Limit : {{ $transaction->plan->featured_job_limit }}</span> <br>
                             <span>Highlight Job Limit : {{ $transaction->plan->highlight_job_limit }}</span> <br>
-                            <span>Candidate CV View Limit : {{ $transaction->plan->candidate_cv_view_limitation == 'limited' ? $transaction->plan->candidate_cv_view_limit:'∞' }}</span>
+                            <span>Candidate CV View Limit :
+                                {{ $transaction->plan->candidate_cv_view_limitation == 'limited' ? $transaction->plan->candidate_cv_view_limit : '∞' }}</span>
                             <br>
                         </td>
                         <td>
@@ -254,8 +281,20 @@
                 </tbody>
             </table>
         </section>
-
-        <section class="balance-info">
+        <table style="width:100%">
+            <tbody>
+                <tr>
+                    <td style="text-align: right; width:90%">
+                        <h4>TOTAL</h4>
+                    </td>
+                    <td style="text-align: left; width:10%">
+                        {{ $transaction->currency_symbol }}{{ $transaction->amount }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        {{-- <section class="balance-info">
             <div class="balance-info-right">
                 <table cellspacing="0">
                     <tr class="table-row-bg">
@@ -268,7 +307,7 @@
                     </tr>
                 </table>
             </div>
-        </section>
+        </section> --}}
     </div>
 </body>
 

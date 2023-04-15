@@ -748,7 +748,7 @@ class WebsiteController extends Controller
         return view('website.pages.company.application-success', compact('job'));
     }
 
-    // candidate download application form
+    // candidate download application form(Applicant copy)
     public function downloadApplicationForm($job_id)
     {
         $job = Job::find($job_id);
@@ -756,8 +756,6 @@ class WebsiteController extends Controller
         $data['candidate'] = $candidate;
         $data['job'] = $job;
         $data['message'] = "dsfdsfd";
-        // dd($candidate->photo);  
-        // require_once base_path() . '/vendor/autoload.php';
         $defaultConfig = (new ConfigVariables())->getDefaults();
         $fontDirs = $defaultConfig['fontDir'];
 
@@ -782,7 +780,6 @@ class WebsiteController extends Controller
         $qrcode = QrCode::size(50)->generate(route('verify.application', ['job_id' => $job->id, 'candidate_id' => $candidate->id]));
         $code = (string)$qrcode;
         $code = substr($code, 38);
-        // $stylesheet = file_get_contents('css/custom.css'); // external css
         $stylesheet = public_path('css/custom.css'); // external css
         $code       = view('website.pages.application-details', compact('job', 'candidate')); //table part
         $mpdf->WriteHTML($stylesheet, 1);
@@ -790,8 +787,6 @@ class WebsiteController extends Controller
         $mpdf->SetTitle($title);
       
         $mpdf->WriteHTML($code);
-        // $mpdf->WriteHTML(view('website.pages.application-d'));
-        // $mpdf->Output($title, 'D');
         $mpdf->Output($title, 'I');
     }
 

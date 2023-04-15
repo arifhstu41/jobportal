@@ -108,9 +108,12 @@
                         src="images/Welfare-Family-TM.png" alt="" width="100px" height="100px">
                 </td>
 
-                <td style="text-align: center; border-right: 0; border-left: 0px; padding:0px; background-color:  #2e3397; color: white">
+                <td
+                    style="text-align: center; border-right: 0; border-left: 0px; padding:0px; background-color:  #2e3397; color: white">
                     <h2 style="margin-bottom: 0px; padding-bottom: 0px;">{{ $job->company->user->name }}</h2>
-                    <h5 style="margin-top:0px; padding-top:0px; padding-left: 5px; padding-right: 5px; text-align: center; word-wrap: break-word;">{{ $job->company->full_address ?? '' }}</h5>
+                    <h5
+                        style="margin-top:0px; padding-top:0px; padding-left: 5px; padding-right: 5px; text-align: center; word-wrap: break-word;">
+                        {{ $job->company->full_address ?? '' }}</h5>
                     <p style="font-size: 8px; margin-top:0px; padding-top:0px">{{ $job->company->website ?? '' }}</p>
                 </td>
                 <td style="text-align: right; border-left: 0px; padding:0px; padding-right: 10px; width:100px">
@@ -235,16 +238,16 @@
                     <p>Village/Tow: <span>{{ $candidate->place }}</span></p>
                     <p>Post Office: <span>{{ $candidate->post_office }}</span></p>
                     <p>Post Code: <span>{{ $candidate->postcode }}</span></p>
-                    <p>Upazila/Thana: <span>{{ $candidate->thana }}</span></p>
-                    <p>District: <span>{{ $candidate->district }}</span></p>
+                    <p>Upazila/Thana: <span>{{ $candidate->thanas->name }}</span></p>
+                    <p>District: <span>{{ $candidate->districts->name }}</span></p>
                 </td>
                 <td style="margin: 2px; padding:2px; font-size: 10px;">
                     <p>Care of: <span>{{ $candidate->care_of_parmanent }}</span></p>
                     <p>Village/Tow: <span>{{ $candidate->place_parmanent }}</span></p>
                     <p>Post Office: <span>{{ $candidate->post_office_parmanent }}</span></p>
                     <p>Post Code: <span>{{ $candidate->postcode_parmanent }}</span></p>
-                    <p>Upazila/Thana: <span>{{ $candidate->thana_parmanent }}</span></p>
-                    <p>District: <span>{{ $candidate->district_parmanent }}</span></p>
+                    <p>Upazila/Thana: <span>{{ $candidate->thana_parmanents->name }}</span></p>
+                    <p>District: <span>{{ $candidate->district_parmanents->name }}</span></p>
                 </td>
             </tr>
         </tbody>
@@ -286,26 +289,19 @@
             @if (count($candidate->educations) > 0)
                 @foreach ($candidate->educations as $education)
                     <tr>
-                        <td
-                            style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
+                        <td style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
                             {{ $education->level ?? '' }}</td>
-                        <td
-                            style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
+                        <td style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
                             {{ $education->institute ?? '' }}</td>
-                        <td
-                            style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
+                        <td style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
                             {{ $education->group ?? '' }}</td>
-                        <td
-                            style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
+                        <td style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
                             {{ $education->result_gpa ?? '' }}</td>
-                        <td
-                            style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
+                        <td style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
                             {{ $education->year ?? '' }}</td>
-                        <td
-                            style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
+                        <td style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
                             {{ $education->roll ?? '' }}</td>
-                        <td
-                            style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
+                        <td style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
                             {{ $education->course_duration ?? '' }}</td>
                     </tr>
                 @endforeach
@@ -347,23 +343,17 @@
             <tbody>
                 @foreach ($candidate->experiences as $experience)
                     <tr>
-                        <td
-                            style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
+                        <td style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
                             {{ $experience->company ?? '' }}</td>
-                        <td
-                            style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
+                        <td style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
                             {{ $experience->designation ?? '' }}</td>
-                        <td
-                            style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
+                        <td style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
                             {{ $experience->responsibilities ?? '' }}</td>
-                        <td
-                            style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
+                        <td style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
                             {{ $experience->start ?? '' }}</td>
-                        <td
-                            style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
+                        <td style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
                             {{ $experience->end ?? '' }}</td>
-                        <td
-                            style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
+                        <td style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
                             #</td>
                     </tr>
                 @endforeach
@@ -393,20 +383,22 @@
             <thead>
                 <tr>
                     <th style="text-align: left; font-size: 10px; margin:4px; padding:4px;">
-                        <Strong>Congratulations! Application Submitted Successfully!</Strong></th>
+                        <Strong>Congratulations! Application Submitted Successfully!</Strong>
+                    </th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>
-                        <p
-                            style="margin: 2px; padding:2px; font-size: 10px; text-align: left; font-family: bangla">
+                        <p style="margin: 2px; padding:2px; font-size: 10px; text-align: left; font-family: bangla">
                             ওয়েলফেয়ার ফ্যামিলি বাংলাদেশ এবং বেসরকারি উন্নয়ন সংস্থা (NGO) এর যৌথ উদ্যোগে (বাংলাদেশ
                             গেজেটে প্রকাশিত বিজ্ঞপ্তির আলোকে ও চাকরির আবেদনকারীরা এককালীন অফেরতযোগ্য রেজিস্ট্রেশন ফি
                             প্রদান করে) 'সাসটেইনেবল ডেভেলপমেন্ট পলিসি' (SDP) ও সোস্যাল অ্যান্ড ইকোনমিক ডেভেলপমেন্ট
                             পলিসি' (SEDP) এবং পভার্টি এলিভিয়েশন পলিসি (Muldhan) প্রজেক্ট-প্রোগ্রাম বাস্তবায়নের জন্য
                             "সামাজিক ও অর্থনৈতিকক্ষেত্রে টেকসই উন্নয়নের প্রয়াস" শীর্ষক কার্যক্রমে অংশগ্রহণ ও সেবা
-                            গ্রহণের এবং সেবা প্রদানের জন্য Google Play store হতে <a href="https://play.google.com/store/search?q=my+welfare+app&c=apps&hl=en&gl=US">My Welfare App</a> ডাউনলোড করুন অথবা
+                            গ্রহণের এবং সেবা প্রদানের জন্য Google Play store হতে <a
+                                href="https://play.google.com/store/search?q=my+welfare+app&c=apps&hl=en&gl=US">My
+                                Welfare App</a> ডাউনলোড করুন অথবা
                             www.welfarebd.org ওয়েবসাইট থেকে রেজিষ্ট্রেশন করুন।
                         </p>
                     </td>
@@ -415,10 +407,10 @@
         </table>
     </div>
     <div class="col-12" style="margin-top: 4px;">
-        <a href="{{ route('verify.application', ['job_id' => $job->id, 'candidate_id' => $candidate->id]) }}" style="font-size: 8px; text-decoration: none;">Verify This Registration:
+        <a href="{{ route('verify.application', ['job_id' => $job->id, 'candidate_id' => $candidate->id]) }}"
+            style="font-size: 8px; text-decoration: none;">Verify This Registration:
             {{ route('verify.application', ['job_id' => $job->id, 'candidate_id' => $candidate->id]) }}</a>
     </div>
 </div>
 
 {{-- @dd("sfddsf") --}}
-

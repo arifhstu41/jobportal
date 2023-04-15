@@ -143,4 +143,44 @@ class Candidate extends Model
     {
         return $this->hasMany(CandidateCvView::class, 'candidate_id', 'id');
     }
+    
+    public function division()
+    {
+        return $this->belongsTo(Division::class, 'region');
+    }
+    
+    public function districts()
+    {
+        return $this->belongsTo(District::class, 'district');
+    }
+    
+    public function thanas()
+    {
+        return $this->belongsTo(Thana::class, 'thana');
+    }
+    
+    public function unions()
+    {
+        return $this->belongsTo(District::class, 'pourosova_union_porishod');
+    }
+    
+    public function division_parmanents()
+    {
+        return $this->belongsTo(Division::class, 'region_parmanent');
+    }
+    
+    public function district_parmanents()
+    {
+        return $this->belongsTo(District::class, 'district_parmanent');
+    }
+    
+    public function thana_parmanents()
+    {
+        return $this->belongsTo(Thana::class, 'thana_parmanent');
+    }
+    
+    public function union_parmanents()
+    {
+        return $this->belongsTo(District::class, 'pourosova_union_porishod_parmanent');
+    }
 }
