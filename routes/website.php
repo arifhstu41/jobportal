@@ -134,6 +134,7 @@ Route::middleware('auth:user', 'verified')->group(function () {
         Route::middleware('company.profile')->group(function () {
             Route::get('dashboard', 'dashboard')->name('dashboard');
             Route::get('short-list-cadidate/{company_id}/{applied_job_id}', 'shortListCandidate')->name('shortlist.candidte');
+            Route::get('remove-short-list-cadidate/{applied_job_id}', 'removeShortListCandidate')->name('remove.shortlist.candidte');
             Route::get('send-interview-sms/{job_application_id}', 'sendInterviewSMS')->name('send.interview.sms');
             Route::get('plans', 'plan')->name('plan')->middleware('user_active');
             Route::post('download/transaction/invoice/{transaction}', 'downloadTransactionInvoice')->name('transaction.invoice.download');

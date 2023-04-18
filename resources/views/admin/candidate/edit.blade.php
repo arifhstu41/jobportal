@@ -32,9 +32,15 @@
                                             value="{{ old('name', $user->name) }}" />
                                     </div>
                                 </div>
+                                <div class="form-group col-6">
+                                    <x-forms.label name="phone"/>
+                                    <x-forms.input type="text" name="phone" placeholder="phone"
+                                        value="{{ old('phone', $user->phone) }}" />
+                                </div>
+                                
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <x-forms.label name="email" />
+                                        <x-forms.label name="email" :required="false"/>
                                         <x-forms.input type="email" value="{{ old('email', $user->email) }}"
                                             name="email" placeholder="email" />
                                     </div>
@@ -78,7 +84,7 @@
                             </div>
                         </div> --}}
                     </div>
-                    <div class="col-6">
+                    <div class="col-3">
                         <div class="card">
                             <div class="card-header">
                                 {{ __('image') }}
@@ -93,15 +99,18 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-3">
+                        
                         <div class="card">
                             <div class="card-header">
                                 {{ __('files') }}
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-12">
                                         <div class="form-group">
-                                            <x-forms.label name="cv" />
+                                            <x-forms.label name="cv" :required="false"/>
                                             <div class="custom-file">
                                                 <input name="cv" type="file"
                                                     class="custom-file-input @error('cv') is-invalid @enderror">
@@ -215,7 +224,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <x-forms.label name="website" />
+                                            <x-forms.label name="website" :required="false"/>
                                             <input type="text" id="website" name="website"
                                                 value="{{ old('website', $candidate->website) }}"
                                                 class="form-control @error('website') is-invalid @enderror"

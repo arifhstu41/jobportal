@@ -81,8 +81,8 @@
                 <div class="modal-body p-3">
                     <h5 class="modal-title rt-mb-18 f-size-18" id="cvModalLabel">{{ __('add_education') }}</h5>
                     <div class="from-group rt-mb-18">
-                        <x-forms.label name="education_level" class="rt-mb-8" />
-                        <input type="text" name="level" required class="form-control @error('level') is-invalid @enderror" placeholder="{{ __('enter') }} {{ __('education_level') }}">
+                        <x-forms.label name="education_level" class="rt-mb-8"/>
+                        <input type="text" required name="level" class="form-control @error('level') is-invalid @enderror" placeholder="{{ __('enter') }} {{ __('education_level') }}">
                         @error('level')
                             <span class="error invalid-feedback">{{ $message }}</span>
                         @enderror
@@ -97,8 +97,22 @@
                         </div>
                         <div class="col-lg-6">
                             <x-forms.label name="year" class="rt-mb-8"/>
-                             <input type="text" name="year" value="{{ old('year') }}" placeholder="year" class="year_picker form-control border-cutom @error('year') is-invalid @enderror">
+                             <input type="text" name="year" required value="{{ old('year') }}" placeholder="year" class="year_picker form-control border-cutom @error('year') is-invalid @enderror">
                         </div>
+                    </div>
+                    <div class="from-group rt-mb-18">
+                        <x-forms.label name="institute" class="rt-mb-8" />
+                        <input type="text" name="institute" required class="form-control @error('institute') is-invalid @enderror" placeholder="{{ __('enter') }} {{ __('Institude') }}">
+                        @error('institute')
+                            <span class="error invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="from-group rt-mb-18">
+                        <x-forms.label name="result" class="rt-mb-8" />
+                        <input type="text" name="result" required class="form-control @error('result') is-invalid @enderror" placeholder="{{ __('enter') }} {{ __('Result') }}">
+                        @error('result')
+                            <span class="error invalid-feedback">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="row rt-mb-18">
                         <div class="col-lg-12">
@@ -145,12 +159,12 @@
                     <input type="hidden" name="education_id" id="education-modal-id">
                     <div class="from-group rt-mb-18">
                         <x-forms.label name="education_level" class="rt-mb-8" />
-                        <input id="education-modal-level" type="text" name="level" required placeholder="{{ __('enter') }} {{ __('education_level') }}">
+                        <input id="education-modal-level" class="form-control" type="text" name="level" required placeholder="{{ __('enter') }} {{ __('education_level') }}">
                     </div>
                     <div class="row rt-mb-18">
                         <div class="col-lg-6">
                             <x-forms.label name="degree" class="rt-mb-8" />
-                            <input id="education-modal-degree" type="text" name="degree" required placeholder="{{ __('enter') }} {{ __('degree') }}">
+                            <input id="education-modal-degree" class="form-control" type="text" name="degree" required placeholder="{{ __('enter') }} {{ __('degree') }}">
                             @error('degree')
                                 <span class="error invalid-feedback">{{ $message }}</span>
                             @enderror
@@ -160,6 +174,22 @@
                              <input id="education-modal-year" type="text" name="year" value="{{ old('year') }}" placeholder="d/m/y" class="year_picker form-control border-cutom @error('year') is-invalid @enderror" required>
                         </div>
                     </div>
+
+                    <div class="from-group rt-mb-18">
+                        <x-forms.label name="institute" class="rt-mb-8" />
+                        <input type="text" id="education-modal-institute" name="institute" required class="form-control @error('institute') is-invalid @enderror" placeholder="{{ __('enter') }} {{ __('Institude') }}">
+                        @error('institute')
+                            <span class="error invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="from-group rt-mb-18">
+                        <x-forms.label name="result" class="rt-mb-8" />
+                        <input type="text" id="education-modal-result" name="result" required class="form-control @error('result') is-invalid @enderror" placeholder="{{ __('enter') }} {{ __('Result') }}">
+                        @error('result')
+                            <span class="error invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+
                     <div class="row rt-mb-18">
                         <div class="col-lg-12">
                             <x-forms.label name="notes" class="rt-mb-8" :required="false"/>
@@ -234,6 +264,8 @@
             $('#education-modal-level').val(education.level);
             $('#education-modal-degree').val(education.degree);
             $('#education-modal-year').val(education.year);
+            $('#education-modal-institute').val(education.institute);
+            $('#education-modal-result').val(education.result_gpa);
             $('#education-notes').val(education.notes);
 
             $('#editEducationModal').modal('show');

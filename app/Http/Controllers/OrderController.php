@@ -19,12 +19,16 @@ class OrderController extends Controller
 
         $order_query = Earning::query();
 
-        if (request()->has('company') && request('company') != null) {
-            $order_query->where('company_id', request('company'));
+         if (request()->has('payer') && request('payer') != null) {
+            $order_query->where('user_type', request('payer'));
         }
 
-        if (request()->has('plan') && request('plan') != null) {
-            $order_query->where('plan_id', request('plan'));
+        if (request()->has('from_date') && request('from_date') != null) {
+            $order_query->whereDate('created_at', '>=', date('Y-m-d', strtotime(request('from_date'))));
+        }
+        
+        if (request()->has('to_date') && request('to_date') != null) {
+            $order_query->whereDate('created_at', '<=', date('Y-m-d', strtotime(request('to_date'))));
         }
 
         if (request()->has('provider') && request('provider') != null) {
@@ -41,8 +45,8 @@ class OrderController extends Controller
             $order_query->latest();
         }
 
-        $orders = $order_query->with(['company.user', 'plan', 'manualPayment:id,name'])->paginate(10)->withQueryString();
-
+        $orders = $order_query->with(['user', 'plan', 'manualPayment:id,name'])->paginate(10)->withQueryString();
+        
 
         return view('admin.order.index', compact('orders', 'companies', 'plans'));
     }
@@ -50,7 +54,7 @@ class OrderController extends Controller
     public function show($id)
     {
         abort_if(!userCan('order.view'), 403);
-        $order = Earning::with('plan', 'company', 'manualPayment:id,name')->find($id);
+        $order = Earning::with('plan', 'user', 'manualPayment:id,name')->find($id);
 
         return view('admin.order.show', compact('order'));
     }

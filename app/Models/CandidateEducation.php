@@ -14,6 +14,8 @@ class CandidateEducation extends Model
         'level',
         'degree',
         'year',
+        'institute',
+        'result_gpa',
         'notes',
     ];
 }

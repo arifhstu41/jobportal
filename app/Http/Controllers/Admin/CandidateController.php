@@ -499,13 +499,15 @@ class CandidateController extends Controller
 
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,' . $candidate->user_id,
+            'email' => 'nullable|email|unique:users,email,' . $candidate->user_id,
+            'phone' => ["required","unique:users,phone,{$candidate->user_id}", 'regex:/^(?:\+88|88)?(01[3-9]\d{8})$/'],
         ]);
 
         $user = User::FindOrFail($candidate->user_id);
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
+            'phone' => $request->phone,
         ]);
 
         $candidate->update([

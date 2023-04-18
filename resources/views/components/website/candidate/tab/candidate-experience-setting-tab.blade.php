@@ -157,16 +157,16 @@
                     <input type="hidden" name="experience_id" id="experience-modal-id">
                     <div class="from-group rt-mb-18">
                         <x-forms.label name="company" class="rt-mb-8" />
-                        <input id="experience-modal-company" type="text" name="company" required placeholder="{{ __('enter') }} {{ __('company') }}">
+                        <input id="experience-modal-company" type="text" class="form-control" name="company" required placeholder="{{ __('enter') }} {{ __('company') }}">
                     </div>
                     <div class="row rt-mb-18">
                         <div class="col-lg-6">
                             <x-forms.label name="department" class="rt-mb-8" />
-                            <input id="experience-modal-department" type="text" name="department" required placeholder="{{ __('enter') }} {{ __('department') }}">
+                            <input id="experience-modal-department" type="text" class="form-control" name="department" required placeholder="{{ __('enter') }} {{ __('department') }}">
                         </div>
                         <div class="col-lg-6">
                             <x-forms.label name="designation" class="rt-mb-8" />
-                            <input id="experience-modal-designation" type="text" name="designation" required placeholder="{{ __('enter') }} {{ __('designation') }}">
+                            <input id="experience-modal-designation" type="text" class="form-control" name="designation" required placeholder="{{ __('enter') }} {{ __('designation') }}">
                         </div>
                     </div>
                     <div class="row rt-mb-18">

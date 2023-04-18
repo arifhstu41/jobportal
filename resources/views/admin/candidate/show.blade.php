@@ -106,16 +106,16 @@
                                         <p>Village/Tow: <span>{{ $user->candidate->place }}</span></p>
                                         <p>Post Office: <span>{{ $user->candidate->post_office }}</span></p>
                                         <p>Post Code: <span>{{ $user->candidate->postcode }}</span></p>
-                                        <p>Upazila/Thana: <span>{{ $user->candidate->thanas->name }}</span></p>
-                                        <p>District: <span>{{ $user->candidate->districts->name }}</span></p>
+                                        <p>Upazila/Thana: <span>{{ $user->candidate->thanas->name ?? '' }}</span></p>
+                                        <p>District: <span>{{ $user->candidate->districts->name ?? '' }}</span></p>
                                     </td>
                                     <td>
                                         <p>Care of: <span>{{ $user->candidate->care_of_parmanent }}</span></p>
                                         <p>Village/Tow: <span>{{ $user->candidate->place_parmanent }}</span></p>
                                         <p>Post Office: <span>{{ $user->candidate->post_office_parmanent }}</span></p>
                                         <p>Post Code: <span>{{ $user->candidate->postcode_parmanent }}</span></p>
-                                        <p>Upazila/Thana: <span>{{ $user->candidate->thana_parmanents->name }}</span></p>
-                                        <p>District: <span>{{ $user->candidate->district_parmanents->name }}</span></p>
+                                        <p>Upazila/Thana: <span>{{ $user->candidate->thana_parmanents->name ?? '' }}</span></p>
+                                        <p>District: <span>{{ $user->candidate->district_parmanents->name ?? '' }}</span></p>
                                     </td>
                                 </tr>
                             </tbody>
@@ -149,8 +149,8 @@
                                     @foreach ($user->candidate->educations as $education)
                                         <tr>
                                             <td>{{ $education->level ?? '' }}</td>
-                                            <td>{{ $education->institute ?? '' }}</td>
-                                            <td>{{ $education->group ?? '' }}</td>
+                                            <td>{{ $education->board ? $education->board : ($education->institute ? $education->institute :  '')  }}</td>
+                                            <td>{{ $education->group ? $education->group : ($education->subject ? $education->subject : ($education->degree ? $education->degree : '')) }}</td>
                                             <td>{{ $education->result_gpa ?? '' }}</td>
                                             <td>{{ $education->year ?? '' }}</td>
                                             <td>{{ $education->roll ?? '' }}</td>
