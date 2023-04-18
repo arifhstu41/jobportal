@@ -293,9 +293,9 @@
                         </div>
                         <div class="iconbox-content">
                             <div class="body-font-2 rt-mb-12">{{ __('create_account') }}</div>
-                            <div class="body-font-4 text-gray-400">
+                            {{-- <div class="body-font-4 text-gray-400">
                                 {{ __('create_account_description') }}
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -312,9 +312,9 @@
                         </div>
                         <div class="iconbox-content">
                             <div class="body-font-2 rt-mb-12">{{ __('upload_cv_resume') }}</div>
-                            <div class="body-font-4 text-gray-400">
+                            {{-- <div class="body-font-4 text-gray-400">
                                 {{ __('upload_cv_resume_description') }}
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -331,9 +331,9 @@
                         </div>
                         <div class="iconbox-content">
                             <div class="body-font-2 rt-mb-12">{{ __('find_suitable_job') }}</div>
-                            <div class="body-font-4 text-gray-400">
+                            {{-- <div class="body-font-4 text-gray-400">
                                 {{ __('find_suitable_job_description') }}
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -346,8 +346,8 @@
                         </div>
                         <div class="iconbox-content">
                             <div class="body-font-2 rt-mb-12">{{ __('apply_job') }}</div>
-                            <div class="body-font-4 text-gray-400">
-                                {{ __('apply_job_description') }}</div>
+                            {{-- <div class="body-font-4 text-gray-400">
+                                {{ __('apply_job_description') }}</div> --}}
                         </div>
                     </div>
                 </div>
