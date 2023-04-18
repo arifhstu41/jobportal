@@ -102,20 +102,38 @@
 
     <table>
         <tbody style="background-color:  #2e3397">
+
+            <tr style="text-align: center">
+                <td colspan="3" style="text-align: center; padding:4px; font-size: 10px">
+                    <p>Application Form (Applicant Copy)</p>
+                </td>
+            </tr>
             <tr>
                 <td style="text-align: left;border-right: 0; width: 60px; padding:0px; width:100px">
                     <img style="margin: 0px; padding:0px; padding-left:10px; border-radius: 3px;"
                         src="images/Welfare-Family-TM.png" alt="" width="100px" height="100px">
                 </td>
-
-                <td
-                    style="text-align: center; border-right: 0; border-left: 0px; padding:0px; background-color:  #2e3397; color: white">
-                    <h2 style="margin-bottom: 0px; padding-bottom: 0px;">{{ $job->company->user->name }}</h2>
-                    <h5
-                        style="margin-top:0px; padding-top:0px; padding-left: 5px; padding-right: 5px; text-align: center; word-wrap: break-word;">
-                        {{ $job->company->full_address ?? '' }}</h5>
-                    <p style="font-size: 8px; margin-top:0px; padding-top:0px">{{ $job->company->website ?? '' }}</p>
-                </td>
+                @if ($job->company->user->name == 'Welfare Family Bangladesh Ltd.')
+                    <td
+                        style="text-align: center; border-right: 0; border-left: 0px; padding:0px; background-color:  #2e3397; color: white">
+                        <h1 style="margin-bottom: 0px; padding-bottom: 0px;">Welfare Family Bangladesh</h1>
+                        <h4>Welfare Technologies Services Limited</h4>
+                        <hr style="color: white; width: 2px; margin:3px; padding:0px">
+                        <p style="font-size: 10px">Head Office: Kathaltali, Rangamati Hill District, Bangladesh</p>
+                        <p style="font-size: 10px">Corporate Head Office: Chattogram, Bangladesh</p>
+                        <p style="font-size: 10px">www.welfarefamily.org</p>
+                    </td>
+                @else
+                    <td
+                        style="text-align: center; border-right: 0; border-left: 0px; padding:0px; background-color:  #2e3397; color: white">
+                        <h2 style="margin-bottom: 0px; padding-bottom: 0px;">{{ $job->company->user->name }}</h2>
+                        <h5
+                            style="margin-top:0px; padding-top:0px; padding-left: 5px; padding-right: 5px; text-align: center; word-wrap: break-word;">
+                            {{ $job->company->full_address ?? '' }}</h5>
+                        <p style="font-size: 8px; margin-top:0px; padding-top:0px">{{ $job->company->website ?? '' }}
+                        </p>
+                    </td>
+                @endif
                 <td style="text-align: right; border-left: 0px; padding:0px; padding-right: 10px; width:100px">
                     <img style="margin: 0px; padding:0px; padding-left:10px; border-radius: 3px;"
                         src="images/wfb-logo.png" alt="" width="100px" height="100px">
@@ -126,11 +144,6 @@
     </table>
     <table style="padding-top: 4px;">
         <tbody>
-            <tr style="text-align: center">
-                <td colspan="2" style="text-align: center; padding:4px; font-size: 10px">
-                    <p>Application Form (Applicant Copy)</p>
-                </td>
-            </tr>
             <tr style="text-align: end;">
                 <th style="text-align: end">User ID: <span>{{ $candidate->user->username ?? '' }}</span></th>
                 <th style="text-align: end">Post Name: <span>{{ $job->title ?? 'Executive' }}</span></th>
@@ -292,9 +305,11 @@
                         <td style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
                             {{ $education->level ?? '' }}</td>
                         <td style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
-                            {{ $education->institute ?? '' }}</td>
+                            {{ $education->board ? $education->board : ($education->institute ? $education->institute : '') }}
+                        </td>
                         <td style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
-                            {{ $education->group ?? '' }}</td>
+                            {{ $education->group ? $education->group : ($education->subject ? $education->subject : ($education->degree ? $education->degree : '')) }}
+                        </td>
                         <td style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
                             {{ $education->result_gpa ?? '' }}</td>
                         <td style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
@@ -362,7 +377,7 @@
     @endif
 
 
-    <div style="margin-top: 20px">
+    <div style="margin-top: 10px">
         <p style="font-size: 10px;">I declare that the information provided in this form are correct, true and
             complete to the best of my knowledge and belief. If any information is found
             false, incorrect, incomplete or if any ineligibility is detected before or after the examination, any
@@ -371,7 +386,7 @@
     </div>
 
     <div style=" text-align: right">
-        <img src="{{ public_path($candidate->signature) }}" width="200" height="80" alt="Profile Picture"
+        <img src="{{ public_path($candidate->signature) }}" width="150" height="50" alt="Profile Picture"
             style="margin: 0px; padding:0px;">
         <p style="font-size: 10px;">-------------- Applicant's Signature --------------</p>
 
@@ -379,29 +394,40 @@
 
 
     <div class="col-12">
-        <table style="padding-top: 4px;">
+        <table style="padding-top: 4px; background-color: #2e3397; border-collapse:collapse; color:white"
+            cellspacing="0">
             <thead>
-                <tr>
-                    <th style="text-align: left; font-size: 10px; margin:4px; padding:4px;">
+                <tr style="background-color: white">
+                    <th colspan="4"
+                        style="text-align: left; font-size: 10px; margin:4px; padding:4px; color:black">
                         <Strong>Congratulations! Application Submitted Successfully!</Strong>
                     </th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        <p style="margin: 2px; padding:2px; font-size: 10px; text-align: left; font-family: bangla">
-                            ওয়েলফেয়ার ফ্যামিলি বাংলাদেশ এবং বেসরকারি উন্নয়ন সংস্থা (NGO) এর যৌথ উদ্যোগে (বাংলাদেশ
-                            গেজেটে প্রকাশিত বিজ্ঞপ্তির আলোকে ও চাকরির আবেদনকারীরা এককালীন অফেরতযোগ্য রেজিস্ট্রেশন ফি
-                            প্রদান করে) 'সাসটেইনেবল ডেভেলপমেন্ট পলিসি' (SDP) ও সোস্যাল অ্যান্ড ইকোনমিক ডেভেলপমেন্ট
-                            পলিসি' (SEDP) এবং পভার্টি এলিভিয়েশন পলিসি (Muldhan) প্রজেক্ট-প্রোগ্রাম বাস্তবায়নের জন্য
-                            "সামাজিক ও অর্থনৈতিকক্ষেত্রে টেকসই উন্নয়নের প্রয়াস" শীর্ষক কার্যক্রমে অংশগ্রহণ ও সেবা
-                            গ্রহণের এবং সেবা প্রদানের জন্য Google Play store হতে <a
-                                href="https://play.google.com/store/search?q=my+welfare+app&c=apps&hl=en&gl=US">My
-                                Welfare App</a> ডাউনলোড করুন অথবা
-                            www.welfarebd.org ওয়েবসাইট থেকে রেজিষ্ট্রেশন করুন।
+            <tbody style="background-color: #2e3397">
+                <tr style="border: #2e3397">
+                    <td colspan="4" style=" margin:5px; padding:5px">
+                        <p style="font-size: 10px;">
+                            ওয়েলফেয়ার ফ্যামিলি বাংলাদেশ ও বেসরকারি উন্নয়ন সংস্থা (NGO) এবং কোম্পানির যৌথ উদ্যোগে
+                            (বাংলাদেশ গেজেটে প্রকাশিত বিজ্ঞপ্তির আলোকে ও চাকরির আবেদনকারীরা এককালীন অফেরতযোগ্য
+                            রেজিস্ট্রেশন ফি প্রদান করে) 'সাসটেইনেবল ডেভেলপমেন্ট পলিসি' (SDP) ও সোস্যাল অ্যান্ড ইকোনমিক
+                            ডেভেলপমেন্ট পলিসি' (SEDP) এবং পভার্টি এলিভিয়েশন পলিসি (Muldhan) প্রজেক্ট ও প্রোগ্রাম
+                            বাস্তবায়নের জন্য "সামাজিক ও অর্থনৈতিকক্ষেত্রে টেকসই উন্নয়নের প্রয়াস" শীর্ষক কার্যক্রমে
+                            অংশগ্রহণ ও সেবা গ্রহণের এবং সেবা প্রদানের জন্য Google Play store হতে My Welfare App ডাউনলোড
+                            করুন অথবা <a href="http://www.welfarebd.org/">Welfare Family</a> ওয়েবসাইট থেকে রেজিষ্ট্রেশন
+                            করুন।
                         </p>
                     </td>
+                </tr>
+                <tr style="border: #2e3397">
+                    <td style="border-top:#2e3397; border-right:#2e3397"></td>
+                    <td style="width:150px; border:#2e3397;"> <a href="https://play.google.com/store/search?q=my+welfare+app&c=apps&hl=en&gl=US"><img src="{{ public_path('images/play_store.png') }}"
+                        alt="" style="width:150px; height:50px"></a> </td>
+                    <td style="width:150px; border:#2e3397; text-align: center"><span> Scan To
+                            Download <br> <strong>My Welfare App</strong></span></td>
+                    <td style="width:50px; border-top:#2e3397; border-left:#2e3397"><img
+                            src="{{ public_path('images/qrcode.png') }}" alt=""
+                            style="width:50px; height:75px;"></td>
                 </tr>
             </tbody>
         </table>

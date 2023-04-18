@@ -25,7 +25,8 @@ class CandidateRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'email' => 'required|email|unique:users,email',
+            'phone' => ["required","unique:users,phone,{$this->candidate->user->id}", 'regex:/^(?:\+88|88)?(01[3-9]\d{8})$/'],
+            'email' => 'nullable|email|unique:users,email',
         ];
     }
 }

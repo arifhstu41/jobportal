@@ -212,7 +212,7 @@
                             <tr>
                                 <th>{{ __('order_no') }}</th>
                                 <th>{{ __('amount') }}</th>
-                                <th>{{ __('plan_name') }}</th>
+                                {{-- <th>{{ __('plan_name') }}</th> --}}
                                 <th>{{ __('payment_provider') }}</th>
                                 <th>{{ __('payment_status') }}</th>
                                 <th>{{ __('created_time') }}</th>
@@ -230,13 +230,13 @@
                                         <td class="text-muted">
                                             {{ $earning->currency_symbol }}{{ $earning->amount }}
                                         </td>
-                                        <td class="text-muted">
+                                        {{-- <td class="text-muted">
                                             @if ($earning->payment_type == 'per_job_based')
                                                 <span class="badge badge-secondary">{{ ucfirst(Str::replace('_', ' ', $earning->payment_type)) }}</span>
                                             @else
-                                                <span class="badge badge-primary">{{ $earning->plan->label }}</span>
+                                                <span class="badge badge-primary">{{ $earning->plan->label ?? '' }}</span>
                                             @endif
-                                        </td>
+                                        </td> --}}
                                         <td class="text-muted">
                                             @if ($earning->payment_provider == 'offline')
                                                 {{ __('offline') }}

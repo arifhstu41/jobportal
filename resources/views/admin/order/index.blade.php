@@ -24,19 +24,19 @@
                     </div>
                     <form id="filterForm" action="{{ route('order.index') }}" method="GET">
                         <div class="card-body border-bottom row">
-                            <div class="col-3">
-                                <label>{{ __('companies') }}</label>
-                                <select name="company" class="form-control select2bs4 w-100-p">
-                                    <option {{ request('company') ? '' : 'selected' }} value="" selected>
+                            <div class="col-2">
+                                <label>{{ __('Select Payer') }}</label>
+                                <select name="payer" class="form-control select2bs4 w-100-p">
+                                    <option {{ request('payer') ? '' : 'selected' }} value="" selected>
                                         {{ __('all') }}
                                     </option>
-                                    @foreach ($companies as $company)
-                                        <option {{ request('company') == $company->id ? 'selected' : '' }}
-                                            value="{{ $company->id }}">{{ $company->user->name }}</option>
-                                    @endforeach
+                                    <option {{ request('payer') == 'candidate' ? 'selected' : '' }}
+                                        value="candidate">{{ __('candidate') }}</option>
+                                    <option {{ request('payer') == 'company' ? 'selected' : '' }}
+                                        value="company">{{ __('company') }}</option>
                                 </select>
                             </div>
-                            <div class="col-3">
+                            <div class="col-2">
                                 <label>{{ __('payment_provider') }}</label>
                                 <select name="provider" id="filter" class="form-control w-100-p">
                                     <option {{ request('provider') == 'surjopay' ? 'selected' : '' }} value="surjopay">
@@ -78,7 +78,17 @@
                                     </option> --}}
                                 </select>
                             </div>
-                            <div class="col-3">
+                            <div class="col-2">
+                                <label>{{ __('From Date') }}</label>
+                                <input type="text" name="from_date" id="from_date" value="{{ request('from_date') ? date('d-m-Y', strtotime(request('from_date'))) : '' }}" placeholder="Enter Date" class="form-control w-100-p">
+                            </div>
+
+                            <div class="col-2">
+                                <label>{{ __('To Date') }}</label>
+                                <input type="text" name="to_date" id="to_date" value="{{ request('to_date') ? date('d-m-Y', strtotime(request('to_date'))) : '' }}" placeholder="Enter Date" class="form-control w-100-p">
+                            </div>
+
+                            {{-- <div class="col-2">
                                 <label>{{ __('plan') }}</label>
                                 <select name="plan" class="form-control w-100-p">
                                     <option {{ request('plan') ? '' : 'selected' }} value="" selected>
@@ -91,8 +101,8 @@
                                         @endif
                                     @endforeach
                                 </select>
-                            </div>
-                            <div class="col-3">
+                            </div> --}}
+                            <div class="col-2">
                                 <label>{{ __('sort_by') }}</label>
                                 <select name="sort_by" class="form-control w-100-p">
                                     <option {{ !request('sort_by') || request('sort_by') == 'latest' ? 'selected' : '' }}
@@ -112,9 +122,9 @@
                                 <tr>
                                     <th>{{ __('order_no') }}</th>
                                     <th>{{ __('transaction_no') }}</th>
-                                    <th>{{ __('plan_name') }}</th>
+                                    {{-- <th>{{ __('plan_name') }}</th> --}}
                                     <th>{{ __('payment_provider') }}</th>
-                                    <th>{{ __('company') }}</th>
+                                    <th>{{ __('user') }}</th>
                                     <th>{{ __('amount') }}</th>
                                     <th>{{ __('created_time') }}</th>
                                     <th>{{ __('payment_status') }}</th>
@@ -132,13 +142,13 @@
                                         <td>
                                             {{ $order->transaction_id }}
                                         </td>
-                                        <td>
+                                        {{-- <td>
                                             @if ($order->payment_type == 'per_job_based')
                                                 <span class="badge badge-secondary">{{ ucfirst(Str::replace('_', ' ', $order->payment_type)) }}</span>
                                             @else
                                                 <span class="badge badge-primary">{{ $order->plan->label }}</span>
                                             @endif
-                                        </td>
+                                        </td> --}}
                                         <td>
                                             @if ($order->payment_provider == 'offline')
                                                 Offline
@@ -150,9 +160,7 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ route('company.show', $order->company->id) }}">
-                                                {{ $order->company->user->name }}
-                                            </a>
+                                            {{ $order->user->name }}
                                         </td>
                                         <td>
                                             ${{ $order->amount }}
@@ -161,13 +169,14 @@
                                             {{ formatTime($order->created_at, 'M d, Y') }}
                                         </td>
                                         <td>
-                                            @if ($order->payment_status == 'paid')
+                                            {{ $order->payment_status }}
+                                            {{-- @if ($order->payment_status == 'paid')
                                                 <span class="badge badge-pill bg-success">{{ __('paid') }}</span>
                                             @else
                                                 <span class="badge badge-pill bg-warning">{{ __('unpaid') }}</span> <br>
                                                 <a onclick="return confirm('{{ __('are_you_sure') }}')"
                                                     href="{{ route('manual.payment.mark.paid', $order->id) }}">{{ __('mark_as_paid') }}</a>
-                                            @endif
+                                            @endif --}}
                                         </td>
                                         <td class="d-flex ">
                                             <a href="{{ route('order.show', $order->id) }}" class="btn bg-primary mr-1">
@@ -208,6 +217,7 @@
 
 @section('script')
     <script src="{{ asset('backend') }}/plugins/select2/js/select2.full.min.js"></script>
+    <script src="{{ asset('frontend') }}/assets/js/bootstrap-datepicker.min.js"></script>
     <script>
         $('#filterForm').on('change', function() {
             $(this).submit();
@@ -216,12 +226,22 @@
         $('.select2bs4').select2({
             theme: 'bootstrap4'
         })
+
+        $(document).ready(function() {
+            $('#to_date').datepicker({
+                format: 'dd-mm-yyyy'
+            });
+            $('#from_date').datepicker({
+                format: 'dd-mm-yyyy'
+            });
+        });
     </script>
 @endsection
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('backend') }}/plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="{{ asset('backend') }}/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    <link rel="stylesheet" href="{{ asset('frontend') }}/assets/css/bootstrap-datepicker.min.css">
     <style>
         .select2-results__option[aria-selected=true] {
             display: none;

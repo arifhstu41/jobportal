@@ -56,9 +56,9 @@
                         <div class="row">
                             <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
                                 <h5 class="mb-3">{{ __('billing_address') }}</h5>
-                                <h6 class="mb-2">{{ $order->company->user->name }}</h6>
+                                <h6 class="mb-2">{{ $order->user->name }}</h6>
                                 <p class="mb-0"> <strong>{{ __('email') }}: </strong><a
-                                        href="mailto:{{ $order->company->user->email }}">{{ $order->company->user->email }}</a>
+                                        href="mailto:{{ $order->user->email }}">{{ $order->user->email }}</a>
                                 </p>
                             </div>
                             <div class="col-md-6 col-lg-4">
@@ -83,7 +83,7 @@
                     </div>
                 </div>
             </div>
-            @if ($order->payment_type != 'per_job_based')
+            @if ($order->payment_type != 'per_job_based' && $order->plan_id != null)
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
@@ -91,9 +91,9 @@
                             <div class="col-md-12 col-lg-12">
                                 <h5 class="mb-3">{{ __('plan_details') }}</h5>
                                 <h6 class="mb-2">{{ __('name') }}:
-                                    <strong>{{ $order->plan->label }}</strong>
+                                    <strong>{{ $order->plan->label ?? '' }}</strong>
                                 </h6>
-                                <p class="mb-1">{{ __('description') }}: {{ $order->plan->description }}</p>
+                                <p class="mb-1">{{ __('description') }}: {{ $order->plan->description ?? '' }}</p>
                                 <p class="mb-0">{{ __('price') }}:
                                     <strong>{{ $order->currency_symbol }}{{ $order->amount }}</strong>
                                 </p>

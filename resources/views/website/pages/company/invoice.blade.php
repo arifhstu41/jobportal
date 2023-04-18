@@ -183,14 +183,14 @@
                     <h4>Company Information:</h4>
                 </div>
                 <div>
-                    <p>{{ $transaction->company->user->name }}</p>
-                    <p>{{ $transaction->company->user->email }}</p>
-                    <p>{{ $transaction->company->user->contactInfo->address }}</p>
+                    <p>{{ $transaction->user->name }}</p>
+                    <p>{{ $transaction->user->email }}</p>
+                    <p>{{ $transaction->user->contactInfo->address }}</p>
                 </div>
             </div>
             <div class="top-right">
                 <div class="logo">
-                    <img src="{{ public_path($transaction->company->logo) }}" alt="" class="img-fluid">
+                    <img src="{{ public_path($transaction->logo) }}" alt="" class="img-fluid">
                 </div>
             </div>
         </section> --}}
@@ -199,9 +199,9 @@
                 <tr>
                     <td style="text-align: left; ">
                         <h4>Company Information:</h4>
-                        <p>{{ $transaction->company->user->name }}</p>
-                        <p>{{ $transaction->company->user->email }}</p>
-                        <p>{{ $transaction->company->user->contactInfo->address }}</p>
+                        <p>{{ $transaction->user->name }}</p>
+                        <p>{{ $transaction->user->email }}</p>
+                        <p>{{ $transaction->user->contactInfo->address }}</p>
                     </td>
                     <td style="text-align: right">
                         <img style="height: 100px; width:100px"
@@ -256,6 +256,25 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @if ($transaction->plan->label)
+                        <tr>
+                            <td class="item-col">
+                                Basic Plan
+                            </td>
+                            <td class="description-col">
+                                এক কালীন অফেরতযোগ্য
+                            </td>
+                            <td>
+                                {{ ucfirst($transaction->payment_provider) }}
+                            </td>
+                            <td>
+                                dsfsdf
+                            </td>
+                            <td>
+                                {{ $transaction->currency_symbol }}{{ $transaction->amount }}
+                            </td>
+                        </tr>
+                   @else
                     <tr>
                         <td class="item-col">
                             {{ $transaction->plan->label }}
@@ -278,9 +297,11 @@
                             {{ $transaction->currency_symbol }}{{ $transaction->amount }}
                         </td>
                     </tr>
+                    @endif
                 </tbody>
             </table>
         </section>
+
         <table style="width:100%">
             <tbody>
                 <tr>

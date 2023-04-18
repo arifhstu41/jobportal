@@ -60,12 +60,12 @@
                                                                 </span>
                                                             </a>
                                                         @else
-                                                            <a href="#" class="rt-mr-8 disabled">
+                                                            <a href="{{ route('company.remove.shortlist.candidte', $applied->id) }}" class="rt-mr-8 disabled">
                                                                 <span class="text-secondary">
-                                                                    Shortlisted
+                                                                    Unsort
                                                                 </span>
                                                             </a>
-                                                            <a href="#"
+                                                            {{-- <a href="#"
                                                                 class="ms-2 d-flex align-items-center sms_send_btn" application-id="{{ $applied->id }}">
                                                                 <svg width="20" height="20" viewBox="0 0 20 20"
                                                                     fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -81,7 +81,7 @@
                                                                         stroke-linejoin="round" />
                                                                 </svg>
                                                                 {{ __('Send SMS') }}
-                                                            </a>
+                                                            </a> --}}
                                                         @endif
                                                     </div>
                                                 </td>

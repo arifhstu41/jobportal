@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Payment;
 
 use App\Http\Controllers\Controller;
 use App\Http\Traits\PaymentTrait;
+use App\Models\Earning;
 use App\Models\UserPlan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -91,11 +92,26 @@ class SurjoPayController extends Controller
         $data                = $sp_obj->verifyPayment($order_id);
         $data = (array)$data[0];
         $data['surjopay_id'] = $data['id'];
+        $data['user_id'] = auth()->user('user')->id;
         unset($data['id']);
         DB::table('payments')->insert($data);
 
         if($data['sp_massage'] == "Success"){
-            
+
+            $order = Earning::create([
+                'order_id' => rand(1000, 999999999),
+                'transaction_id' =>  $data['bank_trx_id'],
+                'plan_id' =>  null,
+                'user_id' => auth('user')->user()->id,
+                'user_type' => "candidate",
+                'payment_provider' => 'shurjopay',
+                'amount' => $data['amount'],
+                'currency_symbol' => '৳',
+                'usd_amount' => $data['usd_amt'],
+                'payment_status' => ($data['bank_status'] == 'Success') ? 'paid' : 'unpaid',
+                'payment_type' => 'subscription_based',
+            ]);
+
             flashSuccess('Payment Successfull!');
             if (auth()->user()->role == "candidate") {
                 $user= auth('user')->user();

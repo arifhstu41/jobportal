@@ -36,6 +36,8 @@ trait PaymentTrait
             'transaction_id' =>  $transaction_id,
             'plan_id' => $plan->id ?? null,
             'company_id' => auth('user')->user()->company->id,
+            'user_id' => auth('user')->user()->id,
+            'user_type' => "company",
             'payment_provider' => $order_amount['payment_provider'],
             'amount' => $order_amount['amount'],
             'currency_symbol' => $order_amount['currency_symbol'],

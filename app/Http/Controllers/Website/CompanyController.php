@@ -140,6 +140,13 @@ class CompanyController extends Controller
         // dd("hello");
     }
 
+    public function removeShortListCandidate($applied_job_id){
+        $applied= AppliedJob::find($applied_job_id);
+        $applied->short_listed=0;
+        $applied->save();
+        return back()->with('success', 'Candidate removed from short List');
+    }
+
     /**
      * Company Edited Pending job list
      * @Return response

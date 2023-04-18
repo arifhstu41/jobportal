@@ -76,9 +76,11 @@ trait CandidateSkillAble
         $request->session()->put('type', 'experience');
 
         $request->validate([
-            'level' => 'required',
             'degree' => 'required',
             'year' => 'required',
+            'level' => 'required',
+            'institute' => 'required',
+            'result' => 'required',
         ]);
 
         CandidateEducation::create([
@@ -86,6 +88,8 @@ trait CandidateSkillAble
             'level' => $request->level,
             'degree' => $request->degree,
             'year' => $request->year,
+            'institute' => $request->institute,
+            'result_gpa' => $request->result,
             'notes' => $request->notes,
         ]);
 
@@ -99,6 +103,8 @@ trait CandidateSkillAble
             'level' => 'required',
             'degree' => 'required',
             'year' => 'required',
+            'institute' => 'required',
+            'result' => 'required',
         ]);
 
         $education = CandidateEducation::findOrFail($request->education_id);
@@ -108,6 +114,8 @@ trait CandidateSkillAble
             'level' => $request->level,
             'degree' => $request->degree,
             'year' => $request->year,
+            'institute' => $request->institute,
+            'result_gpa' => $request->result,
             'notes' => $request->notes,
         ]);
 
