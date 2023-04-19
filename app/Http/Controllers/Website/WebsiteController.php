@@ -506,7 +506,7 @@ class WebsiteController extends Controller
 
     public function employersDetails(User $user)
     {
-     
+
         $companyDetails =  Company::with(
             'organization:id,name',
             'industry:id,name',
@@ -785,7 +785,7 @@ class WebsiteController extends Controller
         $mpdf->WriteHTML($stylesheet, 1);
         $title = $candidate->user->username . ".pdf";
         $mpdf->SetTitle($title);
-      
+
         $mpdf->WriteHTML($code);
         $mpdf->Output($title, 'I');
     }
@@ -1062,11 +1062,11 @@ class WebsiteController extends Controller
     public function applicationForm()
     {
         $candidate = Candidate::where('user_id', Auth::user()->id)->first();
-        $districts = DB::table('districts')->get();
+        $districts = DB::table('districts')->orderBy('name', 'asc')->get();
         $divisions = DB::table('divisions')->get();
         $unions = DB::table('unions')->get();
-        $upazilas = DB::table('upazilas')->get();
-        $unions = DB::table('unions')->get();
+        $upazilas = DB::table('upazilas')->orderBy('name', 'asc')->get();
+        $unions = DB::table('unions')->orderBy('name', 'asc')->get();
         $boards = DB::table('bd_education_boards')->get();
         $wards = [];
         for ($i = 1; $i <= 10; $i++) {
@@ -1161,7 +1161,7 @@ class WebsiteController extends Controller
     {
 
         $division_id = $_GET['division'];
-        $districts = DB::table('districts')->where('division_id', $division_id)->get();
+        $districts = DB::table('districts')->where('division_id', $division_id)->orderBy('name', 'asc')->get();
 
         $html = "<option value=''>Please Select</option>";
 
@@ -1177,7 +1177,7 @@ class WebsiteController extends Controller
     {
 
         $district_id = $_GET['district_id'];
-        $thana = DB::table('upazilas')->where('district_id', $district_id)->get();
+        $thana = DB::table('upazilas')->where('district_id', $district_id)->orderBy('name', 'asc')->get();
 
         $html = "<option value=''>Please Select</option>";
 
@@ -1193,7 +1193,7 @@ class WebsiteController extends Controller
     {
 
         $thana_id = $_GET['thana_id'];
-        $unions = DB::table('unions')->where('upazilla_id', $thana_id)->get();
+        $unions = DB::table('unions')->where('upazilla_id', $thana_id)->orderBy("name", "asc")->get();
 
         $html = "<option value=''>Please Select</option>";
 

@@ -768,7 +768,7 @@
                                 </div>
                             </div>
 
-                            
+
                             {{-- Education Information --}}
                             {{-- @php
                                 $jsc= $candidate->educations->where('level', "masters")->first();
@@ -1101,9 +1101,7 @@
                                                     <option value="Passed"
                                                         {{ old('ssc_result_type') == 'Passed' ? 'selected' : '' }}>
                                                         Passed</option>
-                                                    <option value="GPA4"
-                                                        {{ old('ssc_result_type') == 'GPA4' ? 'selected' : '' }}>GPA(out
-                                                        of 4)</option>
+
                                                     <option value="GPA5"
                                                         {{ old('ssc_result_type') == 'GPA5' ? 'selected' : '' }}>GPA(out
                                                         of 5)</option>
@@ -1861,9 +1859,7 @@
                                                         <option value="GPA4"
                                                             {{ old('honors_result_type') == 'GPA4' ? 'selected' : '' }}>
                                                             GPA(out of 4)</option>
-                                                        <option value="GPA5"
-                                                            {{ old('honors_result_type') == 'GPA5' ? 'selected' : '' }}>
-                                                            GPA(out of 5)</option>
+
                                                     </select>
                                                     @error('honors_result_type')
                                                         <span class="invalid-feedback"
@@ -2596,14 +2592,14 @@
         );
 
         $('.personal-info input, .personal-info select').each(
-            function(index){  
+            function(index){
                 if($(this).val()){
                     $(this).attr('readonly', true)
                 }
             }
         );
         $('.personal-info select').each(
-            function(index){  
+            function(index){
                 if($(this).val()){
                     $(this).attr('readonly', true)
                 }
@@ -2845,7 +2841,7 @@
                 }
             if (event.originalEvent) {
                 var district_id = $(this).val();
-                
+
                 get_thana_parmanent(district_id);
             }
         })
@@ -2875,7 +2871,7 @@
                 }
             if (event.originalEvent) {
                 var thana_id = $(this).val();
-                
+
                 get_union_parmenent(thana_id);
             }
         })
