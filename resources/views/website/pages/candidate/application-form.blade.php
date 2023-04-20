@@ -526,7 +526,7 @@
                                                     class="required">*</span></label>
                                             <div class="col-sm-8">
                                                 <input class="form-control @error('postcode') is-invalid @enderror"
-                                                    name="postcode" type="number" pattern="\d*" 
+                                                    name="postcode" type="number" pattern="\d*"
                                                     value="{{ old('postcode') ? old('postcode') : $candidate->postcode }}"
                                                     id="postcode" placeholder="{{ __('postcode') }}" required>
                                                 @error('postcode')
@@ -1388,7 +1388,7 @@
                                             <div class="form-group form-group-sm row py-2">
                                                 <label for="honors_subject"
                                                     class="col-sm-4 col-form-label">{{ __('honors_subject') }}</label>
-                                                <div class="col-sm-8">
+                                                <div class="col-sm-8 dashboard-dropdown">
                                                     <select name="honors_subject" id="honors_subject"
                                                         class="search rt-selectactive w-100-p">
                                                         <option value="">Please Select</option>
@@ -1815,7 +1815,7 @@
                                             <div class="form-group form-group-sm row py-2">
                                                 <label for="honors_institute"
                                                     class="col-sm-4 col-form-label">{{ __('honors_institute') }}</label>
-                                                <div class="col-sm-8">
+                                                <div class="col-sm-8 dashboard-dropdown">
                                                     <select name="honors_institute" id="honors_institute"
                                                         class="search rt-selectactive w-100-p">
                                                         <option value="">Please Select</option>
@@ -1975,7 +1975,7 @@
                                             <div class="form-group form-group-sm row py-2">
                                                 <label for="masters_subject"
                                                     class="col-sm-4 col-form-label">{{ __('masters_subject') }}</label>
-                                                <div class="col-sm-8">
+                                                <div class="col-sm-8 dashboard-dropdown">
                                                     <select name="masters_subject" id="masters_subject"
                                                         class="search rt-selectactive w-100-p">
                                                         <option value="">Please Select</option>
@@ -2403,7 +2403,7 @@
                                             <div class="form-group form-group-sm row py-2">
                                                 <label for="masters_institute"
                                                     class="col-sm-4 col-form-label">{{ __('masters_institute') }}</label>
-                                                <div class="col-sm-8">
+                                                <div class="col-sm-8 dashboard-dropdown">
                                                     <select name="masters_institute" id="masters_institute"
                                                         class="search rt-selectactive w-100-p">
                                                         <option value="">Please Select</option>
