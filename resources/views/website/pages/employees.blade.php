@@ -121,11 +121,14 @@
                                                             <a href="{{ route('website.employe.details', $company->user->username) }}"
                                                                 class="tw-text-[#191F33] tw-text-lg tw-font-medium">{{ $company->user->name }}</a>
                                                         </div>
+                                                        @if ($company->full_address)
                                                         <p class="tw-text-[#767F8C] tw-text-sm tw-mb-0">
                                                             <span class="tw-flex tw-items-center tw-gap-1">
                                                             <i class="ph-map-pin"></i>
                                                             {{ $company->full_address }}
                                                         </span>
+                                                        @endif
+                                                        
                                                         @if ($company->activejobs !== 0)
                                                             <span class="loacton text-gray-400 ">
                                                                 <i class="ph-suitcase-simple"></i>

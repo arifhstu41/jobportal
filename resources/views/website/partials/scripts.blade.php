@@ -2,12 +2,12 @@
 <script src="{{ mix('frontend/app.min.js') }}"></script>
 <script src="https://unpkg.com/phosphor-icons"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
-
+{{-- <script src="{{ asset('backend/plugins/select2/js/select2.full.min.js') }}"></script> --}}
 <script>
-     // autocomplete
-     var path = "{{ route('website.job.autocomplete') }}";
+    // autocomplete
+    var path = "{{ route('website.job.autocomplete') }}";
 
-      $('.global_header_search').keyup(function(e) {
+    $('.global_header_search').keyup(function(e) {
         var keyword = $(this).val();
 
         if (keyword != '') {
@@ -28,7 +28,7 @@
         }
     });
 
-    $('#global_search').keypress(function (e) {
+    $('#global_search').keypress(function(e) {
         var key = e.which;
 
         if (key == 13) {
@@ -36,22 +36,22 @@
         }
     });
 
-    $("#searchIcon").click(function () {
+    $("#searchIcon").click(function() {
         $(".togglesearch").toggle();
         $("input[type='text']").focus();
     });
 
-    $("#mblSearchIcon").click(function () {
+    $("#mblSearchIcon").click(function() {
         $(".mblTogglesearch").toggle();
         $("input[type='text']").focus();
     });
 
 
-    $('button.effect1').on('click', function () {
+    $('button.effect1').on('click', function() {
         $(this).find('span').toggleClass('active');
     });
 
-    $('.rt-mobile-menu-overlay').on('click', function () {
+    $('.rt-mobile-menu-overlay').on('click', function() {
         $('button.effect1').find('span').removeClass('active');
     });
 
@@ -60,15 +60,15 @@
         if (input.files && input.files[0]) {
             var reader = new FileReader();
 
-            reader.onload = function (e) {
-                if(input.className === 'profile-file-upload-input'){
+            reader.onload = function(e) {
+                if (input.className === 'profile-file-upload-input') {
                     $('.profile-image-upload-wrap').hide();
                     $('.profile-file-upload-image').attr('src', e.target.result);
                     $('.profile-file-upload-content').show();
 
                     // $('.image-title').html(input.files[0].name);
                 }
-                if(input.className === 'banner-file-upload-input'){
+                if (input.className === 'banner-file-upload-input') {
                     $('.banner-image-upload-wrap').hide();
 
                     $('.banner-file-upload-image').attr('src', e.target.result);
@@ -76,7 +76,7 @@
 
                     // $('.image-title').html(input.files[0].name);
                 }
-                if(input.className === 'resume-file-upload-input'){
+                if (input.className === 'resume-file-upload-input') {
                     $('.cv-image-upload-wrap').hide();
                     $('.resume-file-upload-content.none').show();
                 }
@@ -85,14 +85,14 @@
             reader.readAsDataURL(input.files[0]);
 
         } else {
-            $('.profile-remove-image').on('click', function(){
+            $('.profile-remove-image').on('click', function() {
                 console.log(this.className)
                 $('.profile-file-upload-input').replaceWith($('.profile-file-upload-input').clone());
                 $('.profile-file-upload-content').hide();
                 $('.profile-file-upload-image').attr('src', '');
                 $('.profile-image-upload-wrap').show();
             })
-            $('.banner-remove-image').on('click', function(){
+            $('.banner-remove-image').on('click', function() {
                 console.log(this.className)
                 $('.banner-file-upload-input').replaceWith($('.banner-file-upload-input').clone());
                 $('.banner-file-upload-content').hide();
@@ -101,28 +101,28 @@
             })
         }
     }
-    $('.profile-remove-image').on('click', function(){
+    $('.profile-remove-image').on('click', function() {
         console.log(this.className)
         $('.profile-file-upload-input').replaceWith($('.profile-file-upload-input').clone());
         $('.profile-file-upload-content').hide();
         $('.profile-image-upload-wrap').show();
     })
-    $('.banner-remove-image').on('click', function(){
+    $('.banner-remove-image').on('click', function() {
         console.log(this.className)
         $('.banner-file-upload-input').replaceWith($('.banner-file-upload-input').clone());
         $('.banner-file-upload-content').hide();
         $('.banner-image-upload-wrap').show();
     })
-    $('.cv-remove-image').on('click', function(){
+    $('.cv-remove-image').on('click', function() {
         $('.resume-file-upload-input').replaceWith($('.resume-file-upload-input').clone());
         $('.resume-file-upload-content').hide();
         $('.cv-image-upload-wrap').show();
     })
 
-    $('.image-upload-wrap').bind('dragover', function () {
+    $('.image-upload-wrap').bind('dragover', function() {
         $('.image-upload-wrap').addClass('image-dropping');
     });
-    $('.image-upload-wrap').bind('dragleave', function () {
+    $('.image-upload-wrap').bind('dragleave', function() {
         $('.image-upload-wrap').removeClass('image-dropping');
     });
 </script>
@@ -130,24 +130,24 @@
 @yield('frontend_scripts')
 
 <script>
-    @if(request('verified'))
-    Swal.fire({
-        title: "{{ __('email_verified') }}",
-        text: "{{ __('your_email_has_been_verified') }}",
-        icon: "success",
-    })
+    @if (request('verified'))
+        Swal.fire({
+            title: "{{ __('email_verified') }}",
+            text: "{{ __('your_email_has_been_verified') }}",
+            icon: "success",
+        })
     @endif
 
-    @if(Session::has('success'))
-    toastr.success("{{ Session::get('success') }}", 'Success!')
+    @if (Session::has('success'))
+        toastr.success("{{ Session::get('success') }}", 'Success!')
     @endif
 
-    @if(Session::has('warning'))
-    toastr.warning("{{ Session::get('warning') }}", 'Warning!')
+    @if (Session::has('warning'))
+        toastr.warning("{{ Session::get('warning') }}", 'Warning!')
     @endif
 
-    @if(Session::has('error'))
-    toastr.error("{{ Session::get('error') }}", 'Error!')
+    @if (Session::has('error'))
+        toastr.error("{{ Session::get('error') }}", 'Error!')
     @endif
 
     // toast config
@@ -168,7 +168,7 @@
         "hideMethod": "fadeOut"
     }
 
-    $('.login_required').on('click', function (event) {
+    $('.login_required').on('click', function(event) {
         event.preventDefault();
 
         Swal.fire({
@@ -186,7 +186,7 @@
             }
         })
     });
-    $('.no_permission').on('click', function (event) {
+    $('.no_permission').on('click', function(event) {
         event.preventDefault();
         Swal.fire({
             title: "{{ __('unauthorized_access') }}",
@@ -198,11 +198,10 @@
 
     $('[data-toggle="tooltip"]').tooltip();
 
-    $(".notification-icon a").off("click").on('click', function (e) {
+    $(".notification-icon a").off("click").on('click', function(e) {
         e.stopImmediatePropagation();
         return true;
     });
-
 </script>
 
 <script>
@@ -214,7 +213,7 @@
                 _token: '{{ csrf_token() }}'
             },
             dataType: 'json',
-            success: function (data) {
+            success: function(data) {
                 $('#unNotifications').hide();
             }
         });
@@ -229,13 +228,14 @@
                 _token: '{{ csrf_token() }}'
             },
             dataType: 'json',
-            success: function (data) {
+            success: function(data) {
                 window.location.href = url;
             }
         });
 
     }
 
-
-
+    $(".search").select2({
+        theme: 'classic',
+    });
 </script>

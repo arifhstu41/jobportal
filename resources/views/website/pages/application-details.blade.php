@@ -109,9 +109,9 @@
                 </td>
             </tr>
             <tr>
-                <td style="text-align: left;border-right: 0; width: 60px; padding:0px; width:100px">
+                <td style="text-align: left;border-right: 0; padding:0px; width:auto">
                     <img style="margin: 0px; padding:0px; padding-left:10px; border-radius: 3px;"
-                        src="images/Welfare-Family-TM.png" alt="" width="100px" height="100px">
+                        src="images/Welfare-Family-TM.png" alt="" width="170px" height="132px">
                 </td>
                 @if ($job->company->user->name == 'Welfare Family Bangladesh Ltd.')
                     <td
@@ -414,7 +414,7 @@
                             ডেভেলপমেন্ট পলিসি' (SEDP) এবং পভার্টি এলিভিয়েশন পলিসি (Muldhan) প্রজেক্ট ও প্রোগ্রাম
                             বাস্তবায়নের জন্য "সামাজিক ও অর্থনৈতিকক্ষেত্রে টেকসই উন্নয়নের প্রয়াস" শীর্ষক কার্যক্রমে
                             অংশগ্রহণ ও সেবা গ্রহণের এবং সেবা প্রদানের জন্য Google Play store হতে My Welfare App ডাউনলোড
-                            করুন অথবা <a href="http://www.welfarebd.org/">Welfare Family</a> ওয়েবসাইট থেকে রেজিষ্ট্রেশন
+                            করুন অথবা www.welfarebd.org ওয়েবসাইট থেকে রেজিষ্ট্রেশন
                             করুন।
                         </p>
                     </td>
@@ -425,7 +425,7 @@
                         alt="" style="width:150px; height:50px"></a> </td>
                     <td style="width:150px; border:#2e3397; text-align: center"><span> Scan To
                             Download <br> <strong>My Welfare App</strong></span></td>
-                    <td style="width:50px; border-top:#2e3397; border-left:#2e3397"><img
+                    <td style="width:50px; border-top:#2e3397; border-left:#2e3397; padding-right: 5px; padding-bottom:5px"><img
                             src="{{ public_path('images/qrcode.png') }}" alt=""
                             style="width:50px; height:75px;"></td>
                 </tr>
