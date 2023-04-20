@@ -42,7 +42,7 @@
                                     <div class="form-group">
                                         <x-forms.label name="email" :required="false"/>
                                         <x-forms.input type="email" value="{{ old('email', $user->email) }}"
-                                            name="email" placeholder="email" />
+                                            name="email" placeholder="Email Address(Optional)" />
                                     </div>
                                 </div>
                                 <div class="col-md-6">

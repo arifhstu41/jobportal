@@ -113,7 +113,7 @@
                             <div class="fromGroup rt-mb-15">
                                 <input type="email" id="email" value="{{ old('email') }}" name="email"
                                     class="field form-control @error('email') is-invalid @enderror"
-                                    placeholder="{{ __('email_address') }}">
+                                    placeholder="{{ __('email_address') }}(Optional)">
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
                                 @enderror

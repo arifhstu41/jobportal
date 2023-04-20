@@ -117,6 +117,10 @@ class SurjoPayController extends Controller
                 $user= auth('user')->user();
                 $user->candidate->balance= $data['amount'];
                 $user->candidate->save();
+                
+                // send sms
+                sendSMS( $user->id, "register");
+                
                 return redirect()->route('website.candidate.verification');
             }
     

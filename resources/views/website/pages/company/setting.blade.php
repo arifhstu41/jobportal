@@ -413,7 +413,7 @@
                                                         <div class="form-control-icon">
                                                             <x-forms.input type="email" name="email"
                                                                 value="{{ $contact->email }}"
-                                                                placeholder="{{ __('email_address') }}" class="" />
+                                                                placeholder="{{ __('email_address') }}(Optional)" class="" />
                                                             <div class="icon-badge-2">
                                                                 <svg width="24" height="24" viewBox="0 0 24 24"
                                                                     fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -526,7 +526,7 @@
                                                     class="required">*</span></label>
                                             <div class="col-sm-8">
                                                 <input class="form-control @error('postcode') is-invalid @enderror"
-                                                    name="postcode" type="text"
+                                                    name="postcode" type="number" pattern="\d*" 
                                                     value="{{ old('postcode') ? old('postcode') : $candidate->postcode }}"
                                                     id="postcode" placeholder="{{ __('postcode') }}" required>
                                                 @error('postcode')
@@ -1350,8 +1350,7 @@
                                                 <label for="honors_exam_name"
                                                     class="col-sm-4 col-form-label">{{ __('honors_exam_name') }}</label>
                                                 <div class="col-sm-8">
-                                                    <select
-                                                        class="rt-selectactive w-100-p @error('honors_exam_name') is-invalid @enderror"
+                                                    <select class="w-100-p @error('honors_exam_name') is-invalid @enderror"
                                                         name="honors_exam_name" id="honors_exam_name">
                                                         <option value="">Please Select</option>
                                                         <option value="B.Sc (Engineering/Architecture)"
@@ -1391,7 +1390,7 @@
                                                     class="col-sm-4 col-form-label">{{ __('honors_subject') }}</label>
                                                 <div class="col-sm-8">
                                                     <select name="honors_subject" id="honors_subject"
-                                                        class="rt-selectactive w-100-p">
+                                                        class="search rt-selectactive w-100-p">
                                                         <option value="">Please Select</option>
                                                         <option value="101">Accounting</option>
                                                         <option value="102">Anthropology</option>
@@ -1818,7 +1817,7 @@
                                                     class="col-sm-4 col-form-label">{{ __('honors_institute') }}</label>
                                                 <div class="col-sm-8">
                                                     <select name="honors_institute" id="honors_institute"
-                                                        class="rt-selectactive w-100-p">
+                                                        class="search rt-selectactive w-100-p">
                                                         <option value="">Please Select</option>
                                                         @foreach ($universities as $university)
                                                             <option @if (old('honors_institute') == $university->name) selected @endif
@@ -1978,7 +1977,7 @@
                                                     class="col-sm-4 col-form-label">{{ __('masters_subject') }}</label>
                                                 <div class="col-sm-8">
                                                     <select name="masters_subject" id="masters_subject"
-                                                        class="rt-selectactive w-100-p">
+                                                        class="search rt-selectactive w-100-p">
                                                         <option value="">Please Select</option>
                                                         <option value="101">Accounting</option>
                                                         <option value="102">Anthropology</option>
@@ -2406,7 +2405,7 @@
                                                     class="col-sm-4 col-form-label">{{ __('masters_institute') }}</label>
                                                 <div class="col-sm-8">
                                                     <select name="masters_institute" id="masters_institute"
-                                                        class="rt-selectactive w-100-p">
+                                                        class="search rt-selectactive w-100-p">
                                                         <option value="">Please Select</option>
                                                         @foreach ($universities as $university)
                                                             <option @if (old('masters_institute') == $university->name) selected @endif
@@ -2573,7 +2572,45 @@
         </div>
     </div>
 @endsection
+@section('style')
+    <link rel="stylesheet" href="{{ asset('backend') }}/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="{{ asset('backend') }}/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    <link rel="stylesheet" href="{{ asset('backend/plugins/dropify/css/dropify.min.css') }}">
+    <style>
+        .ck-editor__editable_inline {
+            min-height: 160px;
+        }
 
+        .select2-results__option[aria-selected=true] {
+            display: none;
+        }
+
+        .select2-container--bootstrap4 .select2-selection--multiple .select2-selection__choice {
+            color: #fff;
+            border: 1px solid #fff;
+            background: #007bff;
+            border-radius: 30px;
+        }
+
+        .height-124px {
+            height: 124px !important
+        }
+
+        .select2-container--bootstrap4 .select2-selection--multiple .select2-selection__choice__remove {
+            color: #fff;
+        }
+
+        .align-items-center {
+            -ms-flex-align: center !important;
+            align-items: center !important;
+        }
+
+        .d-flex {
+            display: -ms-flexbox !important;
+            display: flex !important;
+        }
+    </style>
+@endsection
 
 @section('frontend_scripts')
     <script src="{{ asset('frontend/assets/js/bootstrap-datepicker.min.js') }}"></script>

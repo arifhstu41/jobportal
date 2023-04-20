@@ -1076,7 +1076,7 @@ class WebsiteController extends Controller
         $universities = DB::table('bd_universities')->get();
         $years = [];
         $current_year =  (int)date("Y", strtotime('today'));
-        for ($i = 1900; $i <= ($current_year + 1); $i++) {
+        for ($i = $current_year; $i >= 1900; $i--) {
             $years[] = $i;
         }
         $user = Auth::user();
