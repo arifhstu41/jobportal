@@ -86,6 +86,7 @@ Route::controller(WebsiteController::class)->name('website.')->group(function ()
     Route::get('/district/get', 'getDistrictByDivision')->name('district.get.data');
     Route::get('/thana/get', 'getThanaByDistrict')->name('thana.get.data');
     Route::get('/union/get', 'getUnionByThana')->name('union.get.data');
+    Route::get('/paurasava/get', 'getWardByPaurasava')->name('paurasava.get.data');
 });
 
 // Social Authentication
@@ -171,7 +172,7 @@ Route::middleware('auth:user', 'verified')->group(function () {
 
             Route::get('applications/send-sms', 'sendSMS')->name('applications.sms');
 
-            
+
             // ====== appication group End=======
         });
 
