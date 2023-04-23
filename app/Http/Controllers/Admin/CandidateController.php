@@ -140,10 +140,10 @@ class CandidateController extends Controller
             $wards[]= $i;
         }
 
-        $districts = DB::table('districts')->get();
-        $divisions = DB::table('divisions')->get();
-        $upazilas = DB::table('upazilas')->get();
-        $unions = DB::table('unions')->get();
+        $districts = DB::table('districts')->orderBy('name', 'asc')->get();
+        $divisions = DB::table('divisions')->orderBy('name', 'asc')->get();
+        $upazilas = DB::table('upazilas')->orderBy('name', 'asc')->get();
+        $unions = DB::table('unions')->orderBy('name', 'asc')->get();
 
         return view('admin.candidate.index', compact('candidates','divisions', 'districts','unions', 'upazilas', 'filter', 'wards'));
     }
@@ -258,10 +258,10 @@ class CandidateController extends Controller
             $wards[]= $i;
         }
 
-        $districts = DB::table('districts')->get();
-        $divisions = DB::table('divisions')->get();
-        $upazilas = DB::table('upazilas')->get();
-        $unions = DB::table('unions')->get();
+        $districts = DB::table('districts')->orderBy('name', 'asc')->get();
+        $divisions = DB::table('divisions')->orderBy('name', 'asc')->get();
+        $upazilas = DB::table('upazilas')->orderBy('name', 'asc')->get();
+        $unions = DB::table('unions')->orderBy('name', 'asc')->get();
         $data['candidates']= $candidates;
         $pdf = PDF::loadView('admin.candidate.pdf', $data)->setOptions(['defaultFont' => 'sans-serif']);
 

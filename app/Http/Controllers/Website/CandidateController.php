@@ -146,15 +146,15 @@ class CandidateController extends Controller
         $professions = Profession::all();
         $skills = Skill::all(['id', 'name']);
         $languages = CandidateLanguage::all(['id', 'name']);
-        $divisions = DB::table('divisions')->get();
-        $districts = DB::table('districts')->where('division_id', $candidate->region)->get();
-        $upazilas = DB::table('upazilas')->where('district_id', $candidate->district)->get();
-        $unions = DB::table('unions')->where('upazilla_id', $candidate->thana)->get();
-        $districts_parmanent = DB::table('districts')->where('division_id', $candidate->region_parmanent)->get();
-        $upazilas_parmanent = DB::table('upazilas')->where('district_id', $candidate->district_parmanent)->get();
-        $unions_parmanent = DB::table('unions')->where('upazilla_id', $candidate->thana_parmanent)->get();
+        $divisions = DB::table('divisions')->orderBy('name', 'asc')->get();
+        $districts = DB::table('districts')->where('division_id', $candidate->region)->orderBy('name', 'asc')->get();
+        $upazilas = DB::table('upazilas')->where('district_id', $candidate->district)->orderBy('name', 'asc')->get();
+        $unions = DB::table('unions')->where('upazilla_id', $candidate->thana)->orderBy('name', 'asc')->get();
+        $districts_parmanent = DB::table('districts')->where('division_id', $candidate->region_parmanent)->orderBy('name', 'asc')->get();
+        $upazilas_parmanent = DB::table('upazilas')->where('district_id', $candidate->district_parmanent)->orderBy('name', 'asc')->get();
+        $unions_parmanent = DB::table('unions')->where('upazilla_id', $candidate->thana_parmanent)->orderBy('name', 'asc')->get();
         $wards= [];
-        for ($i=1; $i <=10 ; $i++) { 
+        for ($i=1; $i <=9 ; $i++) { 
             $wards[]= $i;
         }
         $candidate->load('skills', 'languages', 'experiences', 'educations');

@@ -34,6 +34,30 @@
             background-color: #e9ecef;
             border-radius: 0 5px 5px 0;
         }
+
+
+        /* loader */
+        .overlay{
+        display: none;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 999;
+        background: rgba(255,255,255,0.8) url("/examples/images/loader.gif") center no-repeat;
+    }
+    /* body{
+        text-align: center;
+    } */
+    /* Turn off scrollbar when body element has the loading class */
+    body.loading{
+        overflow: hidden;   
+    }
+    /* Make spinner image visible when body element has the loading class */
+    body.loading .overlay{
+        display: block;
+    }
     </style>
     <div class="dashboard-wrapper">
         <div class="container">
@@ -42,8 +66,12 @@
                 <div>{{$error}}</div>
             @endforeach
             @endif --}}
+
+
             <form action="{{ route('website.candidate.application.form.submit') }}" method="POST"  enctype="multipart/form-data">
                 @csrf
+
+                <div class="overlay"></div>
                 <div class="row">
                     <div class="col-sm-10 col-md-8 mx-auto">
                         <div class="col-sm-12 mt-2">
@@ -428,11 +456,11 @@
                                                 <select required name="district" id="district"
                                                     class="rt-selectactive w-100-p">
                                                     <option value="">Please Select</option>
-                                                    @foreach ($districts as $district)
+                                                    {{-- @foreach ($districts as $district)
                                                         <option value="{{ $district->id }}"
                                                             {{ $candidate->district == $district->id ? 'selected' : '' }}>
                                                             {{ $district->name }}</option>
-                                                    @endforeach
+                                                    @endforeach --}}
 
                                                 </select>
                                                 @error('district')
@@ -449,11 +477,11 @@
                                                 <select required name="thana" id="thana"
                                                     class="rt-selectactive w-100-p">
                                                     <option value="">Please Select</option>
-                                                    @foreach ($upazilas as $thana)
+                                                    {{-- @foreach ($upazilas as $thana)
                                                         <option value="{{ $thana->id }}"
                                                             {{ $candidate->thana == $thana->id ? 'selected' : '' }}>
                                                             {{ $thana->name }}</option>
-                                                    @endforeach
+                                                    @endforeach --}}
 
                                                 </select>
                                                 @error('thana')
@@ -470,11 +498,11 @@
                                                 <select required name="pourosova_union_porishod"
                                                     id="pourosova_union_porishod" class="rt-selectactive w-100-p">
                                                     <option value="">Please Select</option>
-                                                    @foreach ($unions as $union)
+                                                    {{-- @foreach ($unions as $union)
                                                         <option value="{{ $union->id }}"
                                                             {{ $candidate->pourosova_union_porishod == $union->id ? 'selected' : '' }}>
                                                             {{ $union->name }}</option>
-                                                    @endforeach
+                                                    @endforeach --}}
 
                                                 </select>
                                                 @error('pourosova_union_porishod')
@@ -624,11 +652,11 @@
                                                 <select required name="district_parmanent" id="district_parmanent"
                                                     class="rt-selectactive w-100-p">
                                                     <option value="">Please Select</option>
-                                                    @foreach ($districts as $district)
+                                                    {{-- @foreach ($districts as $district)
                                                         <option value="{{ $district->id }}"
                                                             {{ $district->id == $candidate->district_parmanent ? 'selected' : '' }}>
                                                             {{ $district->name }}</option>
-                                                    @endforeach
+                                                    @endforeach --}}
                                                 </select>
                                                 @error('district_parmanent')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
@@ -722,7 +750,7 @@
                                             <div class="col-sm-8">
                                                 <input required
                                                     class="form-control @error('postcode_parmanent') is-invalid @enderror"
-                                                    name="postcode_parmanent" type="number" pattern="\d*"
+                                                    name="postcode_parmanent" type="text"
                                                     value="{{ $candidate->postcode_parmanent }}" id="postcode_parmanent"
                                                     placeholder="{{ __('postcode') }}">
                                                 @error('postcode_parmanent')
@@ -1362,9 +1390,6 @@
                                                         <option value="M.B.B.S/B.D.S"
                                                             @if (old('honors_exam_name') == 'M.B.B.S/B.D.S') selected @endif>
                                                             M.B.B.S/B.D.S</option>
-                                                        <option value="BBA"
-                                                            @if (old('honors_exam_name') == 'BBA') selected @endif>
-                                                            Bachelor of Business Administration (BBA)</option>
                                                         <option value="Honours"
                                                             @if (old('honors_exam_name') == 'Honours') selected @endif>Honours
                                                         </option>
@@ -2972,5 +2997,16 @@
                 $("#ssc_cgpa").addClass("d-none");
             }
         })
+    </script>
+
+    <script>
+        $(document).on({
+    ajaxStart: function(){
+        $("body").addClass("loading"); 
+    },
+    ajaxStop: function(){ 
+        $("body").removeClass("loading"); 
+    }    
+});
     </script>
 @endsection

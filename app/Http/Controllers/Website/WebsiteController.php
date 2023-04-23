@@ -1063,8 +1063,7 @@ class WebsiteController extends Controller
     {
         $candidate = Candidate::where('user_id', Auth::user()->id)->first();
         $districts = DB::table('districts')->orderBy('name', 'asc')->get();
-        $divisions = DB::table('divisions')->get();
-        $unions = DB::table('unions')->get();
+        $divisions = DB::table('divisions')->orderBy('name', 'asc')->get();
         $upazilas = DB::table('upazilas')->orderBy('name', 'asc')->get();
         $unions = DB::table('unions')->orderBy('name', 'asc')->get();
         $boards = DB::table('bd_education_boards')->get();
