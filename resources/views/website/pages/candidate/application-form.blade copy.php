@@ -34,17 +34,43 @@
             background-color: #e9ecef;
             border-radius: 0 5px 5px 0;
         }
+
+
+        /* loader */
+        .overlay{
+        display: none;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 999;
+        background: rgba(255,255,255,0.8) url("/examples/images/loader.gif") center no-repeat;
+    }
+    /* body{
+        text-align: center;
+    } */
+    /* Turn off scrollbar when body element has the loading class */
+    body.loading{
+        overflow: hidden;   
+    }
+    /* Make spinner image visible when body element has the loading class */
+    body.loading .overlay{
+        display: block;
+    }
     </style>
     <div class="dashboard-wrapper">
         <div class="container">
-            {{-- @if ($errors->count())
+            {{-- @if($errors->count())
             @foreach ($errors->all() as $error)
                 <div>{{$error}}</div>
             @endforeach
             @endif --}}
-            <form action="{{ route('website.candidate.application.form.submit') }}" method="POST"
-                enctype="multipart/form-data">
+
+
+            <form action="{{ route('website.candidate.application.form.submit') }}" method="POST"  enctype="multipart/form-data">
                 @csrf
+
                 <div class="overlay"></div>
                 <div class="row">
                     <div class="col-sm-10 col-md-8 mx-auto">
@@ -333,13 +359,11 @@
                                         <div class="form-group form-group-sm row py-2">
                                             <label for="quota"
                                                 class="col-sm-3 col-form-label">{{ __('quota') }}<span
-                                                    class="required">*</span></label>
+                                                class="required">*</span></label>
                                             <div class="col-sm-9">
-                                                <select name="quota"
-                                                    class="rt-selectactive w-100-p @error('quota') is-invalid @enderror"
-                                                    required>
+                                                <select name="quota" class="rt-selectactive w-100-p @error('quota') is-invalid @enderror" required>
                                                     <option value="">Please Select</option>
-                                                    <option @if ($candidate->quota == 'Child of Freedom Fighter' || old('quota') == 'Child of Freedom Fighter') selected @endif
+                                                    <option @if ($candidate->quota == "Child of Freedom Fighter" || old('quota') == 'Child of Freedom Fighter') selected @endif
                                                         value="Child of Freedom Fighter">
                                                         {{ __('Child of Freedom Fighter') }}</option>
                                                     <option @if ($candidate->quota == 'Grand Child of Freedom Fighter' || old('quota') == 'Grand Child of Freedom Fighter') selected @endif
@@ -391,7 +415,7 @@
                                         <div class="form-group form-group-sm row py-0">
                                             <label for="care_of"
                                                 class="col-sm-4 col-form-label">{{ __('care_of') }}<span
-                                                    class="required">*</span></label>
+                                                class="required">*</span></label>
                                             <div class="col-sm-8">
                                                 <input class="form-control @error('care_of') is-invalid @enderror"
                                                     name="care_of" type="text"
@@ -414,7 +438,7 @@
                                                     @foreach ($divisions as $division)
                                                         <option value="{{ $division->id }}"
                                                             {{ $candidate->region == $division->id ? 'selected' : '' }}>
-                                                            {{ $division->nameEn }}</option>
+                                                            {{ $division->name }}</option>
                                                     @endforeach
                                                 </select>
                                                 @error('region')
@@ -435,7 +459,7 @@
                                                     {{-- @foreach ($districts as $district)
                                                         <option value="{{ $district->id }}"
                                                             {{ $candidate->district == $district->id ? 'selected' : '' }}>
-                                                            {{ $district->nameEn }}</option>
+                                                            {{ $district->name }}</option>
                                                     @endforeach --}}
 
                                                 </select>
@@ -495,11 +519,11 @@
                                                 <select required name="ward_no" id="ward_no"
                                                     class="rt-selectactive w-100-p">
                                                     <option value="">Please Select</option>
-                                                    {{-- @foreach ($wards as $key => $ward)
+                                                    @foreach ($wards as $key => $ward)
                                                         <option value="{{ $ward }}"
                                                             {{ $candidate->ward_no == $ward ? 'selected' : '' }}>
                                                             Ward-{{ $ward }}</option>
-                                                    @endforeach --}}
+                                                    @endforeach
                                                 </select>
                                                 @error('ward_no')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
@@ -586,7 +610,7 @@
                                         <div class="form-group form-group-sm row py-0">
                                             <label for="care_of_parmanent"
                                                 class="col-sm-4 col-form-label">{{ __('care_of') }}<span
-                                                    class="required">*</span></label>
+                                                class="required">*</span></label>
 
                                             <div class="col-sm-8">
                                                 <input
@@ -611,7 +635,7 @@
                                                     @foreach ($divisions as $division)
                                                         <option value="{{ $division->id }}"
                                                             {{ $division->id == $candidate->region_parmanent ? 'selected' : '' }}>
-                                                            {{ $division->nameEn }}</option>
+                                                            {{ $division->name }}</option>
                                                     @endforeach
                                                 </select>
                                                 @error('region_parmanent')
@@ -631,7 +655,7 @@
                                                     {{-- @foreach ($districts as $district)
                                                         <option value="{{ $district->id }}"
                                                             {{ $district->id == $candidate->district_parmanent ? 'selected' : '' }}>
-                                                            {{ $district->nameEn }}</option>
+                                                            {{ $district->name }}</option>
                                                     @endforeach --}}
                                                 </select>
                                                 @error('district_parmanent')
@@ -648,11 +672,11 @@
                                                 <select required name="thana_parmanent" id="thana_parmanent"
                                                     class="rt-selectactive w-100-p">
                                                     <option value="">Please Select</option>
-                                                    {{-- @foreach ($upazilas as $upazila)
+                                                    @foreach ($upazilas as $upazila)
                                                         <option value="{{ $upazila->id }}"
                                                             {{ $upazila->id == $candidate->thana_parmanent ? 'selected' : '' }}>
                                                             {{ $upazila->name }}</option>
-                                                    @endforeach --}}
+                                                    @endforeach
                                                 </select>
                                                 @error('thana_parmanent')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
@@ -669,11 +693,11 @@
                                                     id="pourosova_union_porishod_parmanent"
                                                     class="rt-selectactive w-100-p">
                                                     <option value="">Please Select</option>
-                                                    {{-- @foreach ($unions as $union)
+                                                    @foreach ($unions as $union)
                                                         <option value="{{ $union->id }}"
                                                             {{ $candidate->pourosova_union_porishod_parmanent == $union->id ? 'selected' : '' }}>
                                                             {{ $union->name }}</option>
-                                                    @endforeach --}}
+                                                    @endforeach
 
                                                 </select>
                                                 @error('pourosova_union_porishod_parmanent')
@@ -690,11 +714,11 @@
                                                 <select required name="ward_no_parmanent" id="ward_no_parmanent"
                                                     class="rt-selectactive w-100-p">
                                                     <option value="">Please Select</option>
-                                                    {{-- @foreach ($wards as $key => $ward)
+                                                    @foreach ($wards as $key => $ward)
                                                         <option value="{{ $ward }}"
                                                             {{ $candidate->ward_no_parmanent == $ward ? 'selected' : '' }}>
                                                             Ward-{{ $ward }}</option>
-                                                    @endforeach --}}
+                                                    @endforeach
                                                 </select>
                                                 @error('ward_no_parmanent')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
@@ -726,7 +750,7 @@
                                             <div class="col-sm-8">
                                                 <input required
                                                     class="form-control @error('postcode_parmanent') is-invalid @enderror"
-                                                    name="postcode_parmanent" type="number" pattern="\d*"
+                                                    name="postcode_parmanent" type="text"
                                                     value="{{ $candidate->postcode_parmanent }}" id="postcode_parmanent"
                                                     placeholder="{{ __('postcode') }}">
                                                 @error('postcode_parmanent')
@@ -1354,8 +1378,7 @@
                                                 <label for="honors_exam_name"
                                                     class="col-sm-4 col-form-label">{{ __('honors_exam_name') }}</label>
                                                 <div class="col-sm-8">
-                                                    <select
-                                                        class="w-100-p @error('honors_exam_name') is-invalid @enderror"
+                                                    <select class="w-100-p @error('honors_exam_name') is-invalid @enderror"
                                                         name="honors_exam_name" id="honors_exam_name">
                                                         <option value="">Please Select</option>
                                                         <option value="B.Sc (Engineering/Architecture)"
@@ -1367,9 +1390,6 @@
                                                         <option value="M.B.B.S/B.D.S"
                                                             @if (old('honors_exam_name') == 'M.B.B.S/B.D.S') selected @endif>
                                                             M.B.B.S/B.D.S</option>
-                                                        <option value="BBA"
-                                                            @if (old('honors_exam_name') == 'BBA') selected @endif>
-                                                            Bachelor of Business Administration (BBA)</option>
                                                         <option value="Honours"
                                                             @if (old('honors_exam_name') == 'Honours') selected @endif>Honours
                                                         </option>
@@ -2617,29 +2637,6 @@
             display: -ms-flexbox !important;
             display: flex !important;
         }
-
-                /* loader */
-                .overlay{
-        display: none;
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        z-index: 999;
-        background: rgba(255,255,255,0.8) url("/images/loader.gif") center no-repeat;
-    }
-    /* body{
-        text-align: center;
-    } */
-    /* Turn off scrollbar when body element has the loading class */
-    body.loading{
-        overflow: hidden;   
-    }
-    /* Make spinner image visible when body element has the loading class */
-    body.loading .overlay{
-        display: block;
-    }
     </style>
 @endsection
 
@@ -2660,15 +2657,15 @@
         );
 
         $('.personal-info input, .personal-info select').each(
-            function(index) {
-                if ($(this).val()) {
+            function(index){
+                if($(this).val()){
                     $(this).attr('readonly', true)
                 }
             }
         );
         $('.personal-info select').each(
-            function(index) {
-                if ($(this).val()) {
+            function(index){
+                if($(this).val()){
                     $(this).attr('readonly', true)
                 }
             }
@@ -2686,30 +2683,28 @@
                 $("#region_parmanent").select2({
                     disabled: 'readonly'
                 });
-                
                 $("#region_parmanent").val($("#region").val()).trigger("change");
 
-                // $("#district_parmanent").select2({
-                //     disabled: 'readonly'
-                // });
+                $("#district_parmanent").select2({
+                    disabled: 'readonly'
+                });
+                $("#district_parmanent").val($("#district").val()).trigger("change");
 
-                // $("#district_parmanent").val($("#district").val()).trigger("change");
+                $("#thana_parmanent").select2({
+                    disabled: 'readonly'
+                });
+                $("#thana_parmanent").val($("#thana").val()).trigger("change");
 
-                // $("#thana_parmanent").select2({
-                //     disabled: 'readonly'
-                // });
-                // $("#thana_parmanent").val($("#thana").val()).trigger("change");
+                $("#pourosova_union_porishod_parmanent").select2({
+                    disabled: 'readonly'
+                });
+                $("#pourosova_union_porishod_parmanent").val($("#pourosova_union_porishod").val()).trigger(
+                    "change");
 
-                // $("#pourosova_union_porishod_parmanent").select2({
-                //     disabled: 'readonly'
-                // });
-                // $("#pourosova_union_porishod_parmanent").val($("#pourosova_union_porishod").val()).trigger(
-                //     "change");
-
-                // $("#ward_no_parmanent").select2({
-                //     disabled: 'readonly'
-                // });
-                // $("#ward_no_parmanent").val($("#ward_no").val()).trigger("change");
+                $("#ward_no_parmanent").select2({
+                    disabled: 'readonly'
+                });
+                $("#ward_no_parmanent").val($("#ward_no").val()).trigger("change");
             } else {
                 /* display hide */
                 if ($("#parmanent_district_div").hasClass("d-none")) {
@@ -2777,9 +2772,14 @@
 
         })
 
-        // on change region get districts by division
         $(document).on("change", "#region", function() {
             var division = $(this).val();
+            console.log($("#district_div").hasClass("d-none"));
+            if ($("#district_div").hasClass("d-none")) {
+                console.log("hello");
+                $("#district_div").removeClass('d-none');
+            }
+
             get_district(division);
         })
 
@@ -2794,17 +2794,20 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
-                    if ($("#district_div").hasClass("d-none")) {
-                        $("#district_div").removeClass('d-none');
-                    }
+
                     $("#district").html(response.html);
+                    // toastr.success(response.message, 'Success');
                 }
             });
         }
 
-        // on change district get upazila by district
+
+
         $(document).on("change", "#district", function() {
             var district_id = $(this).val();
+            if ($("#thana_div").hasClass("d-none")) {
+                $("#thana_div").removeClass('d-none');
+            }
             get_thana(district_id);
 
         })
@@ -2819,18 +2822,20 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
-                    if ($("#thana_div").hasClass("d-none")) {
-                        $("#thana_div").removeClass('d-none');
-                    }
+
                     $("#thana").html(response.html);
                 }
             });
 
         }
 
+
         // get union by thana/paurashava/upazila
         $(document).on("change", "#thana", function() {
             var thana_id = $(this).val();
+            if ($("#union_div").hasClass("d-none")) {
+                $("#union_div").removeClass('d-none');
+            }
             get_union(thana_id);
         })
 
@@ -2844,50 +2849,37 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
-                    if ($("#union_div").hasClass("d-none")) {
-                        $("#union_div").removeClass('d-none');
-                    }
+
                     $("#pourosova_union_porishod").html(response.html);
                 }
             });
 
         }
 
-        // on chage union show wards
+        /* ward div display none*/
         $(document).on("change", "#pourosova_union_porishod", function() {
-            var pourosova_id = $(this).val();
-            get_ward(pourosova_id);
+            if ($("#ward_div").hasClass("d-none")) {
+                $("#ward_div").removeClass('d-none');
+            }
         })
 
-        function get_ward(pourosova_id) {
 
-            $.ajax({
-                type: "GET",
-                dataType: "json",
-                url: "{{ route('website.paurasava.get.data') }}",
-                data: {
-                    pourosova_id: pourosova_id,
-                    _token: '{{ csrf_token() }}'
-                },
-                success: function(response) {
-                    if ($("#ward_div").hasClass("d-none")) {
-                        $("#ward_div").removeClass('d-none');
-                    }
-                    $("#ward_no").html(response.html);
-                }
-            });
-        }
+        $(document).on("change", "#pourosova_union_porishod_parmanent", function() {
+            if ($("#parmanent_ward_div").hasClass("d-none")) {
+                $("#parmanent_ward_div").removeClass('d-none');
+            }
+        })
 
         /* ward div display none*/
-        // Parmanent Address
 
-        /* on change region parmanet get districts permanent */
         $(document).on("change", "#region_parmanent", function(event) {
             if ($("#parmanent_district_div").hasClass("d-none")) {
                 $("#parmanent_district_div").removeClass('d-none');
             }
-            var division = $(this).val();
-            get_district_parmanent(division);
+            if (event.originalEvent) {
+                var division = $(this).val();
+                get_district_parmanent(division);
+            }
         })
 
         function get_district_parmanent(division) {
@@ -2901,26 +2893,22 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
-                    $("#district_parmanent").html(response.html);
-                    let same_address = $("#same_address").is(":checked");
-                    if (same_address) {
-                        $("#district_parmanent").val($("#district").val()).trigger("change");
-                        $("#district_parmanent").select2({
-                        disabled: 'readonly'
-                    });
 
-                    }
+                    $("#district_parmanent").html(response.html);
+                    // toastr.success(response.message, 'Success');
                 }
             });
         }
 
-        // on change district parmanent get thana data
         $(document).on("change", "#district_parmanent", function(event) {
             if ($("#parmanent_thana_div").hasClass("d-none")) {
-                $("#parmanent_thana_div").removeClass('d-none');
+                    $("#parmanent_thana_div").removeClass('d-none');
+                }
+            if (event.originalEvent) {
+                var district_id = $(this).val();
+
+                get_thana_parmanent(district_id);
             }
-            var district_id = $(this).val();
-            get_thana_parmanent(district_id);
         })
 
         function get_thana_parmanent(district_id) {
@@ -2933,14 +2921,8 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
+
                     $("#thana_parmanent").html(response.html);
-                    let same_address = $("#same_address").is(":checked");
-                    if (same_address) {
-                        $("#thana_parmanent").val($("#thana").val()).trigger("change");
-                        $("#thana_parmanent").select2({
-                            disabled: 'readonly'
-                        });
-                    }
                 }
             });
 
@@ -2950,10 +2932,13 @@
         // get union by thana/paurashava/upazila
         $(document).on("change", "#thana_parmanent", function(event) {
             if ($("#parmanent_union_div").hasClass("d-none")) {
-                $("#parmanent_union_div").removeClass('d-none');
+                    $("#parmanent_union_div").removeClass('d-none');
+                }
+            if (event.originalEvent) {
+                var thana_id = $(this).val();
+
+                get_union_parmenent(thana_id);
             }
-            var thana_id = $(this).val();
-            get_union_parmenent(thana_id);
         })
 
         function get_union_parmenent(thana_id) {
@@ -2966,54 +2951,12 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
+
                     $("#pourosova_union_porishod_parmanent").html(response.html);
-                    let same_address = $("#same_address").is(":checked");
-                    if (same_address) {
-                        $("#pourosova_union_porishod_parmanent").val($("#pourosova_union_porishod").val()).trigger("change");
-                        $("#pourosova_union_porishod_parmanent").select2({
-                            disabled: 'readonly'
-                        })
-                    }
                 }
             });
 
         }
-
-    
-        // on chage union show wards
-        $(document).on("change", "#pourosova_union_porishod_parmanent", function() {
-            var pourosova_id = $(this).val();
-            get_ward_parmanent(pourosova_id);
-        })
-
-        function get_ward_parmanent(pourosova_id) {
-
-            $.ajax({
-                type: "GET",
-                dataType: "json",
-                url: "{{ route('website.paurasava.get.data') }}",
-                data: {
-                    pourosova_id: pourosova_id,
-                    _token: '{{ csrf_token() }}'
-                },
-                success: function(response) {
-                    if ($("#parmanent_ward_div").hasClass("d-none")) {
-                        $("#parmanent_ward_div").removeClass('d-none');
-                    }
-                    $("#ward_no_parmanent").html(response.html);
-                    let same_address = $("#same_address").is(":checked");
-                    if (same_address) {
-                        $("#ward_no_parmanent").val($("#ward_no").val()).trigger("change");
-                        $("#ward_no_parmanent").select2({
-                        disabled: 'readonly'
-                    });
-                    }
-                }
-            });
-        }
-
-
-        
 
         // in change masters result type open cgpa input box
         $(document).on("change", "#masters_result_type", function() {
@@ -3055,14 +2998,15 @@
             }
         })
     </script>
+
     <script>
         $(document).on({
-            ajaxStart: function() {
-                $("body").addClass("loading");
-            },
-            ajaxStop: function() {
-                $("body").removeClass("loading");
-            }
-        });
+    ajaxStart: function(){
+        $("body").addClass("loading"); 
+    },
+    ajaxStop: function(){ 
+        $("body").removeClass("loading"); 
+    }    
+});
     </script>
 @endsection

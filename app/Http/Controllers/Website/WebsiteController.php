@@ -1062,8 +1062,10 @@ class WebsiteController extends Controller
     public function applicationForm()
     {
         $candidate = Candidate::where('user_id', Auth::user()->id)->first();
-        $districts = DB::table('tblgeocode')->where("geoLevelId", "2")->orderBy('nameEn', 'asc')->get();
-        $divisions = DB::table('tblgeocode')->where("geoLevelId", "1")->get();
+        // $districts = DB::table('districts')->orderBy('name', 'asc')->get();
+        // $divisions = DB::table('divisions')->orderBy('name', 'asc')->get();
+        $divisions = DB::table('tblgeocode')->where("geoLevelId", "1")->orderBy('nameEn', 'asc')->get();
+        // $districts = DB::table('tblgeocode')->where("geoLevelId", "2")->orderBy('nameEn', 'asc')->get();
         $unions = DB::table('unions')->get();
         $upazilas = DB::table('upazilas')->orderBy('name', 'asc')->get();
         $unions = DB::table('unions')->orderBy('name', 'asc')->get();
@@ -1080,7 +1082,7 @@ class WebsiteController extends Controller
             $years[] = $i;
         }
         $user = Auth::user();
-        return view('website.pages.candidate.application-form', compact('candidate', 'user', 'divisions', 'districts', 'unions', 'upazilas', 'unions', 'wards', 'universities', 'years', 'boards'));
+        return view('website.pages.candidate.application-form', compact('candidate', 'user', 'divisions', 'unions', 'upazilas', 'unions', 'wards', 'universities', 'years', 'boards'));
     }
 
     // Birth Registration/NID Verification
@@ -1161,7 +1163,7 @@ class WebsiteController extends Controller
     {
 
         $division_id = $_GET['division'];
-        $districts = DB::table('districts')->where('division_id', $division_id)->orderBy('name', 'asc')->get();
+        // $districts = DB::table('districts')->where('division_id', $division_id)->orderBy('name', 'asc')->get();
         $districts = DB::table('tblgeocode')->where("geoLevelId", "2")->where('parentGeoId', $division_id)->orderBy('nameEn', 'asc')->get();
 
         $html = "<option value=''>Please Select</option>";
@@ -1178,7 +1180,7 @@ class WebsiteController extends Controller
     {
 
         $district_id = $_GET['district_id'];
-        $thana = DB::table('upazilas')->where('district_id', $district_id)->orderBy('name', 'asc')->get();
+        // $thana = DB::table('upazilas')->where('district_id', $district_id)->orderBy('name', 'asc')->get();
         $thana = DB::table('tblgeocode')->where('parentGeoId', $district_id)->orderBy('nameEn', 'asc')->get();
 
         $html = "<option value=''>Please Select</option>";
@@ -1195,7 +1197,7 @@ class WebsiteController extends Controller
     {
 
         $thana_id = $_GET['thana_id'];
-        $unions = DB::table('unions')->where('upazilla_id', $thana_id)->orderBy("name", "asc")->get();
+        // $unions = DB::table('unions')->where('upazilla_id', $thana_id)->orderBy("name", "asc")->get();
         $unions = DB::table('tblgeocode')->where('parentGeoId', $thana_id)->orderBy('nameEn', 'asc')->get();
 
         $html = "<option value=''>Please Select</option>";
