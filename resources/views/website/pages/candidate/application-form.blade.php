@@ -410,7 +410,7 @@
                                                     @foreach ($divisions as $division)
                                                         <option value="{{ $division->id }}"
                                                             {{ $candidate->region == $division->id ? 'selected' : '' }}>
-                                                            {{ $division->name }}</option>
+                                                            {{ $division->nameEn }}</option>
                                                     @endforeach
                                                 </select>
                                                 @error('region')
@@ -431,7 +431,7 @@
                                                     @foreach ($districts as $district)
                                                         <option value="{{ $district->id }}"
                                                             {{ $candidate->district == $district->id ? 'selected' : '' }}>
-                                                            {{ $district->name }}</option>
+                                                            {{ $district->nameEn }}</option>
                                                     @endforeach
 
                                                 </select>
@@ -607,7 +607,7 @@
                                                     @foreach ($divisions as $division)
                                                         <option value="{{ $division->id }}"
                                                             {{ $division->id == $candidate->region_parmanent ? 'selected' : '' }}>
-                                                            {{ $division->name }}</option>
+                                                            {{ $division->nameEn }}</option>
                                                     @endforeach
                                                 </select>
                                                 @error('region_parmanent')
@@ -627,7 +627,7 @@
                                                     @foreach ($districts as $district)
                                                         <option value="{{ $district->id }}"
                                                             {{ $district->id == $candidate->district_parmanent ? 'selected' : '' }}>
-                                                            {{ $district->name }}</option>
+                                                            {{ $district->nameEn }}</option>
                                                     @endforeach
                                                 </select>
                                                 @error('district_parmanent')
@@ -2829,6 +2829,35 @@
                 }
             });
 
+        }
+
+        $(document).on("change", "#pourosova_union_porishod", function() {
+            var pourosova_id = $(this).val();
+            console.log($("#district_div").hasClass("d-none"));
+            if ($("#district_div").hasClass("d-none")) {
+                console.log("hello");
+                $("#district_div").removeClass('d-none');
+            }
+
+            get_ward(pourosova_id);
+        })
+
+        function get_ward(pourosova_id) {
+
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "{{ route('website.paurasava.get.data') }}",
+                data: {
+                    pourosova_id: pourosova_id,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+
+                    $("#ward_no").html(response.html);
+                    // toastr.success(response.message, 'Success');
+                }
+            });
         }
 
         /* ward div display none*/
