@@ -26,9 +26,9 @@ class CandidateMiddleware
             // if ($candidate->is_varified == "false") {
             //     return redirect()->route('website.candidate.verification');
             // }
-            // if ($candidate->profile_complete != 0) {
-            //     return redirect()->route('website.candidate.application.form');
-            // }
+            if ($candidate->profile_complete != 0) {
+                return redirect()->route('website.candidate.application.form');
+            }
             return $next($request);
         }
 

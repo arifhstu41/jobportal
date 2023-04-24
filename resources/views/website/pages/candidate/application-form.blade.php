@@ -2634,7 +2634,7 @@
     } */
     /* Turn off scrollbar when body element has the loading class */
     body.loading{
-        overflow: hidden;   
+        overflow: hidden;
     }
     /* Make spinner image visible when body element has the loading class */
     body.loading .overlay{
@@ -2686,7 +2686,7 @@
                 $("#region_parmanent").select2({
                     disabled: 'readonly'
                 });
-                
+
                 $("#region_parmanent").val($("#region").val()).trigger("change");
 
                 // $("#district_parmanent").select2({
@@ -2784,7 +2784,7 @@
         })
 
         function get_district(division) {
-
+            $("#ajax_loader").show();
             $.ajax({
                 type: "GET",
                 dataType: "json",
@@ -2794,6 +2794,7 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
+                    $("#ajax_loader").hide();
                     if ($("#district_div").hasClass("d-none")) {
                         $("#district_div").removeClass('d-none');
                     }
@@ -2810,6 +2811,7 @@
         })
 
         function get_thana(district_id) {
+            $("#ajax_loader").show();
             $.ajax({
                 type: "GET",
                 dataType: "json",
@@ -2819,6 +2821,7 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
+                    $("#ajax_loader").hide();
                     if ($("#thana_div").hasClass("d-none")) {
                         $("#thana_div").removeClass('d-none');
                     }
@@ -2835,6 +2838,7 @@
         })
 
         function get_union(thana_id) {
+            $("#ajax_loader").show();
             $.ajax({
                 type: "GET",
                 dataType: "json",
@@ -2844,6 +2848,7 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
+                    $("#ajax_loader").hide();
                     if ($("#union_div").hasClass("d-none")) {
                         $("#union_div").removeClass('d-none');
                     }
@@ -2860,7 +2865,7 @@
         })
 
         function get_ward(pourosova_id) {
-
+            $("#ajax_loader").show();
             $.ajax({
                 type: "GET",
                 dataType: "json",
@@ -2870,6 +2875,7 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
+                    $("#ajax_loader").hide();
                     if ($("#ward_div").hasClass("d-none")) {
                         $("#ward_div").removeClass('d-none');
                     }
@@ -2891,7 +2897,7 @@
         })
 
         function get_district_parmanent(division) {
-
+            $("#ajax_loader").show();
             $.ajax({
                 type: "GET",
                 dataType: "json",
@@ -2901,6 +2907,7 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
+                    $("#ajax_loader").hide();
                     $("#district_parmanent").html(response.html);
                     let same_address = $("#same_address").is(":checked");
                     if (same_address) {
@@ -2924,6 +2931,7 @@
         })
 
         function get_thana_parmanent(district_id) {
+            $("#ajax_loader").show();
             $.ajax({
                 type: "GET",
                 dataType: "json",
@@ -2933,6 +2941,7 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
+                    $("#ajax_loader").hide();
                     $("#thana_parmanent").html(response.html);
                     let same_address = $("#same_address").is(":checked");
                     if (same_address) {
@@ -2957,6 +2966,7 @@
         })
 
         function get_union_parmenent(thana_id) {
+            $("#ajax_loader").show();
             $.ajax({
                 type: "GET",
                 dataType: "json",
@@ -2966,6 +2976,7 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
+                    $("#ajax_loader").hide();
                     $("#pourosova_union_porishod_parmanent").html(response.html);
                     let same_address = $("#same_address").is(":checked");
                     if (same_address) {
@@ -2979,7 +2990,7 @@
 
         }
 
-    
+
         // on chage union show wards
         $(document).on("change", "#pourosova_union_porishod_parmanent", function() {
             var pourosova_id = $(this).val();
@@ -2987,7 +2998,7 @@
         })
 
         function get_ward_parmanent(pourosova_id) {
-
+            $("#ajax_loader").show();
             $.ajax({
                 type: "GET",
                 dataType: "json",
@@ -2997,6 +3008,7 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
+                    $("#ajax_loader").hide();
                     if ($("#parmanent_ward_div").hasClass("d-none")) {
                         $("#parmanent_ward_div").removeClass('d-none');
                     }
@@ -3013,7 +3025,7 @@
         }
 
 
-        
+
 
         // in change masters result type open cgpa input box
         $(document).on("change", "#masters_result_type", function() {
