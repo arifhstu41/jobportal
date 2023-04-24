@@ -705,7 +705,7 @@
                                                             class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                         <div class="fromGroup">
                                                             <div class="form-control-icon">
-                                                                <x-forms.input type="text" name="postcode"
+                                                                <x-forms.input type="number" pattern="\d*" name="postcode"
                                                                     id="postcode" value="{{ $candidate->postcode }}"
                                                                     placeholder="{{ __('postcode') }}" class="" />
                                                             </div>
@@ -739,7 +739,7 @@
                                                                 <x-forms.input type="text" id="house_and_road_no"
                                                                     name="house_and_road_no"
                                                                     value="{{ $candidate->house_and_road_no }}"
-                                                                    placeholder="{{ __('postcode') }}" class="" />
+                                                                    placeholder="{{ __('house_and_road_no') }}" class="" />
                                                             </div>
                                                         </div>
                                                         @error('house_and_road_no')
@@ -921,7 +921,7 @@
                                                             class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                         <div class="fromGroup">
                                                             <div class="form-control-icon">
-                                                                <x-forms.input type="text" id="postcode_parmanent"
+                                                                <x-forms.input type="number" pattern="\d*" id="postcode_parmanent"
                                                                     name="postcode_parmanent"
                                                                     value="{{ $candidate->postcode }}"
                                                                     placeholder="{{ __('postcode') }}" class="" />
