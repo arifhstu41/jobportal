@@ -251,16 +251,16 @@
                     <p>Village/Tow: <span>{{ $candidate->place }}</span></p>
                     <p>Post Office: <span>{{ $candidate->post_office }}</span></p>
                     <p>Post Code: <span>{{ $candidate->postcode }}</span></p>
-                    <p>Upazila/Thana: <span>{{ $candidate->thanas->name }}</span></p>
-                    <p>District: <span>{{ $candidate->districts->name }}</span></p>
+                    <p>Upazila/Thana: <span>{{ $candidate->thanas->nameEn }}</span></p>
+                    <p>District: <span>{{ $candidate->districts->nameEn }}</span></p>
                 </td>
                 <td style="margin: 2px; padding:2px; font-size: 10px;">
                     <p>Care of: <span>{{ $candidate->care_of_parmanent }}</span></p>
                     <p>Village/Tow: <span>{{ $candidate->place_parmanent }}</span></p>
                     <p>Post Office: <span>{{ $candidate->post_office_parmanent }}</span></p>
                     <p>Post Code: <span>{{ $candidate->postcode_parmanent }}</span></p>
-                    <p>Upazila/Thana: <span>{{ $candidate->thana_parmanents->name }}</span></p>
-                    <p>District: <span>{{ $candidate->district_parmanents->name }}</span></p>
+                    <p>Upazila/Thana: <span>{{ $candidate->thana_parmanents->nameEn }}</span></p>
+                    <p>District: <span>{{ $candidate->district_parmanents->nameEn }}</span></p>
                 </td>
             </tr>
         </tbody>
@@ -439,4 +439,3 @@
     </div>
 </div>
 
-{{-- @dd("sfddsf") --}}

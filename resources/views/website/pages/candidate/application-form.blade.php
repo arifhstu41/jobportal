@@ -2676,7 +2676,6 @@
 
         $(document).on("change ", "#same_address", function() {
             let check = this.checked
-
             if (check) {
                 $("#care_of_parmanent").val($("#care_of").val()).attr('readonly', 'readonly');
                 $("#house_and_road_no_parmanent").val($("#house_and_road_no").val()).attr('readonly', 'readonly');
@@ -2686,30 +2685,7 @@
                 $("#region_parmanent").select2({
                     disabled: 'readonly'
                 });
-
                 $("#region_parmanent").val($("#region").val()).trigger("change");
-
-                // $("#district_parmanent").select2({
-                //     disabled: 'readonly'
-                // });
-
-                // $("#district_parmanent").val($("#district").val()).trigger("change");
-
-                // $("#thana_parmanent").select2({
-                //     disabled: 'readonly'
-                // });
-                // $("#thana_parmanent").val($("#thana").val()).trigger("change");
-
-                // $("#pourosova_union_porishod_parmanent").select2({
-                //     disabled: 'readonly'
-                // });
-                // $("#pourosova_union_porishod_parmanent").val($("#pourosova_union_porishod").val()).trigger(
-                //     "change");
-
-                // $("#ward_no_parmanent").select2({
-                //     disabled: 'readonly'
-                // });
-                // $("#ward_no_parmanent").val($("#ward_no").val()).trigger("change");
             } else {
                 /* display hide */
                 if ($("#parmanent_district_div").hasClass("d-none")) {
@@ -2757,24 +2733,6 @@
                 $("#house_and_road_no_parmanent").removeAttr('readonly');
                 $("#house_and_road_no_parmanent").val('');
             }
-        })
-
-
-
-        $(document).ready(function() {
-
-            // var division = $("#region").val();
-            // get_district(division);
-
-            // var district_id = $("#district").val();
-            // get_thana(district_id);
-
-            // var division = $("#region").val();
-            // get_district_parmanent(division);
-
-            // var district_id = $("#district").val();
-            // get_thana_parmanent(district_id);
-
         })
 
         // on change region get districts by division
@@ -2955,7 +2913,6 @@
 
         }
 
-
         // get union by thana/paurashava/upazila
         $(document).on("change", "#thana_parmanent", function(event) {
             if ($("#parmanent_union_div").hasClass("d-none")) {
@@ -2989,7 +2946,6 @@
             });
 
         }
-
 
         // on chage union show wards
         $(document).on("change", "#pourosova_union_porishod_parmanent", function() {

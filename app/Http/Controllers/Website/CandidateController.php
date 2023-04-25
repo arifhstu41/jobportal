@@ -116,6 +116,7 @@ class CandidateController extends Controller
 
     public function setting()
     {
+        
         $candidate = auth()->user()->candidate;
 
         if (empty($candidate)) {
@@ -146,17 +147,75 @@ class CandidateController extends Controller
         $professions = Profession::all();
         $skills = Skill::all(['id', 'name']);
         $languages = CandidateLanguage::all(['id', 'name']);
-        $divisions = DB::table('divisions')->orderBy('name', 'asc')->get();
-        $districts = DB::table('districts')->where('division_id', $candidate->region)->orderBy('name', 'asc')->get();
-        $upazilas = DB::table('upazilas')->where('district_id', $candidate->district)->orderBy('name', 'asc')->get();
-        $unions = DB::table('unions')->where('upazilla_id', $candidate->thana)->orderBy('name', 'asc')->get();
-        $districts_parmanent = DB::table('districts')->where('division_id', $candidate->region_parmanent)->orderBy('name', 'asc')->get();
-        $upazilas_parmanent = DB::table('upazilas')->where('district_id', $candidate->district_parmanent)->orderBy('name', 'asc')->get();
-        $unions_parmanent = DB::table('unions')->where('upazilla_id', $candidate->thana_parmanent)->orderBy('name', 'asc')->get();
-        $wards= [];
-        for ($i=1; $i <=9 ; $i++) { 
-            $wards[]= $i;
-        }
+        // $divisions = DB::table('divisions')->orderBy('name', 'asc')->get();
+        // $districts = DB::table('districts')->where('division_id', $candidate->region)->orderBy('name', 'asc')->get();
+        // $upazilas = DB::table('upazilas')->where('district_id', $candidate->district)->orderBy('name', 'asc')->get();
+        // $unions = DB::table('unions')->where('upazilla_id', $candidate->thana)->orderBy('name', 'asc')->get();
+        // $districts_parmanent = DB::table('districts')->where('division_id', $candidate->region_parmanent)->orderBy('name', 'asc')->get();
+        // $upazilas_parmanent = DB::table('upazilas')->where('district_id', $candidate->district_parmanent)->orderBy('name', 'asc')->get();
+        // $unions_parmanent = DB::table('unions')->where('upazilla_id', $candidate->thana_parmanent)->orderBy('name', 'asc')->get();
+        // $wards= [];
+        // for ($i=1; $i <=9 ; $i++) { 
+        //     $wards[]= $i;
+        // }
+
+        /**
+         * Present Address
+         */
+
+        $divisions = DB::table('tblgeocode')
+        ->where("geoLevelId", "1")
+        ->orderBy('nameEn', 'asc')
+        ->get();
+
+        $districts = DB::table('tblgeocode')
+        ->where("geoLevelId", "2")
+        ->where('parentGeoId', $candidate->region)
+        ->orderBy('nameEn', 'asc')
+        ->get();
+
+        $upazilas = DB::table('tblgeocode')
+        ->where('parentGeoId', $candidate->district)
+        ->orderBy('nameEn', 'asc')
+        ->get();
+
+        $unions = DB::table('tblgeocode')
+        ->where('parentGeoId', $candidate->thana)
+        ->orderBy('nameEn', 'asc')
+        ->get();
+
+        $wards = DB::table('tblgeocode')
+        ->where('parentGeoId', $candidate->pourosova_union_porishod)
+        ->orderBy('nameEn', 'asc')
+        ->get();
+
+        /**
+         * Permanent Address
+         */
+        $districts_parmanent = DB::table('tblgeocode')
+        ->where("geoLevelId", "2")
+        ->where('parentGeoId', $candidate->region)
+        ->orderBy('nameEn', 'asc')
+        ->get();
+
+        $upazilas_parmanent = DB::table('tblgeocode')
+        ->where('parentGeoId', $candidate->district)
+        ->orderBy('nameEn', 'asc')
+        ->get();
+
+        $unions_parmanent = DB::table('tblgeocode')
+        ->where('parentGeoId', $candidate->thana)
+        ->orderBy('nameEn', 'asc')
+        ->get();
+
+        $wards_parmanent = DB::table('tblgeocode')
+        ->where('parentGeoId', $candidate->pourosova_union_porishod_parmanent)
+        ->orderBy('nameEn', 'asc')
+        ->get();
+
+
+
+
         $candidate->load('skills', 'languages', 'experiences', 'educations');
 
         return view('website.pages.candidate.profile-setting', [
@@ -173,12 +232,13 @@ class CandidateController extends Controller
             'candidate_languages' => $languages,
             'divisions' => $divisions,
             'districts' => $districts,
-            'unions' => $unions,
             'upazilas' => $upazilas,
+            'unions' => $unions,
             'wards' => $wards,
             'districts_parmanent' => $districts_parmanent,
             'upazilas_parmanent' => $upazilas_parmanent,
             'unions_parmanent' => $unions_parmanent,
+            'wards_parmanent' => $wards_parmanent
         ]);
     }
     public function accountSetting()
@@ -397,8 +457,8 @@ class CandidateController extends Controller
             'father_name_bn' => 'required',
             'mother_name' => 'required',
             'mother_name_bn' => 'required',
-            'gender' => 'required',
-            'marital_status' => 'required',
+            // 'gender' => 'required',
+            // 'marital_status' => 'required',
             'profession' => 'required',
             'care_of' =>  'required',
             'place' =>  'required',

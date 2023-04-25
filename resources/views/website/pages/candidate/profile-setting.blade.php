@@ -587,7 +587,7 @@
                                                                 @foreach ($divisions as $division)
                                                                     <option value="{{ $division->id }}"
                                                                         {{ $candidate->region == $division->id ? 'selected' : '' }}>
-                                                                        {{ $division->name }}</option>
+                                                                        {{ $division->nameEn }}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -609,7 +609,7 @@
                                                                 @foreach ($districts as $district)
                                                                     <option value="{{ $district->id }}"
                                                                         {{ $candidate->district == $district->id ? 'selected' : '' }}>
-                                                                        {{ $district->name }}</option>
+                                                                        {{ $district->nameEn }}</option>
                                                                 @endforeach
 
                                                             </select>
@@ -630,7 +630,7 @@
                                                                 @foreach ($upazilas as $thana)
                                                                     <option value="{{ $thana->id }}"
                                                                         {{ $candidate->thana == $thana->id ? 'selected' : '' }}>
-                                                                        {{ $thana->name }}</option>
+                                                                        {{ $thana->nameEn }}</option>
                                                                 @endforeach
 
                                                             </select>
@@ -652,7 +652,7 @@
                                                                 @foreach ($unions as $union)
                                                                     <option value="{{ $union->id }}"
                                                                         {{ $candidate->pourosova_union_porishod == $union->id ? 'selected' : '' }}>
-                                                                        {{ $union->name }}</option>
+                                                                        {{ $union->nameEn }}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -669,10 +669,10 @@
                                                             <select required name="ward_no" id="ward_no"
                                                                 class="rt-selectactive w-100-p">
                                                                 <option value="">Please Select</option>
-                                                                @foreach ($wards as $key => $ward)
-                                                                    <option value="{{ $ward }}"
-                                                                        {{ $candidate->ward_no == $ward ? 'selected' : '' }}>
-                                                                        Ward-{{ $ward }}</option>
+                                                                @foreach ($wards as $ward)
+                                                                    <option value="{{ $ward->id }}"
+                                                                        {{ $candidate->ward_no == $ward->id ? 'selected' : '' }}>
+                                                                        {{ $ward->nameEn }}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -792,7 +792,7 @@
                                                                 @foreach ($divisions as $division)
                                                                     <option value="{{ $division->id }}"
                                                                         {{ $division->id == $candidate->region_parmanent ? 'selected' : '' }}>
-                                                                        {{ $division->name }}</option>
+                                                                        {{ $division->nameEn }}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -818,7 +818,7 @@
                                                                 @foreach ($districts_parmanent as $district)
                                                                     <option value="{{ $district->id }}"
                                                                         {{ $district->id == $candidate->district_parmanent ? 'selected' : '' }}>
-                                                                        {{ $district->name }}</option>
+                                                                        {{ $district->nameEn }}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -843,7 +843,7 @@
                                                                 @foreach ($upazilas_parmanent as $upazila)
                                                                     <option value="{{ $upazila->id }}"
                                                                         {{ $upazila->id == $candidate->thana_parmanent ? 'selected' : '' }}>
-                                                                        {{ $upazila->name }}</option>
+                                                                        {{ $upazila->nameEn }}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -866,7 +866,7 @@
                                                                 @foreach ($unions_parmanent as $union)
                                                                     <option value="{{ $union->id }}"
                                                                         {{ $candidate->pourosova_union_porishod_parmanent == $union->id ? 'selected' : '' }}>
-                                                                        {{ $union->name }}</option>
+                                                                        {{ $union->nameEn }}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -885,10 +885,10 @@
                                                             <select required name="ward_no_parmanent"
                                                                 id="ward_no_parmanent" class="rt-selectactive w-100-p">
                                                                 <option value="">Please Select</option>
-                                                                @foreach ($wards as $key => $ward)
-                                                                    <option value="{{ $ward }}"
-                                                                        {{ $candidate->ward_no_parmanent == $ward ? 'selected' : '' }}>
-                                                                        Ward-{{ $ward }}</option>
+                                                                @foreach ($wards_parmanent as $ward)
+                                                                    <option value="{{ $ward->id }}"
+                                                                        {{ $candidate->ward_no_parmanent == $ward->id ? 'selected' : '' }}>
+                                                                        {{ $ward->nameEn }}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -1854,31 +1854,9 @@
     </script>
 
     <script>
-        // $(document).on("change ", "#same_address", function() {
-        //     let check = this.checked
-
-        //     if (check) {
-        //         $("#care_of_parmanent").val('').attr('readonly', 'readonly');
-        //         $("#region_parmanent").val('').attr('readonly', 'readonly');
-        //         $("#district_parmanent").val('').attr('readonly', 'readonly');
-        //         $("#thana_parmanent").val('').attr('readonly', 'readonly');
-        //         $("#post_office_parmanent").val('').attr('readonly', 'readonly');
-        //         $("#postcode_parmanent").val('').attr('readonly', 'readonly');
-        //         $("#place_parmanent").val('').attr('readonly', 'readonly');
-        //     } else {
-        //         $("#care_of_parmanent").removeAttr('readonly');
-        //         $("#region_parmanent").removeAttr('readonly');
-        //         $("#district_parmanent").removeAttr('readonly');
-        //         $("#thana_parmanent").removeAttr('readonly');
-        //         $("#postcode_parmanent").removeAttr('readonly');
-        //         $("#post_office_parmanent").removeAttr('readonly');
-        //         $("#place_parmanent").removeAttr('readonly');
-        //     }
-        // })
-
-        $(document).on("change ", "#same_address", function() {
+     
+     $(document).on("change ", "#same_address", function() {
             let check = this.checked
-
             if (check) {
                 $("#care_of_parmanent").val($("#care_of").val()).attr('readonly', 'readonly');
                 $("#house_and_road_no_parmanent").val($("#house_and_road_no").val()).attr('readonly', 'readonly');
@@ -1888,32 +1866,7 @@
                 $("#region_parmanent").select2({
                     disabled: 'readonly'
                 });
-
-
-                $("#district_parmanent").select2({
-                    disabled: 'readonly'
-                });
-
-
-                $("#thana_parmanent").select2({
-                    disabled: 'readonly'
-                });
-
-
-                $("#pourosova_union_porishod_parmanent").select2({
-                    disabled: 'readonly'
-                });
-
-
-                $("#ward_no_parmanent").select2({
-                    disabled: 'readonly'
-                });
                 $("#region_parmanent").val($("#region").val()).trigger("change");
-                $("#district_parmanent").val($("#district").val()).trigger("change");
-                $("#thana_parmanent").val($("#thana").val()).trigger("change");
-                // $("#pourosova_union_porishod_parmanent").val($("#pourosova_union_porishod").val()).trigger(
-                //     "change");
-                $("#ward_no_parmanent").val($("#ward_no").val()).trigger("change");
             } else {
                 /* display hide */
                 if ($("#parmanent_district_div").hasClass("d-none")) {
@@ -1963,29 +1916,14 @@
             }
         })
 
-        // $(document).ready(function() {
-
-        //     var division = $("#region").val();
-        //     get_district(division);
-
-        //     var district_id = $("#district").val();
-        //     get_thana(district_id);
-
-        //     var division = $("#region_parmanent").val();
-        //     get_district_parmanent(division);
-
-        //     var district_id = $("#district_parmanent").val();
-        //     get_thana_parmanent(district_id);
-
-        // });
-
+        // on change region get districts by division
         $(document).on("change", "#region", function() {
             var division = $(this).val();
             get_district(division);
         })
 
         function get_district(division) {
-
+            $("#ajax_loader").show();
             $.ajax({
                 type: "GET",
                 dataType: "json",
@@ -1995,21 +1933,24 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
-
+                    $("#ajax_loader").hide();
+                    if ($("#district_div").hasClass("d-none")) {
+                        $("#district_div").removeClass('d-none');
+                    }
                     $("#district").html(response.html);
-                    get_thana(0);
                 }
             });
         }
 
-
-
+        // on change district get upazila by district
         $(document).on("change", "#district", function() {
             var district_id = $(this).val();
             get_thana(district_id);
+
         })
 
         function get_thana(district_id) {
+            $("#ajax_loader").show();
             $.ajax({
                 type: "GET",
                 dataType: "json",
@@ -2019,20 +1960,24 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
-
+                    $("#ajax_loader").hide();
+                    if ($("#thana_div").hasClass("d-none")) {
+                        $("#thana_div").removeClass('d-none');
+                    }
                     $("#thana").html(response.html);
                 }
             });
 
         }
 
-        // get union by thana
+        // get union by thana/paurashava/upazila
         $(document).on("change", "#thana", function() {
             var thana_id = $(this).val();
             get_union(thana_id);
         })
 
         function get_union(thana_id) {
+            $("#ajax_loader").show();
             $.ajax({
                 type: "GET",
                 dataType: "json",
@@ -2042,21 +1987,56 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
-
+                    $("#ajax_loader").hide();
+                    if ($("#union_div").hasClass("d-none")) {
+                        $("#union_div").removeClass('d-none');
+                    }
                     $("#pourosova_union_porishod").html(response.html);
                 }
             });
 
         }
 
+        // on chage union show wards
+        $(document).on("change", "#pourosova_union_porishod", function() {
+            var pourosova_id = $(this).val();
+            get_ward(pourosova_id);
+        })
 
+        function get_ward(pourosova_id) {
+            $("#ajax_loader").show();
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "{{ route('website.paurasava.get.data') }}",
+                data: {
+                    pourosova_id: pourosova_id,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    $("#ajax_loader").hide();
+                    if ($("#ward_div").hasClass("d-none")) {
+                        $("#ward_div").removeClass('d-none');
+                    }
+                    $("#ward_no").html(response.html);
+                }
+            });
+        }
+
+        /* ward div display none*/
+        // Parmanent Address
+
+        /* on change region parmanet get districts permanent */
         $(document).on("change", "#region_parmanent", function(event) {
+            if ($("#parmanent_district_div").hasClass("d-none")) {
+                $("#parmanent_district_div").removeClass('d-none');
+            }
             var division = $(this).val();
             get_district_parmanent(division);
         })
 
         function get_district_parmanent(division) {
-
+            $("#ajax_loader").show();
             $.ajax({
                 type: "GET",
                 dataType: "json",
@@ -2066,24 +2046,31 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
-
+                    $("#ajax_loader").hide();
                     $("#district_parmanent").html(response.html);
-                    if ($('#same_address:checked').val()) {
+                    let same_address = $("#same_address").is(":checked");
+                    if (same_address) {
                         $("#district_parmanent").val($("#district").val()).trigger("change");
+                        $("#district_parmanent").select2({
+                        disabled: 'readonly'
+                    });
+
                     }
                 }
             });
         }
 
-
-
+        // on change district parmanent get thana data
         $(document).on("change", "#district_parmanent", function(event) {
+            if ($("#parmanent_thana_div").hasClass("d-none")) {
+                $("#parmanent_thana_div").removeClass('d-none');
+            }
             var district_id = $(this).val();
             get_thana_parmanent(district_id);
-
         })
 
         function get_thana_parmanent(district_id) {
+            $("#ajax_loader").show();
             $.ajax({
                 type: "GET",
                 dataType: "json",
@@ -2093,25 +2080,31 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
-
+                    $("#ajax_loader").hide();
                     $("#thana_parmanent").html(response.html);
-                    if ($('#same_address:checked').val()) {
+                    let same_address = $("#same_address").is(":checked");
+                    if (same_address) {
                         $("#thana_parmanent").val($("#thana").val()).trigger("change");
+                        $("#thana_parmanent").select2({
+                            disabled: 'readonly'
+                        });
                     }
                 }
             });
 
         }
 
-
         // get union by thana/paurashava/upazila
         $(document).on("change", "#thana_parmanent", function(event) {
+            if ($("#parmanent_union_div").hasClass("d-none")) {
+                $("#parmanent_union_div").removeClass('d-none');
+            }
             var thana_id = $(this).val();
             get_union_parmenent(thana_id);
-
         })
 
         function get_union_parmenent(thana_id) {
+            $("#ajax_loader").show();
             $.ajax({
                 type: "GET",
                 dataType: "json",
@@ -2121,16 +2114,53 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
-
+                    $("#ajax_loader").hide();
                     $("#pourosova_union_porishod_parmanent").html(response.html);
-                    if ($('#same_address:checked').val()) {
-                        console.log("sfdsf")
-                        $("#pourosova_union_porishod_parmanent_parmanent").val($("#pourosova_union_porishod")
-                            .val()).trigger("change");
+                    let same_address = $("#same_address").is(":checked");
+                    if (same_address) {
+                        $("#pourosova_union_porishod_parmanent").val($("#pourosova_union_porishod").val()).trigger("change");
+                        $("#pourosova_union_porishod_parmanent").select2({
+                            disabled: 'readonly'
+                        })
                     }
                 }
             });
 
         }
+
+        // on chage union show wards
+        $(document).on("change", "#pourosova_union_porishod_parmanent", function() {
+            var pourosova_id = $(this).val();
+            get_ward_parmanent(pourosova_id);
+        })
+
+        function get_ward_parmanent(pourosova_id) {
+            $("#ajax_loader").show();
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "{{ route('website.paurasava.get.data') }}",
+                data: {
+                    pourosova_id: pourosova_id,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    $("#ajax_loader").hide();
+                    if ($("#parmanent_ward_div").hasClass("d-none")) {
+                        $("#parmanent_ward_div").removeClass('d-none');
+                    }
+                    $("#ward_no_parmanent").html(response.html);
+                    let same_address = $("#same_address").is(":checked");
+                    if (same_address) {
+                        $("#ward_no_parmanent").val($("#ward_no").val()).trigger("change");
+                        $("#ward_no_parmanent").select2({
+                        disabled: 'readonly'
+                    });
+                    }
+                }
+            });
+        }
+
+
     </script>
 @endsection
