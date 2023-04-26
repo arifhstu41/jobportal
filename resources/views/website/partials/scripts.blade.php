@@ -1,4 +1,4 @@
-<div id="ajax_loader" style="    position: fixed;
+<div id="ajax_loader" style="position: fixed;
     top: 0px;
     background: rgba(0, 0, 0, 0.25);
     height: 100%;
@@ -9,7 +9,7 @@
     left: 50%;
     margin-left: -16px;
     margin-top: -16px;
-    z-index: 9999999;" alt="" src="<?php echo env('APP_URL');?>/public/images/ajax-loader.gif">
+    z-index: 9999999;" alt="" src="{{ asset('images/ajax-loader.gif') }}">
 </div>
 
 <script src="{{ mix('frontend/vendor.min.js') }}"></script>
