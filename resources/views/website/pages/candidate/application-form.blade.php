@@ -2834,8 +2834,11 @@
                 },
                 success: function(response) {
                     $("#ajax_loader").hide();
-                    if ($("#ward_div").hasClass("d-none")) {
-                        $("#ward_div").removeClass('d-none');
+                    console.log(response.html.length);
+                    if (response.html.length > 50) {
+                        if ($("#ward_div").hasClass("d-none")) {
+                            $("#ward_div").removeClass('d-none');
+                        }
                     }
                     $("#ward_no").html(response.html);
                 }
@@ -2965,9 +2968,12 @@
                 },
                 success: function(response) {
                     $("#ajax_loader").hide();
-                    if ($("#parmanent_ward_div").hasClass("d-none")) {
-                        $("#parmanent_ward_div").removeClass('d-none');
+                    if (response.html.length > 50) {
+                        if ($("#parmanent_ward_div").hasClass("d-none")) {
+                            $("#parmanent_ward_div").removeClass('d-none');
+                        }
                     }
+                    
                     $("#ward_no_parmanent").html(response.html);
                     let same_address = $("#same_address").is(":checked");
                     if (same_address) {

@@ -90,7 +90,8 @@
                                                             <div class="form-control-icon">
                                                                 <input type="text" name="name"
                                                                     value="{{ $candidate->user->name }}"
-                                                                    placeholder="{{ __('name') }}" {{ $candidate->user->name ? "readonly" : '' }}/>
+                                                                    placeholder="{{ __('name') }}"
+                                                                    {{ $candidate->user->name ? 'readonly' : '' }} />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -101,7 +102,8 @@
                                                             <div class="form-control-icon">
                                                                 <input type="text" name="title"
                                                                     value="{{ $candidate->title ?? '' }}"
-                                                                    placeholder="{{ __('title') }}" class=""  {{ $candidate->title ? "readonly" : '' }}/>
+                                                                    placeholder="{{ __('title') }}" class=""
+                                                                    {{ $candidate->title ? 'readonly' : '' }} />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -265,7 +267,8 @@
                                                         <div class="form-control-icon">
                                                             <input type="text" name="name"
                                                                 value="{{ $candidate->user->name }}"
-                                                                placeholder="{{ __('name') }}" class="" readonly/>
+                                                                placeholder="{{ __('name') }}" class=""
+                                                                readonly />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -354,7 +357,8 @@
                                                 <div class="col-lg-6 mb-3">
                                                     <x-forms.label :required="true" name="marital_status"
                                                         class="body-font-4 d-block text-gray-900 rt-mb-8" />
-                                                    <select name="marital_status" class="rt-selectactive w-100-p" disabled>
+                                                    <select name="marital_status" class="rt-selectactive w-100-p"
+                                                        disabled>
                                                         <option @if ($candidate->marital_status == 'single') selected @endif
                                                             value="single">{{ __('single') }}</option>
                                                         <option @if ($candidate->marital_status == 'married') selected @endif
@@ -375,7 +379,8 @@
                                                         class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                     <div class="fromGroup">
                                                         <div class="form-control-icon">
-                                                            <input {{ $candidate->birth_certificate_no ? 'readonly' : '' }} type="text" name="birth_certificate_no"
+                                                            <input {{ $candidate->birth_certificate_no ? 'readonly' : '' }}
+                                                                type="text" name="birth_certificate_no"
                                                                 value="{{ $candidate->birth_certificate_no }}"
                                                                 placeholder="{{ __('birth_certificate_no') }}"
                                                                 class="" />
@@ -388,7 +393,8 @@
                                                         class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                     <div class="fromGroup">
                                                         <div class="form-control-icon">
-                                                            <input {{ $candidate->nid_no ? 'readonly' : '' }} type="text" name="nid_no"
+                                                            <input {{ $candidate->nid_no ? 'readonly' : '' }}
+                                                                type="text" name="nid_no"
                                                                 value="{{ $candidate->nid_no }}"
                                                                 placeholder="{{ __('nid_no') }}" class="" />
                                                         </div>
@@ -400,7 +406,8 @@
                                                         class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                     <div class="fromGroup">
                                                         <div class="form-control-icon">
-                                                            <input {{ $candidate->passport_no ? 'readonly' : '' }} type="text" name="passport_no"
+                                                            <input {{ $candidate->passport_no ? 'readonly' : '' }}
+                                                                type="text" name="passport_no"
                                                                 value="{{ $candidate->passport_no }}"
                                                                 placeholder="{{ __('passport_no') }}" class="" />
                                                         </div>
@@ -662,7 +669,7 @@
                                                         @enderror
                                                     </div>
 
-                                                    <div class="col-lg-12 mb-3">
+                                                    <div class="col-lg-12 mb-3" id="ward_div">
                                                         <x-forms.label :required="true" name="ward_no"
                                                             class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                         <div class="fromGroup">
@@ -705,8 +712,9 @@
                                                             class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                         <div class="fromGroup">
                                                             <div class="form-control-icon">
-                                                                <x-forms.input type="number" pattern="\d*" name="postcode"
-                                                                    id="postcode" value="{{ $candidate->postcode }}"
+                                                                <x-forms.input type="number" pattern="\d*"
+                                                                    name="postcode" id="postcode"
+                                                                    value="{{ $candidate->postcode }}"
                                                                     placeholder="{{ __('postcode') }}" class="" />
                                                             </div>
                                                         </div>
@@ -739,7 +747,8 @@
                                                                 <x-forms.input type="text" id="house_and_road_no"
                                                                     name="house_and_road_no"
                                                                     value="{{ $candidate->house_and_road_no }}"
-                                                                    placeholder="{{ __('house_and_road_no') }}" class="" />
+                                                                    placeholder="{{ __('house_and_road_no') }}"
+                                                                    class="" />
                                                             </div>
                                                         </div>
                                                         @error('house_and_road_no')
@@ -878,7 +887,7 @@
 
 
 
-                                                    <div class="col-lg-12 mb-3">
+                                                    <div class="col-lg-12 mb-3" id="parmanent_ward_div">
                                                         <x-forms.label :required="true" name="ward_no_parmanent"
                                                             class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                         <div class="fromGroup">
@@ -921,8 +930,8 @@
                                                             class="pointer body-font-4 d-block text-gray-900 rt-mb-8" />
                                                         <div class="fromGroup">
                                                             <div class="form-control-icon">
-                                                                <x-forms.input type="number" pattern="\d*" id="postcode_parmanent"
-                                                                    name="postcode_parmanent"
+                                                                <x-forms.input type="number" pattern="\d*"
+                                                                    id="postcode_parmanent" name="postcode_parmanent"
                                                                     value="{{ $candidate->postcode }}"
                                                                     placeholder="{{ __('postcode') }}" class="" />
                                                             </div>
@@ -1854,8 +1863,7 @@
     </script>
 
     <script>
-     
-     $(document).on("change ", "#same_address", function() {
+        $(document).on("change ", "#same_address", function() {
             let check = this.checked
             if (check) {
                 $("#care_of_parmanent").val($("#care_of").val()).attr('readonly', 'readonly');
@@ -2015,9 +2023,16 @@
                 },
                 success: function(response) {
                     $("#ajax_loader").hide();
-                    if ($("#ward_div").hasClass("d-none")) {
-                        $("#ward_div").removeClass('d-none');
+                    console.log(response.html.length);
+                    if (response.html.length > 50) {
+                        if ($("#ward_div").hasClass("d-none")) {
+                            $("#ward_div").removeClass('d-none');
+                        }
                     }
+                    else{
+                        $("#ward_div").addClass('d-none'); 
+                    }
+
                     $("#ward_no").html(response.html);
                 }
             });
@@ -2052,8 +2067,8 @@
                     if (same_address) {
                         $("#district_parmanent").val($("#district").val()).trigger("change");
                         $("#district_parmanent").select2({
-                        disabled: 'readonly'
-                    });
+                            disabled: 'readonly'
+                        });
 
                     }
                 }
@@ -2118,7 +2133,8 @@
                     $("#pourosova_union_porishod_parmanent").html(response.html);
                     let same_address = $("#same_address").is(":checked");
                     if (same_address) {
-                        $("#pourosova_union_porishod_parmanent").val($("#pourosova_union_porishod").val()).trigger("change");
+                        $("#pourosova_union_porishod_parmanent").val($("#pourosova_union_porishod").val())
+                            .trigger("change");
                         $("#pourosova_union_porishod_parmanent").select2({
                             disabled: 'readonly'
                         })
@@ -2146,21 +2162,24 @@
                 },
                 success: function(response) {
                     $("#ajax_loader").hide();
-                    if ($("#parmanent_ward_div").hasClass("d-none")) {
-                        $("#parmanent_ward_div").removeClass('d-none');
+                    if (response.html.length > 50) {
+                        if ($("#parmanent_ward_div").hasClass("d-none")) {
+                            $("#parmanent_ward_div").removeClass('d-none');
+                        }
+                    }
+                    else{
+                        $("#parmanent_ward_div").addClass('d-none'); 
                     }
                     $("#ward_no_parmanent").html(response.html);
                     let same_address = $("#same_address").is(":checked");
                     if (same_address) {
                         $("#ward_no_parmanent").val($("#ward_no").val()).trigger("change");
                         $("#ward_no_parmanent").select2({
-                        disabled: 'readonly'
-                    });
+                            disabled: 'readonly'
+                        });
                     }
                 }
             });
         }
-
-
     </script>
 @endsection

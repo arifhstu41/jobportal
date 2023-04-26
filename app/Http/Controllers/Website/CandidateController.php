@@ -482,7 +482,7 @@ class CandidateController extends Controller
                 'house_and_road_no_parmanent' =>  'required',
                 'post_office_parmanent' =>  'required',
                 'postcode_parmanent' =>  'required',
-                'ward_no_parmanent' =>  'required',
+                // 'ward_no_parmanent' =>  'required',
                 'pourosova_union_porishod_parmanent' =>  'required',
                 'thana_parmanent' =>  'required',
                 'district_parmanent' =>  'required',
