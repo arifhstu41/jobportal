@@ -164,7 +164,7 @@
                                             {{ $order->user->name ?? '' }}
                                         </td>
                                         <td>
-                                            ${{ $order->amount ?? 0 }}
+                                            ৳{{ $order->amount ?? 0 }}
                                         </td>
                                         <td class="text-muted">
                                             {{ formatTime($order->created_at, 'M d, Y') }}

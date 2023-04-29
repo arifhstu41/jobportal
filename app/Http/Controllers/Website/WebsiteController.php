@@ -32,6 +32,7 @@ use App\Http\Traits\Candidateable;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\CandidateEducation;
+use App\Models\Subject;
 use Illuminate\Support\Facades\Auth;
 use Modules\Faq\Entities\FaqCategory;
 use Modules\Blog\Entities\PostComment;
@@ -67,6 +68,17 @@ class WebsiteController extends Controller
         }
 
         return redirect('login');
+    }
+
+    // temporary function to insert subjects
+    public function subject(Request $request){
+        foreach($request->subjects as $subject){
+            Subject::create([
+                'code' => $subject['code'],
+                'name' => $subject['text'],
+            ]);
+        }
+        return "hello";
     }
 
     public function notificationRead()
@@ -1085,7 +1097,8 @@ class WebsiteController extends Controller
             $years[] = $i;
         }
         $user = Auth::user();
-        return view('website.pages.candidate.application-form', compact('candidate', 'user', 'divisions', 'unions', 'upazilas', 'unions', 'wards', 'universities', 'years', 'boards'));
+        $subjects= Subject::orderBy('name', 'asc')->get();
+        return view('website.pages.candidate.application-form', compact('candidate', 'user', 'divisions', 'unions', 'upazilas', 'unions', 'wards', 'universities', 'years', 'boards', 'subjects'));
     }
 
     // Birth Registration/NID Verification

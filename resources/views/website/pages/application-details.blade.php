@@ -316,8 +316,13 @@
                         <td style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
                             {{ $board }}
                         </td>
+                        @if ($education->subject)
+                            @php
+                                $subject= \App\Models\Subject::where('code', $education->subject)->pluck('name')->first();
+                            @endphp
+                        @endif
                         <td style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
-                            {{ $education->group ? $education->group : ($education->subject ? $education->subject : ($education->degree ? $education->degree : '')) }}
+                            {{ $education->group ? $education->group : ($education->subject ? $subject : ($education->degree ? $education->degree : '')) }}
                         </td>
                         <td style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
                             {{ $education->result_gpa ?? '' }}</td>
@@ -451,9 +456,9 @@
                     <td style="width:150px; border:#2e3397; text-align: center"><span> Scan To
                             Download <br> <strong>My Welfare App</strong></span></td>
                     <td
-                        style="width:50px; border-top:#2e3397; border-left:#2e3397; padding-right: 5px; padding-bottom:5px">
+                        style="width:150px; border-top:#2e3397; border-left:#2e3397; padding-right: 5px; padding-bottom:5px">
                         <img src="{{ public_path('images/qrcode.png') }}" alt=""
-                            style="width:50px; height:75px;"></td>
+                            style="width:150px; height:200px;"></td>
                 </tr>
             </tbody>
         </table>
