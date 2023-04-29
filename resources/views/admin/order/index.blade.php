@@ -134,7 +134,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($orders as $order)
+                                @if (count($orders))
+                                @foreach ($orders as $order)
                                     <tr>
                                         <td>
                                             #{{ $order->order_id }}
@@ -160,16 +161,16 @@
                                             @endif
                                         </td>
                                         <td>
-                                            {{ $order->user->name }}
+                                            {{ $order->user->name ?? '' }}
                                         </td>
                                         <td>
-                                            ${{ $order->amount }}
+                                            ${{ $order->amount ?? 0 }}
                                         </td>
                                         <td class="text-muted">
                                             {{ formatTime($order->created_at, 'M d, Y') }}
                                         </td>
                                         <td>
-                                            {{ $order->payment_status }}
+                                            {{ $order->payment_status ?? '' }}
                                             {{-- @if ($order->payment_status == 'paid')
                                                 <span class="badge badge-pill bg-success">{{ __('paid') }}</span>
                                             @else
@@ -194,15 +195,20 @@
                                             @endif
                                         </td>
                                     </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="9">
-                                            <div class="empty py-5">
-                                                <x-not-found message="{{ __('no_data_found') }}" />
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforelse
+                                
+                                @endforeach
+
+                                @else
+                                    
+                                <tr>
+                                    <td colspan="9">
+                                        <div class="empty py-5">
+                                            <x-not-found message="{{ __('no_data_found') }}" />
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endif
+
                             </tbody>
                         </table>
                     </div>

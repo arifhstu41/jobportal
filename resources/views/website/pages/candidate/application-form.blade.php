@@ -1306,9 +1306,6 @@
                                                     <option value="Passed"
                                                         {{ old('hsc_result_type') == 'Passed' ? 'selected' : '' }}>
                                                         Passed</option>
-                                                    <option value="GPA4"
-                                                        {{ old('hsc_result_type') == 'GPA4' ? 'selected' : '' }}>GPA(out
-                                                        of 4)</option>
                                                     <option value="GPA5"
                                                         {{ old('hsc_result_type') == 'GPA5' ? 'selected' : '' }}>GPA(out
                                                         of 5)</option>
@@ -1863,9 +1860,9 @@
                                                         <option value="Passed"
                                                             {{ old('honors_result_type') == 'Passed' ? 'selected' : '' }}>
                                                             Passed</option>
-                                                        <option value="GPA4"
-                                                            {{ old('honors_result_type') == 'GPA4' ? 'selected' : '' }}>
-                                                            GPA(out of 4)</option>
+                                                        <option value="CGPA4"
+                                                            {{ old('honors_result_type') == 'CGPA4' ? 'selected' : '' }}>
+                                                            CGPA(out of 4)</option>
 
                                                     </select>
                                                     @error('honors_result_type')
@@ -2450,12 +2447,9 @@
                                                         <option value="Passed"
                                                             {{ old('masters_result_type') == 'Passed' ? 'selected' : '' }}>
                                                             Passed</option>
-                                                        <option value="GPA4"
-                                                            {{ old('masters_result_type') == 'GPA4' ? 'selected' : '' }}>
+                                                        <option value="CGPA4"
+                                                            {{ old('masters_result_type') == 'CGPA4' ? 'selected' : '' }}>
                                                             GPA(out of 4)</option>
-                                                        <option value="GPA5"
-                                                            {{ old('masters_result_type') == 'GPA5' ? 'selected' : '' }}>
-                                                            GPA(out of 5)</option>
                                                     </select>
                                                     @error('masters_result_type')
                                                         <span class="invalid-feedback"
@@ -2992,7 +2986,7 @@
         // in change masters result type open cgpa input box
         $(document).on("change", "#masters_result_type", function() {
             var masters_result_type = $(this).val();
-            if (masters_result_type == "GPA4" || masters_result_type == "GPA5") {
+            if (masters_result_type == "CGPA4") {
                 $("#masters_cgpa").removeClass("d-none");
             } else {
                 $("#masters_cgpa").addClass("d-none");
@@ -3002,7 +2996,7 @@
         // in change honors result type open cgpa input box
         $(document).on("change", "#honors_result_type", function() {
             var honors_result_type = $(this).val();
-            if (honors_result_type == "GPA4" || honors_result_type == "GPA5") {
+            if (honors_result_type == "CGPA4") {
                 $("#honors_cgpa").removeClass("d-none");
             } else {
                 $("#honors_cgpa").addClass("d-none");
@@ -3012,7 +3006,7 @@
         // in change HSC result type open cgpa input box
         $(document).on("change", "#hsc_result_type", function() {
             var hsc_result_type = $(this).val();
-            if (hsc_result_type == "GPA4" || hsc_result_type == "GPA5") {
+            if (hsc_result_type == "GPA5") {
                 $("#hsc_cgpa").removeClass("d-none");
             } else {
                 $("#hsc_cgpa").addClass("d-none");
@@ -3022,7 +3016,7 @@
         // in change SSC result type open cgpa input box
         $(document).on("change", "#ssc_result_type", function() {
             var ssc_result_type = $(this).val();
-            if (ssc_result_type == "GPA4" || ssc_result_type == "GPA5") {
+            if (ssc_result_type == "GPA5") {
                 $("#ssc_cgpa").removeClass("d-none");
             } else {
                 $("#ssc_cgpa").addClass("d-none");

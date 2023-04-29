@@ -19,6 +19,9 @@ class UserActiveMiddleware
         if (auth('user')->check() && auth('user')->user()->status) {
 
             return $next($request);
+        }
+        elseif(auth('admin')->check()){
+            return $next($request);
         } else {
             flashWarning(__('your_account_is_not_active_please_wait_until_the_account_is_activated_by_admin'));
             return redirect()->back();

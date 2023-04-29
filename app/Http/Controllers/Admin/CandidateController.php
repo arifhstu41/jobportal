@@ -2,40 +2,36 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Carbon\Carbon;
-use App\Models\User;
-use App\Models\Skill;
-use App\Models\JobRole;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\CandidateRequest;
 use App\Models\Candidate;
+use App\Models\CandidateLanguage;
+use App\Models\ContactInfo;
 use App\Models\Education;
 use App\Models\Experience;
+use App\Models\JobRole;
 use App\Models\Profession;
-use App\Models\ContactInfo;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
-use App\Models\CandidateLanguage;
-use Illuminate\Support\Facades\DB;
-use Modules\Location\Entities\City;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Modules\Location\Entities\State;
-use Modules\Location\Entities\Country;
-use App\Http\Requests\CandidateRequest;
-use Illuminate\Support\Facades\Notification;
-use App\Notifications\CandidateCreateNotification;
+use App\Models\Skill;
+use App\Models\User;
 use App\Notifications\UpdateCompanyPassNotification;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Str;
+use Modules\Location\Entities\City;
+use Modules\Location\Entities\Country;
+use Modules\Location\Entities\State;
 
-class CandidateController extends Controller
-{
+class CandidateController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         abort_if(!userCan('candidate.view'), 403);
         // dd($request->all());
         $query = Candidate::with('user');
@@ -78,14 +74,14 @@ class CandidateController extends Controller
                 $q->where('region', '=', $request->region);
             });
         }
-        
+
         if ($request->district && $request->district != null) {
 
             $query->where(function ($q) use ($request) {
                 $q->where('district', '=', $request->district);
             });
         }
-        
+
         if ($request->thana && $request->thana != null) {
 
             $query->where(function ($q) use ($request) {
@@ -124,36 +120,62 @@ class CandidateController extends Controller
         $candidates = $query->paginate(10)->withQueryString();
 
         $filter = [
-            "district" => @$request->district,
-            "division" => @$request->region,
-            "upazila" => @$request->thana,
-            "union" => @$request->union,
-            "house_and_road_no" => @$request->house_and_road_no,
+            "district"                 => @$request->district,
+            "division"                 => @$request->region,
+            "upazila"                  => @$request->thana,
+            "union"                    => @$request->pourosova_union_porishod,
+            "house_and_road_no"        => @$request->house_and_road_no,
             "pourosova_union_porishod" => @$request->pourosova_union_porishod,
-            "ward_no" => @$request->ward_no
+            "ward_no"                  => @$request->ward_no,
         ];
 
-        $filter = (object)$filter;
+        $filter = (object) $filter;
 
-        $wards= [];
-        for ($i=1; $i <=10 ; $i++) {
-            $wards[]= $i;
+        $divisions = DB::table('tblgeocode')
+            ->where("geoLevelId", "1")
+            ->orderBy('nameEn', 'asc')
+            ->get();
+
+        $districts = (object)[];
+        $upazilas  = (object)[];
+        $unions    = (object)[];
+        $wards     = (object)[];
+
+        if ($filter->division) {
+            $districts = DB::table('tblgeocode')
+                ->where('parentGeoId', $filter->division)
+                ->orderBy('nameEn', 'asc')
+                ->get();
         }
 
-        $districts = DB::table('districts')->orderBy('name', 'asc')->get();
-        $divisions = DB::table('divisions')->orderBy('name', 'asc')->get();
-        $upazilas = DB::table('upazilas')->orderBy('name', 'asc')->get();
-        $unions = DB::table('unions')->orderBy('name', 'asc')->get();
+        if ($filter->division && $filter->district) {
+            $upazilas = DB::table('tblgeocode')
+                ->where('parentGeoId', $filter->district)
+                ->orderBy('nameEn', 'asc')
+                ->get();
+        }
 
-        return view('admin.candidate.index', compact('candidates','divisions', 'districts','unions', 'upazilas', 'filter', 'wards'));
+        if ($filter->division && $filter->district && $filter->upazila) {
+            $unions = DB::table('tblgeocode')
+                ->where('parentGeoId', $filter->upazila)
+                ->orderBy('nameEn', 'asc')
+                ->get();
+        }
+
+        if ($filter->division && $filter->district && $filter->upazila && $filter->union) {
+            $wards = DB::table('tblgeocode')
+                ->where('parentGeoId', $filter->union)
+                ->orderBy('nameEn', 'asc')
+                ->get();
+        }
+        return view('admin.candidate.index', compact('candidates', 'divisions', 'districts', 'unions', 'upazilas', 'filter', 'wards'));
     }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function exportPDF(Request $request)
-    {
+    public function exportPDF(Request $request) {
         abort_if(!userCan('candidate.view'), 403);
         // dd($request->all());
         $query = Candidate::with('user');
@@ -196,14 +218,14 @@ class CandidateController extends Controller
                 $q->where('region', '=', $request->region);
             });
         }
-        
+
         if ($request->district && $request->district != null) {
 
             $query->where(function ($q) use ($request) {
                 $q->where('district', '=', $request->district);
             });
         }
-        
+
         if ($request->thana && $request->thana != null) {
 
             $query->where(function ($q) use ($request) {
@@ -242,42 +264,63 @@ class CandidateController extends Controller
         $candidates = $query->get();
 
         $filter = [
-            "district" => @$request->district,
-            "division" => @$request->region,
-            "upazila" => @$request->thana,
-            "union" => @$request->union,
-            "house_and_road_no" => @$request->house_and_road_no,
+            "district"                 => @$request->district,
+            "division"                 => @$request->region,
+            "upazila"                  => @$request->thana,
+            "union"                    => @$request->pourosova_union_porishod,
+            "house_and_road_no"        => @$request->house_and_road_no,
             "pourosova_union_porishod" => @$request->pourosova_union_porishod,
-            "ward_no" => @$request->ward_no
+            "ward_no"                  => @$request->ward_no,
         ];
 
-        $filter = (object)$filter;
+        $filter = (object) $filter;
 
-        $wards= [];
-        for ($i=1; $i <=10 ; $i++) {
-            $wards[]= $i;
+        $districts = (object)[];
+        $upazilas  = (object)[];
+        $unions    = (object)[];
+        $wards     = (object)[];
+        if ($filter->division) {
+            $districts = DB::table('tblgeocode')
+                ->where('parentGeoId', $filter->division)
+                ->orderBy('nameEn', 'asc')
+                ->get();
         }
 
-        $districts = DB::table('districts')->orderBy('name', 'asc')->get();
-        $divisions = DB::table('divisions')->orderBy('name', 'asc')->get();
-        $upazilas = DB::table('upazilas')->orderBy('name', 'asc')->get();
-        $unions = DB::table('unions')->orderBy('name', 'asc')->get();
-        $data['candidates']= $candidates;
-        $pdf = PDF::loadView('admin.candidate.pdf', $data)->setOptions(['defaultFont' => 'sans-serif']);
+        if ($filter->district) {
+            $upazilas = DB::table('tblgeocode')
+                ->where('parentGeoId', $filter->district)
+                ->orderBy('nameEn', 'asc')
+                ->get();
+        }
+
+        if ($filter->upazila) {
+            $unions = DB::table('tblgeocode')
+                ->where('parentGeoId', $filter->upazila)
+                ->orderBy('nameEn', 'asc')
+                ->get();
+        }
+
+        if ($filter->union) {
+            $wards = DB::table('tblgeocode')
+                ->where('parentGeoId', $filter->union)
+                ->orderBy('nameEn', 'asc')
+                ->get();
+        }
+        
+        $data['candidates'] = $candidates;
+        $pdf                = PDF::loadView('admin.candidate.pdf', $data)->setOptions(['defaultFont' => 'sans-serif']);
 
         return $pdf->stream("invoice.pdf");
 
-        return view('admin.candidate.index', compact('candidates','divisions', 'districts','unions', 'upazilas', 'filter', 'wards'));
+        return view('admin.candidate.index', compact('candidates', 'divisions', 'districts', 'unions', 'upazilas', 'filter', 'wards'));
     }
 
-    public function state(Request $request)
-    {
+    public function state(Request $request) {
         $states = State::where('country_id', $request->country_id)->get();
         return response()->json($states);
     }
 
-    public function city(Request $request)
-    {
+    public function city(Request $request) {
         $cities = City::where('state_id', $request->state_id)->get();
         return response()->json($cities);
     }
@@ -287,16 +330,15 @@ class CandidateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         abort_if(!userCan('candidate.create'), 403);
 
-        $data['countries'] = Country::all();
-        $data['job_roles'] = JobRole::all();
-        $data['professions'] = Profession::all();
-        $data['experiences'] = Experience::all();
-        $data['educations'] = Education::all();
-        $data['skills'] = Skill::all(['id','name']);
+        $data['countries']           = Country::all();
+        $data['job_roles']           = JobRole::all();
+        $data['professions']         = Profession::all();
+        $data['experiences']         = Experience::all();
+        $data['educations']          = Education::all();
+        $data['skills']              = Skill::all(['id', 'name']);
         $data['candidate_languages'] = CandidateLanguage::all(['id', 'name']);
 
         return view('admin.candidate.create', $data);
@@ -308,52 +350,50 @@ class CandidateController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function userCreate($request)
-    {
+    public function userCreate($request) {
         $request->validate([
-            'username' => 'unique:users,username',
-            'email' => 'unique:users,email',
-            'contact_phone' => 'required'
+            'username'      => 'unique:users,username',
+            'email'         => 'unique:users,email',
+            'contact_phone' => 'required',
         ]);
 
         $password = $request->password ?? Str::random(8);
 
         $data = User::create([
-            'role' => 'candidate',
-            'name' => $request->name,
-            'phone' => $request->contact_phone,
-            'username' => Str::slug('K' . $request->name . '122'),
-            'email' => $request->email,
+            'role'              => 'candidate',
+            'name'              => $request->name,
+            'phone'             => $request->contact_phone,
+            'username'          => Str::slug('K' . $request->name . '122'),
+            'email'             => $request->email,
             'email_verified_at' => now(),
-            'password' => Hash::make($password),
-            'remember_token' => Str::random(10),
+            'password'          => Hash::make($password),
+            'remember_token'    => Str::random(10),
         ]);
 
         return [$password, $data];
     }
-    public function candidateCreate($request, $data)
-    {
+    public function candidateCreate($request, $data) {
         $dateTime = Carbon::parse($request->birth_date);
-        $date = $request['birth_date'] = $dateTime->format('Y-m-d H:i:s');
+        $date     = $request['birth_date']     = $dateTime->format('Y-m-d H:i:s');
 
         $candidate = Candidate::where('user_id', $data[1]->id)->first();
 
         $candidate->update([
-            "role_id" => $request->role_id,
-            "profession_id" => $request->profession_id,
-            "experience_id" => $request->experience,
-            "education_id" => $request->education,
-            "gender" => $request->gender,
-            "website" => $request->website,
-            "bio" => $request->bio,
+            "role_id"        => $request->role_id,
+            "profession_id"  => $request->profession_id,
+            "experience_id"  => $request->experience,
+            "education_id"   => $request->education,
+            "gender"         => $request->gender,
+            "website"        => $request->website,
+            "bio"            => $request->bio,
             "marital_status" => $request->marital_status,
-            "birth_date" => $date,
+            "birth_date"     => $date,
         ]);
 
         // cv
         if ($request->cv) {
             $pdfPath = "/file/candidates/";
-            $pdf = pdfUpload($request->cv, $pdfPath);
+            $pdf     = pdfUpload($request->cv, $pdfPath);
 
             $candidate->update([
                 "cv" => $pdf,
@@ -362,7 +402,7 @@ class CandidateController extends Controller
 
         // image
         if ($request->image) {
-            $path = 'images/candidates';
+            $path  = 'images/candidates';
             $image = uploadImage($request->image, $path);
 
             $candidate->update([
@@ -381,7 +421,7 @@ class CandidateController extends Controller
                 if (!$skill_exists) {
                     $select_tag = Skill::create(['name' => $skill]);
                     array_push($skillsArray, $select_tag->id);
-                }else{
+                } else {
                     array_push($skillsArray, $skill);
                 }
             }
@@ -395,8 +435,7 @@ class CandidateController extends Controller
         return $candidate;
     }
 
-    public function store(CandidateRequest $request)
-    {
+    public function store(CandidateRequest $request) {
         // dd($request->all());
         abort_if(!userCan('candidate.create'), 403);
 
@@ -412,7 +451,7 @@ class CandidateController extends Controller
 
             if ($request->image) {
                 $request->validate([
-                    'image' =>  'image|mimes:jpeg,png,jpg,gif'
+                    'image' => 'image|mimes:jpeg,png,jpg,gif',
                 ]);
             }
             if ($request->cv) {
@@ -422,7 +461,7 @@ class CandidateController extends Controller
             }
 
             $data = $this->userCreate($request);
-           
+
             $candidate = $this->candidateCreate($request, $data);
 
             // Location
@@ -434,7 +473,7 @@ class CandidateController extends Controller
             flashSuccess('Candidate Created Successfully');
             return redirect()->route('candidate.index');
         } catch (\Throwable $th) {
-            dd( $th->getMessage());
+            dd($th->getMessage());
             return redirect()->back()->with('error', config('app.debug') ? $th->getMessage() : 'Something went wrong');
         }
     }
@@ -445,13 +484,12 @@ class CandidateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($candidate)
-    {
+    public function show($candidate) {
         abort_if(!userCan('candidate.view'), 403);
 
-        $candidate = Candidate::with('skills:id,name','languages:id,name')->findOrFail($candidate);
-        $user = User::with('contactInfo')->FindOrFail($candidate->user_id);
-        $appliedJobs = $candidate->appliedJobs()->get();
+        $candidate    = Candidate::with('skills:id,name', 'languages:id,name')->findOrFail($candidate);
+        $user         = User::with('contactInfo')->FindOrFail($candidate->user_id);
+        $appliedJobs  = $candidate->appliedJobs()->get();
         $bookmarkJobs = $candidate->bookmarkJobs()->get();
 
         return view('admin.candidate.show', compact('candidate', 'user', 'appliedJobs', 'bookmarkJobs'));
@@ -463,22 +501,21 @@ class CandidateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Candidate $candidate)
-    {
+    public function edit(Candidate $candidate) {
         abort_if(!userCan('candidate.update'), 403);
 
-        $user = User::with('contactInfo')->findOrFail($candidate->user_id);
-        $contactInfo = ContactInfo::where('user_id', $user->id)->first();
-        $job_roles = JobRole::all();
-        $professions = Profession::all();
-        $experiences = Experience::all();
-        $educations = Education::all();
-        $skills = Skill::all(['id','name']);
+        $user                = User::with('contactInfo')->findOrFail($candidate->user_id);
+        $contactInfo         = ContactInfo::where('user_id', $user->id)->first();
+        $job_roles           = JobRole::all();
+        $professions         = Profession::all();
+        $experiences         = Experience::all();
+        $educations          = Education::all();
+        $skills              = Skill::all(['id', 'name']);
         $candidate_languages = CandidateLanguage::all(['id', 'name']);
-        $candidate->load('skills:id,name','languages:id,name');
+        $candidate->load('skills:id,name', 'languages:id,name');
 
-        return view('admin.candidate.edit', compact('contactInfo', 'candidate', 'user', 'job_roles', 'professions', 'experiences', 'educations','skills',
-        'candidate_languages'));
+        return view('admin.candidate.edit', compact('contactInfo', 'candidate', 'user', 'job_roles', 'professions', 'experiences', 'educations', 'skills',
+            'candidate_languages'));
     }
 
     /**
@@ -488,8 +525,7 @@ class CandidateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Candidate $candidate)
-    {
+    public function update(Request $request, Candidate $candidate) {
         abort_if(!userCan('candidate.update'), 403);
 
         if ($candidate->user->email == 'candidate@mail.com') {
@@ -498,28 +534,28 @@ class CandidateController extends Controller
         }
 
         $request->validate([
-            'name' => 'required',
+            'name'  => 'required',
             'email' => 'nullable|email|unique:users,email,' . $candidate->user_id,
-            'phone' => ["required","unique:users,phone,{$candidate->user_id}", 'regex:/^(?:\+88|88)?(01[3-9]\d{8})$/'],
+            'phone' => ["required", "unique:users,phone,{$candidate->user_id}", 'regex:/^(?:\+88|88)?(01[3-9]\d{8})$/'],
         ]);
 
         $user = User::FindOrFail($candidate->user_id);
         $user->update([
-            'name' => $request->name,
+            'name'  => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
         ]);
 
         $candidate->update([
-            "role_id" => $request->role_id,
-            'profession_id' => $request->profession,
-            'experience_id' => $request->experience,
-            'education_id' => $request->education,
-            'gender' => $request->gender,
-            'website' => $request->website,
-            'bio' => $request->bio,
+            "role_id"        => $request->role_id,
+            'profession_id'  => $request->profession,
+            'experience_id'  => $request->experience,
+            'education_id'   => $request->education,
+            'gender'         => $request->gender,
+            'website'        => $request->website,
+            'bio'            => $request->bio,
             "marital_status" => $request->marital_status,
-            "birth_date" => date('Y-m-d', strtotime($request->birth_date)),
+            "birth_date"     => date('Y-m-d', strtotime($request->birth_date)),
         ]);
 
         // password change
@@ -535,7 +571,7 @@ class CandidateController extends Controller
         // image
         if ($request->image) {
             $request->validate([
-                'image' =>  'image|mimes:jpeg,png,jpg,gif'
+                'image' => 'image|mimes:jpeg,png,jpg,gif',
             ]);
 
             $old_photo = $candidate->photo;
@@ -544,7 +580,7 @@ class CandidateController extends Controller
                     unlink($old_photo);
                 }
             }
-            $path = 'images/candidates';
+            $path  = 'images/candidates';
             $image = uploadImage($request->image, $path);
 
             $candidate->update([
@@ -557,7 +593,7 @@ class CandidateController extends Controller
                 "cv" => "mimetypes:application/pdf",
             ]);
             $pdfPath = "/file/candidates/";
-            $pdf = pdfUpload($request->cv, $pdfPath);
+            $pdf     = pdfUpload($request->cv, $pdfPath);
 
             $candidate->update([
                 "cv" => $pdf,
@@ -580,7 +616,7 @@ class CandidateController extends Controller
                 if (!$skill_exists) {
                     $select_tag = Skill::create(['name' => $skill]);
                     array_push($skillsArray, $select_tag->id);
-                }else{
+                } else {
                     array_push($skillsArray, $skill_exists->id);
                 }
             }
@@ -610,8 +646,7 @@ class CandidateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Candidate $candidate)
-    {
+    public function destroy(Candidate $candidate) {
         if ($candidate->user->email == 'candidate@mail.com') {
             flashError('You can not delete this candidate');
             return back();
@@ -637,8 +672,7 @@ class CandidateController extends Controller
         return redirect()->back();
     }
 
-    public function statusChange(Request $request)
-    {
+    public function statusChange(Request $request) {
         $user = User::findOrFail($request->id);
         if ($user->email == 'candidate@mail.com') {
             flashError('You can not update status to this candidate');
@@ -646,7 +680,6 @@ class CandidateController extends Controller
         }
         $user->status = $request->status;
         $user->save();
-
 
         if ($request->status == 1) {
             return responseSuccess('Candidate Activated Successfully');

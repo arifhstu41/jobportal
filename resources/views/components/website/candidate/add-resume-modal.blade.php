@@ -8,14 +8,14 @@
                     <h5 class="tw-text-lg tw-text-[#18191C] tw-font-semibold tw-mb-[18px]" id="cvModalLabel">
                         {{ __('add_cv_resume') }}</h5>
                     <div class="from-group py-2">
-                        <x-forms.label name="cv_resume_name" :required="true"
+                        <x-forms.label name="cv_resume_name" :required="false"
                             class="tw-mb-2 tw-text-sm tw-text-[#18191C]" />
                         <input type="text" placeholder="{{ __('cv_resume_name') }}" name="resume_name"
                             id="">
                         <span id="resume_name" class="tw-text-sm tw-text-red-500"></span>
                     </div>
                     <div class="form-group tw-mb-6">
-                        <x-forms.label name="upload_cv_resume" class="tw-mb-2 tw-text-sm tw-text-[#18191C]" />
+                        <x-forms.label name="upload_cv_resume" class="tw-mb-2 tw-text-sm tw-text-[#18191C]" :required="false"/>
                         <div class="cv-image-upload-wrap">
                             <input name="resume_file" onchange="resumeManageReadURL(this, 'add');" id="resume_add_input"
                                 class="resume-file-upload-input" type="file" accept="application/pdf"

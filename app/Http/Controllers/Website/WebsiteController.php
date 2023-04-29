@@ -717,12 +717,12 @@ class WebsiteController extends Controller
 
         $candidate = auth('user')->user()->candidate;
         $job = Job::find($request->id);
-
+        $resume= $request->resume_id ?? 1;
         $applied = DB::table('applied_jobs')->insert([
             'candidate_id' => $candidate->id,
             'job_id' => $job->id,
             'cover_letter' => $request->cover_letter ?? "",
-            'candidate_resume_id' => $request->resume_id ?? 1,
+            'candidate_resume_id' => $resume,
             'application_group_id' => $job->company->applicationGroups->where('is_deleteable', false)->first()->id ?? 1,
             'created_at' => now(),
             'updated_at' => now(),
@@ -1167,7 +1167,8 @@ class WebsiteController extends Controller
 
         $division_id = $_GET['division'];
         // $districts = DB::table('districts')->where('division_id', $division_id)->orderBy('name', 'asc')->get();
-        $districts = DB::table('tblgeocode')->where("geoLevelId", "2")->where('parentGeoId', $division_id)->orderBy('nameEn', 'asc')->get();
+        $districts = DB::table('tblgeocode')->where("geoLevelId", "2")
+        ->where('parentGeoId', $division_id)->orderBy('nameEn', 'asc')->get();
 
         $html = "<option value=''>Please Select</option>";
 

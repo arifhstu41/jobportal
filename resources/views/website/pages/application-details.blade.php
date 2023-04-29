@@ -109,15 +109,15 @@
                 </td>
             </tr>
             <tr>
-                <td style="text-align: left;border-right: 0; padding:0px; width:auto">
-                    <img style="margin: 0px; padding:0px; padding-left:10px; border-radius: 3px;"
-                        src="images/Welfare-Family-TM.png" alt="" width="170px" height="132px">
+                <td style="text-align: left;border-right: 0; padding:0px;">
+                    <img style="margin: 0px; padding:0px; padding-left:10px; border-radius: 3px;" src="images/WFB.png"
+                        alt="" width="150px" height="auto">
                 </td>
-                @if ($job->company->user->name == 'Welfare Family Bangladesh Ltd.')
+                @if ($job->company->user->name == 'Welfare Family Bangladesh Ltd.' || str_contains($job->company->user->name, 'Welfare'))
                     <td
                         style="text-align: center; border-right: 0; border-left: 0px; padding:0px; background-color:  #2e3397; color: white">
-                        <h1 style="margin-bottom: 0px; padding-bottom: 0px;">Welfare Family Bangladesh</h1>
-                        <h4>Welfare Technologies Services Limited</h4>
+                        <h2 style="margin-bottom: 0px; padding-bottom: 0px;">Welfare Family Bangladesh</h2>
+                        <h5>Welfare Technologies Services Limited</h5>
                         <hr style="color: white; width: 2px; margin:3px; padding:0px">
                         <p style="font-size: 10px">Head Office: Kathaltali, Rangamati Hill District, Bangladesh</p>
                         <p style="font-size: 10px">Corporate Head Office: Chattogram, Bangladesh</p>
@@ -134,9 +134,9 @@
                         </p>
                     </td>
                 @endif
-                <td style="text-align: right; border-left: 0px; padding:0px; padding-right: 10px; width:100px">
+                <td style="text-align: right; border-left: 0px; padding:0px; padding-right: 10px; ">
                     <img style="margin: 0px; padding:0px; padding-left:10px; border-radius: 3px;"
-                        src="images/wfb-logo.png" alt="" width="100px" height="100px">
+                        src="images/Welfare.png" alt="" width="150px" height="auto">
                 </td>
 
             </tr>
@@ -219,10 +219,10 @@
             <tr>
                 <td style="margin: 4px; padding:4px; font-size: 10px;">Gender</td>
                 <td style="margin: 4px; padding:4px; font-size: 10px;">
-                    {{ $candidate->gender }}</td>
+                    {{ ucwords($candidate->gender) }}</td>
                 <td style="margin: 4px; padding:4px; font-size: 10px;">Marital Status</td>
                 <td style="margin: 4px; padding:4px; font-size: 10px;">
-                    {{ $candidate->marital_status }}</td>
+                    {{ ucwords($candidate->marital_status) }}</td>
             </tr>
             <tr>
                 <td style="margin: 4px; padding:4px; font-size: 10px;">Religion</td>
@@ -301,11 +301,20 @@
         <tbody>
             @if (count($candidate->educations) > 0)
                 @foreach ($candidate->educations as $education)
+                    @php
+                        $board = $education->institute;
+                        if ($education->board) {
+                            $board = \DB::table('bd_education_boards')
+                                ->where('id', $education->board)
+                                ->pluck('name')
+                                ->first();
+                        }
+                    @endphp
                     <tr>
                         <td style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
-                            {{ $education->level ?? '' }}</td>
+                            {{ __($education->level) ?? '' }}</td>
                         <td style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
-                            {{ $education->board ? $education->board : ($education->institute ? $education->institute : '') }}
+                            {{ $board }}
                         </td>
                         <td style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
                             {{ $education->group ? $education->group : ($education->subject ? $education->subject : ($education->degree ? $education->degree : '')) }}
@@ -357,6 +366,15 @@
             </thead>
             <tbody>
                 @foreach ($candidate->experiences as $experience)
+                    @php
+                        $d1 = new DateTime($experience->start);
+                        $d2 = new DateTime($experience->end);
+                        
+                        // @link http://www.php.net/manual/en/class.dateinterval.php
+                        $interval = $d2->diff($d1);
+                        
+                        $diff = $interval->format('%y Years %m Months');
+                    @endphp
                     <tr>
                         <td style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
                             {{ $experience->company ?? '' }}</td>
@@ -369,7 +387,7 @@
                         <td style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
                             {{ $experience->end ?? '' }}</td>
                         <td style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
-                            #</td>
+                            {{ $diff }}</td>
                     </tr>
                 @endforeach
             </tbody>
@@ -396,7 +414,7 @@
     <div class="col-12">
         <table style="padding-top: 4px; background-color: #2e3397; border-collapse:collapse; color:white"
             cellspacing="0">
-            <thead>
+            <thead style="display:block; page-break-inside:avoid;">
                 <tr style="background-color: white">
                     <th colspan="4"
                         style="text-align: left; font-size: 10px; margin:4px; padding:4px; color:black">
@@ -404,6 +422,11 @@
                     </th>
                 </tr>
             </thead>
+            <style>
+                table {
+                    page-break-inside: avoid;
+                }
+            </style>
             <tbody style="background-color: #2e3397">
                 <tr style="border: #2e3397">
                     <td colspan="4" style=" margin:5px; padding:5px">
@@ -421,12 +444,15 @@
                 </tr>
                 <tr style="border: #2e3397">
                     <td style="border-top:#2e3397; border-right:#2e3397"></td>
-                    <td style="width:150px; border:#2e3397;"> <a href="https://play.google.com/store/search?q=my+welfare+app&c=apps&hl=en&gl=US"><img src="{{ public_path('images/play_store.png') }}"
-                        alt="" style="width:150px; height:50px"></a> </td>
+                    <td style="width:150px; border:#2e3397;"> <a
+                            href="https://play.google.com/store/search?q=my+welfare+app&c=apps&hl=en&gl=US"><img
+                                src="{{ public_path('images/play_store.png') }}" alt=""
+                                style="width:150px; height:50px"></a> </td>
                     <td style="width:150px; border:#2e3397; text-align: center"><span> Scan To
                             Download <br> <strong>My Welfare App</strong></span></td>
-                    <td style="width:50px; border-top:#2e3397; border-left:#2e3397; padding-right: 5px; padding-bottom:5px"><img
-                            src="{{ public_path('images/qrcode.png') }}" alt=""
+                    <td
+                        style="width:50px; border-top:#2e3397; border-left:#2e3397; padding-right: 5px; padding-bottom:5px">
+                        <img src="{{ public_path('images/qrcode.png') }}" alt=""
                             style="width:50px; height:75px;"></td>
                 </tr>
             </tbody>
@@ -438,4 +464,3 @@
             {{ route('verify.application', ['job_id' => $job->id, 'candidate_id' => $candidate->id]) }}</a>
     </div>
 </div>
-

@@ -102,7 +102,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn btn-primary mt-4">
+                                            <button type="submit" class="btn d-block btn-primary mt-4">
                                                 {{ __('save_changes') }}
                                             </button>
                                         </div>
@@ -246,7 +246,7 @@
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <button type="submit" class="btn btn-primary">
+                                                    <button type="submit" class="btn d-block btn-primary">
                                                         {{ __('save_changes') }}
                                                     </button>
                                                 </div>
@@ -300,7 +300,7 @@
                         <h5 class="tw-text-lg tw-text-[#18191C] tw-font-semibold tw-mb-[18px]" id="cvModalLabel">
                             {{ __('add_cv_resume') }}</h5>
                         <div class="from-group py-2">
-                            <x-forms.label name="cv_resume_name" :required="true"
+                            <x-forms.label name="cv_resume_name" :required="false"
                                 class="tw-mb-2 tw-text-sm tw-text-[#18191C]" />
                             <input type="text" name="resume_name" id="">
                             @error('is_remote')
@@ -308,7 +308,7 @@
                             @enderror
                         </div>
                         <div class="form-group tw-mb-6">
-                            <x-forms.label name="upload_cv_resume" class="tw-mb-2 tw-text-sm tw-text-[#18191C]" />
+                            <x-forms.label name="upload_cv_resume" class="tw-mb-2 tw-text-sm tw-text-[#18191C]" :required="false"/>
                             <div class="cv-image-upload-wrap">
                                 <input name="resume_file" class="resume-file-upload-input" type="file"
                                     onchange="resumeManageReadURL(this, 'add');" accept="application/pdf"
@@ -372,7 +372,7 @@
                         <h5 class="tw-text-lg tw-text-[#18191C] tw-font-semibold tw-mb-[18px]" id="cvModalLabel">
                             {{ __('update_cv_resume') }}</h5>
                         <div class="from-group py-2">
-                            <x-forms.label name="cv_resume_name" :required="true"
+                            <x-forms.label name="cv_resume_name" :required="false"
                                 class="tw-mb-2 tw-text-sm tw-text-[#18191C]" />
                             <input type="text" name="resume_name" id="resume_name_input">
                             @error('is_remote')
@@ -380,7 +380,7 @@
                             @enderror
                         </div>
                         <div class="form-group tw-mb-6">
-                            <x-forms.label name="upload_cv_resume" class="tw-mb-2 tw-text-sm tw-text-[#18191C]" />
+                            <x-forms.label name="upload_cv_resume" class="tw-mb-2 tw-text-sm tw-text-[#18191C]" :required="false"/>
                             <div class="cv-image-upload-wrap">
                                 <input name="resume_file" class="resume-file-upload-input" type="file"
                                     onchange="resumeManageReadURL(this, 'edit');" accept="application/pdf"

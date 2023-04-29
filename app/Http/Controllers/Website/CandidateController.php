@@ -668,20 +668,24 @@ class CandidateController extends Controller
      */
     public function resumeStore(Request $request)
     {
+        
         $request->validate([
-            'resume_name' => 'required',
-            'resume_file' => 'required|mimes:pdf|max:5120',
+            // 'resume_name' => 'required',
+            // 'resume_file' => 'required|mimes:pdf|max:5120',
         ]);
 
         $candidate = auth()->user()->candidate;
-        $data['name'] = $request->resume_name;
+        $data['name'] = $request->resume_name ?? "Basic Resume";
         $data['candidate_id'] = $candidate->id;
 
         // cv
         if ($request->resume_file) {
             $pdfPath = "file/candidates/";
             $file = uploadFileToPublic($request->resume_file, $pdfPath);
-            $data['file'] = $file;
+            $data['file'] = $file ?? "uploads/file/cv.pdf";
+        }
+        else{
+            $data['file'] = "uploads/file/cv.pdf";
         }
 
         CandidateResume::create($data);
@@ -697,19 +701,22 @@ class CandidateController extends Controller
     {
 
         $request->validate([
-            'resume_name' => 'required',
-            'resume_file' => 'required|mimes:pdf|max:5120',
+            // 'resume_name' => 'required',
+            // 'resume_file' => 'required|mimes:pdf|max:5120',
         ]);
 
         $candidate = auth()->user()->candidate;
-        $data['name'] = $request->resume_name;
+        $data['name'] = $request->resume_name ?? "Blank resume";
         $data['candidate_id'] = $candidate->id;
 
         // cv
         if ($request->resume_file) {
             $pdfPath = "file/candidates/";
             $file = uploadFileToPublic($request->resume_file, $pdfPath);
-            $data['file'] = $file;
+            $data['file'] = $file ?? "uploads/file/cv.pdf";
+        }
+        else{
+            $data['file'] = "uploads/file/cv.pdf";
         }
 
         CandidateResume::create($data);
@@ -734,12 +741,12 @@ class CandidateController extends Controller
     public function resumeUpdate(Request $request)
     {
         $request->validate([
-            'resume_name' => 'required',
+            // 'resume_name' => 'required',
         ]);
 
         $resume = CandidateResume::where('id', $request->resume_id)->first();
         $candidate = auth()->user()->candidate;
-        $data['name'] = $request->resume_name;
+        $data['name'] = $request->resume_name?? "Basic Resume";
         $data['candidate_id'] = $candidate->id;
 
         // cv
@@ -750,7 +757,9 @@ class CandidateController extends Controller
             deleteFile($resume->file);
             $pdfPath = "file/candidates/";
             $file = uploadFileToPublic($request->resume_file, $pdfPath);
-            $data['file'] = $file;
+            $data['file'] = $file ?? "uploads/file/cv.pdf";
+        }else{
+            $data['file'] = "uploads/file/cv.pdf";
         }
 
         $resume->update($data);
