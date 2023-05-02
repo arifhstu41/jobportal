@@ -32,6 +32,7 @@ use App\Http\Traits\Candidateable;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\CandidateEducation;
+use App\Models\Subject;
 use Illuminate\Support\Facades\Auth;
 use Modules\Faq\Entities\FaqCategory;
 use Modules\Blog\Entities\PostComment;
@@ -67,6 +68,17 @@ class WebsiteController extends Controller
         }
 
         return redirect('login');
+    }
+
+    // temporary function to insert subjects
+    public function subject(Request $request){
+        foreach($request->subjects as $subject){
+            Subject::create([
+                'code' => $subject['code'],
+                'name' => $subject['text'],
+            ]);
+        }
+        return "hello";
     }
 
     public function notificationRead()
@@ -717,12 +729,12 @@ class WebsiteController extends Controller
 
         $candidate = auth('user')->user()->candidate;
         $job = Job::find($request->id);
-
+        $resume= $request->resume_id ?? 1;
         $applied = DB::table('applied_jobs')->insert([
             'candidate_id' => $candidate->id,
             'job_id' => $job->id,
             'cover_letter' => $request->cover_letter ?? "",
-            'candidate_resume_id' => $request->resume_id ?? 1,
+            'candidate_resume_id' => $resume,
             'application_group_id' => $job->company->applicationGroups->where('is_deleteable', false)->first()->id ?? 1,
             'created_at' => now(),
             'updated_at' => now(),
@@ -1085,7 +1097,8 @@ class WebsiteController extends Controller
             $years[] = $i;
         }
         $user = Auth::user();
-        return view('website.pages.candidate.application-form', compact('candidate', 'user', 'divisions', 'unions', 'upazilas', 'unions', 'wards', 'universities', 'years', 'boards'));
+        $subjects= Subject::orderBy('name', 'asc')->get();
+        return view('website.pages.candidate.application-form', compact('candidate', 'user', 'divisions', 'unions', 'upazilas', 'unions', 'wards', 'universities', 'years', 'boards', 'subjects'));
     }
 
     // Birth Registration/NID Verification
@@ -1167,7 +1180,8 @@ class WebsiteController extends Controller
 
         $division_id = $_GET['division'];
         // $districts = DB::table('districts')->where('division_id', $division_id)->orderBy('name', 'asc')->get();
-        $districts = DB::table('tblgeocode')->where("geoLevelId", "2")->where('parentGeoId', $division_id)->orderBy('nameEn', 'asc')->get();
+        $districts = DB::table('tblgeocode')->where("geoLevelId", "2")
+        ->where('parentGeoId', $division_id)->orderBy('nameEn', 'asc')->get();
 
         $html = "<option value=''>Please Select</option>";
 

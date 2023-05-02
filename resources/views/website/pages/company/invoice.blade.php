@@ -256,7 +256,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if ($transaction->plan->label)
+                    @if (!isset($transaction->plan->label))
                         <tr>
                             <td class="item-col">
                                 Basic Plan

@@ -18,7 +18,7 @@
         <tbody>
             @forelse ($educations as $education)
                 <tr>
-                    <td>{{ $education->level }}</td>
+                    <td>{{ __($education->level) }}</td>
                     <td>{{ $education->degree }}</td>
                     <td>{{ $education->year }}</td>
                     <td>

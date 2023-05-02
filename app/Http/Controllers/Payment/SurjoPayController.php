@@ -108,7 +108,7 @@ class SurjoPayController extends Controller
                 'amount' => $data['amount'],
                 'currency_symbol' => '৳',
                 'usd_amount' => $data['usd_amt'],
-                'payment_status' => ($data['bank_status'] == 'Success') ? 'paid' : 'unpaid',
+                'payment_status' => 'paid',
                 'payment_type' => 'subscription_based',
             ]);
 

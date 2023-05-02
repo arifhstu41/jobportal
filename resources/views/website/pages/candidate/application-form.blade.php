@@ -1306,9 +1306,6 @@
                                                     <option value="Passed"
                                                         {{ old('hsc_result_type') == 'Passed' ? 'selected' : '' }}>
                                                         Passed</option>
-                                                    <option value="GPA4"
-                                                        {{ old('hsc_result_type') == 'GPA4' ? 'selected' : '' }}>GPA(out
-                                                        of 4)</option>
                                                     <option value="GPA5"
                                                         {{ old('hsc_result_type') == 'GPA5' ? 'selected' : '' }}>GPA(out
                                                         of 5)</option>
@@ -1400,418 +1397,9 @@
                                                     <select name="honors_subject" id="honors_subject"
                                                         class="search rt-selectactive w-100-p">
                                                         <option value="">Please Select</option>
-                                                        <option value="101">Accounting</option>
-                                                        <option value="102">Anthropology</option>
-                                                        <option value="103">Applied Chemistry</option>
-                                                        <option value="104">Applied Physics</option>
-                                                        <option value="105">Applied Mathematics</option>
-                                                        <option value="106">Arabic</option>
-                                                        <option value="107">Archaeology</option>
-                                                        <option value="108">Bangla</option>
-                                                        <option value="109">Banking</option>
-                                                        <option value="110">Biochemistry</option>
-                                                        <option value="111">Botany</option>
-                                                        <option value="112">Business Administration</option>
-                                                        <option value="113">Chemistry</option>
-                                                        <option value="114">Computer Science</option>
-                                                        <option value="115">Clinical Psychology</option>
-                                                        <option value="116">Drama &amp; Music</option>
-                                                        <option value="117">Development Studies</option>
-                                                        <option value="118">Economics</option>
-                                                        <option value="119">Education</option>
-                                                        <option value="120">English</option>
-                                                        <option value="121">Finance</option>
-                                                        <option value="122">Fine Arts</option>
-                                                        <option value="123">Folklore</option>
-                                                        <option value="124">Geography</option>
-                                                        <option value="125">Geology/Environment</option>
-                                                        <option value="126">History</option>
-                                                        <option value="127">Home Economics</option>
-                                                        <option value="128">Hadith</option>
-                                                        <option value="129">International Relations</option>
-                                                        <option value="130">Islamic History and Culture</option>
-                                                        <option value="131">Islamic Studies</option>
-                                                        <option value="132">Information Com. Tech. (ICT)</option>
-                                                        <option value="133">Mass Comm. &amp; Journalism</option>
-                                                        <option value="134">Law/Jurisprudence</option>
-                                                        <option value="135">Information Science and Library Management
-                                                        </option>
-                                                        <option value="136">Language/Linguistic</option>
-                                                        <option value="137">Management</option>
-                                                        <option value="138">Marketing</option>
-                                                        <option value="139">Mathematics</option>
-                                                        <option value="140">Microbiology</option>
-                                                        <option value="141">Marine Science</option>
-                                                        <option value="142">Medical Technology</option>
-                                                        <option value="143">Pali</option>
-                                                        <option value="144">Persian</option>
-                                                        <option value="145">Pharmacy</option>
-                                                        <option value="146">Philosophy</option>
-                                                        <option value="147">Physics</option>
-                                                        <option value="148">Political Science</option>
-                                                        <option value="149">Psychology</option>
-                                                        <option value="150">Public Administration</option>
-                                                        <option value="151">Public Finance</option>
-                                                        <option value="152">Population Science</option>
-                                                        <option value="153">Peace &amp; Conflict</option>
-                                                        <option value="154">Pharmaceutical Chemistry</option>
-                                                        <option value="155">Sanskrit</option>
-                                                        <option value="156">Social Welfare/Social Work</option>
-                                                        <option value="157">Sociology</option>
-                                                        <option value="158">Soil Water and Environment Science</option>
-                                                        <option value="159">Statistics</option>
-                                                        <option value="160">Tafsir</option>
-                                                        <option value="161">Urdu</option>
-                                                        <option value="162">Urban Development</option>
-                                                        <option value="163">World Religion</option>
-                                                        <option value="164">Women Studies</option>
-                                                        <option value="165">Water &amp; Environment Science</option>
-                                                        <option value="166">Zoology</option>
-                                                        <option value="167">Genetic and Breeding</option>
-                                                        <option value="168">International Law</option>
-                                                        <option value="169">Akaid</option>
-                                                        <option value="170">Graphics</option>
-                                                        <option value="171">Fikha</option>
-                                                        <option value="172">Modern Arabic</option>
-                                                        <option value="173">History of Music</option>
-                                                        <option value="174">Drawing and Printing</option>
-                                                        <option value="175">Industrial Arts</option>
-                                                        <option value="176">Ethics</option>
-                                                        <option value="177">Forestry</option>
-                                                        <option value="178">Ayurvedic</option>
-                                                        <option value="179">Unani</option>
-                                                        <option value="180">Television, Film and Photography</option>
-                                                        <option value="181">Women and Gender Studies</option>
-                                                        <option value="182">Criminology</option>
-                                                        <option value="183">Communication Disorders</option>
-                                                        <option value="184">Computer Engineering</option>
-                                                        <option value="185">Computer Science &amp; Engineering</option>
-                                                        <option value="186">Computer Science &amp; Information
-                                                            Technology</option>
-                                                        <option value="187">Information Technology</option>
-                                                        <option value="188">Geology/Geology and Mining</option>
-                                                        <option value="189">Environmental science</option>
-                                                        <option value="190">Genetic Engineering and Biotechnology
-                                                        </option>
-                                                        <option value="191">Materials Science &amp; Engineering</option>
-                                                        <option value="192">Finance and Banking</option>
-                                                        <option value="201">Agriculture</option>
-                                                        <option value="202">Agriculture Chemistry</option>
-                                                        <option value="203">Agriculture Co-operatives</option>
-                                                        <option value="204">Agriculture Economics</option>
-                                                        <option value="205">Agriculture Engineering</option>
-                                                        <option value="206">Agriculture Finance</option>
-                                                        <option value="207">Agriculture Marketing</option>
-                                                        <option value="208">Agriculture Science</option>
-                                                        <option value="209">Agriculture Soil Science</option>
-                                                        <option value="210">Animal Husbandry</option>
-                                                        <option value="211">Agronomy &amp; Aquaculture</option>
-                                                        <option value="212">Agronomy &amp; Aquaculture Extension
-                                                        </option>
-                                                        <option value="213">Anatomy &amp; Histology</option>
-                                                        <option value="214">Agronnomy</option>
-                                                        <option value="215">Anatomology</option>
-                                                        <option value="216">Animal Breeding &amp; Genetic</option>
-                                                        <option value="217">Animal Science</option>
-                                                        <option value="218">Animal Nutrition</option>
-                                                        <option value="220">Agriculture Water Management</option>
-                                                        <option value="221">Agriculture Extension</option>
-                                                        <option value="223">Agro Forestry</option>
-                                                        <option value="225">Agriculture Statistics</option>
-                                                        <option value="226">Agr.Co-operative &amp; Marketing</option>
-                                                        <option value="227">Bio-Technology</option>
-                                                        <option value="228">Corp Botany</option>
-                                                        <option value="229">Dairy Science</option>
-                                                        <option value="230">Doc.of Veterinary Science</option>
-                                                        <option value="231">Fisheries</option>
-                                                        <option value="232">Fisheries &amp; Aquaculture</option>
-                                                        <option value="233">Fisheries Biology</option>
-                                                        <option value="234">Fisheries Management</option>
-                                                        <option value="235">Fisheries Technology</option>
-                                                        <option value="236">Forestry</option>
-                                                        <option value="237">Farm Power &amp; Machinery</option>
-                                                        <option value="238">Food Tech. &amp; Rural Industry</option>
-                                                        <option value="239">Farm Structure</option>
-                                                        <option value="241">Horticulture</option>
-                                                        <option value="242">Livestock</option>
-                                                        <option value="243">Microbiology &amp; Hygenic</option>
-                                                        <option value="244">Production Economics</option>
-                                                        <option value="245">Plant Pathology</option>
-                                                        <option value="246">Paratrology</option>
-                                                        <option value="247">Poultry Science</option>
-                                                        <option value="248">Rural Sociology</option>
-                                                        <option value="249">Surgery &amp; Obstate</option>
-                                                        <option value="250">Business Studies</option>
-                                                        <option value="260">Accounting</option>
-                                                        <option value="261">Banking</option>
-                                                        <option value="262">Business Administration</option>
-                                                        <option value="263">Finance</option>
-                                                        <option value="264">Management</option>
-                                                        <option value="265">Marketing</option>
-                                                        <option value="266">Management Information Systems (MIS)
-                                                        </option>
-                                                        <option value="267">Banking and Insurance</option>
-                                                        <option value="268">Accounting &amp; Information Systems (AIS)
-                                                        </option>
-                                                        <option value="269">International Business</option>
-                                                        <option value="270">Tourism and Hospitality Management</option>
-                                                        <option value="271">Human Resource Management</option>
-                                                        <option value="272">Organization Strategy and Leadership
-                                                        </option>
-                                                        <option value="273">Finance and Banking</option>
-                                                        <option value="300">Electronics &amp; Telecommunication
-                                                            Engineering</option>
-                                                        <option value="301">Architecture</option>
-                                                        <option value="302">Chemical</option>
-                                                        <option value="303">Civil</option>
-                                                        <option value="304">Computer Science</option>
-                                                        <option value="305">Electrical</option>
-                                                        <option value="306">Electrical &amp; Electronics</option>
-                                                        <option value="307">Electronic</option>
-                                                        <option value="308">Genetic Engineering</option>
-                                                        <option value="309">Industrial</option>
-                                                        <option value="310">Leather Technology</option>
-                                                        <option value="311">Marine</option>
-                                                        <option value="312">Mechanical</option>
-                                                        <option value="313">Metallurgy</option>
-                                                        <option value="314">Mineral</option>
-                                                        <option value="315">Mining</option>
-                                                        <option value="316">Naval Architecture</option>
-                                                        <option value="317">Physical Planning</option>
-                                                        <option value="318">Regional Planning</option>
-                                                        <option value="319">Structural</option>
-                                                        <option value="320">Textile Technology</option>
-                                                        <option value="321">Town Planning</option>
-                                                        <option value="322">Urban &amp; Regional Planning</option>
-                                                        <option value="323">Tele-Comunication Engineering</option>
-                                                        <option value="324">Computer Science &amp; Engineering</option>
-                                                        <option value="325">Microwave Engineering</option>
-                                                        <option value="326">A &amp; B Section of A.M.I.E</option>
-                                                        <option value="327">Environmental Engineering</option>
-                                                        <option value="328">Aeronautical Engineering</option>
-                                                        <option value="329">Software Engineering</option>
-                                                        <option value="391">Medicine &amp; Surgery</option>
-                                                        <option value="392">Dental Surgery</option>
-                                                        <option value="393">Computer Engineering</option>
-                                                        <option value="394">Computer Science &amp; Engineering</option>
-                                                        <option value="395">Computer Science &amp; Information
-                                                            Technology</option>
-                                                        <option value="396">Information and Communication Technology
-                                                        </option>
-                                                        <option value="397">Electronics &amp; Communication Engineering
-                                                        </option>
-                                                        <option value="398">Water Resource Engineering</option>
-                                                        <option value="399">Materials Science &amp; Engineering
-                                                        </option>
-                                                        <option value="991">B.A</option>
-                                                        <option value="992">B.S.S</option>
-                                                        <option value="993">B.SC</option>
-                                                        <option value="994">B.com</option>
-                                                        <option value="995">L.L.B</option>
-                                                        <option value="996">B.B.S</option>
-                                                        <option value="999">Others</option>
-                                                        <option value="1011">A &amp; B Section of A.M.I.E</option>
-                                                        <option value="1022">Accounting</option>
-                                                        <option value="1033">Accounting and Information System</option>
-                                                        <option value="1044">Aeronautical Engineering</option>
-                                                        <option value="1055">Agr.Co-Operative &amp; Marketing</option>
-                                                        <option value="1077">Agriculture</option>
-                                                        <option value="1088">Agriculture Chemistry</option>
-                                                        <option value="1099">Agriculture Co-operatives</option>
-                                                        <option value="1100">Agriculture Economics</option>
-                                                        <option value="1111">Agriculture Engineering</option>
-                                                        <option value="1122">Agriculture Extension</option>
-                                                        <option value="1125">Horticulture</option>
-                                                        <option value="1126">Human Resource Management</option>
-                                                        <option value="1127">Industrial</option>
-                                                        <option value="1133">Agriculture Finance</option>
-                                                        <option value="1134">Agriculture Marketing</option>
-                                                        <option value="1135">Agriculture Science</option>
-                                                        <option value="1136">Agriculture Soil Science</option>
-                                                        <option value="1137">Agriculture Statistics</option>
-                                                        <option value="1138">Agriculture Water Management</option>
-                                                        <option value="1139">Agro Forestry</option>
-                                                        <option value="1140">Agronnomy</option>
-                                                        <option value="1141">Agronomy &amp; Aquaculture</option>
-                                                        <option value="1142">Agronomy &amp; Aquaculture Extension
-                                                        </option>
-                                                        <option value="1143">Akaid</option>
-                                                        <option value="1144">Anatomology</option>
-                                                        <option value="1145">Anatomy &amp; Histology</option>
-                                                        <option value="1146">Animal Breeding &amp; Genetic</option>
-                                                        <option value="1147">Animal Husbandry</option>
-                                                        <option value="1148">Animal Nutrition</option>
-                                                        <option value="1149">Animal Science</option>
-                                                        <option value="1150">Anthropology</option>
-                                                        <option value="1151">Applied Chemistry</option>
-                                                        <option value="1152">Applied Mathematics</option>
-                                                        <option value="1153">Applied Physics</option>
-                                                        <option value="1154">Arabic</option>
-                                                        <option value="1155">Archaeology</option>
-                                                        <option value="1156">Architecture</option>
-                                                        <option value="1157">B.A</option>
-                                                        <option value="1158">B.S.S</option>
-                                                        <option value="1159">B.Sc</option>
-                                                        <option value="1160">B.com</option>
-                                                        <option value="1161">Bangla</option>
-                                                        <option value="1162">Banking</option>
-                                                        <option value="1163">Banking</option>
-                                                        <option value="1164">Banking and Insurance</option>
-                                                        <option value="1165">Bio-Technology</option>
-                                                        <option value="1166">Biochemistry</option>
-                                                        <option value="1167">Botany</option>
-                                                        <option value="1168">Business Administration</option>
-                                                        <option value="1169">Business Studies</option>
-                                                        <option value="1170">Chemical</option>
-                                                        <option value="1171">Chemistry</option>
-                                                        <option value="1172">Civil</option>
-                                                        <option value="1173">Clinical Psychology</option>
-                                                        <option value="1174">Communication Disorders</option>
-                                                        <option value="1175">Computer Engineering</option>
-                                                        <option value="1176">Computer Science</option>
-                                                        <option value="1177">Computer Science &amp; Engineering</option>
-                                                        <option value="1178">Computer Science &amp; Information
-                                                            Technology</option>
-                                                        <option value="1179">Corp Botany</option>
-                                                        <option value="1180">Criminology</option>
-                                                        <option value="1181">Criminology &amp; Police Science</option>
-                                                        <option value="1182">Dairy Science</option>
-                                                        <option value="1183">Dental Surgery</option>
-                                                        <option value="1184">Development Studies</option>
-                                                        <option value="1185">Doc.of Veterinary Science</option>
-                                                        <option value="1186">Drama &amp; Music</option>
-                                                        <option value="1187">Drawing and Printing</option>
-                                                        <option value="1188">Economics</option>
-                                                        <option value="1189">Education</option>
-                                                        <option value="1190">Electrical</option>
-                                                        <option value="1191">Electrical &amp; Electronics</option>
-                                                        <option value="1192">Electronic</option>
-                                                        <option value="1193">Electronics &amp; Communication Engineering
-                                                        </option>
-                                                        <option value="1194">English</option>
-                                                        <option value="1195">Environmental Engineering</option>
-                                                        <option value="1196">Environmental science</option>
-                                                        <option value="1197">Ethics</option>
-                                                        <option value="1198">Farm Power &amp; Machinery</option>
-                                                        <option value="1199">Farm Structure</option>
-                                                        <option value="1200">Fikha</option>
-                                                        <option value="1201">Finance</option>
-                                                        <option value="1202">Finance</option>
-                                                        <option value="1203">Finance and Banking</option>
-                                                        <option value="1204">Finance and Banking</option>
-                                                        <option value="1205">Fine Arts</option>
-                                                        <option value="1206">Fisheries</option>
-                                                        <option value="1207">Fisheries &amp; Aquaculture</option>
-                                                        <option value="1208">Fisheries Biology</option>
-                                                        <option value="1209">Fisheries Management</option>
-                                                        <option value="1210">Fisheries Technology</option>
-                                                        <option value="1211">Folklore</option>
-                                                        <option value="1212">Food Tech. &amp; Rural Industry</option>
-                                                        <option value="1213">Forestry</option>
-                                                        <option value="1214">Genetic Engineering</option>
-                                                        <option value="1215">Genetic Engineering and Biotechnology
-                                                        </option>
-                                                        <option value="1216">Genetic and Breeding</option>
-                                                        <option value="1217">Geography</option>
-                                                        <option value="1218">Geography and Environmental Science
-                                                        </option>
-                                                        <option value="1219">Geology/Geology and Mining</option>
-                                                        <option value="1220">Graphics</option>
-                                                        <option value="1221">Hadith</option>
-                                                        <option value="1222">History</option>
-                                                        <option value="1223">History of Music</option>
-                                                        <option value="1224">Home Economics</option>
-                                                        <option value="1225">Horticulture</option>
-                                                        <option value="1226">Human Resource Management</option>
-                                                        <option value="1227">Industrial</option>
-                                                        <option value="1228">Industrial Arts</option>
-                                                        <option value="1229">Information Science and Library Management
-                                                        </option>
-                                                        <option value="1230">Information Technology</option>
-                                                        <option value="1231">Information and Communication Technology
-                                                        </option>
-                                                        <option value="1232">International Business</option>
-                                                        <option value="1233">International Law</option>
-                                                        <option value="1234">International Relations</option>
-                                                        <option value="1235">Islamic History and Culture</option>
-                                                        <option value="1236">Islamic Studies</option>
-                                                        <option value="1237">L.L.B</option>
-                                                        <option value="1238">Language/Linguistic</option>
-                                                        <option value="1239">Law/Jurisprudence</option>
-                                                        <option value="1240">Leather Technology</option>
-                                                        <option value="1241">Livestock</option>
-                                                        <option value="1242">Management</option>
-                                                        <option value="1243">Management Information Systems</option>
-                                                        <option value="1250">Marine</option>
-                                                        <option value="1251">Marine Science</option>
-                                                        <option value="1252">Marketing</option>
-                                                        <option value="1253">Mass Comm. &amp; Journalism</option>
-                                                        <option value="1254">Materials Science &amp; Engineering
-                                                        </option>
-                                                        <option value="1255">Mathematics</option>
-                                                        <option value="1256">Mechanical</option>
-                                                        <option value="1257">Medical Technology</option>
-                                                        <option value="1258">Medicine &amp; Surgery</option>
-                                                        <option value="1259">Metallurgy</option>
-                                                        <option value="1260">Microbiology</option>
-                                                        <option value="1261">Microbiology &amp; Hygenic</option>
-                                                        <option value="1262">Microwave Engineering</option>
-                                                        <option value="1263">Mineral</option>
-                                                        <option value="1264">Mining</option>
-                                                        <option value="1265">Modern Arabic</option>
-                                                        <option value="1266">Naval Architecture</option>
-                                                        <option value="1267">Organization Strategy and Leadership
-                                                        </option>
-                                                        <option value="1268">Pali</option>
-                                                        <option value="1269">Paratrology</option>
-                                                        <option value="1270">Peace &amp; Conflict</option>
-                                                        <option value="1271">Persian</option>
-                                                        <option value="1272">Pharmaceutical Chemistry</option>
-                                                        <option value="1273">Pharmacy</option>
-                                                        <option value="1274">Philosophy</option>
-                                                        <option value="1275">Physical Planning</option>
-                                                        <option value="1276">Physics</option>
-                                                        <option value="1277">Plant Pathology</option>
-                                                        <option value="1278">Political Science</option>
-                                                        <option value="1279">Population Science</option>
-                                                        <option value="1280">Poultry Science</option>
-                                                        <option value="1281">Production Economics</option>
-                                                        <option value="1282">Psychology</option>
-                                                        <option value="1283">Public Administration</option>
-                                                        <option value="1284">Public Finance</option>
-                                                        <option value="1285">Regional Planning</option>
-                                                        <option value="1286">Rural Sociology</option>
-                                                        <option value="1287">Sanskrit</option>
-                                                        <option value="1288">Social Welfare/Social Work</option>
-                                                        <option value="1289">Sociology</option>
-                                                        <option value="1290">Software Engineering</option>
-                                                        <option value="1291">Soil Water and Environment Science</option>
-                                                        <option value="1292">Statistics</option>
-                                                        <option value="1293">Structural</option>
-                                                        <option value="1294">Surgery &amp; Obstate</option>
-                                                        <option value="1295">Tafsir</option>
-                                                        <option value="1296">Telecommunication Engineering</option>
-                                                        <option value="1297">Television, Film and Photography</option>
-                                                        <option value="1298">Textile Technology</option>
-                                                        <option value="1299">Tourism and Hospitality Management</option>
-                                                        <option value="1300">Town Planning</option>
-                                                        <option value="1301">Urban &amp; Regional Planning</option>
-                                                        <option value="1302">Urban Development</option>
-                                                        <option value="1303">Urdu</option>
-                                                        <option value="1304">Water &amp; Environment Science</option>
-                                                        <option value="1305">Water Resource Engineering</option>
-                                                        <option value="1306">Women Studies</option>
-                                                        <option value="1307">Women and Gender Studies</option>
-                                                        <option value="1308">World Religion</option>
-                                                        <option value="1309">Zoology</option>
-                                                        <option value="1310">Others</option>
-                                                        <option value="1311">GENDER AND DEVELOPMENT STUDIES</option>
-                                                        <option value="1312">Oceanography</option>
-                                                        <option value="1313">Information and Communication Engineering
-                                                        </option>
-                                                        <option value="2100">Islamic Studies</option>
-                                                        <option value="2101">Health Economics</option>
-
+                                                        @foreach ($subjects as $subject)
+                                                            <option value="{{ $subject->code }}">{{ $subject->name }}</option>
+                                                        @endforeach
                                                     </select>
                                                     @error('honors_subject')
                                                         <span class="invalid-feedback"
@@ -1863,9 +1451,9 @@
                                                         <option value="Passed"
                                                             {{ old('honors_result_type') == 'Passed' ? 'selected' : '' }}>
                                                             Passed</option>
-                                                        <option value="GPA4"
-                                                            {{ old('honors_result_type') == 'GPA4' ? 'selected' : '' }}>
-                                                            GPA(out of 4)</option>
+                                                        <option value="CGPA4"
+                                                            {{ old('honors_result_type') == 'CGPA4' ? 'selected' : '' }}>
+                                                            CGPA(out of 4)</option>
 
                                                     </select>
                                                     @error('honors_result_type')
@@ -1984,422 +1572,11 @@
                                                 <label for="masters_subject"
                                                     class="col-sm-4 col-form-label">{{ __('masters_subject') }}</label>
                                                 <div class="col-sm-8 dashboard-dropdown">
-                                                    <select name="masters_subject" id="masters_subject"
-                                                        class="search rt-selectactive w-100-p">
+                                                    <select name="masters_subject" id="masters_subject" class="search rt-selectactive w-100-p">
                                                         <option value="">Please Select</option>
-                                                        <option value="101">Accounting</option>
-                                                        <option value="102">Anthropology</option>
-                                                        <option value="103">Applied Chemistry</option>
-                                                        <option value="104">Applied Physics</option>
-                                                        <option value="105">Applied Mathematics</option>
-                                                        <option value="106">Arabic</option>
-                                                        <option value="107">Archaeology</option>
-                                                        <option value="108">Bangla</option>
-                                                        <option value="109">Banking</option>
-                                                        <option value="110">Biochemistry</option>
-                                                        <option value="111">Botany</option>
-                                                        <option value="112">Business Administration</option>
-                                                        <option value="113">Chemistry</option>
-                                                        <option value="114">Computer Science</option>
-                                                        <option value="115">Clinical Psychology</option>
-                                                        <option value="116">Drama &amp; Music</option>
-                                                        <option value="117">Development Studies</option>
-                                                        <option value="118">Economics</option>
-                                                        <option value="119">Education</option>
-                                                        <option value="120">English</option>
-                                                        <option value="121">Finance</option>
-                                                        <option value="122">Fine Arts</option>
-                                                        <option value="123">Folklore</option>
-                                                        <option value="124">Geography</option>
-                                                        <option value="125">Geology/Environment</option>
-                                                        <option value="126">History</option>
-                                                        <option value="127">Home Economics</option>
-                                                        <option value="128">Hadith</option>
-                                                        <option value="129">International Relations</option>
-                                                        <option value="130">Islamic History and Culture</option>
-                                                        <option value="131">Islamic Studies</option>
-                                                        <option value="132">Information Com. Tech. (ICT)</option>
-                                                        <option value="133">Mass Comm. &amp; Journalism</option>
-                                                        <option value="134">Law/Jurisprudence</option>
-                                                        <option value="135">Information Science and Library Management
-                                                        </option>
-                                                        <option value="136">Language/Linguistic</option>
-                                                        <option value="137">Management</option>
-                                                        <option value="138">Marketing</option>
-                                                        <option value="139">Mathematics</option>
-                                                        <option value="140">Microbiology</option>
-                                                        <option value="141">Marine Science</option>
-                                                        <option value="142">Medical Technology</option>
-                                                        <option value="143">Pali</option>
-                                                        <option value="144">Persian</option>
-                                                        <option value="145">Pharmacy</option>
-                                                        <option value="146">Philosophy</option>
-                                                        <option value="147">Physics</option>
-                                                        <option value="148">Political Science</option>
-                                                        <option value="149">Psychology</option>
-                                                        <option value="150">Public Administration</option>
-                                                        <option value="151">Public Finance</option>
-                                                        <option value="152">Population Science</option>
-                                                        <option value="153">Peace &amp; Conflict</option>
-                                                        <option value="154">Pharmaceutical Chemistry</option>
-                                                        <option value="155">Sanskrit</option>
-                                                        <option value="156">Social Welfare/Social Work</option>
-                                                        <option value="157">Sociology</option>
-                                                        <option value="158">Soil Water and Environment Science</option>
-                                                        <option value="159">Statistics</option>
-                                                        <option value="160">Tafsir</option>
-                                                        <option value="161">Urdu</option>
-                                                        <option value="162">Urban Development</option>
-                                                        <option value="163">World Religion</option>
-                                                        <option value="164">Women Studies</option>
-                                                        <option value="165">Water &amp; Environment Science</option>
-                                                        <option value="166">Zoology</option>
-                                                        <option value="167">Genetic and Breeding</option>
-                                                        <option value="168">International Law</option>
-                                                        <option value="169">Akaid</option>
-                                                        <option value="170">Graphics</option>
-                                                        <option value="171">Fikha</option>
-                                                        <option value="172">Modern Arabic</option>
-                                                        <option value="173">History of Music</option>
-                                                        <option value="174">Drawing and Printing</option>
-                                                        <option value="175">Industrial Arts</option>
-                                                        <option value="176">Ethics</option>
-                                                        <option value="177">Forestry</option>
-                                                        <option value="178">Ayurvedic</option>
-                                                        <option value="179">Unani</option>
-                                                        <option value="180">Television, Film and Photography</option>
-                                                        <option value="181">Women and Gender Studies</option>
-                                                        <option value="182">Criminology</option>
-                                                        <option value="183">Communication Disorders</option>
-                                                        <option value="184">Computer Engineering</option>
-                                                        <option value="185">Computer Science &amp; Engineering</option>
-                                                        <option value="186">Computer Science &amp; Information
-                                                            Technology</option>
-                                                        <option value="187">Information Technology</option>
-                                                        <option value="188">Geology/Geology and Mining</option>
-                                                        <option value="189">Environmental science</option>
-                                                        <option value="190">Genetic Engineering and Biotechnology
-                                                        </option>
-                                                        <option value="191">Materials Science &amp; Engineering
-                                                        </option>
-                                                        <option value="192">Finance and Banking</option>
-                                                        <option value="201">Agriculture</option>
-                                                        <option value="202">Agriculture Chemistry</option>
-                                                        <option value="203">Agriculture Co-operatives</option>
-                                                        <option value="204">Agriculture Economics</option>
-                                                        <option value="205">Agriculture Engineering</option>
-                                                        <option value="206">Agriculture Finance</option>
-                                                        <option value="207">Agriculture Marketing</option>
-                                                        <option value="208">Agriculture Science</option>
-                                                        <option value="209">Agriculture Soil Science</option>
-                                                        <option value="210">Animal Husbandry</option>
-                                                        <option value="211">Agronomy &amp; Aquaculture</option>
-                                                        <option value="212">Agronomy &amp; Aquaculture Extension
-                                                        </option>
-                                                        <option value="213">Anatomy &amp; Histology</option>
-                                                        <option value="214">Agronnomy</option>
-                                                        <option value="215">Anatomology</option>
-                                                        <option value="216">Animal Breeding &amp; Genetic</option>
-                                                        <option value="217">Animal Science</option>
-                                                        <option value="218">Animal Nutrition</option>
-                                                        <option value="220">Agriculture Water Management</option>
-                                                        <option value="221">Agriculture Extension</option>
-                                                        <option value="223">Agro Forestry</option>
-                                                        <option value="225">Agriculture Statistics</option>
-                                                        <option value="226">Agr.Co-operative &amp; Marketing</option>
-                                                        <option value="227">Bio-Technology</option>
-                                                        <option value="228">Corp Botany</option>
-                                                        <option value="229">Dairy Science</option>
-                                                        <option value="230">Doc.of Veterinary Science</option>
-                                                        <option value="231">Fisheries</option>
-                                                        <option value="232">Fisheries &amp; Aquaculture</option>
-                                                        <option value="233">Fisheries Biology</option>
-                                                        <option value="234">Fisheries Management</option>
-                                                        <option value="235">Fisheries Technology</option>
-                                                        <option value="236">Forestry</option>
-                                                        <option value="237">Farm Power &amp; Machinery</option>
-                                                        <option value="238">Food Tech. &amp; Rural Industry</option>
-                                                        <option value="239">Farm Structure</option>
-                                                        <option value="241">Horticulture</option>
-                                                        <option value="242">Livestock</option>
-                                                        <option value="243">Microbiology &amp; Hygenic</option>
-                                                        <option value="244">Production Economics</option>
-                                                        <option value="245">Plant Pathology</option>
-                                                        <option value="246">Paratrology</option>
-                                                        <option value="247">Poultry Science</option>
-                                                        <option value="248">Rural Sociology</option>
-                                                        <option value="249">Surgery &amp; Obstate</option>
-                                                        <option value="250">Business Studies</option>
-                                                        <option value="260">Accounting</option>
-                                                        <option value="261">Banking</option>
-                                                        <option value="262">Business Administration</option>
-                                                        <option value="263">Finance</option>
-                                                        <option value="264">Management</option>
-                                                        <option value="265">Marketing</option>
-                                                        <option value="266">Management Information Systems (MIS)
-                                                        </option>
-                                                        <option value="267">Banking and Insurance</option>
-                                                        <option value="268">Accounting &amp; Information Systems (AIS)
-                                                        </option>
-                                                        <option value="269">International Business</option>
-                                                        <option value="270">Tourism and Hospitality Management</option>
-                                                        <option value="271">Human Resource Management</option>
-                                                        <option value="272">Organization Strategy and Leadership
-                                                        </option>
-                                                        <option value="273">Finance and Banking</option>
-                                                        <option value="300">Electronics &amp; Telecommunication
-                                                            Engineering</option>
-                                                        <option value="301">Architecture</option>
-                                                        <option value="302">Chemical</option>
-                                                        <option value="303">Civil</option>
-                                                        <option value="304">Computer Science</option>
-                                                        <option value="305">Electrical</option>
-                                                        <option value="306">Electrical &amp; Electronics</option>
-                                                        <option value="307">Electronic</option>
-                                                        <option value="308">Genetic Engineering</option>
-                                                        <option value="309">Industrial</option>
-                                                        <option value="310">Leather Technology</option>
-                                                        <option value="311">Marine</option>
-                                                        <option value="312">Mechanical</option>
-                                                        <option value="313">Metallurgy</option>
-                                                        <option value="314">Mineral</option>
-                                                        <option value="315">Mining</option>
-                                                        <option value="316">Naval Architecture</option>
-                                                        <option value="317">Physical Planning</option>
-                                                        <option value="318">Regional Planning</option>
-                                                        <option value="319">Structural</option>
-                                                        <option value="320">Textile Technology</option>
-                                                        <option value="321">Town Planning</option>
-                                                        <option value="322">Urban &amp; Regional Planning</option>
-                                                        <option value="323">Tele-Comunication Engineering</option>
-                                                        <option value="324">Computer Science &amp; Engineering</option>
-                                                        <option value="325">Microwave Engineering</option>
-                                                        <option value="326">A &amp; B Section of A.M.I.E</option>
-                                                        <option value="327">Environmental Engineering</option>
-                                                        <option value="328">Aeronautical Engineering</option>
-                                                        <option value="329">Software Engineering</option>
-                                                        <option value="391">Medicine &amp; Surgery</option>
-                                                        <option value="392">Dental Surgery</option>
-                                                        <option value="393">Computer Engineering</option>
-                                                        <option value="394">Computer Science &amp; Engineering</option>
-                                                        <option value="395">Computer Science &amp; Information
-                                                            Technology</option>
-                                                        <option value="396">Information and Communication Technology
-                                                        </option>
-                                                        <option value="397">Electronics &amp; Communication Engineering
-                                                        </option>
-                                                        <option value="398">Water Resource Engineering</option>
-                                                        <option value="399">Materials Science &amp; Engineering
-                                                        </option>
-                                                        <option value="991">B.A</option>
-                                                        <option value="992">B.S.S</option>
-                                                        <option value="993">B.SC</option>
-                                                        <option value="994">B.com</option>
-                                                        <option value="995">L.L.B</option>
-                                                        <option value="996">B.B.S</option>
-                                                        <option value="999">Others</option>
-                                                        <option value="1011">A &amp; B Section of A.M.I.E</option>
-                                                        <option value="1022">Accounting</option>
-                                                        <option value="1033">Accounting and Information System</option>
-                                                        <option value="1044">Aeronautical Engineering</option>
-                                                        <option value="1055">Agr.Co-Operative &amp; Marketing</option>
-                                                        <option value="1077">Agriculture</option>
-                                                        <option value="1088">Agriculture Chemistry</option>
-                                                        <option value="1099">Agriculture Co-operatives</option>
-                                                        <option value="1100">Agriculture Economics</option>
-                                                        <option value="1111">Agriculture Engineering</option>
-                                                        <option value="1122">Agriculture Extension</option>
-                                                        <option value="1125">Horticulture</option>
-                                                        <option value="1126">Human Resource Management</option>
-                                                        <option value="1127">Industrial</option>
-                                                        <option value="1133">Agriculture Finance</option>
-                                                        <option value="1134">Agriculture Marketing</option>
-                                                        <option value="1135">Agriculture Science</option>
-                                                        <option value="1136">Agriculture Soil Science</option>
-                                                        <option value="1137">Agriculture Statistics</option>
-                                                        <option value="1138">Agriculture Water Management</option>
-                                                        <option value="1139">Agro Forestry</option>
-                                                        <option value="1140">Agronnomy</option>
-                                                        <option value="1141">Agronomy &amp; Aquaculture</option>
-                                                        <option value="1142">Agronomy &amp; Aquaculture Extension
-                                                        </option>
-                                                        <option value="1143">Akaid</option>
-                                                        <option value="1144">Anatomology</option>
-                                                        <option value="1145">Anatomy &amp; Histology</option>
-                                                        <option value="1146">Animal Breeding &amp; Genetic</option>
-                                                        <option value="1147">Animal Husbandry</option>
-                                                        <option value="1148">Animal Nutrition</option>
-                                                        <option value="1149">Animal Science</option>
-                                                        <option value="1150">Anthropology</option>
-                                                        <option value="1151">Applied Chemistry</option>
-                                                        <option value="1152">Applied Mathematics</option>
-                                                        <option value="1153">Applied Physics</option>
-                                                        <option value="1154">Arabic</option>
-                                                        <option value="1155">Archaeology</option>
-                                                        <option value="1156">Architecture</option>
-                                                        <option value="1157">B.A</option>
-                                                        <option value="1158">B.S.S</option>
-                                                        <option value="1159">B.Sc</option>
-                                                        <option value="1160">B.com</option>
-                                                        <option value="1161">Bangla</option>
-                                                        <option value="1162">Banking</option>
-                                                        <option value="1163">Banking</option>
-                                                        <option value="1164">Banking and Insurance</option>
-                                                        <option value="1165">Bio-Technology</option>
-                                                        <option value="1166">Biochemistry</option>
-                                                        <option value="1167">Botany</option>
-                                                        <option value="1168">Business Administration</option>
-                                                        <option value="1169">Business Studies</option>
-                                                        <option value="1170">Chemical</option>
-                                                        <option value="1171">Chemistry</option>
-                                                        <option value="1172">Civil</option>
-                                                        <option value="1173">Clinical Psychology</option>
-                                                        <option value="1174">Communication Disorders</option>
-                                                        <option value="1175">Computer Engineering</option>
-                                                        <option value="1176">Computer Science</option>
-                                                        <option value="1177">Computer Science &amp; Engineering</option>
-                                                        <option value="1178">Computer Science &amp; Information
-                                                            Technology</option>
-                                                        <option value="1179">Corp Botany</option>
-                                                        <option value="1180">Criminology</option>
-                                                        <option value="1181">Criminology &amp; Police Science</option>
-                                                        <option value="1182">Dairy Science</option>
-                                                        <option value="1183">Dental Surgery</option>
-                                                        <option value="1184">Development Studies</option>
-                                                        <option value="1185">Doc.of Veterinary Science</option>
-                                                        <option value="1186">Drama &amp; Music</option>
-                                                        <option value="1187">Drawing and Printing</option>
-                                                        <option value="1188">Economics</option>
-                                                        <option value="1189">Education</option>
-                                                        <option value="1190">Electrical</option>
-                                                        <option value="1191">Electrical &amp; Electronics</option>
-                                                        <option value="1192">Electronic</option>
-                                                        <option value="1193">Electronics &amp; Communication Engineering
-                                                        </option>
-                                                        <option value="1194">English</option>
-                                                        <option value="1195">Environmental Engineering</option>
-                                                        <option value="1196">Environmental science</option>
-                                                        <option value="1197">Ethics</option>
-                                                        <option value="1198">Farm Power &amp; Machinery</option>
-                                                        <option value="1199">Farm Structure</option>
-                                                        <option value="1200">Fikha</option>
-                                                        <option value="1201">Finance</option>
-                                                        <option value="1202">Finance</option>
-                                                        <option value="1203">Finance and Banking</option>
-                                                        <option value="1204">Finance and Banking</option>
-                                                        <option value="1205">Fine Arts</option>
-                                                        <option value="1206">Fisheries</option>
-                                                        <option value="1207">Fisheries &amp; Aquaculture</option>
-                                                        <option value="1208">Fisheries Biology</option>
-                                                        <option value="1209">Fisheries Management</option>
-                                                        <option value="1210">Fisheries Technology</option>
-                                                        <option value="1211">Folklore</option>
-                                                        <option value="1212">Food Tech. &amp; Rural Industry</option>
-                                                        <option value="1213">Forestry</option>
-                                                        <option value="1214">Genetic Engineering</option>
-                                                        <option value="1215">Genetic Engineering and Biotechnology
-                                                        </option>
-                                                        <option value="1216">Genetic and Breeding</option>
-                                                        <option value="1217">Geography</option>
-                                                        <option value="1218">Geography and Environmental Science
-                                                        </option>
-                                                        <option value="1219">Geology/Geology and Mining</option>
-                                                        <option value="1220">Graphics</option>
-                                                        <option value="1221">Hadith</option>
-                                                        <option value="1222">History</option>
-                                                        <option value="1223">History of Music</option>
-                                                        <option value="1224">Home Economics</option>
-                                                        <option value="1225">Horticulture</option>
-                                                        <option value="1226">Human Resource Management</option>
-                                                        <option value="1227">Industrial</option>
-                                                        <option value="1228">Industrial Arts</option>
-                                                        <option value="1229">Information Science and Library Management
-                                                        </option>
-                                                        <option value="1230">Information Technology</option>
-                                                        <option value="1231">Information and Communication Technology
-                                                        </option>
-                                                        <option value="1232">International Business</option>
-                                                        <option value="1233">International Law</option>
-                                                        <option value="1234">International Relations</option>
-                                                        <option value="1235">Islamic History and Culture</option>
-                                                        <option value="1236">Islamic Studies</option>
-                                                        <option value="1237">L.L.B</option>
-                                                        <option value="1238">Language/Linguistic</option>
-                                                        <option value="1239">Law/Jurisprudence</option>
-                                                        <option value="1240">Leather Technology</option>
-                                                        <option value="1241">Livestock</option>
-                                                        <option value="1242">Management</option>
-                                                        <option value="1243">Management Information Systems</option>
-                                                        <option value="1250">Marine</option>
-                                                        <option value="1251">Marine Science</option>
-                                                        <option value="1252">Marketing</option>
-                                                        <option value="1253">Mass Comm. &amp; Journalism</option>
-                                                        <option value="1254">Materials Science &amp; Engineering
-                                                        </option>
-                                                        <option value="1255">Mathematics</option>
-                                                        <option value="1256">Mechanical</option>
-                                                        <option value="1257">Medical Technology</option>
-                                                        <option value="1258">Medicine &amp; Surgery</option>
-                                                        <option value="1259">Metallurgy</option>
-                                                        <option value="1260">Microbiology</option>
-                                                        <option value="1261">Microbiology &amp; Hygenic</option>
-                                                        <option value="1262">Microwave Engineering</option>
-                                                        <option value="1263">Mineral</option>
-                                                        <option value="1264">Mining</option>
-                                                        <option value="1265">Modern Arabic</option>
-                                                        <option value="1266">Naval Architecture</option>
-                                                        <option value="1267">Organization Strategy and Leadership
-                                                        </option>
-                                                        <option value="1268">Pali</option>
-                                                        <option value="1269">Paratrology</option>
-                                                        <option value="1270">Peace &amp; Conflict</option>
-                                                        <option value="1271">Persian</option>
-                                                        <option value="1272">Pharmaceutical Chemistry</option>
-                                                        <option value="1273">Pharmacy</option>
-                                                        <option value="1274">Philosophy</option>
-                                                        <option value="1275">Physical Planning</option>
-                                                        <option value="1276">Physics</option>
-                                                        <option value="1277">Plant Pathology</option>
-                                                        <option value="1278">Political Science</option>
-                                                        <option value="1279">Population Science</option>
-                                                        <option value="1280">Poultry Science</option>
-                                                        <option value="1281">Production Economics</option>
-                                                        <option value="1282">Psychology</option>
-                                                        <option value="1283">Public Administration</option>
-                                                        <option value="1284">Public Finance</option>
-                                                        <option value="1285">Regional Planning</option>
-                                                        <option value="1286">Rural Sociology</option>
-                                                        <option value="1287">Sanskrit</option>
-                                                        <option value="1288">Social Welfare/Social Work</option>
-                                                        <option value="1289">Sociology</option>
-                                                        <option value="1290">Software Engineering</option>
-                                                        <option value="1291">Soil Water and Environment Science</option>
-                                                        <option value="1292">Statistics</option>
-                                                        <option value="1293">Structural</option>
-                                                        <option value="1294">Surgery &amp; Obstate</option>
-                                                        <option value="1295">Tafsir</option>
-                                                        <option value="1296">Telecommunication Engineering</option>
-                                                        <option value="1297">Television, Film and Photography</option>
-                                                        <option value="1298">Textile Technology</option>
-                                                        <option value="1299">Tourism and Hospitality Management</option>
-                                                        <option value="1300">Town Planning</option>
-                                                        <option value="1301">Urban &amp; Regional Planning</option>
-                                                        <option value="1302">Urban Development</option>
-                                                        <option value="1303">Urdu</option>
-                                                        <option value="1304">Water &amp; Environment Science</option>
-                                                        <option value="1305">Water Resource Engineering</option>
-                                                        <option value="1306">Women Studies</option>
-                                                        <option value="1307">Women and Gender Studies</option>
-                                                        <option value="1308">World Religion</option>
-                                                        <option value="1309">Zoology</option>
-                                                        <option value="1310">Others</option>
-                                                        <option value="1311">GENDER AND DEVELOPMENT STUDIES</option>
-                                                        <option value="1312">Oceanography</option>
-                                                        <option value="1313">Information and Communication Engineering
-                                                        </option>
-                                                        <option value="2100">Islamic Studies</option>
-                                                        <option value="2101">Health Economics</option>
-
+                                                        @foreach ($subjects as $subject)
+                                                            <option value="{{ $subject->code }}">{{ $subject->name }}</option>
+                                                        @endforeach
                                                     </select>
                                                     @error('masters_subject')
                                                         <span class="invalid-feedback"
@@ -2450,12 +1627,9 @@
                                                         <option value="Passed"
                                                             {{ old('masters_result_type') == 'Passed' ? 'selected' : '' }}>
                                                             Passed</option>
-                                                        <option value="GPA4"
-                                                            {{ old('masters_result_type') == 'GPA4' ? 'selected' : '' }}>
+                                                        <option value="CGPA4"
+                                                            {{ old('masters_result_type') == 'CGPA4' ? 'selected' : '' }}>
                                                             GPA(out of 4)</option>
-                                                        <option value="GPA5"
-                                                            {{ old('masters_result_type') == 'GPA5' ? 'selected' : '' }}>
-                                                            GPA(out of 5)</option>
                                                     </select>
                                                     @error('masters_result_type')
                                                         <span class="invalid-feedback"
@@ -2986,13 +2160,41 @@
             });
         }
 
+        // A $( document ).ready() block.
+        // $( document ).ready(function() {
+        //     var subjects =  []; 
+        //     let subject={};
+        //     $("#honors_subject > option").each(function() {
+        //         if(this.value){
+        //             subject= {
+        //             code: this.value,
+        //             text: this.text
+        //         };
+        //         subjects.push(subject);
+        //         }
+                
+        //     });
+        //     $.ajax({
+        //         type: "post",
+        //         url: "{{ route('website.subject') }}",
+        //         data: {
+        //             subjects: subjects,
+        //             _token: '{{ csrf_token() }}'
+        //         },
+        //         dataType: "json",
+        //         success: function (response) {
+        //             console.log(response);
+        //         }
+        //     });
+        // });
+
 
 
 
         // in change masters result type open cgpa input box
         $(document).on("change", "#masters_result_type", function() {
             var masters_result_type = $(this).val();
-            if (masters_result_type == "GPA4" || masters_result_type == "GPA5") {
+            if (masters_result_type == "CGPA4") {
                 $("#masters_cgpa").removeClass("d-none");
             } else {
                 $("#masters_cgpa").addClass("d-none");
@@ -3002,7 +2204,7 @@
         // in change honors result type open cgpa input box
         $(document).on("change", "#honors_result_type", function() {
             var honors_result_type = $(this).val();
-            if (honors_result_type == "GPA4" || honors_result_type == "GPA5") {
+            if (honors_result_type == "CGPA4") {
                 $("#honors_cgpa").removeClass("d-none");
             } else {
                 $("#honors_cgpa").addClass("d-none");
@@ -3012,7 +2214,7 @@
         // in change HSC result type open cgpa input box
         $(document).on("change", "#hsc_result_type", function() {
             var hsc_result_type = $(this).val();
-            if (hsc_result_type == "GPA4" || hsc_result_type == "GPA5") {
+            if (hsc_result_type == "GPA5") {
                 $("#hsc_cgpa").removeClass("d-none");
             } else {
                 $("#hsc_cgpa").addClass("d-none");
@@ -3022,7 +2224,7 @@
         // in change SSC result type open cgpa input box
         $(document).on("change", "#ssc_result_type", function() {
             var ssc_result_type = $(this).val();
-            if (ssc_result_type == "GPA4" || ssc_result_type == "GPA5") {
+            if (ssc_result_type == "GPA5") {
                 $("#ssc_cgpa").removeClass("d-none");
             } else {
                 $("#ssc_cgpa").addClass("d-none");

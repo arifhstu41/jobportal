@@ -56,9 +56,9 @@
                         <div class="row">
                             <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
                                 <h5 class="mb-3">{{ __('billing_address') }}</h5>
-                                <h6 class="mb-2">{{ $order->user->name }}</h6>
+                                <h6 class="mb-2">{{ $order->user->name ?? '' }}</h6>
                                 <p class="mb-0"> <strong>{{ __('email') }}: </strong><a
-                                        href="mailto:{{ $order->user->email }}">{{ $order->user->email }}</a>
+                                        href="mailto:{{ $order->user->email ?? '' }}">{{ $order->user->email ?? '' }}</a>
                                 </p>
                             </div>
                             <div class="col-md-6 col-lg-4">

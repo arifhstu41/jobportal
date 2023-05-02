@@ -57,7 +57,7 @@
                                     @foreach ($divisions as $division)
                                         <option value="{{ $division->id }}"
                                             {{ $filter->division == $division->id ? 'selected' : '' }}>
-                                            {{ $division->name }}</option>
+                                            {{ $division->nameEn }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -68,11 +68,12 @@
                                     @foreach ($districts as $district)
                                         <option value="{{ $district->id }}"
                                             {{ $filter->district == $district->id ? 'selected' : '' }}>
-                                            {{ $district->name }}</option>
+                                            {{ $district->nameEn }}</option>
                                     @endforeach
 
                                 </select>
                             </div>
+                            {{-- @dd($upazilas) --}}
                             <div class="col-4">
                                 <label>{{ __('thana') }}</label>
                                 <select name="thana" id="thana" class="form-control w-100-p">
@@ -80,7 +81,7 @@
                                     @foreach ($upazilas as $thana)
                                         <option value="{{ $thana->id }}"
                                             {{ $filter->upazila == $thana->id ? 'selected' : '' }}>
-                                            {{ $thana->name }}</option>
+                                            {{ $thana->nameEn }}</option>
                                     @endforeach
 
                                 </select>
@@ -96,7 +97,7 @@
                                     @foreach ($unions as $union)
                                         <option value="{{ $union->id }}"
                                             {{ $filter->pourosova_union_porishod == $union->id ? 'selected' : '' }}>
-                                            {{ $union->name }}</option>
+                                            {{ $union->nameEn }}</option>
                                     @endforeach
 
                                 </select>
@@ -105,10 +106,10 @@
                                 <label>{{ __('ward_no') }}</label>
                                 <select name="ward_no" id="ward_no" class="form-control w-100-p">
                                     <option value="">Please Select</option>
-                                    @foreach ($wards as $key => $ward)
-                                        <option value="{{ $ward }}"
-                                            {{ $filter->ward_no == $ward ? 'selected' : '' }}>
-                                            Ward-{{ $ward }}</option>
+                                    @foreach ($wards as $ward)
+                                        <option value="{{ $ward->id }}"
+                                            {{ $filter->ward_no == $ward->id ? 'selected' : '' }}>
+                                            Ward-{{ $ward->nameEn }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -358,10 +359,12 @@
             var district_id = $("#district").val();
             var thana = $("#thana").val();
             var pourosova_union_porishod = $("#pourosova_union_porishod").val();
+            var ward_no = $("#ward_no").val();
 
             get_district(division, district_id);
             get_thana(district_id, thana);
             get_union(thana, pourosova_union_porishod);
+            get_ward(pourosova_union_porishod, ward_no);
 
             console.log("division" + division)
             console.log("district_id" + district_id)
@@ -462,6 +465,27 @@
                 }
             });
 
+        }
+
+        $(document).on("change", "#pourosova_union_porishod", function() {
+            var pourosova_id = $(this).val();
+            get_ward(pourosova_id, 0);
+        })
+
+        function get_ward(pourosova_id, ward_id) {
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "{{ route('website.paurasava.get.data') }}",
+                data: {
+                    pourosova_id: pourosova_id,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    $("#ward_no").html(response.html);
+                    $("#ward_no").val(ward_id);
+                }
+            });
         }
     </script>
 @endsection
