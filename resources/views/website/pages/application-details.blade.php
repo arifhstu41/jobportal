@@ -18,7 +18,7 @@
     table td,
     table th {
         /* padding: 10px; */
-        border: 1px solid #ddd;
+        border: 1px solid #2e3397;
         /* background-color: #f2f2f2; */
     }
 
@@ -81,12 +81,16 @@
             font-family: bangla
         } */
 
-    @font-face {
+    /* @font-face {
         font-family: 'preeti';
         font-style: normal;
         font-weight: 400;
         src: url('".$public_path."/fonts/PREETI.TTF') format('ttf');
-    }
+    } */
+
+    /* @font-face{
+        font-family: Arial, Helvetica, sans-serif;
+    } */
 
     /* @page {
         margin-left: 4%;
@@ -97,25 +101,38 @@
     th {
         padding: 6px;
     }
+    .fulljustify {
+    	text-align:justify;
+    }
+    .fulljustify:after {
+        content: "";
+        display: inline-block;
+        width: 100%;	
+    }
+    .jutified-text {
+        /* height: 80px; */
+        overflow: hidden;
+        /* line-height: 80px;  */
+    }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
 <style>
-    *{
+    * {
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
     }
 </style>
 <div id="application-print">
     <div class="row">
-        <table>
-            <tbody style="">
-                <tr>
-                    <td style="text-align: left;border-right: 0;  padding:0px;">
-                        <img style="margin: 0px; padding:0px; padding-left:10px; border-radius: 3px;" src="images/WFB.png"
-                            alt="" width="150px" height="auto">
-                    </td>
-                    @if ($job->company->user->name == 'Welfare Family Bangladesh Ltd.' || str_contains($job->company->user->name, 'Welfare'))
+        <table style="font-family: Arial, Helvetica, sans-serif">
+            <tbody>
+                @if ($job->company->user->name == 'Welfare Family Bangladesh Ltd.' || str_contains($job->company->user->name, 'Welfare'))
+                    <tr style="border:#2e3397 1px solid; min-height: 150px; vertical-align: baseline">
+                        {{-- <td style="text-align: left;border-right: 0;  padding:0px;">
+                            <img style="margin: 0px; padding:0px; padding-left:10px; border-radius: 3px;" src="images/wfb-new-logo.png"
+                                alt="" width="150px" height="auto">
+                        </td>
                         <td style="text-align: center; border-right: 0; border-left: 0px;  padding:0px; color: #2e3397">
                             <h2 style="margin-bottom: 0px; padding-bottom: 0px;">Welfare Family Bangladesh</h2>
                             <h5>Welfare Technologies Services Limited</h5>
@@ -124,9 +141,25 @@
                             <p style="font-size: 10px">Corporate Head Office: Chattogram, Bangladesh</p>
                             <p style="font-size: 10px">www.welfarefamily.org</p>
                         </td>
-                    @else
+                        <td style="text-align: right; border-left: 0px;  padding:0px; padding-right: 10px; ">
+                            <img style="margin: 0px; padding:0px; padding-left:10px; border-radius: 3px; "
+                                src="images/Welfare.png" alt="" width="150px" height="auto">
+                        </td> --}}
+                        <td style="text-align: center">
+                            <img src="images/pad.png" alt="Welfare Pad" style="width: 100%">
+                        </td>
+                    </tr>
+                @else
+                    <tr style="border:#2e3397 1px solid; min-height: 150px; vertical-align: baseline">
+                        <td style="text-align: center; vertical-align: baseline; border-right:0;width:150px">
+                            <img style="border-radius: 3px; padding:15px 15px 0px 15px;" src="images/wfb-new-logo.png"
+                                alt="" width="120px" height="auto">
+                        </td>
                         <td style="text-align: center; border-right: 0; border-left: 0px;  padding:0px; color: #2e3397">
-                            <h2 style="margin-bottom: 0px; padding-bottom: 0px;">{{ $job->company->user->name }}</h2>
+                            <h2 style="margin-bottom: 0px; padding-bottom: 0px; ">
+                                <strong>{{ $job->company->user->name }}</strong>
+                            </h2>
+                            <hr style="color: #2e3397; width: 100%; height:3px; margin:3px; padding:0px; ">
                             <h5
                                 style="margin-top:0px; padding-top:0px; padding-left: 5px; padding-right: 5px; text-align: center; word-wrap: break-word;">
                                 {{ $job->company->full_address ?? '' }}</h5>
@@ -134,17 +167,20 @@
                                 {{ $job->company->website ?? '' }}
                             </p>
                         </td>
-                    @endif
-                    <td style="text-align: right; border-left: 0px;  padding:0px; padding-right: 10px; ">
-                        <img style="margin: 0px; padding:0px; padding-left:10px; border-radius: 3px; "
-                            src="images/Welfare.png" alt="" width="150px" height="auto">
-                    </td>
+                        <td style="text-align: right; border-left: 0px;  padding:15px 15px 15px 0px; width:150px">
+                            <img style="margin: 0px; padding:0px; padding-left:0px; border-radius: 3px; "
+                                src="{{ $job->company->logo ?? 'images/Welfare-new-logo.png' }}" alt=""
+                                width="120px" height="auto">
+                        </td>
+                    </tr>
+                @endif
 
-                </tr>
+
+
             </tbody>
         </table>
     </div>
-
+    {{-- @dd("sfdsf") --}}
     <div class="row">
         <table style="padding-top: 4px; margin-top: 10px">
             <tbody>
@@ -357,7 +393,7 @@
 
                         <tr>
                             <td>{{ __($education->level) ?? '' }}</td>
-                            <td>{{ $board }}</td>
+                            <td>{{ $board ?? 'N/A' }}</td>
                             @if ($education->subject)
                                 @php
                                     $subject = \App\Models\Subject::where('code', $education->subject)
@@ -368,6 +404,7 @@
                             <td>{{ $education->group ? $education->group : ($education->subject ? $subject : ($education->degree ? $education->degree : '')) }}
                             </td>
                             <td>{{ $education->result_gpa ?? 'N/A' }}</td>
+                            <td>{{ $education->roll ?? 'N/A' }}</td>
                             <td>{{ $education->year ?? 'N/A' }}</td>
                             <td>{{ $education->course_duration ?? 'N/A' }}</td>
                         </tr>
@@ -475,10 +512,13 @@
         </table>
     @endif --}}
 
-    <div class="row" style="margin-top:20px">
-        <i>I declare that the information provided in this form are correct, true and complete to the best of my knowledge and belief. If any information is found false, incorrect, incomplete or if any ineligibility is detected before or after the examination, any action can be taken against me by the authority including cancellation of my candidature.</i>
+    <div class="row" style="margin-top:20px;" class="jutified-text fulljustify">
+        <i>I declare that the information provided in this form are correct, true and complete to the best of my
+            knowledge and belief. If any information is found false, incorrect, incomplete or if any ineligibility is
+            detected before or after the examination, any action can be taken against me by the authority including
+            cancellation of my candidature.</i>
     </div>
-    
+
     <div class="row" style="margin-top:20px; text-align: right">
         <img src="{{ public_path($candidate->signature) }}" width="150" height="50" alt="Profile Picture"
             style="margin: 0px; padding:0px;">
@@ -494,12 +534,10 @@
 
 
     <div class="row" style="margin-top:20px">
-        <table style="padding-top: 4px; border-collapse:collapse; color:white"
-            cellspacing="0">
+        <table style="padding-top: 4px; border-collapse:collapse; color:white" cellspacing="0">
             <thead style="display:block; page-break-inside:avoid;">
                 <tr style="background-color: white">
-                    <th colspan="4"
-                        style="text-align: left; margin:4px; padding:4px; color:black">
+                    <th colspan="4" style="text-align: left; margin:4px; padding:4px; color:black">
                         <Strong>Congratulations! Application Submitted Successfully!</Strong>
                     </th>
                 </tr>
@@ -511,8 +549,8 @@
             </style>
             <tbody>
                 <tr>
-                    <td colspan="4" style=" margin:5px; padding:5px">
-                        <p style="color: #2e3397; text-align: justify;">
+                    <td colspan="4" style=" margin:5px; padding:5px; text-align: justify">
+                        <p style="color: #2e3397; text-align: justify; align-content: space-between" class="jutified-text" id="fulljustify">
                             ওয়েলফেয়ার ফ্যামিলি বাংলাদেশ ও বেসরকারি উন্নয়ন সংস্থা (NGO) এবং কোম্পানির যৌথ উদ্যোগে
                             (বাংলাদেশ গেজেটে প্রকাশিত বিজ্ঞপ্তির আলোকে ও চাকরির আবেদনকারীরা এককালীন অফেরতযোগ্য
                             রেজিস্ট্রেশন ফি প্রদান করে) 'সাসটেইনেবল ডেভেলপমেন্ট পলিসি' (SDP) ও সোস্যাল অ্যান্ড ইকোনমিক
@@ -530,8 +568,11 @@
                             href="https://play.google.com/store/search?q=my+welfare+app&c=apps&hl=en&gl=US"><img
                                 src="{{ public_path('images/play_store.png') }}" alt=""
                                 style="width:150px; height:50px"></a> </td>
-                    <td style="width:150px; border-left:#2e3397; border-right:#2e3397;  text-align: center; color: #2e3397"><span> Scan To
-                            Download <br> <strong>My Welfare App</strong></span></td>
+                    <td
+                        style="width:150px; border-left:#2e3397; border-right:#2e3397;  text-align: center; color: #2e3397">
+                        <span> Scan To
+                            Download <br> <strong>My Welfare App</strong></span>
+                    </td>
                     <td
                         style="width:150px; border-top:#2e3397; border-left:#2e3397; padding-right: 5px; padding-bottom:5px">
                         <img src="{{ public_path('images/qrcode.png') }}" alt=""

@@ -791,16 +791,16 @@ class WebsiteController extends Controller
             ],
             'default_font' => 'bangla',
         ]); //pagev format
-        $qrcode = QrCode::size(50)->generate(route('verify.application', ['job_id' => $job->id, 'candidate_id' => $candidate->id]));
-        $code = (string)$qrcode;
-        $code = substr($code, 38);
+        // $qrcode = QrCode::size(50)->generate(route('verify.application', ['job_id' => $job->id, 'candidate_id' => $candidate->id]));
+        // $code = (string)$qrcode;
+        // $code = substr($code, 38);
         $stylesheet = public_path('css/custom.css'); // external css
-        $code       = view('website.pages.application-details', compact('job', 'candidate', 'applied')); //table part
+        $page       = view('website.pages.application-details', compact('job', 'candidate', 'applied')); //table part
         $mpdf->WriteHTML($stylesheet, 1);
         $title = $candidate->user->username . ".pdf";
         $mpdf->SetTitle($title);
 
-        $mpdf->WriteHTML($code);
+        $mpdf->WriteHTML($page);
         $mpdf->SetHTMLFooter('<span style="color: #2e3397">© 2023 Welfare Family Bangladesh All Rights Reserved.</span>');
         $mpdf->Output($title, 'I');
     }

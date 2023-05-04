@@ -137,10 +137,32 @@ class CandidateController extends Controller
             $wards[] = $i;
         }
 
-        $districts = DB::table( 'districts' )->get();
-        $divisions = DB::table( 'divisions' )->get();
-        $upazilas  = DB::table( 'upazilas' )->get();
-        $unions    = DB::table( 'unions' )->get();
+        $divisions = DB::table('tblgeocode')
+        ->where("geoLevelId", "1")
+        ->orderBy('nameEn', 'asc')
+        ->get();
+        $districts = DB::table('tblgeocode')
+        ->where("geoLevelId", "2")
+        ->orderBy('nameEn', 'asc')
+        ->get();
+
+        $upazilas = DB::table('tblgeocode')
+        ->where("geoLevelId", "3")
+        ->orderBy('nameEn', 'asc')
+        ->get();
+
+        $unions = DB::table('tblgeocode')
+        ->where("geoLevelId", "4")
+        ->orderBy('nameEn', 'asc')
+        ->get();
+
+        $wards = DB::table('tblgeocode')
+        ->where("geoLevelId", "5")
+        ->orderBy('nameEn', 'asc')
+        ->get();
+        // $districts = DB::table( 'districts' )->get();
+        // $upazilas  = DB::table( 'upazilas' )->get();
+        // $unions    = DB::table( 'unions' )->get();
 
         return view( 'admin.candidate.index', compact( 'candidates', 'divisions', 'districts', 'unions', 'upazilas', 'filter', 'wards' ) );
     }
