@@ -31,6 +31,7 @@ use App\Models\CandidateLanguage;
 use App\Http\Traits\Candidateable;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\AppliedJob;
 use App\Models\CandidateEducation;
 use App\Models\Subject;
 use Illuminate\Support\Facades\Auth;
@@ -765,6 +766,7 @@ class WebsiteController extends Controller
     {
         $job = Job::find($job_id);
         $candidate = auth('user')->user()->candidate;
+        $applied= AppliedJob::where('job_id', $job_id)->where('candidate_id', $candidate->id)->first();
         $data['candidate'] = $candidate;
         $data['job'] = $job;
         $data['message'] = "dsfdsfd";
@@ -789,16 +791,17 @@ class WebsiteController extends Controller
             ],
             'default_font' => 'bangla',
         ]); //pagev format
-        $qrcode = QrCode::size(50)->generate(route('verify.application', ['job_id' => $job->id, 'candidate_id' => $candidate->id]));
-        $code = (string)$qrcode;
-        $code = substr($code, 38);
+        // $qrcode = QrCode::size(50)->generate(route('verify.application', ['job_id' => $job->id, 'candidate_id' => $candidate->id]));
+        // $code = (string)$qrcode;
+        // $code = substr($code, 38);
         $stylesheet = public_path('css/custom.css'); // external css
-        $code       = view('website.pages.application-details', compact('job', 'candidate')); //table part
+        $page       = view('website.pages.application-details', compact('job', 'candidate', 'applied')); //table part
         $mpdf->WriteHTML($stylesheet, 1);
         $title = $candidate->user->username . ".pdf";
         $mpdf->SetTitle($title);
 
-        $mpdf->WriteHTML($code);
+        $mpdf->WriteHTML($page);
+        $mpdf->SetHTMLFooter('<span style="color: #2e3397">© 2023 Welfare Family Bangladesh All Rights Reserved.</span>');
         $mpdf->Output($title, 'I');
     }
 
