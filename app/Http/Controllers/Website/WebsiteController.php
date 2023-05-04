@@ -1101,6 +1101,8 @@ class WebsiteController extends Controller
         }
         $user = Auth::user();
         $subjects= Subject::orderBy('name', 'asc')->get();
+
+        // dd($subjects);
         return view('website.pages.candidate.application-form', compact('candidate', 'user', 'divisions', 'unions', 'upazilas', 'unions', 'wards', 'universities', 'years', 'boards', 'subjects'));
     }
 
@@ -1285,6 +1287,7 @@ class WebsiteController extends Controller
 
         if ($request->psc) {
             $request->validate([
+                'psc_exam_name' => 'required',
                 'psc_roll_no' => 'required',
                 'psc_passing_year' => 'required',
                 'psc_school' => 'required',
@@ -1394,6 +1397,7 @@ class WebsiteController extends Controller
                 $education = new CandidateEducation();
                 $education->candidate_id = $candidate->id;
                 $education->level = "psc";
+                $education->degree = $request->psc_exam_name;
                 $education->roll = $request->psc_roll_no;
                 $education->year = $request->psc_passing_year;
                 $education->institute = $request->psc_school;

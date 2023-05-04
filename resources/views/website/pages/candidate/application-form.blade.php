@@ -790,6 +790,29 @@
                                     </div>
                                     <div class="card-body pt-0">
                                         <div class="form-group form-group-sm row py-1">
+                                            <label for="psc_exam_name"
+                                                class="col-sm-4 col-form-label">{{ __('psc_exam_name') }}</label>
+                                            <div class="col-sm-8">
+                                                <select
+                                                    class="rt-selectactive w-100-p @error('psc_exam_name') is-invalid @enderror"
+                                                    name="psc_exam_name" id="psc_exam_name">
+                                                    <option value="">Please Select</option>
+                                                    <option @if (old('psc_exam_name') == 'PSC') selected @endif
+                                                        value="PSC">
+                                                        {{ __('PSC') }}
+                                                    </option>
+                                                    <option @if (old('psc_exam_name') == 'Ebtedia') selected @endif
+                                                        value="Ebtedia">
+                                                        {{ __('Ebtedia') }}
+                                                    </option>
+                                                </select>
+                                                @error('jsc_exam_name')
+                                                    <span class="invalid-feedback" role="alert">{{ __($message) }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group form-group-sm row py-2">
                                             <label for="psc_roll_no"
                                                 class="col-sm-4 col-form-label">{{ __('psc_roll_no') }}</label>
                                             <div class="col-sm-8">

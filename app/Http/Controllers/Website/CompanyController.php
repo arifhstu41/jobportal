@@ -1,95 +1,84 @@
 <?php
 
 namespace App\Http\Controllers\Website;
-use Barryvdh\DomPDF\PDF;
-
-use Carbon\Carbon;
-use Faker\Factory;
-use App\Models\cms;
-use App\Models\Job;
-use App\Models\Tag;
-use App\Models\User;
-use App\Models\Admin;
 use AmrShawky\Currency;
-use App\Models\Benefit;
-use App\Models\Company;
-use App\Models\Earning;
-use App\Models\JobRole;
-use App\Models\JobType;
-use App\Models\Setting;
-use App\Models\TeamSize;
-use App\Models\UserPlan;
-use App\Models\Candidate;
-use App\Models\Education;
-use App\Models\AppliedJob;
-use App\Models\Experience;
-use App\Models\SalaryType;
-use App\Models\SocialLink;
-use App\Models\ContactInfo;
-use App\Models\JobCategory;
-use App\Models\Nationality;
-use Illuminate\Support\Str;
-use App\Models\IndustryType;
-use Illuminate\Http\Request;
-use App\Models\ManualPayment;
-use App\Models\PaymentSetting;
-use App\Models\WebsiteSetting;
-use App\Mail\SendCandidateMail;
-use App\Models\ApplicationGroup;
-use App\Models\OrganizationType;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Container\Container;
-use Modules\Location\Entities\City;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
-use Modules\Location\Entities\State;
-use Modules\Location\Entities\Country;
-use App\Models\CompanyBookmarkCategory;
-use Illuminate\Support\Facades\Notification;
 use App\Http\Requests\Company\JobCreateRequest;
 use App\Http\Traits\CompanyJobTrait;
-use App\Notifications\Admin\NewEditedJobAvailableNotification;
 use App\Http\Traits\Jobable;
+use App\Mail\SendCandidateMail;
+use App\Models\Admin;
+use App\Models\ApplicationGroup;
+use App\Models\AppliedJob;
+use App\Models\Benefit;
+use App\Models\Candidate;
+use App\Models\cms;
+use App\Models\Company;
+use App\Models\CompanyBookmarkCategory;
+use App\Models\ContactInfo;
+use App\Models\Earning;
+use App\Models\Education;
+use App\Models\Experience;
+use App\Models\IndustryType;
+use App\Models\Job;
+use App\Models\JobCategory;
+use App\Models\JobRole;
+use App\Models\JobType;
+use App\Models\ManualPayment;
+use App\Models\Nationality;
+use App\Models\OrganizationType;
+use App\Models\PaymentSetting;
+use App\Models\SalaryType;
+use App\Models\Setting;
 use App\Models\ShortList;
-use App\Services\Midtrans\CreateSnapTokenService;
-use App\Notifications\Admin\NewJobAvailableNotification;
-use App\Notifications\Website\Company\JobEditedNotification;
-use App\Notifications\Website\Company\JobCreatedNotification;
-use App\Notifications\Website\Company\JobDeletedNotification;
+use App\Models\SocialLink;
+use App\Models\Tag;
+use App\Models\TeamSize;
+use App\Models\User;
+use App\Models\UserPlan;
+use App\Notifications\Admin\NewEditedJobAvailableNotification;
 use App\Notifications\Website\Company\CandidateBookmarkNotification;
 use App\Notifications\Website\Company\EditApproveNotification;
+use App\Services\Midtrans\CreateSnapTokenService;
+use Carbon\Carbon;
+use Faker\Factory;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Str;
+use Modules\Location\Entities\City;
+use Modules\Location\Entities\Country;
+use Modules\Location\Entities\State;
 use Mpdf\Config\ConfigVariables;
 use Mpdf\Config\FontVariables;
 
-class CompanyController extends Controller
-{
+class CompanyController extends Controller {
     use CompanyJobTrait, Jobable;
 
-    public function dashboard()
-    {
-        $data['userplan'] = UserPlan::with('plan')->companyData()->firstOrFail();
-        $data['openJobCount'] = auth()->user()->company->jobs()->active()->count();
+    public function dashboard() {
+        $data['userplan']        = UserPlan::with('plan')->companyData()->firstOrFail();
+        $data['openJobCount']    = auth()->user()->company->jobs()->active()->count();
         $data['pendingJobCount'] = auth()->user()->company->jobs()->pending()->count();
 
         // Recent 4 Jobs
-        $data['recentJobs'] = auth()->user()->company->jobs()->latest()->take(4)->with('company.user', 'job_type')->withCount('appliedJobs')->get();
-        $jobs= Job::where('company_id', auth()->user()->company->id)->pluck('id');
-        $data['appliedJobs']= AppliedJob::with(['candidate', 'job'])->whereIn('job_id', $jobs)->get();
-        $data['savedCandidates']  = auth()->user()->company->bookmarkCandidates()->count();
+        $data['recentJobs']      = auth()->user()->company->jobs()->latest()->take(4)->with('company.user', 'job_type')->withCount('appliedJobs')->get();
+        $jobs                    = Job::where('company_id', auth()->user()->company->id)->pluck('id');
+        $data['appliedJobs']     = AppliedJob::with(['candidate', 'job'])->whereIn('job_id', $jobs)->get();
+        $data['savedCandidates'] = auth()->user()->company->bookmarkCandidates()->count();
 
         return view('website.pages.company.dashboard', $data);
     }
 
-    public function sendSMS(){
+    public function sendSMS() {
         sendSMS(3, "register", 1);
 
         return back()->with('success', 'Message Sent Successfully!');
     }
 
-    public function myjobs(Request $request)
-    {
+    public function myjobs(Request $request) {
         $query = auth('user')
             ->user()
             ->company
@@ -113,8 +102,8 @@ class CompanyController extends Controller
 
             if ($job->days_remaining < 1) {
                 $job->update([
-                    'status' => 'expired',
-                    'deadline' => null
+                    'status'   => 'expired',
+                    'deadline' => null,
                 ]);
             };
         }
@@ -122,27 +111,26 @@ class CompanyController extends Controller
         return view('website.pages.company.myjobs', compact('myJobs'));
     }
 
-    public function shortListCandidate($company_id, $applied_job_id){
-        $shortlist= ShortList::firstOrCreate([
-            'company_id' => $company_id,
-            'applied_job_id' =>$applied_job_id,
+    public function shortListCandidate($company_id, $applied_job_id) {
+        $shortlist = ShortList::firstOrCreate([
+            'company_id'     => $company_id,
+            'applied_job_id' => $applied_job_id,
         ]);
-        $applied= AppliedJob::find($applied_job_id);
-        $applied->short_listed=1;
+        $applied               = AppliedJob::find($applied_job_id);
+        $applied->short_listed = 1;
         $applied->save();
-        $candidate_id= $applied->candidate_id;
+        $candidate_id = $applied->candidate_id;
 
-        $candidate= Candidate::find($candidate_id);
-        $candidate->user->shortlisted_alert=1;
+        $candidate                          = Candidate::find($candidate_id);
+        $candidate->user->shortlisted_alert = 1;
         $candidate->user->save();
 
         return back()->with('success', 'Candidate added to short List');
-        // dd("hello");
     }
 
-    public function removeShortListCandidate($applied_job_id){
-        $applied= AppliedJob::find($applied_job_id);
-        $applied->short_listed=0;
+    public function removeShortListCandidate($applied_job_id) {
+        $applied               = AppliedJob::find($applied_job_id);
+        $applied->short_listed = 0;
         $applied->save();
         return back()->with('success', 'Candidate removed from short List');
     }
@@ -151,8 +139,7 @@ class CompanyController extends Controller
      * Company Edited Pending job list
      * @Return response
      */
-    public function pendingEditedJobs()
-    {
+    public function pendingEditedJobs() {
         if (setting('edited_job_auto_approved')) {
             abort(404);
         }
@@ -168,8 +155,8 @@ class CompanyController extends Controller
 
             if ($job->days_remaining < 1) {
                 $job->update([
-                    'status' => 'expired',
-                    'deadline' => null
+                    'status'   => 'expired',
+                    'deadline' => null,
                 ]);
             };
         }
@@ -177,33 +164,30 @@ class CompanyController extends Controller
         return view('website.pages.company.edited-jobs', compact('myJobs'));
     }
 
-    public function allNotification()
-    {
+    public function allNotification() {
         $notifications = auth()->user()->notifications()->paginate(20);
 
         return view('website.pages.company.all-notifications', compact('notifications'));
     }
 
-    public function payPerJob()
-    {
+    public function payPerJob() {
         if (!setting('per_job_active')) {
             abort(404);
         }
 
         $data['jobCategories'] = JobCategory::all();
-        $data['roles'] = JobRole::all(['id', 'name']);
-        $data['experiences'] = Experience::all(['id', 'name']);
-        $data['educations'] = Education::all(['id', 'name']);
-        $data['job_types'] = JobType::all(['id', 'name']);
-        $data['salary_types'] = SalaryType::all(['id', 'name']);
-        $data['benefits'] = Benefit::all(['id', 'name']);
-        $data['tags'] = Tag::all(['id', 'name']);
+        $data['roles']         = JobRole::all(['id', 'name']);
+        $data['experiences']   = Experience::all(['id', 'name']);
+        $data['educations']    = Education::all(['id', 'name']);
+        $data['job_types']     = JobType::all(['id', 'name']);
+        $data['salary_types']  = SalaryType::all(['id', 'name']);
+        $data['benefits']      = Benefit::all(['id', 'name']);
+        $data['tags']          = Tag::all(['id', 'name']);
 
         return view('website.pages.company.pay-per-job', $data);
     }
 
-    public function storePayPerJob(JobCreateRequest $request)
-    {
+    public function storePayPerJob(JobCreateRequest $request) {
         $location = session()->get('location');
         // if (!$location) {
 
@@ -214,12 +198,12 @@ class CompanyController extends Controller
 
         if ($request->apply_on === "custom_url") {
             $request->validate([
-                "apply_url" =>  'required|url',
+                "apply_url" => 'required|url',
             ]);
         }
         if ($request->apply_on === "email") {
             $request->validate([
-                "apply_email" =>  'required|email',
+                "apply_email" => 'required|email',
             ]);
         }
 
@@ -229,8 +213,7 @@ class CompanyController extends Controller
         return redirect()->route('company.payperjob.payment');
     }
 
-    public function payPerJobPayment()
-    {
+    public function payPerJobPayment() {
         abort_if(auth('user')->check() && auth('user')->user()->role == 'candidate', 404);
 
         // session data storing
@@ -244,10 +227,9 @@ class CompanyController extends Controller
         $payment_setting = PaymentSetting::first();
         $manual_payments = ManualPayment::whereStatus(1)->get();
 
-
         // midtrans snap token
         if (config('zakirsoft.midtrans_active') && config('zakirsoft.midtrans_merchat_id') && config('zakirsoft.midtrans_client_key') && config('zakirsoft.midtrans_server_key')) {
-            $usd = $job_total_amount;
+            $usd    = $job_total_amount;
             $amount = (int) Currency::convert()
                 ->from(config('zakirsoft.currency'))
                 ->to('IDR')
@@ -255,51 +237,48 @@ class CompanyController extends Controller
                 ->round(2)
                 ->get();
 
-
-            $order['order_no'] = uniqid();
+            $order['order_no']    = uniqid();
             $order['total_price'] = $amount;
 
-            $midtrans = new CreateSnapTokenService($order);
+            $midtrans  = new CreateSnapTokenService($order);
             $snapToken = $midtrans->getSnapToken();
 
             session(['midtrans_details' => [
-                'order_no' => $order['order_no'],
+                'order_no'    => $order['order_no'],
                 'total_price' => $order['total_price'],
-                'snap_token' => $snapToken,
+                'snap_token'  => $snapToken,
             ]]);
 
             session(['order_payment' => [
                 'payment_provider' => 'midtrans',
-                'amount' =>  $amount,
-                'currency_symbol' => 'Rp',
-                'usd_amount' =>  $usd,
+                'amount'           => $amount,
+                'currency_symbol'  => 'Rp',
+                'usd_amount'       => $usd,
             ]]);
         }
 
         return view('website.pages.company.payperjob_pricing', [
-            'payment_setting' => $payment_setting,
-            'mid_token' => $snapToken ?? null,
-            'manual_payments' => $manual_payments,
+            'payment_setting'  => $payment_setting,
+            'mid_token'        => $snapToken ?? null,
+            'manual_payments'  => $manual_payments,
             'job_total_amount' => $job_total_amount,
         ]);
     }
 
-    public function createJob()
-    {
+    public function createJob() {
         $data['jobCategories'] = JobCategory::all();
-        $data['roles'] = JobRole::all(['id', 'name']);
-        $data['experiences'] = Experience::all(['id', 'name']);
-        $data['educations'] = Education::all(['id', 'name']);
-        $data['job_types'] = JobType::all(['id', 'name']);
-        $data['salary_types'] = SalaryType::all(['id', 'name']);
-        $data['benefits'] = Benefit::all(['id', 'name']);
-        $data['tags'] = Tag::all(['id', 'name']);
+        $data['roles']         = JobRole::all(['id', 'name']);
+        $data['experiences']   = Experience::all(['id', 'name']);
+        $data['educations']    = Education::all(['id', 'name']);
+        $data['job_types']     = JobType::all(['id', 'name']);
+        $data['salary_types']  = SalaryType::all(['id', 'name']);
+        $data['benefits']      = Benefit::all(['id', 'name']);
+        $data['tags']          = Tag::all(['id', 'name']);
 
         return view('website.pages.company.postjob', $data);
     }
 
-    public function storeJob(JobCreateRequest $request)
-    {
+    public function storeJob(JobCreateRequest $request) {
         $min = $request->min_salary;
         $max = $request->max_salary;
 
@@ -310,22 +289,22 @@ class CompanyController extends Controller
 
         if ($request->apply_on === "custom_url") {
             $request->validate([
-                "apply_url" =>  'required|url',
+                "apply_url" => 'required|url',
             ]);
         }
         if ($request->apply_on === "email") {
             $request->validate([
-                "apply_email" =>  'required|email',
+                "apply_email" => 'required|email',
             ]);
         }
 
         // Highlight & featured
         $highlight = $request->badge == 'highlight' ? 1 : 0;
-        $featured = $request->badge == 'featured' ? 1 : 0;
+        $featured  = $request->badge == 'featured' ? 1 : 0;
 
         // Job Category
         $job_category_request = $request->category_id;
-        $job_category = JobCategory::where('id', $job_category_request)->orWhere('name', $job_category_request)->first();
+        $job_category         = JobCategory::where('id', $job_category_request)->orWhere('name', $job_category_request)->first();
 
         if (!$job_category) {
             $job_category = JobCategory::where('name', $job_category_request)->first();
@@ -337,7 +316,7 @@ class CompanyController extends Controller
 
         // Job Role
         $job_role_request = $request->role_id;
-        $job_role = JobRole::where('id', $job_role_request)->orWhere('name', $job_role_request)->first();
+        $job_role         = JobRole::where('id', $job_role_request)->orWhere('name', $job_role_request)->first();
         if (!$job_role) {
             $job_role = JobRole::where('name', $job_role_request)->first();
 
@@ -348,7 +327,7 @@ class CompanyController extends Controller
 
         // Experience
         $education_request = $request->education;
-        $education = Education::where('id', $education_request)->orWhere('name', $education_request)->first();
+        $education         = Education::where('id', $education_request)->orWhere('name', $education_request)->first();
         if (!$education) {
             $education = Education::where('name', $education_request)->first();
 
@@ -359,7 +338,7 @@ class CompanyController extends Controller
 
         // Education
         $experience_request = $request->experience;
-        $experience = Experience::where('id', $experience_request)->orWhere('name', $experience_request)->first();
+        $experience         = Experience::where('id', $experience_request)->orWhere('name', $experience_request)->first();
         if (!$experience) {
             $experience = Experience::where('name', $experience_request)->first();
 
@@ -369,26 +348,26 @@ class CompanyController extends Controller
         }
 
         $jobCreated = Job::create([
-            'title' => $request->title,
-            'company_id' => auth('user')->user()->company->id,
-            'category_id' => $job_category->id,
-            'role_id' => $job_role->id,
-            'education_id' => $education->id,
-            'experience_id' => $experience->id,
-            'min_salary' => $request->min_salary,
-            'max_salary' => $request->max_salary,
+            'title'          => $request->title,
+            'company_id'     => auth('user')->user()->company->id,
+            'category_id'    => $job_category->id,
+            'role_id'        => $job_role->id,
+            'education_id'   => $education->id,
+            'experience_id'  => $experience->id,
+            'min_salary'     => $request->min_salary,
+            'max_salary'     => $request->max_salary,
             'salary_type_id' => $request->salary_type,
-            'deadline' => Carbon::parse($request->deadline)->format('Y-m-d'),
-            'job_type_id' => $request->job_type,
-            'vacancies' => $request->vacancies,
-            'apply_on' => $request->apply_on,
-            'apply_email' => $request->apply_email ?? null,
-            'apply_url' => $request->apply_url ?? null,
-            'description' => $request->description,
-            'featured' => $featured,
-            'highlight' => $highlight,
-            'is_remote' => $request->is_remote ?? 0,
-            'status' => setting('job_auto_approved') ? 'active' : 'pending'
+            'deadline'       => Carbon::parse($request->deadline)->format('Y-m-d'),
+            'job_type_id'    => $request->job_type,
+            'vacancies'      => $request->vacancies,
+            'apply_on'       => $request->apply_on,
+            'apply_email'    => $request->apply_email ?? null,
+            'apply_url'      => $request->apply_url ?? null,
+            'description'    => $request->description,
+            'featured'       => $featured,
+            'highlight'      => $highlight,
+            'is_remote'      => $request->is_remote ?? 0,
+            'status'         => setting('job_auto_approved') ? 'active' : 'pending',
         ]);
 
         // Location
@@ -433,20 +412,19 @@ class CompanyController extends Controller
      * job edit
      *
      */
-    public function editJob(Job $job)
-    {
+    public function editJob(Job $job) {
         $data['jobCategories'] = JobCategory::all();
-        $data['roles'] = JobRole::all(['id', 'name']);
-        $data['experiences'] = Experience::all(['id', 'name']);
-        $data['educations'] = Education::all(['id', 'name']);
-        $data['job_types'] = JobType::all(['id', 'name']);
-        $data['salary_types'] = SalaryType::all(['id', 'name']);
+        $data['roles']         = JobRole::all(['id', 'name']);
+        $data['experiences']   = Experience::all(['id', 'name']);
+        $data['educations']    = Education::all(['id', 'name']);
+        $data['job_types']     = JobType::all(['id', 'name']);
+        $data['salary_types']  = SalaryType::all(['id', 'name']);
 
         $job->load('tags', 'benefits');
         $data['job'] = $job;
 
         $data['benefits'] = Benefit::all(['id', 'name']);
-        $data['tags'] = Tag::all(['id', 'name']);
+        $data['tags']     = Tag::all(['id', 'name']);
 
         return view('website.pages.company.editjob', $data);
     }
@@ -454,8 +432,7 @@ class CompanyController extends Controller
      * job update
      *
      */
-    public function updateJob(JobCreateRequest $request, Job $job)
-    {
+    public function updateJob(JobCreateRequest $request, Job $job) {
         $min = $request->min_salary;
         $max = $request->max_salary;
 
@@ -466,12 +443,12 @@ class CompanyController extends Controller
 
         if ($request->apply_on === "custom_url") {
             $request->validate([
-                "apply_url" =>  'required|url',
+                "apply_url" => 'required|url',
             ]);
         }
         if ($request->apply_on === "email") {
             $request->validate([
-                "apply_email" =>  'required|email',
+                "apply_email" => 'required|email',
             ]);
         }
 
@@ -510,28 +487,25 @@ class CompanyController extends Controller
         return redirect()->route('company.myjob');
     }
 
-    public function showPromoteJob(Job $job)
-    {
+    public function showPromoteJob(Job $job) {
         dd("adfdaf");
         return view('website.pages.company.job-created-success', [
-            'jobCreated' => $job
+            'jobCreated' => $job,
         ]);
     }
 
-    public function jobPromote(Job $job)
-    {
-        dd("adasd");
+    public function jobPromote(Job $job) {
+
         if (!auth('user')->check() || auth('user')->user()->role != 'company') {
             return abort(403);
         }
 
         return view('website.pages.company.promote-job', [
-            'jobCreated' => $job
+            'jobCreated' => $job,
         ]);
     }
 
-    public function promoteJob(Request $request, Job $jobCreated)
-    {
+    public function promoteJob(Request $request, Job $jobCreated) {
         $userplan = auth('user')->user()->company->userplan ?? abort(403);
 
         if (!auth('user')->check() || auth('user')->user()->role != 'company' || !$userplan) {
@@ -550,12 +524,12 @@ class CompanyController extends Controller
                 return redirect()->route('website.plan');
             }
 
-            $featured_days = $setting->featured_job_days > 0 ? now()->addDays($setting->featured_job_days)->format('Y-m-d'):null;
+            $featured_days = $setting->featured_job_days > 0 ? now()->addDays($setting->featured_job_days)->format('Y-m-d') : null;
 
             $jobCreated->update([
-                'featured' => 1,
-                'highlight' => 0,
-                'featured_until' => $featured_days,
+                'featured'        => 1,
+                'highlight'       => 0,
+                'featured_until'  => $featured_days,
                 'highlight_until' => null,
             ]);
         } else {
@@ -567,13 +541,13 @@ class CompanyController extends Controller
                 return redirect()->route('website.plan');
             }
 
-            $highlight_days = $setting->highlight_job_days > 0 ? now()->addDays($setting->highlight_job_days)->format('Y-m-d'):null;
+            $highlight_days = $setting->highlight_job_days > 0 ? now()->addDays($setting->highlight_job_days)->format('Y-m-d') : null;
 
             $jobCreated->update([
-                'featured' => 0,
-                'highlight' => 1,
+                'featured'        => 0,
+                'highlight'       => 1,
                 'highlight_until' => $highlight_days,
-                'featured_until' => null,
+                'featured_until'  => null,
             ]);
         }
 
@@ -582,10 +556,9 @@ class CompanyController extends Controller
         return redirect()->route('website.job.details', $jobCreated->slug);
     }
 
-    public function applicationsSync(Request $request)
-    {
+    public function applicationsSync(Request $request) {
         $this->validate(request(), [
-            'applicationGroups' => ['required', 'array']
+            'applicationGroups' => ['required', 'array'],
         ]);
 
         foreach ($request->applicationGroups as $applicationGroup) {
@@ -599,7 +572,7 @@ class CompanyController extends Controller
 
                     if ($applications) {
                         $applications->update([
-                            'order' => $order,
+                            'order'                => $order,
                             'application_group_id' => $applicationGroup['id'],
                         ]);
                     }
@@ -619,29 +592,84 @@ class CompanyController extends Controller
             ->get();
     }
 
-
-    public function jobApplications(Request $request)
-    {
-        $job = Job::findOrFail($request->job, ['id', 'title', 'company_id']);
-        $appliedJobs= AppliedJob::where('job_id', $request->job)->with(['candidate', 'job'])->get();
+    public function jobApplications(Request $request) {
+        $filter = null;
+        if ($request->has('filter')) {
+            $filter = $request->filter;
+        }
+        $job                = Job::findOrFail($request->job, ['id', 'title', 'company_id']);
+        $application_states = [
+            0 => "Applied",
+            1 => "Shortlist",
+            2 => "Interview",
+            3 => "Hired",
+            9 => "Rejected",
+        ];
+        $appliedJobs = AppliedJob::where('job_id', $request->job)
+            ->where(function ($query) use ($filter) {
+                if ($filter != null) {
+                    $query->where('short_listed', $filter);
+                }
+            })
+            ->with(['candidate', 'job'])->get();
 
         abort_if(auth('user')->user()->company->id != $job->company_id, 404);
 
-        return view('website.pages.company.job-application', compact('appliedJobs', 'job'));
+        return view('website.pages.company.job-application', compact('appliedJobs', 'job', 'application_states', 'filter'));
+    }
+
+    // change application status
+    public function chnageApplicationStatus(Request $request, $id) {
+        $application_states = [
+            0 => "Applied",
+            1 => "Shortlist",
+            2 => "Interview",
+            3 => "Hired",
+            9 => "Rejected",
+        ];
+        $field_name            = "application_state-" . $id;
+        $status                = $request->$field_name;
+        $applied               = AppliedJob::find($id);
+        $applied->short_listed = $status;
+        $applied->save();
+        $message = 'Application status changed to ' . $application_states[$status];
+
+        return back()->with('success', $message);
+    }
+
+    // send custom sms to candidates
+    public function sendCustomMessage(Request $request) {
+
+        $applicants = explode(",", $request->applicants);
+
+        if ($request->message_type == "sms") {
+            foreach ($applicants as $key => $user_id) {
+                $response = sendSMS($user_id, "custom", null, $request->message_content);
+            }
+        }
+        return back()->with('success', "Message sent successfully!");
     }
 
     // send interview sms
-    public function sendInterviewSMS($job_application_id){
+    public function sendInterviewSMS($job_application_id) {
 
-        $applied= AppliedJob::find($job_application_id);
-        $user= $applied->candidate->user->id;
-        $sms= sendSMS($user, "interview", $applied->job_id, "আপনাকে ইন্টারভিউ এর জন্য ডাকা হবে");
-       return  ($sms) ? true: false ;
+        $applied = AppliedJob::find($job_application_id);
+        $user    = $applied->candidate->user->id;
+        $sms     = sendSMS($user, "interview", $applied->job_id, "আপনাকে ইন্টারভিউ এর জন্য ডাকা হবে");
+        return ($sms) ? true : false;
 
     }
 
-    public function jobApplicationsOld(Request $request)
+    public function show( $candidate )
     {
+        $candidate    = Candidate::with( 'skills:id,name', 'languages:id,name' )->findOrFail( $candidate );
+        $user         = User::with( 'contactInfo' )->FindOrFail( $candidate->user_id );
+        $appliedJobs  = $candidate->appliedJobs()->get();
+        $bookmarkJobs = $candidate->bookmarkJobs()->get();
+        return view('website.pages.company.candidate-show', compact( 'candidate', 'user', 'appliedJobs', 'bookmarkJobs' ) );
+    }
+
+    public function jobApplicationsOld(Request $request) {
         $application_groups = auth()->user()
             ->company
             ->applicationGroups()
@@ -659,8 +687,7 @@ class CompanyController extends Controller
         return view('website.pages.company.draggable-application', compact('application_groups', 'job'));
     }
 
-    public function bookmarks(Request $request)
-    {
+    public function bookmarks(Request $request) {
         $query = auth('user')->user()->company->bookmarkCandidates();
 
         if ($request->category != 'all' && $request->has('category') && $request->category != null) {
@@ -674,8 +701,7 @@ class CompanyController extends Controller
         return view('website.pages.company.bookmark', compact('bookmarks', 'categories'));
     }
 
-    public function companyBookmarkCandidate(Request $request, Candidate $candidate)
-    {
+    public function companyBookmarkCandidate(Request $request, Candidate $candidate) {
         $company = auth('user')->user()->company;
 
         if ($request->cat) {
@@ -683,8 +709,8 @@ class CompanyController extends Controller
 
             if (isset($user_plan) && $user_plan->candidate_cv_view_limit <= 0) {
                 return response()->json([
-                    'message' => 'You have reached your limit for viewing candidate cv. Please upgrade your plan.',
-                    'success' => false,
+                    'message'      => 'You have reached your limit for viewing candidate cv. Please upgrade your plan.',
+                    'success'      => false,
                     'redirect_url' => route('website.plan'),
                 ]);
             }
@@ -713,35 +739,30 @@ class CompanyController extends Controller
         return back();
     }
 
-    public function setting()
-    {
-        $data['user'] = User::with('company', 'contactInfo', 'socialInfo')->findOrFail(auth('user')->id());
-        $data['socials'] = $data['user']->socialInfo;
-        $data['contact'] = $data['user']->contactInfo;
+    public function setting() {
+        $data['user']               = User::with('company', 'contactInfo', 'socialInfo')->findOrFail(auth('user')->id());
+        $data['socials']            = $data['user']->socialInfo;
+        $data['contact']            = $data['user']->contactInfo;
         $data['organization_types'] = OrganizationType::all();
-        $data['industry_types'] = IndustryType::all();
-        $data['team_sizes'] = TeamSize::all();
-        $data['nationalities'] = Nationality::all();
+        $data['industry_types']     = IndustryType::all();
+        $data['team_sizes']         = TeamSize::all();
+        $data['nationalities']      = Nationality::all();
 
         return view('website.pages.company.setting', $data);
     }
 
-
-    public function getStateList(Request $request)
-    {
+    public function getStateList(Request $request) {
         $states = State::where('country_id', $request->country_id)->get();
         return response()->json($states);
     }
 
-    public function getCityList(Request $request)
-    {
+    public function getCityList(Request $request) {
 
         $cities = City::where('state_id', $request->state_id)->get();
         return response()->json($cities);
     }
 
-    public function settingUpdateInformaton(Request $request)
-    {
+    public function settingUpdateInformaton(Request $request) {
         $user = User::findOrFail(auth()->id());
         $request->session()->put('type', $request->type);
 
@@ -792,14 +813,12 @@ class CompanyController extends Controller
         return back();
     }
 
-    public function accountDelete($user)
-    {
+    public function accountDelete($user) {
         $user->delete();
         return true;
     }
 
-    public function personalUpdate($request, $user)
-    {
+    public function personalUpdate($request, $user) {
         $request->validate([
             'name' => 'required|unique:users,name,' . auth()->id(),
         ]);
@@ -812,7 +831,7 @@ class CompanyController extends Controller
             ]);
 
             deleteImage($user->company->logo);
-            $path = 'images/company';
+            $path  = 'images/company';
             $image = uploadImage($request->image, $path);
 
             if ($company) {
@@ -828,7 +847,7 @@ class CompanyController extends Controller
             ]);
 
             deleteImage($user->company->banner);
-            $path = 'images/company';
+            $path   = 'images/company';
             $banner = uploadImage($request->banner, $path);
 
             if ($company) {
@@ -839,25 +858,24 @@ class CompanyController extends Controller
         }
 
         $user->update([
-            'name' => $request->name,
-            'username' => Str::slug($request->name)
+            'name'     => $request->name,
+            'username' => Str::slug($request->name),
         ]);
 
         if ($company) {
             $company->update([
-                'bio' => $request->about_us
+                'bio' => $request->about_us,
             ]);
         }
 
         return true;
     }
 
-    public function profileUpdate($request)
-    {
+    public function profileUpdate($request) {
         $request->validate([
-            'organization_type' => 'required',
-            'industry_type' => 'required',
-            'team_size' => 'required',
+            'organization_type'  => 'required',
+            'industry_type'      => 'required',
+            'team_size'          => 'required',
             'establishment_date' => 'nullable|date',
         ]);
 
@@ -865,7 +883,7 @@ class CompanyController extends Controller
 
         // Organization Type
         $organization_request = $request->organization_type;
-        $organization_type = OrganizationType::where('id', $organization_request)->orWhere('name', $organization_request)->first();
+        $organization_type    = OrganizationType::where('id', $organization_request)->orWhere('name', $organization_request)->first();
 
         if (!$organization_type) {
             $organization_type = OrganizationType::create(['name' => $organization_request]);
@@ -873,7 +891,7 @@ class CompanyController extends Controller
 
         // Industry Type
         $industry_request = $request->industry_type;
-        $industry_type = IndustryType::where('id', $industry_request)->orWhere('name', $industry_request)->first();
+        $industry_type    = IndustryType::where('id', $industry_request)->orWhere('name', $industry_request)->first();
 
         if (!$industry_type) {
             $industry_type = IndustryType::create(['name' => $industry_request]);
@@ -882,32 +900,31 @@ class CompanyController extends Controller
         if ($company) {
             $company->update([
                 'organization_type_id' => $organization_type->id,
-                'industry_type_id' => $industry_type->id,
-                'team_size_id' => $request->team_size,
-                'establishment_date' => $request->establishment_date ?? null,
-                'website' => $request->website,
-                'vision' => $request->vision,
+                'industry_type_id'     => $industry_type->id,
+                'team_size_id'         => $request->team_size,
+                'establishment_date'   => $request->establishment_date ?? null,
+                'website'              => $request->website,
+                'vision'               => $request->vision,
             ]);
         }
 
         return true;
     }
 
-    public function socialUpdate($request)
-    {
+    public function socialUpdate($request) {
         $user = User::find(auth()->id());
 
         $user->socialInfo()->delete();
 
         $social_medias = $request->social_media;
-        $urls = $request->url;
+        $urls          = $request->url;
 
         if ($social_medias && $urls) {
             foreach ($social_medias as $key => $value) {
                 if ($value && $urls[$key]) {
                     $user->socialInfo()->create([
                         'social_media' => $value,
-                        'url' => $urls[$key],
+                        'url'          => $urls[$key],
                     ]);
                 }
             }
@@ -915,14 +932,13 @@ class CompanyController extends Controller
         return true;
     }
 
-    public function contactUpdate($request)
-    {
+    public function contactUpdate($request) {
         $contact = ContactInfo::where('user_id', auth()->id())->first();
         if (empty($contact)) {
             ContactInfo::create([
                 'user_id' => auth()->id(),
-                'phone' => $request->phone,
-                'email' => $request->email,
+                'phone'   => $request->phone,
+                'email'   => $request->email,
             ]);
         } else {
             $contact->update([
@@ -936,12 +952,11 @@ class CompanyController extends Controller
         return true;
     }
 
-    public function passwordUpdate($request, $user)
-    {
+    public function passwordUpdate($request, $user) {
 
         $request->validate([
-            'password' => 'required|confirmed|min:6',
-            'password_confirmation' => 'required'
+            'password'              => 'required|confirmed|min:6',
+            'password_confirmation' => 'required',
         ]);
 
         $user->update([
@@ -952,214 +967,205 @@ class CompanyController extends Controller
         return true;
     }
 
-    public function settingUpdateContactInformaton(Request $request)
-    {
+    public function settingUpdateContactInformaton(Request $request) {
         $request->validate([
-            'country_id' => 'required|integer',
-            'address' => 'nullable',
+            'country_id'  => 'required|integer',
+            'address'     => 'nullable',
             'map_address' => 'nullable',
-            'phone' => 'nullable|numeric',
-            'email' => 'nullable|email'
+            'phone'       => 'nullable|numeric',
+            'email'       => 'nullable|email',
 
         ]);
 
-        $user = User::findOrFail(auth()->user()->id);
+        $user          = User::findOrFail(auth()->user()->id);
         $contactUpdate = ContactInfo::where('user_id', $user->id)->update([
-            'country_id' => $request->country_id,
-            'state_id' => $request->state_id,
-            'city_id' => $request->city_id,
-            'address' => $request->address,
+            'country_id'  => $request->country_id,
+            'state_id'    => $request->state_id,
+            'city_id'     => $request->city_id,
+            'address'     => $request->address,
             'map_address' => $request->map_address,
-            'phone' => $request->phone,
-            'email' => $request->email
+            'phone'       => $request->phone,
+            'email'       => $request->email,
         ]);
 
         $contactUpdate ? flashSuccess('Contact Info updated!') : flashError('Something went wrong!');
         return back();
     }
 
-    public function settingUpdateSocialMedia(Request $request)
-    {
+    public function settingUpdateSocialMedia(Request $request) {
         $request->validate([
-            'facebook' => 'nullable|url',
-            'twitter' => 'nullable|url',
+            'facebook'  => 'nullable|url',
+            'twitter'   => 'nullable|url',
             'instagram' => 'nullable|url',
-            'linkedin' => 'nullable|url',
-            'youtube' => 'nullable|url',
-            'google' => 'nullable|url'
+            'linkedin'  => 'nullable|url',
+            'youtube'   => 'nullable|url',
+            'google'    => 'nullable|url',
         ]);
 
-        $user = User::findOrFail(auth()->user()->id);
+        $user              = User::findOrFail(auth()->user()->id);
         $socialLinksUpdate = SocialLink::where('user_id', $user->id)->update([
-            'facebook' => $request->facebook,
-            'twitter' => $request->twitter,
+            'facebook'  => $request->facebook,
+            'twitter'   => $request->twitter,
             'instagram' => $request->instagram,
-            'linkedin' => $request->linkedin,
-            'youtube' => $request->youtube,
-            'google' => $request->google
+            'linkedin'  => $request->linkedin,
+            'youtube'   => $request->youtube,
+            'google'    => $request->google,
         ]);
 
         $socialLinksUpdate ? flashSuccess('Social Media Links updated!') : flashError('Something went wrong!');
         return back();
     }
 
-    public function destroyApplication(Job $job, Request $request)
-    {
+    public function destroyApplication(Job $job, Request $request) {
         $detached = $job->appliedJobs()->detach($request->candidate_id);
         $detached ? flashSuccess('Application removed from our system.') : flashError('Something went wrong!');
         return back();
     }
 
-    public function plan()
-    {
-        $userplan = UserPlan::with('plan')->companyData()->firstOrFail();
+    public function plan() {
+        $userplan     = UserPlan::with('plan')->companyData()->firstOrFail();
         $transactions = Earning::with('plan:id,label', 'manualPayment:id,name')->companyData()->latest()->paginate(6);
         return view('website.pages.company.plan', compact('userplan', 'transactions'));
     }
 
-    public function downloadTransactionInvoice(Earning $transaction)
-    {
+    public function downloadTransactionInvoice(Earning $transaction) {
         // $data['transaction'] = $transaction->load('plan', 'company.user.contactInfo');
 
         // $pdf = PDF::loadView('website.pages.company.invoice', $data)->setOptions(['defaultFont' => 'sans-serif']);
 
         // return $pdf->download("invoice_" . $transaction->order_id . ".pdf");
 
-        $transaction = $transaction->load('plan', 'company.user.contactInfo');
-        $defaultConfig = (new ConfigVariables())->getDefaults();
-        $fontDirs = $defaultConfig['fontDir'];
+        $transaction       = $transaction->load('plan', 'company.user.contactInfo');
+        $defaultConfig     = (new ConfigVariables())->getDefaults();
+        $fontDirs          = $defaultConfig['fontDir'];
         $defaultFontConfig = (new FontVariables())->getDefaults();
-        $fontData = $defaultFontConfig['fontdata'];
-        $mpdf       = new \Mpdf\Mpdf([
-            'format' => 'A4',
-            'fontDir' => array_merge($fontDirs, [public_path() . '/fonts',]),
-            'fontdata' => $fontData + [ // lowercase letters only in font key
+        $fontData          = $defaultFontConfig['fontdata'];
+        $mpdf              = new \Mpdf\Mpdf ([
+            'format'       => 'A4',
+            'fontDir'      => array_merge($fontDirs, [public_path() . '/fonts']),
+            'fontdata'     => $fontData + [ // lowercase letters only in font key
                 'bangla' => [
-                    'R'  => 'Siyamrupali.ttf', // regular font
-                    'B'  => 'Siyamrupali.ttf', // optional: bold font
-                    'I'  => 'Siyamrupali.ttf', // optional: italic font
+                    'R'          => 'Siyamrupali.ttf', // regular font
+                    'B' => 'Siyamrupali.ttf', // optional: bold font
+                    'I' => 'Siyamrupali.ttf', // optional: italic font
                     'BI' => 'Siyamrupali.ttf', // optional: bold-italic font
                     'useOTL' => 0xFF,
                     'useKashida' => 75,
-                ]
+                ],
             ],
             'default_font' => 'bangla',
         ]);
         $stylesheet = public_path('css/invoice.css'); // external css
         $mpdf->WriteHTML($stylesheet, 1);
-        $code = view('website.pages.company.invoice', compact('transaction')); //table part
+        $code  = view('website.pages.company.invoice', compact('transaction')); //table part
         $title = "invoice.pdf";
         $mpdf->SetTitle($title);
         $mpdf->WriteHTML($code);
         $mpdf->Output($title, 'I');
     }
 
-    public function accountProgress()
-    {
-        $data['user'] = User::with('company', 'contactInfo', 'socialInfo')->findOrFail(auth()->user()->id);
-        $data['countries'] = Country::all();
-        $data['industry_types'] = IndustryType::all();
+    public function accountProgress() {
+        $data['user']               = User::with('company', 'contactInfo', 'socialInfo')->findOrFail(auth()->user()->id);
+        $data['countries']          = Country::all();
+        $data['industry_types']     = IndustryType::all();
         $data['organization_types'] = OrganizationType::all();
-        $data['team_sizes'] = TeamSize::all();
-        $data['nationalities'] = Nationality::all();
-        $title = cms::first()->account_setup_title;
-        $subtitle = cms::first()->account_setup_subtitle;
-        $data['title'] = $title;
-        $data['subtitle'] = $subtitle;
-        $data['socials'] = $data['user']->socialInfo;
+        $data['team_sizes']         = TeamSize::all();
+        $data['nationalities']      = Nationality::all();
+        $title                      = cms::first()->account_setup_title;
+        $subtitle                   = cms::first()->account_setup_subtitle;
+        $data['title']              = $title;
+        $data['subtitle']           = $subtitle;
+        $data['socials']            = $data['user']->socialInfo;
 
         if (request()->has('complete')) {
             return view('website.pages.company.account-progress.complete', compact('title', 'subtitle'));
         }
 
-
         return view('website.pages.company.account-progress', $data);
     }
 
-    public function profileCompleteProgress(Request $request)
-    {
+    public function profileCompleteProgress(Request $request) {
         // return $request;
         $company = auth('user')->user()->company;
 
         switch ($request->field) {
-            case "personal":
-                $image_validation = $company->logo ? 'sometimes|image|mimes:jpeg,png,jpg|max:2048' :  "required|image|mimes:jpeg,png,jpg|max:2048";
-                $banner_validation = $company->banner ? 'sometimes|image|mimes:jpeg,png,jpg|max:5120' :  "required|image|mimes:jpeg,png,jpg|max:5120";
+        case "personal":
+            $image_validation  = $company->logo ? 'sometimes|image|mimes:jpeg,png,jpg|max:2048' : "required|image|mimes:jpeg,png,jpg|max:2048";
+            $banner_validation = $company->banner ? 'sometimes|image|mimes:jpeg,png,jpg|max:5120' : "required|image|mimes:jpeg,png,jpg|max:5120";
 
-                $request->validate([
-                    'image' =>  $image_validation,
-                    'banner' =>  $banner_validation,
-                    'name' => 'nullable|max:255',
-                    'bio' => 'required'
-                ], [
-                    'image.required' => 'The logo field is required.'
-                ]);
+            $request->validate([
+                'image'  => $image_validation,
+                'banner' => $banner_validation,
+                'name'   => 'nullable|max:255',
+                'bio'    => 'required',
+            ], [
+                'image.required' => 'The logo field is required.',
+            ]);
 
-                $update = $this->personalProfileUpdate($request);
-                if ($update) {
-                    return redirect('company/account-progress?profile');
-                }
-                return back();
-                break;
-            case "profile":
-                $request->validate([
-                    'organization_type_id' =>  'required|string',
-                    'industry_type_id' =>  'required|string',
-                    'establishment_date' => 'nullable',
-                    'website' => 'nullable|url',
-                    'vision' => 'required'
-                ]);
+            $update = $this->personalProfileUpdate($request);
+            if ($update) {
+                return redirect('company/account-progress?profile');
+            }
+            return back();
+            break;
+        case "profile":
+            $request->validate([
+                'organization_type_id' => 'required|string',
+                'industry_type_id'     => 'required|string',
+                'establishment_date'   => 'nullable',
+                'website'              => 'nullable|url',
+                'vision'               => 'required',
+            ]);
 
-                $update = $this->companyProfileUpdate($request);
-                if ($update) {
-                    return redirect('company/account-progress?social');
-                }
-                return back();
-                break;
-            case "social":
-                $update = $this->socialProfileUpdate($request);
-                if ($update) {
-                    return redirect('company/account-progress?contact');
-                }
-                return back();
-                break;
-            case "contact":
-                $request->validate([
-                    'email' =>  'required|email',
-                    'phone' =>  'required',
-                ]);
+            $update = $this->companyProfileUpdate($request);
+            if ($update) {
+                return redirect('company/account-progress?social');
+            }
+            return back();
+            break;
+        case "social":
+            $update = $this->socialProfileUpdate($request);
+            if ($update) {
+                return redirect('company/account-progress?contact');
+            }
+            return back();
+            break;
+        case "contact":
+            $request->validate([
+                'email' => 'required|email',
+                'phone' => 'required',
+            ]);
 
-                $location = session()->get('location');
-                // if (!$location) {
-                //     $request->validate([
-                //         'location' => 'required',
-                //     ]);
-                // }
+            $location = session()->get('location');
+            // if (!$location) {
+            //     $request->validate([
+            //         'location' => 'required',
+            //     ]);
+            // }
 
-                $request->validate([
-                    'phone' => 'required|min:4|max:16',
-                    'email' => 'required|email',
-                ]);
+            $request->validate([
+                'phone' => 'required|min:4|max:16',
+                'email' => 'required|email',
+            ]);
 
-                $update = $this->contactProfileUpdate($request);
-                if ($update) {
-                    return redirect('company/account-progress?complete');
-                }
-                return back();
-                break;
-            case "complete":
-                return view('website.pages.company.account-progress.complete');
-                break;
-            default:
-                return back();
+            $update = $this->contactProfileUpdate($request);
+            if ($update) {
+                return redirect('company/account-progress?complete');
+            }
+            return back();
+            break;
+        case "complete":
+            return view('website.pages.company.account-progress.complete');
+            break;
+        default:
+            return back();
         }
     }
 
-    public function personalProfileUpdate($request)
-    {
+    public function personalProfileUpdate($request) {
         $faker = Factory::create();
 
-        $user = User::findOrFail(auth()->user()->id);
+        $user    = User::findOrFail(auth()->user()->id);
         $company = Company::where('user_id', $user->id)->firstOrFail();
 
         $user->update([
@@ -1167,11 +1173,11 @@ class CompanyController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $image = uploadImage($request->image, 'images/company');
+            $image         = uploadImage($request->image, 'images/company');
             $company->logo = $image;
         }
         if ($request->hasFile('banner')) {
-            $banner = uploadImage($request->banner, 'images/company');
+            $banner          = uploadImage($request->banner, 'images/company');
             $company->banner = $banner;
         }
 
@@ -1181,23 +1187,21 @@ class CompanyController extends Controller
         return true;
     }
 
-    public function makeJobExpire(Job $job)
-    {
+    public function makeJobExpire(Job $job) {
 
         $job->update([
-            'status' => 'expired',
-            'deadline' => null
+            'status'   => 'expired',
+            'deadline' => null,
         ]);
 
         flashSuccess('Job Status Now Expire');
         return back();
     }
 
-    public function companyProfileUpdate($request)
-    {
+    public function companyProfileUpdate($request) {
         // Organization Type
         $organization_request = $request->organization_type_id;
-        $organization_type = OrganizationType::where('id', $organization_request)->orWhere('name', $organization_request)->first();
+        $organization_type    = OrganizationType::where('id', $organization_request)->orWhere('name', $organization_request)->first();
 
         if (!$organization_type) {
             $organization_type = OrganizationType::create(['name' => $organization_request]);
@@ -1205,7 +1209,7 @@ class CompanyController extends Controller
 
         // Industry Type
         $industry_request = $request->industry_type_id;
-        $industry_type = IndustryType::where('id', $industry_request)->orWhere('name', $industry_request)->first();
+        $industry_type    = IndustryType::where('id', $industry_request)->orWhere('name', $industry_request)->first();
 
         if (!$industry_type) {
             $industry_type = IndustryType::create(['name' => $industry_request]);
@@ -1214,20 +1218,19 @@ class CompanyController extends Controller
         $company = Company::where('user_id', auth()->user()->id);
         $company->update([
             'organization_type_id' => $organization_type->id,
-            'industry_type_id' => $industry_type->id,
-            'establishment_date' => $request->establishment_date ? date('Y-m-d', strtotime($request->establishment_date)) : null,
-            'team_size_id' => $request->team_size_id,
-            'website' => $request->website,
-            'vision' => $request->vision
+            'industry_type_id'     => $industry_type->id,
+            'establishment_date'   => $request->establishment_date ? date('Y-m-d', strtotime($request->establishment_date)) : null,
+            'team_size_id'         => $request->team_size_id,
+            'website'              => $request->website,
+            'vision'               => $request->vision,
         ]);
 
         return $company;
     }
 
-    public function socialProfileUpdate($request)
-    {
+    public function socialProfileUpdate($request) {
         $social_medias = $request->social_media;
-        $urls = $request->url;
+        $urls          = $request->url;
 
         $user = User::find(auth()->id());
         $user->socialInfo()->delete();
@@ -1238,7 +1241,7 @@ class CompanyController extends Controller
                 if ($value && $urls[$key]) {
                     $user->socialInfo()->create([
                         'social_media' => $value,
-                        'url' => $urls[$key],
+                        'url'          => $urls[$key],
                     ]);
                 }
             }
@@ -1247,11 +1250,10 @@ class CompanyController extends Controller
         return true;
     }
 
-    public function bookmarkCategories(Request $request)
-    {
-        $query = CompanyBookmarkCategory::where('company_id', auth()->user()->company->id);
+    public function bookmarkCategories(Request $request) {
+        $query      = CompanyBookmarkCategory::where('company_id', auth()->user()->company->id);
         $categories = $query->simplePaginate(12);
-        $dataCount = CompanyBookmarkCategory::where('company_id', auth()->user()->company->id)->count();
+        $dataCount  = CompanyBookmarkCategory::where('company_id', auth()->user()->company->id)->count();
 
         if ($request->ajax) {
             return response()->json($query->get());
@@ -1259,44 +1261,40 @@ class CompanyController extends Controller
         return view('website.pages.company.bookmark-category', compact('categories', 'dataCount'));
     }
 
-    public function bookmarkCategoriesStore(Request $request)
-    {
+    public function bookmarkCategoriesStore(Request $request) {
         $request->validate([
-            'name' => 'required| min:2'
+            'name' => 'required| min:2',
         ]);
 
         CompanyBookmarkCategory::create([
 
             'company_id' => auth()->user()->company->id,
-            'name' => $request->name
+            'name'       => $request->name,
         ]);
 
         flashSuccess('Category Created');
         return back();
     }
 
-    public function bookmarkCategoriesEdit(CompanyBookmarkCategory $category)
-    {
+    public function bookmarkCategoriesEdit(CompanyBookmarkCategory $category) {
 
         $categories = CompanyBookmarkCategory::where('company_id', auth()->user()->company->id)->simplePaginate(12);
-        $dataCount = CompanyBookmarkCategory::where('company_id', auth()->user()->company->id)->count();
+        $dataCount  = CompanyBookmarkCategory::where('company_id', auth()->user()->company->id)->count();
 
         return view('website.pages.company.bookmark-category', compact('categories', 'dataCount', 'category'));
     }
 
-    public function bookmarkCategoriesUpdate(Request $request, CompanyBookmarkCategory $category)
-    {
+    public function bookmarkCategoriesUpdate(Request $request, CompanyBookmarkCategory $category) {
 
         $category->update([
-            'name' => $request->name
+            'name' => $request->name,
         ]);
 
         flashSuccess('Category Updated');
         return back();
     }
 
-    public function bookmarkCategoriesDestroy(CompanyBookmarkCategory $category)
-    {
+    public function bookmarkCategoriesDestroy(CompanyBookmarkCategory $category) {
 
         $category->delete();
 
@@ -1304,8 +1302,7 @@ class CompanyController extends Controller
         return back();
     }
 
-    public function contactProfileUpdate($request)
-    {
+    public function contactProfileUpdate($request) {
         $user = User::findOrFail(auth()->user()->id);
 
         $contact = ContactInfo::where('user_id', $user->id)->update($request->except('_method', '_token', 'field'));
@@ -1315,7 +1312,7 @@ class CompanyController extends Controller
 
         if ($contact) {
             Company::where('user_id', $user->id)->update([
-                'profile_completion' => 1
+                'profile_completion' => 1,
             ]);
 
             return $contact;
@@ -1324,8 +1321,7 @@ class CompanyController extends Controller
         return false;
     }
 
-    public function sendEmailCandidate(Request $request)
-    {
+    public function sendEmailCandidate(Request $request) {
         if (!$request->subject || !$request->body) {
             flashError('Please fill all required fields');
             return back();
@@ -1344,9 +1340,8 @@ class CompanyController extends Controller
         return back();
     }
 
-    public function jobClone(Job $job)
-    {
-        $user = auth('user')->user();
+    public function jobClone(Job $job) {
+        $user      = auth('user')->user();
         $user_plan = $user->company->userPlan;
 
         if (!$user_plan->job_limit) {
@@ -1354,18 +1349,18 @@ class CompanyController extends Controller
             return redirect()->route('company.plan');
         }
 
-        $newJob = $job->replicate();
+        $newJob             = $job->replicate();
         $newJob->created_at = now();
 
         if ($job->featured && $user_plan->featured_job_limit) {
-            $newJob->featured = 1;
+            $newJob->featured              = 1;
             $user_plan->featured_job_limit = $user_plan->featured_job_limit - 1;
         } else {
             $newJob->featured = 0;
         }
 
         if ($job->highlight && $user_plan->highlight_job_limit) {
-            $newJob->highlight = 1;
+            $newJob->highlight              = 1;
             $user_plan->highlight_job_limit = $user_plan->highlight_job_limit - 1;
         } else {
             $newJob->highlight = 0;
@@ -1381,25 +1376,23 @@ class CompanyController extends Controller
         return back();
     }
 
-    public function applicationColumnStore(Request $request)
-    {
+    public function applicationColumnStore(Request $request) {
         $request->validate([
-            'name' => 'required'
+            'name' => 'required',
         ]);
 
         ApplicationGroup::create([
             'company_id' => auth()->user()->company->id,
-            'name' => $request->name,
+            'name'       => $request->name,
         ]);
 
         flashSuccess('Group Created');
         return response()->json(['success' => true]);
     }
 
-    public function applicationColumnUpdate(Request $request)
-    {
+    public function applicationColumnUpdate(Request $request) {
         $request->validate([
-            'name' => 'required'
+            'name' => 'required',
         ]);
 
         ApplicationGroup::find($request->id)->update([
@@ -1410,8 +1403,7 @@ class CompanyController extends Controller
         return response()->json(['success' => true]);
     }
 
-    public function applicationColumnDelete(ApplicationGroup $group)
-    {
+    public function applicationColumnDelete(ApplicationGroup $group) {
         if ($group->is_deleteable) {
             $new_group = ApplicationGroup::where('company_id', auth()->user()->company->id)
                 ->where('id', '!=', $group->id)
@@ -1420,7 +1412,7 @@ class CompanyController extends Controller
 
             if ($new_group) {
                 $group->applications()->update([
-                    'application_group_id' => $new_group->id
+                    'application_group_id' => $new_group->id,
                 ]);
             }
 

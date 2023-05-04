@@ -198,7 +198,7 @@
                             </label>
                             <a href="{{ url('terms-condition') }}" target="_blank"
                                 class="body-font-4 text-primary-500 text-theme">
-                                <strong style="color: #2e3397">{{ __('terms_of_service') }}</strong>
+                                <strong style="color: #2e3397">the Terms and Conditions</strong>
                             </a>
                         </div>
 

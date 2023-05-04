@@ -1,4 +1,5 @@
 {
+    "message_content": "Message Content",
     "all_notifications" : "All Notifications",
     "no_data_found" : "No Data Found!",
     "no_payment_method_available_here" : "No payment method available here!",
@@ -1125,7 +1126,7 @@
     "present_address": "Present Address",
     "parmanent_address": "Parmanent Address",
     "care_of": "Care Of",
-    "place" : "Village",
+    "place" : "Village/Town/City",
     "postcode": "Post Code",
     "post_office" : "Post Office",
     "thana" : "City Corporation/ Cantonment/ Upazila/ Thana",
@@ -1136,6 +1137,7 @@
     "passport_no": "Passport No",
     "birth_certificate_no": "Birth Certificate No",
     "bangladeshi": "Bangladeshi",
+    "psc_exam_name" : "Exam",
     "psc" : "PSC/Equivalent",
     "psc_roll_no" : "Roll No",
     "psc_passing_year" : "Passing Year",
