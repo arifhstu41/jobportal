@@ -136,6 +136,7 @@ Route::middleware('auth:user', 'verified')->group(function () {
         Route::middleware('company.profile')->group(function () {
             Route::get('dashboard', 'dashboard')->name('dashboard');
             Route::get('short-list-cadidate/{company_id}/{applied_job_id}', 'shortListCandidate')->name('shortlist.candidte');
+            Route::post('application/change-status/{id}', 'chnageApplicationStatus')->name('change.application.status');
             Route::get('remove-short-list-cadidate/{applied_job_id}', 'removeShortListCandidate')->name('remove.shortlist.candidte');
             Route::get('send-interview-sms/{job_application_id}', 'sendInterviewSMS')->name('send.interview.sms');
             Route::get('plans', 'plan')->name('plan')->middleware('user_active');
@@ -172,6 +173,8 @@ Route::middleware('auth:user', 'verified')->group(function () {
             Route::delete('applications/group/destroy/{group}', 'applicationsGroupDestroy')->name('applications.group.destroy');
 
             Route::get('applications/send-sms', 'sendSMS')->name('applications.sms');
+            Route::post('applications/send-custom-message', 'sendCustomMessage')->name('applications.send.custom.message');
+            Route::get('applications/candidate/show/{candidate}', 'show')->name('applications.candidate.show');
 
 
             // ====== appication group End=======

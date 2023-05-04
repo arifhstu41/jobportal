@@ -297,11 +297,11 @@
                     <td style="">National ID</td>
                     <td style="">{{ $candidate->nid_no }}</td>
                     <td style="">Passport ID</td>
-                    <td style="">{{ $candidate->passport_no }}</td>
+                    <td style="">{{ $candidate->passport_no ?? "N/A" }}</td>
                 </tr>
                 <tr>
                     <td style="">Birth Registration</td>
-                    <td style="">{{ $candidate->birth_certificate_no }}</td>
+                    <td style="">{{ $candidate->birth_certificate_no ?? "N/A" }}</td>
                     <td style="">Marital Status</td>
                     <td style="">{{ ucwords($candidate->marital_status) }}</td>
                 </tr>
@@ -372,8 +372,8 @@
                     <th>Board/Institute</th>
                     <th>Group/Subject/Degree</th>
                     <th>Result</th>
-                    <th>Year</th>
                     <th>Roll</th>
+                    <th>Year</th>
                     <th>Duration</th>
                 </tr>
             </thead>

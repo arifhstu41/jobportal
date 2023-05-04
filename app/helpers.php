@@ -1,37 +1,33 @@
 <?php
 
-use App\Models\Job;
-use App\Models\Company;
-use App\Models\Cookies;
-use App\Models\Setting;
-use Carbon\CarbonPeriod;
-use App\Models\Candidate;
-use Illuminate\Support\Str;
-use msztorc\LaravelEnv\Env;
-use Modules\Seo\Entities\Seo;
-use Illuminate\Support\Carbon;
-use Torann\GeoIP\Facades\GeoIP;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\ViewErrorBag;
-use Modules\Location\Entities\Country;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Storage;
-use Modules\Language\Entities\Language;
-use Stevebauman\Location\Facades\Location;
-use Stichoza\GoogleTranslate\GoogleTranslate;
 use AmrShawky\LaravelCurrency\Facade\Currency;
+use App\Models\Candidate;
+use App\Models\Company;
+use App\Models\Job;
+use App\Models\Setting;
 use App\Models\smsHistory;
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Illuminate\Support\ViewErrorBag;
+use Modules\Language\Entities\Language;
+use Modules\Location\Entities\Country;
+use Modules\Seo\Entities\Seo;
+use msztorc\LaravelEnv\Env;
+use Stevebauman\Location\Facades\Location;
+use Stichoza\GoogleTranslate\GoogleTranslate;
+use Torann\GeoIP\Facades\GeoIP;
 
 // =====================================================
 // ===================Image Function====================
 // =====================================================
 if (!function_exists('uploadImage')) {
-    function uploadImage($file, $path)
-    {
+    function uploadImage($file, $path) {
         $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
         $file->move(public_path('/uploads/' . $path . '/'), $fileName);
 
@@ -46,8 +42,7 @@ if (!function_exists('uploadImage')) {
  * @return void
  */
 if (!function_exists('deleteFile')) {
-    function deleteFile(?string $image)
-    {
+    function deleteFile( ? string $image) {
         $imageExists = file_exists($image);
 
         if ($imageExists) {
@@ -65,8 +60,7 @@ if (!function_exists('deleteFile')) {
  * @return void
  */
 if (!function_exists('deleteImage')) {
-    function deleteImage(?string $image)
-    {
+    function deleteImage( ? string $image) {
         $imageExists = file_exists($image);
 
         if ($imageExists) {
@@ -85,8 +79,7 @@ if (!function_exists('deleteImage')) {
  * @return false|string
  */
 if (!function_exists('uploadOne')) {
-    function uploadOne(UploadedFile $file, $folder = null, $disk = 'public', $filename = null)
-    {
+    function uploadOne(UploadedFile $file, $folder = null, $disk = 'public', $filename = null) {
         $name = !is_null($filename) ? $filename : uniqid('FILE_') . dechex(time());
 
         return $file->storeAs(
@@ -102,24 +95,21 @@ if (!function_exists('uploadOne')) {
  * @param string $disk
  */
 if (!function_exists('deleteOne')) {
-    function deleteOne($path = null, $disk = 'public')
-    {
+    function deleteOne($path = null, $disk = 'public') {
         Storage::disk($disk)->delete($path);
     }
 }
 
 if (!function_exists('uploadFileToStorage')) {
-    function uploadFileToStorage($file, string $path)
-    {
+    function uploadFileToStorage($file, string $path) {
         $file_name = $file->hashName();
-        Storage::putFileAs($path, $file,  $file_name);
-        return $path . '/' .  $file_name;
+        Storage::putFileAs($path, $file, $file_name);
+        return $path . '/' . $file_name;
     }
 }
 
 if (!function_exists('uploadFileToPublic')) {
-    function uploadFileToPublic($file, string $path)
-    {
+    function uploadFileToPublic($file, string $path) {
         if ($file && $path) {
             $url = $file->move('uploads/' . $path, $file->hashName());
         } else {
@@ -134,8 +124,7 @@ if (!function_exists('uploadFileToPublic')) {
 // ===================Env Function====================
 // =====================================================
 if (!function_exists('envReplace')) {
-    function envReplace($name, $value)
-    {
+    function envReplace($name, $value) {
         $path = base_path('.env');
         if (file_exists($path)) {
             file_put_contents($path, str_replace(
@@ -152,8 +141,7 @@ if (!function_exists('envReplace')) {
 }
 
 if (!function_exists('setEnv')) {
-    function setEnv($key, $value)
-    {
+    function setEnv($key, $value) {
         if ($key && $value) {
             $env = new Env();
             $env->setValue($key, $value);
@@ -167,8 +155,7 @@ if (!function_exists('setEnv')) {
 
 if (!function_exists('checkSetEnv')) {
 
-    function checkSetEnv($key, $value)
-    {
+    function checkSetEnv($key, $value) {
         if ((env($key) != $value)) {
             setEnv($key, $value);
         }
@@ -176,8 +163,7 @@ if (!function_exists('checkSetEnv')) {
 }
 
 if (!function_exists('error')) {
-    function error($name, $class = 'is-invalid')
-    {
+    function error($name, $class = 'is-invalid') {
         $errors = session()->get('errors', app(ViewErrorBag::class));
 
         return $errors->has($name) ? $class : '';
@@ -185,8 +171,7 @@ if (!function_exists('error')) {
 }
 
 if (!function_exists('allowLaguageChanage')) {
-    function allowLaguageChanage()
-    {
+    function allowLaguageChanage() {
         return Setting::first()->language_changing ? true : false;
     }
 }
@@ -203,10 +188,9 @@ if (!function_exists('allowLaguageChanage')) {
  * @return \Illuminate\Http\Response
  */
 if (!function_exists('responseData')) {
-    function responseData(?object $data, string $responseName = 'data')
-    {
+    function responseData( ? object $data, string $responseName = 'data') {
         return response()->json([
-            'success' => true,
+            'success'     => true,
             $responseName => $data,
         ], 200);
     }
@@ -219,8 +203,7 @@ if (!function_exists('responseData')) {
  * @return \Illuminate\Http\Response
  */
 if (!function_exists('responseSuccess')) {
-    function responseSuccess(string $msg = "Success")
-    {
+    function responseSuccess(string $msg = "Success") {
         return response()->json([
             'success' => true,
             'message' => $msg,
@@ -236,8 +219,7 @@ if (!function_exists('responseSuccess')) {
  * @return \Illuminate\Http\Response
  */
 if (!function_exists('responseError')) {
-    function responseError(string $msg = 'Something went wrong, please try again', int $code = 404)
-    {
+    function responseError(string $msg = 'Something went wrong, please try again', int $code = 404) {
         return response()->json([
             'success' => false,
             'message' => $msg,
@@ -252,12 +234,10 @@ if (!function_exists('responseError')) {
  * @return \Illuminate\Http\Response
  */
 if (!function_exists('flashSuccess')) {
-    function flashSuccess(string $msg)
-    {
+    function flashSuccess(string $msg) {
         session()->flash('success', $msg);
     }
 }
-
 
 /**
  * Response error flash message.
@@ -266,8 +246,7 @@ if (!function_exists('flashSuccess')) {
  * @return \Illuminate\Http\Response
  */
 if (!function_exists('flashError')) {
-    function flashError(string $message = 'Something went wrong')
-    {
+    function flashError(string $message = 'Something went wrong') {
         return session()->flash('error', $message);
     }
 }
@@ -279,8 +258,7 @@ if (!function_exists('flashError')) {
  * @return \Illuminate\Http\Response
  */
 if (!function_exists('flashWarning')) {
-    function flashWarning(string $message = 'Something went wrong', bool $custom = false)
-    {
+    function flashWarning(string $message = 'Something went wrong', bool $custom = false) {
         if ($custom) {
             return session()->flash('warning', $message);
         } else {
@@ -293,8 +271,7 @@ if (!function_exists('flashWarning')) {
 // ===================Others Function====================
 // ========================================================
 if (!function_exists('setting')) {
-    function setting($fields = null, $append = false)
-    {
+    function setting($fields = null, $append = false) {
         if ($fields) {
             $type = gettype($fields);
 
@@ -316,9 +293,8 @@ if (!function_exists('setting')) {
 }
 
 if (!function_exists('autoTransLation')) {
-    function autoTransLation($lang, $text)
-    {
-        $tr = new GoogleTranslate($lang);
+    function autoTransLation($lang, $text) {
+        $tr         = new GoogleTranslate($lang);
         $afterTrans = $tr->translate($text);
         return $afterTrans;
     }
@@ -331,15 +307,13 @@ if (!function_exists('autoTransLation')) {
  * @return boolean
  */
 if (!function_exists('userCan')) {
-    function userCan($permission)
-    {
+    function userCan($permission) {
         return auth('admin')->user()->can($permission);
     }
 }
 
 if (!function_exists('pdfUpload')) {
-    function pdfUpload(?object $file, string $path): string
-    {
+    function pdfUpload( ? object $file, string $path) : string{
         $filename = time() . '.' . $file->extension();
         $filePath = public_path('uploads/' . $path);
         $file->move($filePath, $filename);
@@ -350,18 +324,16 @@ if (!function_exists('pdfUpload')) {
 
 if (!function_exists('remainingDays')) {
 
-    function remainingDays($deadline)
-    {
-        $now = Carbon::now();
+    function remainingDays($deadline) {
+        $now   = Carbon::now();
         $cDate = Carbon::parse($deadline);
         return $now->diffInDays($cDate);
     }
 }
 
 if (!function_exists('jobStatus')) {
-    function jobStatus($deadline)
-    {
-        $now = Carbon::now();
+    function jobStatus($deadline) {
+        $now   = Carbon::now();
         $cDate = Carbon::parse($deadline);
 
         if ($now->greaterThanOrEqualTo($cDate)) {
@@ -374,18 +346,17 @@ if (!function_exists('jobStatus')) {
 
 if (!function_exists('socialMediaShareLinks')) {
 
-    function socialMediaShareLinks(string $path, string $provider)
-    {
+    function socialMediaShareLinks(string $path, string $provider) {
         switch ($provider) {
-            case 'facebook':
-                $share_link = 'https://www.facebook.com/sharer/sharer.php?u=' . $path;
-                break;
-            case 'twitter':
-                $share_link = 'https://twitter.com/intent/tweet?text=' . $path;
-                break;
-            case 'pinterest':
-                $share_link = 'http://pinterest.com/pin/create/button/?url=' . $path;
-                break;
+        case 'facebook' :
+            $share_link = 'https://www.facebook.com/sharer/sharer.php?u=' . $path;
+            break;
+        case 'twitter' :
+            $share_link = 'https://twitter.com/intent/tweet?text=' . $path;
+            break;
+        case 'pinterest' :
+            $share_link = 'http://pinterest.com/pin/create/button/?url=' . $path;
+            break;
         }
         return $share_link;
     }
@@ -393,8 +364,7 @@ if (!function_exists('socialMediaShareLinks')) {
 
 if (!function_exists('livejob')) {
 
-    function livejob()
-    {
+    function livejob() {
         $livejobs = Job::where('status', 'active')->count();
         return $livejobs;
     }
@@ -402,8 +372,7 @@ if (!function_exists('livejob')) {
 
 if (!function_exists('companies')) {
 
-    function companies()
-    {
+    function companies() {
         $companies = Company::count();
         return $companies;
     }
@@ -411,38 +380,33 @@ if (!function_exists('companies')) {
 
 if (!function_exists('newjob')) {
 
-    function newjob()
-    {
+    function newjob() {
         $newjobs = Job::where('status', 'active')->where('created_at', '>=', Carbon::now()->subDays(7)->toDateString())->count();
         return $newjobs;
     }
 }
 
 if (!function_exists('candidate')) {
-    function candidate()
-    {
+    function candidate() {
         $candidates = Candidate::count();
         return $candidates;
     }
 }
 if (!function_exists('linkActive')) {
-    function linkActive($route, $class = 'active')
-    {
+    function linkActive($route, $class = 'active') {
         return request()->routeIs($route) ? $class : '';
     }
 }
 
 if (!function_exists('candidateNotifications')) {
-    function candidateNotifications()
-    {
+    function candidateNotifications() {
         return auth()->user()->notifications()->take(6)->get();
     }
 }
 
 if (!function_exists('candidateNotificationsCount')) {
 
-    function candidateNotificationsCount()
-    {
+    function candidateNotificationsCount() {
 
         return auth()->user()->notifications()->count();
     }
@@ -450,49 +414,43 @@ if (!function_exists('candidateNotificationsCount')) {
 
 if (!function_exists('candidateUnreadNotifications')) {
 
-    function candidateUnreadNotifications()
-    {
+    function candidateUnreadNotifications() {
         return auth()->user()->unreadNotifications()->count();
     }
 }
 
 if (!function_exists('companyNotifications')) {
 
-    function companyNotifications()
-    {
+    function companyNotifications() {
 
         return auth()->user()->notifications()->take(6)->get();
     }
 }
 
 if (!function_exists('companyNotificationsCount')) {
-    function companyNotificationsCount()
-    {
+    function companyNotificationsCount() {
         return auth()->user()->notifications()->count();
     }
 }
 
 if (!function_exists('companyUnreadNotifications')) {
 
-    function companyUnreadNotifications()
-    {
+    function companyUnreadNotifications() {
 
         return auth()->user()->unreadNotifications()->count();
     }
 }
 
 if (!function_exists('defaultCurrencySymbol')) {
-    function defaultCurrencySymbol()
-    {
+    function defaultCurrencySymbol() {
         return config('zakirsoft.app_currency_symbol');
     }
 }
 
 if (!function_exists('currencyAmountShort')) {
 
-    function currencyAmountShort($amount)
-    {
-        $num = $amount * getCurrencyRate();
+    function currencyAmountShort($amount) {
+        $num   = $amount * getCurrencyRate();
         $units = ['', 'K', 'M', 'B', 'T'];
         for ($i = 0; $num >= 1000; $i++) {
             $num /= 1000;
@@ -509,8 +467,7 @@ if (!function_exists('currencyAmountShort')) {
  * @return  string
  */
 if (!function_exists('zeroDecimal')) {
-    function zeroDecimal($amount)
-    {
+    function zeroDecimal($amount) {
         $units = ['', 'K', 'M', 'B', 'T'];
         for ($i = 0; $amount >= 1000; $i++) {
             $amount /= 1000;
@@ -531,10 +488,9 @@ if (!function_exists('zeroDecimal')) {
  * @return number
  */
 if (!function_exists('currencyExchange')) {
-    function currencyExchange($amount, $from = null, $to = null, $round = 2)
-    {
+    function currencyExchange($amount, $from = null, $to = null, $round = 2) {
         $from = currentCurrencyCode();
-        $to = config('zakirsoft.currency', 'USD');
+        $to   = config('zakirsoft.currency', 'USD');
 
         return AmrShawky\Currency::convert()
             ->from($from)
@@ -546,10 +502,9 @@ if (!function_exists('currencyExchange')) {
 }
 
 if (!function_exists('currencyConversion')) {
-    function currencyConversion($amount, $from = null, $to = null, $round = 2)
-    {
+    function currencyConversion($amount, $from = null, $to = null, $round = 2) {
         $from = $from ?? config('zakirsoft.currency');
-        $to = $to ?? 'USD';
+        $to   = $to ?? 'USD';
 
         return Currency::convert()
             ->from($from)
@@ -566,12 +521,11 @@ if (!function_exists('currencyConversion')) {
  * @return void
  */
 if (!function_exists('currencyRateStore')) {
-    function currencyRateStore()
-    {
+    function currencyRateStore() {
         if (session()->has('currency_rate')) {
             $currency_rate = session('currency_rate');
-            $from = config('zakirsoft.currency');
-            $to = currentCurrencyCode();
+            $from          = config('zakirsoft.currency');
+            $to            = currentCurrencyCode();
 
             if ($currency_rate['from'] != $from || $currency_rate['to'] != $to) {
                 $rate = AmrShawky\Currency::convert()->from($from)->to($to)->amount(1)->get();
@@ -579,7 +533,7 @@ if (!function_exists('currencyRateStore')) {
             }
         } else {
             $from = config('zakirsoft.currency');
-            $to = currentCurrencyCode();
+            $to   = currentCurrencyCode();
 
             $rate = AmrShawky\Currency::convert()->from($from)->to($to)->amount(1)->get();
             session(['currency_rate' => ['from' => $from, 'to' => $to, 'rate' => $rate]]);
@@ -593,11 +547,10 @@ if (!function_exists('currencyRateStore')) {
  * @return number
  */
 if (!function_exists('getCurrencyRate')) {
-    function getCurrencyRate()
-    {
+    function getCurrencyRate() {
         if (session()->has('currency_rate')) {
             $currency_rate = session('currency_rate');
-            $rate = $currency_rate['rate'];
+            $rate          = $currency_rate['rate'];
             return $rate;
         } else {
             return 1;
@@ -611,8 +564,7 @@ if (!function_exists('getCurrencyRate')) {
  * @return object
  */
 if (!function_exists('currentCurrency')) {
-    function currentCurrency()
-    {
+    function currentCurrency() {
         return session('current_currency') ?? Currency::where('code', config('jobpilot.currency'))->first();
     }
 }
@@ -623,8 +575,7 @@ if (!function_exists('currentCurrency')) {
  * @return string
  */
 if (!function_exists('currentCurrencyCode')) {
-    function currentCurrencyCode()
-    {
+    function currentCurrencyCode() {
         if (session()->has('current_currency')) {
             $currency = session('current_currency');
             return $currency->code;
@@ -636,29 +587,26 @@ if (!function_exists('currentCurrencyCode')) {
 
 if (!function_exists('currentLanguage')) {
 
-    function currentLanguage()
-    {
+    function currentLanguage() {
         return session('current_lang');
     }
 }
 
 if (!function_exists('langDirection')) {
 
-    function langDirection()
-    {
+    function langDirection() {
         return session('current_lang')->direction ?? Language::where('code', config('zakirsoft.default_language'))->value('direction');
     }
 }
 
 if (!function_exists('metaData')) {
 
-    function metaData($page)
-    {
+    function metaData($page) {
         $current_language = currentLanguage(); // current session language
-        $language_code = $current_language ? $current_language->code : 'en'; // language code or default one
-        $page = Seo::where('page_slug', $page)->first(); // get page
-        $exist_content = $page->contents()->where('language_code', $language_code)->first(); // get page content orderBy page && language
-        $content = '';
+        $language_code    = $current_language ? $current_language->code : 'en'; // language code or default one
+        $page             = Seo::where('page_slug', $page)->first(); // get page
+        $exist_content    = $page->contents()->where('language_code', $language_code)->first(); // get page content orderBy page && language
+        $content          = '';
         if ($exist_content) {
             $content = $exist_content;
         } else {
@@ -671,8 +619,7 @@ if (!function_exists('metaData')) {
 
 if (!function_exists('storePlanInformation')) {
 
-    function storePlanInformation()
-    {
+    function storePlanInformation() {
         session()->forget('user_plan');
         session(['user_plan' => auth('user')->user()->company->userPlan]);
     }
@@ -680,26 +627,23 @@ if (!function_exists('storePlanInformation')) {
 
 if (!function_exists('formatTime')) {
 
-    function formatTime($date, $format = 'F d, Y H:i A')
-    {
+    function formatTime($date, $format = 'F d, Y H:i A') {
         return Carbon::parse($date)->format($format);
     }
 }
 
 if (!function_exists('inspireMe')) {
 
-    function inspireMe()
-    {
+    function inspireMe() {
         Artisan::call('inspire');
         return Artisan::output();
     }
 }
 
 if (!function_exists('getUnsplashImage')) {
-    function getUnsplashImage()
-    {
+    function getUnsplashImage() {
         $url = "https://source.unsplash.com/random/1920x1280/?park,mountain,ocean,sunset,travel";
-        $ch = curl_init();
+        $ch  = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HEADER, true);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // Must be set to true so that PHP follows any "Location:" header
@@ -710,24 +654,21 @@ if (!function_exists('getUnsplashImage')) {
 }
 
 if (!function_exists('adminNotifications')) {
-    function adminNotifications()
-    {
+    function adminNotifications() {
         return auth('admin')->user()->notifications()->take(10)->get();
     }
 }
 
 if (!function_exists('adminUnNotifications')) {
 
-    function adminUnNotifications()
-    {
+    function adminUnNotifications() {
         return auth('admin')->user()->unreadNotifications()->count();
     }
 }
 
 if (!function_exists('checkMailConfig')) {
 
-    function checkMailConfig()
-    {
+    function checkMailConfig() {
         $status = config('mail.mailers.smtp.transport') && config('mail.mailers.smtp.host') && config('mail.mailers.smtp.port') && config('mail.mailers.smtp.username') && config('mail.mailers.smtp.password') && config('mail.mailers.smtp.encryption') && config('mail.from.address') && config('mail.from.name');
 
         !$status ? flashError('Mail not sent for the reason of incomplete mail configuration') : '';
@@ -737,33 +678,31 @@ if (!function_exists('checkMailConfig')) {
 
 if (!function_exists('openJobs')) {
 
-    function openJobs()
-    {
+    function openJobs() {
         return Job::where('status', 'active')->where('deadline', '>=', Carbon::now()->toDateString())->count();
     }
 }
 
 if (!function_exists('updateMap')) {
-    function updateMap($data)
-    {
+    function updateMap($data) {
         $location = session()->get('location');
 
         if ($location) {
-            $region = array_key_exists("region", $location) ? $location['region'] : '';
+            $region  = array_key_exists("region", $location) ? $location['region'] : '';
             $country = array_key_exists("country", $location) ? $location['country'] : '';
             $address = Str::slug($region . '-' . $country);
 
             $data->update([
-                'address' => $address,
+                'address'      => $address,
                 'neighborhood' => array_key_exists("neighborhood", $location) ? $location['neighborhood'] : '',
-                'locality' => array_key_exists("locality", $location) ? $location['locality'] : '',
-                'place' => array_key_exists("place", $location) ? $location['place'] : '',
-                'district' => array_key_exists("district", $location) ? $location['district'] : '',
-                'postcode' => array_key_exists("postcode", $location) ? $location['postcode'] : '',
-                'region' => array_key_exists("region", $location) ? $location['region'] : '',
-                'country' => array_key_exists("country", $location) ? $location['country'] : '',
-                'long' => array_key_exists("lng", $location) ? $location['lng'] : '',
-                'lat' => array_key_exists("lat", $location) ? $location['lat'] : '',
+                'locality'     => array_key_exists("locality", $location) ? $location['locality'] : '',
+                'place'        => array_key_exists("place", $location) ? $location['place'] : '',
+                'district'     => array_key_exists("district", $location) ? $location['district'] : '',
+                'postcode'     => array_key_exists("postcode", $location) ? $location['postcode'] : '',
+                'region'       => array_key_exists("region", $location) ? $location['region'] : '',
+                'country'      => array_key_exists("country", $location) ? $location['country'] : '',
+                'long'         => array_key_exists("lng", $location) ? $location['lng'] : '',
+                'lat'          => array_key_exists("lat", $location) ? $location['lat'] : '',
             ]);
             session()->forget('location');
         }
@@ -773,27 +712,24 @@ if (!function_exists('updateMap')) {
 }
 
 if (!function_exists('selected_country')) {
-    function selected_country()
-    {
+    function selected_country() {
         $selected_country = session()->get('selected_country');
-        $country = Country::find($selected_country);
+        $country          = Country::find($selected_country);
 
         return $country;
     }
 }
 
 if (!function_exists('get_file_size')) {
-    function get_file_size($file)
-    {
+    function get_file_size($file) {
         if (file_exists($file)) {
-            $file_size = File::size($file) / 1024  / 1024;
+            $file_size = File::size($file) / 1024 / 1024;
             return round($file_size, 4) . ' MB';
         }
 
         return '0 MB';
     }
 }
-
 
 /**
  * Increases or decreases the brightness of a color by a percentage of the current brightness.
@@ -806,8 +742,7 @@ if (!function_exists('get_file_size')) {
  * @author  maliayas
  */
 if (!function_exists('adjustBrightness')) {
-    function adjustBrightness($hexCode, $adjustPercent)
-    {
+    function adjustBrightness($hexCode, $adjustPercent) {
         $hexCode = ltrim($hexCode, '#');
 
         if (strlen($hexCode) == 3) {
@@ -818,7 +753,7 @@ if (!function_exists('adjustBrightness')) {
 
         foreach ($hexCode as &$color) {
             $adjustableLimit = $adjustPercent < 0 ? $color : 255 - $color;
-            $adjustAmount = ceil($adjustableLimit * $adjustPercent);
+            $adjustAmount    = ceil($adjustableLimit * $adjustPercent);
 
             $color = str_pad(dechex($color + $adjustAmount), 2, '0', STR_PAD_LEFT);
         }
@@ -828,8 +763,7 @@ if (!function_exists('adjustBrightness')) {
 }
 
 if (!function_exists('current_country_code')) {
-    function current_country_code()
-    {
+    function current_country_code() {
         if (selected_country()) {
             $country_code = selected_country()->sortname;
         } else {
@@ -852,8 +786,7 @@ if (!function_exists('current_country_code')) {
  * @return  void
  */
 if (!function_exists('setLocationCurrency')) {
-    function setLocationCurrency()
-    {
+    function setLocationCurrency() {
         $ip = request()->ip();
         // $ip = '103.102.27.0'; // Bangladesh
         // $ip = '105.179.161.212'; // Mauritius
@@ -861,8 +794,6 @@ if (!function_exists('setLocationCurrency')) {
         // $ip = '107.29.65.61'; // United States"
         // $ip = '46.39.160.0'; // Czech Republic
         // $ip = "94.112.58.11"; // Czechia
-
-
 
         if ($ip && $ip != '127.0.0.1') {
             $geo = GeoIP::getLocation($ip);
@@ -880,12 +811,12 @@ if (!function_exists('setLocationCurrency')) {
 
             // Set the language
             if (!session()->has('current_lang')) {
-                $path = base_path('public/json/country_currency_language.json');
+                $path                      = base_path('public/json/country_currency_language.json');
                 $country_language_currency = json_decode(file_get_contents($path), true);
-                $key = array_search($geo->iso_code, array_column($country_language_currency, 'code'));
+                $key                       = array_search($geo->iso_code, array_column($country_language_currency, 'code'));
                 $country_language_currency = $country_language_currency[$key];
-                $lang_code = $country_language_currency['language']['code'];
-                $language = Language::where('code', $lang_code)->first();
+                $lang_code                 = $country_language_currency['language']['code'];
+                $language                  = Language::where('code', $lang_code)->first();
 
                 if ($language) {
                     session(['current_lang' => $language]);
@@ -933,8 +864,7 @@ if (!function_exists('setLocationCurrency')) {
  * Date format
  */
 if (!function_exists('getLanguageByCode')) {
-    function getLanguageByCode($code)
-    {
+    function getLanguageByCode($code) {
         return Language::where('code', $code)->value('name');
     }
 }
@@ -944,8 +874,7 @@ if (!function_exists('getLanguageByCode')) {
  * Date format
  */
 if (!function_exists('currentLangCode')) {
-    function currentLangCode()
-    {
+    function currentLangCode() {
         if (session('current_lang')) {
             return session('current_lang')->code;
         } else {
@@ -959,8 +888,7 @@ if (!function_exists('currentLangCode')) {
  * Date format
  */
 if (!function_exists('dateFormat')) {
-    function dateFormat($date, $format = 'F Y')
-    {
+    function dateFormat($date, $format = 'F Y') {
         return \Carbon\Carbon::createFromFormat($format, $date)->toDateTimeString();
     }
 }
@@ -970,9 +898,8 @@ if (!function_exists('dateFormat')) {
  * @param String $date
  */
 if (!function_exists('currencyPosition')) {
-    function currencyPosition($amount)
-    {
-        $symbol = config('jobpilot.currency_symbol');
+    function currencyPosition($amount) {
+        $symbol   = config('jobpilot.currency_symbol');
         $position = config('jobpilot.currency_position');
 
         if ($position == 'left') {
@@ -989,8 +916,7 @@ if (!function_exists('currencyPosition')) {
  * Authenticate candidate
  */
 if (!function_exists('currentCandidate')) {
-    function currentCandidate()
-    {
+    function currentCandidate() {
         return auth('user')->user()->candidate;
     }
 }
@@ -999,8 +925,7 @@ if (!function_exists('currentCandidate')) {
  * Authenticate candidate
  */
 if (!function_exists('currentCompany')) {
-    function currentCompany()
-    {
+    function currentCompany() {
         return auth('user')->user()->company;
     }
 }
@@ -1019,7 +944,7 @@ if (!function_exists('getFormattedNumber')) {
         $groupingUsed = true
     ) {
         $currencyCode = currentCurrencyCode();
-        $formatter = new NumberFormatter($locale, $style);
+        $formatter    = new NumberFormatter($locale, $style);
         $formatter->setAttribute(NumberFormatter::FRACTION_DIGITS, $precision);
         $formatter->setAttribute(NumberFormatter::GROUPING_USED, $groupingUsed);
         if ($style == NumberFormatter::CURRENCY) {
@@ -1037,8 +962,7 @@ if (!function_exists('getFormattedNumber')) {
  *
  */
 if (!function_exists('isFuture')) {
-    function isFuture($date = null): bool
-    {
+    function isFuture($date = null): bool {
 
         if ($date) {
             return Carbon::parse($date)->isFuture();
@@ -1048,7 +972,6 @@ if (!function_exists('isFuture')) {
     }
 }
 
-
 /**
  * Send SMS to candidates through elitbuzz api
  * @param int candidate_id, job_id
@@ -1056,38 +979,41 @@ if (!function_exists('isFuture')) {
  *
  */
 if (!function_exists('sendSMS')) {
-    function sendSMS($user_id, $content_type, $job_id = null, $sms_content = null): bool
-    {
-        $user = User::find($user_id);
-        $url = env("SMS_API_URL");
-        $api_key = env('SMS_API_KEY');
-        $type = "unicode";
-        $phone = "88" . $user->phone;
+    function sendSMS($user_id, $content_type, $job_id = null, $sms_content = null): bool{
+        $user      = User::find($user_id);
+        $url       = env("SMS_API_URL");
+        $api_key   = env('SMS_API_KEY');
+        $type      = "unicode";
+        $phone     = "88" . $user->phone;
         $sender_id = env('SMS_SENDER_ID');
         switch ($content_type) {
-            case 'register':
-                $content= "ওয়েলফেয়ার জব পোর্টালে রেজিষ্ট্রেশন করার জন্য আপনাকে অভিনন্দন";
-                break;
-                
-                case 'apply':
-                    $content= "আপনার চাকরির আবেদন সফলভাবে গ্রহণ করা হয়েছে এবং পরবর্তী প্রক্রিয়ার জন্য My Welfare App অথবা www.welfarebd.org থেকে রেজিষ্ট্রেশন করুন";
-                    break;
-                
-                case 'interview':
-                    $content= "অভিনন্দন,আপনি ইন্টারভিউয়ের জন্য নির্বাচিত হয়েছেন, আপনার জন্য শুভ কামনা";
-                    break;
-                
-                case 'otp':
-                    $content= "আপনার ভেরিফিকেশন কোর্ড-".$sms_content;
-                    break;
-                
-                case 'password_reset':
-                    $content= "আপনার পাসওয়ার্ড সফলভাবে পরিবর্তন হয়েছে";
-                    break;
-                
-            default:
-                $content= "ওয়েলফেয়ার জব পোর্টালে আপনাকে স্বাগতম";
-                break;
+        case 'register':
+            $content = "ওয়েলফেয়ার জব পোর্টালে রেজিষ্ট্রেশন করার জন্য আপনাকে অভিনন্দন";
+            break;
+
+        case 'apply':
+            $content = "আপনার চাকরির আবেদন সফলভাবে গ্রহণ করা হয়েছে এবং পরবর্তী প্রক্রিয়ার জন্য My Welfare App অথবা www.welfarebd.org থেকে রেজিষ্ট্রেশন করুন";
+            break;
+
+        case 'interview':
+            $content = "অভিনন্দন,আপনি ইন্টারভিউয়ের জন্য নির্বাচিত হয়েছেন, আপনার জন্য শুভ কামনা";
+            break;
+
+        case 'otp':
+            $content = "আপনার ভেরিফিকেশন কোর্ড-" . $sms_content;
+            break;
+
+        case 'password_reset':
+            $content = "আপনার পাসওয়ার্ড সফলভাবে পরিবর্তন হয়েছে";
+            break;
+
+        case 'custom':
+            $content = $sms_content;
+            break;
+
+        default:
+            $content = "ওয়েলফেয়ার জব পোর্টালে আপনাকে স্বাগতম";
+            break;
         }
         // if($content_type){
         //     $template = DB::table('sms_content')->where("content_type", $content_type)->first();
@@ -1105,11 +1031,11 @@ if (!function_exists('sendSMS')) {
         // }
 
         $data = [
-            "api_key" => $api_key,
-            "type" => $type,
+            "api_key"  => $api_key,
+            "type"     => $type,
             "contacts" => $phone,
             "senderid" => $sender_id,
-            "msg" => $content,
+            "msg"      => $content,
         ];
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -1147,17 +1073,16 @@ if (!function_exists('sendSMS')) {
         $response_meaning = $statusList[$response_code];
 
         smsHistory::create([
-            'user_id' => $user_id,
-            'phone' => $phone,
-            'response_code' => $response_code,
+            'user_id'          => $user_id,
+            'phone'            => $phone,
+            'response_code'    => $response_code,
             'response_meaning' => $response_meaning,
-            'sms_content_id' => $template->id ?? "0",
+            'sms_content_id'   => $template->id ?? "0",
         ]);
 
         return true;
     }
 }
-
 
 /**
  * generate 12 digit Username starting with WFB
@@ -1166,22 +1091,20 @@ if (!function_exists('sendSMS')) {
  *
  */
 if (!function_exists('generateUserName')) {
-    function generateUserName($length = 12)
-    {
-        $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    function generateUserName($length = 12) {
+        $characters       = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
-        $randomString = '';
+        $randomString     = '';
         for ($i = 0; $i < $length; $i++) {
             $randomString .= $characters[random_int(0, $charactersLength - 1)];
         }
-        $username= "WFB".$randomString;
+        $username = "WFB" . $randomString;
 
         $oldUserName = User::where('username', $username)->first();
-        if($oldUserName){
+        if ($oldUserName) {
             generateUserName(12);
         }
         return $username;
     }
-
 
 }

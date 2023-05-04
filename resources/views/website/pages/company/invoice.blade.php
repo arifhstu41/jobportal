@@ -194,6 +194,15 @@
                 </div>
             </div>
         </section> --}}
+        <table style="font-family: Arial, Helvetica, sans-serif">
+            <tbody>
+                <tr style="border:#2e3397 1px solid; min-height: 150px; vertical-align: baseline">
+                    <td style="text-align: center">
+                        <img src="images/pad.png" alt="Welfare Pad" style="width: 100%">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
         <table style="width:100%">
             <tbody>
                 <tr>
@@ -203,9 +212,9 @@
                         <p>{{ $transaction->user->email }}</p>
                         <p>{{ $transaction->user->contactInfo->address }}</p>
                     </td>
-                    <td style="text-align: right">
+                    {{-- <td style="text-align: right">
                         <img style="height: 100px; width:100px"
-                            src="{{ public_path('images/Welfare-Family-TM.png') }}" alt="" class="img-fluid"></td>
+                            src="{{ public_path('images/Welfare-Family-TM.png') }}" alt="" class="img-fluid"></td> --}}
                 </tr>
             </tbody>
         </table>
