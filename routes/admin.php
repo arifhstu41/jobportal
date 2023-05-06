@@ -144,6 +144,7 @@ Route::prefix('admin')->group(function () {
         Route::controller(OrderController::class)->group(function () {
             Route::get('/orders', 'index')->name('order.index');
             Route::get('/orders/{id}', 'show')->name('order.show');
+            Route::post('/orders/export/pdf', 'exportPDF')->name('orders.export.pdf');
         });
 
         // ========================================================

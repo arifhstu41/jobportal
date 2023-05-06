@@ -97,7 +97,7 @@ class CompanyController extends Controller
 
     public function store(CompanyCreateFormRequest $request)
     {
-        // dd($request->all());
+    
         abort_if(!userCan('company.create'), 403);
         $faker = Factory::create();
 
@@ -177,7 +177,7 @@ class CompanyController extends Controller
             flashSuccess('Company added Successfully');
             return redirect()->route('company.index');
         } catch (\Throwable $th) {
-            dd($th->getMessage());
+           
             return redirect()->back()->with('error', config('app.debug') ? $th->getMessage() : 'Something went wrong');
         }
     }

@@ -770,9 +770,9 @@ class WebsiteController extends Controller
         $data['candidate'] = $candidate;
         $data['job'] = $job;
         $data['message'] = "dsfdsfd";
+        
         $defaultConfig = (new ConfigVariables())->getDefaults();
         $fontDirs = $defaultConfig['fontDir'];
-
         $defaultFontConfig = (new FontVariables())->getDefaults();
         $fontData = $defaultFontConfig['fontdata'];
 

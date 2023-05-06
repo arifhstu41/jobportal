@@ -7,7 +7,7 @@
                     <div class="row w-100">
                         <div class="col-sm-12 col-md-6">
                             <a href="{{ route('website.home') }}" class="brand-logo">
-                                <img src="{{ asset('images/wfb-logo.png') }}" alt="Welfare Logo" height="80" width="80">
+                                <img src="{{ asset('images/WFB.png') }}" alt="Welfare Logo">
                             </a>
                         </div>
                         <div class="col-sm-12 col-md-6 d-flex align-items-center justify-content-center">
@@ -77,7 +77,7 @@
 
     <div class="dashboard-wrapper account-setup">
         <div class="container">
-            <div class="account-progress-wrap cadidate-dashboard-tabs pt-2">
+            <div class="account-progress-wrap cadidate-dashboard-tabs pt-2" style="padding-top:50px !important">
                 <div id="msform">
                     @if (!auth()->user()->company->profile_completion)
                         <ul class="nav nav-pills justify-content-center" id="progressbar">
@@ -212,14 +212,5 @@
         });
     </script>
 
-    @php
-        $map = setting('default_map');
-    @endphp
-    @if ($map == 'google-map')
-        @include('map::set-googlemap')
-    @elseif ($map == 'map-box')
-        @include('map::set-mapbox')
-    @else
-        @include('map::set-leafletmap')
-    @endif
+
 @endsection

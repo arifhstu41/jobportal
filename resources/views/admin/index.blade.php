@@ -178,7 +178,7 @@
                                         <td class="text-muted">{{ $latest->job_type ? $latest->job_type->name : '' }}
                                         </td>
                                         <td class="text-muted">
-                                            <a href="{{ route('job.show', $latest->slug) }}" class="btn bg-info ml-1">
+                                            <a href="{{ route('job.show', $latest->id) }}" class="btn bg-info ml-1">
                                                 <i class="fas fa-eye"></i>
                                             </a>
                                         </td>

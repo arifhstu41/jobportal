@@ -180,7 +180,7 @@
             </tbody>
         </table>
     </div>
-    {{-- @dd("sfdsf") --}}
+    
     <div class="row">
         <table style="padding-top: 4px; margin-top: 10px">
             <tbody>
@@ -454,63 +454,6 @@
         </table>
     </div>
 
-    {{-- @if (count($candidate->experiences) > 0)
-        <table style="padding-top: 4px;">
-            <thead>
-                <tr>
-                    <th style="text-align: left; font-size: 10px; margin:2px; padding:2px; background-color:#DCDCDC"
-                        colspan="6">Professional Experience:</th>
-                </tr>
-                <tr>
-                    <th
-                        style="text-align: left; font-size: 10px; margin:2px; padding:2px; text-align: center; background-color:#DCDCDC">
-                        Organization Name</th>
-                    <th
-                        style="text-align: left; font-size: 10px; margin:2px; padding:2px; text-align: center; background-color:#DCDCDC">
-                        Post Name</th>
-                    <th
-                        style="text-align: left; font-size: 10px; margin:2px; padding:2px; text-align: center; background-color:#DCDCDC">
-                        Responsibilities</th>
-                    <th
-                        style="text-align: left; font-size: 10px; margin:2px; padding:2px; text-align: center; background-color:#DCDCDC">
-                        Start Date</th>
-                    <th
-                        style="text-align: left; font-size: 10px; margin:2px; padding:2px; text-align: center; background-color:#DCDCDC">
-                        End Date</th>
-                    <th
-                        style="text-align: left; font-size: 10px; margin:2px; padding:2px; text-align: center; background-color:#DCDCDC">
-                        Total Experience</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($candidate->experiences as $experience)
-                    @php
-                        $d1 = new DateTime($experience->start);
-                        $d2 = new DateTime($experience->end);
-                        
-                        // @link http://www.php.net/manual/en/class.dateinterval.php
-                        $interval = $d2->diff($d1);
-                        
-                        $diff = $interval->format('%y Years %m Months');
-                    @endphp
-                    <tr>
-                        <td style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
-                            {{ $experience->company ?? '' }}</td>
-                        <td style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
-                            {{ $experience->designation ?? '' }}</td>
-                        <td style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
-                            {{ $experience->responsibilities ?? '' }}</td>
-                        <td style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
-                            {{ $experience->start ?? '' }}</td>
-                        <td style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
-                            {{ $experience->end ?? '' }}</td>
-                        <td style="margin: 2px; padding:2px; font-size: 10px; text-align: center;">
-                            {{ $diff }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    @endif --}}
 
     <div class="row" style="margin-top:20px;" class="jutified-text fulljustify">
         <i>I declare that the information provided in this form are correct, true and complete to the best of my

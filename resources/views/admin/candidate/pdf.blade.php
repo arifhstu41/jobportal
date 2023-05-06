@@ -14,124 +14,164 @@
 
       
     </style>
-    <link rel="stylesheet" type="text/css" href="{{ public_path('css/bd-tables.css') }}" media="all">
+    <style>
+          #application-print {
+        max-width: 800px;
+        margin: 0 auto;
+        font-family: Arial, sans-serif;
+    }
+
+    h1,
+    h2 {
+        margin-top: 0;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    table td,
+    table th {
+        /* padding: 10px; */
+        border: 1px solid #2e3397;
+        /* background-color: #f2f2f2; */
+    }
+
+    /* table th {
+            background-color: #f2f2f2;
+        } */
+
+    .personal-info
+
+    /* CSS styles go here */
+    @media print {
+        /* Print styles go here */
+    }
+
+    /* Display the image and personal info side by side */
+    .personal-info {
+        display: flex;
+        align-items: center;
+    }
+
+    .personal-info-image {
+        width: 30%;
+    }
+
+    .personal-info-image img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .personal-info-details {
+        width: 70%;
+    }
+
+    .personal-info-details table {
+        margin-bottom: 0;
+    }
+
+    .barcode-div {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin-right: -15px;
+        margin-left: -15px;
+    }
+
+    .d-flex {
+        display: flex !important;
+    }
+
+    .justify-content-end {
+        justify-content: flex-end !important;
+    }
+
+    /* body{
+            font-family: bangla
+        } */
+
+    /* @font-face {
+        font-family: 'preeti';
+        font-style: normal;
+        font-weight: 400;
+        src: url('".$public_path."/fonts/PREETI.TTF') format('ttf');
+    } */
+
+    /* @font-face{
+        font-family: Arial, Helvetica, sans-serif;
+    } */
+
+    /* @page {
+        margin-left: 4%;
+        margin-right: 4%;
+    } */
+
+    td,
+    th {
+        padding: 6px;
+    }
+    .fulljustify {
+    	text-align:justify;
+    }
+    .fulljustify:after {
+        content: "";
+        display: inline-block;
+        width: 100%;	
+    }
+    .jutified-text {
+        /* height: 80px; */
+        overflow: hidden;
+        /* line-height: 80px;  */
+    }
+    </style>
+    {{-- <link rel="stylesheet" type="text/css" href="{{ public_path('css/bd-tables.css') }}" media="all"> --}}
 </head>
 
 <body class="main-body">
-    {{-- <div class="invoice page-break" size="A4">
-        <section class="top-content bb">
-            <div class="top-left">
-                <div>
-                    <h4>Company Information:</h4>
-                </div>
-                <div>
-                    <p>{{ $transaction->company->user->name }}</p>
-                    <p>{{ $transaction->company->user->email }}</p>
-                    <p>{{ $transaction->company->user->contactInfo->address }}</p>
-                </div>
-            </div>
-            <div class="top-right">
-                <div class="logo">
-                    <img src="{{ setting()->dark_logo_url }}" alt="" class="img-fluid">
-                </div>
-            </div>
-        </section>
-
-        <section class="bill-to-content mt-5">
-            <div class="bill-to-content-right">
-                <table cellspacing="0">
-                    <tr>
-                        <td id="invoice-text">
-                            <h4>INVOICE</h4>
-                        </td>
-                        <td>
-                            #{{ $transaction->order_id }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h4>INVOICE DATE</h4>
-                        </td>
-                        <td>
-                            {{ formatTime($transaction->created_at, 'M d, Y') }}
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </section>
-
-        <section class="product-area mt-4">
-            <table class="table" cellspacing="0">
-                <thead>
-                    <tr>
-                        <td class="item-col">Plan</td>
-                        <td class="description-col">Description</td>
-                        <td>Payment</td>
-                        <td>Benefits</td>
-                        <td>Price</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="item-col">
-                            {{ $transaction->plan->label }}
-                        </td>
-                        <td class="description-col">
-                            {{ $transaction->plan->description }}
-                        </td>
-                        <td>
-                            {{ ucfirst($transaction->payment_provider) }}
-                        </td>
-                        <td>
-                            <span>Job Limit : {{ $transaction->plan->job_limit }}</span> <br>
-                            <span>Featured Job Limit : {{ $transaction->plan->featured_job_limit }}</span> <br>
-                            <span>Highlight Job Limit : {{ $transaction->plan->highlight_job_limit }}</span> <br>
-                            <span>Candidate CV View Limit : {{ $transaction->plan->candidate_cv_view_limitation == 'limited' ? $transaction->plan->candidate_cv_view_limit:'∞' }}</span>
-                            <br>
-                        </td>
-                        <td>
-                            {{ $transaction->currency_symbol }}{{ $transaction->amount }}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-
-        <section class="balance-info">
-            <div class="balance-info-right">
-                <table cellspacing="0">
-                    <tr class="table-row-bg">
-                        <td>
-                            <h4>TOTAL</h4>
-                        </td>
-                        <td>
-                            {{ $transaction->currency_symbol }}{{ $transaction->amount }}
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </section>
-    </div> --}}
-    <table class="table" style="width: 100%">
+    <table>
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Username</th>
-                <th>Phone</th>
-                <th>Email</th>
-                <th>Father Name</th>
-                <th>Mother Name</th>
+                <th> <h1 style="color:#2e3397;">Candidate List</h1></th>
+            </tr>
+            <tr >
+                <td >
+                    Region: {{ $filter['division'] }} <br>
+                    District: {{ $filter['district'] }}<br>
+                    City Corporation/ Cantonment/ Upazila/ Thana: {{ $filter['upazila'] }}<br>
+                    Paurasava/Union: {{ $filter['union'] }}<br>
+                </td>
+            </tr>
+        </thead>
+    </table>
+    <table class="table" style="width: 100%; border: 1px solid #2e3397">
+        <thead>
+            <tr style="background: #2e3397;">
+                <th style="color:white; ">Image</th>
+                <th style="color:white; width:25%">Name</th>
+                <th style="color:white; width:25%">Mobile Number/Email</th>
+                {{-- <th style="color:white; width:25%">Email</th> --}}
+                {{-- <th style="color:white; width:25%">Father Name</th>
+                <th style="color:white; width:25%">Mother Name</th> --}}
+                <th style="color:white;">Address</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($candidates as $item)
                 <tr>
+                    <td><img src="{{ $item->photo }}" alt="" style="width: 50px; height:50px"></td>
                     <td>{{ $item->user->name ?? ''}}</td>
-                    <td>{{ $item->user->username ?? ''}}</td>
-                    <td>{{ $item->user->phone ?? ''}}</td>
-                    <td>{{ $item->user->email ?? ''}}</td>
-                    <td>{{ $item->father_name ?? ''}}</td>
-                    <td>{{ $item->mother_name ?? '' }}</td>
+                    <td>{{ $item->user->phone ?? ''}}<br>{{ $item->user->email ?? ''}}</td>
+                    {{-- <td>{{ $item->user->email ?? ''}}</td> --}}
+                    {{-- <td>{{ $item->father_name ?? ''}}</td>
+                    <td>{{ $item->mother_name ?? '' }}</td> --}}
+                    <td>{{ $item->place ?? '' }}</td>
                 </tr>
             @endforeach
         </tbody>

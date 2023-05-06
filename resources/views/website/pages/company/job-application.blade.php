@@ -36,7 +36,7 @@
                             <table>
                                 <thead>
                                     <tr>
-                                        <th></th>
+                                        <th><input type="checkbox" name="select_all" id="select_all" class="form-check-input" style="width: 1.5em; height: 1.5em;"></th>
                                         <th>{{ __('candidate') }}</th>
                                         <th>{{ __('profession') }}</th>
                                         <th>{{ __('experience') }}</th>
@@ -87,41 +87,6 @@
                                                             @endforeach
                                                         </select>
                                                     </form>
-
-                                                    {{-- 
-                                                    <div class="db-job-btn-wrap d-flex justify-content-end">
-                                                        @if (!$applied->short_listed)
-                                                            <a href="{{ route('company.shortlist.candidte', ['company_id' => $applied->job->company->id, 'applied_job_id' => $applied->id]) }}"
-                                                                class="btn bg-gray-50 text-primary-500 rt-mr-8">
-                                                                <span class="button-text">
-                                                                    {{ __('short_list') }}
-                                                                </span>
-                                                            </a>
-                                                        @else
-                                                            <a href="{{ route('company.remove.shortlist.candidte', $applied->id) }}" class="rt-mr-8 disabled">
-                                                                <span class="text-secondary">
-                                                                    Unsort
-                                                                </span>
-                                                            </a>
-                                                           <a href="#"
-                                                                class="ms-2 d-flex align-items-center sms_send_btn" application-id="{{ $applied->id }}">
-                                                                <svg width="20" height="20" viewBox="0 0 20 20"
-                                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path
-                                                                        d="M10 17.5C14.1421 17.5 17.5 14.1421 17.5 10C17.5 5.85786 14.1421 2.5 10 2.5C5.85786 2.5 2.5 5.85786 2.5 10C2.5 14.1421 5.85786 17.5 10 17.5Z"
-                                                                        stroke="#0A65CC" stroke-width="1.5"
-                                                                        stroke-miterlimit="10" />
-                                                                    <path d="M6.875 10H13.125" stroke="#0A65CC"
-                                                                        stroke-width="1.5" stroke-linecap="round"
-                                                                        stroke-linejoin="round" />
-                                                                    <path d="M10 6.875V13.125" stroke="#0A65CC"
-                                                                        stroke-width="1.5" stroke-linecap="round"
-                                                                        stroke-linejoin="round" />
-                                                                </svg>
-                                                                {{ __('Send SMS') }}
-                                                            </a> 
-                                                        @endif
-                                                    </div> --}}
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -173,7 +138,7 @@
                         <div class="form-group mt-3">
                             <x-forms.label name="message_content" :required="true" />
                             <textarea class="form-control @error('message_content') is-invalid @enderror" name="message_content"
-                                id="message_content" rows="7" required></textarea>
+                                id="message_content" rows="7" required>অভিনন্দন, আপনি ইন্টারভিউয়ের জন্য নির্বাচিত হয়েছেন, আপনার জন্য শুভ কামনা।</textarea>
                             @error('message_content')
                                 <span class="error invalid-feedback">{{ $message }}</span>
                             @enderror
@@ -255,6 +220,10 @@
                 $("#messageForm").submit();
             }
 
+        })
+
+        $("#select_all").on("click", function(){
+            $('input:checkbox').prop('checked', this.checked);
         })
     </script>
 @endsection
