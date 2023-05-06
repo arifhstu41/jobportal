@@ -54,6 +54,7 @@
                     </span>
                 </a>
             </li>
+            @if (auth()->user('user')->status == 1)
             <li>
                 <a class="{{ request()->routeIs('candidate.setting') ? 'active' : '' }}"
                     href="{{ route('candidate.setting') }}">
@@ -80,6 +81,8 @@
                     </span>
                 </a>
             </li>
+                
+            @endif
             <li>
                 <a class="{{ request()->routeIs('logout') ? 'active' : '' }}" href="{{ route('logout') }}"
                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

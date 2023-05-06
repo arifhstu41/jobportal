@@ -12,17 +12,21 @@
                     <div class="card-header">
                         <div class="d-flex justify-content-between">
                             <h3 class="card-title line-height-36">{{ __('orders') }}</h3>
-                            @if (request('company') || request('provider') || request('plan') || request('sort_by'))
+                            <div class="d-flex justify-content-between">
+                                @if (request('company') || request('provider') || request('plan') || request('sort_by'))
                                 <div>
                                     <a href="{{ route('order.index') }}"
-                                        class="btn bg-danger"><i
+                                        class="btn"><i
                                             class="fas fa-times"></i> &nbsp;{{ __('clear') }}
                                     </a>
                                 </div>
                             @endif
+                            <button type="button" class="btn btn-danger mx-3" id="pdfButton">PDF</button>
+                            </div>
                         </div>
                     </div>
                     <form id="filterForm" action="{{ route('order.index') }}" method="GET">
+                        @csrf
                         <div class="card-body border-bottom row">
                             <div class="col-2">
                                 <label>{{ __('Select Payer') }}</label>
@@ -39,43 +43,9 @@
                             <div class="col-2">
                                 <label>{{ __('payment_provider') }}</label>
                                 <select name="provider" id="filter" class="form-control w-100-p">
-                                    <option {{ request('provider') == 'surjopay' ? 'selected' : '' }} value="surjopay">
-                                        {{ __('surjopay') }}
+                                    <option {{ request('provider') == 'shurjopay' ? 'selected' : '' }} value="shurjopay">
+                                        {{ __('shurjopay') }}
                                     </option>
-                                    {{-- <option {{ request('provider') ? '' : 'selected' }} value="" selected>
-                                        {{ __('all') }}
-                                    </option>
-                                    <option {{ request('provider') == 'paypal' ? 'selected' : '' }} value="paypal">
-                                        {{ __('paypal') }}
-                                    </option>
-                                    <option {{ request('provider') == 'stripe' ? 'selected' : '' }} value="stripe">
-                                        {{ __('stripe') }}
-                                    </option>
-                                    <option {{ request('provider') == 'razorpay' ? 'selected' : '' }} value="razorpay">
-                                        {{ __('razorpay') }}
-                                    </option>
-                                    <option {{ request('provider') == 'paystack' ? 'selected' : '' }} value="paystack">
-                                        {{ __('paystack') }}
-                                    </option>
-                                    <option {{ request('provider') == 'sslcommerz' ? 'selected' : '' }} value="sslcommerz">
-                                        {{ __('sslcommerz') }}
-                                    </option>
-                                    <option {{ request('provider') == 'instamojo' ? 'selected' : '' }} value="instamojo">
-                                        {{ __('instamojo') }}
-                                    </option>
-                                    <option {{ request('provider') == 'flutterwave' ? 'selected' : '' }}
-                                        value="flutterwave">
-                                        {{ __('flutterwave') }}
-                                    </option>
-                                    <option {{ request('provider') == 'mollie' ? 'selected' : '' }} value="mollie">
-                                        {{ __('mollie') }}
-                                    </option>
-                                    <option {{ request('provider') == 'midtrans' ? 'selected' : '' }} value="midtrans">
-                                        {{ __('midtrans') }}
-                                    </option>
-                                    <option {{ request('provider') == 'offline' ? 'selected' : '' }} value="offline">
-                                        {{ __('offline') }}
-                                    </option> --}}
                                 </select>
                             </div>
                             <div class="col-2">
@@ -87,26 +57,13 @@
                                 <label>{{ __('To Date') }}</label>
                                 <input type="text" name="to_date" id="to_date" value="{{ request('to_date') ? date('d-m-Y', strtotime(request('to_date'))) : '' }}" placeholder="Enter Date" class="form-control w-100-p">
                             </div>
-
-                            {{-- <div class="col-2">
-                                <label>{{ __('plan') }}</label>
-                                <select name="plan" class="form-control w-100-p">
-                                    <option {{ request('plan') ? '' : 'selected' }} value="" selected>
-                                        {{ __('all') }}
-                                    </option>
-                                    @foreach ($plans as $plan)
-                                        @if ($plan->frontend_show)
-                                            <option {{ request('plan') == $plan->id ? 'selected' : '' }}
-                                                value="{{ $plan->id }}">{{ $plan->label }}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div> --}}
+                            
                             <div class="col-2">
                                 <label>{{ __('sort_by') }}</label>
                                 <select name="sort_by" class="form-control w-100-p">
-                                    <option {{ !request('sort_by') || request('sort_by') == 'latest' ? 'selected' : '' }}
-                                        value="latest" selected>
+                                    <option  value="" >All</option>
+                                    <option {{request('sort_by') == 'latest' ? 'selected' : '' }}
+                                        value="latest" >
                                         {{ __('latest') }}
                                     </option>
                                     <option {{ request('sort_by') == 'oldest' ? 'selected' : '' }} value="oldest">
@@ -241,6 +198,16 @@
                 format: 'dd-mm-yyyy'
             });
         });
+
+         // submit for pdf export
+         $(document).ready(function() {
+            $("#pdfButton").click(function() {
+                $('#filterForm').attr('method',"POST");
+                $('#filterForm').attr('action',"{{ route('orders.export.pdf') }}");
+                $("#filterForm").submit();
+            });
+        });
+
     </script>
 @endsection
 

@@ -103,7 +103,7 @@ class SurjoPayController extends Controller
                 'transaction_id' =>  $data['bank_trx_id'],
                 'plan_id' =>  null,
                 'user_id' => auth('user')->user()->id,
-                'user_type' => "candidate",
+                'user_type' => (auth()->user()->role == "candidate") ? "candidate" : "company",
                 'payment_provider' => 'shurjopay',
                 'amount' => $data['amount'],
                 'currency_symbol' => '৳',

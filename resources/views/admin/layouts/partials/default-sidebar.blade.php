@@ -20,7 +20,7 @@
                             {{ __('order') }}
                         </li>
                         <x-admin.sidebar-list :linkActive="request()->routeIs('order.index') ? true : false" route="order.index" icon="fas fa-money-bill">
-                            {{ __('order') }}
+                            {{ __('order') }}/ Statement
                         </x-admin.sidebar-list>
                     @endif
                     <!-- ======= Company ======== -->

@@ -32,35 +32,78 @@
                                                 class="ml-1 table table-striped     table-bordered dt-responsive nowrap"
                                                 cellspacing="0" width="100%">
                                                 <tbody>
-                                                    <tr class="">
-                                                        <th width="30%">{{ __('name') }}</th>
-                                                        <td width="70%">{{ $user->name }}</td>
+                                                    <tr style="padding: 0px; margin: 0px">
+                                                        <td style="  width: 30%">Applicant's Name</td>
+                                                        <td style=""> {{ $candidate->user->name ?? '' }}</td>
                                                     </tr>
-                                                    <tr class="">
-                                                        <th width="30%">Candidate Name(বাংলা)</th>
-                                                        <td width="70%">{{ $user->candidate->name_bn }}</td>
-                                                    </tr>
-                                                    <tr class="">
-                                                        <th width="30%">Father's Name</th>
-                                                        <td width="70%">{{ $user->candidate->father_name }}</td>
-                                                    </tr>
-                                                    <tr class="">
-                                                        <th width="30%">Father's Name(বাংলা)</th>
-                                                        <td width="70%">{{ $user->candidate->father_name_bn }}</td>
-                                                    </tr>
-                                                    <tr class="">
-                                                        <th width="30%">Mother's Name</th>
-                                                        <td width="70%">{{ $user->candidate->mother_name }}</td>
-                                                    </tr>
-                                                    <tr class="">
-                                                        <th width="30%">Mother's Name(বাংলা)</th>
-                                                        <td width="70%">{{ $user->candidate->mother_name_bn }}</td>
-                                                    </tr>
-                                                    <tr class="">
-                                                        <th width="30%">Date of Birth</th>
-                                                        <td width="70%">
-                                                            {{ date('Y-m-d', strtotime($user->candidate->birth_date)) }}
+                                                    <tr style="padding: 0px; margin: 0px">
+                                                        <td style="  width: 30%">Applicant's
+                                                            Name (বাংলা)
                                                         </td>
+                                                        <td style="">
+                                                            {{ $candidate->name_bn ?? '' }}</td>
+                                                    </tr>
+                                                    <tr style="padding: 0px; margin: 0px">
+                                                        <td style="  width: 30%">Father's Name
+                                                        </td>
+                                                        <td style="">
+                                                            {{ $candidate->father_name ?? '' }}</td>
+                                                    </tr>
+                                                    <tr style="padding: 0px; margin: 0px">
+                                                        <td style="  width: 30%">Father's Name
+                                                            (বাংলা)
+                                                        </td>
+                                                        <td style="">
+                                                            {{ $candidate->father_name_bn ?? '' }}</td>
+                                                    </tr>
+                                                    <tr style="padding: 0px; margin: 0px">
+                                                        <td style="  width: 30%">Mother's Name
+                                                        </td>
+                                                        <td style="">
+                                                            {{ $candidate->mother_name ?? '' }}</td>
+                                                    </tr>
+                                                    <tr style="padding: 0px; margin: 0px">
+                                                        <td style="  width: 30%">Mother's Name
+                                                            (বাংলা)
+                                                        </td>
+                                                        <td style="">
+                                                            {{ $candidate->mother_name_bn ?? '' }}</td>
+                                                    </tr>
+                                                    <tr style="padding: 0px; margin: 0px">
+                                                        <td style="  width: 30%">Date of Birth
+                                                        </td>
+                                                        <td style="">
+                                                            {{ $candidate->birth_date ? date('d M Y', strtotime($candidate->birth_date)) : '' }}</td>
+                                                    </tr>
+                                    
+                                                    <tr style="padding: 0px; margin: 0px">
+                                                        <td style="  width: 30%">Contact Mobile</td>
+                                                        <td style="">{{ $candidate->user->phone ?? '' }}</td>
+                                                    </tr>
+                                    
+                                                    <tr style="padding: 0px; margin: 0px">
+                                                        <td style="  width: 30%">E-Mail</td>
+                                                        <td style="">{{ $candidate->user->email ?? '' }}</td>
+                                                    </tr>
+                                    
+                                                    <tr style="padding: 0px; margin: 0px">
+                                                        <td style="  width: 30%">Gender</td>
+                                                        <td style="">{{ ucwords($candidate->gender) }}</td>
+                                                    </tr>
+                                    
+                                                    <tr style="padding: 0px; margin: 0px">
+                                                        <td style="  width: 30%">Religion</td>
+                                                        <td style="">{{ ucwords($candidate->religion) }}</td>
+                                                    </tr>
+                                    
+                                                    <tr style="padding: 0px; margin: 0px">
+                                                        <td style="  width: 30%">Quota</td>
+                                                        <td style="">{{ ucwords($candidate->quota) }}</td>
+                                                    </tr>
+                                    
+                                                    <tr style="padding: 0px; margin: 0px">
+                                                        <td style="  width: 30%">Home District</td>
+                                                        <td style="">{{ ucwords($candidate->district_parmanents->nameEn) }}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -73,23 +116,17 @@
                                                 class="ml-1 table table-striped     table-bordered dt-responsive nowrap"
                                                 cellspacing="0" width="100%">
                                                 <tbody>
-                                                    <tr class="mb-1">
-                                                        <th width="20%">NID No</th>
-                                                        <td width="30%">{{ $user->candidate->nid_no }}</td>
-                                                        <th width="20%">Contact No</th>
-                                                        <td width="30%">{{ $user->phone }}</td>
+                                                    <tr>
+                                                        <td style="">National ID</td>
+                                                        <td style="">{{ $candidate->nid_no }}</td>
+                                                        <td style="">Passport ID</td>
+                                                        <td style="">{{ $candidate->passport_no ?? "N/A" }}</td>
                                                     </tr>
-                                                    <tr class="mb-1">
-                                                        <th width="20%">Gender</th>
-                                                        <td width="30%">{{ $user->candidate->gender }}</td>
-                                                        <th width="20%">Marital Status</th>
-                                                        <td width="30%">{{ $user->candidate->marital_status }}</td>
-                                                    </tr>
-                                                    <tr class="mb-1">
-                                                        <th width="20%">Religion</th>
-                                                        <td width="30%">{{ $user->candidate->religion }}</td>
-                                                        <th width="20%">Quota</th>
-                                                        <td width="30%">{{ $user->candidate->quota }}</td>
+                                                    <tr>
+                                                        <td style="">Birth Registration</td>
+                                                        <td style="">{{ $candidate->birth_certificate_no ?? "N/A" }}</td>
+                                                        <td style="">Marital Status</td>
+                                                        <td style="">{{ ucwords($candidate->marital_status) }}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -103,41 +140,48 @@
                                                 cellspacing="0" width="100%">
                                                 <thead>
                                                     <tr>
-                                                        <th>Present Address</th>
-                                                        <th>Permanent Address</th>
+                                                        <th style="width: 25%">Mailing/Present Address</th>
+                                                        <th style="width: 25%"></th>
+                                                        <th style="width: 25%">Permanent Address</th>
+                                                        <th style="width: 25%"></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr class="mb-1">
-                                                        <td>
-                                                            <p>Care of: <span>{{ $user->candidate->care_of }}</span></p>
-                                                            <p>Village/Tow: <span>{{ $user->candidate->place }}</span></p>
-                                                            <p>Post Office:
-                                                                <span>{{ $user->candidate->post_office }}</span></p>
-                                                            <p>Post Code: <span>{{ $user->candidate->postcode }}</span></p>
-                                                            <p>Upazila/Thana:
-                                                                <span>{{ $user->candidate->thanas->name ?? '' }}</span></p>
-                                                            <p>District:
-                                                                <span>{{ $user->candidate->districts->name ?? '' }}</span>
-                                                            </p>
-                                                        </td>
-                                                        <td>
-                                                            <p>Care of:
-                                                                <span>{{ $user->candidate->care_of_parmanent }}</span></p>
-                                                            <p>Village/Tow:
-                                                                <span>{{ $user->candidate->place_parmanent }}</span></p>
-                                                            <p>Post Office:
-                                                                <span>{{ $user->candidate->post_office_parmanent }}</span>
-                                                            </p>
-                                                            <p>Post Code:
-                                                                <span>{{ $user->candidate->postcode_parmanent }}</span></p>
-                                                            <p>Upazila/Thana:
-                                                                <span>{{ $user->candidate->thana_parmanents->name ?? '' }}</span>
-                                                            </p>
-                                                            <p>District:
-                                                                <span>{{ $user->candidate->district_parmanents->name ?? '' }}</span>
-                                                            </p>
-                                                        </td>
+                                                    <tr>
+                                                        <td>Care of: </td>
+                                                        <td>{{ $candidate->care_of }}</td>
+                                                        <td>Care of: </td>
+                                                        <td>{{ $candidate->care_of_parmanent }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Village/Town/Road/House/Flat:</td>
+                                                        <td>{{ $candidate->place }}</td>
+                                                        <td>Village/Town/Road/House/Flat:</td>
+                                                        <td>{{ $candidate->place_parmanent }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Present Post Office:</td>
+                                                        <td>{{ $candidate->post_office }}</td>
+                                                        <td>Permanent Post Office:</td>
+                                                        <td>{{ $candidate->post_office_parmanent }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Present Post Code:</td>
+                                                        <td>{{ $candidate->postcode }}</td>
+                                                        <td>Permanent Post Code:</td>
+                                                        <td>{{ $candidate->postcode_parmanent }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Present Upazila/Thana:</td>
+                                                        <td>{{ $candidate->thanas->nameEn }}</td>
+                                                        <td>Permanent Upazila/Thana:</td>
+                                                        <td>{{ $candidate->thana_parmanents->nameEn }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Present District:</td>
+                                                        <td>{{ $candidate->districts->nameEn }}</td>
+                                                        <td>Permanent District:</td>
+                                                        <td>{{ $candidate->district_parmanents->nameEn }}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -157,29 +201,47 @@
                                                     </tr>
                                                     <tr>
                                                         <th>Examination</th>
-                                                        <th>Board/Institude</th>
+                                                        <th>Board/Institute</th>
                                                         <th>Group/Subject/Degree</th>
                                                         <th>Result</th>
+                                                        <th>Roll</th>
                                                         <th>Year</th>
-                                                        <th>Role</th>
                                                         <th>Duration</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @if (count($user->candidate->educations) > 0)
-                                                        @foreach ($user->candidate->educations as $education)
+
+                                                    @if (count($candidate->educations) > 0)
+                                                        @foreach ($candidate->educations as $education)
+                                                            @php
+                                                                $board = $education->institute;
+                                                                if ($education->board) {
+                                                                    $board = \DB::table('bd_education_boards')
+                                                                        ->where('id', $education->board)
+                                                                        ->pluck('name')
+                                                                        ->first();
+                                                                }
+                                                            @endphp
+                                    
                                                             <tr>
-                                                                <td>{{ $education->level ?? '' }}</td>
-                                                                <td>{{ $education->board ? $education->board : ($education->institute ? $education->institute : '') }}
+                                                                <td>{{ __($education->level) ?? '' }}</td>
+                                                                <td>{{ $board ?? 'N/A' }}</td>
+                                                                @if ($education->subject)
+                                                                    @php
+                                                                        $subject = \App\Models\Subject::where('code', $education->subject)
+                                                                            ->pluck('name')
+                                                                            ->first();
+                                                                    @endphp
+                                                                @endif
+                                                                <td>{{ $education->group ? $education->group : ($education->subject ? $subject : ($education->degree ? $education->degree : '')) }}
                                                                 </td>
-                                                                <td>{{ $education->group ? $education->group : ($education->subject ? $education->subject : ($education->degree ? $education->degree : '')) }}
-                                                                </td>
-                                                                <td>{{ $education->result_gpa ?? '' }}</td>
-                                                                <td>{{ $education->year ?? '' }}</td>
-                                                                <td>{{ $education->roll ?? '' }}</td>
-                                                                <td>{{ $education->course_duration ?? '' }}</td>
+                                                                <td>{{ $education->result_gpa ?? 'N/A' }}</td>
+                                                                <td>{{ $education->roll ?? 'N/A' }}</td>
+                                                                <td>{{ $education->year ?? 'N/A' }}</td>
+                                                                <td>{{ $education->course_duration ?? 'N/A' }}</td>
                                                             </tr>
                                                         @endforeach
+                                    
                                                     @endif
                                                 </tbody>
                                             </table>
@@ -198,25 +260,34 @@
                                                     </tr>
                                                     <tr>
                                                         <th>Organization Name</th>
-                                                        <th>Post Name</th>
-                                                        <th>Responsibilities</th>
-                                                        <th>Start Date</th>
+                                                        <th> Post Name </th>
+                                                        <th>Responsibilities </th>
+                                                        <th>Start Date </th>
                                                         <th>End Date</th>
-                                                        <th>Total Experience</th>
+                                                        <th>Total Experience </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @if (count($user->candidate->experiences) > 0)
-                                                        @foreach ($user->candidate->experiences as $experience)
+                                                    @if (count($candidate->experiences) > 0)
+                                                        @foreach ($candidate->experiences as $experience)
+                                                            @php
+                                                                $d1 = new DateTime($experience->start);
+                                                                $d2 = new DateTime($experience->end);
+                                                                // @link http://www.php.net/manual/en/class.dateinterval.php
+                                                                $interval = $d2->diff($d1);
+                                                                
+                                                                $diff = $interval->format('%y Years %m Months');
+                                                            @endphp
                                                             <tr>
-                                                                <td>{{ $experience->company ?? '' }}</td>
-                                                                <td>{{ $experience->designation ?? '' }}</td>
-                                                                <td>{{ $experience->responsibilities ?? '' }}</td>
-                                                                <td>{{ $experience->start ?? '' }}</td>
-                                                                <td>{{ $experience->end ?? '' }}</td>
-                                                                <td>#</td>
+                                                                <td>{{ $experience->company ?? 'N/A' }}</td>
+                                                                <td>{{ $experience->designation ?? 'N/A' }}</td>
+                                                                <td>{{ $experience->responsibilities ?? 'N/A' }}</td>
+                                                                <td>{{ $experience->start ?? 'N/A' }}</td>
+                                                                <td>{{ $experience->end ?? 'N/A' }}</td>
+                                                                <td>{{ $diff ?? 'N/A' }}</td>
                                                             </tr>
                                                         @endforeach
+                                    
                                                     @endif
                                                 </tbody>
                                             </table>

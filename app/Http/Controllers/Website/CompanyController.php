@@ -488,7 +488,6 @@ class CompanyController extends Controller {
     }
 
     public function showPromoteJob(Job $job) {
-        dd("adfdaf");
         return view('website.pages.company.job-created-success', [
             'jobCreated' => $job,
         ]);
@@ -507,7 +506,6 @@ class CompanyController extends Controller {
 
     public function promoteJob(Request $request, Job $jobCreated) {
         $userplan = auth('user')->user()->company->userplan ?? abort(403);
-
         if (!auth('user')->check() || auth('user')->user()->role != 'company' || !$userplan) {
             return abort(403);
         }

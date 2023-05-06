@@ -207,7 +207,12 @@
             <tbody>
                 <tr>
                     <td style="text-align: left; ">
+                        @if ($transaction->user->role == "company")
                         <h4>Company Information:</h4>
+                        @else
+                        <h4>Candidate Information:</h4>
+                        @endif
+                        
                         <p>{{ $transaction->user->name }}</p>
                         <p>{{ $transaction->user->email }}</p>
                         <p>{{ $transaction->user->contactInfo->address }}</p>
@@ -221,11 +226,11 @@
         <table style="width:100%">
             <tbody>
                 <tr>
-                    <td style="text-align: left; ">
-                        <span><h4>INVOICE</h4> #{{ $transaction->order_id }} </span> 
+                    <td style="text-align: left; word-wrap: no">
+                        <h4>INVOICE: #<span>{{ $transaction->order_id }}</span></h4>
                     </td>
                     <td style="text-align: right">
-                       <span><h4>INVOICE DATE</h4> {{ formatTime($transaction->created_at, 'M d, Y') }}</span> 
+                       <h4>INVOICE DATE: <span>{{ formatTime($transaction->created_at, 'M d, Y') }}</span> </h4> 
                 </tr>
             </tbody>
         </table>
@@ -260,7 +265,6 @@
                         <td class="item-col">Plan</td>
                         <td class="description-col">Description</td>
                         <td>Payment</td>
-                        <td>Benefits</td>
                         <td>Price</td>
                     </tr>
                 </thead>
@@ -271,16 +275,13 @@
                                 Basic Plan
                             </td>
                             <td class="description-col">
-                                এক কালীন অফেরতযোগ্য
+                                এক কালীন অফেরতযোগ্য রেজিস্ট্রেশন ফি
                             </td>
                             <td>
                                 {{ ucfirst($transaction->payment_provider) }}
                             </td>
                             <td>
-                                dsfsdf
-                            </td>
-                            <td>
-                                {{ $transaction->currency_symbol }}{{ $transaction->amount }}
+                                {{ $transaction->currency_symbol }}{{ number_format($transaction->amount, 2) }}
                             </td>
                         </tr>
                    @else
@@ -294,35 +295,39 @@
                         <td>
                             {{ ucfirst($transaction->payment_provider) }}
                         </td>
-                        <td>
+                        {{-- <td>
                             <span>Job Limit : {{ $transaction->plan->job_limit }}</span> <br>
                             <span>Featured Job Limit : {{ $transaction->plan->featured_job_limit }}</span> <br>
                             <span>Highlight Job Limit : {{ $transaction->plan->highlight_job_limit }}</span> <br>
                             <span>Candidate CV View Limit :
                                 {{ $transaction->plan->candidate_cv_view_limitation == 'limited' ? $transaction->plan->candidate_cv_view_limit : '∞' }}</span>
                             <br>
-                        </td>
+                        </td> --}}
                         <td>
-                            {{ $transaction->currency_symbol }}{{ $transaction->amount }}
+                            {{ $transaction->currency_symbol }}{{ number_format($transaction->amount, 2) }}
                         </td>
                     </tr>
                     @endif
+                    <tr>
+                        <td colspan="3"></td>
+                        <td>{{ $transaction->currency_symbol }}{{ number_format($transaction->amount, 2) }}</td>
+                    </tr>
                 </tbody>
             </table>
         </section>
 
-        <table style="width:100%">
+        {{-- <table style="width:100%">
             <tbody>
                 <tr>
-                    <td style="text-align: right; width:90%">
+                    <td style="text-align: right; width:80%">
                         <h4>TOTAL</h4>
                     </td>
-                    <td style="text-align: left; width:10%">
+                    <td style="text-align: left; width:20%">
                         {{ $transaction->currency_symbol }}{{ $transaction->amount }}
                     </td>
                 </tr>
             </tbody>
-        </table>
+        </table> --}}
         
         {{-- <section class="balance-info">
             <div class="balance-info-right">
