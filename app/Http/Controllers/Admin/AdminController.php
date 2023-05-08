@@ -146,10 +146,12 @@ class AdminController extends Controller
         ]);
         $stylesheet = public_path('css/invoice.css'); // external css
         $mpdf->WriteHTML($stylesheet, 1);
-        $code = view('website.pages.company.invoice', compact('transaction')); //table part
+        $page = view('website.pages.company.invoice', compact('transaction')); //table part
         $title = "invoice.pdf";
         $mpdf->SetTitle($title);
-        $mpdf->WriteHTML($code);
+        $mpdf->WriteHTML('<img src="images/pad.png" alt="Welfare Pad" style="width: 100%; border: 2px solid #9ea2a5; border-bottom: none" >');
+        $mpdf->WriteHTML($page);
+        $mpdf->SetHTMLFooter('<span style="color: #2e3397">© 2023 Welfare Family Bangladesh All Rights Reserved.</span>');
         $mpdf->Output($title, 'I');
 
     }

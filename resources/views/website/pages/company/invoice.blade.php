@@ -11,211 +11,216 @@
     <style>
         /* Font Include */
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
-
-        .main-body {
-            font-family: 'Roboto', sans-serif;
-            background: #E6E6E6;
+        :root {
+        --muted: #9ea2a5;
         }
-
-        .invoice {
-            font-family: 'Roboto', sans-serif;
-            background: #FFFFFF;
-            /* padding: 30px 2px; */
+        #application-print {
+            max-width: 800px;
             margin: 0 auto;
+            font-family: Arial, Helvetica, sans-serif;
         }
 
-        .invoice[size="A4"] {
-            width: 21cm;
-            height: auto;
-            padding: 0;
-            margin: 0;
-            width: 705px;
+        h1,
+        h2 {
+            margin-top: 0;
         }
 
-        .bb {
-            border-bottom: 3px solid var(--darkWhite);
+        table {
+            border-collapse: collapse;
+            width: 100%;
         }
 
-        /* Top Section */
-        .top-content {
-            font-family: 'Roboto', sans-serif;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-            border-bottom: 1px solid #D2D5D9;
+        table td,
+        table th {
+            padding: 5px;
+            border: 2px solid #9ea2a5;
+            /* background-color: #f2f2f2; */
         }
 
-        .top-left h4 {
-            padding-top: 10px;
+
+        .personal-info
+
+        /* CSS styles go here */
+        @media print {
+            /* Print styles go here */
         }
 
-        .top-left p {
-            color: #21232A;
-            margin: 0px;
-            font-size: 14px;
+        /* Display the image and personal info side by side */
+        .personal-info {
+            display: flex;
+            align-items: center;
         }
 
-        .logo {
-            background: #F0F5FE;
-            max-width: 200px;
-            margin-left: auto;
+        .personal-info-image {
+            width: 30%;
         }
 
-        .logo img {
+        .personal-info-image img {
             max-width: 100%;
             height: auto;
+            display: block;
         }
 
-        /* User Store Section */
-        .bill-to-content {
-            padding-bottom: 25px;
-            display: -webkit-box;
-            display: -ms-flexbox;
+        .personal-info-details {
+            width: 70%;
+        }
+
+        .personal-info-details table {
+            margin-bottom: 0;
+        }
+
+        .barcode-div {
             display: flex;
-            -webkit-box-pack: justify;
-            -ms-flex-pack: justify;
             justify-content: space-between;
-            margin-bottom: 10px;
         }
 
-        .bill-to-content-left p {
-            color: #21232A;
-            margin: 0;
-            font-size: 14px;
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-right: -15px;
+            margin-left: -15px;
         }
 
-        .bill-to-content h2 {
-            font-family: 'Roboto', sans-serif;
+        .d-flex {
+            display: flex !important;
         }
 
-        .bill-to-content-left,
-        .bill-to-content-right,
-        .balance-info-left,
-        .balance-info-right,
-        .top-left,
-        .top-right {
-            width: 49.6%;
-            margin: 0;
+        .justify-content-end {
+            justify-content: flex-end !important;
+        }
+        td,
+        th {
+            padding: 6px;
+        }
+
+        .fulljustify {
+            text-align: justify;
+        }
+
+        .fulljustify:after {
+            content: "";
             display: inline-block;
-        }
-
-        .bill-to-content-right {
-            margin-top: 20px;
-        }
-
-        .bill-to-content-right table,
-        .balance-info-right table {
-            width: max-content;
-            margin-left: auto;
-        }
-
-        .balance-info-right table tbody tr td:last-child {
-            text-align: right;
-        }
-
-        .bill-to-content-right td,
-        .balance-info-right td {
-            padding: 8px 18px;
-        }
-
-        .bill-to-content-right h4,
-        .balance-info-right h4 {
-            margin: 0px;
-        }
-
-        .table-row-bg {
-            color: #000;
-            background: #D2D5D9;
-        }
-
-        /* Product Section */
-        .table {
-            width: calc(100% - 10px);
             width: 100%;
-            overflow: scroll;
         }
 
-        .product-area .table thead tr {
-            color: #000;
-            font-weight: 700;
-            background: #D2D5D9;
-        }
-
-        .item-col {
-            max-width: 120px;
-        }
-
-        .description-col {
-            max-width: 200px;
-        }
-
-        .table tr td {
+        .jutified-text {
+            /* height: 80px; */
             overflow: hidden;
-            -o-text-overflow: ellipsis;
-            text-overflow: ellipsis;
-            font-size: 14px;
-            padding: 10px 15px;
-            margin: 0px;
-            border-bottom: 1px solid #D2D3D9;
-        }
-
-        /* Balance Info Section */
-        .balance-info {
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex;
-            -webkit-box-pack: justify;
-            -ms-flex-pack: justify;
-            justify-content: space-between;
-            margin-top: 100px;
-        }
-
-        #invoice-text {
-            width: 140px !important;
+            /* line-height: 80px;  */
         }
     </style>
 </head>
 
 <body class="main-body">
     <div class="invoice page-break" size="A4">
-        <table style="font-family: Arial, Helvetica, sans-serif">
-            <tbody>
-                <tr style="border:#2e3397 1px solid; min-height: 150px; vertical-align: baseline">
-                    <td style="text-align: center">
-                        <img src="images/pad.png" alt="Welfare Pad" style="width: 100%">
-                    </td>
-                </tr>
-            </tbody>
-        </table>
         <table style="width:100%">
+            <thead>
+                <tr>
+                    <th colspan="2" style="text-align: center; font-family: Arial, Helvetica, sans-serif">
+                        <h2>INVOICE</h2>
+                    </th>
+                </tr>
+            </thead>
             <tbody>
                 <tr>
-                    <td style="text-align: left; ">
-                        @if ($transaction->user !=null && $transaction->user->role == "company")
-                        <h4>Company Information:</h4>
-                        @else
-                        <h4>Candidate Information:</h4>
-                        @endif
-                        
-                        <p>{{ $transaction->user->name ?? "" }}</p>
-                        <p>{{ $transaction->user->email ?? "" }}</p>
-                        <p>{{ $transaction->user->contactInfo->address ?? "" }}</p>
+                    <td colspan="2"><h3 style="font-family: Arial, Helvetica, sans-serif">Candidate Information</h3></td>
+                </tr>
+                <tr>
+                    <td style="width: 40%; border-bottom: none"><h6>Name</h6></td>
+
+                    <td style="width: 60%; border-bottom: none">
+                        <h6><span style="color: #9ea2a5;">{{ $transaction->user->name ?? "" }}</span></h6>
                     </td>
+                </tr>
+                <tr>
+                    <td style="width: 40%; border-bottom: none; border-top:none"><h6>Details Information</h6></td>
+
+                    <td style="width: 60%; border-bottom: none; border-top:none">
+                        <h6><span style="color: #9ea2a5">{{ $transaction->user->candidate->place ?? "" }}</span></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 40%; border-bottom: none; border-top:none"><h6>Contact Number</h6></td>
+
+                    <td style="width: 60%; border-bottom: none; border-top:none">
+                        <h6><span style="color: #9ea2a5">{{ $transaction->user->phone ?? "" }}</span></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 40%; border-top:none"><h6>E-Mail Address</h6></td>
+
+                    <td style="width: 60%; border-top:none">
+                        <h6><span style="color: #9ea2a5">{{ $transaction->user->email ?? "" }}</span></h6>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2"><h3 style="font-family: Arial, Helvetica, sans-serif">Payment Information</h3></td>
+                </tr>
+                <tr>
+                    <td style="width: 40%; border-bottom: none"><h6>Payment Date</h6></td>
+
+                    <td style="width: 60%; border-bottom: none">
+                        <h6><span style="color: #9ea2a5;">{{ date('M j, Y', strtotime($transaction->created_at)) }}</span></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 40%; border-bottom: none; border-top:none"><h6>Invoice No</h6></td>
+
+                    <td style="width: 60%; border-bottom: none; border-top:none">
+                        <h6><span style="color: #9ea2a5">#{{ $transaction->order_id ?? "" }}</span></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 40%; border-bottom: none; border-top:none"><h6>Transaction No</h6></td>
+
+                    <td style="width: 60%; border-bottom: none; border-top:none">
+                        <h6><span style="color: #9ea2a5">{{ $transaction->transaction_id ?? "" }}</span></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 40%; border-bottom: none; border-top:none"><h6>Payment Provider</h6></td>
+
+                    <td style="width: 60%; border-bottom: none; border-top:none">
+                        <h6><span style="color: #9ea2a5">{{ Str::ucfirst($transaction->provider) }}</span></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 40%; border-bottom: none; border-top:none"><h6>Payment Amount</h6></td>
+
+                    <td style="width: 60%; border-bottom: none; border-top:none">
+                        <h6><span style="color: #9ea2a5">৳ {{ number_format($transaction->amount, 2) }} BDT</span></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 40%; border-top:none"><h6>Payment Status</h6></td>
+
+                    <td style="width: 60%; border-top:none">
+                        <h6><span style="color: #9ea2a5">{{ Str::ucfirst($transaction->payment_status) }}</span></h6>
+                    </td>
+                </tr>
+                <tr style="">
+                    <td style="border-right: none; padding-top:15px; padding-bottom: 5px; vertical-align: bottom "><h6 style="font-family: Arial, Helvetica, sans-serif; color:green">Payment Received</h6></td>
+                    <td style="color:green; padding-top:15px; padding-bottom: 5px; text-align: right; padding-left:0px">৳ {{ number_format($transaction->amount, 2) }} BDT</td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="vertical-align: bottom; text-align: center; padding-top: 25px"><span style="color: #9ea2a5">This report has been generated electronically</span></td>
                 </tr>
             </tbody>
         </table>
-        <table style="width:100%">
+        {{-- <table style="width:100%">
             <tbody>
                 <tr>
                     <td style="text-align: left; word-wrap: no">
-                        <h4>INVOICE: #<span>{{ $transaction->order_id }}</span></h4>
+                        <h6>INVOICE: #<span>{{ $transaction->order_id }}</span></h6>
                     </td>
                     <td style="text-align: right">
-                       <h4>INVOICE DATE: <span>{{ formatTime($transaction->created_at, 'M d, Y') }}</span> </h4> 
+                       <h6>INVOICE DATE: <span>{{ formatTime($transaction->created_at, 'M d, Y') }}</span> </h6> 
                 </tr>
             </tbody>
-        </table>
+        </table> --}}
 
-        <section class="product-area mt-4">
+        {{-- <section class="product-area mt-4">
             <table class="table" style="width: 100%" cellspacing="0">
                 <thead>
                     <tr>
@@ -250,7 +255,7 @@
                             {{ $transaction->plan->description ?? "" }}
                         </td>
                         <td>
-                            {{ ucfirst($transaction->payment_provide ?? ""r) }}
+                            {{ ucfirst($transaction->payment_provide ?? "") }}
                         </td>
                         <td>
                             {{ $transaction->currency_symbol ?? "৳" }}{{ number_format($transaction->amount, 2) }}
@@ -263,7 +268,7 @@
                     </tr>
                 </tbody>
             </table>
-        </section>
+        </section> --}}
 
     </div>
 </body>
