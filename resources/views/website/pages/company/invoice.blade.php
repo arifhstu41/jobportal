@@ -177,23 +177,6 @@
 
 <body class="main-body">
     <div class="invoice page-break" size="A4">
-        {{-- <section class="top-content bb">
-            <div class="top-left">
-                <div>
-                    <h4>Company Information:</h4>
-                </div>
-                <div>
-                    <p>{{ $transaction->user->name }}</p>
-                    <p>{{ $transaction->user->email }}</p>
-                    <p>{{ $transaction->user->contactInfo->address }}</p>
-                </div>
-            </div>
-            <div class="top-right">
-                <div class="logo">
-                    <img src="{{ public_path($transaction->logo) }}" alt="" class="img-fluid">
-                </div>
-            </div>
-        </section> --}}
         <table style="font-family: Arial, Helvetica, sans-serif">
             <tbody>
                 <tr style="border:#2e3397 1px solid; min-height: 150px; vertical-align: baseline">
@@ -207,19 +190,16 @@
             <tbody>
                 <tr>
                     <td style="text-align: left; ">
-                        @if ($transaction->user->role == "company")
+                        @if ($transaction->user !=null && $transaction->user->role == "company")
                         <h4>Company Information:</h4>
                         @else
                         <h4>Candidate Information:</h4>
                         @endif
                         
-                        <p>{{ $transaction->user->name }}</p>
-                        <p>{{ $transaction->user->email }}</p>
-                        <p>{{ $transaction->user->contactInfo->address }}</p>
+                        <p>{{ $transaction->user->name ?? "" }}</p>
+                        <p>{{ $transaction->user->email ?? "" }}</p>
+                        <p>{{ $transaction->user->contactInfo->address ?? "" }}</p>
                     </td>
-                    {{-- <td style="text-align: right">
-                        <img style="height: 100px; width:100px"
-                            src="{{ public_path('images/Welfare-Family-TM.png') }}" alt="" class="img-fluid"></td> --}}
                 </tr>
             </tbody>
         </table>
@@ -234,29 +214,6 @@
                 </tr>
             </tbody>
         </table>
-{{-- 
-        <section class="bill-to-content mt-5">
-            <div class="bill-to-content-right">
-                <table cellspacing="0">
-                    <tr>
-                        <td id="invoice-text">
-                            <h4>INVOICE</h4>
-                        </td>
-                        <td>
-                            #{{ $transaction->order_id }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h4>INVOICE DATE</h4>
-                        </td>
-                        <td>
-                            {{ formatTime($transaction->created_at, 'M d, Y') }}
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </section> --}}
 
         <section class="product-area mt-4">
             <table class="table" style="width: 100%" cellspacing="0">
@@ -287,62 +244,27 @@
                    @else
                     <tr>
                         <td class="item-col">
-                            {{ $transaction->plan->label }}
+                            {{ $transaction->plan->label ?? "" }}
                         </td>
                         <td class="description-col">
-                            {{ $transaction->plan->description }}
+                            {{ $transaction->plan->description ?? "" }}
                         </td>
                         <td>
-                            {{ ucfirst($transaction->payment_provider) }}
+                            {{ ucfirst($transaction->payment_provide ?? ""r) }}
                         </td>
-                        {{-- <td>
-                            <span>Job Limit : {{ $transaction->plan->job_limit }}</span> <br>
-                            <span>Featured Job Limit : {{ $transaction->plan->featured_job_limit }}</span> <br>
-                            <span>Highlight Job Limit : {{ $transaction->plan->highlight_job_limit }}</span> <br>
-                            <span>Candidate CV View Limit :
-                                {{ $transaction->plan->candidate_cv_view_limitation == 'limited' ? $transaction->plan->candidate_cv_view_limit : '∞' }}</span>
-                            <br>
-                        </td> --}}
                         <td>
-                            {{ $transaction->currency_symbol }}{{ number_format($transaction->amount, 2) }}
+                            {{ $transaction->currency_symbol ?? "৳" }}{{ number_format($transaction->amount, 2) }}
                         </td>
                     </tr>
                     @endif
                     <tr>
                         <td colspan="3"></td>
-                        <td>{{ $transaction->currency_symbol }}{{ number_format($transaction->amount, 2) }}</td>
+                        <td>{{ $transaction->currency_symbol ?? "৳" }}{{ number_format($transaction->amount, 2) }}</td>
                     </tr>
                 </tbody>
             </table>
         </section>
 
-        {{-- <table style="width:100%">
-            <tbody>
-                <tr>
-                    <td style="text-align: right; width:80%">
-                        <h4>TOTAL</h4>
-                    </td>
-                    <td style="text-align: left; width:20%">
-                        {{ $transaction->currency_symbol }}{{ $transaction->amount }}
-                    </td>
-                </tr>
-            </tbody>
-        </table> --}}
-        
-        {{-- <section class="balance-info">
-            <div class="balance-info-right">
-                <table cellspacing="0">
-                    <tr class="table-row-bg">
-                        <td>
-                            <h4>TOTAL</h4>
-                        </td>
-                        <td>
-                            {{ $transaction->currency_symbol }}{{ $transaction->amount }}
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </section> --}}
     </div>
 </body>
 

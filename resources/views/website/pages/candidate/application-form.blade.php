@@ -338,7 +338,9 @@
                                                 <select name="quota"
                                                     class="rt-selectactive w-100-p @error('quota') is-invalid @enderror"
                                                     required>
-                                                    <option value="">Please Select</option>
+                                                    <option @if ($candidate->quota == 'Non Quota' || old('quota') == 'Non Quota') selected @endif
+                                                        value="Non Quota">
+                                                        {{ __('Non Quota') }}</option>
                                                     <option @if ($candidate->quota == 'Child of Freedom Fighter' || old('quota') == 'Child of Freedom Fighter') selected @endif
                                                         value="Child of Freedom Fighter">
                                                         {{ __('Child of Freedom Fighter') }}</option>
@@ -357,9 +359,7 @@
                                                     <option @if ($candidate->quota == 'Ansar-VDP' || old('quota') == 'Ansar-VDP') selected @endif
                                                         value="Ansar-VDP">
                                                         {{ __('Ansar-VDP') }}</option>
-                                                    <option @if ($candidate->quota == 'Non Quota' || old('quota') == 'Non Quota') selected @endif
-                                                        value="Non Quota">
-                                                        {{ __('Non Quota') }}</option>
+                                                    
                                                 </select>
                                                 @error('quota')
                                                     <span class="invalid-feedback" role="alert">{{ __($message) }}</span>

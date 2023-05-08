@@ -11,7 +11,9 @@
     <style>
         /* Font Include */
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
-
+        :root {
+        --muted: #cbcccf;
+        }
         #application-print {
             max-width: 800px;
             margin: 0 auto;
@@ -31,13 +33,10 @@
         table td,
         table th {
             /* padding: 10px; */
-            border: 1px solid #2e3397;
+            border: 2px solid #cbcccf;
             /* background-color: #f2f2f2; */
         }
 
-        /* table th {
-            background-color: #f2f2f2;
-        } */
 
         .personal-info
 
@@ -89,27 +88,6 @@
         .justify-content-end {
             justify-content: flex-end !important;
         }
-
-        /* body{
-            font-family: bangla
-        } */
-
-        /* @font-face {
-        font-family: 'preeti';
-        font-style: normal;
-        font-weight: 400;
-        src: url('".$public_path."/fonts/PREETI.TTF') format('ttf');
-    } */
-
-        /* @font-face{
-        font-family: Arial, Helvetica, sans-serif;
-    } */
-
-        /* @page {
-        margin-left: 4%;
-        margin-right: 4%;
-    } */
-
         td,
         th {
             padding: 6px;
@@ -140,18 +118,28 @@
             <table class="table table-hover text-nowrap table-bordered">
                 <thead>
                     <tr>
-                        <th colspan="7" style="text-align: center">
-                            Order/Statement
+                        <th colspan="7" style="text-align: center; color: black; ">
+                            <h1 style="font-family: Arial">Order Statement</h1>
+                            
+                            @if ($filters['from_date'] && $filters['to_date'])
+                                <h3>Statement for the period of : <span style="color: #6c757d">{{ $filters['from_date'] }}</span> To <span style="color: #6c757d">{{ $filters['to_date'] }}</span></h3>
+                            @endif
+                            @if ($filters['payer'])
+                                <h3>Payer : <span style="color: #6c757d">{{ Str::ucfirst($filters['payer']) }}</span></h3>
+                            @endif
+                            @if ($filters['provider'])
+                                <h3>Payment Provider : <span style="color: #6c757d">{{ Str::ucfirst($filters['provider']) }}</span></h3>
+                            @endif
                         </th>
                     </tr>
-                    <tr style="background: #2e3397;">
-                        <th style="color:white;">{{ __('order_no') }}</th>
-                        <th style="color:white;">{{ __('transaction_no') }}</th>
-                        <th style="color:white;">{{ __('payment_provider') }}</th>
-                        <th style="color:white;">{{ __('User') }}</th>
-                        <th style="color:white;">{{ __('amount') }}</th>
-                        <th style="color:white;">{{ __('created_time') }}</th>
-                        <th style="color:white;">{{ __('payment_status') }}</th>
+                    <tr>
+                        <th>{{ __('order_no') }}</th>
+                        <th>{{ __('transaction_no') }}</th>
+                        <th>{{ __('payment_provider') }}</th>
+                        <th>{{ __('User') }}</th>
+                        <th>{{ __('amount') }}</th>
+                        <th>{{ __('created_time') }}</th>
+                        <th>{{ __('payment_status') }}</th>
                     </tr>
                 </thead>
                 <tbody>
