@@ -154,7 +154,7 @@
                             <td style="vertical-align: top">
                                 <h5>Name: <span style="color: #9ea2a5">{{ $order->user->name ?? ''  }}</span></h5>
                                 <h5>Contact Number: <span style="color: #9ea2a5">{{ $order->user->phone ?? ''  }}</span></h5>
-                                @if ( $order->user->email)
+                                @if ( isset($order->user->email))
                                 <h5>Email: <span style="color: #9ea2a5">{{ $order->user->email ?? ''  }}</span></h5>
                                 @endif
                                 <h5>Details Information: <span style="color: #9ea2a5">{{ $order->user->candidate->place ?? ''  }}</span></h5>

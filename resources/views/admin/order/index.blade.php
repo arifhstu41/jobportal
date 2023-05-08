@@ -140,7 +140,7 @@
                                             <a href="{{ route('order.show', $order->id) }}" class="btn bg-primary mr-1">
                                                 <i class="fas fa-eye"></i>
                                             </a>
-                                            @if (userCan('order.download'))
+                                            @if (userCan('order.download') && $order->user != null)
                                                 <form
                                                     action="{{ route('admin.transaction.invoice.download', $order->id) }}"
                                                     method="POST">
