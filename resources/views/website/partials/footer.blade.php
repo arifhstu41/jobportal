@@ -66,6 +66,16 @@
                     </ul>
                 </div>
             </div><!-- /.row -->
+            <div class="row">
+                <div class="col-12 mt-lg-3">
+                    <div class="d-none d-md-block">
+                        <img class="img-fluid w-100" src="https://www.welfarefamily.org/images/payment/sP_Available_Payment_Instruments-new-small_2022.png" alt="payment">
+                    </div>
+                    <div class="d-block d-md-none">
+                        <img class="img-fluid w-100" src="https://www.welfarefamily.org/images/payment/sP_Available_Payment_Instruments-new_2022.png" alt="payment">
+                    </div>
+                </div>
+            </div>
         </div><!-- /.container -->
     </div><!-- /.footer-top -->
     <div class="footer-bottom bg-gray-900">

@@ -98,6 +98,12 @@ class OrderController extends Controller
         
         $orders = $order_query->get();
         
+        $filters = [
+            "payer"                 => @$request->payer,
+            "from_date"                 => @$request->from_date,
+            "to_date"                  => @$request->to_date,
+            "provider"                    => @$request->provider
+        ];
 
         // pdf part started
         $defaultConfig = (new ConfigVariables())->getDefaults();
@@ -122,7 +128,7 @@ class OrderController extends Controller
         ]);
 
         $stylesheet = public_path('css/custom.css'); // external css
-        $page       = view('admin.order.pdf_view', compact('orders')); //table part
+        $page       = view('admin.order.pdf_view', compact('orders', 'filters')); //table part
         $mpdf->WriteHTML($stylesheet, 1);
         $title = "Order List.pdf";
         $mpdf->SetTitle($title);
