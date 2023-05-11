@@ -77,7 +77,7 @@
                                                         </a>
                                                     @endif
                                                 </div>
-                                                <span class="loacton text-gray-400 ">
+                                                <span class="text-gray-400 ">
                                                     {{ $candidate->profession ? $candidate->profession->name : '' }}
                                                 </span>
                                                 <div class="bottom-link rt-pt-30">

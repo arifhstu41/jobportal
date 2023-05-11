@@ -239,10 +239,12 @@
                                     <li class="menu-item"><a
                                             class="{{ linkActive('website.job', 'text-primary active') }}"
                                             href="{{ route('website.job') }}">{{ __('find_job') }}</a></li>
+                                    @auth
                                     <li class="menu-item">
                                         <a class="{{ linkActive('website.candidate', 'text-primary active') }}"
                                             href="{{ route('website.candidate') }}">{{ __('candidates') }}</a>
                                     </li>
+                                    @endauth
                                     <li class="menu-item"><a
                                             class="{{ linkActive('website.company', 'text-primary active') }}"
                                             href="{{ route('website.company') }}">{{ __('companies') }}</a>
@@ -508,7 +510,7 @@
                 <div class="d-flex">
                     <div class="n-header--bottom__left d-flex align-items-center">
                         <a href="{{ route('website.home') }}" class="brand-logo">
-                            <img src="{{ $setting->dark_logo_url }}" alt="">
+                            <img src="{{ asset('images/welfare-banner.png') }}" alt="">
                         </a>
                         <form action="{{ route('website.job') }}" method="GET" id="search-form"
                             class="mx-width-300 d-lg-block d-none">

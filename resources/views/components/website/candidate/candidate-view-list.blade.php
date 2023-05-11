@@ -53,15 +53,18 @@
                                                 stroke="#939AAD" stroke-width="1.5" stroke-linecap="round"
                                                 stroke-linejoin="round" />
                                         </svg>
-                                        {{ $candidate->country }}
+                                        {{ $candidate->country ?? "Bangladesh" }}
                                     </span>
                                     <span class="info-tools ">
                                         <i class="ph-suitcase-simple"></i>
+                                    
                                         @if ($candidate->experience)
                                             {{ $candidate->experience ? $candidate->experience->name : '' }}
                                         @else
-                                            0
-                                        @endif {{ __('years_experience') }}
+                                            {{-- 0 --}}
+                                            Fresher
+                                        @endif 
+                                        {{-- {{ __('years_experience') }} --}}
                                     </span>
                                 </div>
                             </div>
