@@ -273,7 +273,8 @@ class WebsiteController extends Controller
 
     public function candidates(Request $request)
     {
-        abort_if(auth('user')->check() && auth('user')->user()->role == 'candidate', 404);
+        // dd(auth('user')->check());
+        abort_if(( !auth('user')->check() ||(auth('user')->check() && auth('user')->user()->role == 'candidate')), 404);
 
         $data['professions'] = Profession::all();
         $data['candidates'] = $this->getCandidates($request);
@@ -282,7 +283,6 @@ class WebsiteController extends Controller
         $data['educations'] = Education::all();
         $data['skills'] = Skill::all(['id', 'name']);
         $data['candidate_languages'] = CandidateLanguage::all(['id', 'name']);
-
         // reset candidate cv views history
         $this->reset();
 
