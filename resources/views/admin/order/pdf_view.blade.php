@@ -165,7 +165,7 @@
                                 <h5>Transaction No: <span style="color: #9ea2a5">{{ $order->transaction_id   }}</span></h5>
                                 <h5>Payment Provider: <span style="color: #9ea2a5">{{ Str::ucfirst($order->provider) }}</span></h5>
                                 <h5>Payment Status: <span style="color: #9ea2a5">{{ Str::ucfirst($order->payment_status) }}</span></h5>
-                                <h5>Payment Amountr: <span style="color: #9ea2a5">৳ {{ number_format($order->amount, 2) }} BDT</span></h5>
+                                <h5>Payment Amount: <span style="color: #9ea2a5">৳ {{ number_format($order->amount, 2) }} BDT</span></h5>
                             </td>
                             <td style="vertical-align: top; text-align: right; padding-left:0px">
                                 <span style="color: #9ea2a5">৳ {{ number_format($order->amount, 2)   }} BDT</span>
@@ -173,8 +173,8 @@
                         </tr>
                     @endforeach
                         <tr style="">
-                            <td colspan="2" style="text-align: right; border-right: none; padding-top:15px; padding-bottom: 5px; vertical-align: bottom "><h5 style="font-family: Arial, Helvetica, sans-serif; color:green">Payment Receivable</h5></td>
-                            <td style="text-align: center; color:green; border-left: none; padding-top:15px; padding-bottom: 5px; vertical-align: bottom"><h5 style="font-family: Arial, Helvetica, sans-serif; color:green">Total Amount</h3></td>
+                            <td colspan="2" style="text-align: left; border-right: none; padding-top:15px; padding-bottom: 5px; vertical-align: bottom "><h5 style="font-family: Arial, Helvetica, sans-serif; color:green">Payment Receivable</h5></td>
+                            <td style="text-align: right; color:green; border-left: none; padding-top:15px; padding-bottom: 5px; vertical-align: bottom"><h5 style="font-family: Arial, Helvetica, sans-serif; color:green">Total Amount</h3></td>
                             <td style="color:green; padding-top:15px; padding-bottom: 5px; text-align: right; padding-left:0px">৳ {{ number_format($total, 2) }} BDT</td>
                         </tr>
                         <tr>
