@@ -57,8 +57,8 @@ class SurjoPayController extends Controller
         $request = new PaymentRequest();
 
         $request->currency = 'BDT';
-        $request->amount =  10;
-        // $request->amount = $info['amount'] ?? 10;
+        //$request->amount =  10;
+         $request->amount = $info['amount'] ?? 175;
         $request->discountAmount = $info['discountAmount'] ?? 0;
         $request->discPercent = $info['discPercent'] ?? 0;
         $request->customerName = "Welfare Family Bangladesh";
