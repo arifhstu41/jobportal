@@ -722,7 +722,7 @@
         }
     </script>
 
-    <script src="{{ asset('frontend/plugins/mapbox/mapbox-gl.js') }}"></script>
+    {{-- <script src="{{ asset('frontend/plugins/mapbox/mapbox-gl.js') }}"></script>
     <script src="{{ asset('frontend/plugins/mapbox/mapbox-gl-geocoder.min.js') }}"></script>
     <script>
         var country_code = '{{ current_country_code() }}'
@@ -757,9 +757,9 @@
         if (oldLocation) {
             $('.mapboxgl-ctrl-geocoder--input').val(oldLocation);
         }
-    </script>
+    </script> --}}
     <!-- ============== gooogle map ========== -->
-    <script>
+    {{-- <script>
         function initMap() {
             var token = "{{ $setting->google_map_key }}";
             var oldlat = {{ Session::has('location') ? Session::get('location')['lat'] : setting('default_lat') }};
@@ -829,16 +829,16 @@
             });
         }
         window.initMap = initMap;
-    </script>
-    <script>
+    </script> --}}
+    {{-- <script>
         @php
             $link1 = 'https://maps.googleapis.com/maps/api/js?key=';
             $link2 = $setting->google_map_key;
             $Link3 = '&callback=initMap&libraries=places,geometry';
             $scr = $link1 . $link2 . $Link3;
         @endphp;
-    </script>
-    <script src="{{ $scr }}" async defer></script>
+    </script> --}}
+    {{-- <script src="{{ $scr }}" async defer></script> --}}
 
     <script src="{{ asset('frontend') }}/assets/js/axios.min.js"></script>
     <script>

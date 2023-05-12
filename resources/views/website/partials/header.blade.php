@@ -508,14 +508,14 @@
         <div class="n-header--bottom">
             <div class="container position-relative">
                 <div class="d-flex">
-                    <div class="n-header--bottom__left d-flex align-items-center">
-                        <a href="{{ route('website.home') }}" class="brand-logo">
-                            <img src="{{ asset('images/welfare-banner.png') }}" alt="">
+                    <div class="n-header--bottom__left d-flex justify-content-between align-items-center">
+                        <a href="{{ route('website.home') }}" >
+                            <img src="{{ asset('images/welfare-banner.png') }}" alt="" style="height: 50px; max-height: 50px;" >
                         </a>
                         <form action="{{ route('website.job') }}" method="GET" id="search-form"
-                            class="mx-width-300 d-lg-block d-none">
-                            <div class="search-box form-item position-relative">
-                                <input name="keyword" class="global_header_search search-input w-100" type="text"
+                            class="d-lg-block d-none w-100 ">
+                            <div class="search-box form-item position-relative w-100">
+                                <input name="keyword" class="global_header_search search-input w-100 mr-2" type="text"
                                     placeholder="{{ __('job_title_keyword') }}" value="{{ request('keyword') }}"
                                     id="global_search">
                                 <svg class="position-absolute" width="24" height="24" viewBox="0 0 24 24"

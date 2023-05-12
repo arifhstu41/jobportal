@@ -54,7 +54,7 @@
                             <img src="{{ $setting->dark_logo_url }}" alt="{{ __('logo') }}" class="img-fluid">
                         </div>
                     </a> --}}
-                    <div class="{{ request()->is('register') ? "card-body" : "login-card-body" }}  p-0">
+                    <div class="{{ request()->is('register') ? "card-body" : "" }}  p-0">
                         @yield('content')
                     </div>
                     <div class="text-center text-secondary quote">
