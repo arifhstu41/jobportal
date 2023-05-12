@@ -124,19 +124,19 @@
                             @if ($filters['from_date'] && $filters['to_date'])
                                 <h3>Statement for the period of : <span style="color: #606364">{{ $filters['from_date'] }}</span> To <span style="color: #606364">{{ $filters['to_date'] }}</span></h3>
                             @endif
-                            {{-- @if ($filters['provider'])
+                            @if ($filters['provider'])
                                 <h3>Payment Provider : <span style="color: #606364">{{ Str::ucfirst($filters['provider']) }}</span></h3>
                             @endif
                             @if ($filters['payer'])
                                 <h3>Payer : <span style="color: #606364">{{ Str::ucfirst($filters['payer']) }}</span></h3>
-                            @endif --}}
+                            @endif
                         </th>
                     </tr>
                     <tr style="font-family: Arial, Helvetica, sans-serif">
-                        <th style="width: 17%;"><h3 style="font-family: Arial, Helvetica, sans-serif">{{ __('Transaction Date') }}</h3></th>
-                        <th style="width: 35%"><h3 style="font-family: Arial, Helvetica, sans-serif">{{ __('Candiate Information') }}</h3></th>
-                        <th style="width: 30%"><h3 style="font-family: Arial, Helvetica, sans-serif">{{ __('Payment Information') }}</h3></th>
-                        <th style="width: 18%"><h3 style="font-family: Arial, Helvetica, sans-serif">{{ __('Payment Amount') }}</h3></th>
+                        <th style="width: 17%;"><h5 style="font-family: Arial, Helvetica, sans-serif">{{ __('Transaction Date') }}</h5></th>
+                        <th style="width: 35%"><h5 style="font-family: Arial, Helvetica, sans-serif">{{ __('Candiate Information') }}</h5></th>
+                        <th style="width: 30%"><h5 style="font-family: Arial, Helvetica, sans-serif">{{ __('Payment Information') }}</h5></th>
+                        <th style="width: 18%"><h5 style="font-family: Arial, Helvetica, sans-serif">{{ __('Payment Amount') }}</h5></th>
                     </tr>
                 </thead>
                 <tbody>
