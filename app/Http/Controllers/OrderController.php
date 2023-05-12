@@ -132,7 +132,7 @@ class OrderController extends Controller
         $mpdf->WriteHTML($stylesheet, 1);
         $title = "Order List.pdf";
         $mpdf->SetTitle($title);
-        $mpdf->WriteHTML('<img src="images/pad.png" alt="Welfare Pad" style="width: 100%; border: 2px solid #9ea2a5; border-bottom: none" >');
+        $mpdf->WriteHTML('<img src="images/pad.png" alt="Welfare Pad" style="width: 100%; border: 2px solid #2e3397; border-bottom: none" >');
         $mpdf->WriteHTML($page);
         $mpdf->SetHTMLFooter('<span style="color: #2e3397">© 2023 Welfare Family Bangladesh All Rights Reserved.</span>');
         $mpdf->Output($title, 'I');

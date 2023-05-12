@@ -12,7 +12,7 @@
         /* Font Include */
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
         :root {
-        --muted: #9ea2a5;
+        --muted: #606364;
         }
         #application-print {
             max-width: 800px;
@@ -33,7 +33,7 @@
         table td,
         table th {
             padding: 5px;
-            /* border: 2px solid #9ea2a5; */
+            /* border: 2px solid #606364; */
             border: 2px solid #2e3397;
             /* background-color: #f2f2f2; */
         }
@@ -123,7 +123,7 @@
         <table style="width:100%">
             <thead>
                 <tr>
-                    <th colspan="2" style="text-align: center; font-family: Arial, Helvetica, sans-serif; padding-top:10px; padding-bottom:10px;">
+                    <th colspan="2" style="text-align: center; font-family: Arial, Helvetica, sans-serif; padding-top:10px; padding-bottom:10px; color: #2e3397">
                         <h2>INVOICE</h2>
                     </th>
                 </tr>
@@ -136,28 +136,28 @@
                     <td style="width: 40%; border-bottom: none; padding-top:10px; padding-bottom:10px;"><h6 style="margin: 25px 5px 25px 5px;">Name</h6></td>
 
                     <td style="width: 60%; border-bottom: none; padding-top:10px; padding-bottom:10px;">
-                        <h6><span style="color: #9ea2a5;">{{ $transaction->user->name ?? "" }}</span></h6>
+                        <h6><span style="color: #606364;">{{ $transaction->user->name ?? "" }}</span></h6>
                     </td>
                 </tr>
                 <tr>
                     <td style="width: 40%; border-bottom: none; border-top:none; padding-top:10px; padding-bottom:10px;"><h6>Details Information</h6></td>
 
                     <td style="width: 60%; border-bottom: none; border-top:none; padding-top:10px; padding-bottom:10px;">
-                        <h6><span style="color: #9ea2a5">{{ $transaction->user->candidate->place ?? "" }}</span></h6>
+                        <h6><span style="color: #606364">{{ $transaction->user->candidate->place ?? "" }}</span></h6>
                     </td>
                 </tr>
                 <tr>
                     <td style="width: 40%; border-bottom: none; border-top:none; padding-top:10px; padding-bottom:10px;"><h6>Contact Number</h6></td>
 
                     <td style="width: 60%; border-bottom: none; border-top:none; padding-top:10px; padding-bottom:10px;">
-                        <h6><span style="color: #9ea2a5">{{ $transaction->user->phone ?? "" }}</span></h6>
+                        <h6><span style="color: #606364">{{ $transaction->user->phone ?? "" }}</span></h6>
                     </td>
                 </tr>
                 <tr>
                     <td style="width: 40%; border-top:none; padding-top:10px; padding-bottom:10px;"><h6>E-Mail Address</h6></td>
 
                     <td style="width: 60%; border-top:none; padding-top:10px; padding-bottom:10px;">
-                        <h6><span style="color: #9ea2a5">{{ $transaction->user->email ?? "" }}</span></h6>
+                        <h6><span style="color: #606364">{{ $transaction->user->email ?? "" }}</span></h6>
                     </td>
                 </tr>
 
@@ -168,49 +168,49 @@
                     <td style="width: 40%; border-bottom: none; padding-top:10px; padding-bottom:10px;"><h6>Payment Date</h6></td>
 
                     <td style="width: 60%; border-bottom: none; padding-top:10px; padding-bottom:10px;">
-                        <h6><span style="color: #9ea2a5;">{{ date('M j, Y', strtotime($transaction->created_at)) }}</span></h6>
+                        <h6><span style="color: #606364;">{{ date('M j, Y', strtotime($transaction->created_at)) }}</span></h6>
                     </td>
                 </tr>
                 <tr>
                     <td style="width: 40%; border-bottom: none; border-top:none; padding-top:10px; padding-bottom:10px;"><h6>Payment Details</h6></td>
 
                     <td style="width: 60%; border-bottom: none; border-top:none; padding-top:10px; padding-bottom:10px;">
-                        <h6><span style="color: #9ea2a5">Registration Fee</span></h6>
+                        <h6><span style="color: #606364">Registration Fee</span></h6>
                     </td>
                 </tr>
                 <tr>
                     <td style="width: 40%; border-bottom: none; border-top:none; padding-top:10px; padding-bottom:10px;"><h6>Invoice No</h6></td>
 
                     <td style="width: 60%; border-bottom: none; border-top:none; padding-top:10px; padding-bottom:10px;">
-                        <h6><span style="color: #9ea2a5">#{{ $transaction->order_id ?? "" }}</span></h6>
+                        <h6><span style="color: #606364">#{{ $transaction->order_id ?? "" }}</span></h6>
                     </td>
                 </tr>
                 <tr>
                     <td style="width: 40%; border-bottom: none; border-top:none; padding-top:10px; padding-bottom:10px;"><h6>Transaction No</h6></td>
 
                     <td style="width: 60%; border-bottom: none; border-top:none; padding-top:10px; padding-bottom:10px;">
-                        <h6><span style="color: #9ea2a5">{{ $transaction->transaction_id ?? "" }}</span></h6>
+                        <h6><span style="color: #606364">{{ $transaction->transaction_id ?? "" }}</span></h6>
                     </td>
                 </tr>
                 <tr>
                     <td style="width: 40%; border-bottom: none; border-top:none; padding-top:10px; padding-bottom:10px;"><h6>Payment Provider</h6></td>
 
                     <td style="width: 60%; border-bottom: none; border-top:none; padding-top:10px; padding-bottom:10px;">
-                        <h6><span style="color: #9ea2a5">{{ Str::ucfirst($transaction->provider) }}</span></h6>
+                        <h6><span style="color: #606364">{{ Str::ucfirst($transaction->provider) }}</span></h6>
                     </td>
                 </tr>
                 <tr>
                     <td style="width: 40%; border-bottom: none; border-top:none; padding-top:10px; padding-bottom:10px;"><h6>Payment Amount</h6></td>
 
                     <td style="width: 60%; border-bottom: none; border-top:none; padding-top:10px; padding-bottom:10px;">
-                        <h6><span style="color: #9ea2a5">৳ {{ number_format($transaction->amount, 2) }} BDT</span></h6>
+                        <h6><span style="color: #606364">৳ {{ number_format($transaction->amount, 2) }} BDT</span></h6>
                     </td>
                 </tr>
                 <tr>
                     <td style="width: 40%; border-top:none; padding-top:10px; padding-bottom:10px;"><h6>Payment Status</h6></td>
 
                     <td style="width: 60%; border-top:none; padding-top:10px; padding-bottom:10px;">
-                        <h6><span style="color: #9ea2a5">{{ Str::ucfirst($transaction->payment_status) }}</span></h6>
+                        <h6><span style="color: #606364">{{ Str::ucfirst($transaction->payment_status) }}</span></h6>
                     </td>
                 </tr>
                 <tr style="">
@@ -218,7 +218,7 @@
                     <td style="color:green; text-align: right; padding-left:0px; padding-top:10px; padding-bottom:10px;">৳ {{ number_format($transaction->amount, 2) }} BDT</td>
                 </tr>
                 <tr>
-                    <td colspan="2" style="vertical-align: bottom; text-align: center; padding-top: 25px; padding-top:10px; padding-bottom:10px;"><span style="color: #9ea2a5">This report has been generated electronically</span></td>
+                    <td colspan="2" style="vertical-align: bottom; text-align: center; padding-top: 25px; padding-top:10px; padding-bottom:10px;"><span style="color: #606364">This report has been generated electronically</span></td>
                 </tr>
             </tbody>
         </table>
