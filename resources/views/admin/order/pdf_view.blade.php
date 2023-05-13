@@ -132,11 +132,11 @@
                             @endif
                         </th>
                     </tr>
-                    <tr style="font-family: Arial, Helvetica, sans-serif">
-                        <th style="width: 17%;"><h5 style="font-family: Arial, Helvetica, sans-serif">{{ __('Transaction Date') }}</h5></th>
-                        <th style="width: 35%"><h5 style="font-family: Arial, Helvetica, sans-serif">{{ __('Candiate Information') }}</h5></th>
-                        <th style="width: 30%"><h5 style="font-family: Arial, Helvetica, sans-serif">{{ __('Payment Information') }}</h5></th>
-                        <th style="width: 18%"><h5 style="font-family: Arial, Helvetica, sans-serif">{{ __('Payment Amount') }}</h5></th>
+                    <tr style="font-family: Arial, Helvetica, sans-serif;">
+                        <th style="width: 17%;"><h6 style="font-family: Arial, Helvetica, sans-serif;  color:#2e3397">{{ __('Transaction Date') }}</h6></th>
+                        <th style="width: 35%"><h6 style="font-family: Arial, Helvetica, sans-serif;  color:#2e3397">{{ __('Candiate Information') }}</h6></th>
+                        <th style="width: 30%"><h6 style="font-family: Arial, Helvetica, sans-serif;  color:#2e3397">{{ __('Payment Information') }}</h6></th>
+                        <th style="width: 18%"><h6 style="font-family: Arial, Helvetica, sans-serif;  color:#2e3397">{{ __('Payment Amount') }}</h6></th>
                     </tr>
                 </thead>
                 <tbody>
