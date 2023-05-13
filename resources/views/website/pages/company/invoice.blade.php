@@ -130,7 +130,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td colspan="2" style="padding-top:10px; padding-bottom:10px; "><h3 style="font-family: Arial, Helvetica, sans-serif">Candidate Information</h3></td>
+                    <td colspan="2" style="padding-top:10px; padding-bottom:10px; "><h3 style="font-family: Arial, Helvetica, sans-serif; color:#2e3397">Candidate Information</h3></td>
                 </tr>
                 <tr>
                     <td style="width: 40%; border-bottom: none; padding-top:10px; padding-bottom:10px; "><h6 style="margin: 25px 5px 25px 5px;">Name</h6></td>
@@ -162,7 +162,7 @@
                 </tr>
 
                 <tr>
-                    <td colspan="2" style="padding-top:20px; padding-bottom:20px; "><h3 style="font-family: Arial, Helvetica, sans-serif">Payment Information</h3></td>
+                    <td colspan="2" style="padding-top:20px; padding-bottom:20px; "><h3 style="font-family: Arial, Helvetica, sans-serif; color:#2e3397">Payment Information</h3></td>
                 </tr>
                 <tr>
                     <td style="width: 40%; border-bottom: none; padding-top:10px; padding-bottom:10px; "><h6>Payment Date</h6></td>
