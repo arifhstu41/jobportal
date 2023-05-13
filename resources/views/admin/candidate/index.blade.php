@@ -140,6 +140,7 @@
                                 <th>{{ __('image') }}</th>
                                 <th>{{ __('name') }}</th>
                                 <th>{{ __('username') }}</th>
+                                <th>{{ __('phone') }}</th>
                                 <th>{{ __('email') }}</th>
                                 @if (userCan('candidate.update'))
                                     <th width="10%">{{ __('status') }}</th>
@@ -167,6 +168,9 @@
                                         </td>
                                         <td class="text-center" tabindex="0">
                                             {{ $candidate->user->username }}
+                                        </td>
+                                        <td class="text-center" tabindex="0">
+                                            {{ $candidate->user->phone }}
                                         </td>
                                         <td class="text-center" tabindex="0">
                                             {{ $candidate->user->email }}

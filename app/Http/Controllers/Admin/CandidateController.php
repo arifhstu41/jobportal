@@ -7,10 +7,12 @@ use App\Http\Requests\CandidateRequest;
 use App\Models\Candidate;
 use App\Models\CandidateLanguage;
 use App\Models\ContactInfo;
+use App\Models\Earning;
 use App\Models\Education;
 use App\Models\Experience;
 use App\Models\GeoCode;
 use App\Models\JobRole;
+use App\Models\PaymentModel;
 use App\Models\Profession;
 use App\Models\Skill;
 use App\Models\User;
@@ -650,6 +652,10 @@ class CandidateController extends Controller {
                 unlink($candidate->photo);
             }
         }
+        // delete earnings and payments
+        Earning::where('user_id', $candidate->user_id)->delete();
+        PaymentModel::where('user_id', $candidate->user_id)->delete();
+
         $candidate->delete();
 
         flashSuccess('Candidate Deleted Successfully');
