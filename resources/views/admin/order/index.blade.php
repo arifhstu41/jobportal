@@ -49,6 +49,11 @@
                                 </select>
                             </div>
                             <div class="col-2">
+                                <label>Order ID</label>
+                                <input type="text" name="order_id" id="order_id" value="{{ request('order_id') }}" placeholder="Order ID" class="form-control w-100-p">
+                            </div>
+
+                            <div class="col-2">
                                 <label>{{ __('From Date') }}</label>
                                 <input type="text" name="from_date" id="from_date" value="{{ request('from_date') ? date('d-m-Y', strtotime(request('from_date'))) : '' }}" placeholder="Enter Date" class="form-control w-100-p">
                             </div>
@@ -79,6 +84,7 @@
                                 <tr>
                                     <th>{{ __('order_no') }}</th>
                                     <th>{{ __('transaction_no') }}</th>
+                                    <th>Shurjopay Order ID</th>
                                     {{-- <th>{{ __('plan_name') }}</th> --}}
                                     <th>{{ __('payment_provider') }}</th>
                                     <th>{{ __('user') }}</th>
@@ -99,6 +105,9 @@
                                         </td>
                                         <td>
                                             {{ $order->transaction_id }}
+                                        </td>
+                                        <td>
+                                            {{ $order->payment_providers_order_id ?? '' }}
                                         </td>
                                         {{-- <td>
                                             @if ($order->payment_type == 'per_job_based')

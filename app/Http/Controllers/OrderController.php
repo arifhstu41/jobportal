@@ -41,6 +41,13 @@ class OrderController extends Controller
             $order_query->where('payment_provider', request('provider'));
         }
 
+        if (request()->has('order_id') && request('order_id') != null) {
+            $order_query->where('order_id', request('order_id'))
+            ->orWhere('payment_providers_order_id', request('order_id'))
+            ->orWhere('transaction_id', request('order_id'));
+
+        }
+
         if (request()->has('sort_by') && request('sort_by') != null) {
             if (request('sort_by') == 'latest') {
                 $order_query->latest();
@@ -84,6 +91,13 @@ class OrderController extends Controller
 
         if (request()->has('provider') && request('provider') != null) {
             $order_query->where('payment_provider', request('provider'));
+        }
+
+        if (request()->has('order_id') && request('order_id') != null) {
+            $order_query->where('order_id', request('order_id'))
+            ->orWhere('payment_providers_order_id', request('order_id'))
+            ->orWhere('transaction_id', request('order_id'));
+
         }
 
         if (request()->has('sort_by') && request('sort_by') != null) {
