@@ -3,6 +3,8 @@
     {{ $user->name }} {{ __('details') }}
 @endsection
 @section('content')
+
+
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -18,7 +20,7 @@
                 </div>
                 <div class="row m-2">
                     <div class="col-md-4 text-center">
-                        <img src="{{ asset($candidate->photo) }}" alt="image" class="image-fluid"
+                        <img src="{{ asset($candidate->photo ?? 'backend/image/default.png') }}" alt="image" class="image-fluid"
                             height="350px" width="350px">
                     </div>
                     <div class="col-md-8">
@@ -82,22 +84,22 @@
                 
                                 <tr style="padding: 0px; margin: 0px">
                                     <td style="  width: 30%">Gender</td>
-                                    <td style="">{{ ucwords($candidate->gender) }}</td>
+                                    <td style="">{{ ucwords($candidate->gender ?? "") }}</td>
                                 </tr>
                 
                                 <tr style="padding: 0px; margin: 0px">
                                     <td style="  width: 30%">Religion</td>
-                                    <td style="">{{ ucwords($candidate->religion) }}</td>
+                                    <td style="">{{ ucwords($candidate->religion ?? "") }}</td>
                                 </tr>
                 
                                 <tr style="padding: 0px; margin: 0px">
                                     <td style="  width: 30%">Quota</td>
-                                    <td style="">{{ ucwords($candidate->quota) }}</td>
+                                    <td style="">{{ ucwords($candidate->quota ?? "") }}</td>
                                 </tr>
                 
                                 <tr style="padding: 0px; margin: 0px">
                                     <td style="  width: 30%">Home District</td>
-                                    <td style="">{{ ucwords($candidate->district_parmanents->nameEn) }}</td>
+                                    <td style="">{{ ucwords($candidate->district_parmanents->nameEn ?? "") }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -112,7 +114,7 @@
                             <tbody>
                                 <tr>
                                     <td style="">National ID</td>
-                                    <td style="">{{ $candidate->nid_no }}</td>
+                                    <td style="">{{ $candidate->nid_no ?? "" }}</td>
                                     <td style="">Passport ID</td>
                                     <td style="">{{ $candidate->passport_no ?? "N/A" }}</td>
                                 </tr>
@@ -120,7 +122,7 @@
                                     <td style="">Birth Registration</td>
                                     <td style="">{{ $candidate->birth_certificate_no ?? "N/A" }}</td>
                                     <td style="">Marital Status</td>
-                                    <td style="">{{ ucwords($candidate->marital_status) }}</td>
+                                    <td style="">{{ ucwords($candidate->marital_status ?? "") }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -141,20 +143,20 @@
                             <tbody>
                                 <tr class="mb-1">
                                     <td>
-                                        <p>Care of: <span>{{ $user->candidate->care_of }}</span></p>
-                                        <p>Village/Tow: <span>{{ $user->candidate->place }}</span></p>
-                                        <p>Post Office: <span>{{ $user->candidate->post_office }}</span></p>
-                                        <p>Post Code: <span>{{ $user->candidate->postcode }}</span></p>
-                                        <p>Upazila/Thana: <span>{{ $user->candidate->thanas->name ?? '' }}</span></p>
-                                        <p>District: <span>{{ $user->candidate->districts->name ?? '' }}</span></p>
+                                        <p>Care of: <span>{{ $user->candidate->care_of ?? ""}}</span></p>
+                                        <p>Village/Tow: <span>{{ $user->candidate->place ?? ""}}</span></p>
+                                        <p>Post Office: <span>{{ $user->candidate->post_office ?? ""}}</span></p>
+                                        <p>Post Code: <span>{{ $user->candidate->postcode ?? ""}}</span></p>
+                                        <p>Upazila/Thana: <span>{{ $user->candidate->thanas->nameEn ?? '' }}</span></p>
+                                        <p>District: <span>{{ $user->candidate->districts->nameEn ?? '' }}</span></p>
                                     </td>
                                     <td>
-                                        <p>Care of: <span>{{ $user->candidate->care_of_parmanent }}</span></p>
-                                        <p>Village/Tow: <span>{{ $user->candidate->place_parmanent }}</span></p>
-                                        <p>Post Office: <span>{{ $user->candidate->post_office_parmanent }}</span></p>
-                                        <p>Post Code: <span>{{ $user->candidate->postcode_parmanent }}</span></p>
-                                        <p>Upazila/Thana: <span>{{ $user->candidate->thana_parmanents->name ?? '' }}</span></p>
-                                        <p>District: <span>{{ $user->candidate->district_parmanents->name ?? '' }}</span></p>
+                                        <p>Care of: <span>{{ $user->candidate->care_of_parmanent ?? ''}}</span></p>
+                                        <p>Village/Tow: <span>{{ $user->candidate->place_parmanent ?? ''}}</span></p>
+                                        <p>Post Office: <span>{{ $user->candidate->post_office_parmanent ?? ''}}</span></p>
+                                        <p>Post Code: <span>{{ $user->candidate->postcode_parmanent ?? ''}}</span></p>
+                                        <p>Upazila/Thana: <span>{{ $user->candidate->thana_parmanents->nameEn ?? '' }}</span></p>
+                                        <p>District: <span>{{ $user->candidate->district_parmanents->nameEn ?? '' }}</span></p>
                                     </td>
                                 </tr>
                             </tbody>
@@ -186,10 +188,26 @@
                             <tbody>
                                 @if (count($user->candidate->educations) > 0)
                                     @foreach ($user->candidate->educations as $education)
+                                    @php
+                                        $board = $education->institute;
+                                        if ($education->board) {
+                                            $board = \DB::table('bd_education_boards')
+                                                ->where('id', $education->board)
+                                                ->pluck('name')
+                                                ->first();
+                                        }
+                                    @endphp
                                         <tr>
                                             <td>{{ $education->level ?? '' }}</td>
-                                            <td>{{ $education->board ? $education->board : ($education->institute ? $education->institute :  '')  }}</td>
-                                            <td>{{ $education->group ? $education->group : ($education->subject ? $education->subject : ($education->degree ? $education->degree : '')) }}</td>
+                                            <td>{{ $board ?? 'N/A' }}</td>
+                                            @if ($education->subject)
+                                                @php
+                                                    $subject = \App\Models\Subject::where('code', $education->subject)
+                                                        ->pluck('name')
+                                                        ->first();
+                                                @endphp
+                                            @endif
+                                        <td>{{ $education->group ? $education->group : ($education->subject ? $subject : ($education->degree ? $education->degree : '')) }} </td>
                                             <td>{{ $education->result_gpa ?? '' }}</td>
                                             <td>{{ $education->year ?? '' }}</td>
                                             <td>{{ $education->roll ?? '' }}</td>
@@ -364,129 +382,4 @@
     </div>
 @endsection
 
-@section('style')
-    <!-- >=>Leaflet Map<=< -->
-    <x-map.leaflet.map_links />
 
-    @include('map::links')
-@endsection
-@section('script')
-    {{-- Leaflet  --}}
-    <x-map.leaflet.map_scripts />
-    <script>
-        var oldlat = {!! $candidate->lat ? $candidate->lat : setting('default_lat') !!};
-        var oldlng = {!! $candidate->long ? $candidate->long : setting('default_long') !!};
-
-        // Map preview
-        var element = document.getElementById('leaflet-map');
-
-        // Height has to be set. You can do this in CSS too.
-        element.style = 'height:300px;';
-
-        // Create Leaflet map on map element.
-        var leaflet_map = L.map(element);
-
-        // Add OSM tile layer to the Leaflet map.
-        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(leaflet_map);
-
-        // Target's GPS coordinates.
-        var target = L.latLng(oldlat, oldlng);
-
-        // Set map's center to target with zoom 14.
-        const zoom = 14;
-        leaflet_map.setView(target, zoom);
-
-        // Place a marker on the same location.
-        L.marker(target).addTo(leaflet_map);
-    </script>
-    <!-- >=>Mapbox<=< -->
-    @include('map::scripts')
-    <!-- >=>Mapbox<=< -->
-    <!-- ================ mapbox map ============== -->
-    <x-website.map.map-box-check />
-    <script>
-        mapboxgl.accessToken = "{{ $setting->map_box_key }}";
-        const coordinates = document.getElementById('coordinates');
-
-        var oldlat = {!! $candidate->lat ? $candidate->lat : setting('default_lat') !!};
-        var oldlng = {!! $candidate->long ? $candidate->long : setting('default_long') !!};
-
-        const map = new mapboxgl.Map({
-            container: 'map-box',
-            style: 'mapbox://styles/mapbox/streets-v11',
-            center: [oldlng, oldlat],
-            zoom: 6
-        });
-        var marker = new mapboxgl.Marker({
-                draggable: false
-            }).setLngLat([oldlng, oldlat])
-            .addTo(map);
-
-        function onDragEnd() {
-            const lngLat = marker.getLngLat();
-            let lat = lngLat.lat;
-            let lng = lngLat.lng;
-            $('#lat').val(lat);
-            $('#lng').val(lng);
-            document.getElementById('form').submit();
-        }
-
-        function add_marker(event) {
-            var coordinates = event.lngLat;
-            marker.setLngLat(coordinates).addTo(map);
-
-        }
-        // zoom in and out 
-        <
-        x - mapbox - zoom - control / >
-    </script>
-    <script>
-        $('.mapboxgl-ctrl-logo').addClass('d-none');
-        $('.mapboxgl-ctrl-attrib-inner').addClass('d-none');
-    </script>
-    <!-- ================ mapbox map ============== -->
-    <!-- ================ google map ============== -->
-    <x-website.map.google-map-check />
-    <script>
-        function initMap() {
-            var token = "{{ $setting->google_map_key }}";
-
-            var oldlat = {!! $candidate->lat ? $candidate->lat : setting('default_lat') !!};
-            var oldlng = {!! $candidate->long ? $candidate->long : setting('default_long') !!};
-
-            const map = new google.maps.Map(document.getElementById("google-map"), {
-                zoom: 7,
-                center: {
-                    lat: oldlat,
-                    lng: oldlng
-                },
-            });
-
-            const image =
-                "https://gisgeography.com/wp-content/uploads/2018/01/map-marker-3-116x200.png";
-            const beachMarker = new google.maps.Marker({
-
-                draggable: false,
-                position: {
-                    lat: oldlat,
-                    lng: oldlng
-                },
-                map,
-                // icon: image
-            });
-        }
-        window.initMap = initMap;
-    </script>
-    <script>
-        @php
-            $link1 = 'https://maps.googleapis.com/maps/api/js?key=';
-            $link2 = $setting->google_map_key;
-            $Link3 = '&callback=initMap&libraries=places,geometry';
-            $scr = $link1 . $link2 . $Link3;
-        @endphp;
-    </script>
-    <script src="{{ $scr }}" async defer></script>
-    <!-- ================ google map ============== -->
-@endsection
