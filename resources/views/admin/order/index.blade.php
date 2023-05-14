@@ -79,6 +79,7 @@
                                 <tr>
                                     <th>{{ __('order_no') }}</th>
                                     <th>{{ __('transaction_no') }}</th>
+                                    <th>Shurjopay Order ID</th>
                                     {{-- <th>{{ __('plan_name') }}</th> --}}
                                     <th>{{ __('payment_provider') }}</th>
                                     <th>{{ __('user') }}</th>
@@ -96,6 +97,9 @@
                                     <tr>
                                         <td>
                                             #{{ $order->order_id }}
+                                        </td>
+                                        <td>
+                                            {{ $order->transaction_id }}
                                         </td>
                                         <td>
                                             {{ $order->transaction_id }}

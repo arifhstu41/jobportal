@@ -100,6 +100,7 @@ class SurjoPayController extends Controller
 
             $order = Earning::create([
                 'order_id' => rand(1000, 999999999),
+                'payment_providers_order_id' => $data['order_id'],
                 'transaction_id' =>  $data['bank_trx_id'],
                 'plan_id' =>  null,
                 'user_id' => auth('user')->user()->id,
