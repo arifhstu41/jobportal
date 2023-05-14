@@ -228,7 +228,7 @@
                                             #{{ $earning->order_id }}
                                         </td>
                                         <td class="text-muted">
-                                            {{ $earning->currency_symbol }}{{ $earning->amount }}
+                                            {{ $earning->currency_symbol }}{{ number_format($earning->amount, 2) }}
                                         </td>
                                         {{-- <td class="text-muted">
                                             @if ($earning->payment_type == 'per_job_based')

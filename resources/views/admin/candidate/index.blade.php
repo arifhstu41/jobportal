@@ -142,6 +142,7 @@
                                 <th>{{ __('username') }}</th>
                                 <th>{{ __('phone') }}</th>
                                 <th>{{ __('email') }}</th>
+                                <th>{{ __('Amount') }}</th>
                                 @if (userCan('candidate.update'))
                                     <th width="10%">{{ __('status') }}</th>
                                 @endif
@@ -163,17 +164,25 @@
                                         </td>
                                         <td class="text-center" tabindex="0">
                                             <a href="{{ route('candidate.show', $candidate->id) }}" class="">
-                                                {{ $candidate->user->name }}
+                                                {{ $candidate->user->name ?? "" }}
                                             </a>
                                         </td>
                                         <td class="text-center" tabindex="0">
-                                            {{ $candidate->user->username }}
+                                            {{ $candidate->user->username ?? "" }}
                                         </td>
                                         <td class="text-center" tabindex="0">
-                                            {{ $candidate->user->phone }}
+                                            {{ $candidate->user->phone ?? "" }}
                                         </td>
                                         <td class="text-center" tabindex="0">
-                                            {{ $candidate->user->email }}
+                                            {{ $candidate->user->email ?? "" }}
+                                        </td>
+                                        
+                                        <td class="text-center" tabindex="0">
+                                            @if($candidate->balance)
+                                                {{ number_format($candidate->balance, 2) }}
+                                            @else
+                                            0
+                                            @endif
                                         </td>
                                         @if (userCan('candidate.update'))
                                             <td class="text-center" tabindex="0">
@@ -187,6 +196,7 @@
                                                 </a>
                                             </td>
                                         @endif
+
                                         {{-- @if (userCan('candidate.update'))
                                             <td class="text-center" tabindex="0">
                                                 <a href="javascript:void(0)">

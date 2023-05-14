@@ -474,12 +474,21 @@ class CandidateController extends Controller {
      */
     public function show($candidate) {
         abort_if(!userCan('candidate.view'), 403);
-
-        $candidate    = Candidate::with('skills:id,name', 'languages:id,name')->findOrFail($candidate);
+       
+        $candidate    = Candidate::with('skills:id,name', 'languages:id,name')->where('id', $candidate)->first();
+        if(!$candidate){
+            flashError('Candidate not found!');
+            return redirect('admin/candidate');
+        }
         $user         = User::with('contactInfo')->FindOrFail($candidate->user_id);
+        if(!$user){
+            flashError('User not found!');
+            return redirect('admin/candidate');
+        }
         $appliedJobs  = $candidate->appliedJobs()->get();
+       
         $bookmarkJobs = $candidate->bookmarkJobs()->get();
-
+       
         return view('admin.candidate.show', compact('candidate', 'user', 'appliedJobs', 'bookmarkJobs'));
     }
 
