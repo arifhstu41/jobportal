@@ -16,7 +16,7 @@
                         </div>
                         <div class="error-button d-flex">
                             <div class="me-3">
-                                <a href="{{ route('website.home') }}" class="btn btn-primary">
+                                <a href="{{ (auth('admin')->check()) ? url('admin/dashboard'): route('website.home') }}" class="btn btn-primary">
                                     <span class="button-content-wrapper ">
                                         <span class="button-icon align-icon-right">
                                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -34,7 +34,7 @@
                                 </a>
                             </div>
                             <div>
-                                <a href="{{ url()->previous() }}" class="btn btn-outline-primary">
+                                <a onclick="history.back()" href="javascript:void" class="btn btn-outline-primary">
                                     {{ __('go_back') }}
                                 </a>
                             </div>
