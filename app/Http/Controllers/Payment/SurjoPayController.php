@@ -39,7 +39,7 @@ class SurjoPayController extends Controller
         }
 
         $info = array(
-            'amount' => $price ?? 10,
+            'amount' => $price ?? 175,
             'discountAmount' => 0,
             'discPercent' => 0
         );
