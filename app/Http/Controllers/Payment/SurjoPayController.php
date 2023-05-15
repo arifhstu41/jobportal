@@ -29,7 +29,7 @@ class SurjoPayController extends Controller
         if ($user->role == "compnay") {
             $job_payment_type = session('job_payment_type') ?? 'package_job';
             if ($job_payment_type == 'per_job') {
-                $price = session('job_total_amount') ?? '100';
+                $price = session('job_total_amount') ?? '175';
             } else {
                 $plan  = session('plan');
                 $price = $plan->price;
