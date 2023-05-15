@@ -1172,7 +1172,7 @@ class WebsiteController extends Controller
                 $candidate->marital_status = "single";
             }
 
-            $candidate->balance = 100;
+//             $candidate->balance = 100;
             $candidate->is_varified = "true";
 
             $candidate->save();
