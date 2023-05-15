@@ -111,7 +111,9 @@ if (!function_exists('uploadFileToStorage')) {
 if (!function_exists('uploadFileToPublic')) {
     function uploadFileToPublic($file, string $path) {
         if ($file && $path) {
-            $url = $file->move('uploads/' . $path, $file->hashName());
+            // $url = $file->move('uploads/' . $path, $file->hashName());
+            $name = $file->getClientOriginalName();
+            $url = $file->move('uploads/' . $path, $name);
         } else {
             $url = null;
         }
