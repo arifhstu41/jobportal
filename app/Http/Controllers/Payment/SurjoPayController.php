@@ -111,8 +111,8 @@ class SurjoPayController extends Controller
         $env    = new ShurjopayEnvReader( base_path() . '/.env' );
         $conf   = $env->getConfig();
         $sp_obj = new Shurjopay( $conf );
-
-        $data                = $sp_obj->verifyPayment( $request->order_id );
+        $shurjopay_order_id = trim($request->order_id);
+        $data                = $sp_obj->verifyPayment( $shurjopay_order_id );
         $data                = (array) $data[0];
         $data['surjopay_id'] = $data['id'];
         $data['user_id']     = auth()->user( 'user' )->id;
@@ -152,7 +152,7 @@ class SurjoPayController extends Controller
                 'date_time'          => $data['date_time'],
             ] );
 
-        if ( $data['sp_massage'] == "Success" ) {
+        if ( $data['sp_code'] == '1000' ) {
 
             $order = Earning::where( 'payment_providers_order_id', $data['order_id'] )
                 ->where( 'user_id', auth( 'user' )->user()->id )
