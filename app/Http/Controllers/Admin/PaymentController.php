@@ -66,9 +66,25 @@ class PaymentController extends Controller
             case 'instamojo':
                 $this->instamojoUpdate($request);
                 break;
+            case 'surjopay':
+                $this->surjopayUpdate($request);
+                break;
         }
 
         SetupGuide::where('task_name', 'payment_setting')->update(['status' => 1]);
+    }
+    public function surjopayUpdate(Request $request)
+    {
+        $request->validate([
+            'surjopay_credit_amount' => 'required',
+        ]);
+
+        checkSetEnv('SURJOPAY_CREDIT_AMOUNT', $request->surjopay_credit_amount);
+        // checkSetEnv('STRIPE_SECRET', $request->stripe_secret);
+        // setEnv('STRIPE_ACTIVE',  $request->stripe ? 'true' : 'false');
+        // echo env('SURJOPAY_CREDIT_AMOUNT');die;
+        flashSuccess('Surjopay Setting Updated Successfully');
+        return redirect()->route('settings.payment')->send();
     }
     public function paypalUpdate(Request $request)
     {

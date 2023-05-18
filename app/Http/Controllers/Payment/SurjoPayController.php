@@ -22,25 +22,34 @@ class SurjoPayController extends Controller
 {
     use PaymentTrait;
 
+    public $surjopay_credit_amount;
+
+    function __construct()
+    {
+
+      $this->surjopay_credit_amount = env('SURJOPAY_CREDIT_AMOUNT');
+
+    }
+
     // make payment
     public function payment( Request $request )
     {
         $user  = auth( 'user' )->user();
-        $price = 175;
+        $price = $this->surjopay_credit_amount;
         if ( $user->role == "compnay" ) {
             $job_payment_type = session( 'job_payment_type' ) ?? 'package_job';
             if ( $job_payment_type == 'per_job' ) {
-                $price = session( 'job_total_amount' ) ?? '175';
+                $price = session( 'job_total_amount' ) ?? $this->surjopay_credit_amount;
             } else {
                 $plan  = session( 'plan' );
                 $price = $plan->price;
             }
         } else {
-            $price = 175;
+            $price = $this->surjopay_credit_amount;
         }
 
         $info = array(
-            'amount'         => $price ?? 175,
+            'amount'         => $price ?? $this->surjopay_credit_amount,
             'discountAmount' => 0,
             'discPercent'    => 0,
         );
@@ -59,7 +68,7 @@ class SurjoPayController extends Controller
 
         $request->currency = 'BDT';
         // $request->amount   = 10;
-        $request->amount = $info['amount'] ?? 175;
+        $request->amount = $info['amount'] ?? $this->surjopay_credit_amount;
         $request->discountAmount      = $info['discountAmount'] ?? 0;
         $request->discPercent         = $info['discPercent'] ?? 0;
         $request->customerName        = "Welfare Family Bangladesh";
@@ -183,7 +192,7 @@ class SurjoPayController extends Controller
             }
         }
         flashError( "Payment Failed!" );
-    
+
         return redirect()->route( 'website.home' );
     }
 

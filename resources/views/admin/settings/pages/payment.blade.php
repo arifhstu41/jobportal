@@ -309,6 +309,48 @@
                 </form>
             </div>
         </div>
+
+         {{-- Surjopay Setting --}}
+         <div class="card">
+            <div class="card-header">
+                <div class="d-flex justify-content-between">
+                    <h3 class="card-title line-height-36">
+                        {{ __('surjopay') }}
+                        <a target="_blank" href="https://docs.mollie.com"><small>({{ __('get_help') }})</small></a>
+                    </h3>
+                </div>
+            </div>
+            <div class="card-body">
+                <form class="form-horizontal" action="{{ route('settings.payment.update') }}" method="POST"
+                    enctype="multipart/form-data">
+                    @method('PUT')
+                    @csrf
+                    <input type="hidden" value="surjopay" name="type">
+
+                    <div class="form-group row">
+                        <x-forms.label name="surjopay_credit_amount" class="col-sm-3" />
+                        <div class="col-sm-9">
+                            <input value="{{ env('SURJOPAY_CREDIT_AMOUNT') }}" name="surjopay_credit_amount" type="text"
+                                class="form-control @error('surjopay_credit_amount') is-invalid @enderror" autocomplete="off">
+                            @error('surjopay_credit_amount')
+                                <span class="invalid-feedback" role="alert"><span>{{ $message }}</span></span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    @if (userCan('setting.update'))
+                        <div class="form-group row">
+                            <div class="offset-sm-3 col-sm-9">
+                                <button type="submit" class="btn btn-success"><i
+                                        class="fas fa-sync"></i>
+                                    {{ __('update') }}</button>
+                            </div>
+                        </div>
+                    @endif
+                </form>
+            </div>
+        </div>
+
     </div>
 
     <div class="col-sm-6">
