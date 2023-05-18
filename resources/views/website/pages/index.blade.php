@@ -136,7 +136,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-3 col-lg-4 col-sm-6 mx-auto rt-mb-30">
+                {{-- <div class="col-xl-3 col-lg-4 col-sm-6 mx-auto rt-mb-30">
                     <div
                         class="card jobcardStyle1 counterbox tw-bg-white hover:tw-shadow-[0px_12px_48px_rgba(0,44,109,0.1)]">
                         <div class="card-body">
@@ -173,7 +173,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <div class="col-xl-3 col-lg-4 col-sm-6 mx-auto rt-mb-30">
                     <div
                         class="card jobcardStyle1 counterbox tw-bg-white hover:tw-shadow-[0px_12px_48px_rgba(0,44,109,0.1)]">
