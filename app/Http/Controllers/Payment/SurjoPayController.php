@@ -214,7 +214,7 @@ class SurjoPayController extends Controller {
         $data               = $sp_obj->verifyPayment($shurjopay_order_id);
         $data               = (array) $data[0];
         $data['user_id']    = $user->id;
-dd($data);
+
         if ($data['sp_code'] == '1000') {
 
             $payment_exists = PaymentModel::where('order_id', $data['order_id'])->exists();
