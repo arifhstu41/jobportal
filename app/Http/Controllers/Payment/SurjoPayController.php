@@ -42,12 +42,10 @@ class SurjoPayController extends Controller {
                 $plan  = session('plan');
                 $price = $plan->price;
             }
-        } else {
-            $price = $this->surjopay_credit_amount;
         }
 
         $info = array(
-            'amount'         => $price ?? $this->surjopay_credit_amount,
+            'amount'         => $price,
             'discountAmount' => 0,
             'discPercent'    => 0,
         );
@@ -65,7 +63,7 @@ class SurjoPayController extends Controller {
 
         $request->currency = 'BDT';
         // $request->amount   = 10;
-        $request->amount              = $info['amount'] ?? $this->surjopay_credit_amount;
+        $request->amount              = $info['amount'];
         $request->discountAmount      = $info['discountAmount'] ?? 0;
         $request->discPercent         = $info['discPercent'] ?? 0;
         $request->customerName        = "Welfare Family Bangladesh";
