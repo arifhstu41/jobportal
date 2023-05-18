@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Payment;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\PaymentTrait;
 use App\Models\Earning;
+use App\Models\PaymentModel;
 use App\Models\UserPlan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,10 +13,9 @@ use Illuminate\Support\Facades\DB;
 // use ShurjopayPlugin\Shurjopay;
 // use ShurjopayPlugin\ShurjopayConfig;
 // use ShurjopayPlugin\ShurjopayEnvReader;
-use ShurjopayPlugin\ShurjopayEnvReader;
-use ShurjopayPlugin\Shurjopay;
 use ShurjopayPlugin\PaymentRequest;
-
+use ShurjopayPlugin\Shurjopay;
+use ShurjopayPlugin\ShurjopayEnvReader;
 use shurjopayv2\ShurjopayLaravelPackage8\Http\Controllers\ShurjopayController;
 
 class SurjoPayController extends Controller
@@ -23,15 +23,16 @@ class SurjoPayController extends Controller
     use PaymentTrait;
 
     // make payment
-    public function payment(Request $request)
+    public function payment( Request $request )
     {
-        $user = auth('user')->user();
-        if ($user->role == "compnay") {
-            $job_payment_type = session('job_payment_type') ?? 'package_job';
-            if ($job_payment_type == 'per_job') {
-                $price = session('job_total_amount') ?? '175';
+        $user  = auth( 'user' )->user();
+        $price = 175;
+        if ( $user->role == "compnay" ) {
+            $job_payment_type = session( 'job_payment_type' ) ?? 'package_job';
+            if ( $job_payment_type == 'per_job' ) {
+                $price = session( 'job_total_amount' ) ?? '175';
             } else {
-                $plan  = session('plan');
+                $plan  = session( 'plan' );
                 $price = $plan->price;
             }
         } else {
@@ -39,120 +40,159 @@ class SurjoPayController extends Controller
         }
 
         $info = array(
-            'amount' => $price ?? 175,
+            'amount'         => $price ?? 175,
             'discountAmount' => 0,
-            'discPercent' => 0
+            'discPercent'    => 0,
         );
 
-        $env = new ShurjopayEnvReader(base_path() . '/.env');
+        $env  = new ShurjopayEnvReader( base_path() . '/.env' );
         $conf = $env->getConfig();
 
-        $sp_obj = new Shurjopay($conf);
-        $pay_res = $sp_obj->makePayment($this->paymentRequest($info));
+        $sp_obj  = new Shurjopay( $conf );
+        $pay_res = $sp_obj->makePayment( $this->paymentRequest( $info ) );
     }
 
     // make payment request parameters
-    function paymentRequest($info)
+    public function paymentRequest( $info )
     {
         $request = new PaymentRequest();
 
         $request->currency = 'BDT';
-        //$request->amount =  10;
-         $request->amount = $info['amount'] ?? 175;
-        $request->discountAmount = $info['discountAmount'] ?? 0;
-        $request->discPercent = $info['discPercent'] ?? 0;
-        $request->customerName = "Welfare Family Bangladesh";
-        $request->customerPhone = "01712644059";
-        $request->customerEmail = "welfare.rmt@gmail.com";
-        $request->customerAddress = 'Rangamati';
-        $request->customerCity = 'Rangamati';
-        $request->customerState = 'Chattogram';
-        $request->customerPostcode = '1207';
-        $request->customerCountry = 'Bangladesh';
-        $request->shippingAddress = 'Rangamati';
-        $request->shippingCity = 'Rangamati';
-        $request->shippingCountry = 'Bangladesh';
-        $request->receivedPersonName = "Welfare Family Bangladesh";
+        // $request->amount   = 10;
+        $request->amount = $info['amount'] ?? 175;
+        $request->discountAmount      = $info['discountAmount'] ?? 0;
+        $request->discPercent         = $info['discPercent'] ?? 0;
+        $request->customerName        = "Welfare Family Bangladesh";
+        $request->customerPhone       = "01712644059";
+        $request->customerEmail       = "welfare.rmt@gmail.com";
+        $request->customerAddress     = 'Rangamati';
+        $request->customerCity        = 'Rangamati';
+        $request->customerState       = 'Chattogram';
+        $request->customerPostcode    = '1207';
+        $request->customerCountry     = 'Bangladesh';
+        $request->shippingAddress     = 'Rangamati';
+        $request->shippingCity        = 'Rangamati';
+        $request->shippingCountry     = 'Bangladesh';
+        $request->receivedPersonName  = "Welfare Family Bangladesh";
         $request->shippingPhoneNumber = "01712644059";
-        $request->value1 = 'value1';
-        $request->value2 = 'value2';
-        $request->value3 = 'value3';
-        $request->value4 = 'value4';
+        $request->value1              = 'value1';
+        $request->value2              = 'value2';
+        $request->value3              = 'value3';
+        $request->value4              = 'value4';
         return $request;
     }
 
     // verify payments
-    public function verifyPayment(Request $request)
+    public function verifyPayment( Request $request )
     {
-        $env = new ShurjopayEnvReader(base_path() . '/.env');
-        $conf = $env->getConfig();
-        $sp_obj = new Shurjopay($conf);
+        PaymentModel::create( [
+            'user_id'          => auth()->user( 'user' )->id,
+            'order_id'         => $request->order_id
+        ] );
 
-        $order_id            = $request->order_id;
-        $data                = $sp_obj->verifyPayment($order_id);
-        $data = (array)$data[0];
+        Earning::create( [
+            'order_id'                   => rand( 1000, 999999999 ),
+            'user_id'                    => auth()->user( 'user' )->id,
+            'user_type'                  => ( auth()->user()->role == "candidate" ) ? "candidate" : "company",
+            'payment_provider'           => "shurjopay",
+            'payment_providers_order_id' => $request->order_id,
+            'currency_symbol'            => '৳',
+        ] );
+
+        $env    = new ShurjopayEnvReader( base_path() . '/.env' );
+        $conf   = $env->getConfig();
+        $sp_obj = new Shurjopay( $conf );
+
+        $data                = $sp_obj->verifyPayment( $request->order_id );
+        $data                = (array) $data[0];
         $data['surjopay_id'] = $data['id'];
-        $data['user_id'] = auth()->user('user')->id;
-        unset($data['id']);
-        DB::table('payments')->insert($data);
+        $data['user_id']     = auth()->user( 'user' )->id;
+        unset( $data['id'] );
 
-        if($data['sp_massage'] == "Success"){
+        PaymentModel::where( 'order_id', $data['order_id'] )
+            ->where( 'user_id', auth()->user( 'user' )->id )
+            ->update( [
+                'surjopay_id'        => $data['surjopay_id'],
+                'currency'           => $data['currency'],
+                'amount'             => $data['amount'],
+                'payable_amount'     => $data['payable_amount'],
+                'discount_amount'    => $data['discount_amount'],
+                'disc_percent'       => $data['disc_percent'],
+                'recived_amount'     => $data['recived_amount'],
+                'usd_amt'            => $data['usd_amt'],
+                'usd_rate'           => $data['usd_rate'],
+                'card_holder_name'   => $data['card_holder_name'],
+                'card_number'        => $data['card_number'],
+                'phone_no'           => $data['phone_no'],
+                'bank_trx_id'        => $data['bank_trx_id'],
+                'invoice_no'         => $data['invoice_no'],
+                'bank_status'        => $data['bank_status'],
+                'customer_order_id'  => $data['customer_order_id'],
+                'sp_code'            => $data['sp_code'],
+                'sp_message'         => $data['sp_message'],
+                'name'               => $data['name'],
+                'email'              => $data['email'],
+                'address'            => $data['address'],
+                'city'               => $data['city'],
+                'value1'             => $data['value1'],
+                'value2'             => $data['value2'],
+                'value3'             => $data['value3'],
+                'value4'             => $data['value4'],
+                'transaction_status' => $data['transaction_status'],
+                'method'             => $data['method'],
+                'date_time'          => $data['date_time'],
+            ] );
 
-            $order = Earning::create([
-                'order_id' => rand(1000, 999999999),
-                'payment_providers_order_id' => $data['order_id'],
-                'transaction_id' =>  $data['bank_trx_id'],
-                'plan_id' =>  null,
-                'user_id' => auth('user')->user()->id,
-                'user_type' => (auth()->user()->role == "candidate") ? "candidate" : "company",
-                'payment_provider' => 'shurjopay',
-                'amount' => $data['amount'],
-                'currency_symbol' => '৳',
-                'usd_amount' => $data['usd_amt'],
-                'payment_status' => 'paid',
-                'payment_type' => 'subscription_based',
-            ]);
+        if ( $data['sp_massage'] == "Success" ) {
 
-            flashSuccess('Payment Successfull!');
-            if (auth()->user()->role == "candidate") {
-                $user= auth('user')->user();
-                $user->candidate->balance= $data['amount'];
+            $order = Earning::where( 'payment_providers_order_id', $data['order_id'] )
+                ->where( 'user_id', auth( 'user' )->user()->id )
+                ->update( [
+                    'transaction_id' => $data['bank_trx_id'],
+                    'amount'         => $data['amount'],
+                    'usd_amount'     => $data['usd_amt'],
+                    'payment_status' => 'paid',
+                ] );
+
+            flashSuccess( 'Payment Successfull!' );
+            if ( auth()->user()->role == "candidate" ) {
+                $user                     = auth( 'user' )->user();
+                $user->candidate->balance = $data['amount'];
                 $user->candidate->save();
-                
+
                 // send sms
-                sendSMS( $user->id, "register");
-                
-                return redirect()->route('website.candidate.verification');
+                sendSMS( $user->id, "register" );
+                return redirect()->route( 'website.candidate.verification' );
             }
-    
-            if (auth()->user()->role == "company") {
-                if (session('plan')) {
-                    $plan = session('plan');
+
+            if ( auth()->user()->role == "company" ) {
+                if ( session( 'plan' ) ) {
+                    $plan    = session( 'plan' );
                     $company = auth()->user()->company;
-                    $company->userPlan()->create([
-                        'plan_id'  =>  $plan->id,
-                        'job_limit'  =>  $plan->job_limit,
-                        'featured_job_limit'  =>  $plan->featured_job_limit,
-                        'highlight_job_limit'  =>  $plan->highlight_job_limit,
-                        'candidate_cv_view_limit'  =>  $plan->candidate_cv_view_limit,
-                        'candidate_cv_view_limitation'  =>  $plan->candidate_cv_view_limitation,
-                    ]);
+                    $company->userPlan()->create( [
+                        'plan_id'                      => $plan->id,
+                        'job_limit'                    => $plan->job_limit,
+                        'featured_job_limit'           => $plan->featured_job_limit,
+                        'highlight_job_limit'          => $plan->highlight_job_limit,
+                        'candidate_cv_view_limit'      => $plan->candidate_cv_view_limit,
+                        'candidate_cv_view_limitation' => $plan->candidate_cv_view_limitation,
+                    ] );
                 }
-    
-                return redirect()->route('company.dashboard');
+
+                return redirect()->route( 'company.dashboard' );
             }
         }
-        flashError("Payment Failed!");
-        // return redirect()->back();
-        return redirect()->route('website.home');
+        flashError( "Payment Failed!" );
+    
+        return redirect()->route( 'website.home' );
     }
 
-    public function cancelPayment(Request $request)
+    public function cancelPayment( Request $request )
     {
         $order_id          = $request->order_id;
         $shurjopay_service = new ShurjopayController();
-        $data              = $shurjopay_service->verify($order_id);
-        flashError("Payment failed!");
-        return redirect()->route('website.candidate.payment');
+        $data              = $shurjopay_service->verify( $order_id );
+        flashError( "Payment failed!" );
+        return redirect()->route( 'website.candidate.payment' );
     }
 }
