@@ -227,6 +227,9 @@ class SurjoPayController extends Controller {
                 $this->createEarning($user, $data);
             }
 
+            $user->candidate->balance= $data['amount'];
+            $user->candidate->save();
+
             dd("payment verification successful");
             flashSuccess('Payment verification successfull!');
             return redirect()->back();
