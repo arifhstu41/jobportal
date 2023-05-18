@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Traits\PaymentTrait;
 use App\Models\Earning;
 use App\Models\PaymentModel;
+use App\Models\User;
 use App\Models\UserPlan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -39,7 +40,7 @@ class SurjoPayController extends Controller {
                 $price = session('job_total_amount') ?? $this->surjopay_credit_amount;
             } else {
                 $plan  = session('plan');
-                $price = $plan->price ?? $this->surjopay_credit_amount;
+                $price = $plan->price;
             }
         }
 
@@ -101,11 +102,11 @@ class SurjoPayController extends Controller {
             'currency_symbol'            => '৳',
         ]);
 
-        $env    = new ShurjopayEnvReader(base_path() . '/.env');
-        $conf   = $env->getConfig();
-        $sp_obj = new Shurjopay($conf);
-
-        $data                = $sp_obj->verifyPayment($request->order_id);
+        $env                 = new ShurjopayEnvReader(base_path() . '/.env');
+        $conf                = $env->getConfig();
+        $sp_obj              = new Shurjopay($conf);
+        $shurjopay_order_id  = trim($request->order_id);
+        $data                = $sp_obj->verifyPayment($shurjopay_order_id);
         $data                = (array) $data[0];
         $data['surjopay_id'] = $data['id'];
         $data['user_id']     = auth()->user('user')->id;
@@ -145,7 +146,7 @@ class SurjoPayController extends Controller {
                 'date_time'          => $data['date_time'],
             ]);
 
-        if ($data['sp_massage'] == "Success") {
+        if ($data['sp_code'] == '1000') {
 
             $order = Earning::where('payment_providers_order_id', $data['order_id'])
                 ->where('user_id', auth('user')->user()->id)
@@ -195,5 +196,138 @@ class SurjoPayController extends Controller {
         $data              = $shurjopay_service->verify($order_id);
         flashError("Payment failed!");
         return redirect()->route('website.candidate.payment');
+    }
+
+    public function manualPaymentVerification(Request $request) {
+
+        $user = User::where('phone', $request->phone)->first();
+        if (!$user) {
+            dd('no user found with phone ');
+            flashError('No user found with this Mobile Number!');
+            return back()->withInput();
+        }
+
+        $env                = new ShurjopayEnvReader(base_path() . '/.env');
+        $conf               = $env->getConfig();
+        $sp_obj             = new Shurjopay($conf);
+        $shurjopay_order_id = trim($request->order_id);
+        $data               = $sp_obj->verifyPayment($shurjopay_order_id);
+        $data               = (array) $data[0];
+        $data['user_id']    = $user->id;
+
+        if ($data['sp_code'] == '1000') {
+
+            $payment_exists = PaymentModel::where('order_id', $data['order_id'])->exists();
+         
+            if ($payment_exists) {
+                $this->updatePayment($data);
+                $this->updateEarning($data);
+            } else {
+                $this->createPayment($user, $data);
+                $this->createEarning($user, $shurjopay_order_id);
+            }
+
+            dd("payment verification successful");
+            flashSuccess('Payment verification successfull!');
+            return redirect()->back();
+        }
+    }
+
+    // create payment
+    public function createPayment($user, $data) {
+
+        $payment = PaymentModel::create([
+            'user_id'            => $user->id,
+            'surjopay_id'        => $data['id'],
+            'order_id'           => $data['order_id'],
+            'currency'           => $data['currency'],
+            'amount'             => $data['amount'],
+            'payable_amount'     => $data['payable_amount'],
+            'discount_amount'    => $data['discount_amount'],
+            'disc_percent'       => $data['disc_percent'],
+            'recived_amount'     => $data['recived_amount'],
+            'usd_amt'            => $data['usd_amt'],
+            'usd_rate'           => $data['usd_rate'],
+            'card_holder_name'   => $data['card_holder_name'],
+            'card_number'        => $data['card_number'],
+            'phone_no'           => $data['phone_no'],
+            'bank_trx_id'        => $data['bank_trx_id'],
+            'invoice_no'         => $data['invoice_no'],
+            'bank_status'        => $data['bank_status'],
+            'customer_order_id'  => $data['customer_order_id'],
+            'sp_code'            => $data['sp_code'],
+            'sp_message'         => $data['sp_message'],
+            'name'               => $data['name'],
+            'email'              => $data['email'],
+            'address'            => $data['address'],
+            'city'               => $data['city'],
+            'value1'             => $data['value1'],
+            'value2'             => $data['value2'],
+            'value3'             => $data['value3'],
+            'value4'             => $data['value4'],
+            'transaction_status' => $data['transaction_status'],
+            'method'             => $data['method'],
+            'date_time'          => $data['date_time'],
+        ]);
+    }
+
+    // create Earning from order data
+    public function createEarning($user, $order_id) {
+        $earning= Earning::create([
+            'order_id'                   => rand(1000, 999999999),
+            'user_id'                    => $user->id,
+            'user_type'                  => $user->role,
+            'payment_provider'           => "shurjopay",
+            'payment_providers_order_id' => $order_id,
+            'currency_symbol'            => '৳',
+        ]);
+    }
+
+    // update payment derived from surjopay service
+    public function updatePayment($data) {
+
+        PaymentModel::where('order_id', $data['order_id'])
+            ->update([
+                'surjopay_id'        => $data['id'],
+                'currency'           => $data['currency'],
+                'amount'             => $data['amount'],
+                'payable_amount'     => $data['payable_amount'],
+                'discount_amount'    => $data['discount_amount'],
+                'disc_percent'       => $data['disc_percent'],
+                'recived_amount'     => $data['recived_amount'],
+                'usd_amt'            => $data['usd_amt'],
+                'usd_rate'           => $data['usd_rate'],
+                'card_holder_name'   => $data['card_holder_name'],
+                'card_number'        => $data['card_number'],
+                'phone_no'           => $data['phone_no'],
+                'bank_trx_id'        => $data['bank_trx_id'],
+                'invoice_no'         => $data['invoice_no'],
+                'bank_status'        => $data['bank_status'],
+                'customer_order_id'  => $data['customer_order_id'],
+                'sp_code'            => $data['sp_code'],
+                'sp_message'         => $data['sp_message'],
+                'name'               => $data['name'],
+                'email'              => $data['email'],
+                'address'            => $data['address'],
+                'city'               => $data['city'],
+                'value1'             => $data['value1'],
+                'value2'             => $data['value2'],
+                'value3'             => $data['value3'],
+                'value4'             => $data['value4'],
+                'transaction_status' => $data['transaction_status'],
+                'method'             => $data['method'],
+                'date_time'          => $data['date_time'],
+            ]);
+    }
+
+    // update Earning Order details
+    public function updateEarning($data) {
+        Earning::where('payment_providers_order_id', $data['order_id'])
+            ->update([
+                'transaction_id' => $data['bank_trx_id'],
+                'amount'         => $data['amount'],
+                'usd_amount'     => $data['usd_amt'],
+                'payment_status' => 'paid',
+            ]);
     }
 }

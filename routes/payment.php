@@ -1,22 +1,24 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Payment\MollieController;
-use App\Http\Controllers\Payment\PayPalController;
-use App\Http\Controllers\Payment\StripeController;
-use App\Http\Controllers\Payment\MidtransController;
-use App\Http\Controllers\Payment\PaystackController;
-use App\Http\Controllers\Payment\RazorpayController;
-use App\Http\Controllers\Payment\InstamojoController;
 use App\Http\Controllers\Payment\FlutterwaveController;
 use App\Http\Controllers\Payment\FreePlanPurchaseController;
+use App\Http\Controllers\Payment\InstamojoController;
 use App\Http\Controllers\Payment\ManualPaymentController;
+use App\Http\Controllers\Payment\MidtransController;
+use App\Http\Controllers\Payment\MollieController;
+use App\Http\Controllers\Payment\PayPalController;
+use App\Http\Controllers\Payment\PaystackController;
+use App\Http\Controllers\Payment\RazorpayController;
 use App\Http\Controllers\Payment\SslCommerzPaymentController;
+use App\Http\Controllers\Payment\StripeController;
 use App\Http\Controllers\Payment\SurjoPayController;
+use Illuminate\Support\Facades\Route;
 
 //Surjo Pay
-Route::controller(SurjoPayController::class)->group(function(){
+Route::controller(SurjoPayController::class)->group(function () {
     Route::post('surjopay/payment', "payment")->name('surjopay.post');
+    // manual payment verification
+    Route::get('/surjopay/manualpaymentverification', 'manualPaymentVerification')->name('surjopay.manualpaymentverification');
     Route::get('surjopay/verify', "verifyPayment")->name('surjopay.verify');
     Route::post('surjopay/cancel', "cancelPayment")->name('surjopay.cancel');
 });
@@ -78,7 +80,6 @@ Route::controller(ManualPaymentController::class)->group(function () {
     Route::get('/manual/payment/{order}/mark-paid', 'markPaid')->name('manual.payment.mark.paid');
     // Route::get('/instamojo/success', 'success')->name('instamojo.success');
 });
-
 
 // Free Plan Purchase
 Route::controller(FreePlanPurchaseController::class)->group(function () {
