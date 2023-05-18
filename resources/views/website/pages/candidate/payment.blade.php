@@ -97,11 +97,11 @@
                                     </tr>
                                     <tr>
                                         <td class="text-right w-75"><strong>Total Payment: </strong></td>
-                                        <td class="text-left"><strong>Tk 175</strong></td>
+                                        <td class="text-left"><strong>Tk {{ env('SURJOPAY_CREDIT_AMOUNT') }}</strong></td>
                                     </tr>
                                     <tr>
                                         <td class="text-right w-75"><strong>Pay Now: </strong></td>
-                                        <td class="text-left"><strong>Tk 175</strong></td>
+                                        <td class="text-left"><strong>Tk {{ env('SURJOPAY_CREDIT_AMOUNT') }}</strong></td>
                                     </tr>
                                 </tbody>
                             </table>
