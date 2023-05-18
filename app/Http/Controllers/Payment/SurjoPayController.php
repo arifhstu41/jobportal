@@ -214,7 +214,7 @@ class SurjoPayController extends Controller {
         $data               = $sp_obj->verifyPayment($shurjopay_order_id);
         $data               = (array) $data[0];
         $data['user_id']    = $user->id;
-
+dd($data);
         if ($data['sp_code'] == '1000') {
 
             $payment_exists = PaymentModel::where('order_id', $data['order_id'])->exists();
@@ -224,7 +224,7 @@ class SurjoPayController extends Controller {
                 $this->updateEarning($data);
             } else {
                 $this->createPayment($user, $data);
-                $this->createEarning($user, $shurjopay_order_id);
+                $this->createEarning($user, $data);
             }
 
             dd("payment verification successful");
@@ -272,14 +272,18 @@ class SurjoPayController extends Controller {
     }
 
     // create Earning from order data
-    public function createEarning($user, $order_id) {
+    public function createEarning($user, $data) {
         $earning= Earning::create([
             'order_id'                   => rand(1000, 999999999),
             'user_id'                    => $user->id,
             'user_type'                  => $user->role,
             'payment_provider'           => "shurjopay",
-            'payment_providers_order_id' => $order_id,
+            'payment_providers_order_id' => $data['order_id'],
             'currency_symbol'            => '৳',
+            'transaction_id'            => $data['bank_trx_id'],
+            'amount'         => $data['amount'],
+            'usd_amount'     => $data['usd_amt'],
+            'payment_status' => 'paid',
         ]);
     }
 
