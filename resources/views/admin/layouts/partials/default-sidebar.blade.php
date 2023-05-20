@@ -19,6 +19,16 @@
                         <li class="nav-header">
                             {{ __('order') }}
                         </li>
+                        <x-admin.sidebar-list :linkActive="request()->routeIs('payment.verification') ? true : false" route="payment.verification" icon="fas fa-money-bill">
+                            Payment Verification
+                        </x-admin.sidebar-list>
+                    @endif
+                    
+                    <!-- ======= Order ======== -->
+                    @if (userCan('order.view'))
+                        <li class="nav-header">
+                            {{ __('order') }}
+                        </li>
                         <x-admin.sidebar-list :linkActive="request()->routeIs('order.index') ? true : false" route="order.index" icon="fas fa-money-bill">
                             {{ __('order') }}/ Statement
                         </x-admin.sidebar-list>

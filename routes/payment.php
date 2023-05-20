@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::controller(SurjoPayController::class)->group(function () {
     Route::post('surjopay/payment', "payment")->name('surjopay.post');
     // manual payment verification
-    Route::get('/surjopay/manualpaymentverification', 'manualPaymentVerification')->name('surjopay.manualpaymentverification');
+    Route::post('/surjopay/manualpaymentverification', 'manualPaymentVerification')->name('surjopay.manualpaymentverification');
     Route::get('surjopay/verify', "verifyPayment")->name('surjopay.verify');
     Route::post('surjopay/cancel', "cancelPayment")->name('surjopay.cancel');
 });
