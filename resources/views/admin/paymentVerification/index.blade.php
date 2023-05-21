@@ -2,7 +2,7 @@
     ?>
     @extends('admin.layouts.app')
     @section('title')
-        {{ __('payment_list') }}
+        {{ __('payment_verification_list') }}
     @endsection
     @section('content')
         <div class="row">
@@ -10,10 +10,10 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="d-flex justify-content-between">
-                            <h3 class="card-title line-height-36">{{ __('payment_list') }}</h3>
+                            <h3 class="card-title line-height-36">{{ __('payment_verification_list') }}</h3>
                             <div>
                                 @if (userCan('candidate.create'))
-                                    <a href="{{ route('candidate.create') }}" class="btn bg-primary"><i
+                                    <a href="{{ route('payment.verification.create') }}" class="btn bg-primary"><i
                                             class="fas fa-plus mr-1"></i> {{ __('create') }}
                                     </a>
                                 @endif
@@ -33,29 +33,26 @@
                                 <tr class="text-center">
                                     <th>{{ __('name') }}</th>
                                     <th>{{ __('phone') }}</th>
-                                    <th>{{ __('transaction_id') }}</th>
                                     <th width="10%">{{ __('status') }}</th>
                                     <th>{{ __('date') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                
                                 @if ($payments->count() > 0)
                                     @foreach ($payments as $payment)
                                         <tr>
                                             <td class="text-center" tabindex="0">
-                                                {{ $payment->id ?? "" }}
+                                                {{ $payment->user->name ?? "" }}
                                             </td>
                                             <td class="text-center" tabindex="0">
-                                                {{ $payment->id ?? "" }}
+                                                {{ $payment->user->phone ?? "" }}
                                             </td>
                                             <td class="text-center" tabindex="0">
-                                                {{ $payment->id ?? "" }}
+                                                {{ $payment->status ?? "" }}
                                             </td>
                                             <td class="text-center" tabindex="0">
-                                                {{ $payment->id ?? "" }}
-                                            </td>
-                                            <td class="text-center" tabindex="0">
-                                                {{ $payment->id ?? "" }}
+                                                {{ $payment->created_at ?? "" }}
                                             </td>
                                         </tr>
                                     @endforeach

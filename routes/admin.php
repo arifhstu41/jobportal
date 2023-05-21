@@ -79,6 +79,8 @@ Route::prefix('admin')->group(function () {
         // manual payment verification routes
         // Route::resource('/payment/verification', PaymentVerificationController::class);
         Route::get('/payment/verification', [PaymentVerificationController::class, 'index'])->name('payment.verification');
+        Route::get('/payment/verification/create', [PaymentVerificationController::class, 'create'])->name('payment.verification.create');
+        Route::post('/payment/verification/store', [PaymentVerificationController::class, 'store'])->name('payment.verification.store');
 
         //JobCategory Route resource
         Route::resource('jobCategory', JobCategoryController::class)->parameters([

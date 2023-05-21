@@ -1188,6 +1188,7 @@
     "ward_no" : "Word",
     "ward_no_parmanent" : "Ward",
     "profile_update": "Profile Update",
-    "quota" : "Quota"
+    "quota" : "Quota",
+    "payment_verification_list" : "Payment Verification List"
     
 }

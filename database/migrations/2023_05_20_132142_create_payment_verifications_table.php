@@ -16,7 +16,7 @@ class CreatePaymentVerificationsTable extends Migration
         Schema::create('payment_verifications', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->index();
-            $table->string('transaction_id');
+            $table->string('transaction_id')->nullable();
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });
