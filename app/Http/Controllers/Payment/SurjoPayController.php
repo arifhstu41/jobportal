@@ -89,19 +89,27 @@ class SurjoPayController extends Controller {
 
     // verify payments
     public function verifyPayment(Request $request) {
-        PaymentModel::create([
-            'user_id'  => auth()->user('user')->id,
-            'order_id' => $request->order_id,
-        ]);
 
-        Earning::create([
-            'order_id'                   => rand(1000, 999999999),
-            'user_id'                    => auth()->user('user')->id,
-            'user_type'                  => (auth()->user()->role == "candidate") ? "candidate" : "company",
-            'payment_provider'           => "shurjopay",
-            'payment_providers_order_id' => $request->order_id,
-            'currency_symbol'            => '৳',
-        ]);
+        $existing_payment = PaymentModel::where('order_id', $request->order_id)->first();
+        if(!$existing_payment){
+            PaymentModel::create([
+                'user_id'  => auth()->user('user')->id,
+                'order_id' => $request->order_id,
+            ]);
+
+        }
+        
+        $existing_earning= Earning::where('payment_providers_order_id',$request->order_id)->first();
+        if(!$existing_earning){
+            Earning::create([
+                'order_id'                   => rand(1000, 999999999),
+                'user_id'                    => auth()->user('user')->id,
+                'user_type'                  => (auth()->user()->role == "candidate") ? "candidate" : "company",
+                'payment_provider'           => "shurjopay",
+                'payment_providers_order_id' => $request->order_id,
+                'currency_symbol'            => '৳',
+            ]);
+        }
 
         $env                 = new ShurjopayEnvReader(base_path() . '/.env');
         $conf                = $env->getConfig();

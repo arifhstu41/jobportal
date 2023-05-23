@@ -26,6 +26,8 @@ use App\Http\Controllers\Admin\AffiliateSettingsController;
 use App\Http\Controllers\Admin\Auth\ResetPasswordController;
 use App\Http\Controllers\Admin\Auth\ForgotPasswordController;
 use App\Http\Controllers\Admin\CandidateLanguageController;
+use App\Http\Controllers\Payment\ManualPaymentController;
+use App\Http\Controllers\Admin\PaymentVerificationController;
 use FontLib\Table\Type\name;
 
 Route::prefix('admin')->group(function () {
@@ -73,6 +75,12 @@ Route::prefix('admin')->group(function () {
         Route::post('/candidate/get/city', [CandidateController::class, 'city'])->name('candidate.city');
         Route::post('/candidate/get/state', [CandidateController::class, 'state'])->name('candidate.state');
         Route::get('/candidate/change/status', [CandidateController::class, 'statusChange'])->name('candidate.status.change');
+
+        // manual payment verification routes
+        // Route::resource('/payment/verification', PaymentVerificationController::class);
+        Route::get('/payment/verification', [PaymentVerificationController::class, 'index'])->name('payment.verification');
+        Route::get('/payment/verification/create', [PaymentVerificationController::class, 'create'])->name('payment.verification.create');
+        Route::post('/payment/verification/store', [PaymentVerificationController::class, 'store'])->name('payment.verification.store');
 
         //JobCategory Route resource
         Route::resource('jobCategory', JobCategoryController::class)->parameters([
