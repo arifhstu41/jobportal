@@ -43,7 +43,11 @@
                                     @foreach ($payments as $payment)
                                         <tr>
                                             <td class="text-center" tabindex="0">
-                                                {{ $payment->user->name ?? "Candidate not found" }}
+                                                @if ($payment->user->name)
+                                                    {{ $payment->user->name }}
+                                                @else
+                                                    <span class="text-danger">Candidate not found</span>
+                                                @endif
                                             </td>
                                             <td class="text-center" tabindex="0">
                                                 {{ $payment->user->phone ?? "" }}
