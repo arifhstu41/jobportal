@@ -43,13 +43,17 @@
                                     @foreach ($payments as $payment)
                                         <tr>
                                             <td class="text-center" tabindex="0">
-                                                {{ $payment->user->name ?? "" }}
+                                                {{ $payment->user->name ?? "Candidate not found" }}
                                             </td>
                                             <td class="text-center" tabindex="0">
                                                 {{ $payment->user->phone ?? "" }}
                                             </td>
                                             <td class="text-center" tabindex="0">
-                                                {{ $payment->status ?? "" }}
+                                                @if($payment->status ==1 )
+                                                    <span class="badge badge-sm badge-success">Verified</span>
+                                                @else
+                                                <span class="badge badge-sm badge-danger">Not verified</span>
+                                                @endif
                                             </td>
                                             <td class="text-center" tabindex="0">
                                                 {{ $payment->created_at ?? "" }}
