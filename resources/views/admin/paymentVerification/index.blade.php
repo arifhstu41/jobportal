@@ -43,7 +43,7 @@
                                     @foreach ($payments as $payment)
                                         <tr>
                                             <td class="text-center" tabindex="0">
-                                                @if ($payment->user->name)
+                                                @if (isset($payment->user->name))
                                                     {{ $payment->user->name }}
                                                 @else
                                                     <span class="text-danger">Candidate not found</span>
