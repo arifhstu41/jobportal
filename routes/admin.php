@@ -28,6 +28,7 @@ use App\Http\Controllers\Admin\Auth\ForgotPasswordController;
 use App\Http\Controllers\Admin\CandidateLanguageController;
 use App\Http\Controllers\Payment\ManualPaymentController;
 use App\Http\Controllers\Admin\PaymentVerificationController;
+use App\Http\Controllers\Admin\SmsTemplateController;
 use FontLib\Table\Type\name;
 
 Route::prefix('admin')->group(function () {
@@ -99,6 +100,12 @@ Route::prefix('admin')->group(function () {
         Route::resource('jobRole', JobRoleController::class)->parameters([
             'jobRole' => 'jobRole:slug'
         ])->except('show', 'create');
+
+        Route::resource('smsTemplate', SmsTemplateController::class)->parameters([
+            'smsTemplate' => 'smsTemplate:slug',
+        ])->except('show', 'create');
+
+        Route::get('change/smsTemplate/status', [SmsTemplateController::class, 'changeStatus'])->name('admin.change.smsTemplate.status');
 
         // industrytype route resource
         Route::resource('industryType', IndustryTypeController::class)->parameters([
