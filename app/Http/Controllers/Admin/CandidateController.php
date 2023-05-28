@@ -13,6 +13,7 @@ use App\Models\Experience;
 use App\Models\GeoCode;
 use App\Models\JobRole;
 use App\Models\PaymentModel;
+use App\Models\PaymentVerification;
 use App\Models\Profession;
 use App\Models\Skill;
 use App\Models\User;
@@ -661,9 +662,11 @@ class CandidateController extends Controller {
                 unlink($candidate->photo);
             }
         }
-        // delete earnings and payments
+        
+        // delete earnings and payments and payment verifications
         Earning::where('user_id', $candidate->user_id)->delete();
         PaymentModel::where('user_id', $candidate->user_id)->delete();
+        PaymentVerification::where('user_id', $candidate->user_id)->delete();
 
         $candidate->delete();
 

@@ -68,6 +68,13 @@
                         </x-admin.sidebar-list>
                     @endif
 
+                    <!-- ======= smsTemplate ======== -->
+                    {{-- @if (userCan('job_role.view')) --}}
+                        <x-admin.sidebar-list :linkActive="Request::is('admin/smsTemplate*') ? true : false" route="smsTemplate.index" icon="fas fa-sms">
+                            {{ __('smsTemplate') }}
+                        </x-admin.sidebar-list>
+                    {{-- @endif --}}
+
                     @if (Module::collections()->has('Plan') && userCan('plan.view'))
                         <x-admin.sidebar-list :linkActive="Route::is('module.plan.index') ||
                         Route::is('module.plan.create') ||

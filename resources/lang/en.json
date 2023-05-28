@@ -1189,6 +1189,9 @@
     "ward_no_parmanent" : "Ward",
     "profile_update": "Profile Update",
     "quota" : "Quota",
-    "payment_verification_list" : "Payment Verification List"
+    "payment_verification_list" : "Payment Verification List",
+    "sms_template_list": "SMS Template List",
+    "type": "Type",
+    "content": "Content"
     
 }
