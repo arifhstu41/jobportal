@@ -425,7 +425,7 @@ class CandidateController extends Controller
             ]);
 
             deleteImage($candidate->photo);
-            $path = 'images/candidates';
+            $path = 'images/candidates/'.auth()->user()->id;
             $image = uploadImage($request->image, $path);
 
             $candidate->update([

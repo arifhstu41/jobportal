@@ -31,7 +31,6 @@ if (!function_exists('uploadImage')) {
     function uploadImage($file, $path) {
         $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
         $file->move(public_path('/uploads/' . $path . '/'), $fileName);
-
         return "uploads/$path/" . $fileName;
     }
 }
