@@ -112,13 +112,12 @@ if (!function_exists('uploadFileToStorage')) {
 if (!function_exists('uploadFileToPublic')) {
     function uploadFileToPublic($file, string $path) {
         if ($file && $path) {
-            // $url = $file->move('uploads/' . $path, $file->hashName());
-            $name = $file->getClientOriginalName();
-            $url = $file->move('uploads/' . $path, $name);
+            $name = time().rand(1,100).".". $file->extension();
+            $path= $file->move(public_path().'/uploads' . $path, $name);
+            $url= $path->getFilename();
         } else {
             $url = null;
         }
-
         return $url;
     }
 }
@@ -1114,27 +1113,24 @@ if (!function_exists('generateUserName')) {
 
 if (!function_exists('setInputLog')) {
     function setInputLog($data, $table_name) {
-        $files = [];
-        $targetDir = public_path().'/uploads/candidate/tmp/';
-        if($data->picture){
-            $name = $data->picture->getClientOriginalName();
-            $data->picture->move($targetDir."picture/", $name);
-            $files[] = $targetDir."picture/". $name;
+        $files     = [];
+        if ($data->picture) {
+            $picture = $data->picture;
+            $files[] = $picture->getPathName();
         }
-        if($data->signature){
-            $name = $data->signature->getClientOriginalName();
-             $data->signature->move($targetDir."signature/", $name);
-             $files[] = $targetDir."signature/". $name;
+        if ($data->signature) {
+            $signature= $data->signature;
+            $files[] = $signature->getPathName();
         }
-        $alldata= [
-            'inputs'=> $data->all(),
-            'files'=> $files,
+        $alldata = [
+            'inputs' => $data->all(),
+            'files'  => $files,
         ];
-        $log= Log::create([
-            'user_id' => auth()->user()->id,
-            'content_type' => 'input',
-            'content' => json_encode($alldata),
-            'table_name' => $table_name
+        $log = Log::create([
+            'user_id'      => auth()->user()->id,
+            'content_type' => 'application-form',
+            'content'      => json_encode($alldata),
+            'table_name'   => $table_name,
         ]);
         return $log;
     }

@@ -120,8 +120,7 @@ class SurjoPayController extends Controller {
         $data['surjopay_id'] = $data['id'];
         $data['user_id']     = auth()->user('user')->id;
         unset($data['id']);
-        $serialized = serialize($data);
-        
+
         PaymentModel::where('order_id', $data['order_id'])
             ->where('user_id', auth()->user('user')->id)
             ->update([
