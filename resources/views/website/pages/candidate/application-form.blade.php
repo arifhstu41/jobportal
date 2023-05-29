@@ -1733,26 +1733,29 @@
                                         <div class="col-md-8">
                                             <div class="form-group form-group-sm row py-2">
                                                 <label for="picture"
-                                                    class="col-sm-4 col-form-label">{{ __('picture') }}</label>
+                                                    class="col-sm-4 col-form-label">{{ __('picture') }}<span
+                                                    class="required">*</span></label>
                                                 <div class="col-sm-8">
                                                     <input class="form-control @error('picture') is-invalid @enderror"
                                                         name="picture" type="file"
                                                         value="{{ $candidate->picture }}" id="picture"
-                                                        placeholder="{{ __('picture') }}">
+                                                        placeholder="{{ __('picture') }}" required>
                                                     @error('picture')
                                                         <span class="invalid-feedback"
                                                             role="alert">{{ __($message) }}</span>
                                                     @enderror
+                                                    <img id="preview" src="#" alt="your image" class="mt-3" style="display:none;"/>
                                                 </div>
                                             </div>
                                             <div class="form-group form-group-sm row py-2">
                                                 <label for="signature"
-                                                    class="col-sm-4 col-form-label">{{ __('signature') }}</label>
+                                                    class="col-sm-4 col-form-label">{{ __('signature') }}<span
+                                                    class="required">*</span></label>
                                                 <div class="col-sm-8">
                                                     <input class="form-control @error('signature') is-invalid @enderror"
                                                         name="signature" type="file"
                                                         value="{{ $candidate->signature }}" id="signature"
-                                                        placeholder="{{ __('signature') }}">
+                                                        placeholder="{{ __('signature') }}" required>
                                                     @error('signature')
                                                         <span class="invalid-feedback"
                                                             role="alert">{{ __($message) }}</span>
@@ -1845,6 +1848,15 @@
     <script src="{{ asset('frontend') }}/assets/js/ckeditor.min.js"></script>
 
     <script>
+
+        // $("#picture").on("change", function(){
+        //     let preview = $('#preview');
+        //     preview.style.display = 'block';
+        //     const [file] = selectImage.files
+        //     if (file) {
+        //         preview.src = URL.createObjectURL(file)
+        //     }
+        // })
         //init datepicker
         $("#date").attr("autocomplete", "off");
         //init datepicker

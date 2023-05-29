@@ -2,65 +2,61 @@
 
 namespace App\Http\Controllers\Website;
 
-use Carbon\Carbon;
-use App\Models\Cms;
-use App\Models\Job;
-use App\Models\User;
-use App\Models\Skill;
 use AmrShawky\Currency;
-use App\Models\Company;
-use App\Models\JobRole;
-use App\Models\Setting;
-use App\Models\Candidate;
-use App\Models\Education;
-use App\Models\CmsContent;
-use App\Models\Experience;
-use App\Models\Profession;
-use App\Models\JobCategory;
-use Illuminate\Support\Str;
-use App\Http\Traits\Jobable;
-use App\Models\IndustryType;
-use Illuminate\Http\Request;
-use App\Models\ManualPayment;
-use App\Models\PaymentSetting;
-use App\Models\CandidateResume;
-use Modules\Blog\Entities\Post;
-use Modules\Plan\Entities\Plan;
-use App\Models\OrganizationType;
-use App\Models\CandidateLanguage;
-use App\Http\Traits\Candidateable;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Http\Traits\Candidateable;
+use App\Http\Traits\Jobable;
 use App\Models\AppliedJob;
+use App\Models\Candidate;
 use App\Models\CandidateEducation;
+use App\Models\CandidateLanguage;
+use App\Models\CandidateResume;
+use App\Models\Cms;
+use App\Models\CmsContent;
+use App\Models\Company;
+use App\Models\Education;
+use App\Models\Experience;
+use App\Models\IndustryType;
+use App\Models\Job;
+use App\Models\JobCategory;
+use App\Models\JobRole;
+use App\Models\ManualPayment;
+use App\Models\OrganizationType;
+use App\Models\PaymentSetting;
+use App\Models\Profession;
+use App\Models\Setting;
+use App\Models\Skill;
 use App\Models\Subject;
-use Illuminate\Support\Facades\Auth;
-use Modules\Faq\Entities\FaqCategory;
-use Modules\Blog\Entities\PostComment;
-use Modules\Location\Entities\Country;
-use Modules\Blog\Entities\PostCategory;
-use Modules\Language\Entities\Language;
-use Illuminate\Support\Facades\Validator;
-use Stevebauman\Location\Facades\Location;
-use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Support\Facades\Notification;
-use Modules\Testimonial\Entities\Testimonial;
-use App\Services\Midtrans\CreateSnapTokenService;
-use Modules\Currency\Entities\Currency as CurrencyModel;
+use App\Models\User;
 use App\Notifications\Website\Candidate\ApplyJobNotification;
 use App\Notifications\Website\Candidate\BookmarkJobNotification;
+use App\Services\Midtrans\CreateSnapTokenService;
 use App\Traits\ResetCvViewsHistoryTrait;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
+use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Str;
+use Modules\Blog\Entities\Post;
+use Modules\Blog\Entities\PostCategory;
+use Modules\Blog\Entities\PostComment;
+use Modules\Currency\Entities\Currency as CurrencyModel;
+use Modules\Faq\Entities\FaqCategory;
+use Modules\Language\Entities\Language;
+use Modules\Location\Entities\Country;
+use Modules\Plan\Entities\Plan;
+use Modules\Testimonial\Entities\Testimonial;
 use Mpdf\Config\ConfigVariables;
 use Mpdf\Config\FontVariables;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Stevebauman\Location\Facades\Location;
 
-class WebsiteController extends Controller
-{
+class WebsiteController extends Controller {
     use Jobable, Candidateable, ResetCvViewsHistoryTrait;
 
-    public function dashboard()
-    {
+    public function dashboard() {
         if (auth('user')->check() && auth('user')->user()->role == 'candidate') {
             return redirect()->route('candidate.dashboard');
         } elseif (auth('user')->check() && auth('user')->user()->role == 'company') {
@@ -72,8 +68,8 @@ class WebsiteController extends Controller
     }
 
     // temporary function to insert subjects
-    public function subject(Request $request){
-        foreach($request->subjects as $subject){
+    public function subject(Request $request) {
+        foreach ($request->subjects as $subject) {
             Subject::create([
                 'code' => $subject['code'],
                 'name' => $subject['text'],
@@ -82,8 +78,7 @@ class WebsiteController extends Controller
         return "hello";
     }
 
-    public function notificationRead()
-    {
+    public function notificationRead() {
         foreach (auth()->user()->unreadNotifications as $notification) {
             $notification->markAsRead();
         }
@@ -91,14 +86,13 @@ class WebsiteController extends Controller
         return response()->json(true);
     }
 
-    public function index()
-    {
-        $data['livejobs'] = Job::withoutEdited()->openPosition()->count();
-        $data['newjobs'] = Job::withoutEdited()->newJobs()->count();
-        $data['companies'] = Company::count();
-        $data['candidates'] = Candidate::count();
-        $data['testimonials'] = Testimonial::all();
-        $data['testimonials'] = Testimonial::whereCode(currentLangCode())->get();
+    public function index() {
+        $data['livejobs']      = Job::withoutEdited()->openPosition()->count();
+        $data['newjobs']       = Job::withoutEdited()->newJobs()->count();
+        $data['companies']     = Company::count();
+        $data['candidates']    = Candidate::count();
+        $data['testimonials']  = Testimonial::all();
+        $data['testimonials']  = Testimonial::whereCode(currentLangCode())->get();
         $data['top_companies'] = Company::with('user.contactInfo')
             ->withCount([
                 'jobs as jobs_count' => function ($q) {
@@ -122,7 +116,7 @@ class WebsiteController extends Controller
                     //         }
                     //     }
                     // }
-                }
+                },
             ])
             ->latest('jobs_count')
             ->get()
@@ -132,10 +126,10 @@ class WebsiteController extends Controller
         $featured_jobs_query = Job::query()->withoutEdited()->with('company', 'job_type:id,name')->withCount([
             'bookmarkJobs', 'appliedJobs',
             'bookmarkJobs as bookmarked' => function ($q) {
-                $q->where('candidate_id',  auth('user')->check() && auth('user')->user()->candidate ? auth('user')->user()->candidate->id : '');
+                $q->where('candidate_id', auth('user')->check() && auth('user')->user()->candidate ? auth('user')->user()->candidate->id : '');
             }, 'appliedJobs as applied' => function ($q) {
-                $q->where('candidate_id',  auth('user')->check() && auth('user')->user()->candidate ? auth('user')->user()->candidate->id : '');
-            }
+                $q->where('candidate_id', auth('user')->check() && auth('user')->user()->candidate ? auth('user')->user()->candidate->id : '');
+            },
         ]);
         $setting = Setting::first();
         if ($setting->app_country_type == 'single_base') {
@@ -174,10 +168,9 @@ class WebsiteController extends Controller
         return view('website.pages.index', $data);
     }
 
-    public function termsCondition()
-    {
+    public function termsCondition() {
         $termscondition = Cms::select('terms_page')->first();
-        $cms_content = CmsContent::query();
+        $cms_content    = CmsContent::query();
 
         $terms_page = null;
 
@@ -185,14 +178,14 @@ class WebsiteController extends Controller
         $current_language = currentLanguage() ? currentLanguage() : '';
         if ($current_language) {
 
-            $exist_cms_content =  $cms_content->where('translation_code', $current_language->code)->where('page_slug', 'terms_condition_page')->first();
+            $exist_cms_content = $cms_content->where('translation_code', $current_language->code)->where('page_slug', 'terms_condition_page')->first();
 
             if ($exist_cms_content) {
                 $terms_page = $exist_cms_content->text;
             }
         } else { //else push default one
 
-            $exist_cms_content_en =  $cms_content->where('translation_code', 'en')->where('page_slug', 'terms_condition_page')->first();
+            $exist_cms_content_en = $cms_content->where('translation_code', 'en')->where('page_slug', 'terms_condition_page')->first();
 
             if ($exist_cms_content_en) {
 
@@ -206,10 +199,9 @@ class WebsiteController extends Controller
         return view('website.pages.terms-condition', compact('termscondition', 'terms_page'));
     }
 
-    public function privacyPolicy()
-    {
+    public function privacyPolicy() {
         $privacy_page_default = Cms::select('privary_page')->first();
-        $cms_content = CmsContent::query();
+        $cms_content          = CmsContent::query();
 
         $privacy_page = null;
 
@@ -219,14 +211,14 @@ class WebsiteController extends Controller
         //if has session current language
         if ($current_language) {
 
-            $exist_cms_content =  $cms_content->where('translation_code', $current_language->code)->where('page_slug', 'privacy_page')->first();
+            $exist_cms_content = $cms_content->where('translation_code', $current_language->code)->where('page_slug', 'privacy_page')->first();
 
             if ($exist_cms_content) {
                 $privacy_page = $exist_cms_content->text;
             }
         } else { //else push default one
 
-            $exist_cms_content_en =  $cms_content->where('translation_code', 'en')->where('page_slug', 'privacy_page')->first();
+            $exist_cms_content_en = $cms_content->where('translation_code', 'en')->where('page_slug', 'privacy_page')->first();
 
             if ($exist_cms_content_en) {
 
@@ -240,10 +232,9 @@ class WebsiteController extends Controller
         return view('website.pages.privacy-policy', compact('privacy_page_default', 'privacy_page'));
     }
 
-    public function jobs(Request $request)
-    {
-        $data = $this->getJobs($request);
-        $data['indeed_jobs'] = $this->getIndeedJobs($request);
+    public function jobs(Request $request) {
+        $data                   = $this->getJobs($request);
+        $data['indeed_jobs']    = $this->getIndeedJobs($request);
         $data['careerjet_jobs'] = $this->getCareerjetJobs($request);
 
         if (auth('user')->check() && auth('user')->user()->role == 'candidate') {
@@ -255,8 +246,7 @@ class WebsiteController extends Controller
         return view('website.pages.jobs', $data);
     }
 
-    public function jobDetails(Job $job)
-    {
+    public function jobDetails(Job $job) {
         // return view('website.pages.application-details');
         if ($job->status == 'pending') {
             if (!auth('admin')->check()) {
@@ -271,17 +261,16 @@ class WebsiteController extends Controller
         return view('website.pages.job-details', $data);
     }
 
-    public function candidates(Request $request)
-    {
+    public function candidates(Request $request) {
         // dd(auth('user')->check());
-        abort_if(( !auth('user')->check() ||(auth('user')->check() && auth('user')->user()->role == 'candidate')), 404);
+        abort_if((!auth('user')->check() || (auth('user')->check() && auth('user')->user()->role == 'candidate')), 404);
 
-        $data['professions'] = Profession::all();
-        $data['candidates'] = $this->getCandidates($request);
-        $data['countries'] = Country::all();
-        $data['experiences'] = Experience::all();
-        $data['educations'] = Education::all();
-        $data['skills'] = Skill::all(['id', 'name']);
+        $data['professions']         = Profession::all();
+        $data['candidates']          = $this->getCandidates($request);
+        $data['countries']           = Country::all();
+        $data['experiences']         = Experience::all();
+        $data['educations']          = Education::all();
+        $data['skills']              = Skill::all(['id', 'name']);
         $data['candidate_languages'] = CandidateLanguage::all(['id', 'name']);
         // reset candidate cv views history
         $this->reset();
@@ -289,8 +278,7 @@ class WebsiteController extends Controller
         return view('website.pages.candidates', $data);
     }
 
-    public function candidateDetails(Request $request, $username)
-    {
+    public function candidateDetails(Request $request, $username) {
         $candidate = User::where('username', $username)
             ->with('candidate', 'contactInfo', 'socialInfo')
             ->firstOrFail();
@@ -304,14 +292,13 @@ class WebsiteController extends Controller
         return view('website.pages.candidate-details', compact('candidate'));
     }
 
-    public function candidateProfileDetails(Request $request)
-    {
+    public function candidateProfileDetails(Request $request) {
         $user = auth('user')->user();
 
         if ($user->role != 'company') {
             return response()->json([
                 'message' => 'You are not authorized to perform this action.',
-                'success' => false
+                'success' => false,
             ]);
         } else {
             $user_plan = $user->company->userPlan;
@@ -319,14 +306,14 @@ class WebsiteController extends Controller
         if (!$user_plan) {
             return response()->json([
                 'message' => "You don't have a chosen plan. Please choose a plan to continue",
-                'success' => false
+                'success' => false,
             ]);
         }
 
         if (isset($user_plan) && $user_plan->candidate_cv_view_limitation == 'limited' && $user_plan->candidate_cv_view_limit <= 0) {
             return response()->json([
-                'message' => 'You have reached your limit for viewing candidate cv. Please upgrade your plan.',
-                'success' => false,
+                'message'      => 'You have reached your limit for viewing candidate cv. Please upgrade your plan.',
+                'success'      => false,
                 'redirect_url' => route('website.plan'),
             ]);
         }
@@ -335,7 +322,7 @@ class WebsiteController extends Controller
             ->with(['contactInfo', 'socialInfo', 'candidate' => function ($query) {
                 $query->with('experience', 'education', 'experiences', 'educations', 'profession', 'nationality:id,name', 'languages:id,name', 'skills:id,name')
                     ->withCount(['bookmarkCandidates as bookmarked' => function ($q) {
-                        $q->where('company_id',  auth('user')->user()->company->id);
+                        $q->where('company_id', auth('user')->user()->company->id);
                     }])
                     ->withCount(['already_views as already_view' => function ($q) {
                         $q->where('company_id', auth('user')->user()->company->id);
@@ -347,8 +334,8 @@ class WebsiteController extends Controller
 
         if ($user_plan->candidate_cv_view_limitation == 'limited' && $request->count_view) {
 
-            $company = auth()->user()->company;
-            $cv_views = $company->cv_views; // get auth company all cv views
+            $company       = auth()->user()->company;
+            $cv_views      = $company->cv_views; // get auth company all cv views
             $cv_view_exist = $cv_views->where('candidate_id', $candidate->candidate->id)->first(); // get specific view
 
             if (!$cv_view_exist) { // check view isn't exist
@@ -356,30 +343,29 @@ class WebsiteController extends Controller
                 // and create view count item
                 $company->cv_views()->create([
                     'candidate_id' => $candidate->candidate->id,
-                    'view_date' => Carbon::parse(Carbon::now()),
+                    'view_date'    => Carbon::parse(Carbon::now()),
                 ]);
             }
         }
 
         $cv_limit_message = $user_plan->candidate_cv_view_limitation == 'limited' ? 'You have ' . $user_plan->candidate_cv_view_limit . ' cv views remaining.' : null;
 
-        $languages = $candidate->candidate->languages()->pluck('name')->toArray();
+        $languages           = $candidate->candidate->languages()->pluck('name')->toArray();
         $candidate_languages = $languages ? implode(", ", $languages) : '';
 
-        $skills = $candidate->candidate->skills()->pluck('name')->toArray();
+        $skills           = $candidate->candidate->skills()->pluck('name')->toArray();
         $candidate_skills = $skills ? implode(", ", $skills) : '';
 
         return response()->json([
-            'success' => true,
-            'data' => $candidate,
-            'skills' => $candidate_skills ?? '',
-            'languages' => $candidate_languages ?? '',
+            'success'            => true,
+            'data'               => $candidate,
+            'skills'             => $candidate_skills ?? '',
+            'languages'          => $candidate_languages ?? '',
             'profile_view_limit' => $cv_limit_message,
         ]);
     }
 
-    public function candidateApplicationProfileDetails(Request $request)
-    {
+    public function candidateApplicationProfileDetails(Request $request) {
         $candidate = User::where('username', $request->username)
             ->with(['contactInfo', 'socialInfo', 'candidate' => function ($query) {
                 $query->with('experiences', 'educations', 'experience', 'education', 'profession', 'nationality', 'languages:id,name', 'skills:id,name');
@@ -388,34 +374,32 @@ class WebsiteController extends Controller
 
         $candidate->candidate->birth_date = Carbon::parse($candidate->candidate->birth_date)->format('d F, Y');
 
-        $languages = $candidate->candidate->languages()->pluck('name')->toArray();
+        $languages           = $candidate->candidate->languages()->pluck('name')->toArray();
         $candidate_languages = $languages ? implode(", ", $languages) : '';
 
-        $skills = $candidate->candidate->skills()->pluck('name')->toArray();
+        $skills           = $candidate->candidate->skills()->pluck('name')->toArray();
         $candidate_skills = $skills ? implode(", ", $skills) : '';
 
         return response()->json([
-            'success' => true,
-            'data' => $candidate,
-            'skills' => $candidate_skills,
+            'success'   => true,
+            'data'      => $candidate,
+            'skills'    => $candidate_skills,
             'languages' => $candidate_languages,
         ]);
     }
 
-    public function candidateDownloadCv(CandidateResume $resume)
-    {
+    public function candidateDownloadCv(CandidateResume $resume) {
         $filePath = $resume->file;
 
         $filename = time() . '.pdf';
 
-        $headers = ['Content-Type: application/pdf',  'filename' => $filename,];
+        $headers  = ['Content-Type: application/pdf', 'filename' => $filename];
         $fileName = rand() . '-resume' . '.pdf';
 
         return response()->download($filePath, $fileName, $headers);
     }
 
-    public function employees(Request $request)
-    {
+    public function employees(Request $request) {
         // dd($request->all());
         // return $request;
         abort_if(auth('user')->check() && auth('user')->user()->role == 'company', 404);
@@ -442,11 +426,11 @@ class WebsiteController extends Controller
                 //         }
                 //     }
                 // }
-            }
+            },
         ])->withCount([
             'bookmarkCandidateCompany as candidatemarked' => function ($q) {
                 $q->where('user_id', auth()->id());
-            }
+            },
         ])
             ->withCasts(['candidatemarked' => 'boolean'])->active();
 
@@ -495,21 +479,21 @@ class WebsiteController extends Controller
         // perpage filter
         if ($request->has('perpage') && $request->perpage != null) {
             switch ($request->perpage) {
-                case '12':
-                    $companies = $query->latest('activejobs')->paginate(12);
-                    break;
-                case '18':
-                    $companies = $query->latest('activejobs')->paginate(18);
-                    break;
-                case '30':
-                    $companies = $query->latest('activejobs')->paginate(30);
-                    break;
+            case '12':
+                $companies = $query->latest('activejobs')->paginate(12);
+                break;
+            case '18':
+                $companies = $query->latest('activejobs')->paginate(18);
+                break;
+            case '30':
+                $companies = $query->latest('activejobs')->paginate(30);
+                break;
             }
         } else {
             $companies = $query->latest('activejobs')->paginate(12);
         }
 
-        $industry_types = IndustryType::all();
+        $industry_types    = IndustryType::all();
         $organization_type = OrganizationType::all();
 
         // return $companies;
@@ -517,10 +501,9 @@ class WebsiteController extends Controller
         return view('website.pages.employees', compact('companies', 'industry_types', 'organization_type'));
     }
 
-    public function employersDetails(User $user)
-    {
+    public function employersDetails(User $user) {
 
-        $companyDetails =  Company::with(
+        $companyDetails = Company::with(
             'organization:id,name',
             'industry:id,name',
             'team_size:id,name',
@@ -546,12 +529,12 @@ class WebsiteController extends Controller
                 //         }
                 //     }
                 // }
-            }
+            },
         ])
             ->withCount([
                 'bookmarkCandidateCompany as candidatemarked' => function ($q) {
                     $q->where('user_id', auth()->id());
-                }
+                },
             ])
             ->withCasts(['candidatemarked' => 'boolean'])
             ->first();
@@ -584,19 +567,17 @@ class WebsiteController extends Controller
         return view('website.pages.employe-details', compact('user', 'companyDetails', 'open_jobs'));
     }
 
-    public function about()
-    {
+    public function about() {
         $testimonials = Testimonial::all();
-        $livejobs = Job::where('status', 1)->count();
-        $companies = Company::count();
-        $candidates = Candidate::count();
-        $about = Cms::first();
+        $livejobs     = Job::where('status', 1)->count();
+        $companies    = Company::count();
+        $candidates   = Candidate::count();
+        $about        = Cms::first();
 
         return view('website.pages.about', compact('testimonials', 'livejobs', 'companies', 'candidates', 'about'));
     }
 
-    public function categoryWisePosts(PostCategory $category)
-    {
+    public function categoryWisePosts(PostCategory $category) {
         $key = request()->search;
         $key = request()->category;
 
@@ -609,20 +590,18 @@ class WebsiteController extends Controller
         $posts = $category->posts()->latest()->paginate(15);
 
         $recent_posts = Post::published()->latest()->take(5)->get();
-        $categories = PostCategory::latest()->get();
+        $categories   = PostCategory::latest()->get();
         return view('website.pages.posts', compact('posts', 'categories', 'recent_posts', 'key'));
     }
 
-    public function pricing()
-    {
+    public function pricing() {
 
         abort_if(auth('user')->check() && auth('user')->user()->role == 'candidate', 404);
         $plans = Plan::active()->get();
         return view('website.pages.pricing', compact('plans'));
     }
 
-    public function planDetails($label)
-    {
+    public function planDetails($label) {
         abort_if(auth('user')->check() && auth('user')->user()->role == 'candidate', 404);
 
         // session data storing
@@ -638,7 +617,7 @@ class WebsiteController extends Controller
 
         // midtrans snap token
         if (config('zakirsoft.midtrans_active') && config('zakirsoft.midtrans_merchat_id') && config('zakirsoft.midtrans_client_key') && config('zakirsoft.midtrans_server_key')) {
-            $usd = $plan->price;
+            $usd    = $plan->price;
             $amount = (int) Currency::convert()
                 ->from(config('zakirsoft.currency'))
                 ->to('IDR')
@@ -646,35 +625,33 @@ class WebsiteController extends Controller
                 ->round(2)
                 ->get();
 
-            $order['order_no'] = uniqid();
+            $order['order_no']    = uniqid();
             $order['total_price'] = $amount;
 
-            $midtrans = new CreateSnapTokenService($order);
+            $midtrans  = new CreateSnapTokenService($order);
             $snapToken = $midtrans->getSnapToken();
 
             session(['midtrans_details' => [
-                'order_no' => $order['order_no'],
+                'order_no'    => $order['order_no'],
                 'total_price' => $order['total_price'],
-                'snap_token' => $snapToken,
-                'plan_id' => $plan->id,
+                'snap_token'  => $snapToken,
+                'plan_id'     => $plan->id,
             ]]);
         }
 
         return view('website.pages.plan-details', [
-            'plan' => $plan,
+            'plan'            => $plan,
             'payment_setting' => $payment_setting,
-            'mid_token' => $snapToken ?? null,
+            'mid_token'       => $snapToken ?? null,
             'manual_payments' => $manual_payments,
         ]);
     }
 
-    public function contact()
-    {
+    public function contact() {
         return view('website.pages.contact');
     }
 
-    public function faq()
-    {
+    public function faq() {
         $faq_categories = FaqCategory::with(['faqs' => function ($q) {
             $q->where('code', currentLangCode());
         }])->get();
@@ -682,13 +659,11 @@ class WebsiteController extends Controller
         return view('website.pages.faq', compact('faq_categories'));
     }
 
-    public function comingSoon()
-    {
+    public function comingSoon() {
         return view('website.pages.comingsoon');
     }
 
-    public function toggleBookmarkJob(Job $job)
-    {
+    public function toggleBookmarkJob(Job $job) {
         $check = $job->bookmarkJobs()->toggle(auth('user')->user()->candidate);
 
         if ($check['attached'] == [1]) {
@@ -702,14 +677,12 @@ class WebsiteController extends Controller
             }
         }
 
-
         (count($check['attached']) > 0) ? $message = 'Job added to favorite list' : $message = 'Job removed from favorite list';
         flashSuccess($message);
         return back();
     }
 
-    public function toggleApplyJob(Request $request)
-    {
+    public function toggleApplyJob(Request $request) {
         // $validator = Validator::make($request->all(), [
         //     'resume_id' => 'required',
         //     'cover_letter' => 'required',
@@ -729,16 +702,16 @@ class WebsiteController extends Controller
         }
 
         $candidate = auth('user')->user()->candidate;
-        $job = Job::find($request->id);
-        $resume= $request->resume_id ?? 1;
-        $applied = DB::table('applied_jobs')->insert([
-            'candidate_id' => $candidate->id,
-            'job_id' => $job->id,
-            'cover_letter' => $request->cover_letter ?? "",
-            'candidate_resume_id' => $resume,
+        $job       = Job::find($request->id);
+        $resume    = $request->resume_id ?? 1;
+        $applied   = DB::table('applied_jobs')->insert([
+            'candidate_id'         => $candidate->id,
+            'job_id'               => $job->id,
+            'cover_letter'         => $request->cover_letter ?? "",
+            'candidate_resume_id'  => $resume,
             'application_group_id' => $job->company->applicationGroups->where('is_deleteable', false)->first()->id ?? 1,
-            'created_at' => now(),
-            'updated_at' => now(),
+            'created_at'           => now(),
+            'updated_at'           => now(),
         ]);
 
         // make notification to candidate and company for notify
@@ -755,39 +728,37 @@ class WebsiteController extends Controller
     }
 
     // application success
-    public function applySuccess($job_id)
-    {
+    public function applySuccess($job_id) {
         $job = Job::find($job_id);
         return view('website.pages.company.application-success', compact('job'));
     }
 
     // candidate download application form(Applicant copy)
-    public function downloadApplicationForm($job_id)
-    {
-        $job = Job::find($job_id);
-        $candidate = auth('user')->user()->candidate;
-        $applied= AppliedJob::where('job_id', $job_id)->where('candidate_id', $candidate->id)->first();
+    public function downloadApplicationForm($job_id) {
+        $job               = Job::find($job_id);
+        $candidate         = auth('user')->user()->candidate;
+        $applied           = AppliedJob::where('job_id', $job_id)->where('candidate_id', $candidate->id)->first();
         $data['candidate'] = $candidate;
-        $data['job'] = $job;
-        $data['message'] = "dsfdsfd";
-        
-        $defaultConfig = (new ConfigVariables())->getDefaults();
-        $fontDirs = $defaultConfig['fontDir'];
-        $defaultFontConfig = (new FontVariables())->getDefaults();
-        $fontData = $defaultFontConfig['fontdata'];
+        $data['job']       = $job;
+        $data['message']   = "dsfdsfd";
 
-        $mpdf       = new \Mpdf\Mpdf([
-            'format' => 'A4',
-            'fontDir' => array_merge($fontDirs, [public_path() . '/fonts',]),
-            'fontdata' => $fontData + [ // lowercase letters only in font key
+        $defaultConfig     = (new ConfigVariables())->getDefaults();
+        $fontDirs          = $defaultConfig['fontDir'];
+        $defaultFontConfig = (new FontVariables())->getDefaults();
+        $fontData          = $defaultFontConfig['fontdata'];
+
+        $mpdf = new \Mpdf\Mpdf ([
+            'format'       => 'A4',
+            'fontDir'      => array_merge($fontDirs, [public_path() . '/fonts']),
+            'fontdata'     => $fontData + [ // lowercase letters only in font key
                 'bangla' => [
-                    'R'  => 'Siyamrupali.ttf', // regular font
-                    'B'  => 'Siyamrupali.ttf', // optional: bold font
-                    'I'  => 'Siyamrupali.ttf', // optional: italic font
+                    'R'          => 'Siyamrupali.ttf', // regular font
+                    'B' => 'Siyamrupali.ttf', // optional: bold font
+                    'I' => 'Siyamrupali.ttf', // optional: italic font
                     'BI' => 'Siyamrupali.ttf', // optional: bold-italic font
                     'useOTL' => 0xFF,
                     'useKashida' => 75,
-                ]
+                ],
             ],
             'default_font' => 'bangla',
         ]); //pagev format
@@ -806,25 +777,22 @@ class WebsiteController extends Controller
     }
 
     // verify application from public url
-    public function verifyApplication($job_id, $candidate_id)
-    {
-        $job = Job::find($job_id);
-        $candidate = Candidate::find($candidate_id);
+    public function verifyApplication($job_id, $candidate_id) {
+        $job               = Job::find($job_id);
+        $candidate         = Candidate::find($candidate_id);
         $data['candidate'] = $candidate;
-        $data['job'] = $job;
-        $data['message'] = "dsfdsfd";
-        $application_form = Pdf::loadView('website.pages.application-details', $data)->setPaper('a4', 'portrait');
+        $data['job']       = $job;
+        $data['message']   = "dsfdsfd";
+        $application_form  = Pdf::loadView('website.pages.application-details', $data)->setPaper('a4', 'portrait');
         return $application_form->stream();
     }
 
-    public function register($role)
-    {
+    public function register($role) {
         return view('auth.register', compact('role'));
     }
 
-    public function posts(Request $request)
-    {
-        $key = request()->search;
+    public function posts(Request $request) {
+        $key   = request()->search;
         $posts = Post::query()->published()->withCount('comments');
 
         if ($key) {
@@ -833,23 +801,22 @@ class WebsiteController extends Controller
 
         if ($request->category) {
             $category_ids = PostCategory::whereIn('slug', $request->category)->get()->pluck('id');
-            $posts = $posts->whereIn('category_id', $category_ids)->latest()->paginate(10)->withQueryString();
+            $posts        = $posts->whereIn('category_id', $category_ids)->latest()->paginate(10)->withQueryString();
         } else {
             $posts = $posts->latest()->paginate(10)->withQueryString();
         }
 
         $recent_posts = Post::published()->withCount('comments')->latest()->take(5)->get();
-        $categories = PostCategory::latest()->get();
+        $categories   = PostCategory::latest()->get();
 
         return view('website.pages.posts', compact('posts', 'categories', 'recent_posts'));
     }
 
-    public function post($slug)
-    {
+    public function post($slug) {
         $post = Post::published()->whereSlug($slug)
             ->with([
                 'author:id,name,name',
-                'comments.replies.user:id,name,image'
+                'comments.replies.user:id,name,image',
             ])
             ->first();
         if (!$post) {
@@ -859,19 +826,18 @@ class WebsiteController extends Controller
         return view('website.pages.post', compact('post'));
     }
 
-    public function comment(Post $post, Request $request)
-    {
+    public function comment(Post $post, Request $request) {
 
         $request->validate([
-            'body' => 'required|max:2500|min:2'
+            'body' => 'required|max:2500|min:2',
         ]);
 
-        $comment = new PostComment();
+        $comment            = new PostComment();
         $comment->author_id = auth()->user()->id;
-        $comment->post_id = $post->id;
+        $comment->post_id   = $post->id;
         if ($request->has('parent_id')) {
             $comment->parent_id = $request->parent_id;
-            $redirect = "#replies-" . $request->parent_id;
+            $redirect           = "#replies-" . $request->parent_id;
         } else {
             $redirect = "#comments";
         }
@@ -881,21 +847,18 @@ class WebsiteController extends Controller
         return redirect(url()->previous() . $redirect);
     }
 
-    public function markReadSingleNotification(Request $request)
-    {
+    public function markReadSingleNotification(Request $request) {
         auth()->user()->unreadNotifications->where('id', $request->id)->markAsRead();
 
         return true;
     }
 
-    public function setSession(Request $request)
-    {
+    public function setSession(Request $request) {
         $request->session()->put('location', $request->input());
         return response()->json(true);
     }
 
-    public function setCurrentLocation($request)
-    {
+    public function setCurrentLocation($request) {
         // Current Visitor Location Track && Set Country IF App Is Multi Country Base
         $app_country = setting('app_country_type');
 
@@ -937,8 +900,7 @@ class WebsiteController extends Controller
     /**
      * Process for set currency & language
      */
-    public function setLangAndCurrency($name)
-    {
+    public function setLangAndCurrency($name) {
         // this process for get language code/sort name  and currency sortname
         $get_lang_wise_sort_name = json_decode(file_get_contents(base_path('public/json/country_currency_language.json')), true);
 
@@ -975,21 +937,18 @@ class WebsiteController extends Controller
         }
     }
 
-    public function setSelectedCountry(Request $request)
-    {
+    public function setSelectedCountry(Request $request) {
         session()->put('selected_country', $request->country);
 
         return back();
     }
 
-    public function removeSelectedCountry()
-    {
+    public function removeSelectedCountry() {
         session()->forget('selected_country');
         return redirect()->back();
     }
 
-    public function company_location_filter($latitude, $longitude)
-    {
+    public function company_location_filter($latitude, $longitude) {
         $distance = 50;
 
         $haversine = "(
@@ -1013,8 +972,7 @@ class WebsiteController extends Controller
         return $ids;
     }
 
-    public function jobAutocomplete(Request $request)
-    {
+    public function jobAutocomplete(Request $request) {
         $jobs = Job::select("title as value", "id")
             ->where('title', 'LIKE', '%' . $request->get('search') . '%')
             ->active()
@@ -1041,8 +999,7 @@ class WebsiteController extends Controller
      *
      * @return Renderable
      */
-    public function careerjetJobs(Request $request)
-    {
+    public function careerjetJobs(Request $request) {
         if (!config('zakirsoft.careerjet_active') || !config('zakirsoft.careerjet_id')) {
             abort(404);
         }
@@ -1057,8 +1014,7 @@ class WebsiteController extends Controller
      *
      * @return Renderable
      */
-    public function indeedJobs(Request $request)
-    {
+    public function indeedJobs(Request $request) {
         if (!config('zakirsoft.indeed_active') || !config('zakirsoft.indeed_id')) {
             abort(404);
         }
@@ -1068,57 +1024,54 @@ class WebsiteController extends Controller
         return view('website.pages.jobs.indeed-jobs', compact('indeed_jobs'));
     }
 
-    public function verifyCandidate()
-    {
+    public function verifyCandidate() {
         return view('website.pages.candidate.verification');
     }
 
     // application form open
-    public function applicationForm()
-    {
+    public function applicationForm() {
         $candidate = Candidate::where('user_id', Auth::user()->id)->first();
         // $districts = DB::table('districts')->orderBy('name', 'asc')->get();
         // $divisions = DB::table('divisions')->orderBy('name', 'asc')->get();
         $divisions = DB::table('tblgeocode')
-        ->where("geoLevelId", "1")
-        ->orderBy('nameEn', 'asc')
-        ->get();
+            ->where("geoLevelId", "1")
+            ->orderBy('nameEn', 'asc')
+            ->get();
         // $districts = DB::table('tblgeocode')->where("geoLevelId", "2")->orderBy('nameEn', 'asc')->get();
-        $unions = DB::table('unions')->get();
+        $unions   = DB::table('unions')->get();
         $upazilas = DB::table('upazilas')->orderBy('name', 'asc')->get();
-        $unions = DB::table('unions')->orderBy('name', 'asc')->get();
-        $boards = DB::table('bd_education_boards')->get();
-        $wards = [];
+        $unions   = DB::table('unions')->orderBy('name', 'asc')->get();
+        $boards   = DB::table('bd_education_boards')->get();
+        $wards    = [];
         for ($i = 1; $i <= 10; $i++) {
             $wards[] = $i;
         }
         // echo "<pre>";print_r($divisions);die;
         $universities = DB::table('bd_universities')->get();
-        $years = [];
-        $current_year =  (int)date("Y", strtotime('today'));
+        $years        = [];
+        $current_year = (int) date("Y", strtotime('today'));
         for ($i = $current_year; $i >= 1900; $i--) {
             $years[] = $i;
         }
-        $user = Auth::user();
-        $subjects= Subject::orderBy('name', 'asc')->get();
+        $user     = Auth::user();
+        $subjects = Subject::orderBy('name', 'asc')->get();
 
         // dd($subjects);
         return view('website.pages.candidate.application-form', compact('candidate', 'user', 'divisions', 'unions', 'upazilas', 'unions', 'wards', 'universities', 'years', 'boards', 'subjects'));
     }
 
     // Birth Registration/NID Verification
-    public function submitCandidateVerification(Request $request)
-    {
+    public function submitCandidateVerification(Request $request) {
         $request->validate([
             'id_type' => 'required',
-            'id_no' => 'required',
-            'dob' => 'required',
+            'id_no'   => 'required',
+            'dob'     => 'required',
         ]);
 
         $data = array(
-            "nidNumber" => $request->id_no,
-            "dateOfBirth" => date('Y-m-d', strtotime($request->dob)),
-            "englishTranslation" => true
+            "nidNumber"          => $request->id_no,
+            "dateOfBirth"        => date('Y-m-d', strtotime($request->dob)),
+            "englishTranslation" => true,
         );
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, env('PORICHOY_HOST_URL'));
@@ -1126,7 +1079,7 @@ class WebsiteController extends Controller
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
 
-        $headers = array();
+        $headers   = array();
         $headers[] = 'Content-Type: application/json';
         $headers[] = 'X-Api-Key: ' . env('PORICHOY_API_KEY');
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
@@ -1135,7 +1088,6 @@ class WebsiteController extends Controller
         curl_close($ch);
 
         $result = json_decode($result);
-
 
         if (curl_errno($ch) || (!(isset($result->status) && $result->status == "YES"))) {
             $error_message = "";
@@ -1151,21 +1103,21 @@ class WebsiteController extends Controller
             $nid = $result->data->nid;
 
             // update user
-            $user = User::find(Auth::user()->id);
+            $user       = User::find(Auth::user()->id);
             $user->name = $nid->fullNameEN;
             $user->save();
             // update candidate
-            $candidate = Candidate::where('user_id', Auth::user()->id)->first();
-            $candidate->name_bn = $nid->fullNameBN;
-            $candidate->father_name = $nid->fathersNameEN;
-            $candidate->father_name_bn = $nid->fathersNameBN;
-            $candidate->mother_name = $nid->mothersNameEN;
-            $candidate->mother_name_bn = $nid->mothersNameBN;
-            $candidate->birth_date = date('Y-m-d', strtotime($nid->dateOfBirth));
-            $candidate->gender = strtolower($nid->gender);
-            $candidate->place = $nid->presentAddressBN;
+            $candidate                  = Candidate::where('user_id', Auth::user()->id)->first();
+            $candidate->name_bn         = $nid->fullNameBN;
+            $candidate->father_name     = $nid->fathersNameEN;
+            $candidate->father_name_bn  = $nid->fathersNameBN;
+            $candidate->mother_name     = $nid->mothersNameEN;
+            $candidate->mother_name_bn  = $nid->mothersNameBN;
+            $candidate->birth_date      = date('Y-m-d', strtotime($nid->dateOfBirth));
+            $candidate->gender          = strtolower($nid->gender);
+            $candidate->place           = $nid->presentAddressBN;
             $candidate->place_parmanent = $nid->permanentAddressBN;
-            $candidate->nid_no = $nid->nationalIdNumber;
+            $candidate->nid_no          = $nid->nationalIdNumber;
             if (isset($nid->spouseNameEN)) {
                 $candidate->marital_status = "married";
             } else {
@@ -1180,13 +1132,12 @@ class WebsiteController extends Controller
         }
     }
 
-    public function getDistrictByDivision()
-    {
+    public function getDistrictByDivision() {
 
         $division_id = $_GET['division'];
         // $districts = DB::table('districts')->where('division_id', $division_id)->orderBy('name', 'asc')->get();
         $districts = DB::table('tblgeocode')->where("geoLevelId", "2")
-        ->where('parentGeoId', $division_id)->orderBy('nameEn', 'asc')->get();
+            ->where('parentGeoId', $division_id)->orderBy('nameEn', 'asc')->get();
 
         $html = "<option value=''>Please Select</option>";
 
@@ -1198,8 +1149,7 @@ class WebsiteController extends Controller
         echo json_encode($response);
     }
 
-    public function getThanaByDistrict()
-    {
+    public function getThanaByDistrict() {
 
         $district_id = $_GET['district_id'];
         // $thana = DB::table('upazilas')->where('district_id', $district_id)->orderBy('name', 'asc')->get();
@@ -1215,8 +1165,7 @@ class WebsiteController extends Controller
         echo json_encode($response);
     }
 
-    public function getUnionByThana()
-    {
+    public function getUnionByThana() {
 
         $thana_id = $_GET['thana_id'];
         // $unions = DB::table('unions')->where('upazilla_id', $thana_id)->orderBy("name", "asc")->get();
@@ -1231,8 +1180,7 @@ class WebsiteController extends Controller
         $response['html'] = $html;
         echo json_encode($response);
     }
-    public function getWardByPaurasava()
-    {
+    public function getWardByPaurasava() {
 
         $pourosova_id = $_GET['pourosova_id'];
         // $unions = DB::table('unions')->where('upazilla_id', $thana_id)->orderBy("name", "asc")->get();
@@ -1249,238 +1197,248 @@ class WebsiteController extends Controller
     }
 
     // submit application form
-    public function applicationFormSubmit(Request $request)
-    {
+    public function applicationFormSubmit(Request $request) {
+        // set log all input fields
+        $log = setInputLog($request, 'candidates');
 
+        // validate input fields
         $request->validate([
-            'name' => 'required',
-            'name_bn' => 'required',
-            'father_name' => 'required',
+            'name'           => 'required',
+            'name_bn'        => 'required',
+            'father_name'    => 'required',
             'father_name_bn' => 'required',
-            'mother_name' => 'required',
+            'mother_name'    => 'required',
             'mother_name_bn' => 'required',
-            'birth_date' => 'required',
-            'gender' => 'required',
-            'religion' => 'required',
+            'birth_date'     => 'required',
+            'gender'         => 'required',
+            'religion'       => 'required',
             'marital_status' => 'required',
-            'quota' => 'required',
-            'care_of' =>  'required',
-            'region' =>  'required',
-            'district' =>  'required',
-            'thana' =>  'required',
-            'post_office' =>  'required',
-            'postcode' =>  'required',
-            'place' =>  'required',
+            'quota'          => 'required',
+            'care_of'        => 'required',
+            'region'         => 'required',
+            'district'       => 'required',
+            'thana'          => 'required',
+            'post_office'    => 'required',
+            'postcode'       => 'required',
+            'place'          => 'required',
+            'picture' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1024',
+            'signature' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:512',
         ]);
 
         if (!$request->same_address) {
             $request->validate([
-                'care_of_parmanent' =>  'required',
-                'region_parmanent' =>  'required',
-                'district_parmanent' =>  'required',
-                'thana_parmanent' =>  'required',
-                'post_office_parmanent' =>  'required',
-                'postcode_parmanent' =>  'required',
-                'place_parmanent' =>  'required',
+                'care_of_parmanent'     => 'required',
+                'region_parmanent'      => 'required',
+                'district_parmanent'    => 'required',
+                'thana_parmanent'       => 'required',
+                'post_office_parmanent' => 'required',
+                'postcode_parmanent'    => 'required',
+                'place_parmanent'       => 'required',
             ]);
         }
 
         if ($request->psc) {
             $request->validate([
-                'psc_exam_name' => 'required',
-                'psc_roll_no' => 'required',
+                'psc_exam_name'    => 'required',
+                'psc_roll_no'      => 'required',
                 'psc_passing_year' => 'required',
-                'psc_school' => 'required',
+                'psc_school'       => 'required',
             ]);
         }
 
         if ($request->jsc) {
 
             $request->validate([
-                'jsc_exam_name' => 'required',
-                'jsc_roll_no' => 'required',
+                'jsc_exam_name'    => 'required',
+                'jsc_roll_no'      => 'required',
                 'jsc_passing_year' => 'required',
-                'jsc_school' => 'required',
+                'jsc_school'       => 'required',
             ]);
         }
 
         if ($request->ssc) {
             $request->validate([
-                'ssc_exam_name' => 'required',
+                'ssc_exam_name'       => 'required',
                 'ssc_education_board' => 'required',
-                'ssc_roll_no' => 'required',
+                'ssc_roll_no'         => 'required',
                 'ssc_registration_no' => 'required',
-                'ssc_passing_year' => 'required',
-                'ssc_group' => 'required',
-                'ssc_result_type' => 'required',
-                'ssc_result_cgpa' => 'required',
+                'ssc_passing_year'    => 'required',
+                'ssc_group'           => 'required',
+                'ssc_result_type'     => 'required',
+                'ssc_result_cgpa'     => 'required',
             ]);
         }
 
         if ($request->hsc) {
             $request->validate([
-                'hsc_exam_name' => 'required',
+                'hsc_exam_name'       => 'required',
                 'hsc_education_board' => 'required',
-                'hsc_roll_no' => 'required',
+                'hsc_roll_no'         => 'required',
                 'hsc_registration_no' => 'required',
-                'hsc_passing_year' => 'required',
-                'hsc_group' => 'required',
-                'hsc_result_type' => 'required',
-                'hsc_result_cgpa' => 'required',
+                'hsc_passing_year'    => 'required',
+                'hsc_group'           => 'required',
+                'hsc_result_type'     => 'required',
+                'hsc_result_cgpa'     => 'required',
             ]);
         }
 
         if ($request->honors) {
             $request->validate([
-                'honors_exam_name' => 'required',
-                'honors_subject' => 'required',
-                'honors_institute' => 'required',
-                'honors_result_type' => 'required',
-                'honors_passing_year' => 'required',
+                'honors_exam_name'       => 'required',
+                'honors_subject'         => 'required',
+                'honors_institute'       => 'required',
+                'honors_result_type'     => 'required',
+                'honors_passing_year'    => 'required',
                 'honors_course_duration' => 'required',
             ]);
         }
 
         if ($request->masters) {
             $request->validate([
-                'masters_exam_name' => 'required',
-                'masters_subject' => 'required',
-                'masters_institute' => 'required',
-                'masters_result_type' => 'required',
+                'masters_exam_name'       => 'required',
+                'masters_subject'         => 'required',
+                'masters_institute'       => 'required',
+                'masters_result_type'     => 'required',
                 // 'masters_result_cgpa' => 'required',
-                'masters_passing_year' => 'required',
+                'masters_passing_year'    => 'required',
                 'masters_course_duration' => 'required',
             ]);
         }
 
         DB::beginTransaction();
         try {
-            $candidate = Candidate::where('user_id', Auth::user()->id)->first();
-            $candidate->name_bn = $request->name_bn;
-            $candidate->father_name = $request->father_name;
-            $candidate->father_name_bn = $request->father_name_bn;
-            $candidate->mother_name = $request->mother_name;
-            $candidate->mother_name_bn = $request->mother_name_bn;
-            $candidate->birth_date = date('Y-m-d', strtotime($request->birth_date));
-            $candidate->gender = $request->gender;
-            $candidate->religion = $request->religion;
-            $candidate->birth_certificate_no = $request->birth_certificate_no;
-            $candidate->nid_no = $request->nid_no;
-            $candidate->passport_no = $request->passport_no;
-            $candidate->marital_status = $request->marital_status;
-            $candidate->quota = $request->quota;
-            $candidate->care_of = $request->care_of;
-            $candidate->house_and_road_no = $request->house_and_road_no;
-            $candidate->place = $request->place;
-            $candidate->post_office = $request->post_office;
-            $candidate->postcode = $request->postcode;
-            $candidate->ward_no = $request->ward_no;
-            $candidate->pourosova_union_porishod = $request->pourosova_union_porishod;
-            $candidate->thana = $request->thana;
-            $candidate->district = $request->district;
-            $candidate->region = $request->region;
-            $candidate->care_of_parmanent = ($request->same_address) ? $request->care_of : $request->care_of_parmanent;
-            $candidate->house_and_road_no_parmanent = ($request->same_address) ? $request->house_and_road_no : $request->house_and_road_no_parmanent;
-            $candidate->place_parmanent = ($request->same_address) ? $request->place : $request->place_parmanent;
-            $candidate->post_office_parmanent = ($request->same_address) ? $request->post_office : $request->post_office_parmanent;
-            $candidate->postcode_parmanent = ($request->same_address) ? $request->postcode : $request->postcode_parmanent;
-            $candidate->ward_no_parmanent = ($request->same_address) ? $request->ward_no : $request->ward_no_parmanent;
+            $candidate                                     = Candidate::where('user_id', Auth::user()->id)->first();
+            $candidate->name_bn                            = $request->name_bn;
+            $candidate->father_name                        = $request->father_name;
+            $candidate->father_name_bn                     = $request->father_name_bn;
+            $candidate->mother_name                        = $request->mother_name;
+            $candidate->mother_name_bn                     = $request->mother_name_bn;
+            $candidate->birth_date                         = date('Y-m-d', strtotime($request->birth_date));
+            $candidate->gender                             = $request->gender;
+            $candidate->religion                           = $request->religion;
+            $candidate->birth_certificate_no               = $request->birth_certificate_no;
+            $candidate->nid_no                             = $request->nid_no;
+            $candidate->passport_no                        = $request->passport_no;
+            $candidate->marital_status                     = $request->marital_status;
+            $candidate->quota                              = $request->quota;
+            $candidate->care_of                            = $request->care_of;
+            $candidate->house_and_road_no                  = $request->house_and_road_no;
+            $candidate->place                              = $request->place;
+            $candidate->post_office                        = $request->post_office;
+            $candidate->postcode                           = $request->postcode;
+            $candidate->ward_no                            = $request->ward_no;
+            $candidate->pourosova_union_porishod           = $request->pourosova_union_porishod;
+            $candidate->thana                              = $request->thana;
+            $candidate->district                           = $request->district;
+            $candidate->region                             = $request->region;
+            $candidate->care_of_parmanent                  = ($request->same_address) ? $request->care_of : $request->care_of_parmanent;
+            $candidate->house_and_road_no_parmanent        = ($request->same_address) ? $request->house_and_road_no : $request->house_and_road_no_parmanent;
+            $candidate->place_parmanent                    = ($request->same_address) ? $request->place : $request->place_parmanent;
+            $candidate->post_office_parmanent              = ($request->same_address) ? $request->post_office : $request->post_office_parmanent;
+            $candidate->postcode_parmanent                 = ($request->same_address) ? $request->postcode : $request->postcode_parmanent;
+            $candidate->ward_no_parmanent                  = ($request->same_address) ? $request->ward_no : $request->ward_no_parmanent;
             $candidate->pourosova_union_porishod_parmanent = ($request->same_address) ? $request->pourosova_union_porishod : $request->pourosova_union_porishod_parmanent;
-            $candidate->thana_parmanent = ($request->same_address) ? $request->thana : $request->thana_parmanent;
-            $candidate->district_parmanent = ($request->same_address) ? $request->district : $request->district_parmanent;
-            $candidate->region_parmanent = ($request->same_address) ? $request->region : $request->region_parmanent;
-            $candidate->profile_complete = ($candidate->profile_complete > 0) ? ($candidate->profile_complete - 25) : 0;
+            $candidate->thana_parmanent                    = ($request->same_address) ? $request->thana : $request->thana_parmanent;
+            $candidate->district_parmanent                 = ($request->same_address) ? $request->district : $request->district_parmanent;
+            $candidate->region_parmanent                   = ($request->same_address) ? $request->region : $request->region_parmanent;
+            $candidate->profile_complete                   = ($candidate->profile_complete > 0) ? ($candidate->profile_complete - 25) : 0;
             $candidate->save();
 
             if ($request->psc) {
 
-                $education = new CandidateEducation();
+                $education               = new CandidateEducation();
                 $education->candidate_id = $candidate->id;
-                $education->level = "psc";
-                $education->degree = $request->psc_exam_name;
-                $education->roll = $request->psc_roll_no;
-                $education->year = $request->psc_passing_year;
-                $education->institute = $request->psc_school;
+                $education->level        = "psc";
+                $education->degree       = $request->psc_exam_name;
+                $education->roll         = $request->psc_roll_no;
+                $education->year         = $request->psc_passing_year;
+                $education->institute    = $request->psc_school;
                 $education->save();
             }
 
             if ($request->jsc) {
-                $education = new CandidateEducation();
+                $education               = new CandidateEducation();
                 $education->candidate_id = $candidate->id;
-                $education->level = "jsc";
-                $education->degree = $request->jsc_exam_name;
-                $education->roll = $request->jsc_roll_no;
-                $education->year = $request->jsc_passing_year;
-                $education->institute = $request->jsc_school;
+                $education->level        = "jsc";
+                $education->degree       = $request->jsc_exam_name;
+                $education->roll         = $request->jsc_roll_no;
+                $education->year         = $request->jsc_passing_year;
+                $education->institute    = $request->jsc_school;
                 $education->save();
             }
 
             if ($request->ssc) {
-                $education = new CandidateEducation();
+                $education               = new CandidateEducation();
                 $education->candidate_id = $candidate->id;
-                $education->level = "ssc";
-                $education->degree = $request->ssc_exam_name;
-                $education->board = $request->ssc_education_board;
-                $education->roll = $request->ssc_roll_no;
+                $education->level        = "ssc";
+                $education->degree       = $request->ssc_exam_name;
+                $education->board        = $request->ssc_education_board;
+                $education->roll         = $request->ssc_roll_no;
                 $education->registration = $request->ssc_registration_no;
-                $education->year = $request->ssc_passing_year;
-                $education->group = $request->ssc_group;
-                $education->result_type = $request->ssc_result_type;
-                $education->result_gpa = $request->ssc_result_cgpa;
+                $education->year         = $request->ssc_passing_year;
+                $education->group        = $request->ssc_group;
+                $education->result_type  = $request->ssc_result_type;
+                $education->result_gpa   = $request->ssc_result_cgpa;
                 $education->save();
             }
 
             if ($request->hsc) {
-                $education = new CandidateEducation();
+                $education               = new CandidateEducation();
                 $education->candidate_id = $candidate->id;
-                $education->level = "hsc";
-                $education->degree = $request->hsc_exam_name;
-                $education->board = $request->hsc_education_board;
-                $education->roll = $request->hsc_roll_no;
+                $education->level        = "hsc";
+                $education->degree       = $request->hsc_exam_name;
+                $education->board        = $request->hsc_education_board;
+                $education->roll         = $request->hsc_roll_no;
                 $education->registration = $request->hsc_registration_no;
-                $education->year = $request->hsc_passing_year;
-                $education->group = $request->hsc_group;
-                $education->result_type = $request->hsc_result_type;
-                $education->result_gpa = $request->hsc_result_cgpa;
+                $education->year         = $request->hsc_passing_year;
+                $education->group        = $request->hsc_group;
+                $education->result_type  = $request->hsc_result_type;
+                $education->result_gpa   = $request->hsc_result_cgpa;
                 $education->save();
             }
 
             if ($request->honors) {
-                $education = new CandidateEducation();
-                $education->candidate_id = $candidate->id;
-                $education->level = "honors";
-                $education->degree = $request->honors_exam_name;
-                $education->subject = $request->honors_subject;
-                $education->institute = $request->honors_institute;
-                $education->result_type = $request->honors_result_type;
-                $education->result_gpa = $request->honors_result_cgpa;
-                $education->year = $request->honors_passing_year;
+                $education                  = new CandidateEducation();
+                $education->candidate_id    = $candidate->id;
+                $education->level           = "honors";
+                $education->degree          = $request->honors_exam_name;
+                $education->subject         = $request->honors_subject;
+                $education->institute       = $request->honors_institute;
+                $education->result_type     = $request->honors_result_type;
+                $education->result_gpa      = $request->honors_result_cgpa;
+                $education->year            = $request->honors_passing_year;
                 $education->course_duration = $request->honors_course_duration;
                 $education->save();
             }
 
             if ($request->masters) {
-                $education = new CandidateEducation();
-                $education->candidate_id = $candidate->id;
-                $education->level = "masters";
-                $education->degree = $request->masters_exam_name;
-                $education->subject = $request->masters_subject;
-                $education->institute = $request->masters_institute;
-                $education->result_type = $request->masters_result_type;
-                $education->result_gpa = $request->masters_result_cgpa;
-                $education->year = $request->masters_passing_year;
+                $education                  = new CandidateEducation();
+                $education->candidate_id    = $candidate->id;
+                $education->level           = "masters";
+                $education->degree          = $request->masters_exam_name;
+                $education->subject         = $request->masters_subject;
+                $education->institute       = $request->masters_institute;
+                $education->result_type     = $request->masters_result_type;
+                $education->result_gpa      = $request->masters_result_cgpa;
+                $education->year            = $request->masters_passing_year;
                 $education->course_duration = $request->masters_course_duration;
                 $education->save();
             }
-
+            $path= '/candidate'."/".$candidate->id."/";
             if ($request->picture) {
-                $picture_url = uploadFileToPublic($request->picture, 'candidate');
-                $candidate->photo = $picture_url;
+                $picture= $request->picture;
+                $picture_url      = uploadFileToPublic($picture, $path);
+                if($picture_url){
+                    $candidate->photo = "/uploads".$path.$picture_url;
+                }
             }
 
             if ($request->signature) {
-                $signature_url = uploadFileToPublic($request->signature, 'candidate');
-                $candidate->signature = $signature_url;
+                $signature= $request->signature;
+                $signature_url        = uploadFileToPublic($signature, $path);
+                if($signature_url){
+                    $candidate->signature = "/uploads".$path.$signature_url;
+                }
             }
 
             $candidate->profile_complete = 0;
@@ -1493,8 +1451,7 @@ class WebsiteController extends Controller
         }
     }
 
-    public function makePayment()
-    {
+    public function makePayment() {
 
         return view('website.pages.candidate.payment');
     }

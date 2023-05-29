@@ -4,6 +4,7 @@ use AmrShawky\LaravelCurrency\Facade\Currency;
 use App\Models\Candidate;
 use App\Models\Company;
 use App\Models\Job;
+use App\Models\Log;
 use App\Models\Setting;
 use App\Models\smsHistory;
 use App\Models\User;
@@ -111,13 +112,12 @@ if (!function_exists('uploadFileToStorage')) {
 if (!function_exists('uploadFileToPublic')) {
     function uploadFileToPublic($file, string $path) {
         if ($file && $path) {
-            // $url = $file->move('uploads/' . $path, $file->hashName());
-            $name = $file->getClientOriginalName();
-            $url = $file->move('uploads/' . $path, $name);
+            $name = time().rand(1,100).".". $file->extension();
+            $path= $file->move(public_path().'/uploads' . $path, $name);
+            $url= $path->getFilename();
         } else {
             $url = null;
         }
-
         return $url;
     }
 }
@@ -1079,7 +1079,7 @@ if (!function_exists('sendSMS')) {
             'phone'            => $phone,
             'response_code'    => $response_code,
             'response_meaning' => $response_meaning,
-            'sms_content_id'   => $template->id ?? "0",
+            'sms_content_id'   => 1,
         ]);
 
         return true;
@@ -1109,4 +1109,29 @@ if (!function_exists('generateUserName')) {
         return $username;
     }
 
+}
+
+if (!function_exists('setInputLog')) {
+    function setInputLog($data, $table_name) {
+        $files     = [];
+        if ($data->picture) {
+            $picture = $data->picture;
+            $files[] = $picture->getPathName();
+        }
+        if ($data->signature) {
+            $signature= $data->signature;
+            $files[] = $signature->getPathName();
+        }
+        $alldata = [
+            'inputs' => $data->all(),
+            'files'  => $files,
+        ];
+        $log = Log::create([
+            'user_id'      => auth()->user()->id,
+            'content_type' => 'application-form',
+            'content'      => json_encode($alldata),
+            'table_name'   => $table_name,
+        ]);
+        return $log;
+    }
 }
