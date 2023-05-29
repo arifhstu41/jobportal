@@ -1849,14 +1849,14 @@
 
     <script>
 
-        $("#picture").on("change", function(){
-            let preview = $('#preview');
-            preview.style.display = 'block';
-            const [file] = selectImage.files
-            if (file) {
-                preview.src = URL.createObjectURL(file)
-            }
-        })
+        // $("#picture").on("change", function(){
+        //     let preview = $('#preview');
+        //     preview.style.display = 'block';
+        //     const [file] = selectImage.files
+        //     if (file) {
+        //         preview.src = URL.createObjectURL(file)
+        //     }
+        // })
         //init datepicker
         $("#date").attr("autocomplete", "off");
         //init datepicker

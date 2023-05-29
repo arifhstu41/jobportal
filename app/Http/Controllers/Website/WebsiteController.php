@@ -33,6 +33,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\AppliedJob;
 use App\Models\CandidateEducation;
+use App\Models\Log;
 use App\Models\Subject;
 use Illuminate\Support\Facades\Auth;
 use Modules\Faq\Entities\FaqCategory;
@@ -1251,7 +1252,9 @@ class WebsiteController extends Controller
     // submit application form
     public function applicationFormSubmit(Request $request)
     {
-
+        // set log all input fields
+        $log= setInputLog($request, 'candidates');
+        dd($log);
         $request->validate([
             'name' => 'required',
             'name_bn' => 'required',
@@ -1271,8 +1274,8 @@ class WebsiteController extends Controller
             'post_office' =>  'required',
             'postcode' =>  'required',
             'place' =>  'required',
-            'picture' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1024|dimensions:width=300,height=300',
-            'signature' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:512|dimensions:width=80,height=300',
+            // 'picture' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1024|dimensions:width=300,height=300',
+            // 'signature' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:512|dimensions:width=80,height=300',
         ]);
 
         if (!$request->same_address) {

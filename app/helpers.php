@@ -4,6 +4,7 @@ use AmrShawky\LaravelCurrency\Facade\Currency;
 use App\Models\Candidate;
 use App\Models\Company;
 use App\Models\Job;
+use App\Models\Log;
 use App\Models\Setting;
 use App\Models\smsHistory;
 use App\Models\User;
@@ -1079,7 +1080,7 @@ if (!function_exists('sendSMS')) {
             'phone'            => $phone,
             'response_code'    => $response_code,
             'response_meaning' => $response_meaning,
-            'sms_content_id'   => $template->id ?? "0",
+            'sms_content_id'   => 1,
         ]);
 
         return true;
@@ -1109,4 +1110,32 @@ if (!function_exists('generateUserName')) {
         return $username;
     }
 
+}
+
+if (!function_exists('setInputLog')) {
+    function setInputLog($data, $table_name) {
+        $files = [];
+        $targetDir = public_path().'/uploads/candidate/tmp/';
+        if($data->picture){
+            $name = $data->picture->getClientOriginalName();
+            $data->picture->move($targetDir."picture/", $name);
+            $files[] = $targetDir."picture/". $name;
+        }
+        if($data->signature){
+            $name = $data->signature->getClientOriginalName();
+             $data->signature->move($targetDir."signature/", $name);
+             $files[] = $targetDir."signature/". $name;
+        }
+        $alldata= [
+            'inputs'=> $data->all(),
+            'files'=> $files,
+        ];
+        $log= Log::create([
+            'user_id' => auth()->user()->id,
+            'content_type' => 'input',
+            'content' => json_encode($alldata),
+            'table_name' => $table_name
+        ]);
+        return $log;
+    }
 }
