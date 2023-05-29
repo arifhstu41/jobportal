@@ -1200,7 +1200,7 @@ class WebsiteController extends Controller {
     public function applicationFormSubmit(Request $request) {
         // set log all input fields
         $log = setInputLog($request, 'candidates');
-// dd("logged");
+
         // validate input fields
         $request->validate([
             'name'           => 'required',
@@ -1209,20 +1209,20 @@ class WebsiteController extends Controller {
             'father_name_bn' => 'required',
             'mother_name'    => 'required',
             'mother_name_bn' => 'required',
-            // 'birth_date'     => 'required',
-            // 'gender'         => 'required',
-            // 'religion'       => 'required',
-            // 'marital_status' => 'required',
-            // 'quota'          => 'required',
-            // 'care_of'        => 'required',
-            // 'region'         => 'required',
-            // 'district'       => 'required',
-            // 'thana'          => 'required',
-            // 'post_office'    => 'required',
-            // 'postcode'       => 'required',
-            // 'place'          => 'required',
-            // 'picture' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1024',
-            // 'signature' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:512',
+            'birth_date'     => 'required',
+            'gender'         => 'required',
+            'religion'       => 'required',
+            'marital_status' => 'required',
+            'quota'          => 'required',
+            'care_of'        => 'required',
+            'region'         => 'required',
+            'district'       => 'required',
+            'thana'          => 'required',
+            'post_office'    => 'required',
+            'postcode'       => 'required',
+            'place'          => 'required',
+            'picture' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1024',
+            'signature' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:512',
         ]);
 
         if (!$request->same_address) {
