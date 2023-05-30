@@ -21,15 +21,12 @@ class AutoSetCountryLanguageCurrency
 
         // if hasn't session it means visitor first visit site
         if (!$session_exist) {
-            info('nai');
             (new WebsiteController)->setCurrentLocation($request); // setup function call
 
             session()->put('first_visit_unique', true);
             return $next($request);
 
         } else { // already visited
-            info('ase');
-
             return $next($request);
         }
     }
