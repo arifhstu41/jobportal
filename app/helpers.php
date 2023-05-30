@@ -1131,6 +1131,7 @@ if (!function_exists('setInputLog')) {
             'content'      => json_encode($alldata),
             'table_name'   => $table_name,
         ]);
+        info("input log set=".$log);
         return $log;
     }
 }

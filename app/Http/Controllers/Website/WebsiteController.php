@@ -1431,6 +1431,7 @@ class WebsiteController extends Controller {
                 $picture_url      = uploadFileToPublic($picture, $path);
                 if($picture_url){
                     $candidate->photo = "/uploads".$path.$picture_url;
+                    info("photo uploaded".$candidate->photo);
                 }
             }
 
@@ -1439,6 +1440,7 @@ class WebsiteController extends Controller {
                 $signature_url        = uploadFileToPublic($signature, $path);
                 if($signature_url){
                     $candidate->signature = "/uploads".$path.$signature_url;
+                    info("signature uploaded".$candidate->signature);
                 }
             }
 
