@@ -1001,7 +1001,7 @@ if (!function_exists('sendSMS')) {
             break;
 
         case 'otp':
-            $content = "আপনার ভেরিফিকেশন কোর্ড-" . $sms_content;
+            $content = "আপনার ভেরিফিকেশন কোডটি হলো-" . $sms_content;
             break;
 
         case 'password_reset':
