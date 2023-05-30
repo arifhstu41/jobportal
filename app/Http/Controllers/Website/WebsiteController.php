@@ -1331,6 +1331,7 @@ class WebsiteController extends Controller {
             $candidate->thana                              = $request->thana;
             $candidate->district                           = $request->district;
             $candidate->region                             = $request->region;
+            $candidate->status                             = "available";
             $candidate->care_of_parmanent                  = ($request->same_address) ? $request->care_of : $request->care_of_parmanent;
             $candidate->house_and_road_no_parmanent        = ($request->same_address) ? $request->house_and_road_no : $request->house_and_road_no_parmanent;
             $candidate->place_parmanent                    = ($request->same_address) ? $request->place : $request->place_parmanent;
