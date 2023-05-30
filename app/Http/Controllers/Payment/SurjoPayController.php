@@ -48,7 +48,8 @@ class SurjoPayController extends Controller {
             'amount'         => $price,
             'discountAmount' => 0,
             'discPercent'    => 0,
-            'customer_phone' => $user->phone
+            'customer_phone' => $user->phone,
+            'customer_name'  => $user->name
         );
 
         $env  = new ShurjopayEnvReader(base_path() . '/.env');
@@ -67,7 +68,7 @@ class SurjoPayController extends Controller {
         $request->amount              = $info['amount'];
         $request->discountAmount      = $info['discountAmount'] ?? 0;
         $request->discPercent         = $info['discPercent'] ?? 0;
-        $request->customerName        = "Welfare Family Bangladesh";
+        $request->customerName        = $info['customer_name'];
         $request->customerPhone       = $info['customer_phone'];
         $request->customerEmail       = "welfare.rmt@gmail.com";
         $request->customerAddress     = 'Rangamati';
