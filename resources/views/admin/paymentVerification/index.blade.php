@@ -35,6 +35,7 @@
                                 <th>{{ __('phone') }}</th>
                                 <th width="10%">{{ __('status') }}</th>
                                 <th>{{ __('date') }}</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -63,6 +64,11 @@
                                             </td>
                                             <td class="text-center" tabindex="0">
                                                 {{ $payment->created_at ?? '' }}
+                                            </td>
+                                            <td lass="text-center">
+                                                @if ($payment->status == 0)
+                                                    <a href="{{ route('payment.verify.cron') }}?phone={{ $payment->user->phone }}" class="btn btn-sm btn-info">Verify Manually</a>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endif

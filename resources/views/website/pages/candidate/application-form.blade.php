@@ -1849,14 +1849,62 @@
 
     <script>
 
-        // $("#picture").on("change", function(){
-        //     let preview = $('#preview');
-        //     preview.style.display = 'block';
-        //     const [file] = selectImage.files
-        //     if (file) {
-        //         preview.src = URL.createObjectURL(file)
-        //     }
-        // })
+        // upload picture
+        $("#picture").on("change", function () {
+            // console.log($(this).val());
+            var picture = $('#picture').prop('files')[0];
+            // console.log(picture);
+            var form_data = new FormData();
+            form_data.append('_token', '{{csrf_token()}}');
+            form_data.append('picture', picture);
+            form_data.append('picture_for', 'picture');
+
+            // console.log(form_data);
+            $.ajax({
+                type: "POST",
+                contentType: false, //MUST
+                processData: false, //MUST
+                dataType: 'json',
+                url: "{{ route('website.candidate.uploadPicture') }}",
+                data: form_data,
+                enctype: 'multipart/form-data',
+                success: function (response) {
+                    console.log(response);
+                    if(response){
+                        alert("image uploaded successfully");
+                    }
+                }
+            });
+        })
+
+        // upload signature
+        $("#signature").on("change", function () {
+            // console.log($(this).val());
+            var picture = $('#signature').prop('files')[0];
+            // console.log(picture);
+            var form_data = new FormData();
+            form_data.append('_token', '{{csrf_token()}}');
+            form_data.append('picture', picture);
+            form_data.append('picture_for', 'signature');
+
+            // console.log(form_data);
+            $.ajax({
+                type: "POST",
+                contentType: false, //MUST
+                processData: false, //MUST
+                dataType: 'json',
+                url: "{{ route('website.candidate.uploadPicture') }}",
+                data: form_data,
+                enctype: 'multipart/form-data',
+                success: function (response) {
+                    console.log(response);
+                    if(response){
+                        alert("image uploaded successfully");
+                    }
+                }
+            });
+        })
+
         //init datepicker
         $("#date").attr("autocomplete", "off");
         //init datepicker
