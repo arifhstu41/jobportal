@@ -84,7 +84,7 @@ Route::prefix('admin')->group(function () {
         Route::post('/payment/verification/store', [PaymentVerificationController::class, 'store'])->name('payment.verification.store');
 
         // payment verification cron job route
-        Route::get('/payment/verify/cron', [PaymentVerificationController::class, 'verifyPaymentCron'])->name('payment.verify.cron');
+        Route::get('/payment/verify/cron', [PaymentVerificationController::class, 'verifyPaymentCron'])->name('payment.verify.cron')->withoutMiddleware('auth:admin');
 
         //JobCategory Route resource
         Route::resource('jobCategory', JobCategoryController::class)->parameters([

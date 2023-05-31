@@ -67,6 +67,10 @@ Route::controller(WebsiteController::class)->name('website.')->group(function ()
     Route::get('/candidate/profile/details', 'candidateProfileDetails')->name('candidate.profile.details');
     Route::get('/candidate/application/profile/details', 'candidateApplicationProfileDetails')->name('candidate.application.profile.details');
     Route::get('/candidate/application-form', 'applicationForm')->name('candidate.application.form');
+  
+    // candidate picture upload ajax route
+    Route::post('/candidate/upload-picture', 'uploadPicture')->name('candidate.uploadPicture');
+    
     Route::post('/candidate/application-form-submit', 'applicationFormSubmit')->name('candidate.application.form.submit');
     Route::get('/candidate/payment', 'makePayment')->name('candidate.payment');
     Route::post('/subject', 'subject')->name('subject');

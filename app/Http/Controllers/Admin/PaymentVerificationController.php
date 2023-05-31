@@ -57,11 +57,13 @@ class PaymentVerificationController extends Controller {
         if ($user) {
             $user_id        = $user->id;
             $transaction_id = $request->transaction_id;
-            // DB::beginTransaction();
-            // try {
+            DB::beginTransaction();
+            try {
             $payment_verification = PaymentVerification::where('user_id', $user_id)->where('status', 0)->first();
+            $existing_payment= PaymentModel::where('user_id', $user_id)->first();
+            
+            if (!$payment_verification && $existing_payment) {
 
-            if (!$payment_verification) {
                 $payment_verification                 = new PaymentVerification();
                 $payment_verification->user_id        = $user_id;
                 $payment_verification->transaction_id = $request->transaction_id;
@@ -77,15 +79,15 @@ class PaymentVerificationController extends Controller {
             } else {
                 flashError('Cannot verify payment, No successful payment found');
             }
-            // DB::commit();
+            DB::commit();
 
             return redirect()->route('payment.verification');
-            // } catch (\Throwable $th) {
+            } catch (\Throwable $th) {
             dd($th->getMessage());
-            // DB::rollBack();
+            DB::rollBack();
             flashError('something went wrong');
             return back()->withInput();
-            // }
+            }
         } else {
             flashError('User not found');
             return back()->withInput();
@@ -270,7 +272,6 @@ class PaymentVerificationController extends Controller {
         } else {
             $users = PaymentVerification::where('status', 0)->pluck('user_id')->all();
         }
-        
         DB::beginTransaction();
         try {
         foreach ($users as $user_id) {

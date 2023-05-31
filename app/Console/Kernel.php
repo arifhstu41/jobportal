@@ -4,10 +4,8 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use Illuminate\Support\Facades\Http;
 
-class Kernel extends ConsoleKernel
-{
+class Kernel extends ConsoleKernel {
     /**
      * The Artisan commands provided by your application.
      *
@@ -23,12 +21,8 @@ class Kernel extends ConsoleKernel
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
-    protected function schedule(Schedule $schedule)
-    {
-        $schedule->call(function () {
-            $response = Http::get(route('payment.verify.cron'));
-            info($response);
-        })->dailyAt('02:51');
+    protected function schedule(Schedule $schedule) {
+        $schedule->command('verify:payment')->dailyAt('02:51');
     }
 
     /**
@@ -36,8 +30,7 @@ class Kernel extends ConsoleKernel
      *
      * @return void
      */
-    protected function commands()
-    {
+    protected function commands() {
         $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');

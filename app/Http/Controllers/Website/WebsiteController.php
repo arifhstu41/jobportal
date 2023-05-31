@@ -22,6 +22,7 @@ use App\Models\JobCategory;
 use App\Models\JobRole;
 use App\Models\ManualPayment;
 use App\Models\OrganizationType;
+use App\Models\PaymentModel;
 use App\Models\PaymentSetting;
 use App\Models\Profession;
 use App\Models\Setting;
@@ -1221,8 +1222,8 @@ class WebsiteController extends Controller {
             'post_office'    => 'required',
             'postcode'       => 'required',
             'place'          => 'required',
-            'picture' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1024',
-            'signature' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:512',
+            'picture'        => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1024',
+            'signature'      => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:512',
         ]);
 
         if (!$request->same_address) {
@@ -1425,22 +1426,22 @@ class WebsiteController extends Controller {
                 $education->course_duration = $request->masters_course_duration;
                 $education->save();
             }
-            $path= '/candidate'."/".$candidate->id."/";
+            $path = '/candidate' . "/" . $candidate->id . "/";
             if ($request->picture) {
-                $picture= $request->picture;
-                $picture_url      = uploadFileToPublic($picture, $path);
-                if($picture_url){
-                    $candidate->photo = "/uploads".$path.$picture_url;
-                    info("photo uploaded".$candidate->photo);
+                $picture     = $request->picture;
+                $picture_url = uploadFileToPublic($picture, $path);
+                if ($picture_url) {
+                    $candidate->photo = "/uploads" . $path . $picture_url;
+                    
                 }
             }
 
             if ($request->signature) {
-                $signature= $request->signature;
-                $signature_url        = uploadFileToPublic($signature, $path);
-                if($signature_url){
-                    $candidate->signature = "/uploads".$path.$signature_url;
-                    info("signature uploaded".$candidate->signature);
+                $signature     = $request->signature;
+                $signature_url = uploadFileToPublic($signature, $path);
+                if ($signature_url) {
+                    $candidate->signature = "/uploads" . $path . $signature_url;
+                    
                 }
             }
 
@@ -1455,7 +1456,35 @@ class WebsiteController extends Controller {
     }
 
     public function makePayment() {
-
+        $user    = auth()->user();
+        $payment = PaymentModel::where('user_id', $user->id)->where('sp_code', 1000)->first();
+        if ($payment) {
+            flashSuccess('You already paid');
+            return redirect()->route('candidate.dashboard');
+        }
         return view('website.pages.candidate.payment');
+    }
+
+    // upload image through ajax call
+    public function uploadPicture(Request $request) {
+        $user = auth()->user();
+
+        $path    = '/candidate' . "/" . $user->candidate->id . "/";
+        $picture = $request->file('picture');
+        if (!$picture) {
+            return 0;
+        }
+        $picture_url = uploadFileToPublic($picture, $path);
+        if ($picture_url) {
+            if ($request->picture_for == "picture") {
+                $user->candidate->photo = "/uploads" . $path . $picture_url;
+            }
+            if ($request->picture_for == "signature") {
+                $user->candidate->signature = "/uploads" . $path . $picture_url;
+            }
+            $user->candidate->save();
+            return 1;
+        }
+        return 0;
     }
 }
