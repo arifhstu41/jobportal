@@ -1871,7 +1871,7 @@
                 success: function (response) {
                     console.log(response);
                     if(response){
-                        alert("image uploaded successfully");
+                        console.log("image uploaded successfully");
                     }
                 }
             });
@@ -1899,7 +1899,7 @@
                 success: function (response) {
                     console.log(response);
                     if(response){
-                        alert("image uploaded successfully");
+                        console.log("image uploaded successfully");
                     }
                 }
             });
