@@ -59,34 +59,35 @@ class PaymentVerificationController extends Controller {
             $transaction_id = $request->transaction_id;
             DB::beginTransaction();
             try {
-            $payment_verification = PaymentVerification::where('user_id', $user_id)->where('status', 0)->first();
-            $existing_payment= PaymentModel::where('user_id', $user_id)->first();
-            
-            if (!$payment_verification && $existing_payment) {
+                $payment_verification = PaymentVerification::where('user_id', $user_id)->where('status', 0)->first();
+                $existing_payment     = PaymentModel::where('user_id', $user_id)->first();
 
-                $payment_verification                 = new PaymentVerification();
-                $payment_verification->user_id        = $user_id;
-                $payment_verification->transaction_id = $request->transaction_id;
-                $payment_verification->created_at     = now();
-                $payment_verification->status         = 0;
-                $payment_verification->save();
-            }
-            $verify = $this->verifyPayment($user_id);
-            if ($verify) {
-                $payment_verification->status = 1;
-                $payment_verification->save();
-                flashSuccess('Payment Verification successful');
-            } else {
-                flashError('Cannot verify payment, No successful payment found');
-            }
-            DB::commit();
+                if (!$payment_verification) {
 
-            return redirect()->route('payment.verification');
+                    $payment_verification                 = new PaymentVerification();
+                    $payment_verification->user_id        = $user_id;
+                    $payment_verification->transaction_id = $request->transaction_id;
+                    $payment_verification->created_at     = now();
+                    $payment_verification->status         = 0;
+                    $payment_verification->save();
+                }
+
+                // $verify = $this->verifyPayment($user_id);
+                // if ($verify) {
+                //     $payment_verification->status = 1;
+                //     $payment_verification->save();
+                //     flashSuccess('Payment Verification successful');
+                // } else {
+                //     flashError('Cannot verify payment, No successful payment found');
+                // }
+                flashSuccess('Payment Verification Added!');
+                DB::commit();
+
+                return redirect()->route('payment.verification');
             } catch (\Throwable $th) {
-            dd($th->getMessage());
-            DB::rollBack();
-            flashError('something went wrong');
-            return back()->withInput();
+                DB::rollBack();
+                flashError('something went wrong');
+                return back()->withInput();
             }
         } else {
             flashError('User not found');
@@ -118,6 +119,7 @@ class PaymentVerificationController extends Controller {
             }
             return true;
         }
+
         return false;
     }
 
@@ -274,42 +276,40 @@ class PaymentVerificationController extends Controller {
         }
         DB::beginTransaction();
         try {
-        foreach ($users as $user_id) {
-            /**
-             * if payment verification is successful then its ok to continue do nothing
-             * else make payment manually
-             */
-            $verify = $this->verifyPayment($user_id);
-            if (!$verify) {
-                $user = User::find($user_id);
-                if ($user) {
-                    $data = $this->makePaymentData($user);
-                    $this->createPayment($user, $data);
-                    $this->createEarning($user, $data);
+            foreach ($users as $user_id) {
+                /**
+                 * if payment verification is successful then its ok to continue do nothing
+                 * else make payment manually
+                 */
+                $verify = $this->verifyPayment($user_id);
+                if (!$verify) {
+                    $user = User::find($user_id);
+                    if ($user) {
+                        $data = $this->makePaymentData($user);
+                        $this->createPayment($user, $data);
+                        $this->createEarning($user, $data);
 
-                    $user->candidate->balance = $data['amount'];
-                    $user->candidate->save();
+                        $user->candidate->balance = $data['amount'];
+                        $user->candidate->save();
 
-                    PaymentVerification::where('user_id', $user->id)->update(['status' => 1]);
+                        PaymentVerification::where('user_id', $user->id)->update(['status' => 1]);
+                    }
                 }
             }
-        }
-        DB::commit();
-        if(request()->phone){
-            flashSuccess('Payment verified successfully');
-            return redirect()->back();
-        }
-        else{
-            return true;
-        }
+            DB::commit();
+            if (request()->phone) {
+                flashSuccess('Payment verified successfully');
+                return redirect()->back();
+            } else {
+                return true;
+            }
 
         } catch (\Throwable $th) {
             DB::rollBack();
-            if(request()->phone){
+            if (request()->phone) {
                 flashError('something went wrong');
                 return redirect()->back();
-            }
-            else{
+            } else {
                 return false;
             }
         }
