@@ -212,7 +212,6 @@ class SurjoPayController extends Controller {
 
         $user = User::where('phone', $request->phone)->first();
         if (!$user) {
-            dd('no user found with phone ');
             flashError('No user found with this Mobile Number!');
             return back()->withInput();
         }
