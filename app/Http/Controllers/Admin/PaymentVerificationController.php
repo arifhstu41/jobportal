@@ -72,14 +72,6 @@ class PaymentVerificationController extends Controller {
                     $payment_verification->save();
                 }
 
-                // $verify = $this->verifyPayment($user_id);
-                // if ($verify) {
-                //     $payment_verification->status = 1;
-                //     $payment_verification->save();
-                //     flashSuccess('Payment Verification successful');
-                // } else {
-                //     flashError('Cannot verify payment, No successful payment found');
-                // }
                 flashSuccess('Payment Verification Added!');
                 DB::commit();
 
