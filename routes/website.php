@@ -72,7 +72,7 @@ Route::controller(WebsiteController::class)->name('website.')->group(function ()
     Route::post('/candidate/upload-picture', 'uploadPicture')->name('candidate.uploadPicture');
     
     Route::post('/candidate/application-form-submit', 'applicationFormSubmit')->name('candidate.application.form.submit');
-    Route::get('/candidate/payment', 'makePayment')->name('candidate.payment');
+    Route::get('/candidate/payment', 'makePayment')->name('candidate.payment')->withoutMiddleware('candidate');
     Route::post('/subject', 'subject')->name('subject');
     Route::get('/candidate/verification', 'verifyCandidate')->name('candidate.verification');
     Route::post('/candidate/verification/process', 'submitCandidateVerification')->name('candidate.verification.process');
